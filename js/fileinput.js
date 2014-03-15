@@ -8,7 +8,7 @@
  * and Jasny's File Input plugin http://jasny.github.io/bootstrap/javascript/#fileinput
  * 
  * The plugin drastically enhances the file input to preview multiple files on the client before
- * upload. In addition it provides the ability to preview content of images and text/htm files. 
+ * upload. In addition it provides the ability to preview content of images and text files. 
  * 
  * Author: Kartik Visweswaran
  * Copyright: 2013, Kartik Visweswaran, Krajee.com
@@ -16,7 +16,7 @@
  * For more Yii related demos visit http://demos.krajee.com
  */
 (function($) {
-    var MAIN_TEMPLATE =
+    var MAIN_TEMPLATE_1 =
         '{preview}\n' +
         '<div class="input-group {class}">\n' +
         '   {caption}\n' +
@@ -26,6 +26,8 @@
         '       {browse}\n' +
         '   </div>\n' +
         '</div>';
+
+    var MAIN_TEMPLATE_2 = '{preview}\n{remove}\n{upload}\n{browse}\n';
 
     var PREVIEW_TEMPLATE =
         '<div class="file-preview {class}">\n' +
@@ -65,11 +67,15 @@
         this.showPreview = options.showPreview;
         this.showRemove = options.showRemove;
         this.showUpload = options.showUpload;
-        this.showMessage = options.showMessage;
         this.captionClass = options.captionClass;
         this.previewClass = options.previewClass;
         this.mainClass = options.mainClass;
-        this.mainTemplate = options.mainTemplate;
+        if (isEmpty(options.mainTemplate)) {
+            this.mainTemplate = this.showCaption ? MAIN_TEMPLATE_1 : MAIN_TEMPLATE_2;
+        }
+        else {
+            this.mainTemplate = options.mainTemplate;
+        }
         this.previewTemplate = options.previewTemplate;
         this.captionTemplate = options.captionTemplate;
         this.browseLabel = options.browseLabel;
@@ -81,7 +87,7 @@
         this.uploadLabel = options.uploadLabel;
         this.uploadIcon = options.uploadIcon;
         this.uploadClass = options.uploadClass;
-        this.uploadRoute = options.uploadRoute;
+        this.uploadUrl = options.uploadUrl;
         this.msgLoading = options.msgLoading;
         this.msgProgress = options.msgProgress;
         this.msgSelected = options.msgSelected;
@@ -268,11 +274,11 @@
             if (self.isDisabled) {
                 status = ' disabled ';
             }
-            if (isEmpty(self.uploadRoute)) {
+            if (isEmpty(self.uploadUrl)) {
                 content = '<button type="submit" class="' + self.uploadClass + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</button>';
             }
             else {
-                content = '<a href="' + self.uploadRoute + '" class="' + self.uploadClass + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</a>';
+                content = '<a href="' + self.uploadUrl + '" class="' + self.uploadClass + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</a>';
             }
             return content;
         },
@@ -310,20 +316,14 @@
     };
 
     $.fn.fileinput.defaults = {
-        elCaptionContainer: null,
-        elCaptionText: null,
-        elPreviewContainer: null,
-        elPreviewImage: null,
-        elPreviewStatus: null,
         showCaption: true,
         showPreview: true,
         showRemove: true,
         showUpload: true,
-        showMessage: true,
         captionClass: '',
         previewClass: '',
         mainClass: '',
-        mainTemplate: MAIN_TEMPLATE,
+        mainTemplate: null,
         previewTemplate: PREVIEW_TEMPLATE,
         captionTemplate: CAPTION_TEMPLATE,
         browseLabel: 'Browse &hellip;',
@@ -331,17 +331,22 @@
         browseClass: 'btn btn-primary',
         removeLabel: 'Remove',
         removeIcon: '<i class="glyphicon glyphicon-ban-circle"></i> ',
-        removeClass: 'btn btn-danger',
+        removeClass: 'btn btn-default',
         uploadLabel: 'Upload',
         uploadIcon: '<i class="glyphicon glyphicon-upload"></i> ',
         uploadClass: 'btn btn-default',
-        uploadRoute: null,
+        uploadUrl: null,
         msgLoading: 'Loading &hellip;',
         msgProgress: 'Loaded {percent}% of {file}',
         msgSelected: '{n} files selected',
         previewFileType: 'image',
         wrapTextLength: 250,
-        wrapIndicator: ' <span class="wrap-indicator" title="{title}">[&hellip;]</span>'
+        wrapIndicator: ' <span class="wrap-indicator" title="{title}">[&hellip;]</span>',
+        elCaptionContainer: null,
+        elCaptionText: null,
+        elPreviewContainer: null,
+        elPreviewImage: null,
+        elPreviewStatus: null
     };
 
     /**
