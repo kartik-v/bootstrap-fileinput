@@ -5,7 +5,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 
 ## Features  
 
-1. The plugin will convert a simple HTML file input to an advanced file picker control. Will help fallback to a file input for browsers not supporting JQuery or Javascript.
+1. The plugin will convert a simple HTML file input to an advanced file picker control. Will help fallback to a normal HTML file input for browsers not supporting JQuery or Javascript.
 2. The file input consists of the following three sections with options and templates to control the display:
    - file caption section: to display a brief information of the file(s) selected
    - file action buttons section: to browse, remove, and upload files.
@@ -28,13 +28,13 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 
 ## Demo
 
-View the [plugin documentation](http://plugins.krajee.com/fileinput) and [plugin demos](http://plugins.krajee.com/fileinput/demo) at Krajee JQuery plugins. 
+View the [plugin documentation](http://plugins.krajee.com/file-input) and [plugin demos](http://plugins.krajee.com/file-input/demo) at Krajee JQuery plugins. 
 
 ## Pre-requisites  
 
 1. [Bootstrap 3.x](http://getbootstrap.com/)
 2. Latest [JQuery](http://jquery.com/)
-3. Most modern browsers supporting HTML5 file inputs and FileReader API including CSS3 & JQuery. For Internet Explorer, one must use IE versions 10 and above.
+3. Most modern browsers supporting HTML5 file inputs and FileReader API including CSS3 & JQuery. For Internet Explorer, one must use IE versions 10 and above. IE9 and below will work as a normal file input, and will not support multiple file selection or the HTML 5 FileReader API.
 
 ## Restrictions
 The plugin supports only file input and preview at client level. It does not actually process the upload of the files to the server.
@@ -276,13 +276,6 @@ $('#input-id').on('filereset', function(event) {
 
 ### Plugin Methods
 The plugin supports these methods:
-
-#### refresh
-Refreshes the file input after changing its value via javascript.
-```js
-$('#input-id').val(3);
-$('#input-id').fileinput('refresh');
-```
 
 #### reset
 Reset the file input.

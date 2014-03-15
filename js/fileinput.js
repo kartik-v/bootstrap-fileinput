@@ -55,9 +55,6 @@
     var isTextFile = function(type, name) {
         return (typeof type !== "undefined") ? type.match('text.*') : name.match(/\.(txt|md|csv|htm|html|php|ini)$/i);
     };
-    var validateIE = function(content, validation) {
-        return "<!--[if " + validation + "]>" + content + "<![endif]-->";
-    };
     var uniqId = function() {
         return Math.round(new Date().getTime() + (Math.random() * 100));
     };
@@ -107,7 +104,6 @@
         this.$previewStatus = getValue(options, 'elPreviewStatus', this.$container.find('.file-preview-status'));
         this.$name = this.$element.attr('name') || options.name;
         this.$hidden = this.$container.find('input[type=hidden][name="' + this.$name + '"]');
-        this.isIE = (window.navigator.appName == 'Microsoft Internet Explorer');
         if (this.$hidden.length === 0) {
             this.$hidden = $('<input type="hidden" />');
             this.$container.prepend(this.$hidden);
@@ -141,13 +137,7 @@
             self.$hidden.val('');
             self.$hidden.attr('name', self.name);
             self.$element.attr('name', '');
-
-            if (self.isIE) {
-                self.$container.after(self.$element);
-                self.$container.remove();
-            } else {
-                self.$element.val('');
-            }
+            self.$element.val('');
             if (e !== false) {
                 self.$element.trigger('change');
                 self.$element.trigger('fileclear');
