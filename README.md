@@ -167,12 +167,12 @@ _string_ the template used to render the preview. The following template variabl
 
 The `previewTemplate` if not set will default to:
 ```html
-    <div class="file-preview {class}">\n
-       <div class="file-preview-status text-center text-success"></div>\n
-       <div class="close fileinput-remove text-right">&times;</div>\n
-       <div class="file-preview-thumbnails"></div>\n
-       <div class="clearfix"></div> +
-    </div>
+<div class="file-preview {class}">\n
+   <div class="file-preview-status text-center text-success"></div>\n
+   <div class="close fileinput-remove text-right">&times;</div>\n
+   <div class="file-preview-thumbnails"></div>\n
+   <div class="clearfix"></div> +
+</div>
 ```
 
 #### browseLabel
