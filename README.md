@@ -1,7 +1,7 @@
 bootstrap-fileinput
 ====================
 
-An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and text, multiple selection, and more. This plugin is inspired by the [blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). The plugin enhances these concepts and simplifies the widget initialization by simple HTML markup on a file input. It also offers support for multiple file preview and previewing both images and text types.
+An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and text, multiple selection, and more. This plugin is inspired by the [blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). The plugin enhances these concepts and simplifies the widget initialization with simple HTML markup on a file input. It also offers support for multiple file preview and previewing both images and text types.
 
 ## Features  
 
@@ -37,7 +37,7 @@ View the [plugin documentation](http://plugins.krajee.com/fileinput) and [plugin
 3. Most modern browsers supporting HTML5 file inputs and FileReader API including CSS3 & JQuery. For Internet Explorer, one must use IE versions 10 and above.
 
 ## Restrictions
-The plugin supports only provides a file input/capture support. It does not actually process the upload of the files to the server.
+The plugin supports only file input and preview at client level. It does not actually process the upload of the files to the server.
 
 ## Installation
 
@@ -131,20 +131,22 @@ _string_ the template used to render the widget. The following template variable
 The `mainTemplate` if not passed, will be automatically set based on `showCaption` settings.
 
 - If `showCaption` is set to `true`, the `mainTemplate` will default to:
-    
-    {preview}\n
-    <div class="input-group {class}">\n
-       {caption}\n
-       <div class="input-group-btn">\n
-           {remove}\n
-           {upload}\n
-           {browse}\n
-       </div>\n
-    </div>\n
+```html
+{preview}\n
+<div class="input-group {class}">\n
+   {caption}\n
+   <div class="input-group-btn">\n
+       {remove}\n
+       {upload}\n
+       {browse}\n
+   </div>\n
+</div>\n
+```
 
 - If `showCaption` is set to `false`, the `mainTemplate` will default to:
-
-    {preview}\n{remove}\n{upload}\n{browse}\n
+```html
+{preview}\n{remove}\n{upload}\n{browse}\n
+```
 
 #### captionTemplate
 _string_ the template used to render the caption. The following template variables will be parsed:
@@ -152,10 +154,11 @@ _string_ the template used to render the caption. The following template variabl
 - `{class}`: any additional CSS class to append to the caption container.
 
 The `captionTemplate` if not set will default to:
-
-    <div class="form-control file-caption {class}">\n
-       <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>\n
-    </div>
+```html
+<div class="form-control file-caption {class}">\n
+   <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>\n
+</div>
+```
 
 #### previewTemplate
 _string_ the template used to render the preview. The following template variables will be parsed:
@@ -163,13 +166,14 @@ _string_ the template used to render the preview. The following template variabl
 - `{class}`: any additional CSS class to append to the preview container.
 
 The `previewTemplate` if not set will default to:
-
+```html
     <div class="file-preview {class}">\n
        <div class="file-preview-status text-center text-success"></div>\n
        <div class="close fileinput-remove text-right">&times;</div>\n
        <div class="file-preview-thumbnails"></div>\n
        <div class="clearfix"></div> +
     </div>
+```
 
 #### browseLabel
 _string_ the label to display for the file picker/browse button. Defaults to `Browse &hellip;`.
