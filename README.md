@@ -132,15 +132,15 @@ The `mainTemplate` if not passed, will be automatically set based on `showCaptio
 
 - If `showCaption` is set to `true`, the `mainTemplate` will default to:
 ```html
-{preview}\n
-<div class="input-group {class}">\n
-   {caption}\n
-   <div class="input-group-btn">\n
-       {remove}\n
-       {upload}\n
-       {browse}\n
-   </div>\n
-</div>\n
+{preview}
+<div class="input-group {class}">
+   {caption}
+   <div class="input-group-btn">
+       {remove}
+       {upload}
+       {browse}
+   </div>
+</div>
 ```
 
 - If `showCaption` is set to `false`, the `mainTemplate` will default to:
@@ -155,8 +155,8 @@ _string_ the template used to render the caption. The following template variabl
 
 The `captionTemplate` if not set will default to:
 ```html
-<div class="form-control file-caption {class}">\n
-   <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>\n
+<div class="form-control file-caption {class}">
+   <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>
 </div>
 ```
 
@@ -167,10 +167,10 @@ _string_ the template used to render the preview. The following template variabl
 
 The `previewTemplate` if not set will default to:
 ```html
-<div class="file-preview {class}">\n
-   <div class="file-preview-status text-center text-success"></div>\n
-   <div class="close fileinput-remove text-right">&times;</div>\n
-   <div class="file-preview-thumbnails"></div>\n
+<div class="file-preview {class}">
+   <div class="file-preview-status text-center text-success"></div>
+   <div class="close fileinput-remove text-right">&times;</div>
+   <div class="file-preview-thumbnails"></div>
    <div class="clearfix"></div> +
 </div>
 ```
