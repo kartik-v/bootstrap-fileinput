@@ -1,7 +1,7 @@
 bootstrap-fileinput
 ====================
 
-An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and text, multiple selection, and more. This plugin is inspired by the [blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). The plugin enhances these concepts and simplifies the widget initialization with simple HTML markup on a file input. It also offers support for multiple file preview and previewing both images and text types.
+An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and text, multiple selection, and more. This plugin is inspired by [this blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). The plugin enhances these concepts and simplifies the widget initialization with simple HTML markup on a file input. It also offers support for multiple file preview and previewing both images and text types.
 
 ## Features  
 
