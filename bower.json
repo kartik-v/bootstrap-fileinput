@@ -12,8 +12,11 @@
   ],
   "keywords": [
     "bootstrap",
-    "star",
-    "rating"
+    "file",
+    "input",
+    "preview",
+    "image",
+    "upload"
   ],
   "dependencies": {
     "jquery": ">= 1.9.0",
