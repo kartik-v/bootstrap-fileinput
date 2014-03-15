@@ -211,13 +211,13 @@ _string_ the message displayed when the files are getting read and loaded for pr
 #### msgProgress
 _string_ the progress message displayed as each file is loaded for preview. Defaults to `Loaded {percent}% of {file}`. The following variables will be replaced:
 
-`{percent}`: the percentage of file read and loaded.
-`{file}`: the name of the file being loaded.
+- `{percent}`: the percentage of file read and loaded.
+- `{file}`: the name of the file being loaded.
 
 #### msgSelected
 _string_ the progress message displayed in caption window when multiple (more than one) files are selected. Defaults to `{n} files selected`. The following variables will be replaced:
 
-`{n}`: the number of files selected.
+- `{n}`: the number of files selected.
 
 #### previewFileType
 _string_ the type of files that are to be displayed in the preview window. Defaults to `image`. Can be one of the following:
@@ -234,7 +234,7 @@ _integer_ the number of characters after which the content will be stripped/wrap
 #### wrapIndicator
 _string_ the type of files that are to be displayed in the preview window. Defaults to ` <span class="wrap-indicator" title="{title}">[&hellip;]</span>`.  The following variables will be replaced:
 
-`{title}`: the content of the entire text file that will be displayed as a span title element.
+- `{title}`: the content of the entire text file that will be displayed as a span title element.
 
 #### elCaptionContainer
 _DOM Element_ the container element containing the caption. If not set, will default to the container with CSS class `file-caption` inside the main plugin container.
