@@ -194,7 +194,7 @@ _string_ the icon to display before the label for the file picker/remove button.
 _string_ the CSS class for the file remove button. Defaults to `btn btn-default`.
 
 #### uploadLabel
-_string_ the label to display for the file upload button. Defaults to `Remove`.
+_string_ the label to display for the file upload button. Defaults to `Upload`.
 
 #### uploadIcon
 _string_ the icon to display before the label for the file upload button. Defaults to `<i class="glyphicon glyphicon-upload"></i> &nbsp;`.
