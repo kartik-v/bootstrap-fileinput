@@ -16,31 +16,28 @@
  * For more Yii related demos visit http://demos.krajee.com
  */
 (function ($) {
-	var MAIN_TEMPLATE_1 =
-		'{preview}\n' +
-			'<div class="input-group {class}">\n' +
-			'   {caption}\n' +
-			'   <div class="input-group-btn">\n' +
-			'       {remove}\n' +
-			'       {upload}\n' +
-			'       {browse}\n' +
-			'   </div>\n' +
-			'</div>';
+	var MAIN_TEMPLATE_1 = '{preview}\n' +
+		'<div class="input-group {class}">\n' +
+		'   {caption}\n' +
+		'   <div class="input-group-btn">\n' +
+		'       {remove}\n' +
+		'       {upload}\n' +
+		'       {browse}\n' +
+		'   </div>\n' +
+		'</div>';
 
 	var MAIN_TEMPLATE_2 = '{preview}\n{remove}\n{upload}\n{browse}\n';
 
-	var PREVIEW_TEMPLATE =
-		'<div class="file-preview {class}">\n' +
-			'   <div class="file-preview-status text-center text-success"></div>\n' +
-			'   <div class="close fileinput-remove text-right">&times;</div>\n' +
-			'   <div class="file-preview-thumbnails"></div>\n' +
-			'   <div class="clearfix"></div>' +
-			'</div>';
+	var PREVIEW_TEMPLATE = '<div class="file-preview {class}">\n' +
+		'   <div class="file-preview-status text-center text-success"></div>\n' +
+		'   <div class="close fileinput-remove text-right">&times;</div>\n' +
+		'   <div class="file-preview-thumbnails"></div>\n' +
+		'   <div class="clearfix"></div>' +
+		'</div>';
 
-	var CAPTION_TEMPLATE =
-		'<div class="form-control file-caption {class}">\n' +
-			'   <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>\n' +
-			'</div>';
+	var CAPTION_TEMPLATE = '<div class="form-control file-caption {class}">\n' +
+		'   <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>\n' +
+		'</div>';
 
 	var isEmpty = function (value, trim) {
 		return value === null || value === undefined || value == []
