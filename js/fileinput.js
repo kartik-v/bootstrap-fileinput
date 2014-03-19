@@ -254,6 +254,9 @@
         },
         renderRemove: function() {
             var self = this, css = self.removeClass + ' fileinput-remove fileinput-remove-button', status = '';
+			if (!self.showRemove) {
+				return '';
+			}
             if (self.isDisabled) {
                 status = ' disabled ';
             }
@@ -261,6 +264,9 @@
         },
         renderUpload: function() {
             var self = this, content = '', status = '';
+			if (!self.showUpload) {
+				return '';
+			}
             if (self.isDisabled) {
                 status = ' disabled ';
             }
@@ -294,7 +300,7 @@
             var $this = $(this),
                 data = $this.data('fileinput'),
                 options = typeof option === 'object' && option;
-
+			
             if (!data) {
                 $this.data('fileinput', (data = new FileInput(this, $.extend({}, $.fn.fileinput.defaults, options, $(this).data()))));
             }
