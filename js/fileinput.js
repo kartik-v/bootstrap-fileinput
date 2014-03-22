@@ -39,19 +39,19 @@
 		'   <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>\n' +
 		'</div>';
 
-	var MODAL_TEMPLATE = '<div id="{id}" class="modal fade">' +
-		'  <div class="modal-dialog modal-lg">' +
-		'    <div class="modal-content">' +
-		'      <div class="modal-header">' +
-		'        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
-		'        <h3 class="modal-title">Detailed Preview <small>{title}</small></h3>' +
-		'      </div>' +
-		'      <div class="modal-body">' +
-		'        <textarea class="form-control" style="font-family:Monaco,Consolas,monospace; height: {height}px;" readonly>{body}</textarea>' +
-		'      </div>' +
-		'    </div>' +
-		'  </div>' +
-		'</div>';
+	var MODAL_TEMPLATE = '<div id="{id}" class="modal fade">\n' +
+		'  <div class="modal-dialog modal-lg">\n' +
+		'    <div class="modal-content">\n' +
+		'      <div class="modal-header">\n' +
+		'        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n' +
+		'        <h3 class="modal-title">Detailed Preview <small>{title}</small></h3>\n' +
+		'      </div>\n' +
+		'      <div class="modal-body">\n' +
+		'        <textarea class="form-control" style="font-family:Monaco,Consolas,monospace; height: {height}px;" readonly>{body}</textarea>\n' +
+		'      </div>\n' +
+		'    </div>\n' +
+		'  </div>\n' +
+		'</div>\n';
 
 	var isEmpty = function (value, trim) {
 		return value === null || value === undefined || value == []
