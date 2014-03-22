@@ -39,6 +39,20 @@
 		'   <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>\n' +
 		'</div>';
 
+	var MODAL_TEMPLATE = '<div id="{id}" class="modal fade">' +
+		'  <div class="modal-dialog modal-lg">' +
+		'    <div class="modal-content">' +
+		'      <div class="modal-header">' +
+		'        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+		'        <h3 class="modal-title">Detailed Preview <small>{title}</small></h3>' +
+		'      </div>' +
+		'      <div class="modal-body">' +
+		'        <textarea class="form-control" style="font-family:Monaco,Consolas,monospace; height: {height}px;" readonly>{body}</textarea>' +
+		'      </div>' +
+		'    </div>' +
+		'  </div>' +
+		'</div>';
+
 	var isEmpty = function (value, trim) {
 		return value === null || value === undefined || value == []
 			|| value === '' || trim && $.trim(value) === '';
@@ -183,14 +197,16 @@
 						status.html(msgLoading);
 						container.addClass('loading');
 						reader.onload = function (theFile) {
-							var content = '';
+							var content = '', modal = "";
 							if (isTxt) {
 								var strText = theFile.target.result;
 								if (strText.length > wrapLen) {
-									wrapInd = wrapInd.replace("{title}", strText);
+									var id = uniqId(), height = window.innerHeight * .75,
+										modal = MODAL_TEMPLATE.replace("{id}", id).replace("{title}", caption).replace("{body}", strText).replace("{height}", height);
+									wrapInd = wrapInd.replace("{title}", caption).replace("{dialog}", "$('#" + id + "').modal('show')");
 									strText = strText.substring(0, (wrapLen - 1)) + wrapInd;
 								}
-								content = '<div class="file-preview-frame"><div class="file-preview-text" title="' + caption + '">' + strText + '</div></div>';
+								content = '<div class="file-preview-frame"><div class="file-preview-text" title="' + caption + '">' + strText + '</div></div>' + modal;
 							}
 							else {
 								content = '<div class="file-preview-frame"><img src="' + theFile.target.result + '" class="file-preview-image" title="' + caption + '" alt="' + caption + '"></div>';
@@ -336,7 +352,7 @@
 		msgSelected: '{n} files selected',
 		previewFileType: 'image',
 		wrapTextLength: 250,
-		wrapIndicator: ' <span class="wrap-indicator" title="{title}">[&hellip;]</span>',
+		wrapIndicator: ' <span class="wrap-indicator" title="{title}" onclick="{dialog}">[&hellip;]</span>',
 		elCaptionContainer: null,
 		elCaptionText: null,
 		elPreviewContainer: null,
@@ -353,6 +369,7 @@
 		if ($element.length > 0) {
 			$element.fileinput();
 		}
+
 	});
 
 })(window.jQuery);
