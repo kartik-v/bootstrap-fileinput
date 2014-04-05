@@ -12,6 +12,8 @@
         }
     ],
     "autoload": {
-        "psr-4": {"kartik\\": ""}
+        "psr-4": {
+            "kartik\\": ""
+        }
     }
 }

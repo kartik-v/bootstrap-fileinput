@@ -1,35 +1,35 @@
 {
-  "name": "bootstrap-fileinput",
-  "version": "1.0.0",
-  "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
-  "authors": [
-    "Kartik Visweswaran <kartikv2@gmail.com>"
-  ],
-  "description": "An enhanced HTML 5 file input for Bootstrap 3.x with file preview, multiple selection, and more features.",
-  "main": [
-    "./css/fileinput.min.css",
-    "./js/fileinput.min.js"
-  ],
-  "keywords": [
-    "bootstrap",
-    "file",
-    "input",
-    "preview",
-    "image",
-    "upload"
-  ],
-  "dependencies": {
-    "jquery": ">= 1.9.0",
-    "bootstrap": ">= 3.0.0"
-  },
-  "license": "BSD-3",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "composer.json",
-    "examples",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+    "name": "bootstrap-fileinput",
+    "version": "1.0.0",
+    "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
+    "authors": [
+        "Kartik Visweswaran <kartikv2@gmail.com>"
+    ],
+    "description": "An enhanced HTML 5 file input for Bootstrap 3.x with file preview, multiple selection, and more features.",
+    "main": [
+        "./css/fileinput.min.css",
+        "./js/fileinput.min.js"
+    ],
+    "keywords": [
+        "bootstrap",
+        "file",
+        "input",
+        "preview",
+        "image",
+        "upload"
+    ],
+    "dependencies": {
+        "jquery": ">= 1.9.0",
+        "bootstrap": ">= 3.0.0"
+    },
+    "license": "BSD-3",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "composer.json",
+        "examples",
+        "bower_components",
+        "test",
+        "tests"
+    ]
 }
