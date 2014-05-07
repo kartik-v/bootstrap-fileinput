@@ -84,7 +84,7 @@
         else {
             this.mainTemplate = options.mainTemplate;
         }
-        this.previewTemplate = options.previewTemplate;
+        this.previewTemplate = (this.showPreview) ? options.previewTemplate : '';        
         this.captionTemplate = options.captionTemplate;
         this.browseLabel = options.browseLabel;
         this.browseIcon = options.browseIcon;
