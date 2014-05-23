@@ -18,7 +18,8 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 4. Ability to select and preview multiple files. Uses HTML 5 File reader API to read and preview files. Displays the progress of files being being loaded onto the preview zone, in case many files are chosen.
 5. Offers predefined templates and CSS classes which can be changed to style your file-input display as per your needs.
 6. With **v1.5.0**, you can now configure the plugin to show an **initial preview of images/files** with **initial caption** 
-   (more useful for record update scenarios). Refer the `initialPreview` and `initialCaption` properties in the plugin options
+   (more useful for record update scenarios). Refer the [`initialPreview`](https://github.com/kartik-v/bootstrap-fileinput/blob/master/README.md#initialpreview 
+   and [`initialCaption`](https://github.com/kartik-v/bootstrap-fileinput/blob/master/README.md#initialcaption) properties in the plugin options
    section for configuring this.
 7. Option to show/hide any or all of the following:
    - caption section
