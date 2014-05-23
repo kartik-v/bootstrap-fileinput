@@ -5,6 +5,8 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 
 ![File Input Screenshot](https://lh6.googleusercontent.com/-2niyujIaat0/UyqzA_78OQI/AAAAAAAAADE/f6IJkr11uA8/w666-h418-no/fileinput-screenshot.jpg)
 
+> NOTE: The latest version of the plugin v1.5.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
+
 ## Features  
 
 1. The plugin will convert a simple HTML file input to an advanced file picker control. Will help fallback to a normal HTML file input for browsers not supporting JQuery or Javascript.
@@ -15,18 +17,21 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 3. The plugin automatically converts an input with `type = file` to an advanced file picker input if you set its `class = file`. All options to the input can be passed as HTML5 `data` attributes.
 4. Ability to select and preview multiple files. Uses HTML 5 File reader API to read and preview files. Displays the progress of files being being loaded onto the preview zone, in case many files are chosen.
 5. Offers predefined templates and CSS classes which can be changed to style your file-input display as per your needs.
-6. Option to show/hide any or all of the following:
+6. With **v1.5.0**, you can now configure the plugin to show an **initial preview of images/files** with **initial caption** 
+   (more useful for record update scenarios). Refer the `initialPreview` and `initialCaption` properties in the plugin options
+   section for configuring this.
+7. Option to show/hide any or all of the following:
    - caption section
    - preview section
    - upload button
    - remove button
-7. Customise the location of the target container elements to display the entire plugin, the caption container, the caption text, the preview container, preview image, and preview status.
-8. For text file previews, autowrap the text to the thumbnail width, and show a wrap indicator link to display complete text on hover. You can customize the wrap indicator (which defaults to &hellip;).
-9. Customise the messages for preview, progress, and files selected.
-10. Upload action defaults to form submit. Supports an upload route/server action parameter for custom ajax based upload.
-11. Triggers JQuery events for advanced development. Events currently available are `filereset` and `fileclear`.
-12. Disabled and readonly file input support.
-13. Size of the entire plugin is less than 11KB (about 9KB for the minified JS and 2KB for the minified CSS).
+8. Customise the location of the target container elements to display the entire plugin, the caption container, the caption text, the preview container, preview image, and preview status.
+9. For text file previews, autowrap the text to the thumbnail width, and show a wrap indicator link to display complete text on hover. You can customize the wrap indicator (which defaults to &hellip;).
+10. Customise the messages for preview, progress, and files selected.
+11. Upload action defaults to form submit. Supports an upload route/server action parameter for custom ajax based upload.
+12. Triggers JQuery events for advanced development. Events currently available are `filereset` and `fileclear`.
+13. Disabled and readonly file input support.
+14. Size of the entire plugin is less than 11KB (about 9KB for the minified JS and 2KB for the minified CSS).
 
 ## Demo
 
