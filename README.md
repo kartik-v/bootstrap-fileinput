@@ -150,6 +150,45 @@ The `mainTemplate` if not passed, will be automatically set based on `showCaptio
 {preview}\n{remove}\n{upload}\n{browse}\n
 ```
 
+#### initialPreview
+
+_string|array_ the initial preview content to be displayed. You can pass the minimal HTML markup for displaying your image, text, or file. 
+If set as a string, this will display a single file in the initial preview. If set as an array, it will display all files in the array as an 
+initial preview (useful for multiple file upload scenarios).
+
+The following CSS classes will need to be added for displaying each file type as per the plugin style theme:
+
+- **image files:** Include CSS class `file-preview-image`
+- **text files:** Include CSS class `file-preview-text`
+- **other files:** Include CSS class `file-preview-other`
+
+Examples of how you can setup various files for initial preview:
+
+```js
+// for image files
+initialPreview: [
+    "<img src='/images/desert.jpg' class='file-preview-image' alt='Desert' title='Desert'>",
+    "<img src='/images/jellyfish.jpg' class='file-preview-image' alt='Jelly Fish' title='Jelly Fish'>",
+],
+
+// for text files
+initialPreview: "<div class='file-preview-text' title='NOTES.txt'>" +
+    "This is the sample text file content upto wrapTextLength of 250 characters" +
+    "<span class='wrap-indicator' onclick='$(\"#show-detailed-text\").modal(\"show\")' title='NOTES.txt'>[…]</span>" +
+    "</div>"
+
+// for other files    
+initialPreview: "<div class='file-preview-text'>" + 
+    "<h2><i class='glyphicon glyphicon-file'></i></h2>" +
+    "Filename.xlsx" + "</div>"
+```
+
+#### initialCaption
+
+_string_ the initial preview caption text to be displayed. If you do not set a value here and `initialPreview`,
+ this will default to `"{preview-file-count} files selected"`, where `{preview-file-count}` is the count of the
+ files passed in `initialPreview`.
+ 
 #### captionTemplate
 _string_ the template used to render the caption. The following template variables will be parsed:
 
@@ -239,19 +278,19 @@ _string_ the type of files that are to be displayed in the preview window. Defau
 - `{title}`: the content of the entire text file that will be displayed as a span title element.
 
 #### elCaptionContainer
-_DOM Element_ the container element containing the caption. If not set, will default to the container with CSS class `file-caption` inside the main plugin container.
+_string_ the identifier for the container element containing the caption (e.g. `'#id'`). If not set, will default to the container with CSS class `file-caption` inside the main plugin container.
 
 #### elCaptionText
-_DOM Element_ the container element containing the caption text. If not set, will default to the container with CSS class `file-caption-name` inside the main plugin container.
+_string_ the identifier for the container element containing the caption text (e.g. `'#id'`). If not set, will default to the container with CSS class `file-caption-name` inside the main plugin container.
 
 #### elPreviewContainer
-_DOM Element_ the container element containing the preview. If not set, will default to the container with CSS class `file-preview` inside the main plugin container.
+_string_ the identifier for the container element containing the preview (e.g. `'#id'`). If not set, will default to the container with CSS class `file-preview` inside the main plugin container.
 
 #### elPreviewImage
-_DOM Element_ the container element containing the preview image thumbnails. If not set, will default to the container with CSS class `file-preview-thumbnails` inside the main plugin container.
+_string_ the identifier for the element containing the preview image thumbnails (e.g. `'#id'`). If not set, will default to the container with CSS class `file-preview-thumbnails` inside the main plugin container.
 
 #### elPreviewStatus
-_DOM Element_ the container element containing the preview progress status. If not set, will default to the container with CSS class `file-preview-status` inside the main plugin container.
+_string_ the identifier for the element containing the preview progress status (e.g. `'#id'`). If not set, will default to the container with CSS class `file-preview-status` inside the main plugin container.
 
 ### Plugin Events
 The plugin supports these events:

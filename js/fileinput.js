@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013
- * @version 1.0.0
+ * @version 1.5.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. This plugin is inspired by the blog article at
@@ -57,8 +57,14 @@
         return value === null || value === undefined || value == []
             || value === '' || trim && $.trim(value) === '';
     };
+    var isArray = Array.isArray || function (a) {
+        return Object.prototype.toString.call(a) === '[object Array]';
+    };
     var getValue = function (options, param, value) {
         return (isEmpty(options) || isEmpty(options[param])) ? value : options[param];
+    };
+    var getElement = function (options, param, value) {
+        return (isEmpty(options) || isEmpty(options[param])) ? value : $(options[param]);
     };
     var isImageFile = function (type, name) {
         return (typeof type !== "undefined") ? type.match('image.*') : name.match(/\.(gif|png|jpe?g)$/i);
@@ -73,6 +79,8 @@
         this.$element = $(element);
         this.showCaption = options.showCaption;
         this.showPreview = options.showPreview;
+        this.initialPreview = options.initialPreview;
+        this.initialCaption = options.initialCaption;
         this.showRemove = options.showRemove;
         this.showUpload = options.showUpload;
         this.captionClass = options.captionClass;
@@ -84,7 +92,7 @@
         else {
             this.mainTemplate = options.mainTemplate;
         }
-        this.previewTemplate = (this.showPreview) ? options.previewTemplate : '';        
+        this.previewTemplate = (this.showPreview) ? options.previewTemplate : '';
         this.captionTemplate = options.captionTemplate;
         this.browseLabel = options.browseLabel;
         this.browseIcon = options.browseIcon;
@@ -108,11 +116,12 @@
         }
         this.$container = this.createContainer();
         /* Initialize plugin option parameters */
-        this.$captionContainer = getValue(options, 'elCaptionContainer', this.$container.find('.file-caption'));
-        this.$caption = getValue(options, 'elCaptionText', this.$container.find('.file-caption-name'));
-        this.$previewContainer = getValue(options, 'elPreviewContainer', this.$container.find('.file-preview'));
-        this.$preview = getValue(options, 'elPreviewImage', this.$container.find('.file-preview-thumbnails'));
-        this.$previewStatus = getValue(options, 'elPreviewStatus', this.$container.find('.file-preview-status'));
+        this.$captionContainer = getElement(options, 'elCaptionContainer', this.$container.find('.file-caption'));
+        this.$caption = getElement(options, 'elCaptionText', this.$container.find('.file-caption-name'));
+        this.$previewContainer = getElement(options, 'elPreviewContainer', this.$container.find('.file-preview'));
+        this.$preview = getElement(options, 'elPreviewImage', this.$container.find('.file-preview-thumbnails'));
+        this.$previewStatus = getElement(options, 'elPreviewStatus', this.$container.find('.file-preview-status'));
+        this.initPreview();
         this.$name = this.$element.attr('name') || options.name;
         this.$hidden = this.$container.find('input[type=hidden][name="' + this.$name + '"]');
         if (this.$hidden.length === 0) {
@@ -121,6 +130,7 @@
         }
         this.original = {
             preview: this.$preview.html(),
+            caption: this.$caption.html(),
             hiddenVal: this.$hidden.val()
         };
         this.listen()
@@ -139,12 +149,36 @@
             self.$element.trigger('click');
             e.preventDefault();
         },
+        initPreview: function () {
+            var self = this, html = '',
+                content = self.initialPreview,
+                len = self.initialPreview.length,
+                cap = self.initialCaption.length,
+                caption = (cap > 0) ? self.initialCaption : len + ' file selected';
+            if (isArray(content) && len > 0) {
+                for (var i = 0; i < len; i++) {
+                    html += '<div class="file-preview-frame">' + content[i] + "</div>\n";
+                }
+                self.$preview.html(html);
+                if (len > 1 && cap == 0) {
+                    caption = len + ' files selected';
+                }
+            }
+            else if (len > 0) {
+                html = '<div class="file-preview-frame">' + content + '</div>';
+            }
+            else {
+                return;
+            }
+            self.$preview.html(html);
+            self.$caption.html(caption);
+            self.$container.removeClass('file-input-new');
+        },
         clear: function (e) {
             var self = this;
             if (e) {
                 e.preventDefault();
             }
-
             self.$hidden.val('');
             self.$hidden.attr('name', self.name);
             self.$element.attr('name', '');
@@ -162,8 +196,12 @@
             self.clear(false);
             self.$hidden.val(self.original.hiddenVal);
             self.$preview.html(self.original.preview);
+            self.$caption.html(self.original.caption);
             self.$container.find('.fileinput-filename').text('');
             self.$element.trigger('filereset');
+            if (self.initialPreview.length > 0) {
+                self.$container.removeClass('file-input-new');
+            }
         },
         change: function (e) {
             var self = this;
@@ -335,6 +373,8 @@
         previewClass: '',
         mainClass: '',
         mainTemplate: null,
+        initialPreview: '',
+        initialCaption: '',
         previewTemplate: PREVIEW_TEMPLATE,
         captionTemplate: CAPTION_TEMPLATE,
         browseLabel: 'Browse &hellip;',
