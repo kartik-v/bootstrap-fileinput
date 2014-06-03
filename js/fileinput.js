@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013
- * @version 1.5.0
+ * @version 1.6.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. This plugin is inspired by the blog article at
@@ -77,77 +77,91 @@
     };
     var FileInput = function (element, options) {
         this.$element = $(element);
-        this.showCaption = options.showCaption;
-        this.showPreview = options.showPreview;
-        this.initialPreview = options.initialPreview;
-        this.initialCaption = options.initialCaption;
-        this.showRemove = options.showRemove;
-        this.showUpload = options.showUpload;
-        this.captionClass = options.captionClass;
-        this.previewClass = options.previewClass;
-        this.mainClass = options.mainClass;
-        if (isEmpty(options.mainTemplate)) {
-            this.mainTemplate = this.showCaption ? MAIN_TEMPLATE_1 : MAIN_TEMPLATE_2;
-        }
-        else {
-            this.mainTemplate = options.mainTemplate;
-        }
-        this.previewTemplate = (this.showPreview) ? options.previewTemplate : '';
-        this.captionTemplate = options.captionTemplate;
-        this.browseLabel = options.browseLabel;
-        this.browseIcon = options.browseIcon;
-        this.browseClass = options.browseClass;
-        this.removeLabel = options.removeLabel;
-        this.removeIcon = options.removeIcon;
-        this.removeClass = options.removeClass;
-        this.uploadLabel = options.uploadLabel;
-        this.uploadIcon = options.uploadIcon;
-        this.uploadClass = options.uploadClass;
-        this.uploadUrl = options.uploadUrl;
-        this.msgLoading = options.msgLoading;
-        this.msgProgress = options.msgProgress;
-        this.msgSelected = options.msgSelected;
-        this.previewFileType = options.previewFileType;
-        this.wrapTextLength = options.wrapTextLength;
-        this.wrapIndicator = options.wrapIndicator;
-        this.isDisabled = this.$element.attr('disabled') || this.$element.attr('readonly');
-        if (isEmpty(this.$element.attr('id'))) {
-            this.$element.attr('id', uniqId());
-        }
-        this.$container = this.createContainer();
-        /* Initialize plugin option parameters */
-        this.$captionContainer = getElement(options, 'elCaptionContainer', this.$container.find('.file-caption'));
-        this.$caption = getElement(options, 'elCaptionText', this.$container.find('.file-caption-name'));
-        this.$previewContainer = getElement(options, 'elPreviewContainer', this.$container.find('.file-preview'));
-        this.$preview = getElement(options, 'elPreviewImage', this.$container.find('.file-preview-thumbnails'));
-        this.$previewStatus = getElement(options, 'elPreviewStatus', this.$container.find('.file-preview-status'));
-        this.initPreview();
-        this.$name = this.$element.attr('name') || options.name;
-        this.$hidden = this.$container.find('input[type=hidden][name="' + this.$name + '"]');
-        if (this.$hidden.length === 0) {
-            this.$hidden = $('<input type="hidden" />');
-            this.$container.prepend(this.$hidden);
-        }
-        this.original = {
-            preview: this.$preview.html(),
-            caption: this.$caption.html(),
-            hiddenVal: this.$hidden.val()
-        };
-        this.listen()
+        this.options = options;
+        this.init(options);
+        this.listen();
     };
 
     FileInput.prototype = {
         constructor: FileInput,
+        init: function (options) {
+            var self = this;
+            self.showCaption = options.showCaption;
+            self.showPreview = options.showPreview;
+            self.initialPreview = options.initialPreview;
+            self.initialCaption = options.initialCaption;
+            self.showRemove = options.showRemove;
+            self.showUpload = options.showUpload;
+            self.captionClass = options.captionClass;
+            self.previewClass = options.previewClass;
+            self.mainClass = options.mainClass;
+            if (isEmpty(options.mainTemplate)) {
+                self.mainTemplate = self.showCaption ? MAIN_TEMPLATE_1 : MAIN_TEMPLATE_2;
+            }
+            else {
+                self.mainTemplate = options.mainTemplate;
+            }
+            self.previewTemplate = (self.showPreview) ? options.previewTemplate : '';
+            self.captionTemplate = options.captionTemplate;
+            self.browseLabel = options.browseLabel;
+            self.browseIcon = options.browseIcon;
+            self.browseClass = options.browseClass;
+            self.removeLabel = options.removeLabel;
+            self.removeIcon = options.removeIcon;
+            self.removeClass = options.removeClass;
+            self.uploadLabel = options.uploadLabel;
+            self.uploadIcon = options.uploadIcon;
+            self.uploadClass = options.uploadClass;
+            self.uploadUrl = options.uploadUrl;
+            self.msgLoading = options.msgLoading;
+            self.msgProgress = options.msgProgress;
+            self.msgSelected = options.msgSelected;
+            self.previewFileType = options.previewFileType;
+            self.wrapTextLength = options.wrapTextLength;
+            self.wrapIndicator = options.wrapIndicator;
+            self.isDisabled = self.$element.attr('disabled') || self.$element.attr('readonly');
+            if (isEmpty(self.$element.attr('id'))) {
+                self.$element.attr('id', uniqId());
+            }
+            if (typeof self.$container == 'undefined') {
+                self.$container = self.createContainer();
+            }
+            else {
+                self.$container.html(self.renderMain());
+            }
+            /* Initialize plugin option parameters */
+            self.$captionContainer = getElement(options, 'elCaptionContainer', self.$container.find('.file-caption'));
+            self.$caption = getElement(options, 'elCaptionText', self.$container.find('.file-caption-name'));
+            self.$previewContainer = getElement(options, 'elPreviewContainer', self.$container.find('.file-preview'));
+            self.$preview = getElement(options, 'elPreviewImage', self.$container.find('.file-preview-thumbnails'));
+            self.$previewStatus = getElement(options, 'elPreviewStatus', self.$container.find('.file-preview-status'));
+            self.initPreview();
+            self.$name = self.$element.attr('name') || options.name;
+            self.$hidden = self.$container.find('input[type=hidden][name="' + self.$name + '"]');
+            if (self.$hidden.length === 0) {
+                self.$hidden = $('<input type="hidden" />');
+                self.$container.prepend(self.$hidden);
+            }
+            self.original = {
+                preview: self.$preview.html(),
+                caption: self.$caption.html(),
+                hiddenVal: self.$hidden.val()
+            };
+        },
         listen: function () {
             var self = this;
             self.$element.on('change', $.proxy(self.change, self));
             $(self.$element[0].form).on('reset', $.proxy(self.reset, self));
             self.$container.find('.fileinput-remove').on('click', $.proxy(self.clear, self));
         },
-        trigger: function (e) {
+        refresh: function (options) {
             var self = this;
-            self.$element.trigger('click');
-            e.preventDefault();
+            if (arguments.length) {
+                self.init($.extend(self.options, options));
+            }
+            else {
+                self.init(self.options);
+            }
         },
         initPreview: function () {
             var self = this, html = '',

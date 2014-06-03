@@ -22,6 +22,10 @@
                     <input id="file-3" type="file" multiple=true>
                 </div>
                 <div class="form-group">
+                    <input id="file-4" type="file" class="file">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-warning" type="button">Disable Test</button>
                     <button class="btn btn-primary">Submit</button>
                     <button class="btn btn-default" type="reset">Reset</button>
                 </div>
@@ -37,5 +41,9 @@
 		browseClass: "btn btn-primary btn-lg",
 		fileType: "any"
 	});
+    $(".btn-warning").on('click', function() {
+        $("#file-4").attr('disabled', 'disabled');
+        $('#file-4').fileinput('refresh', {browseLabel: 'Kartik'});
+    });
 	</script>
 </html>

@@ -1,3 +1,11 @@
+version 1.6.0
+=============
+Date: 03-Jun-2014
+
+### Additions
+1. The plugin now offers an additional `refresh` method. This enables you to dynamically change element attributes or plugin options
+   at runtime and refresh the widget.
+
 version 1.5.0
 =============
 Date: 23-May-2014

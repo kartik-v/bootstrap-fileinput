@@ -5,7 +5,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 
 ![File Input Screenshot](https://lh6.googleusercontent.com/-2niyujIaat0/UyqzA_78OQI/AAAAAAAAADE/f6IJkr11uA8/w666-h418-no/fileinput-screenshot.jpg)
 
-> NOTE: The latest version of the plugin v1.5.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin v1.6.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
 
 ## Features  
 
@@ -32,7 +32,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 11. Upload action defaults to form submit. Supports an upload route/server action parameter for custom ajax based upload.
 12. Triggers JQuery events for advanced development. Events currently available are `filereset` and `fileclear`.
 13. Disabled and readonly file input support.
-14. Size of the entire plugin is less than 11KB (about 9KB for the minified JS and 2KB for the minified CSS).
+14. Size of the entire plugin is about 5KB if gzipped. The minified assets are less than 12KB (about 10KB for the minified JS and 2KB for the minified CSS). 
 
 ## Demo
 
