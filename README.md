@@ -336,6 +336,16 @@ Clear the file input.
 $('#input-id').fileinput('clear');
 ```
 
+#### refresh
+Refreshes the file input plugin based on options provided. You can supply an array of plugin options as a parameter.
+```js
+// example 1 (disable at runtime)
+$('#input-id').attr('disabled', 'disabled');
+$('#input-id').fileinput('refresh');
+
+// example 2 (modify plugin options at runtime)
+$('#input-id').fileinput('refresh', {browseLabel: 'Select...', removeLabel: 'Delete'});
+```
 ## License
 
 **bootstrap-fileinput** is released under the BSD 3-Clause License. See the bundled `LICENSE.md` for details.
