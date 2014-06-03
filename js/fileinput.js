@@ -77,7 +77,6 @@
     };
     var FileInput = function (element, options) {
         this.$element = $(element);
-        this.options = options;
         this.init(options);
         this.listen();
     };
@@ -127,7 +126,7 @@
                 self.$container = self.createContainer();
             }
             else {
-                self.$container.html(self.renderMain());
+                self.refreshContainer();
             }
             /* Initialize plugin option parameters */
             self.$captionContainer = getElement(options, 'elCaptionContainer', self.$container.find('.file-caption'));
@@ -147,6 +146,7 @@
                 caption: self.$caption.html(),
                 hiddenVal: self.$hidden.val()
             };
+            this.options = options;
         },
         listen: function () {
             var self = this;
@@ -155,13 +155,8 @@
             self.$container.find('.fileinput-remove').on('click', $.proxy(self.clear, self));
         },
         refresh: function (options) {
-            var self = this;
-            if (arguments.length) {
-                self.init($.extend(self.options, options));
-            }
-            else {
-                self.init(self.options);
-            }
+            var self = this, params = (arguments.length) ? $.extend(self.options, options) : self.options;
+            self.init(params);
         },
         initPreview: function () {
             var self = this, html = '',
@@ -299,6 +294,12 @@
             self.$element.before(container);
             container.find('.btn-file').append(self.$element);
             return container;
+        },
+        refreshContainer: function () {
+            var self = this;
+            self.$container.before(self.$element);
+            self.$container.html(self.renderMain());
+            self.$container.find('.btn-file').append(self.$element);
         },
         renderMain: function () {
             var self = this;
