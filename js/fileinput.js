@@ -135,8 +135,7 @@
             self.$preview = getElement(options, 'elPreviewImage', self.$container.find('.file-preview-thumbnails'));
             self.$previewStatus = getElement(options, 'elPreviewStatus', self.$container.find('.file-preview-status'));
             self.initPreview();
-            self.$name = self.$element.attr('name') || options.name;
-            self.$hidden = self.$container.find('input[type=hidden][name="' + self.$name + '"]');
+            self.$hidden = self.$container.find('input[type=hidden]');
             if (self.$hidden.length === 0) {
                 self.$hidden = $('<input type="hidden" />');
                 self.$container.prepend(self.$hidden);
@@ -190,8 +189,6 @@
                 e.preventDefault();
             }
             self.$hidden.val('');
-            self.$hidden.attr('name', self.name);
-            self.$element.attr('name', '');
             self.$element.val('');
             if (e !== false) {
                 self.$element.trigger('change');
