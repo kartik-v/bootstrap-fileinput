@@ -9,6 +9,17 @@
  * Year: 2013
  * For more Yii related demos visit http://demos.krajee.com
  */
+.file-loading {
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    font-size: 999px;
+    text-align: right;
+    color: #fff;
+    background: transparent url('../img/loading.gif') top left no-repeat;
+    border: none;
+}
 .btn-file {
     position: relative;
     overflow: hidden;

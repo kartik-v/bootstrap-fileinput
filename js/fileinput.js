@@ -147,6 +147,7 @@
                 hiddenVal: self.$hidden.val()
             };
             this.options = options;
+            self.$element.removeClass('file-loading');
         },
         listen: function () {
             var self = this;
@@ -415,16 +416,19 @@
         elPreviewStatus: null
     };
 
+    var $input = $('input.file[type=file]'), count = Object.keys($input).length;
+
+    if (count > 0) {
+        $input.addClass('file-loading');
+    }
     /**
      * Convert automatically file inputs with class 'file'
      * into a bootstrap fileinput control.
      */
-    $(function () {
-        var $element = $('input.file[type=file]');
-        if ($element.length > 0) {
-            $element.fileinput();
+    $(document).ready(function () {
+        if (count > 0) {
+            $input.fileinput();
         }
-
     });
 
 })(window.jQuery);
