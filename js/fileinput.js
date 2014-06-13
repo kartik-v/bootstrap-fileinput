@@ -197,6 +197,8 @@
             self.$preview.html('');
             self.$caption.html('');
             self.$container.removeClass('file-input-new').addClass('file-input-new');
+            
+            self.$element.attr('name', self.$name);
         },
         reset: function (e) {
             var self = this;
