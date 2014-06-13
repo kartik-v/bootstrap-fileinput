@@ -135,15 +135,9 @@
             self.$preview = getElement(options, 'elPreviewImage', self.$container.find('.file-preview-thumbnails'));
             self.$previewStatus = getElement(options, 'elPreviewStatus', self.$container.find('.file-preview-status'));
             self.initPreview();
-            self.$hidden = self.$container.find('input[type=hidden]');
-            if (self.$hidden.length === 0) {
-                self.$hidden = $('<input type="hidden" />');
-                self.$container.prepend(self.$hidden);
-            }
             self.original = {
                 preview: self.$preview.html(),
                 caption: self.$caption.html(),
-                hiddenVal: self.$hidden.val()
             };
             this.options = options;
             self.$element.removeClass('file-loading');
@@ -188,7 +182,6 @@
             if (e) {
                 e.preventDefault();
             }
-            self.$hidden.val('');
             self.$element.val('');
             if (e !== false) {
                 self.$element.trigger('change');
@@ -201,7 +194,6 @@
         reset: function (e) {
             var self = this;
             self.clear(false);
-            self.$hidden.val(self.original.hiddenVal);
             self.$preview.html(self.original.preview);
             self.$caption.html(self.original.caption);
             self.$container.find('.fileinput-filename').text('');
