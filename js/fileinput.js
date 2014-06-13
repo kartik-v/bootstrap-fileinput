@@ -137,7 +137,7 @@
             self.initPreview();
             self.original = {
                 preview: self.$preview.html(),
-                caption: self.$caption.html(),
+                caption: self.$caption.html()
             };
             this.options = options;
             self.$element.removeClass('file-loading');
