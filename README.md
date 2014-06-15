@@ -198,7 +198,7 @@ files passed in `initialPreview`.
 #### captionTemplate
 _string_ the template used to render the caption. The following template variables will be parsed:
 
-- `{class}`: any additional CSS class to append to the caption container.
+- `{class}`: the `captionClass` property.
 
 The `captionTemplate` if not set will default to:
 ```html
@@ -210,7 +210,7 @@ The `captionTemplate` if not set will default to:
 #### previewTemplate
 _string_ the template used to render the preview. The following template variables will be parsed:
 
-- `{class}`: any additional CSS class to append to the preview container.
+- `{class}`: the `previewClass` property.
 
 The `previewTemplate` if not set will default to:
 ```html
