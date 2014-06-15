@@ -129,7 +129,7 @@ _string_ any additional CSS class to append to the main plugin container.
 #### mainTemplate
 _string_ the template used to render the widget. The following template variables will be parsed:
 
-- `{class}`: any additional CSS class to append to the main widget container.
+- `{class}`: the <code>mainClass</code> property.
 - `{preview}`: the content parsed by the `previewTemplate` and will be displayed only if `showPreview` is `true`.
 - `{caption}`: the content parsed by the `captionTemplate` and will be displayed only if `showCaption` is `true`.
 - `{remove}`: the file remove/clear button and will be displayed only if `showRemove` is `true`.
