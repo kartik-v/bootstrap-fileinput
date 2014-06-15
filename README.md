@@ -129,7 +129,7 @@ _string_ any additional CSS class to append to the main plugin container.
 #### mainTemplate
 _string_ the template used to render the widget. The following template variables will be parsed:
 
-- `{class}`: the <code>mainClass</code> property.
+- `{class}`: the CSS class as set in the `mainClass` property.
 - `{preview}`: the content parsed by the `previewTemplate` and will be displayed only if `showPreview` is `true`.
 - `{caption}`: the content parsed by the `captionTemplate` and will be displayed only if `showCaption` is `true`.
 - `{remove}`: the file remove/clear button and will be displayed only if `showRemove` is `true`.
@@ -198,7 +198,7 @@ files passed in `initialPreview`.
 #### captionTemplate
 _string_ the template used to render the caption. The following template variables will be parsed:
 
-- `{class}`: the `captionClass` property.
+- `{class}`: the CSS class as set in the `captionClass` property.
 
 The `captionTemplate` if not set will default to:
 ```html
@@ -210,7 +210,7 @@ The `captionTemplate` if not set will default to:
 #### previewTemplate
 _string_ the template used to render the preview. The following template variables will be parsed:
 
-- `{class}`: the `previewClass` property.
+- `{class}`: the CSS class as set in the `previewClass` property.
 
 The `previewTemplate` if not set will default to:
 ```html
