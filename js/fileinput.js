@@ -188,15 +188,15 @@
                 self.$element.trigger('change');
                 self.$element.trigger('fileclear');
             }
-            if (self.overwriteInitial) {
-                self.$preview.html('');
-                self.$caption.html('');
-                self.$container.removeClass('file-input-new').addClass('file-input-new');
-            }
-            else {
+            if (!self.overwriteInitial && !isEmpty(self.initialPreviewContent)) {
                 self.$preview.html(self.original.preview);
                 self.$caption.html(self.original.caption);
                 self.$container.removeClass('file-input-new');
+            }
+            else {
+                self.$preview.html('');
+                self.$caption.html('');
+                self.$container.removeClass('file-input-new').addClass('file-input-new');
             }
         },
         reset: function (e) {
