@@ -157,7 +157,6 @@ The `mainTemplate` if not passed, will be automatically set based on `showCaptio
 ```
 
 #### initialPreview
-
 _string | array_ the initial preview content to be displayed. You can pass the minimal HTML markup for displaying your image, text, or file. 
 If set as a string, this will display a single file in the initial preview. If set as an array, it will display all files in the array as an 
 initial preview (useful for multiple file upload scenarios).
@@ -190,7 +189,6 @@ initialPreview: "<div class='file-preview-text'>" +
 ```
 
 #### initialCaption
-
 _string_ the initial preview caption text to be displayed. If you do not set a value here and `initialPreview` is set to 
 `true` this will default to `"{preview-file-count} files selected"`, where `{preview-file-count}` is the count of the 
 files passed in `initialPreview`.
@@ -206,6 +204,12 @@ The `captionTemplate` if not set will default to:
    <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>
 </div>
 ```
+
+#### overwriteInitial
+_boolean_ whether you wish to overwrite the initial preview content and caption setup. This is by default set to `false`. When set to `false`, this will always show the 
+`initialPreview` content at the beginning (when uploading or during clear). If set to `true` any `initialPreview` content set will be overwritten, 
+when new file is uploaded or when files are cleared. Setting it to `false` will help displaying a saved image or file from database always - 
+especially when using the `multiple` file upload feature.
 
 #### previewTemplate
 _string_ the template used to render the preview. The following template variables will be parsed:
