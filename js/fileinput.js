@@ -393,7 +393,7 @@
         initialPreview: '',
         initialCaption: '',
         initialPreviewContent: '',
-        overwriteInitial: false,
+        overwriteInitial: true,
         previewTemplate: PREVIEW_TEMPLATE,
         captionTemplate: CAPTION_TEMPLATE,
         browseLabel: 'Browse &hellip;',

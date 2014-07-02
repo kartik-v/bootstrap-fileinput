@@ -194,10 +194,9 @@ _string_ the initial preview caption text to be displayed. If you do not set a v
 files passed in `initialPreview`.
 
 #### overwriteInitial
-_boolean_ whether you wish to overwrite the initial preview content and caption setup. This is by default set to `false`. When set to `false`, this will always show the 
-`initialPreview` content at the beginning (when uploading or during clear). If set to `true` any `initialPreview` content set will be overwritten, 
-when new file is uploaded or when files are cleared. Setting it to `false` will help displaying a saved image or file from database always - 
-especially when using the `multiple` file upload feature.
+_boolean_ whether you wish to overwrite the initial preview content and caption setup. This defaults to `true`, whereby, any `initialPreview` content set 
+will be overwritten, when new file is uploaded or when files are cleared. Setting it to `false` will help displaying a saved image or file from database always - 
+useful especially when using the `multiple` file upload feature.
  
 #### captionTemplate
 _string_ the template used to render the caption. The following template variables will be parsed:

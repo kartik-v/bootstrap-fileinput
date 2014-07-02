@@ -3,10 +3,9 @@ version 1.7.0
 Date: 02-Jul-2014
 
 ### Additions
-1. The plugin now offers an additional `overwriteInitial` option. This is by default set to `false`. When set to `false`, this will always show the 
-  `initialPreview` content at the beginning (when uploading or during clear). If set to `true` any `initialPreview` content set will be overwritten, 
-   when new file is uploaded or when files are cleared. Setting it to `false` will help displaying a saved image or file from database always - 
-   especially when using the `multiple` file upload feature.
+1. The plugin now offers an additional `overwriteInitial` option. This is by default set to `true`. This defaults to `true`, whereby, 
+   any `initialPreview` content set will be overwritten, when new file is uploaded or when files are cleared. Setting it to `false` will 
+   help displaying a saved image or file from database always - useful especially when using the `multiple` file upload feature.
 
 version 1.6.0
 =============
