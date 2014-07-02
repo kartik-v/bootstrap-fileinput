@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013
- * @version 1.6.0
+ * @version 1.7.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. This plugin is inspired by the blog article at
@@ -89,6 +89,7 @@
             self.showPreview = options.showPreview;
             self.initialPreview = options.initialPreview;
             self.initialCaption = options.initialCaption;
+            self.overwriteInitial = options.overwriteInitial;
             self.showRemove = options.showRemove;
             self.showUpload = options.showUpload;
             self.captionClass = options.captionClass;
@@ -162,7 +163,6 @@
                 for (var i = 0; i < len; i++) {
                     html += '<div class="file-preview-frame">' + content[i] + "</div>\n";
                 }
-                self.$preview.html(html);
                 if (len > 1 && cap == 0) {
                     caption = len + ' files selected';
                 }
@@ -173,6 +173,7 @@
             else {
                 return;
             }
+            self.initialPreviewContent = html;
             self.$preview.html(html);
             self.$caption.html(caption);
             self.$container.removeClass('file-input-new');
@@ -187,9 +188,16 @@
                 self.$element.trigger('change');
                 self.$element.trigger('fileclear');
             }
-            self.$preview.html('');
-            self.$caption.html('');
-            self.$container.removeClass('file-input-new').addClass('file-input-new');
+            if (self.overwriteInitial) {
+                self.$preview.html('');
+                self.$caption.html('');
+                self.$container.removeClass('file-input-new').addClass('file-input-new');
+            }
+            else {
+                self.$preview.html(self.original.preview);
+                self.$caption.html(self.original.caption);
+                self.$container.removeClass('file-input-new');
+            }
         },
         reset: function (e) {
             var self = this;
@@ -205,8 +213,8 @@
         change: function (e) {
             var self = this;
             var elem = self.$element, files = elem.get(0).files, numFiles = files ? files.length : 1,
-                label = elem.val().replace(/\\/g, '/').replace(/.*\//, ''), preview = self.$preview,
-                container = self.$previewContainer, status = self.$previewStatus, msgLoading = self.msgLoading,
+                label = elem.val().replace(/\\/g, '/').replace(/.*\//, ''), $preview = self.$preview,
+                $container = self.$previewContainer, $status = self.$previewStatus, msgLoading = self.msgLoading,
                 msgProgress = self.msgProgress, msgSelected = self.msgSelected, tfiles,
                 fileType = self.previewFileType, wrapLen = parseInt(self.wrapTextLength),
                 wrapInd = self.wrapIndicator;
@@ -222,19 +230,22 @@
             if (tfiles.length === 0) {
                 return;
             }
-            preview.html('');
-            var total = tfiles.length, self = self;
+            $preview.html('');
+            if (!self.overwriteInitial) {
+                $preview.html(self.initialPreviewContent);
+            }
+            var total = tfiles.length;
             for (var i = 0; i < total; i++) {
                 (function (file) {
                     var caption = file.name;
                     var isImg = isImageFile(file.type, file.name);
                     var isTxt = isTextFile(file.type, file.name);
-                    if (preview.length > 0 && (fileType == "any" ? (isImg || isTxt) : (fileType == "text" ? isTxt : isImg)) && typeof FileReader !== "undefined") {
+                    if ($preview.length > 0 && (fileType == "any" ? (isImg || isTxt) : (fileType == "text" ? isTxt : isImg)) && typeof FileReader !== "undefined") {
                         var reader = new FileReader();
-                        status.html(msgLoading);
-                        container.addClass('loading');
+                        $status.html(msgLoading);
+                        $container.addClass('loading');
                         reader.onload = function (theFile) {
-                            var content = '', modal = "";
+                            var content = '', modal = '';
                             if (isTxt) {
                                 var strText = theFile.target.result;
                                 if (strText.length > wrapLen) {
@@ -248,17 +259,17 @@
                             else {
                                 content = '<div class="file-preview-frame"><img src="' + theFile.target.result + '" class="file-preview-image" title="' + caption + '" alt="' + caption + '"></div>';
                             }
-                            preview.append("\n" + content);
+                            $preview.append("\n" + content);
                             if (i >= total - 1) {
-                                container.removeClass('loading');
-                                status.html('');
+                                $container.removeClass('loading');
+                                $status.html('');
                             }
                         };
                         reader.onprogress = function (data) {
                             if (data.lengthComputable) {
                                 var progress = parseInt(((data.loaded / data.total) * 100), 10);
                                 var msg = msgProgress.replace('{percent}', progress).replace('{file}', file.name);
-                                status.html(msg);
+                                $status.html(msg);
                             }
                         };
                         if (isTxt) {
@@ -269,10 +280,11 @@
                         }
                     }
                     else {
-                        preview.append("\n" + '<div class="file-preview-frame"><div class="file-preview-other"><h2><i class="glyphicon glyphicon-file"></i></h2>' + caption + '</div></div>');
+                        $preview.append("\n" + '<div class="file-preview-frame"><div class="file-preview-other"><h2><i class="glyphicon glyphicon-file"></i></h2>' + caption + '</div></div>');
                     }
                 })(tfiles[i]);
             }
+
             var log = numFiles > 1 ? msgSelected.replace('{n}', numFiles) : label;
             self.$caption.html(log);
             self.$container.removeClass('file-input-new');
@@ -380,6 +392,8 @@
         mainTemplate: null,
         initialPreview: '',
         initialCaption: '',
+        initialPreviewContent: '',
+        overwriteInitial: false,
         previewTemplate: PREVIEW_TEMPLATE,
         captionTemplate: CAPTION_TEMPLATE,
         browseLabel: 'Browse &hellip;',
