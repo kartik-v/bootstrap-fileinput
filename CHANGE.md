@@ -1,3 +1,10 @@
+version 1.8.0
+=============
+Date: 15-Jul-2014
+
+### Additions
+1. (enh #9): Enhanced caption template and styling for captions to prevent overflow of long file names out of the caption container.
+
 version 1.7.0
 =============
 Date: 02-Jul-2014

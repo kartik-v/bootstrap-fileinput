@@ -1,7 +1,7 @@
 /*!
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013
- * @package yii2-widgets
- * @version 1.6.0
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
+ * @package bootstrap-fileinput
+ * @version 1.8.0
  *
  * File input styling for Bootstrap 3.0
  * Built for Yii Framework 2.0
@@ -38,6 +38,22 @@
     background: red;
     cursor: inherit;
     display: block;
+}
+
+.file-caption .glyphicon {
+    display: inline-block;
+    min-width: 18px;
+    float: left;
+    margin-top: 2px;
+}
+
+.file-caption-name {
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 85%;
 }
 
 .file-caption-disabled {

@@ -1,6 +1,6 @@
 /*!
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013
- * @version 1.7.0
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
+ * @version 1.8.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. This plugin is inspired by the blog article at
@@ -36,7 +36,7 @@
         '</div>';
 
     var CAPTION_TEMPLATE = '<div class="form-control file-caption {class}">\n' +
-        '   <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>\n' +
+        '   <span class="glyphicon glyphicon-file"></span><div class="file-caption-name"></div>\n' +
         '</div>';
 
     var MODAL_TEMPLATE = '<div id="{id}" class="modal fade">\n' +
@@ -176,6 +176,7 @@
             self.initialPreviewContent = html;
             self.$preview.html(html);
             self.$caption.html(caption);
+            self.$captionContainer.attr('title', caption);            
             self.$container.removeClass('file-input-new');
         },
         clear: function (e) {
@@ -196,6 +197,7 @@
             else {
                 self.$preview.html('');
                 self.$caption.html('');
+                self.$captionContainer.attr('title', '');
                 self.$container.removeClass('file-input-new').addClass('file-input-new');
             }
         },
@@ -287,6 +289,7 @@
 
             var log = numFiles > 1 ? msgSelected.replace('{n}', numFiles) : label;
             self.$caption.html(log);
+            self.$captionContainer.attr('title', log);
             self.$container.removeClass('file-input-new');
             elem.trigger('fileselect', [numFiles, label]);
         },
