@@ -36,7 +36,7 @@
         '</div>';
 
     var CAPTION_TEMPLATE = '<div class="form-control file-caption {class}">\n' +
-        '   <span class="glyphicon glyphicon-file"></span><div class="file-caption-name"></div>\n' +
+        '   <span class="glyphicon glyphicon-file kv-caption-icon"></span><div class="file-caption-name"></div>\n' +
         '</div>';
 
     var MODAL_TEMPLATE = '<div id="{id}" class="modal fade">\n' +
@@ -173,6 +173,7 @@
             else if (cap > 0) {
                 self.$caption.html(caption);
                 self.$captionContainer.attr('title', caption);
+                self.$captionContainer.find('.kv-caption-icon').show();
                 return;
             }
             else {
@@ -206,6 +207,9 @@
                 self.$caption.html(cap);
                 self.$captionContainer.attr('title', '');
                 self.$container.removeClass('file-input-new').addClass('file-input-new');
+            }
+            if (self.overwriteInitial) {
+                self.$captionContainer.find('.kv-caption-icon').hide();
             }
         },
         reset: function (e) {
