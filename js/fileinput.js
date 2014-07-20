@@ -170,13 +170,18 @@
             else if (len > 0) {
                 html = '<div class="file-preview-frame">' + content + '</div>';
             }
+            else if (cap > 0) {
+                self.$caption.html(caption);
+                self.$captionContainer.attr('title', caption);
+                return;
+            }
             else {
                 return;
             }
             self.initialPreviewContent = html;
             self.$preview.html(html);
             self.$caption.html(caption);
-            self.$captionContainer.attr('title', caption);            
+            self.$captionContainer.attr('title', caption);
             self.$container.removeClass('file-input-new');
         },
         clear: function (e) {
@@ -196,7 +201,9 @@
             }
             else {
                 self.$preview.html('');
-                self.$caption.html('');
+                var cap = (!self.overwriteInitial && self.initialCaption.length > 0) ? 
+                    self.original.caption : '';
+                self.$caption.html(cap);
                 self.$captionContainer.attr('title', '');
                 self.$container.removeClass('file-input-new').addClass('file-input-new');
             }
@@ -421,17 +428,13 @@
         elPreviewImage: null,
         elPreviewStatus: null
     };
-
-    var $input = $('input.file[type=file]'), count = Object.keys($input).length;
-
-    if (count > 0) {
-        $input.addClass('file-loading');
-    }
+    
     /**
      * Convert automatically file inputs with class 'file'
      * into a bootstrap fileinput control.
      */
     $(document).ready(function () {
+        var $input = $('input.file[type=file]'), count = Object.keys($input).length;
         if (count > 0) {
             $input.fileinput();
         }
