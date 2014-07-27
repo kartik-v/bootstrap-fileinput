@@ -53,6 +53,23 @@
         '  </div>\n' +
         '</div>\n';
 
+    var PICTURE_TEMPLATE = '<div class="file-preview-frame" id="{id_content}">\n' +
+        '   {content}\n' +
+        '</div>\n';
+
+    var TEXT_TEMPLATE = '<div class="file-preview-frame" id="{id_content}">\n' +
+        '   <div class="file-preview-text" title="{caption}">\n' +
+        '       {strText}\n' +
+        '   </div>\n'+
+        '</div>\n';
+
+    var OTHER_TEMPLATE = '<div class="file-preview-frame" id="{id_content}">\n' +
+        '   <div class="file-preview-other">\n' +
+        '       <h2><i class="glyphicon glyphicon-file"></i></h2>\n' +
+    '           {caption}\n' +
+        '   </div>\n'+
+        '</div>';
+
     var isEmpty = function (value, trim) {
         return value === null || value === undefined || value == []
             || value === '' || trim && $.trim(value) === '';
@@ -87,6 +104,7 @@
             var self = this;
             self.showCaption = options.showCaption;
             self.showPreview = options.showPreview;
+            self.initialDelimiter = options.initialDelimiter;
             self.initialPreview = options.initialPreview;
             self.initialCaption = options.initialCaption;
             self.overwriteInitial = options.overwriteInitial;
@@ -102,6 +120,10 @@
                 self.mainTemplate = options.mainTemplate;
             }
             self.previewTemplate = (self.showPreview) ? options.previewTemplate : '';
+            self.previewGenericTemplate = options.previewGenericTemplate;
+            self.previewPictureTemplate = options.previewPictureTemplate;
+            self.previewTextTemplate = options.previewTextTemplate;
+            self.previewOtherTemplate = options.previewOtherTemplate;
             self.captionTemplate = options.captionTemplate;
             self.browseLabel = options.browseLabel;
             self.browseIcon = options.browseIcon;
@@ -147,7 +169,7 @@
             var self = this;
             self.$element.on('change', $.proxy(self.change, self));
             $(self.$element[0].form).on('reset', $.proxy(self.reset, self));
-            self.$container.find('.fileinput-remove').on('click', $.proxy(self.clear, self));
+            self.$container.on('click', '.fileinput-remove:not([disabled])', $.proxy(self.clear, self));
         },
         refresh: function (options) {
             var self = this, params = (arguments.length) ? $.extend(self.options, options) : self.options;
@@ -156,19 +178,27 @@
         initPreview: function () {
             var self = this, html = '',
                 content = self.initialPreview,
-                len = self.initialPreview.length,
+                len = (isArray(content))?content.length:(content.length>0)?content.split(self.initialDelimiter).length:0,
                 cap = self.initialCaption.length,
-                caption = (cap > 0) ? self.initialCaption : len + ' file selected';
+                caption = (cap > 0) ? self.initialCaption : self.msgSelected.replace("{n}",len);
             if (isArray(content) && len > 0) {
                 for (var i = 0; i < len; i++) {
-                    html += '<div class="file-preview-frame">' + content[i] + "</div>\n";
+                    var id_content = "preview_"+uniqId();
+                    html += self.previewGenericTemplate.replace("{id_content}", id_content).replace("{content}", content[i]);
                 }
                 if (len > 1 && cap == 0) {
-                    caption = len + ' files selected';
+                    caption = self.msgSelected.replace("{n}",len);
                 }
             }
             else if (len > 0) {
-                html = '<div class="file-preview-frame">' + content + '</div>';
+                var fileList=content.split(self.initialDelimiter);
+                for(var i = 0; i < len; i++){
+                    var id_content = "preview_"+uniqId();
+                    html += self.previewGenericTemplate.replace("{id_content}", id_content).replace("{content}", fileList[i]);
+                }
+                if (len > 1 && cap == 0) {
+                    caption = self.msgSelected.replace("{n}",len);
+                }
             }
             else if (cap > 0) {
                 self.$caption.html(caption);
@@ -179,6 +209,7 @@
             else {
                 return;
             }
+            self.initialNbPreview = len;
             self.initialPreviewContent = html;
             self.$preview.html(html);
             self.$caption.html(caption);
@@ -211,6 +242,7 @@
             if (self.overwriteInitial) {
                 self.$captionContainer.find('.kv-caption-icon').hide();
             }
+            self.$element.trigger('filecleared');
         },
         reset: function (e) {
             var self = this;
@@ -223,9 +255,21 @@
                 self.$container.removeClass('file-input-new');
             }
         },
+        disable: function (e) {
+            var self = this;
+            self.isDisabled=true;
+            self.$container.find(".js_fileinput_caption").addClass("file-caption-disabled");
+            self.$container.find(".btn-file, .fileinput-remove, .js_fileinput_upload").attr("disabled",true);
+        },
+        enable: function (e) {
+            var self = this;
+            self.isDisabled=false;
+            self.$container.find(".js_fileinput_caption").removeClass("file-caption-disabled");
+            self.$container.find(".btn-file, .fileinput-remove, .js_fileinput_upload").removeAttr("disabled");
+        },
         change: function (e) {
             var self = this;
-            var elem = self.$element, files = elem.get(0).files, numFiles = files ? files.length : 1,
+            var elem = self.$element, files = elem.get(0).files, numFiles = files ? (files.length+self.initialNbPreview) : 1,
                 label = elem.val().replace(/\\/g, '/').replace(/.*\//, ''), $preview = self.$preview,
                 $container = self.$previewContainer, $status = self.$previewStatus, msgLoading = self.msgLoading,
                 msgProgress = self.msgProgress, msgSelected = self.msgSelected, tfiles,
@@ -250,6 +294,7 @@
             var total = tfiles.length;
             for (var i = 0; i < total; i++) {
                 (function (file) {
+                    var id_content = "preview_"+uniqId();
                     var caption = file.name;
                     var isImg = isImageFile(file.type, file.name);
                     var isTxt = isTextFile(file.type, file.name);
@@ -267,16 +312,27 @@
                                     wrapInd = wrapInd.replace("{title}", caption).replace("{dialog}", "$('#" + id + "').modal('show')");
                                     strText = strText.substring(0, (wrapLen - 1)) + wrapInd;
                                 }
-                                content = '<div class="file-preview-frame"><div class="file-preview-text" title="' + caption + '">' + strText + '</div></div>' + modal;
+                                content = self.previewTextTemplate.replace("{id_content}", id_content).replace("{caption}", caption).replace("{strText}", strText) + modal;
                             }
                             else {
-                                content = '<div class="file-preview-frame"><img src="' + theFile.target.result + '" class="file-preview-image" title="' + caption + '" alt="' + caption + '"></div>';
+                                content = self.previewPictureTemplate.replace("{id_content}", id_content).replace("{content}", '<img src="' + theFile.target.result + '" class="file-preview-image" title="' + caption + '" alt="' + caption + '">');
                             }
                             $preview.append("\n" + content);
+
+                            //here we check if the picture is not too wide. If it's the case we scale the picture on the width and not on the height anymore.
+                            var containerWidth=$preview.width(),
+                                image=$preview.find("#"+id_content+" img"),
+                                imageWidth=image.width();
+                            if(imageWidth > containerWidth){
+                                image.width("100%");
+                                image.height("auto");
+                            }
+
                             if (i >= total - 1) {
                                 $container.removeClass('loading');
                                 $status.html('');
                             }
+                            elem.trigger('filepreviewloaded', [file, id_content]);
                         };
                         reader.onprogress = function (data) {
                             if (data.lengthComputable) {
@@ -293,7 +349,8 @@
                         }
                     }
                     else {
-                        $preview.append("\n" + '<div class="file-preview-frame"><div class="file-preview-other"><h2><i class="glyphicon glyphicon-file"></i></h2>' + caption + '</div></div>');
+                        $preview.append("\n" + self.previewOtherTemplate.replace("{id_content}", id_content).replace("{caption}", caption));
+                        elem.trigger('filepreviewloaded', [file, id_content]);
                     }
                 })(tfiles[i]);
             }
@@ -321,7 +378,7 @@
             var self = this;
             var preview = self.previewTemplate.replace('{class}', self.previewClass);
             var css = self.isDisabled ? self.captionClass + ' file-caption-disabled' : self.captionClass;
-            var caption = self.captionTemplate.replace('{class}', css);
+            var caption = self.captionTemplate.replace('{class}', css + ' js_fileinput_caption');
             return self.mainTemplate.replace('{class}', self.mainClass).
                 replace('{preview}', preview).
                 replace('{caption}', caption).
@@ -347,7 +404,7 @@
             return '<button type="button" class="' + css + '"' + status + '>' + self.removeIcon + self.removeLabel + '</button>';
         },
         renderUpload: function () {
-            var self = this, content = '', status = '';
+            var self = this, css = self.uploadClass + ' js_fileinput_upload', content = '', status = '';
             if (!self.showUpload) {
                 return '';
             }
@@ -355,13 +412,13 @@
                 status = ' disabled ';
             }
             if (isEmpty(self.uploadUrl)) {
-                content = '<button type="submit" class="' + self.uploadClass + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</button>';
+                content = '<button type="submit" class="' + css + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</button>';
             }
             else {
                 content = '<a href="' + self.uploadUrl + '" class="' + self.uploadClass + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</a>';
             }
             return content;
-        },
+        }
     }
 
     $.fn.fileinput = function (options) {
@@ -404,11 +461,17 @@
         previewClass: '',
         mainClass: '',
         mainTemplate: null,
+        initialDelimiter: '*$$*',
         initialPreview: '',
         initialCaption: '',
+        initialNbPreview: 0,
         initialPreviewContent: '',
         overwriteInitial: true,
         previewTemplate: PREVIEW_TEMPLATE,
+        previewGenericTemplate:PICTURE_TEMPLATE,
+        previewPictureTemplate:PICTURE_TEMPLATE,
+        previewTextTemplate:TEXT_TEMPLATE,
+        previewOtherTemplate:OTHER_TEMPLATE,
         captionTemplate: CAPTION_TEMPLATE,
         browseLabel: 'Browse &hellip;',
         browseIcon: '<i class="glyphicon glyphicon-folder-open"></i> &nbsp;',
