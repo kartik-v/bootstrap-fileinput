@@ -259,13 +259,13 @@
             var self = this;
             self.isDisabled=true;
             self.$container.find(".js_fileinput_caption").addClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .js_fileinput_upload").attr("disabled",true);
+            self.$container.find(".btn-file, .fileinput-remove, .js_fileinput_upload, input[type=file]").attr("disabled",true);
         },
         enable: function (e) {
             var self = this;
             self.isDisabled=false;
             self.$container.find(".js_fileinput_caption").removeClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .js_fileinput_upload").removeAttr("disabled");
+            self.$container.find(".btn-file, .fileinput-remove, .js_fileinput_upload, input[type=file]").removeAttr("disabled");
         },
         change: function (e) {
             var self = this;
