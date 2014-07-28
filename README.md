@@ -5,7 +5,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 
 ![File Input Screenshot](https://lh6.googleusercontent.com/-2niyujIaat0/UyqzA_78OQI/AAAAAAAAADE/f6IJkr11uA8/w666-h418-no/fileinput-screenshot.jpg)
 
-> NOTE: The latest version of the plugin v1.9.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin v2.0.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
 
 ## Features  
 
@@ -32,7 +32,19 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 11. Upload action defaults to form submit. Supports an upload route/server action parameter for custom ajax based upload.
 12. Triggers JQuery events for advanced development. Events currently available are `filereset` and `fileclear`.
 13. Disabled and readonly file input support.
-14. Size of the entire plugin is about 5KB if gzipped. The minified assets are less than 12KB (about 10KB for the minified JS and 2KB for the minified CSS). 
+14. Size of the entire plugin is less than 6KB if gzipped. The minified assets are less than 16KB (about 13KB for the minified JS and 3KB for the minified CSS). 
+
+## Release 2.0.0 Features
+
+1. (enh #12, #13): Various enhancements and fixes.
+2. (enh #15): Enhanced validation of file size through `maxFileSize` configuration.
+3. New plugin events added: `fileerror`, `fileloaded`, `filecleared`.
+4. New plugin methods added: `disable`, `enable`
+5. Enhanced configurable templates for previewing image, text, and other files (and a generic template).
+6. Make caption text configurable through a new parameter `msgSelected`.
+7. Correct calculation of files selected when `initPreview` is false.
+8. Automatic scale images for preview, when images are too wide to fit in container.
+9. Added delimiter option for `initialPreview` to pass multiple content delimited as a string.
 
 ## Demo
 
@@ -156,6 +168,10 @@ The `mainTemplate` if not passed, will be automatically set based on `showCaptio
 {preview}\n{remove}\n{upload}\n{browse}\n
 ```
 
+#### initialDelimiter
+_string_, the delimiter to be used to allow passing multiple content delimited as a string to `initialPreview`. Defaults to `'*$$*'`.
+
+
 #### initialPreview
 _string | array_ the initial preview content to be displayed. You can pass the minimal HTML markup for displaying your image, text, or file. 
 If set as a string, this will display a single file in the initial preview. If set as an array, it will display all files in the array as an 
@@ -193,6 +209,10 @@ _string_ the initial preview caption text to be displayed. If you do not set a v
 `true` this will default to `"{preview-file-count} files selected"`, where `{preview-file-count}` is the count of the 
 files passed in `initialPreview`.
 
+#### initialNbPreview
+_int_, the count of initial preview items for calculating the files selected in preview and displayed in caption (applicable when 
+`overwriteInitial` is set to `false`).
+
 #### overwriteInitial
 _boolean_ whether you wish to overwrite the initial preview content and caption setup. This defaults to `true`, whereby, any `initialPreview` content set 
 will be overwritten, when new file is uploaded or when files are cleared. Setting it to `false` will help displaying a saved image or file from database always - 
@@ -225,8 +245,67 @@ The `previewTemplate` if not set will default to:
 </div>
 ```
 
+#### previewGenericTemplate
+_string_ the generic preview template markup used within the preview container. Defaults to `IMAGE_TEMPLATE` as shown below.
+The following variables will be parsed:
+
+- `{content}`: the file preview content
+- `{previewId}`: the previewed file container identifier
+
+```html
+<div class="file-preview-frame" id="{previewId}">
+    {content}
+</div>
+```
+
+#### previewImageTemplate
+_string_ the template markup for previewing image files within the preview container. Defaults to `IMAGE_TEMPLATE` as shown below.
+The following variables will be parsed:
+
+- `{content}`: the file preview content
+- `{previewId}`: the previewed file container identifier
+
+```html
+<div class="file-preview-frame" id="{previewId}">
+    {content}
+</div>
+```
+
+#### previewTextTemplate
+_string_ the template markup for previewing text files within the preview container. Defaults to `TEXT_TEMPLATE` as shown below.
+The following variables will be parsed:
+
+- `{strText}`: the file text content
+- `{caption}`: the file name to be displayed on hover
+- `{previewId}`: the previewed file container identifier
+
+```html
+<div class="file-preview-frame" id="{previewId}">
+    <div class="file-preview-text" title="{caption}">
+        {strText}
+    </div>
+</div>
+```
+
+#### previewOtherTemplate
+_string_ the template markup for previewing all other files within the preview container. Defaults to `OTHER_TEMPLATE` as shown below.
+The following variables will be parsed:
+
+- `{caption}`: the file name to be displayed 
+- `{previewId}`: the previewed file container identifier
+
+```html
+<div class="file-preview-frame" id="{previewId}">
+   <div class="file-preview-other">
+       <h2><i class="glyphicon glyphicon-file"></i></h2>
+       {caption}
+   </div>
+</div>
+```
+
 #### browseLabel
 _string_ the label to display for the file picker/browse button. Defaults to `Browse &hellip;`.
+
 
 #### browseIcon
 _string_ the icon to display before the label for the file picker/browse button. Defaults to `<i class="glyphicon glyphicon-folder-open"></i> &nbsp;`.
@@ -254,6 +333,24 @@ _string_ the CSS class for the file upload button. Defaults to `btn btn-default`
 
 #### uploadUrl
 _string_ the URL for the upload processing action (typically for ajax based processing). Defaults to `null`. If this is not set or `null`, then the upload button action will default to form submission.
+
+#### maxFileSize
+_float_ the maximum file size for upload in KB. 
+
+#### msgSizeTooLarge
+_string_ the message to be displayed when the file size exceeds maximum size. Defaults to:
+
+```
+File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>. Please retry your upload!
+```
+where:
+
+`{name}`: will be replaced by the file name being uploaded
+`{size}`: will be replaced by the uploaded file size
+`{maxSize}`: will be replaced by the `maxFileSize` parameter.
+
+#### msgErrorClass
+_string_ the css class for the error message to be displayed in the preview window when the file size exceeds `maxSize`. Defaults to `file-error-message`.
 
 #### msgLoading
 _string_ the message displayed when the files are getting read and loaded for preview. Defaults to `Loading &hellip;`.
@@ -305,12 +402,45 @@ _string_ the identifier for the element containing the preview progress status (
 The plugin supports these events:
 
 #### fileclear
-This event is triggered when the file input is cleared with the remove button.
+This event is triggered when the file input the remove button is pressed for clearing the file preview.
 
 **Example:**
 ```js
 $('#input-id').on('fileclear', function(event) {
     console.log("fileclear");
+});
+```
+
+#### filecleared
+This event is triggered after the files in the preview are cleared.
+
+**Example:**
+```js
+$('#input-id').on('filecleared', function(event) {
+    console.log("filecleared");
+});
+```
+
+#### fileerror
+This event is triggered when a client validation error is encountered for an uploaded file. 
+Additional parameters available are: `file` (FileReader instance) and `previewId` the 
+identifier for the preview file container.
+
+**Example:**
+```js
+$('#input-id').on('fileerror', function(event, file, previewId) {
+    console.log("fileerror");
+});
+```
+
+#### fileloaded
+This event is triggered after a file is loaded in the preview. Additional parameters available 
+are: `file` (FileReader instance) and `previewId` the identifier for the preview file container.
+
+**Example:**
+```js
+$('#input-id').on('fileloaded', function(event, file, previewId) {
+    console.log("fileloaded");
 });
 ```
 
@@ -326,6 +456,16 @@ $('#input-id').on('filereset', function(event) {
 
 ### Plugin Methods
 The plugin supports these methods:
+
+#### disable
+Disable the file input.
+```js
+$('#input-id').fileinput('disable');
+
+#### enable
+Enable the file input.
+```js
+$('#input-id').fileinput('enable');
 
 #### reset
 Reset the file input.

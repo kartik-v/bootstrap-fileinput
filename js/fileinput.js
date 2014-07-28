@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 1.9.0
+ * @version 2.0.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. This plugin is inspired by the blog article at
@@ -53,6 +53,23 @@
         '  </div>\n' +
         '</div>\n';
 
+    var IMAGE_TEMPLATE = '<div class="file-preview-frame" id="{previewId}">\n' +
+        '   {content}\n' +
+        '</div>\n';
+
+    var TEXT_TEMPLATE = '<div class="file-preview-frame" id="{previewId}">\n' +
+        '   <div class="file-preview-text" title="{caption}">\n' +
+        '       {strText}\n' +
+        '   </div>\n' +
+        '</div>\n';
+
+    var OTHER_TEMPLATE = '<div class="file-preview-frame" id="{previewId}">\n' +
+        '   <div class="file-preview-other">\n' +
+        '       <h2><i class="glyphicon glyphicon-file"></i></h2>\n' +
+        '           {caption}\n' +
+        '   </div>\n' +
+        '</div>';
+
     var isEmpty = function (value, trim) {
         return value === null || value === undefined || value == []
             || value === '' || trim && $.trim(value) === '';
@@ -87,6 +104,10 @@
             var self = this;
             self.showCaption = options.showCaption;
             self.showPreview = options.showPreview;
+            self.maxFileSize = options.maxFileSize;
+            self.msgSizeTooLarge = options.msgSizeTooLarge;
+            self.msgErrorClass = options.msgErrorClass;
+            self.initialDelimiter = options.initialDelimiter;
             self.initialPreview = options.initialPreview;
             self.initialCaption = options.initialCaption;
             self.overwriteInitial = options.overwriteInitial;
@@ -102,6 +123,10 @@
                 self.mainTemplate = options.mainTemplate;
             }
             self.previewTemplate = (self.showPreview) ? options.previewTemplate : '';
+            self.previewGenericTemplate = options.previewGenericTemplate;
+            self.previewImageTemplate = options.previewImageTemplate;
+            self.previewTextTemplate = options.previewTextTemplate;
+            self.previewOtherTemplate = options.previewOtherTemplate;
             self.captionTemplate = options.captionTemplate;
             self.browseLabel = options.browseLabel;
             self.browseIcon = options.browseIcon;
@@ -147,7 +172,7 @@
             var self = this;
             self.$element.on('change', $.proxy(self.change, self));
             $(self.$element[0].form).on('reset', $.proxy(self.reset, self));
-            self.$container.find('.fileinput-remove').on('click', $.proxy(self.clear, self));
+            self.$container.on('click', '.fileinput-remove:not([disabled])', $.proxy(self.clear, self));
         },
         refresh: function (options) {
             var self = this, params = (arguments.length) ? $.extend(self.options, options) : self.options;
@@ -156,19 +181,27 @@
         initPreview: function () {
             var self = this, html = '',
                 content = self.initialPreview,
-                len = self.initialPreview.length,
-                cap = self.initialCaption.length,
-                caption = (cap > 0) ? self.initialCaption : len + ' file selected';
+                len = isArray(content) ? content.length : (content.length > 0 ? content.split(self.initialDelimiter).length : 0),
+                cap = self.initialCaption.length, previewId = "preview-" + uniqId(),
+                caption = (cap > 0) ? self.initialCaption : self.msgSelected.replace("{n}", len);
             if (isArray(content) && len > 0) {
                 for (var i = 0; i < len; i++) {
-                    html += '<div class="file-preview-frame">' + content[i] + "</div>\n";
+                    previewId += '-' + i;
+                    html += self.previewGenericTemplate.replace("{previewId}", previewId).replace("{content}", content[i]);
                 }
                 if (len > 1 && cap == 0) {
-                    caption = len + ' files selected';
+                    caption = self.msgSelected.replace("{n}", len);
                 }
             }
             else if (len > 0) {
-                html = '<div class="file-preview-frame">' + content + '</div>';
+                var fileList = content.split(self.initialDelimiter);
+                for (var i = 0; i < len; i++) {
+                    previewId += '-' + i;
+                    html += self.previewGenericTemplate.replace("{previewId}", previewId).replace("{content}", fileList[i]);
+                }
+                if (len > 1 && cap == 0) {
+                    caption = self.msgSelected.replace("{n}", len);
+                }
             }
             else if (cap > 0) {
                 self.$caption.html(caption);
@@ -179,6 +212,7 @@
             else {
                 return;
             }
+            self.initialNbPreview = len;
             self.initialPreviewContent = html;
             self.$preview.html(html);
             self.$caption.html(caption);
@@ -191,6 +225,7 @@
                 e.preventDefault();
             }
             self.$element.val('');
+            self.$previewContainer.find('.kv-fileinput-error').fadeOut('slow');
             if (e !== false) {
                 self.$element.trigger('change');
                 self.$element.trigger('fileclear');
@@ -202,7 +237,7 @@
             }
             else {
                 self.$preview.html('');
-                var cap = (!self.overwriteInitial && self.initialCaption.length > 0) ? 
+                var cap = (!self.overwriteInitial && self.initialCaption.length > 0) ?
                     self.original.caption : '';
                 self.$caption.html(cap);
                 self.$captionContainer.attr('title', '');
@@ -211,6 +246,7 @@
             if (self.overwriteInitial) {
                 self.$captionContainer.find('.kv-caption-icon').hide();
             }
+            self.$element.trigger('filecleared');
         },
         reset: function (e) {
             var self = this;
@@ -223,14 +259,28 @@
                 self.$container.removeClass('file-input-new');
             }
         },
+        disable: function (e) {
+            var self = this;
+            self.isDisabled = true;
+            self.$element.attr('disabled', 'disabled');
+            self.$container.find(".kv-fileinput-caption").addClass("file-caption-disabled");
+            self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload").attr("disabled", true);
+        },
+        enable: function (e) {
+            var self = this;
+            self.isDisabled = false;
+            self.$element.removeAttr('disabled');
+            self.$container.find(".kv-fileinput-caption").removeClass("file-caption-disabled");
+            self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload").removeAttr("disabled");
+        },
         change: function (e) {
             var self = this;
-            var elem = self.$element, files = elem.get(0).files, numFiles = files ? files.length : 1,
-                label = elem.val().replace(/\\/g, '/').replace(/.*\//, ''), $preview = self.$preview,
+            var $el = self.$element, files = $el.get(0).files, numFiles = files ? (files.length + self.initialNbPreview) : 1,
+                label = $el.val().replace(/\\/g, '/').replace(/.*\//, ''), $preview = self.$preview,
                 $container = self.$previewContainer, $status = self.$previewStatus, msgLoading = self.msgLoading,
                 msgProgress = self.msgProgress, msgSelected = self.msgSelected, tfiles,
                 fileType = self.previewFileType, wrapLen = parseInt(self.wrapTextLength),
-                wrapInd = self.wrapIndicator;
+                wrapInd = self.wrapIndicator, previewId = "preview-" + uniqId(), isError = false;
 
             if (e.target.files === undefined) {
                 tfiles = e.target && e.target.value ? [
@@ -250,9 +300,24 @@
             var total = tfiles.length;
             for (var i = 0; i < total; i++) {
                 (function (file) {
-                    var caption = file.name;
-                    var isImg = isImageFile(file.type, file.name);
-                    var isTxt = isTextFile(file.type, file.name);
+                    previewId += "-" + i;
+                    var caption = file.name, isImg = isImageFile(file.type, file.name), isTxt = isTextFile(file.type, file.name),
+                        fileSize = (file.size ? file.size : 0) / 1000;
+                    fileSize = fileSize.toFixed(2);
+                    self.$previewContainer.find('.kv-fileinput-error').remove();
+                    if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
+                        var msg = self.msgSizeTooLarge.replace('{name}', caption).replace('{size}', fileSize).replace('{maxSize}', self.maxFileSize),
+                            errorMsg = '<div class="kv-fileinput-error ' + self.msgErrorClass + '">' + msg + '</div>';
+                        self.$element.val('');
+                        self.$previewContainer.append(errorMsg);
+                        var $error = self.$previewContainer.find('.kv-fileinput-error');
+                        $error.hide();
+                        $error.fadeIn(800);
+                        self.$element.trigger('fileerror', [file, previewId]);
+                        isError = true;
+                        return;
+                    }
+
                     if ($preview.length > 0 && (fileType == "any" ? (isImg || isTxt) : (fileType == "text" ? isTxt : isImg)) && typeof FileReader !== "undefined") {
                         var reader = new FileReader();
                         $status.html(msgLoading);
@@ -267,16 +332,26 @@
                                     wrapInd = wrapInd.replace("{title}", caption).replace("{dialog}", "$('#" + id + "').modal('show')");
                                     strText = strText.substring(0, (wrapLen - 1)) + wrapInd;
                                 }
-                                content = '<div class="file-preview-frame"><div class="file-preview-text" title="' + caption + '">' + strText + '</div></div>' + modal;
+                                content = self.previewTextTemplate.replace("{previewId}", previewId).replace("{caption}", caption).replace("{strText}", strText) + modal;
                             }
                             else {
-                                content = '<div class="file-preview-frame"><img src="' + theFile.target.result + '" class="file-preview-image" title="' + caption + '" alt="' + caption + '"></div>';
+                                content = self.previewImageTemplate.replace("{previewId}", previewId).replace("{content}", '<img src="' + theFile.target.result + '" class="file-preview-image" title="' + caption + '" alt="' + caption + '">');
                             }
                             $preview.append("\n" + content);
+
+                            // we check here if the picture is not too wide. If it's the case, we
+                            // scale the picture on the width and not on the height.
+                            var $image = $preview.find("#" + previewId + " img");
+                            if ($image.width() > $preview.width()) {
+                                $image.width("100%");
+                                $image.height("auto");
+                            }
+
                             if (i >= total - 1) {
                                 $container.removeClass('loading');
                                 $status.html('');
                             }
+                            $el.trigger('fileloaded', [file, previewId]);
                         };
                         reader.onprogress = function (data) {
                             if (data.lengthComputable) {
@@ -293,16 +368,19 @@
                         }
                     }
                     else {
-                        $preview.append("\n" + '<div class="file-preview-frame"><div class="file-preview-other"><h2><i class="glyphicon glyphicon-file"></i></h2>' + caption + '</div></div>');
+                        $preview.append("\n" + self.previewOtherTemplate.replace("{previewId}", previewId).replace("{caption}", caption));
+                        $el.trigger('fileloaded', [file, previewId]);
                     }
                 })(tfiles[i]);
             }
-
             var log = numFiles > 1 ? msgSelected.replace('{n}', numFiles) : label;
+            if (isError) {
+                log = numFiles > 1 ? msgSelected.replace('{n}', numFiles - 1) : '&nbsp;';
+            }
             self.$caption.html(log);
             self.$captionContainer.attr('title', log);
             self.$container.removeClass('file-input-new');
-            elem.trigger('fileselect', [numFiles, label]);
+            $el.trigger('fileselect', [numFiles, label]);
         },
         createContainer: function () {
             var self = this;
@@ -321,7 +399,7 @@
             var self = this;
             var preview = self.previewTemplate.replace('{class}', self.previewClass);
             var css = self.isDisabled ? self.captionClass + ' file-caption-disabled' : self.captionClass;
-            var caption = self.captionTemplate.replace('{class}', css);
+            var caption = self.captionTemplate.replace('{class}', css + ' kv-fileinput-caption');
             return self.mainTemplate.replace('{class}', self.mainClass).
                 replace('{preview}', preview).
                 replace('{caption}', caption).
@@ -347,7 +425,7 @@
             return '<button type="button" class="' + css + '"' + status + '>' + self.removeIcon + self.removeLabel + '</button>';
         },
         renderUpload: function () {
-            var self = this, content = '', status = '';
+            var self = this, css = self.uploadClass + ' kv-fileinput-upload', content = '', status = '';
             if (!self.showUpload) {
                 return '';
             }
@@ -355,13 +433,13 @@
                 status = ' disabled ';
             }
             if (isEmpty(self.uploadUrl)) {
-                content = '<button type="submit" class="' + self.uploadClass + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</button>';
+                content = '<button type="submit" class="' + css + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</button>';
             }
             else {
                 content = '<a href="' + self.uploadUrl + '" class="' + self.uploadClass + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</a>';
             }
             return content;
-        },
+        }
     }
 
     $.fn.fileinput = function (options) {
@@ -404,11 +482,17 @@
         previewClass: '',
         mainClass: '',
         mainTemplate: null,
+        initialDelimiter: '*$$*',
         initialPreview: '',
         initialCaption: '',
+        initialNbPreview: 0,
         initialPreviewContent: '',
         overwriteInitial: true,
         previewTemplate: PREVIEW_TEMPLATE,
+        previewGenericTemplate: IMAGE_TEMPLATE,
+        previewImageTemplate: IMAGE_TEMPLATE,
+        previewTextTemplate: TEXT_TEMPLATE,
+        previewOtherTemplate: OTHER_TEMPLATE,
         captionTemplate: CAPTION_TEMPLATE,
         browseLabel: 'Browse &hellip;',
         browseIcon: '<i class="glyphicon glyphicon-folder-open"></i> &nbsp;',
@@ -420,6 +504,9 @@
         uploadIcon: '<i class="glyphicon glyphicon-upload"></i> ',
         uploadClass: 'btn btn-default',
         uploadUrl: null,
+        maxFileSize: 0,
+        msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>. Please retry your upload!',
+        msgErrorClass: 'file-error-message',
         msgLoading: 'Loading &hellip;',
         msgProgress: 'Loaded {percent}% of {file}',
         msgSelected: '{n} files selected',
@@ -432,7 +519,7 @@
         elPreviewImage: null,
         elPreviewStatus: null
     };
-    
+
     /**
      * Convert automatically file inputs with class 'file'
      * into a bootstrap fileinput control.

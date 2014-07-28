@@ -1,8 +1,28 @@
+version 2.0.0
+=============
+**Date:** 25-Jul-2014
+
+1. (enh #12, #13, #14): Various enhancements and fixes.
+2. (enh #15): Enhanced validation of file size through `maxFileSize` configuration.
+3. New plugin events added: `fileerror`, `fileloaded`, `filecleared`.
+4. New plugin methods added: `disable`, `enable`
+5. Enhanced configurable templates for previewing image, text, and other files (and a generic template).
+6. Make caption text configurable through a new parameter `msgSelected`.
+7. Correct calculation of files selected when `initPreview` is false.
+8. Automatic scale images for preview, when images are too wide to fit in container.
+9. Added delimiter option for `initialPreview` to pass multiple content delimited as a string.
+
+### Additions
+1. (enh #9): Enhanced caption template and styling for captions to prevent overflow of long file names out of the caption container.
+
 version 1.9.0
 =============
 **Date:** 21-Jul-2014
 
 1. (enh #10): Ability to display initial caption, when initialPreview is false.
+
+### Additions
+1. (enh #9): Enhanced caption template and styling for captions to prevent overflow of long file names out of the caption container.
 
 version 1.8.0
 =============

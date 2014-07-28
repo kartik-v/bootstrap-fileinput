@@ -38,7 +38,8 @@
 	<script>
     $("#file-1").fileinput({
         initialPreview: ["<img src='Desert.jpg' class='file-preview-image'>", "<img src='Jellyfish.jpg' class='file-preview-image'>"],
-        overwriteInitial: true
+        overwriteInitial: false,
+        maxFileSize: 100
 	});
 	$("#file-3").fileinput({
 		showCaption: false,
@@ -46,8 +47,11 @@
 		fileType: "any"
 	});
     $(".btn-warning").on('click', function() {
-        $("#file-4").attr('disabled', 'disabled');
-        $('#file-4').fileinput('refresh', {browseLabel: 'Kartik'});
+        if ($('#file-4').attr('disabled')) {
+            $('#file-4').fileinput('enable');
+        } else {
+            $('#file-4').fileinput('disable');
+        }
     });
 	</script>
 </html>
