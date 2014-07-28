@@ -210,8 +210,8 @@ _string_ the initial preview caption text to be displayed. If you do not set a v
 files passed in `initialPreview`.
 
 #### initialPreviewCount
-_int_, the count of initial preview items for calculating the files selected in preview and displayed in caption (applicable when 
-`overwriteInitial` is set to `false`).
+_int_, the count of initial preview items that will be added to the files selected in preview. This is applicable when displaying
+the right caption, when `overwriteInitial` is set to `false`.
 
 #### overwriteInitial
 _boolean_ whether you wish to overwrite the initial preview content and caption setup. This defaults to `true`, whereby, any `initialPreview` content set 
