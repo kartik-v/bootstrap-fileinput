@@ -209,7 +209,7 @@ _string_ the initial preview caption text to be displayed. If you do not set a v
 `true` this will default to `"{preview-file-count} files selected"`, where `{preview-file-count}` is the count of the 
 files passed in `initialPreview`.
 
-#### initialNbPreview
+#### initialPreviewCount
 _int_, the count of initial preview items for calculating the files selected in preview and displayed in caption (applicable when 
 `overwriteInitial` is set to `false`).
 

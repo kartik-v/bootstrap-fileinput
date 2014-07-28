@@ -212,7 +212,7 @@
             else {
                 return;
             }
-            self.initialNbPreview = len;
+            self.initialPreviewCount = len;
             self.initialPreviewContent = html;
             self.$preview.html(html);
             self.$caption.html(caption);
@@ -275,7 +275,7 @@
         },
         change: function (e) {
             var self = this;
-            var $el = self.$element, files = $el.get(0).files, numFiles = files ? (files.length + self.initialNbPreview) : 1,
+            var $el = self.$element, files = $el.get(0).files, numFiles = files ? (files.length + self.initialPreviewCount) : 1,
                 label = $el.val().replace(/\\/g, '/').replace(/.*\//, ''), $preview = self.$preview,
                 $container = self.$previewContainer, $status = self.$previewStatus, msgLoading = self.msgLoading,
                 msgProgress = self.msgProgress, msgSelected = self.msgSelected, tfiles,
@@ -485,7 +485,7 @@
         initialDelimiter: '*$$*',
         initialPreview: '',
         initialCaption: '',
-        initialNbPreview: 0,
+        initialPreviewCount: 0,
         initialPreviewContent: '',
         overwriteInitial: true,
         previewTemplate: PREVIEW_TEMPLATE,
