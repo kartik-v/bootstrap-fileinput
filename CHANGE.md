@@ -1,3 +1,9 @@
+version 1.9.0
+=============
+**Date:** 21-Jul-2014
+
+1. (enh #10): Ability to display initial caption, when initialPreview is false.
+
 version 1.8.0
 =============
 **Date:** 15-Jul-2014
