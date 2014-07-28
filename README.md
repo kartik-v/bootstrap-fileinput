@@ -36,7 +36,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 
 ## Release 2.0.0 Features
 
-1. (enh #12, #13): Various enhancements and fixes.
+1. (enh #12, #13, #14): Various enhancements and fixes.
 2. (enh #15): Enhanced validation of file size through `maxFileSize` configuration.
 3. New plugin events added: `fileerror`, `fileloaded`, `filecleared`.
 4. New plugin methods added: `disable`, `enable`
