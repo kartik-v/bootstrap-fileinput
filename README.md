@@ -174,7 +174,8 @@ _string_, the delimiter to be used to allow passing multiple content delimited a
 
 #### initialPreview
 _string | array_ the initial preview content to be displayed. You can pass the minimal HTML markup for displaying your image, text, or file. 
-If set as a string, this will display a single file in the initial preview. If set as an array, it will display all files in the array as an 
+If set as a string, this will display a single file in the initial preview if there is no delimiter. You can set a delimiter (as defined 
+in `initialDelimiter`) to show multiple files in initial preview.  If set as an array, it will display all files in the array as an 
 initial preview (useful for multiple file upload scenarios).
 
 The following CSS classes will need to be added for displaying each file type as per the plugin style theme:
@@ -204,14 +205,14 @@ initialPreview: "<div class='file-preview-text'>" +
     "Filename.xlsx" + "</div>"
 ```
 
+#### initialPreviewCount
+_int_, the count of initial preview items that will be added to the count of files selected in preview. This is applicable when displaying
+the right caption, when `overwriteInitial` is set to `false`.
+
 #### initialCaption
 _string_ the initial preview caption text to be displayed. If you do not set a value here and `initialPreview` is set to 
 `true` this will default to `"{preview-file-count} files selected"`, where `{preview-file-count}` is the count of the 
 files passed in `initialPreview`.
-
-#### initialPreviewCount
-_int_, the count of initial preview items that will be added to the files selected in preview. This is applicable when displaying
-the right caption, when `overwriteInitial` is set to `false`.
 
 #### overwriteInitial
 _boolean_ whether you wish to overwrite the initial preview content and caption setup. This defaults to `true`, whereby, any `initialPreview` content set 
@@ -335,7 +336,7 @@ _string_ the CSS class for the file upload button. Defaults to `btn btn-default`
 _string_ the URL for the upload processing action (typically for ajax based processing). Defaults to `null`. If this is not set or `null`, then the upload button action will default to form submission.
 
 #### maxFileSize
-_float_ the maximum file size for upload in KB. 
+_float_ the maximum file size for upload in KB.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
 
 #### msgSizeTooLarge
 _string_ the message to be displayed when the file size exceeds maximum size. Defaults to:
