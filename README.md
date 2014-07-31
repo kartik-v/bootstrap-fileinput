@@ -460,35 +460,30 @@ The plugin supports these methods:
 
 #### disable
 Disable the file input.
-
 ```js
 $('#input-id').fileinput('disable');
 ```
 
 #### enable
 Enable the file input.
-
 ```js
 $('#input-id').fileinput('enable');
 ```
 
 #### reset
 Reset the file input.
-
 ```js
 $('#input-id').fileinput('reset');
 ```
 
 #### clear
 Clear the file input.
-
 ```js
 $('#input-id').fileinput('clear');
 ```
 
 #### refresh
 Refreshes the file input plugin based on options provided. You can supply an array of plugin options as a parameter.
-
 ```js
 // example 1 (disable at runtime)
 $('#input-id').attr('disabled', 'disabled');
