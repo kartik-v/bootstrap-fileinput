@@ -1,7 +1,7 @@
 bootstrap-fileinput
 ====================
 
-An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and text, multiple selection, and more. This plugin is inspired by [this blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). The plugin enhances these concepts and simplifies the widget initialization with simple HTML markup on a file input. It also offers support for multiple file preview and previewing both images and text types.
+An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and text, multiple selection, and more. This plugin is inspired by [this blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). The plugin enhances these concepts and simplifies the widget initialization with simple HTML markup on a file input. It also ofileclearers support for multiple file preview and previewing both images and text types.
 
 ![File Input Screenshot](https://lh6.googleusercontent.com/-2niyujIaat0/UyqzA_78OQI/AAAAAAAAADE/f6IJkr11uA8/w666-h418-no/fileinput-screenshot.jpg)
 
@@ -30,7 +30,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 9. For text file previews, autowrap the text to the thumbnail width, and show a wrap indicator link to display complete text on hover. You can customize the wrap indicator (which defaults to &hellip;).
 10. Customise the messages for preview, progress, and files selected.
 11. Upload action defaults to form submit. Supports an upload route/server action parameter for custom ajax based upload.
-12. Triggers JQuery events for advanced development. Events currently available are `filereset` and `fileclear`.
+12. Triggers JQuery events for advanced development. Events currently available are `filereset`, `fileclear`, `filecleared`, `fileloaded`, and `fileerror`.
 13. Disabled and readonly file input support.
 14. Size of the entire plugin is less than 6KB if gzipped. The minified assets are less than 16KB (about 13KB for the minified JS and 3KB for the minified CSS). 
 
@@ -460,28 +460,35 @@ The plugin supports these methods:
 
 #### disable
 Disable the file input.
+
 ```js
 $('#input-id').fileinput('disable');
+```
 
 #### enable
 Enable the file input.
+
 ```js
 $('#input-id').fileinput('enable');
+```
 
 #### reset
 Reset the file input.
+
 ```js
 $('#input-id').fileinput('reset');
 ```
 
 #### clear
 Clear the file input.
+
 ```js
 $('#input-id').fileinput('clear');
 ```
 
 #### refresh
 Refreshes the file input plugin based on options provided. You can supply an array of plugin options as a parameter.
+
 ```js
 // example 1 (disable at runtime)
 $('#input-id').attr('disabled', 'disabled');
@@ -490,6 +497,7 @@ $('#input-id').fileinput('refresh');
 // example 2 (modify plugin options at runtime)
 $('#input-id').fileinput('refresh', {browseLabel: 'Select...', removeLabel: 'Delete'});
 ```
+
 ## License
 
 **bootstrap-fileinput** is released under the BSD 3-Clause License. See the bundled `LICENSE.md` for details.
