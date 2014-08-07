@@ -220,7 +220,6 @@
             } else if (cap > 0) {
                 self.$caption.html(caption);
                 self.$captionContainer.attr('title', caption);
-                self.$captionContainer.find('.kv-caption-icon').show();
                 return;
             } else {
                 return;
