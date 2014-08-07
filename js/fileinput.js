@@ -409,6 +409,7 @@
                 } else {
                     $preview.append("\n" + self.previewOtherTemplate.replace("{previewId}", previewId).replace("{caption}", caption));
                     $el.trigger('fileloaded', [file, previewId]);
+                    setTimeout(readFile(i + 1), 1000);
                 }
             }
             readFile(0);
