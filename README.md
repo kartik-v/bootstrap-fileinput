@@ -338,6 +338,9 @@ _string_ the URL for the upload processing action (typically for ajax based proc
 #### maxFileSize
 _float_ the maximum file size for upload in KB.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
 
+#### maxFilesCount
+_float_ the maximum number of files allowed for upload.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
+
 #### msgSizeTooLarge
 _string_ the message to be displayed when the file size exceeds maximum size. Defaults to:
 
@@ -349,6 +352,57 @@ where:
 `{name}`: will be replaced by the file name being uploaded
 `{size}`: will be replaced by the uploaded file size
 `{maxSize}`: will be replaced by the `maxFileSize` parameter.
+
+### msgFilesTooMany
+_string_ the message to be displayed when the file size exceeds maximum size. Defaults to:
+
+```
+Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>. Please retry your upload!
+```
+
+where:
+`{n}`: will be replaced by number of files selected for upload
+`{m}`: will be replaced by the allowed maximum files as set in maxFilesCount
+
+#### msgFileNotFound
+_string_ the exception message to be displayed when the file selected is not found by the FileReader. Defaults to:
+
+```
+File "{name}" not found!
+```
+where:
+
+`{name}`: will be replaced by the file name being uploaded
+
+#### msgFileNotReadable
+_string_ the exception message to be displayed when the file selected is not readable by the FileReader API. Defaults to:
+
+```
+File "{name}" is not readable.
+```
+where:
+
+`{name}`: will be replaced by the file name being uploaded
+
+#### msgFilePreviewAborted
+_string_ the exception message to be displayed when the file preview upload is aborted. Defaults to:
+
+```
+File preview aborted for "{name}".
+```
+where:
+
+`{name}`: will be replaced by the file name being uploaded
+
+#### msgFilePreviewError
+_string_ the exception message to be displayed for any other error when previewing the file. Defaults to:
+
+```
+An error occurred while reading the file "{name}".
+```
+where:
+
+`{name}`: will be replaced by the file name being uploaded
 
 #### msgErrorClass
 _string_ the css class for the error message to be displayed in the preview window when the file size exceeds `maxSize`. Defaults to `file-error-message`.

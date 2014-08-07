@@ -1,3 +1,13 @@
+version 2.1.0
+=============
+**Date:** 08-Aug-2014
+
+1. (enh #16, #17): Added exception handling for trapping FileReader API errors
+2. New configuration property added: `maxFilesCount`. Defaults to `0` which means unlimited.
+3. New configurable error messages added: `msgFilesTooMany`, `msgFileNotFound`, `msgFileNotReadable`, `msgFilePreviewAborted`, and `msgFilePreviewError`.
+4. Enhanced plugin to improve browser performance when loading and previewing multiple image files.
+5. Other minor bug fixes
+
 version 2.0.0
 =============
 **Date:** 25-Jul-2014
