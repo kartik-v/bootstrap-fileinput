@@ -342,7 +342,7 @@ where:
 `{maxSize}`: will be replaced by the `maxFileSize` parameter.
 
 ### msgFilesTooMany
-_string_ the message to be displayed when the file size exceeds maximum size. Defaults to:
+_string_ the message to be displayed when the file count exceeds maximum count as set in `maxFilesCount`. Defaults to:
 
 ```
 Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>. Please retry your upload!
