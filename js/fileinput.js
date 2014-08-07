@@ -258,9 +258,6 @@
                 self.$captionContainer.attr('title', '');
                 self.$container.removeClass('file-input-new').addClass('file-input-new');
             }
-            if (self.overwriteInitial) {
-                self.$captionContainer.find('.kv-caption-icon').hide();
-            }
             self.$element.trigger('filecleared');
         },
         reset: function (e) {
