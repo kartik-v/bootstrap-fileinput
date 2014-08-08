@@ -214,7 +214,7 @@ _string_ the template used to render the caption. The following template variabl
 
 The `captionTemplate` if not set will default to:
 ```html
-<div class="form-control file-caption {class}">
+<div tabindex="-1" class="form-control file-caption {class}">
    <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>
 </div>
 ```
@@ -327,7 +327,7 @@ _string_ the URL for the upload processing action (typically for ajax based proc
 _float_ the maximum file size for upload in KB.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
 
 #### maxFilesCount
-_float_ the maximum number of files allowed for upload.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
+_float_ the maximum number of files allowed for each multiple upload. If set to `0`, it means number of files allowed is unlimited. Defaults to `0`.
 
 #### msgSizeTooLarge
 _string_ the message to be displayed when the file size exceeds maximum size. Defaults to:
@@ -337,9 +337,9 @@ File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxS
 ```
 where:
 
-`{name}`: will be replaced by the file name being uploaded
-`{size}`: will be replaced by the uploaded file size
-`{maxSize}`: will be replaced by the `maxFileSize` parameter.
+- `{name}`: will be replaced by the file name being uploaded
+- `{size}`: will be replaced by the uploaded file size
+- `{maxSize}`: will be replaced by the `maxFileSize` parameter.
 
 ### msgFilesTooMany
 _string_ the message to be displayed when the file count exceeds maximum count as set in `maxFilesCount`. Defaults to:
@@ -349,8 +349,9 @@ Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit o
 ```
 
 where:
-`{n}`: will be replaced by number of files selected for upload
-`{m}`: will be replaced by the allowed maximum files as set in maxFilesCount
+
+- `{n}`: will be replaced by number of files selected for upload
+- `{m}`: will be replaced by the allowed maximum files as set in `maxFilesCount`
 
 #### msgFileNotFound
 _string_ the exception message to be displayed when the file selected is not found by the FileReader. Defaults to:
@@ -360,7 +361,7 @@ File "{name}" not found!
 ```
 where:
 
-`{name}`: will be replaced by the file name being uploaded
+- `{name}`: will be replaced by the file name being uploaded
 
 #### msgFileNotReadable
 _string_ the exception message to be displayed when the file selected is not readable by the FileReader API. Defaults to:
@@ -370,7 +371,7 @@ File "{name}" is not readable.
 ```
 where:
 
-`{name}`: will be replaced by the file name being uploaded
+- `{name}`: will be replaced by the file name being uploaded
 
 #### msgFilePreviewAborted
 _string_ the exception message to be displayed when the file preview upload is aborted. Defaults to:
@@ -380,7 +381,7 @@ File preview aborted for "{name}".
 ```
 where:
 
-`{name}`: will be replaced by the file name being uploaded
+- `{name}`: will be replaced by the file name being uploaded
 
 #### msgFilePreviewError
 _string_ the exception message to be displayed for any other error when previewing the file. Defaults to:
@@ -390,7 +391,7 @@ An error occurred while reading the file "{name}".
 ```
 where:
 
-`{name}`: will be replaced by the file name being uploaded
+- `{name}`: will be replaced by the file name being uploaded
 
 #### msgErrorClass
 _string_ the css class for the error message to be displayed in the preview window when the file size exceeds `maxSize`. Defaults to `file-error-message`.
