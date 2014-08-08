@@ -1,7 +1,7 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package bootstrap-fileinput
- * @version 2.1.0
+ * @version 2.0.0
  *
  * File input styling for Bootstrap 3.0
  * Built for Yii Framework 2.0
@@ -35,11 +35,12 @@
     right: 0;
     min-width: 100%;
     min-height: 100%;
-    font-size: 999px;
+    font-size: 30px;
     text-align: right;
+    opacity: 0;
     filter: alpha(opacity=0);
     opacity: 0;
-    background: red;
+    background: none repeat scroll 0 0 transparent;
     cursor: inherit;
     display: block;
 }
