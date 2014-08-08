@@ -257,10 +257,10 @@
                 self.$captionContainer.attr('title', '');
                 self.$container.removeClass('file-input-new').addClass('file-input-new');
             }
-            if (self.overwriteInitial) {
-                self.$captionContainer.find('.kv-caption-icon').hide();
-            }
+            self.hideFileIcon();
+            self.$btnFile.focus();
             self.$element.trigger('filecleared');
+            $.scrollTo('#' + self.$element.attr('id'));
         },
         reset: function (e) {
             var self = this;
@@ -286,6 +286,14 @@
             self.$element.removeAttr('disabled');
             self.$container.find(".kv-fileinput-caption").removeClass("file-caption-disabled");
             self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload").removeAttr("disabled");
+        },
+        hideFileIcon: function() {
+            if (this.overwriteInitial) {
+                this.$captionContainer.find('.kv-caption-icon').hide();
+            }
+        },
+        showFileIcon: function() {
+            this.$captionContainer.find('.kv-caption-icon').show();
         },
         resetErrors: function (fade) {
             var self = this, $error = self.$previewContainer.find('.kv-fileinput-error');
@@ -417,6 +425,7 @@
             var self = this, $el = self.$element, label = $el.val().replace(/\\/g, '/').replace(/.*\//, ''),
                 total = 0, $preview = self.$preview, files = $el.get(0).files, msgSelected = self.msgSelected,
                 numFiles = !isEmpty(files) ? (files.length + self.initialPreviewCount) : 1, tfiles;
+            self.hideFileIcon();
             if (e.target.files === undefined) {
                 tfiles = e.target && e.target.value ? [
                     {name: e.target.value.replace(/^.+\\/, '')}
@@ -439,7 +448,7 @@
                 self.$container.removeClass('file-input-new');
                 return;
             }
-            self.$captionContainer.find('.kv-caption-icon').show();
+            self.showFileIcon();
             self.readFiles(files);
             self.reader = null;
             var log = numFiles > 1 ? msgSelected.replace('{n}', numFiles) : label;
@@ -451,18 +460,23 @@
             self.$container.removeClass('file-input-new');
             $el.trigger('fileselect', [numFiles, label]);
         },
+        initBrowse: function($container) {
+            var self = this;
+            self.$btnFile = $container.find('.btn-file');
+            self.$btnFile.append(self.$element);
+        },
         createContainer: function () {
             var self = this;
-            var container = $(document.createElement("div")).attr({"class": 'file-input file-input-new'}).html(self.renderMain());
-            self.$element.before(container);
-            container.find('.btn-file').append(self.$element);
-            return container;
+            var $container = $(document.createElement("div")).attr({"class": 'file-input file-input-new', tabindex: 10000}).html(self.renderMain());
+            self.$element.before($container);
+            self.initBrowse($container);
+            return $container;
         },
         refreshContainer: function () {
-            var self = this;
-            self.$container.before(self.$element);
-            self.$container.html(self.renderMain());
-            self.$container.find('.btn-file').append(self.$element);
+            var self = this, $container = self.$container;
+            $container.before(self.$element);
+            $container.html(self.renderMain());
+            self.initBrowse($container);
         },
         renderMain: function () {
             var self = this;
