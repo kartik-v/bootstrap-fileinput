@@ -616,7 +616,7 @@
      * into a bootstrap fileinput control.
      */
     $(document).ready(function () {
-        var $input = $('input.file[type=file]'), count = Object.keys($input).length;
+        var $input = $('input.file[type=file]'), count = $input.attr('type') != null ? $input.length : 0;
         if (count > 0) {
             $input.fileinput();
         }
