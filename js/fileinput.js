@@ -35,7 +35,7 @@
             '   <div class="clearfix"></div>' +
             '</div>',
 
-        CAPTION_TEMPLATE = '<div class="form-control file-caption {class}">\n' +
+        CAPTION_TEMPLATE = '<div tabindex="-1" class="form-control file-caption {class}">\n' +
             '   <span class="glyphicon glyphicon-file kv-caption-icon"></span><div class="file-caption-name"></div>\n' +
             '</div>',
 
@@ -187,6 +187,10 @@
         listen: function () {
             var self = this;
             self.$element.on('change', $.proxy(self.change, self));
+            self.$element.on('focus', function(ev) {
+                ev.preventDefault();
+                self.$captionContainer.focus();
+            });
             $(self.$element[0].form).on('reset', $.proxy(self.reset, self));
             self.$container.on('click', '.fileinput-remove:not([disabled])', $.proxy(self.clear, self));
         },
@@ -258,9 +262,8 @@
                 self.$container.removeClass('file-input-new').addClass('file-input-new');
             }
             self.hideFileIcon();
-            self.$btnFile.focus();
             self.$element.trigger('filecleared');
-            $.scrollTo('#' + self.$element.attr('id'));
+            self.$captionContainer.focus();
         },
         reset: function (e) {
             var self = this;
