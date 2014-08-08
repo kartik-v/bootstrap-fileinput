@@ -327,7 +327,7 @@ _string_ the URL for the upload processing action (typically for ajax based proc
 _float_ the maximum file size for upload in KB.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
 
 #### maxFilesCount
-_float_ the maximum number of files allowed for upload.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
+_float_ the maximum number of files allowed for each multiple upload. If set to `0`, it means number of files allowed is unlimited. Defaults to `0`.
 
 #### msgSizeTooLarge
 _string_ the message to be displayed when the file size exceeds maximum size. Defaults to:
