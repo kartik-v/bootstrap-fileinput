@@ -187,8 +187,7 @@
         listen: function () {
             var self = this;
             self.$element.on('change', $.proxy(self.change, self));
-            self.$element.on('focus', function(ev) {
-                ev.preventDefault();
+            self.$btnFile.on('click', function(ev) {
                 self.$captionContainer.focus();
             });
             $(self.$element[0].form).on('reset', $.proxy(self.reset, self));
