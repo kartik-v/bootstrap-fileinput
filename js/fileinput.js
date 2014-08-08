@@ -257,6 +257,9 @@
                 self.$captionContainer.attr('title', '');
                 self.$container.removeClass('file-input-new').addClass('file-input-new');
             }
+            if (self.overwriteInitial) {
+                self.$captionContainer.find('.kv-caption-icon').hide();
+            }
             self.$element.trigger('filecleared');
         },
         reset: function (e) {
@@ -436,6 +439,7 @@
                 self.$container.removeClass('file-input-new');
                 return;
             }
+            self.$captionContainer.find('.kv-caption-icon').show();
             self.readFiles(files);
             self.reader = null;
             var log = numFiles > 1 ? msgSelected.replace('{n}', numFiles) : label;
