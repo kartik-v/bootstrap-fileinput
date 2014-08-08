@@ -6,7 +6,7 @@ version 2.1.0
 2. New configuration property added: `maxFilesCount`. Defaults to `0` which means unlimited.
 3. New configurable error messages added: `msgFilesTooMany`, `msgFileNotFound`, `msgFileNotReadable`, `msgFilePreviewAborted`, and `msgFilePreviewError`.
 4. Enhanced plugin to improve browser performance when loading and previewing multiple image files.
-5. Better validation for older browsers (not supporting HTML5) to degrade to normal file input.
+5. (enh #18): Better validation for older browsers (not supporting HTML5) to degrade to normal file input.
 6. Other minor bug fixes.
 
 version 2.0.0
