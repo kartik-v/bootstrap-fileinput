@@ -214,7 +214,7 @@ _string_ the template used to render the caption. The following template variabl
 
 The `captionTemplate` if not set will default to:
 ```html
-<div class="form-control file-caption {class}">
+<div tabindex="-1" class="form-control file-caption {class}">
    <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>
 </div>
 ```
