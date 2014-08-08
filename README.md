@@ -351,7 +351,7 @@ Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit o
 where:
 
 - `{n}`: will be replaced by number of files selected for upload
-- `{m}`: will be replaced by the allowed maximum files as set in maxFilesCount
+- `{m}`: will be replaced by the allowed maximum files as set in `maxFilesCount`
 
 #### msgFileNotFound
 _string_ the exception message to be displayed when the file selected is not found by the FileReader. Defaults to:
