@@ -187,7 +187,7 @@
         listen: function () {
             var self = this;
             self.$element.on('change', $.proxy(self.change, self));
-            self.$btnFile.on('click', function(ev) {
+            self.$btnFile.on('click', function (ev) {
                 self.$captionContainer.focus();
             });
             $(self.$element[0].form).on('reset', $.proxy(self.reset, self));
@@ -289,12 +289,12 @@
             self.$container.find(".kv-fileinput-caption").removeClass("file-caption-disabled");
             self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload").removeAttr("disabled");
         },
-        hideFileIcon: function() {
+        hideFileIcon: function () {
             if (this.overwriteInitial) {
                 this.$captionContainer.find('.kv-caption-icon').hide();
             }
         },
-        showFileIcon: function() {
+        showFileIcon: function () {
             this.$captionContainer.find('.kv-caption-icon').show();
         },
         resetErrors: function (fade) {
@@ -305,7 +305,7 @@
                 $error.remove();
             }
         },
-        showError: function (msg, file, previewId) {
+        showError: function (msg, file, previewId, index) {
             var self = this, $error = self.$previewContainer.find('.kv-fileinput-error');
             if (isEmpty($error.attr('class'))) {
                 self.$previewContainer.append(
@@ -316,7 +316,7 @@
             }
             $error.hide();
             $error.fadeIn(800);
-            self.$element.trigger('fileerror', [file, previewId]);
+            self.$element.trigger('fileerror', [file, previewId, index]);
             self.$element.val('');
             return true;
         },
@@ -360,25 +360,25 @@
                 $container = self.$previewContainer, $status = self.$previewStatus, msgLoading = self.msgLoading,
                 msgProgress = self.msgProgress, msgSelected = self.msgSelected, fileType = self.previewFileType,
                 wrapLen = parseInt(self.wrapTextLength), wrapInd = self.wrapIndicator,
-                previewId = "preview-" + uniqId();
+                previewInitId = "preview-" + uniqId(), numFiles = files.length;
 
             function readFile(i) {
-                if (i >= files.length) {
+                if (i >= numFiles) {
                     $container.removeClass('loading');
                     $status.html('');
                     return;
                 }
-                previewId += "-" + i;
+                var previewId = previewInitId + "-" + i;
                 var file = files[i], caption = file.name, isImg = isImageFile(file.type, file.name),
                     isTxt = isTextFile(file.type, file.name), fileSize = (file.size ? file.size : 0) / 1000;
                 fileSize = fileSize.toFixed(2);
                 if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
                     var msg = self.msgSizeTooLarge.replace('{name}', caption).replace('{size}', fileSize).replace('{maxSize}', self.maxFileSize);
-                    self.isError = self.showError(msg, file, previewId);
+                    self.isError = self.showError(msg, file, previewId, i);
                     return;
                 }
                 if ($preview.length > 0 && (fileType == "any" ? (isImg || isTxt) : (fileType == "text" ? isTxt : isImg)) && typeof FileReader !== "undefined") {
-                    $status.html(msgLoading);
+                    $status.html(msgLoading.replace('{index}', i + 1).replace('{files}', numFiles));
                     $container.addClass('loading');
                     reader.onerror = function (evt) {
                         self.errorHandler(evt, caption);
@@ -400,14 +400,22 @@
                         $preview.append("\n" + content);
                     };
                     reader.onloadend = function (e) {
-                        setTimeout(readFile(i + 1), 1000);
-                        $el.trigger('fileloaded', [file, previewId]);
+                        var msg = msgProgress.replace('{index}', i + 1).replace('{files}', numFiles).replace('{percent}', 100).replace('{file}', file.name);
+                        setTimeout(function () {
+                            $status.html(msg);
+                        }, 1000);
+                        setTimeout(function () {
+                            readFile(i + 1)
+                        }, 1500);
+                        $el.trigger('fileloaded', [file, previewId, i]);
                     };
                     reader.onprogress = function (data) {
                         if (data.lengthComputable) {
                             var progress = parseInt(((data.loaded / data.total) * 100), 10);
-                            var msg = msgProgress.replace('{percent}', progress).replace('{file}', file.name);
-                            $status.html(msg);
+                            var msg = msgProgress.replace('{index}', i + 1).replace('{files}', numFiles).replace('{percent}', progress).replace('{file}', file.name);
+                            setTimeout(function () {
+                                $status.html(msg);
+                            }, 1000);
                         }
                     };
                     if (isTxt) {
@@ -417,10 +425,11 @@
                     }
                 } else {
                     $preview.append("\n" + self.previewOtherTemplate.replace("{previewId}", previewId).replace("{caption}", caption));
-                    $el.trigger('fileloaded', [file, previewId]);
+                    $el.trigger('fileloaded', [file, previewId, i]);
                     setTimeout(readFile(i + 1), 1000);
                 }
             }
+
             readFile(0);
         },
         change: function (e) {
@@ -446,7 +455,7 @@
             var total = tfiles.length;
             if (self.maxFilesCount > 0 && total > self.maxFilesCount) {
                 var msg = self.msgFilesTooMany.replace('{m}', self.maxFilesCount).replace('{n}', total);
-                self.isError = self.showError(msg, null, null);
+                self.isError = self.showError(msg, null, null, null);
                 self.$container.removeClass('file-input-new');
                 return;
             }
@@ -462,7 +471,7 @@
             self.$container.removeClass('file-input-new');
             $el.trigger('fileselect', [numFiles, label]);
         },
-        initBrowse: function($container) {
+        initBrowse: function ($container) {
             var self = this;
             self.$btnFile = $container.find('.btn-file');
             self.$btnFile.append(self.$element);
@@ -597,8 +606,8 @@
         msgFilePreviewAborted: 'File preview aborted for "{name}".',
         msgFilePreviewError: 'An error occurred while reading the file "{name}".',
         msgErrorClass: 'file-error-message',
-        msgLoading: 'Loading &hellip;',
-        msgProgress: 'Loaded {percent}% of {file}',
+        msgLoading: 'Loading  file {index} of {files} &hellip;',
+        msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
         msgSelected: '{n} files selected',
         previewFileType: 'image',
         wrapTextLength: 250,

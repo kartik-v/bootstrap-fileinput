@@ -1,13 +1,16 @@
 version 2.1.0
 =============
-**Date:** 08-Aug-2014
+**Date:** 11-Aug-2014
 
 1. (enh #16, #17): Added exception handling for trapping FileReader API errors
 2. New configuration property added: `maxFilesCount`. Defaults to `0` which means unlimited.
 3. New configurable error messages added: `msgFilesTooMany`, `msgFileNotFound`, `msgFileNotReadable`, `msgFilePreviewAborted`, and `msgFilePreviewError`.
 4. Enhanced plugin to improve browser performance when loading and previewing multiple image files.
 5. (enh #18): Better validation for older browsers (not supporting HTML5) to degrade to normal file input.
-6. Other minor bug fixes.
+6. (enh #20): Fix `fileloaded` event to increment `previewId` and enhance to return file index.
+7. (enh #21): Enhance multiple file upload and preview performance using setTimeout.
+8. (enh #21): Enhance loading progress message and message templates for multiple file uploads.
+9. Other minor bug fixes.
 
 version 2.0.0
 =============

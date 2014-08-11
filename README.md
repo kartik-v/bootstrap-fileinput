@@ -32,7 +32,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 11. Upload action defaults to form submit. Supports an upload route/server action parameter for custom ajax based upload.
 12. Triggers JQuery events for advanced development. Events currently available are `filereset`, `fileclear`, `filecleared`, `fileloaded`, and `fileerror`.
 13. Disabled and readonly file input support.
-14. Size of the entire plugin is less than 6KB if gzipped. The minified assets are less than 16KB (about 13KB for the minified JS and 3KB for the minified CSS).
+14. Size of the entire plugin is less than 6KB if gzipped. The minified assets are less than 19KB (about 16KB for the minified JS and 3KB for the minified CSS).
 
 ## Demo
 
@@ -397,13 +397,18 @@ where:
 _string_ the css class for the error message to be displayed in the preview window when the file size exceeds `maxSize`. Defaults to `file-error-message`.
 
 #### msgLoading
-_string_ the message displayed when the files are getting read and loaded for preview. Defaults to `Loading &hellip;`.
+_string_ the message displayed when the files are getting read and loaded for preview. Defaults to `Loading  file {index} of {files} &hellip;`.
+
+- `{index}`: the sequence number of the current file being loaded.
+- `{files}`: the total number of files selected for upload.
 
 #### msgProgress
-_string_ the progress message displayed as each file is loaded for preview. Defaults to `Loaded {percent}% of {file}`. The following variables will be replaced:
+_string_ the progress message displayed as each file is loaded for preview. Defaults to `Loading file {index} of {files} - {name} - {percent}% completed.`. The following variables will be replaced:
 
+- `{index}`: the sequence number of the current file being loaded.
+- `{files}`: the total number of files selected for upload.
 - `{percent}`: the percentage of file read and loaded.
-- `{file}`: the name of the file being loaded.
+- `{name}`: the name of the current file being loaded.
 
 #### msgSelected
 _string_ the progress message displayed in caption window when multiple (more than one) files are selected. Defaults to `{n} files selected`. The following variables will be replaced:
@@ -467,23 +472,31 @@ $('#input-id').on('filecleared', function(event) {
 
 #### fileerror
 This event is triggered when a client validation error is encountered for an uploaded file. 
-Additional parameters available are: `file` (FileReader instance) and `previewId` the 
-identifier for the preview file container.
+Additional parameters available are: 
+
+- `file`: the FileReader instance 
+- `previewId`: the identifier for the preview file container.
+- `index`: the zero-based sequential index of the loaded file in the preview list
 
 **Example:**
 ```js
-$('#input-id').on('fileerror', function(event, file, previewId) {
+$('#input-id').on('fileerror', function(event, file, previewId, index) {
     console.log("fileerror");
 });
 ```
 
 #### fileloaded
 This event is triggered after a file is loaded in the preview. Additional parameters available 
-are: `file` (FileReader instance) and `previewId` the identifier for the preview file container.
+are: 
+
+- `file`: the FileReader instance 
+- `previewId`: the identifier for the preview file container.
+- `index`: the zero-based sequential index of the loaded file in the preview list
+
 
 **Example:**
 ```js
-$('#input-id').on('fileloaded', function(event, file, previewId) {
+$('#input-id').on('fileloaded', function(event, file, previewId, index) {
     console.log("fileloaded");
 });
 ```
