@@ -29,10 +29,10 @@
         MAIN_TEMPLATE_2 = '{preview}\n{remove}\n{upload}\n{browse}\n',
 
         PREVIEW_TEMPLATE = '<div class="file-preview {class}">\n' +
-            '   <div class="file-preview-status text-center text-success"></div>\n' +
             '   <div class="close fileinput-remove text-right">&times;</div>\n' +
             '   <div class="file-preview-thumbnails"></div>\n' +
             '   <div class="clearfix"></div>' +
+            '   <div class="file-preview-status text-center text-success"></div>\n' +
             '</div>',
 
         CAPTION_TEMPLATE = '<div tabindex="-1" class="form-control file-caption {class}">\n' +
