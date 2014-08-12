@@ -227,10 +227,10 @@ _string_ the template used to render the preview. The following template variabl
 The `previewTemplate` if not set will default to:
 ```html
 <div class="file-preview {class}">
-   <div class="file-preview-status text-center text-success"></div>
    <div class="close fileinput-remove text-right">&times;</div>
    <div class="file-preview-thumbnails"></div>
-   <div class="clearfix"></div> +
+   <div class="clearfix"></div>
+   <div class="file-preview-status text-center text-success"></div>
 </div>
 ```
 
