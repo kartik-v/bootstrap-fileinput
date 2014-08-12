@@ -397,13 +397,21 @@ where:
 _string_ the css class for the error message to be displayed in the preview window when the file size exceeds `maxSize`. Defaults to `file-error-message`.
 
 #### msgLoading
-_string_ the message displayed when the files are getting read and loaded for preview. Defaults to `Loading  file {index} of {files} &hellip;`.
+_string_ the message displayed when the files are getting read and loaded for preview. Defaults to 
+
+```Loading  file {index} of {files} &hellip;```
+
+The following special variables will be replaced:
 
 - `{index}`: the sequence number of the current file being loaded.
 - `{files}`: the total number of files selected for upload.
 
 #### msgProgress
-_string_ the progress message displayed as each file is loaded for preview. Defaults to `Loading file {index} of {files} - {name} - {percent}% completed.`. The following variables will be replaced:
+_string_ the progress message displayed as each file is loaded for preview. Defaults to:
+
+```Loading file {index} of {files} - {name} - {percent}% completed.```
+
+The following variables will be replaced:
 
 - `{index}`: the sequence number of the current file being loaded.
 - `{files}`: the total number of files selected for upload.
