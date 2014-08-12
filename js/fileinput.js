@@ -185,12 +185,13 @@
             self.$element.removeClass('file-loading');
         },
         listen: function () {
-            var self = this;
-            self.$element.on('change', $.proxy(self.change, self));
-            self.$btnFile.on('click', function (ev) {
-                self.$captionContainer.focus();
+            var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile;
+            $el.on('change', $.proxy(self.change, self));
+            $btnFile.on('click', function (ev) {
+                self.clear(false);
+                $cap.focus();
             });
-            $(self.$element[0].form).on('reset', $.proxy(self.reset, self));
+            $($el[0].form).on('reset', $.proxy(self.reset, self));
             self.$container.on('click', '.fileinput-remove:not([disabled])', $.proxy(self.clear, self));
         },
         refresh: function (options) {
@@ -400,7 +401,7 @@
                         $preview.append("\n" + content);
                     };
                     reader.onloadend = function (e) {
-                        var msg = msgProgress.replace('{index}', i + 1).replace('{files}', numFiles).replace('{percent}', 100).replace('{file}', file.name);
+                        var msg = msgProgress.replace('{index}', i + 1).replace('{files}', numFiles).replace('{percent}', 100).replace('{name}', file.name);
                         setTimeout(function () {
                             $status.html(msg);
                         }, 1000);
@@ -412,7 +413,7 @@
                     reader.onprogress = function (data) {
                         if (data.lengthComputable) {
                             var progress = parseInt(((data.loaded / data.total) * 100), 10);
-                            var msg = msgProgress.replace('{index}', i + 1).replace('{files}', numFiles).replace('{percent}', progress).replace('{file}', file.name);
+                            var msg = msgProgress.replace('{index}', i + 1).replace('{files}', numFiles).replace('{percent}', progress).replace('{name}', file.name);
                             setTimeout(function () {
                                 $status.html(msg);
                             }, 1000);
