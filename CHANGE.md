@@ -7,7 +7,7 @@ version 2.1.0
 3. New configurable error messages added: `msgFilesTooMany`, `msgFileNotFound`, `msgFileNotReadable`, `msgFilePreviewAborted`, and `msgFilePreviewError`.
 4. Enhanced plugin to improve browser performance when loading and previewing multiple image files.
 5. (enh #18): Better validation for older browsers (not supporting HTML5) to degrade to normal file input.
-6. (enh #19): Enhanced file selection to be reset on every browse button click, to show correct preview when file dialog is cancelled.
+6. (enh #19): Synchronize preview with file browse dialog behavior, when cancel button is pressed in file dialog window.
 7. (enh #20): Fix `fileloaded` event to increment `previewId` and enhance to return file index.
 8. (enh #21): Enhance multiple file upload and preview performance using setTimeout.
 9. (enh #21): Enhance loading progress message and message templates for multiple file uploads.
