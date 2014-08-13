@@ -253,6 +253,7 @@
                 self.initialPreviewCount = 0;
             }
             if (!self.overwriteInitial && !isEmpty(self.initialPreviewContent)) {
+                self.showFileIcon();
                 self.$preview.html(self.original.preview);
                 self.$caption.html(self.original.caption);
                 self.$container.removeClass('file-input-new');
