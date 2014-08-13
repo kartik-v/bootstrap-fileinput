@@ -115,7 +115,7 @@
             self.showCaption = options.showCaption;
             self.showPreview = options.showPreview;
             self.maxFileSize = options.maxFileSize;
-            self.maxFilesCount = options.maxFilesCount;
+            self.maxFileCount = options.maxFileCount;
             self.msgSizeTooLarge = options.msgSizeTooLarge;
             self.msgFilesTooMany = options.msgFilesTooMany;
             self.msgFileNotFound = options.msgFileNotFound;
@@ -457,8 +457,8 @@
                 $preview.html(self.initialPreviewContent);
             }
             var total = tfiles.length;
-            if (self.maxFilesCount > 0 && total > self.maxFilesCount) {
-                var msg = self.msgFilesTooMany.replace('{m}', self.maxFilesCount).replace('{n}', total);
+            if (self.maxFileCount > 0 && total > self.maxFileCount) {
+                var msg = self.msgFilesTooMany.replace('{m}', self.maxFileCount).replace('{n}', total);
                 self.isError = self.showError(msg, null, null, null);
                 self.$container.removeClass('file-input-new');
                 return;
@@ -602,7 +602,7 @@
         uploadClass: 'btn btn-default',
         uploadUrl: null,
         maxFileSize: 0,
-        maxFilesCount: 0,
+        maxFileCount: 0,
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>. Please retry your upload!',
         msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>. Please retry your upload!',
         msgFileNotFound: 'File "{name}" not found!',

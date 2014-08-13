@@ -326,7 +326,7 @@ _string_ the URL for the upload processing action (typically for ajax based proc
 #### maxFileSize
 _float_ the maximum file size for upload in KB.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
 
-#### maxFilesCount
+#### maxFileCount
 _float_ the maximum number of files allowed for each multiple upload. If set to `0`, it means number of files allowed is unlimited. Defaults to `0`.
 
 #### msgSizeTooLarge
@@ -342,7 +342,7 @@ where:
 - `{maxSize}`: will be replaced by the `maxFileSize` parameter.
 
 ### msgFilesTooMany
-_string_ the message to be displayed when the file count exceeds maximum count as set in `maxFilesCount`. Defaults to:
+_string_ the message to be displayed when the file count exceeds maximum count as set in `maxFileCount`. Defaults to:
 
 ```
 Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>. Please retry your upload!
@@ -351,7 +351,7 @@ Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit o
 where:
 
 - `{n}`: will be replaced by number of files selected for upload
-- `{m}`: will be replaced by the allowed maximum files as set in `maxFilesCount`
+- `{m}`: will be replaced by the allowed maximum files as set in `maxFileCount`
 
 #### msgFileNotFound
 _string_ the exception message to be displayed when the file selected is not found by the FileReader. Defaults to:
