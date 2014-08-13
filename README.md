@@ -32,7 +32,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 11. Upload action defaults to form submit. Supports an upload route/server action parameter for custom ajax based upload.
 12. Triggers JQuery events for advanced development. Events currently available are `filereset`, `fileclear`, `filecleared`, `fileloaded`, and `fileerror`.
 13. Disabled and readonly file input support.
-14. Size of the entire plugin is less than 6KB if gzipped. The minified assets are less than 20KB (about 17KB for the minified JS and 3KB for the minified CSS).
+14. Size of the entire plugin is less than 6KB if gzipped. The minified assets are less than 19KB (about 16KB for the minified JS and 3KB for the minified CSS).
 
 ## Demo
 
