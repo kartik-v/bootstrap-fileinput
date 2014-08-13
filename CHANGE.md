@@ -11,7 +11,7 @@ version 2.1.0
 7. (enh #20): Fix `fileloaded` event to increment `previewId` and enhance to return file index.
 8. (enh #21): Enhance multiple file upload and preview performance using setTimeout.
 9. (enh #21): Enhance loading progress message and message templates for multiple file uploads.
-10.(enh #22): Enhance file caption message display for validation errors.
+10. (enh #22): Enhance file caption message display for validation errors.
 11. Other minor bug fixes.
 
 version 2.0.0
