@@ -122,6 +122,7 @@
             self.msgFileNotReadable = options.msgFileNotReadable;
             self.msgFilePreviewAborted = options.msgFilePreviewAborted;
             self.msgFilePreviewError = options.msgFilePreviewError;
+            self.msgValidationError = options.msgValidationError;
             self.msgErrorClass = options.msgErrorClass;
             self.initialDelimiter = options.initialDelimiter;
             self.initialPreview = options.initialPreview;
@@ -176,6 +177,8 @@
             self.$previewContainer = getElement(options, 'elPreviewContainer', self.$container.find('.file-preview'));
             self.$preview = getElement(options, 'elPreviewImage', self.$container.find('.file-preview-thumbnails'));
             self.$previewStatus = getElement(options, 'elPreviewStatus', self.$container.find('.file-preview-status'));
+            var content = self.initialPreview;
+            self.initialPreviewCount = isArray(content) ? content.length : (content.length > 0 ? content.split(self.initialDelimiter).length : 0)
             self.initPreview();
             self.original = {
                 preview: self.$preview.html(),
@@ -199,9 +202,7 @@
             self.init(params);
         },
         initPreview: function () {
-            var self = this, html = '',
-                content = self.initialPreview,
-                len = isArray(content) ? content.length : (content.length > 0 ? content.split(self.initialDelimiter).length : 0),
+            var self = this, html = '', content = self.initialPreview, len = self.initialPreviewCount,
                 cap = self.initialCaption.length, previewId = "preview-" + uniqId(),
                 caption = (cap > 0) ? self.initialCaption : self.msgSelected.replace("{n}", len);
             if (isArray(content) && len > 0) {
@@ -228,7 +229,6 @@
             } else {
                 return;
             }
-            self.initialPreviewCount = len;
             self.initialPreviewContent = html;
             self.$preview.html(html);
             self.$caption.html(caption);
@@ -248,6 +248,9 @@
             if (e !== false) {
                 self.$element.trigger('change');
                 self.$element.trigger('fileclear');
+            }
+            if (self.overwriteInitial) {
+                self.initialPreviewCount = 0;
             }
             if (!self.overwriteInitial && !isEmpty(self.initialPreviewContent)) {
                 self.$preview.html(self.original.preview);
@@ -465,7 +468,7 @@
             self.reader = null;
             var log = numFiles > 1 ? msgSelected.replace('{n}', numFiles) : label;
             if (self.isError) {
-                log = numFiles > 1 ? msgSelected.replace('{n}', numFiles - 1) : '&nbsp;';
+                log = self.msgValidationError;
             }
             self.$caption.html(log);
             self.$captionContainer.attr('title', log);
@@ -606,6 +609,7 @@
         msgFileNotReadable: 'File "{name}" is not readable.',
         msgFilePreviewAborted: 'File preview aborted for "{name}".',
         msgFilePreviewError: 'An error occurred while reading the file "{name}".',
+        msgValidationError: 'File Upload Error',
         msgErrorClass: 'file-error-message',
         msgLoading: 'Loading  file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
