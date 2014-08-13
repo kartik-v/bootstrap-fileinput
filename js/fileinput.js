@@ -303,6 +303,7 @@
         },
         resetErrors: function (fade) {
             var self = this, $error = self.$previewContainer.find('.kv-fileinput-error');
+            self.isError = false;
             if (fade) {
                 $error.fadeOut('slow');
             } else {
@@ -464,12 +465,13 @@
                 self.$container.removeClass('file-input-new');
                 return;
             }
-            self.showFileIcon();
             self.readFiles(files);
             self.reader = null;
             var log = numFiles > 1 ? msgSelected.replace('{n}', numFiles) : label;
             if (self.isError) {
                 log = self.msgValidationError;
+            } else {
+                self.showFileIcon();
             }
             self.$caption.html(log);
             self.$captionContainer.attr('title', log);
@@ -610,7 +612,7 @@
         msgFileNotReadable: 'File "{name}" is not readable.',
         msgFilePreviewAborted: 'File preview aborted for "{name}".',
         msgFilePreviewError: 'An error occurred while reading the file "{name}".',
-        msgValidationError: 'File Upload Error',
+        msgValidationError: '<span class="text-danger"><i class="glyphicon glyphicon-exclamation-sign"></i> File Upload Error</span>',
         msgErrorClass: 'file-error-message',
         msgLoading: 'Loading  file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',

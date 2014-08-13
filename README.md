@@ -398,7 +398,7 @@ _string_ the exception message to be displayed within the caption container (ins
 when a validation error is encountered. Defaults to:
 
 ```
-File Upload Error
+<span class="text-danger"><i class="glyphicon glyphicon-exclamation-sign"></i> File Upload Error</span>
 ```
 
 #### msgErrorClass
