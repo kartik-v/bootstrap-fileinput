@@ -460,6 +460,7 @@
             if (self.maxFileCount > 0 && total > self.maxFileCount) {
                 var msg = self.msgFilesTooMany.replace('{m}', self.maxFileCount).replace('{n}', total);
                 self.isError = self.showError(msg, null, null, null);
+                self.$caption.html(self.msgValidationError);
                 self.$container.removeClass('file-input-new');
                 return;
             }
