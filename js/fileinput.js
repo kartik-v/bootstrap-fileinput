@@ -461,6 +461,7 @@
             if (self.maxFileCount > 0 && total > self.maxFileCount) {
                 var msg = self.msgFilesTooMany.replace('{m}', self.maxFileCount).replace('{n}', total);
                 self.isError = self.showError(msg, null, null, null);
+                self.$captionContainer.find('.kv-caption-icon').hide();
                 self.$caption.html(self.msgValidationError);
                 self.$container.removeClass('file-input-new');
                 return;
@@ -469,6 +470,7 @@
             self.reader = null;
             var log = numFiles > 1 ? msgSelected.replace('{n}', numFiles) : label;
             if (self.isError) {
+                self.$captionContainer.find('.kv-caption-icon').hide();
                 log = self.msgValidationError;
             } else {
                 self.showFileIcon();
