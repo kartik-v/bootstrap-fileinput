@@ -427,7 +427,7 @@
                     if (isTxt) {
                         reader.readAsText(file);
                     } else {
-                        reader.readAsBinaryString(file);
+                        reader.readAsArrayBuffer(file);
                     }
                 } else {
                     $preview.append("\n" + self.previewOtherTemplate.replace("{previewId}", previewId).replace("{caption}", caption));

@@ -1,3 +1,9 @@
+version 2.2.0
+=============
+**Date:** 19-Aug-2014
+
+1. (enh #24): Update readAsBinaryString to readAsArrayBuffer
+
 version 2.1.0
 =============
 **Date:** 11-Aug-2014
