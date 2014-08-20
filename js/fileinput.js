@@ -99,7 +99,7 @@
 
     var FileInput = function (element, options) {
         this.$element = $(element);
-        if (hasFileAPISupport) {
+        if (hasFileAPISupport()) {
             this.init(options);
             this.listen();
         } else {
