@@ -1,8 +1,16 @@
+version 2.3.0
+=============
+**Date:** 19-Sep-2014
+
+1. (enh #26): Added support for previewing flash and video files.
+2. Better replacement of tags in templates. Replaces all tag occurences with this new release.
+
 version 2.2.0
 =============
 **Date:** 19-Aug-2014
 
 1. (enh #24): Update readAsBinaryString to readAsArrayBuffer
+2. (enh #25): Graceful degrade to normal file input for older browsers (including previous versions of Safari).
 
 version 2.1.0
 =============

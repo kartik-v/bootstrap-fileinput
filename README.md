@@ -5,7 +5,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 
 ![File Input Screenshot](https://lh6.googleusercontent.com/-2niyujIaat0/UyqzA_78OQI/AAAAAAAAADE/f6IJkr11uA8/w666-h418-no/fileinput-screenshot.jpg)
 
-> NOTE: The latest version of the plugin v2.1.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin v2.3.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
 
 ## Features  
 
@@ -13,7 +13,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 2. The file input consists of the following three sections with options and templates to control the display:
    - file caption section: to display a brief information of the file(s) selected
    - file action buttons section: to browse, remove, and upload files.
-   - file preview section: to display the selected files on client for preview (supports images and text file types). Other file types will be displayed as normal thumbnails.
+   - file preview section: to display the selected files on client for preview (supports preview of image, text, flash, and video file types). Other file types will be displayed as normal thumbnails.
 3. The plugin automatically converts an input with `type = file` to an advanced file picker input if you set its `class = file`. All options to the input can be passed as HTML5 `data` attributes.
 4. Ability to select and preview multiple files. Uses HTML 5 File reader API to read and preview files. Displays the progress of files being being loaded onto the preview zone, in case many files are chosen.
 5. Offers predefined templates and CSS classes which can be changed to style your file-input display as per your needs.
@@ -32,7 +32,12 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 11. Upload action defaults to form submit. Supports an upload route/server action parameter for custom ajax based upload.
 12. Triggers JQuery events for advanced development. Events currently available are `filereset`, `fileclear`, `filecleared`, `fileloaded`, and `fileerror`.
 13. Disabled and readonly file input support.
-14. Size of the entire plugin is less than 6KB if gzipped. The minified assets are less than 19KB (about 16KB for the minified JS and 3KB for the minified CSS).
+14. Size of the entire plugin is less than 6KB if gzipped. The minified assets are less than 21KB (about 18KB for the minified JS and 3KB for the minified CSS).
+
+> **NEW:** With release v2.3.0, the plugin now supports preview of flash and video files. Flash video preview will require Shockwave flash to be installed and supported by the client browser.
+Videos will be previewed using the new HTML5 `video` tag. Note that browsers have limited support for the HTML5 `video` element including specific video 
+formats (e.g. mp4, webm, ogg). The size of video files are recommended to be small (controlled through `maxFileSize` property) for not affecting your 
+browser preview performance. You can copy a few files from the `examples` directory of this plugin repo, to test a few examples of flash and video files.
 
 ## Demo
 
@@ -42,7 +47,7 @@ View the [plugin documentation](http://plugins.krajee.com/file-input) and [plugi
 
 1. [Bootstrap 3.x](http://getbootstrap.com/)
 2. Latest [JQuery](http://jquery.com/)
-3. Most modern browsers supporting HTML5 file inputs and FileReader API including CSS3 & JQuery. For Internet Explorer, one must use IE versions 10 and above. IE9 and below will work as a normal file input, and will not support multiple file selection or the HTML 5 FileReader API.
+3. Most modern browsers supporting HTML5 (inputs and FileReader API) including CSS3 & JQuery. For Internet Explorer, one must use IE versions 10 and above. IE9 and below will work as a normal file input, and will not support multiple file selection or the HTML 5 FileReader API.
 
 ## Restrictions
 The plugin supports only file input and preview at client level. It does not actually process the upload of the files to the server.
@@ -273,6 +278,39 @@ The following variables will be parsed:
     <div class="file-preview-text" title="{caption}">
         {strText}
     </div>
+</div>
+```
+
+#### previewFlashTemplate
+_string_ the template markup for previewing flash files within the preview container. Defaults to `FLASH_TEMPLATE` as shown below.
+The following variables will be parsed:
+
+- `{previewId}`: the previewed file container identifier
+- `{caption}`: the file name to be displayed on hover
+- `{media}`: the flash content to be previewed
+
+```html
+'<div class="file-preview-frame" id="{previewId}" title="{caption}">
+    <object type="application/x-shockwave-flash" data="{media}" width="320" height="240">
+        <param name="movie" value="{media}" />
+        <param name="quality" value="high" />
+    </object>
+</div>
+```
+
+#### previewVideoTemplate
+_string_ the template markup for previewing video files within the preview container. Defaults to `VIDEO_TEMPLATE` as shown below.
+The following variables will be parsed:
+
+- `{previewId}`: the previewed file container identifier
+- `{caption}`: the file name to be displayed on hover
+- `{media}`: the flash content to be previewed
+- `{type}`: the type of video file to be previewed
+
+```html
+'<div class="file-preview-frame" id="{previewId}" title="{caption}">
+    <source src="{media}" type="{type}">
+    <small>The video format of "{caption}" is not supported by your browser for preview (must be one mp4, webm, 3gp, ogg).</small>
 </div>
 ```
 
