@@ -290,7 +290,7 @@ The following variables will be parsed:
 - `{media}`: the flash content to be previewed
 
 ```html
-'<div class="file-preview-frame" id="{previewId}" title="{caption}">
+<div class="file-preview-frame" id="{previewId}" title="{caption}">
     <object type="application/x-shockwave-flash" data="{media}" width="320" height="240">
         <param name="movie" value="{media}" />
         <param name="quality" value="high" />
