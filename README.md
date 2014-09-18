@@ -36,7 +36,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 14. Size of the entire plugin is less than 6KB if gzipped. The minified assets are less than 21KB (about 18KB for the minified JS and 3KB for the minified CSS).
 
 > **Note:** With release v2.3.0, the plugin now supports preview of flash and video files. Flash preview will require Shockwave flash to be installed and supported by the client browser. 
-The flash preview currently works successfully with webkit browsers due to the local url creation support. Videos are however supported by all modern browsers
+The flash preview currently works successfully with webkit browsers due to its unique local url creation support. Videos are however supported by all modern browsers 
 that support the HTML5 `video` tag. Note that browsers have limited number of video formats supported by the HTML5 video element (e.g. mp4, webm, ogg). The size of video files are recommended to be small (controlled through `maxFileSize` property) for not affecting your 
 browser preview performance. You can copy a few files from the `examples` directory of this plugin repo, to test a few examples of flash and video files.
 
