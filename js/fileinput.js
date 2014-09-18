@@ -69,7 +69,7 @@
             '       <param name="quality" value="high" />\n' +
             '   </object>\n' +
             '</div>\n',
-
+            
         VIDEO_TEMPLATE = '<div class="file-preview-frame" id="{previewId}" title="{caption}">\n' +
             '   <video width="320" height="240" controls>\n' +
             '       <source src="{media}" type="{type}">\n' +
