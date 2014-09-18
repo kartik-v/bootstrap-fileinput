@@ -308,7 +308,7 @@ The following variables will be parsed:
 - `{type}`: the type of video file to be previewed
 
 ```html
-'<div class="file-preview-frame" id="{previewId}" title="{caption}">
+<div class="file-preview-frame" id="{previewId}" title="{caption}">
     <source src="{media}" type="{type}">
     <small>The video format of "{caption}" is not supported by your browser for preview (must be one mp4, webm, 3gp, ogg).</small>
 </div>
