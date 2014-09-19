@@ -5,7 +5,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for various fi
 The plugin enhances these concepts and simplifies the widget initialization with simple HTML markup on a file input. It offers support for previewing a 
 wide variety of files i.e. images, text, html, video, audio, flash, and objects.
 
-![File Input Screenshot](https://lh6.googleusercontent.com/-rB2RnQBQYvM/VBw9cFPPYXI/AAAAAAAAALQ/nV0S0l4WKM0/w597-h448-no/FileInput.jpg)
+![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
 > NOTE: The latest version of the plugin v2.4.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
 
