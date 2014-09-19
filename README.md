@@ -214,11 +214,11 @@ useful especially when using the `multiple` file upload feature.
 
 _object_ the templates configuration for rendering each part of the layout. You can set the following templates to control the widget layout:
 
-`main1`: the template for rendering the widget with caption.
-`main2`: the template for rendering the widget without caption.
-`preview`: the template for rendering the preview.
-`caption`: the template for rendering the caption.
-`modal`: the template for rendering the modal (for text file preview zooming).
+- `main1`: the template for rendering the widget with caption.
+- `main2`: the template for rendering the widget without caption.
+- `preview`: the template for rendering the preview.
+- `caption`: the template for rendering the caption.
+- `modal`: the template for rendering the modal (for text file preview zooming).
 
 The `main1` and `main2` templates would automatically parse the following tags for replacement:
 
@@ -276,14 +276,14 @@ The `layoutTemplates` if not set will default to:
 
 _object_ the templates configuration for rendering each preview file type. The following file types are recognized:
 
-`image`: the preview template for image files.
-`text`: the  preview template for text files.
-`html`: the preview template for html files.
-`video`: the preview template for video files (supported by HTML 5 video tag).
-`audio`: the preview template for audio files (supported by HTML 5 audio tag).
-`flash`: the preview template for flash files (supported currently on webkit browsers).
-`object`: the preview template for all other files - by default treated as object. To disable this behavior, configure the `allowedPreviewTypes` property.
-`generic`: this template is used ONLY for rendering the `initialPreview` markup content passed directly as a raw format. 
+- `image`: the preview template for image files.
+- `text`: the  preview template for text files.
+- `html`: the preview template for html files.
+- `video`: the preview template for video files (supported by HTML 5 video tag).
+- `audio`: the preview template for audio files (supported by HTML 5 audio tag).
+- `flash`: the preview template for flash files (supported currently on webkit browsers).
+- `object`: the preview template for all other files - by default treated as object. To disable this behavior, configure the `allowedPreviewTypes` property.
+- `generic`: this template is used ONLY for rendering the `initialPreview` markup content passed directly as a raw format. 
 
 As noted, if you are coming from an earlier release (before v2.4.0), all preview templates have now been combined into one property, instead of separate templates for image, text etc. 
 
