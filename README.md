@@ -283,7 +283,7 @@ _object_ the templates configuration for rendering each preview file type. The f
 - `audio`: the preview template for audio files (supported by HTML 5 audio tag).
 - `flash`: the preview template for flash files (supported currently on webkit browsers).
 - `object`: the preview template for all other files - by default treated as object. To disable this behavior, configure the `allowedPreviewTypes` property.
-- `generic`: this template is used ONLY for rendering the `initialPreview` markup content passed directly as a raw format. 
+- `generic`: this template is used ONLY for rendering the `initialPreview` markup content passed directly as a raw format. The special tag `{content}` will be parsed and replaced with the `initialPreview` markup.
 
 As noted, if you are coming from an earlier release (before v2.4.0), all preview templates have now been combined into one property, instead of separate templates for image, text etc. 
 
