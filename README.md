@@ -160,39 +160,8 @@ _string_ any additional CSS class to append to the preview container.
 #### mainClass
 _string_ any additional CSS class to append to the main plugin container.
 
-#### mainTemplate
-_string_ the template used to render the widget. The following template variables will be parsed:
-
-- `{class}`: the CSS class as set in the `mainClass` property.
-- `{preview}`: the content parsed by the `previewTemplate` and will be displayed only if `showPreview` is `true`.
-- `{caption}`: the content parsed by the `captionTemplate` and will be displayed only if `showCaption` is `true`.
-- `{remove}`: the file remove/clear button and will be displayed only if `showRemove` is `true`.
-- `{upload}`: the file upload button and will be displayed only if `showUpload` is `true`.
-- `{browse}`: the main file browse button to select your files for input.
-
-The `mainTemplate` if not passed, will be automatically set based on `showCaption` settings.
-
-- If `showCaption` is set to `true`, the `mainTemplate` will default to:
-```html
-{preview}
-<div class="input-group {class}">
-   {caption}
-   <div class="input-group-btn">
-       {remove}
-       {upload}
-       {browse}
-   </div>
-</div>
-```
-
-- If `showCaption` is set to `false`, the `mainTemplate` will default to:
-```html
-{preview}\n{remove}\n{upload}\n{browse}\n
-```
-
 #### initialDelimiter
 _string_, the delimiter to be used to allow passing multiple content delimited as a string to `initialPreview`. Defaults to `'*$$*'`.
-
 
 #### initialPreview
 _string | array_ the initial preview content to be displayed. You can pass the minimal HTML markup for displaying your image, text, or file. 
@@ -251,7 +220,16 @@ _object_ the templates configuration for rendering each part of the layout. You 
 `caption`: the template for rendering the caption.
 `modal`: the template for rendering the modal (for text file preview zooming).
 
-The `main1`, `preview` and `caption` templates can understand the following special tags which will be replaced:
+The `main1` and `main2` templates would automatically parse the following tags for replacement:
+
+- `{class}`: the CSS class as set in the `mainClass` property.
+- `{preview}`: the content parsed by the `previewTemplate` and will be displayed only if `showPreview` is `true`.
+- `{caption}`: the content parsed by the `captionTemplate` and will be displayed only if `showCaption` is `true`.
+- `{remove}`: the file remove/clear button and will be displayed only if `showRemove` is `true`.
+- `{upload}`: the file upload button and will be displayed only if `showUpload` is `true`.
+- `{browse}`: the main file browse button to select your files for input.
+
+The `preview` and `caption` templates can understand the following special tags which will be replaced:
 
 - `{class}`: the CSS class as set in the `mainClass`, `captionClass` or `previewClass` properties.
 
