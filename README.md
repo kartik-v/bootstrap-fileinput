@@ -1,12 +1,13 @@
 bootstrap-fileinput
 ====================
 
-An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and text, multiple selection, and more. This plugin is inspired by [this blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). The plugin enhances these concepts and simplifies the widget initialization with simple HTML markup on a file input. It also offers support for multiple file preview and previewing a wide variety of files
-(i.e. images, text, flash, and video file types).
+An enhanced HTML 5 file input for Bootstrap 3.x with file preview for various files, offers multiple selection, and more. This plugin is inspired by [this blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). 
+The plugin enhances these concepts and simplifies the widget initialization with simple HTML markup on a file input. It offers support for previewing a 
+wide variety of files i.e. images, text, html, video, audio, flash, and objects.
 
-![File Input Screenshot](https://lh5.googleusercontent.com/-gnX0zXygMns/VBtHCRLJFVI/AAAAAAAAAM8/55zosZYXd_k/w597-h375-no/FileInput.jpg)
+![File Input Screenshot](https://lh4.googleusercontent.com/-wlx-wTVFSwE/VBwt8S8uLpI/AAAAAAAAAN8/bV9h6Emp05g/w597-h448-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin v2.3.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin v2.4.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
 
 ## Features  
 
@@ -35,10 +36,37 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for images and
 13. Disabled and readonly file input support.
 14. Size of the entire plugin is less than 6KB if gzipped. The minified assets are less than 21KB (about 18KB for the minified JS and 3KB for the minified CSS).
 
-> **Note:** With release v2.3.0, the plugin now supports preview of flash and video files. Flash preview will require Shockwave flash to be installed and supported by the client browser. 
-The flash preview currently works successfully with webkit browsers due to its unique local url creation support. Videos are however supported by all modern browsers 
-that support the HTML5 `video` tag. Note that browsers have limited number of video formats supported by the HTML5 video element (e.g. mp4, webm, ogg). The size of video files are recommended to be small (controlled through `maxFileSize` property) for not affecting your 
-browser preview performance. You can copy a few files from the `examples` directory of this plugin repo, to test a few examples of flash and video files.
+### New features since v2.4.0
+
+> **Note:** There are BC Breaking Changes with release v2.4.0.
+
+With release v2.4.0, the plugin has been revamped to support and configure a wide variety of file formats for preview. This may break some
+backward compatibility (BC) for older versions that use custom templates. 
+
+The following are the major changes with release v2.4.0:
+
+- Completely templatized and extensible to allow configuration of the file-input the way the developer wants.
+- Plugin has been revamped to build preview intelligence based on various file preview types. The inbuilt file support types are categorized as 
+  `image`, `text`, `html`, `video`,  `audio`, `flash`, `object`, and `other`.
+- `allowedPreviewTypes`: You can now configure which all file types are allowed to be shown as a preview. This defaults to `['image', 'html', 'text', 'video', 'audio', 'flash', 'object']`.
+   Thus all file types are treated as an object to preview by default. For exampleTo preview only `image` and `video`, you can set this to `['image', 'video']`.
+- `allowedPreviewMimeTypes`: In addition to `allowedPreviewTypes`, you can also control which all mime types can be displayed for preview. This defaults to null,
+   meaning all mime types are supported.
+- `layoutTemplates`: Allows you to configure all layout template settings within one property. The layout objects that can be configured are: `main1`, `main2`,
+   `preview`, `caption`, and `modal`.
+- `previewTemplates`: All preview templates for **each preview type** have been combined into one property, instead of separate templates for image, text etc. 
+   The keys are the formats as set in `allowedPreviewTypes` and values are the templates used for previewing. There are default prebuilt templates for each 
+   preview file type (`generic`, `image`, `text`, `html`, `video`,  `audio`, `flash`, `object`, and `other`). The `generic` template is used only for displaying
+   `initialPreview` content using direct markup.
+- `previewSettings`: Allows you to configure width and height for each preview image type. The plugin has default widths and heights predefined for each type i.e
+   `image`, `text`, `html`, `video`,  `audio`, `flash`, and `object`.
+- `fileTypeSettings`: Allows you to configure and identify each preview file type using a callback. The plugin has default callbacks predefined to identify each type i.e
+   `image`, `text`, `html`, `video`,  `audio`, `flash`, and `object`.
+- Replacing tags within templates has been enhanced. With this release it will automatically check for multiple occurrences of each tag to replace within a template string.
+
+> NOTE: Flash preview will require Shockwave flash to be installed and supported by the client browser. The flash preview currently works successfully with webkit browsers only. Video & Audio formats are however supported by all modern browsers 
+that support the HTML5 `video`/`audio` tags. Note that browsers have limited number of video/audio formats supported by the HTML5 video element (e.g. mp4, webm, ogg, mp3, wav). The size of video files are recommended to be small (to be controlled 
+through `maxFileSize` property) so that it does not affect the preview performance. You can copy a few files from the `examples` directory of this plugin repo, to test a few examples of flash and video files.
 
 ## Demo
 
@@ -213,122 +241,191 @@ _boolean_ whether you wish to overwrite the initial preview content and caption 
 will be overwritten, when new file is uploaded or when files are cleared. Setting it to `false` will help displaying a saved image or file from database always - 
 useful especially when using the `multiple` file upload feature.
  
-#### captionTemplate
-_string_ the template used to render the caption. The following template variables will be parsed:
+#### layoutTemplates
 
-- `{class}`: the CSS class as set in the `captionClass` property.
+_object_ the templates configuration for rendering each part of the layout. You can set the following templates to control the widget layout:
 
-The `captionTemplate` if not set will default to:
-```html
-<div tabindex="-1" class="form-control file-caption {class}">
-   <span class="glyphicon glyphicon-file"></span> <span class="file-caption-name"></span>
-</div>
+`main1`: the template for rendering the widget with caption.
+`main2`: the template for rendering the widget without caption.
+`preview`: the template for rendering the preview.
+`caption`: the template for rendering the caption.
+`modal`: the template for rendering the modal (for text file preview zooming).
+
+The `main1`, `preview` and `caption` templates can understand the following special tags which will be replaced:
+
+- `{class}`: the CSS class as set in the `mainClass`, `captionClass` or `previewClass` properties.
+
+The `layoutTemplates` if not set will default to:
+
+```js
+{
+    main1: '{preview}\n' +
+        '<div class="input-group {class}">\n' +
+        '   {caption}\n' +
+        '   <div class="input-group-btn">\n' +
+        '       {remove}\n' +
+        '       {upload}\n' +
+        '       {browse}\n' +
+        '   </div>\n' +
+        '</div>',
+    main2: '{preview}\n{remove}\n{upload}\n{browse}\n',
+    preview: '<div class="file-preview {class}">\n' +
+        '   <div class="close fileinput-remove text-right">&times;</div>\n' +
+        '   <div class="file-preview-thumbnails"></div>\n' +
+        '   <div class="clearfix"></div>' +
+        '   <div class="file-preview-status text-center text-success"></div>\n' +
+        '</div>',
+    caption: '<div tabindex="-1" class="form-control file-caption {class}">\n' +
+        '   <span class="glyphicon glyphicon-file kv-caption-icon"></span><div class="file-caption-name"></div>\n' +
+        '</div>',
+    modal: '<div id="{id}" class="modal fade">\n' +
+        '  <div class="modal-dialog modal-lg">\n' +
+        '    <div class="modal-content">\n' +
+        '      <div class="modal-header">\n' +
+        '        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n' +
+        '        <h3 class="modal-title">Detailed Preview <small>{title}</small></h3>\n' +
+        '      </div>\n' +
+        '      <div class="modal-body">\n' +
+        '        <textarea class="form-control" style="font-family:Monaco,Consolas,monospace; height: {height}px;" readonly>{body}</textarea>\n' +
+        '      </div>\n' +
+        '    </div>\n' +
+        '  </div>\n' +
+        '</div>\n'    
+};
 ```
 
-#### previewTemplate
-_string_ the template used to render the preview. The following template variables will be parsed:
+#### previewTemplates
 
-- `{class}`: the CSS class as set in the `previewClass` property.
+_object_ the templates configuration for rendering each preview file type. The following file types are recognized:
 
-The `previewTemplate` if not set will default to:
-```html
-<div class="file-preview {class}">
-   <div class="close fileinput-remove text-right">&times;</div>
-   <div class="file-preview-thumbnails"></div>
-   <div class="clearfix"></div>
-   <div class="file-preview-status text-center text-success"></div>
-</div>
+`image`: the preview template for image files.
+`text`: the  preview template for text files.
+`html`: the preview template for html files.
+`video`: the preview template for video files (supported by HTML 5 video tag).
+`audio`: the preview template for audio files (supported by HTML 5 audio tag).
+`flash`: the preview template for flash files (supported currently on webkit browsers).
+`object`: the preview template for all other files - by default treated as object. To disable this behavior, configure the `allowedPreviewTypes` property.
+`generic`: this template is used ONLY for rendering the `initialPreview` markup content passed directly as a raw format. 
+
+As noted, if you are coming from an earlier release (before v2.4.0), all preview templates have now been combined into one property, instead of separate templates for image, text etc. 
+
+The `previewTemplates` if not set will default to:
+
+```js
+{
+    generic: '<div class="file-preview-frame" id="{previewId}">\n' +
+        '   {content}\n' +
+        '</div>\n',
+    html: '<div class="file-preview-frame" id="{previewId}">\n' +
+        '    <object data="{data}" type="{type}" width="{width}" height="{height}">\n' +
+        '       ' + DEFAULT_PREVIEW + '\n' +
+        '    </object>\n' + PREVIEW_LABEL + 
+        '</div>',
+    image: '<div class="file-preview-frame" id="{previewId}">\n' +
+        '   <img src="{data}" class="file-preview-image" title="{caption}" alt="{caption}" ' + STYLE_SETTING + '>\n' +
+        '</div>\n',
+    text: '<div class="file-preview-frame" id="{previewId}">\n' +
+        '   <div class="file-preview-text" title="{caption}" ' + STYLE_SETTING + '>\n' +
+        '       {data}\n' + 
+        '   </div>\n' + 
+        '</div>\n',
+    video: '<div class="file-preview-frame" id="{previewId}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+        '   <video width="{width}" height="{height}" controls>\n' +
+        '       <source src="{data}" type="{type}">\n' +
+        '       ' + DEFAULT_PREVIEW + '\n' +
+        '   </video>\n' + PREVIEW_LABEL + 
+        '</div>\n',
+    audio: '<div class="file-preview-frame" id="{previewId}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+        '   <audio controls>\n' +
+        '       <source src="{data}" type="{type}">\n' +
+        '       ' + DEFAULT_PREVIEW + '\n' +
+        '   </audio>\n' + PREVIEW_LABEL + 
+        '</div>\n',
+    flash: '<div class="file-preview-frame" id="{previewId}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+        '   <object type="application/x-shockwave-flash" width="{width}" height="{height}" data="{data}">\n' +
+        OBJECT_PARAMS + '       ' + DEFAULT_PREVIEW + '\n' +
+        '   </object>\n' + PREVIEW_LABEL + 
+        '</div>\n',
+    object: '<div class="file-preview-frame" id="{previewId}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+        '    <object data="{data}" type="{type}" width="{width}" height="{height}">\n' +
+        '      <param name="movie" value="{caption}" />\n' +
+        OBJECT_PARAMS + '           ' + DEFAULT_PREVIEW + '\n' +
+        '   </object>\n' + PREVIEW_LABEL + 
+        '</div>',
+    other: '<div class="file-preview-frame" id="{previewId}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+        '   ' + DEFAULT_PREVIEW + '\n' + PREVIEW_LABEL + 
+        '</div>',
+}
 ```
 
-#### previewGenericTemplate
-_string_ the generic preview template markup used within the preview container. Defaults to `IMAGE_TEMPLATE` as shown below.
-The following variables will be parsed:
+#### allowedPreviewTypes
 
-- `{content}`: the file preview content
-- `{previewId}`: the previewed file container identifier
+_array_ the list of allowed preview types for your widget. This by default supports all file types for preview. The plugin by default treats each
+file as an object if it does not match any of the previous types. To disable this behavior, you can remove `object` from the list of `allowedPreviewTypes`
+OR fine tune it through `allowedPreviewMimeTypes`.
 
-```html
-<div class="file-preview-frame" id="{previewId}">
-    {content}
-</div>
+This is by default setup as following:
+```js
+['image', 'html', 'text', 'video', 'audio', 'flash', 'object']
 ```
 
-#### previewImageTemplate
-_string_ the template markup for previewing image files within the preview container. Defaults to `IMAGE_TEMPLATE` as shown below.
-The following variables will be parsed:
+#### allowedPreviewMimeTypes
 
-- `{content}`: the file preview content
-- `{previewId}`: the previewed file container identifier
+_array_ the list of allowed mime types for preview. This is set to null by default which means all possible mime types are allowed. This setting works in combination
+with `allowedPreviewTypes` to filter only the needed file types allowed for preview. You can check this [list of allowed mime types](http://www.sitepoint.com/web-foundations/mime-types-complete-list/)
+to add to this list if needed.
 
-```html
-<div class="file-preview-frame" id="{previewId}">
-    {content}
-</div>
+#### previewSettings
+
+_object_ the format settings (width and height) for rendering each preview file type. This is by default setup as following:
+
+```js
+{
+    image: {width: "auto", height: "160px"},
+    html: {width: "320px", height: "180px"},
+    text: {width: "160px", height: "160px"},
+    video: {width: "320px", height: "240px"},
+    audio: {width: "320px", height: "80px"},
+    flash: {width: "320px", height: "240px"},
+    object: {width: "320px", height: "300px"},
+    other: {width: "160px", height: "120px"}
+}
 ```
 
-#### previewTextTemplate
-_string_ the template markup for previewing text files within the preview container. Defaults to `TEXT_TEMPLATE` as shown below.
-The following variables will be parsed:
+#### fileTypeSettings
 
-- `{strText}`: the file text content
-- `{caption}`: the file name to be displayed on hover
-- `{previewId}`: the previewed file container identifier
+_object_ the settings to validate and identify each file type when a file is selected for upload. This is a list of callbacks, which accepts the file mime type and file name as a parameter.
+This is by default setup as following:
 
-```html
-<div class="file-preview-frame" id="{previewId}">
-    <div class="file-preview-text" title="{caption}">
-        {strText}
-    </div>
-</div>
-```
-
-#### previewFlashTemplate
-_string_ the template markup for previewing flash files within the preview container. Defaults to `FLASH_TEMPLATE` as shown below.
-The following variables will be parsed:
-
-- `{previewId}`: the previewed file container identifier
-- `{caption}`: the file name to be displayed on hover
-- `{media}`: the flash content to be previewed
-
-```html
-<div class="file-preview-frame" id="{previewId}" title="{caption}">
-    <object type="application/x-shockwave-flash" data="{media}" width="320" height="240">
-        <param name="movie" value="{media}" />
-        <param name="quality" value="high" />
-    </object>
-</div>
-```
-
-#### previewVideoTemplate
-_string_ the template markup for previewing video files within the preview container. Defaults to `VIDEO_TEMPLATE` as shown below.
-The following variables will be parsed:
-
-- `{previewId}`: the previewed file container identifier
-- `{caption}`: the file name to be displayed on hover
-- `{media}`: the flash content to be previewed
-- `{type}`: the type of video file to be previewed
-
-```html
-<div class="file-preview-frame" id="{previewId}" title="{caption}">
-    <source src="{media}" type="{type}">
-    <small>The video format of "{caption}" is not supported by your browser for preview (must be one mp4, webm, 3gp, ogg).</small>
-</div>
-```
-
-#### previewOtherTemplate
-_string_ the template markup for previewing all other files within the preview container. Defaults to `OTHER_TEMPLATE` as shown below.
-The following variables will be parsed:
-
-- `{caption}`: the file name to be displayed 
-- `{previewId}`: the previewed file container identifier
-
-```html
-<div class="file-preview-frame" id="{previewId}">
-   <div class="file-preview-other">
-       <h2><i class="glyphicon glyphicon-file"></i></h2>
-       {caption}
-   </div>
-</div>
+```js
+// vType: is the file mime type
+// vName: is the file name
+{
+    image: function(vType, vName) {
+        return (typeof vType !== "undefined") ? vType.match('image.*') : vName.match(/\.(gif|png|jpe?g)$/i);
+    },
+    html: function(vType, vName) {
+        return (typeof vType !== "undefined") ? vType == 'text/html' : vName.match(/\.(htm|html)$/i);
+    },
+    text: function(vType, vName) {
+        return (typeof vType !== "undefined") ? vType.match('text.*') : vName.match(/\.(txt|md|csv|nfo|php|ini)$/i);
+    },
+    video: function (vType, vName) {
+        return (typeof vType !== "undefined" && vType.match(/\.video\/(ogg|mp4|webm)$/i)) || vName.match(/\.(og?|mp4|webm)$/i);
+    },
+    audio: function (vType, vName) {
+        return (typeof vType !== "undefined" && vType.match(/\.audio\/(ogg|mp3|wav)$/i)) || vName.match(/\.(ogg|mp3|wav)$/i);
+    },
+    flash: function (vType, vName) {
+        return (typeof vType !== "undefined" && vType == 'application/x-shockwave-flash') || vName.match(/\.(swf)$/i);
+    },
+    object: function (vType, vName) {
+        return true;
+    },
+    other: function (vType, vName) {
+        return true;
+    },
+}
 ```
 
 #### browseLabel

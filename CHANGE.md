@@ -1,3 +1,36 @@
+version 2.4.0
+=============
+**Date:** 20-Sep-2014
+
+> **Note:** There are BC Breaking Changes with release v2.4.0.
+
+With release v2.4.0, the plugin has been revamped to support and configure a wide variety of file formats for preview. This may break some
+backward compatibility (BC) for older versions that use custom templates. 
+
+The following are the major changes with release v2.4.0:
+
+- Plugin has been revamped to build preview intelligence based on various file preview types. The inbuilt file support types are categorized as 
+  `image`, `text`, `html`, `video`,  `audio`, `flash`, `object`, and `other`.
+- `allowedPreviewTypes`: You can now configure which all file types are allowed to be shown as a preview. This defaults to `['image', 'html', 'text', 'video', 'audio', 'flash', 'object']`.
+   Thus all file types are treated as an object to preview by default. For exampleTo preview only `image` and `video`, you can set this to `['image', 'video']`.
+- `allowedPreviewMimeTypes`: In addition to `allowedPreviewTypes`, you can also control which all mime types can be displayed for preview. This defaults to null,
+   meaning all mime types are supported.
+- `layoutTemplates`: Allows you to configure all layout template settings within one property. The layout objects that can be configured are: `main1`, `main2`,
+   `preview`, `caption`, and `modal`.
+- `previewTemplates`: All preview templates for **each preview type** have been combined into one property, instead of separate templates for image, text etc. 
+   The keys are the formats as set in `allowedPreviewTypes` and values are the templates used for previewing. There are default prebuilt templates for each 
+   preview file type (`generic`, `image`, `text`, `html`, `video`,  `audio`, `flash`, `object`, and `other`). The `generic` template is used only for displaying
+   `initialPreview` content using direct markup.
+- `previewSettings`: Allows you to configure width and height for each preview image type. The plugin has default widths and heights predefined for each type i.e
+   `image`, `text`, `html`, `video`,  `audio`, `flash`, and `object`.
+- `fileTypeSettings`: Allows you to configure and identify each preview file type using a callback. The plugin has default callbacks predefined to identify each type i.e
+   `image`, `text`, `html`, `video`,  `audio`, `flash`, and `object`.
+- Replacing tags within templates has been enhanced. With this release it will automatically check for multiple occurrences of each tag to replace within a template string.
+
+> NOTE: Flash preview will require Shockwave flash to be installed and supported by the client browser. The flash preview currently works successfully with webkit browsers only. Video & Audio formats are however supported by all modern browsers 
+that support the HTML5 `video`/`audio` tags. Note that browsers have limited number of video/audio formats supported by the HTML5 video element (e.g. mp4, webm, ogg, mp3, wav). The size of video files are recommended to be small (to be controlled 
+through `maxFileSize` property) so that it does not affect the preview performance. You can copy a few files from the `examples` directory of this plugin repo, to test a few examples of flash and video files.
+
 version 2.3.0
 =============
 **Date:** 19-Sep-2014

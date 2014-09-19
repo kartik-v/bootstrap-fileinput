@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 2.3.0
+ * @version 2.4.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. This plugin is inspired by the blog article at
@@ -16,7 +16,20 @@
  * For more Yii related demos visit http://demos.krajee.com
  */
 (function ($) {
-    var MAIN_TEMPLATE_1 = '{preview}\n' +
+    var STYLE_SETTING = 'style="width:{width};height:{height};"';
+    var PREVIEW_LABEL = '   <div class="text-center"><small>{caption}</small></div>\n';
+    var OBJECT_PARAMS = '      <param name="controller" value="true" />\n' +
+        '      <param name="allowFullScreen" value="true" />\n' +
+        '      <param name="allowScriptAccess" value="always" />\n' +
+        '      <param name="autoPlay" value="false" />\n' +
+        '      <param name="autoStart" value="false" />\n'+
+        '      <param name="quality" value="high" />\n';
+
+    var DEFAULT_PREVIEW = '<div class="file-preview-other" ' + STYLE_SETTING + '>\n' +
+        '       <h2><i class="glyphicon glyphicon-file"></i></h2>\n' +
+        '   </div>';
+    var defaultLayoutTemplates = {
+        main1: '{preview}\n' +
             '<div class="input-group {class}">\n' +
             '   {caption}\n' +
             '   <div class="input-group-btn">\n' +
@@ -25,21 +38,17 @@
             '       {browse}\n' +
             '   </div>\n' +
             '</div>',
-
-        MAIN_TEMPLATE_2 = '{preview}\n{remove}\n{upload}\n{browse}\n',
-
-        PREVIEW_TEMPLATE = '<div class="file-preview {class}">\n' +
+        main2: '{preview}\n{remove}\n{upload}\n{browse}\n',
+        preview: '<div class="file-preview {class}">\n' +
             '   <div class="close fileinput-remove text-right">&times;</div>\n' +
             '   <div class="file-preview-thumbnails"></div>\n' +
             '   <div class="clearfix"></div>' +
             '   <div class="file-preview-status text-center text-success"></div>\n' +
             '</div>',
-
-        CAPTION_TEMPLATE = '<div tabindex="-1" class="form-control file-caption {class}">\n' +
+        caption: '<div tabindex="-1" class="form-control file-caption {class}">\n' +
             '   <span class="glyphicon glyphicon-file kv-caption-icon"></span><div class="file-caption-name"></div>\n' +
             '</div>',
-
-        MODAL_TEMPLATE = '<div id="{id}" class="modal fade">\n' +
+        modal: '<div id="{id}" class="modal fade">\n' +
             '  <div class="modal-dialog modal-lg">\n' +
             '    <div class="modal-content">\n' +
             '      <div class="modal-header">\n' +
@@ -51,63 +60,104 @@
             '      </div>\n' +
             '    </div>\n' +
             '  </div>\n' +
-            '</div>\n',
-
-        IMAGE_TEMPLATE = '<div class="file-preview-frame" id="{previewId}">\n' +
+            '</div>\n'    
+    };
+    var defaultPreviewTypes = ['image', 'html', 'text', 'video', 'audio', 'flash', 'object'];
+    var defaultPreviewTemplates = {
+        generic: '<div class="file-preview-frame" id="{previewId}">\n' +
             '   {content}\n' +
             '</div>\n',
-
-        TEXT_TEMPLATE = '<div class="file-preview-frame" id="{previewId}">\n' +
-            '   <div class="file-preview-text" title="{caption}">\n' +
-            '       {strText}\n' +
-            '   </div>\n' +
-            '</div>\n',
-
-        FLASH_TEMPLATE = '<div class="file-preview-frame" id="{previewId}" title="{caption}">\n' +
-            '   <object type="application/x-shockwave-flash" data="{media}" width="320" height="240">\n' +
-            '       <param name="movie" value="{media}" />\n' +
-            '       <param name="quality" value="high" />\n' +
-            '   </object>\n' +
-            '</div>\n',
-            
-        VIDEO_TEMPLATE = '<div class="file-preview-frame" id="{previewId}" title="{caption}">\n' +
-            '   <video width="320" height="240" controls>\n' +
-            '       <source src="{media}" type="{type}">\n' +
-            '       <small>The video format of "{caption}" is not supported by your browser for preview (must be one mp4, webm, 3gp, ogg).</small>' +
-            '   </video>\n' +
-            '</div>\n',
-
-        OTHER_TEMPLATE = '<div class="file-preview-frame" id="{previewId}">\n' +
-            '   <div class="file-preview-other">\n' +
-            '       <h2><i class="glyphicon glyphicon-file"></i></h2>\n' +
-            '           {caption}\n' +
-            '   </div>\n' +
+        html: '<div class="file-preview-frame" id="{previewId}">\n' +
+            '    <object data="{data}" type="{type}" width="{width}" height="{height}">\n' +
+            '       ' + DEFAULT_PREVIEW + '\n' +
+            '    </object>\n' + PREVIEW_LABEL + 
             '</div>',
-
-        isEmpty = function (value, trim) {
+        image: '<div class="file-preview-frame" id="{previewId}">\n' +
+            '   <img src="{data}" class="file-preview-image" title="{caption}" alt="{caption}" ' + STYLE_SETTING + '>\n' +
+            '</div>\n',
+        text: '<div class="file-preview-frame" id="{previewId}">\n' +
+            '   <div class="file-preview-text" title="{caption}" ' + STYLE_SETTING + '>\n' +
+            '       {data}\n' + 
+            '   </div>\n' + 
+            '</div>\n',
+        video: '<div class="file-preview-frame" id="{previewId}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+            '   <video width="{width}" height="{height}" controls>\n' +
+            '       <source src="{data}" type="{type}">\n' +
+            '       ' + DEFAULT_PREVIEW + '\n' +
+            '   </video>\n' + PREVIEW_LABEL + 
+            '</div>\n',
+        audio: '<div class="file-preview-frame" id="{previewId}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+            '   <audio controls>\n' +
+            '       <source src="{data}" type="{type}">\n' +
+            '       ' + DEFAULT_PREVIEW + '\n' +
+            '   </audio>\n' + PREVIEW_LABEL + 
+            '</div>\n',
+        flash: '<div class="file-preview-frame" id="{previewId}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+            '   <object type="application/x-shockwave-flash" width="{width}" height="{height}" data="{data}">\n' +
+            OBJECT_PARAMS + '       ' + DEFAULT_PREVIEW + '\n' +
+            '   </object>\n' + PREVIEW_LABEL + 
+            '</div>\n',
+        object: '<div class="file-preview-frame" id="{previewId}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+            '    <object data="{data}" type="{type}" width="{width}" height="{height}">\n' +
+            '      <param name="movie" value="{caption}" />\n' +
+            OBJECT_PARAMS + '           ' + DEFAULT_PREVIEW + '\n' +
+            '   </object>\n' + PREVIEW_LABEL + 
+            '</div>',
+        other: '<div class="file-preview-frame" id="{previewId}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+            '   ' + DEFAULT_PREVIEW + '\n' + PREVIEW_LABEL + 
+            '</div>',
+    };
+    var defaultPreviewSettings = {
+        image: {width: "auto", height: "160px"},
+        html: {width: "320px", height: "180px"},
+        text: {width: "160px", height: "160px"},
+        video: {width: "320px", height: "240px"},
+        audio: {width: "320px", height: "80px"},
+        flash: {width: "320px", height: "240px"},
+        object: {width: "320px", height: "300px"},
+        other: {width: "160px", height: "120px"}
+    };
+    var defaultFileTypeSettings = {
+        image: function(vType, vName) {
+            return (typeof vType !== "undefined") ? vType.match('image.*') : vName.match(/\.(gif|png|jpe?g)$/i);
+        },
+        html: function(vType, vName) {
+            return (typeof vType !== "undefined") ? vType == 'text/html' : vName.match(/\.(htm|html)$/i);
+        },
+        text: function(vType, vName) {
+            return (typeof vType !== "undefined") ? vType.match('text.*') : vName.match(/\.(txt|md|csv|nfo|php|ini)$/i);
+        },
+        video: function (vType, vName) {
+            return (typeof vType !== "undefined" && vType.match(/\.video\/(ogg|mp4|webm)$/i)) || vName.match(/\.(og?|mp4|webm)$/i);
+        },
+        audio: function (vType, vName) {
+            return (typeof vType !== "undefined" && vType.match(/\.audio\/(ogg|mp3|wav)$/i)) || vName.match(/\.(ogg|mp3|wav)$/i);
+        },
+        flash: function (vType, vName) {
+            return (typeof vType !== "undefined" && vType == 'application/x-shockwave-flash') || vName.match(/\.(swf)$/i);
+        },
+        object: function (vType, vName) {
+            return true;
+        },
+        other: function (vType, vName) {
+            return true;
+        },
+    };
+    var isEmpty = function (value, trim) {
             return value === null || value === undefined || value == []
             || value === '' || trim && $.trim(value) === '';
         },
         isArray = function (a) {
             return Array.isArray(a) || Object.prototype.toString.call(a) === '[object Array]';
         },
+        isSet = function (needle, haystack) {
+            return (typeof haystack == 'object' && typeof haystack[needle] !== 'undefined');
+        },
         getValue = function (options, param, value) {
             return (isEmpty(options) || isEmpty(options[param])) ? value : options[param];
         },
         getElement = function (options, param, value) {
             return (isEmpty(options) || isEmpty(options[param])) ? value : $(options[param]);
-        },
-        isImageFile = function (type, name) {
-            return (typeof type !== "undefined") ? type.match('image.*') : name.match(/\.(gif|png|jpe?g)$/i);
-        },
-        isTextFile = function (type, name) {
-            return (typeof type !== "undefined") ? type.match('text.*') : name.match(/\.(txt|md|csv|htm|html|php|ini)$/i);
-        },
-        isVideoFile = function (type, name) {
-            return (typeof type !== "undefined") ? type.match('video.*') : name.match(/\.(ogg|mp4|webm|3gp|flv)$/i);
-        },
-        isFlashFile = function (type, name) {
-            return typeof type !== "undefined" && type == 'application/x-shockwave-flash' || type.match(/\.(swf)$/i);
         },
         uniqId = function () {
             return Math.round(new Date().getTime() + (Math.random() * 100));
@@ -150,24 +200,20 @@
             self.initialPreviewCount = options.initialPreviewCount;
             self.initialPreviewContent = options.initialPreviewContent;
             self.overwriteInitial = options.overwriteInitial;
+            self.layoutTemplates = options.layoutTemplates;
+            self.previewTemplates = options.previewTemplates;
+            self.allowedPreviewTypes = isEmpty(options.allowedPreviewTypes) ? defaultPreviewTypes : options.allowedPreviewTypes;
+            self.allowedPreviewMimeTypes = options.allowedPreviewMimeTypes;
+            self.previewSettings = options.previewSettings;
+            self.fileTypeSettings = options.fileTypeSettings;
             self.showRemove = options.showRemove;
             self.showUpload = options.showUpload;
             self.captionClass = options.captionClass;
             self.previewClass = options.previewClass;
             self.mainClass = options.mainClass;
-            if (isEmpty(options.mainTemplate)) {
-                self.mainTemplate = self.showCaption ? MAIN_TEMPLATE_1 : MAIN_TEMPLATE_2;
-            } else {
-                self.mainTemplate = options.mainTemplate;
-            }
-            self.previewTemplate = (self.showPreview) ? options.previewTemplate : '';
-            self.previewGenericTemplate = options.previewGenericTemplate;
-            self.previewImageTemplate = options.previewImageTemplate;
-            self.previewFlashTemplate = options.previewFlashTemplate;
-            self.previewVideoTemplate = options.previewVideoTemplate;
-            self.previewTextTemplate = options.previewTextTemplate;
-            self.previewOtherTemplate = options.previewOtherTemplate;
-            self.captionTemplate = options.captionTemplate;
+            self.mainTemplate = self.showCaption ? self.getLayoutTemplate('main1') : self.getLayoutTemplate('main2');
+            self.captionTemplate = self.getLayoutTemplate('caption');
+            self.previewGenericTemplate = self.getPreviewTemplate('generic');
             self.browseLabel = options.browseLabel;
             self.browseIcon = options.browseIcon;
             self.browseClass = options.browseClass;
@@ -208,6 +254,12 @@
             };
             self.options = options;
             self.$element.removeClass('file-loading');
+        },
+        getLayoutTemplate: function(t) {
+            return isSet(t, self.layoutTemplates) ? self.layoutTemplates[t] : defaultLayoutTemplates[t];
+        },
+        getPreviewTemplate: function(t) {
+            return isSet(t, self.previewTemplates) ? self.previewTemplates[t] : defaultPreviewTemplates[t];
         },
         listen: function () {
             var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile;
@@ -263,6 +315,18 @@
             self.$captionContainer.attr('title', caption);
             self.$container.removeClass('file-input-new');
         },
+        clearObjects: function() {
+            var self = this, $preview = self.$preview;
+            $preview.find('video audio').each(function() {
+                 this.pause();
+                 delete(this);
+                 $(this).remove();
+            });
+            $preview.find('img object div').each(function() {
+                delete(this);
+                $(this).remove();
+            });
+        },
         clear: function (e) {
             var self = this;
             if (e) {
@@ -286,6 +350,7 @@
                 self.$caption.html(self.original.caption);
                 self.$container.removeClass('file-input-new');
             } else {
+                self.clearObjects();
                 self.$preview.html('');
                 var cap = (!self.overwriteInitial && self.initialCaption.length > 0) ?
                     self.original.caption : '';
@@ -370,23 +435,63 @@
                     self.addError(self.msgFilePreviewError.replace(/\{name\}/g, caption));
             }
         },
-        loadImage: function (file, caption) {
-            var self = this, $img = $(document.createElement("img"));
-            $img.attr({
-                src: vUrl.createObjectURL(file),
-                class: 'file-preview-image',
-                title: caption,
-                alt: caption,
-                onload: function (e) {
-                    vUrl.revokeObjectURL($img.src);
+        parseFileType: function(file) {
+            var isValid, vType;
+            for (var i = 0; i < defaultPreviewTypes.length; i++) {
+                cat = defaultPreviewTypes[i];
+                isValid = isSet(cat, self.fileTypeSettings) ? self.fileTypeSettings[cat] : defaultFileTypeSettings[cat];
+                vType = isValid(file.type, file.name) ? cat : '';
+                if (vType != '') {
+                    return vType;
                 }
-            });
-            // autosize if image width exceeds preview width
-            if ($img.width() >= self.$preview.width()) {
-                $img.attr({width: "100%", height: "auto"});
             }
-            var $imgContent = $(document.createElement("div")).append($img);
-            return $imgContent.html();
+            return 'other';
+        },
+        previewDefault: function(file, previewId) {
+            var self = this, data = vUrl.createObjectURL(file), $obj = $('#' + previewId),
+                previewOtherTemplate = isSet('other', self.previewTemplates) ? self.previewTemplates['other'] : defaultPreviewTemplates['other'];
+            self.$preview.append("\n" + previewOtherTemplate
+                .replace(/\{previewId\}/g, previewId)
+                .replace(/\{caption\}/g, file.name)
+                .replace(/\{type\}/g, file.type)
+                .replace(/\{data\}/g, data));
+            $obj.on('load', function(e) {
+                vUrl.revokeObjectURL($obj.attr('data'));
+            });
+        },
+        previewFile: function(file, theFile, previewId, data) {
+            var self = this, i, cat = self.parseFileType(file), caption = file.name, data, obj, content, 
+                types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes, fType = file.type, 
+                template = isSet(cat, self.previewTemplates) ? self.previewTemplates[cat] : defaultPreviewTemplates[cat], 
+                config = isSet(cat, self.previewSettings) ? self.previewSettings[cat] : defaultPreviewSettings[cat],
+                wrapLen = parseInt(self.wrapTextLength), wrapInd = self.wrapIndicator, $preview = self.$preview, 
+                chkTypes = types.indexOf(cat) >=0, chkMimes = isEmpty(mimes) || (!isEmpty(mimes) && isSet(file.type, mimes));
+            if (chkTypes && chkMimes) {
+                if (cat == 'text') {
+                    var strText = theFile.target.result;
+                    vUrl.revokeObjectURL(data);
+                    if (strText.length > wrapLen) {
+                        var id = uniqId(), height = window.innerHeight * .75,
+                            modal = self.getLayoutTemplate('modal').replace(/\{id\}/g, id).replace(/\{title\}/g,
+                                caption).replace(/\{body\}/g, strText).replace(/\{height\}/g, height);
+                        wrapInd = wrapInd.replace(/\{title\}/g, caption).replace(/\{dialog\}/g,
+                            "$('#" + id + "').modal('show')");
+                        strText = strText.substring(0, (wrapLen - 1)) + wrapInd;
+                    }
+                    content = template
+                        .replace(/\{previewId\}/g, previewId).replace(/\{caption\}/g, caption)
+                        .replace(/\{type\}/g, file.type).replace(/\{data\}/g, strText)
+                        .replace(/\{width\}/g, config.width).replace(/\{height\}/g, config.height);
+                } else {
+                    content = template
+                        .replace(/\{previewId\}/g, previewId).replace(/\{caption\}/g, caption)
+                        .replace(/\{type\}/g, file.type).replace(/\{data\}/g, data)
+                        .replace(/\{width\}/g, config.width).replace(/\{height\}/g, config.height);
+                }
+                $preview.append("\n" + content);
+            } else {
+                self.previewDefault(file, previewId);
+            }
         },
         readFiles: function (files) {
             this.reader = new FileReader();
@@ -394,7 +499,8 @@
                 $container = self.$previewContainer, $status = self.$previewStatus, msgLoading = self.msgLoading,
                 msgProgress = self.msgProgress, msgSelected = self.msgSelected, fileType = self.previewFileType,
                 wrapLen = parseInt(self.wrapTextLength), wrapInd = self.wrapIndicator,
-                previewInitId = "preview-" + uniqId(), numFiles = files.length;
+                previewInitId = "preview-" + uniqId(), numFiles = files.length,
+                isText = isSet('text', self.fileTypeSettings) ? self.fileTypeSettings['text'] : defaultFileTypeSettings['text'];
 
             function readFile(i) {
                 if (i >= numFiles) {
@@ -402,10 +508,8 @@
                     $status.html('');
                     return;
                 }
-                var previewId = previewInitId + "-" + i;
-                var file = files[i], caption = file.name, isImg = isImageFile(file.type, file.name),
-                    isFlash = isFlashFile(file.type, file.name), isVideo = isVideoFile(file.type, file.name),
-                    isTxt = isTextFile(file.type, file.name), fileSize = (file.size ? file.size : 0) / 1000;
+                var previewId = previewInitId + "-" + i, file = files[i], caption = file.name, 
+                    fileSize = (file.size ? file.size : 0) / 1000, previewData = vUrl.createObjectURL(file);
                 fileSize = fileSize.toFixed(2);
                 if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
                     var msg = self.msgSizeTooLarge.replace(/\{name\}/g, caption).replace(/\{size\}/g,
@@ -413,80 +517,54 @@
                     self.isError = self.showError(msg, file, previewId, i);
                     return;
                 }
-                var chkPreview = ($preview.length > 0 && typeof FileReader !== "undefined" && (isImg || isTxt || isFlash || isVideo));
-                if (chkPreview) {
+                if (!self.showPreview) {
+                    setTimeout(readFile(i + 1), 1000);
+                    return;
+                }
+                if ($preview.length > 0 && typeof FileReader !== "undefined") {
                     $status.html(msgLoading.replace(/\{index\}/g, i + 1).replace(/\{files\}/g, numFiles));
                     $container.addClass('loading');
                     reader.onerror = function (evt) {
                         self.errorHandler(evt, caption);
                     };
                     reader.onload = function (theFile) {
-                        var content = '', modal = '';
-                        if (isTxt) {
-                            var strText = theFile.target.result;
-                            if (strText.length > wrapLen) {
-                                var id = uniqId(), height = window.innerHeight * .75,
-                                    modal = MODAL_TEMPLATE.replace(/\{id\}/g, id).replace(/\{title\}/g,
-                                        caption).replace(/\{body\}/g, strText).replace(/\{height\}/g, height);
-                                wrapInd = wrapInd.replace(/\{title\}/g, caption).replace(/\{dialog\}/g,
-                                    "$('#" + id + "').modal('show')");
-                                strText = strText.substring(0, (wrapLen - 1)) + wrapInd;
-                            }
-                            content = self.previewTextTemplate.replace(/\{previewId\}/g,
-                                previewId).replace(/\{caption\}/g, caption).replace(/\{strText\}/g, strText) + modal;
-                        } else {
-                            if (isFlash) {
-                                var media = vUrl.createObjectURL(file);
-                                content = self.previewFlashTemplate.replace(/\{previewId\}/g,
-                                    previewId).replace(/\{caption\}/g, caption).replace(/\{media\}/g, media);
-                            } else {
-                                if (isVideo) {
-                                    var media = vUrl.createObjectURL(file);
-                                    content = self.previewVideoTemplate.replace(/\{previewId\}/g,
-                                        previewId).replace(/\{caption\}/g, caption).replace(/\{type\}/g,
-                                        file.type).replace(/\{media\}/g, media);
-                                } else {
-                                    content = self.previewImageTemplate.replace(/\{previewId\}/g,
-                                        previewId).replace(/\{content\}/g, self.loadImage(file, caption));
-                                }
-                            }
-                        }
-                        $preview.append("\n" + content);
+                        self.previewFile(file, theFile, previewId, previewData);
                     };
                     reader.onloadend = function (e) {
-                        var msg = msgProgress.replace(/\{index\}/g, i + 1).replace(/\{files\}/g,
-                            numFiles).replace(/\{percent\}/g, 100).replace(/\{name\}/g, file.name);
+                        var msg = msgProgress
+                            .replace(/\{index\}/g, i + 1).replace(/\{files\}/g, numFiles)
+                            .replace(/\{percent\}/g, 100).replace(/\{name\}/g, caption);
                         setTimeout(function () {
                             $status.html(msg);
+                            vUrl.revokeObjectURL(previewData);
                         }, 1000);
                         setTimeout(function () {
-                            readFile(i + 1)
+                            readFile(i + 1);
                         }, 1500);
                         $el.trigger('fileloaded', [file, previewId, i]);
                     };
                     reader.onprogress = function (data) {
                         if (data.lengthComputable) {
                             var progress = parseInt(((data.loaded / data.total) * 100), 10);
-                            var msg = msgProgress.replace(/\{index\}/g, i + 1).replace(/\{files\}/g,
-                                numFiles).replace(/\{percent\}/g, progress).replace(/\{name\}/g, file.name);
+                            var msg = msgProgress
+                                .replace(/\{index\}/g, i + 1).replace(/\{files\}/g, numFiles)
+                                .replace(/\{percent\}/g, progress).replace(/\{name\}/g, caption);
                             setTimeout(function () {
                                 $status.html(msg);
                             }, 1000);
                         }
                     };
-                    if (isTxt) {
+                    if (isText(file.type, caption)) {
                         reader.readAsText(file);
                     } else {
                         reader.readAsArrayBuffer(file);
                     }
                 } else {
-                    $preview.append("\n" + self.previewOtherTemplate.replace(/\{previewId\}/g,
-                        previewId).replace(/\{caption\}/g, caption));
+                    self.previewDefault(file, previewId);
                     $el.trigger('fileloaded', [file, previewId, i]);
                     setTimeout(readFile(i + 1), 1000);
                 }
             }
-
             readFile(0);
         },
         change: function (e) {
@@ -552,7 +630,7 @@
         },
         renderMain: function () {
             var self = this;
-            var preview = self.previewTemplate.replace(/\{class\}/g, self.previewClass);
+            var preview = self.showPreview ? self.getLayoutTemplate('preview').replace(/\{class\}/g, self.previewClass) : '';
             var css = self.isDisabled ? self.captionClass + ' file-caption-disabled' : self.captionClass;
             var caption = self.captionTemplate.replace(/\{class\}/g, css + ' kv-fileinput-caption');
             return self.mainTemplate.replace(/\{class\}/g, self.mainClass).
@@ -633,9 +711,9 @@
         showPreview: true,
         showRemove: true,
         showUpload: true,
-        captionClass: '',
-        previewClass: '',
         mainClass: '',
+        previewClass: '',
+        captionClass: '',
         mainTemplate: null,
         initialDelimiter: '*$$*',
         initialPreview: '',
@@ -643,14 +721,12 @@
         initialPreviewCount: 0,
         initialPreviewContent: '',
         overwriteInitial: true,
-        previewTemplate: PREVIEW_TEMPLATE,
-        previewGenericTemplate: IMAGE_TEMPLATE,
-        previewImageTemplate: IMAGE_TEMPLATE,
-        previewFlashTemplate: FLASH_TEMPLATE,
-        previewVideoTemplate: VIDEO_TEMPLATE,
-        previewTextTemplate: TEXT_TEMPLATE,
-        previewOtherTemplate: OTHER_TEMPLATE,
-        captionTemplate: CAPTION_TEMPLATE,
+        layoutTemplates: defaultLayoutTemplates,
+        previewTemplates: defaultPreviewTemplates,
+        allowedPreviewTypes: defaultPreviewTypes,
+        allowedPreviewMimeTypes: null,
+        previewSettings: defaultPreviewSettings,
+        fileTypeSettings: defaultFileTypeSettings,
         browseLabel: 'Browse &hellip;',
         browseIcon: '<i class="glyphicon glyphicon-folder-open"></i> &nbsp;',
         browseClass: 'btn btn-primary',
