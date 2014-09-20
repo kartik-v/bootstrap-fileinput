@@ -675,6 +675,10 @@
     }
 
     $.fn.fileinput = function (options) {
+        if (!hasFileAPISupport()) {
+          return;
+        }
+        
         return this.each(function () {
             var $this = $(this), data = $this.data('fileinput')
             if (!data) {
@@ -688,6 +692,10 @@
 
     //FileInput plugin definition
     $.fn.fileinput = function (option) {
+        if (!hasFileAPISupport()) {
+          return;
+        }
+        
         var args = Array.apply(null, arguments);
         args.shift();
         return this.each(function () {
