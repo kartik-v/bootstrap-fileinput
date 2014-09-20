@@ -5,6 +5,7 @@ version 2.4.0
 - (enh #30): Enhanced generic support for more preview formats (audio, video, html, flash, and other objects).
 - (enh #31): Better control and configuration of preview templates.
 - (enh #32): Added checks for file api support
+- (enh #33): Better text format validation and correct modal preview
 
 > **Note:** There are BC Breaking Changes with release v2.4.0.
 

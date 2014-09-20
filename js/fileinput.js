@@ -124,16 +124,16 @@
             return (typeof vType !== "undefined") ? vType == 'text/html' : vName.match(/\.(htm|html)$/i);
         },
         text: function(vType, vName) {
-            return (typeof vType !== "undefined") ? vType.match('text.*') : vName.match(/\.(txt|md|csv|nfo|php|ini)$/i);
+            return typeof vType !== "undefined" && vType.match('text.*') || vName.match(/\.(txt|md|csv|nfo|php|ini)$/i);
         },
         video: function (vType, vName) {
-            return (typeof vType !== "undefined" && vType.match(/\.video\/(ogg|mp4|webm)$/i)) || vName.match(/\.(og?|mp4|webm)$/i);
+            return typeof vType !== "undefined" && vType.match(/\.video\/(ogg|mp4|webm)$/i) || vName.match(/\.(og?|mp4|webm)$/i);
         },
         audio: function (vType, vName) {
-            return (typeof vType !== "undefined" && vType.match(/\.audio\/(ogg|mp3|wav)$/i)) || vName.match(/\.(ogg|mp3|wav)$/i);
+            return typeof vType !== "undefined" && vType.match(/\.audio\/(ogg|mp3|wav)$/i) || vName.match(/\.(ogg|mp3|wav)$/i);
         },
         flash: function (vType, vName) {
-            return (typeof vType !== "undefined" && vType == 'application/x-shockwave-flash') || vName.match(/\.(swf)$/i);
+            return typeof vType !== "undefined" && vType == 'application/x-shockwave-flash' || vName.match(/\.(swf)$/i);
         },
         object: function (vType, vName) {
             return true;
@@ -470,7 +470,7 @@
                     var strText = theFile.target.result;
                     vUrl.revokeObjectURL(data);
                     if (strText.length > wrapLen) {
-                        var id = uniqId(), height = window.innerHeight * .75,
+                        var id = 'text-' + uniqId(), height = window.innerHeight * .75,
                             modal = self.getLayoutTemplate('modal').replace(/\{id\}/g, id).replace(/\{title\}/g,
                                 caption).replace(/\{body\}/g, strText).replace(/\{height\}/g, height);
                         wrapInd = wrapInd.replace(/\{title\}/g, caption).replace(/\{dialog\}/g,
@@ -480,7 +480,7 @@
                     content = template
                         .replace(/\{previewId\}/g, previewId).replace(/\{caption\}/g, caption)
                         .replace(/\{type\}/g, file.type).replace(/\{data\}/g, strText)
-                        .replace(/\{width\}/g, config.width).replace(/\{height\}/g, config.height);
+                        .replace(/\{width\}/g, config.width).replace(/\{height\}/g, config.height) + modal;
                 } else {
                     content = template
                         .replace(/\{previewId\}/g, previewId).replace(/\{caption\}/g, caption)
