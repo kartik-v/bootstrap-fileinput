@@ -2,6 +2,10 @@ version 2.4.0
 =============
 **Date:** 20-Sep-2014
 
+- (enh #30): Enhanced generic support for more preview formats (audio, video, html, flash, and other objects).
+- (enh #31): Better control and configuration of preview templates.
+- (enh #32): Added checks for file api support
+
 > **Note:** There are BC Breaking Changes with release v2.4.0.
 
 With release v2.4.0, the plugin has been revamped to support and configure a wide variety of file formats for preview. This may break some
@@ -35,7 +39,7 @@ version 2.3.0
 =============
 **Date:** 19-Sep-2014
 
-1. (enh #26): Added support for previewing flash and video files.
+1. (enh #28, #29): Added support for previewing flash and video files.
 2. Better replacement of tags in templates. Replaces all tag occurences with this new release.
 
 version 2.2.0

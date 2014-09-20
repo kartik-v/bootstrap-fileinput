@@ -3,12 +3,11 @@
  * @version 2.4.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
- * features including the FileReader API. This plugin is inspired by the blog article at
- * http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/
- * and Jasny's File Input plugin http://jasny.github.io/bootstrap/javascript/#fileinput
+ * features including the FileReader API. 
  * 
- * The plugin drastically enhances the file input to preview multiple files on the client before
- * upload. In addition it provides the ability to preview content of images and text files. 
+ * The plugin drastically enhances the HTML file input to preview multiple files on the client before
+ * upload. In addition it provides the ability to preview content of images, text, videos, audio, html, 
+ * flash and other objects.
  * 
  * Author: Kartik Visweswaran
  * Copyright: 2014, Kartik Visweswaran, Krajee.com
