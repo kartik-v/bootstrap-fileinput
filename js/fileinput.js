@@ -23,7 +23,6 @@
         '      <param name="autoPlay" value="false" />\n' +
         '      <param name="autoStart" value="false" />\n'+
         '      <param name="quality" value="high" />\n';
-
     var DEFAULT_PREVIEW = '<div class="file-preview-other" ' + STYLE_SETTING + '>\n' +
         '       <h2><i class="glyphicon glyphicon-file"></i></h2>\n' +
         '   </div>';
@@ -672,22 +671,6 @@
             return content;
         }
     }
-
-    $.fn.fileinput = function (options) {
-        if (!hasFileAPISupport()) {
-          return;
-        }
-        
-        return this.each(function () {
-            var $this = $(this), data = $this.data('fileinput')
-            if (!data) {
-                $this.data('fileinput', (data = new FileInput(this, options)))
-            }
-            if (typeof options == 'string') {
-                data[options]()
-            }
-        })
-    };
 
     //FileInput plugin definition
     $.fn.fileinput = function (option) {
