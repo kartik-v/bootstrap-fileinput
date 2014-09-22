@@ -23,6 +23,7 @@
         '      <param name="autoPlay" value="false" />\n' +
         '      <param name="autoStart" value="false" />\n'+
         '      <param name="quality" value="high" />\n';
+
     var DEFAULT_PREVIEW = '<div class="file-preview-other" ' + STYLE_SETTING + '>\n' +
         '       <h2><i class="glyphicon glyphicon-file"></i></h2>\n' +
         '   </div>';
@@ -149,7 +150,7 @@
             return Array.isArray(a) || Object.prototype.toString.call(a) === '[object Array]';
         },
         isSet = function (needle, haystack) {
-            return (typeof haystack == 'object' && typeof haystack[needle] !== 'undefined');
+            return (typeof haystack == 'object' && needle in haystack);
         },
         getValue = function (options, param, value) {
             return (isEmpty(options) || isEmpty(options[param])) ? value : options[param];
@@ -254,9 +255,11 @@
             self.$element.removeClass('file-loading');
         },
         getLayoutTemplate: function(t) {
+            var self = this;
             return isSet(t, self.layoutTemplates) ? self.layoutTemplates[t] : defaultLayoutTemplates[t];
         },
         getPreviewTemplate: function(t) {
+            var self = this;
             return isSet(t, self.previewTemplates) ? self.previewTemplates[t] : defaultPreviewTemplates[t];
         },
         listen: function () {
@@ -671,6 +674,22 @@
             return content;
         }
     }
+
+    $.fn.fileinput = function (options) {
+        if (!hasFileAPISupport()) {
+          return;
+        }
+        
+        return this.each(function () {
+            var $this = $(this), data = $this.data('fileinput')
+            if (!data) {
+                $this.data('fileinput', (data = new FileInput(this, options)))
+            }
+            if (typeof options == 'string') {
+                data[options]()
+            }
+        })
+    };
 
     //FileInput plugin definition
     $.fn.fileinput = function (option) {
