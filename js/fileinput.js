@@ -675,22 +675,6 @@
         }
     }
 
-    $.fn.fileinput = function (options) {
-        if (!hasFileAPISupport()) {
-          return;
-        }
-        
-        return this.each(function () {
-            var $this = $(this), data = $this.data('fileinput')
-            if (!data) {
-                $this.data('fileinput', (data = new FileInput(this, options)))
-            }
-            if (typeof options == 'string') {
-                data[options]()
-            }
-        })
-    };
-
     //FileInput plugin definition
     $.fn.fileinput = function (option) {
         if (!hasFileAPISupport()) {
