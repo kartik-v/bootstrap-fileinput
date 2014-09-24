@@ -390,30 +390,30 @@ This is by default setup as following:
 // vType: is the file mime type
 // vName: is the file name
 {
-    image: function(vType, vName) {
-        return (typeof vType !== "undefined") ? vType.match('image.*') : vName.match(/\.(gif|png|jpe?g)$/i);
-    },
-    html: function(vType, vName) {
-        return (typeof vType !== "undefined") ? vType == 'text/html' : vName.match(/\.(htm|html)$/i);
-    },
-    text: function(vType, vName) {
-        return (typeof vType !== "undefined") ? vType.match('text.*') : vName.match(/\.(txt|md|csv|nfo|php|ini)$/i);
-    },
-    video: function (vType, vName) {
-        return (typeof vType !== "undefined" && vType.match(/\.video\/(ogg|mp4|webm)$/i)) || vName.match(/\.(og?|mp4|webm)$/i);
-    },
-    audio: function (vType, vName) {
-        return (typeof vType !== "undefined" && vType.match(/\.audio\/(ogg|mp3|wav)$/i)) || vName.match(/\.(ogg|mp3|wav)$/i);
-    },
-    flash: function (vType, vName) {
-        return (typeof vType !== "undefined" && vType == 'application/x-shockwave-flash') || vName.match(/\.(swf)$/i);
-    },
-    object: function (vType, vName) {
-        return true;
-    },
-    other: function (vType, vName) {
-        return true;
-    },
+	image: function(vType, vName) {
+		return (typeof vType !== "undefined") ? vType.match('image.*') : vName.match(/\.(gif|png|jpe?g)$/i);
+	},
+	html: function(vType, vName) {
+		return (typeof vType !== "undefined") ? vType == 'text/html' : vName.match(/\.(htm|html)$/i);
+	},
+	text: function(vType, vName) {
+		return typeof vType !== "undefined" && vType.match('text.*') || vName.match(/\.(txt|md|csv|nfo|php|ini)$/i);
+	},
+	video: function (vType, vName) {
+		return typeof vType !== "undefined" && vType.match(/\.video\/(ogg|mp4|webm)$/i) || vName.match(/\.(og?|mp4|webm)$/i);
+	},
+	audio: function (vType, vName) {
+		return typeof vType !== "undefined" && vType.match(/\.audio\/(ogg|mp3|wav)$/i) || vName.match(/\.(ogg|mp3|wav)$/i);
+	},
+	flash: function (vType, vName) {
+		return typeof vType !== "undefined" && vType == 'application/x-shockwave-flash' || vName.match(/\.(swf)$/i);
+	},
+	object: function (vType, vName) {
+		return true;
+	},
+	other: function (vType, vName) {
+		return true;
+	},
 }
 ```
 
