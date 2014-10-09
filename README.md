@@ -52,6 +52,7 @@ The following are the major changes with release v2.4.0:
    Thus all file types are treated as an object to preview by default. For exampleTo preview only `image` and `video`, you can set this to `['image', 'video']`.
 - `allowedPreviewMimeTypes`: In addition to `allowedPreviewTypes`, you can also control which all mime types can be displayed for preview. This defaults to null,
    meaning all mime types are supported.
+   >NOTE: With release 2.5.0 you can now control which file types or extensions are allowed for upload by setting `allowedFileTypes` and `allowedFileExtensions`.
 - `layoutTemplates`: Allows you to configure all layout template settings within one property. The layout objects that can be configured are: `main1`, `main2`,
    `preview`, `caption`, and `modal`.
 - `previewTemplates`: All preview templates for **each preview type** have been combined into one property, instead of separate templates for image, text etc. 
