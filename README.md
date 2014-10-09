@@ -347,23 +347,6 @@ The `previewTemplates` if not set will default to:
 }
 ```
 
-#### allowedPreviewTypes
-
-_array_ the list of allowed preview types for your widget. This by default supports all file types for preview. The plugin by default treats each
-file as an object if it does not match any of the previous types. To disable this behavior, you can remove `object` from the list of `allowedPreviewTypes`
-OR fine tune it through `allowedPreviewMimeTypes`.
-
-This is by default setup as following:
-```js
-['image', 'html', 'text', 'video', 'audio', 'flash', 'object']
-```
-
-#### allowedPreviewMimeTypes
-
-_array_ the list of allowed mime types for preview. This is set to null by default which means all possible mime types are allowed. This setting works in combination
-with `allowedPreviewTypes` to filter only the needed file types allowed for preview. You can check this [list of allowed mime types](http://www.sitepoint.com/web-foundations/mime-types-complete-list/)
-to add to this list if needed.
-
 #### allowedFileTypes
 
 _array_ the list of allowed file types for upload. This by default is set to null which means the plugin supports all file types for upload. If an 
@@ -385,6 +368,23 @@ invalid file extension is found, then a validation error message as set in `msgI
 
 > NOTE: You need to be careful in case you are setting both `allowedFileTypes` and `allowedFileExtensions`. In this case, the `allowedFileTypes` property 
 is validated first and generally precedes the `allowedFileExtensions` setting (and the latter validation maybe skipped).
+
+#### allowedPreviewTypes
+
+_array_ the list of allowed preview types for your widget. This by default supports all file types for preview. The plugin by default treats each
+file as an object if it does not match any of the previous types. To disable this behavior, you can remove `object` from the list of `allowedPreviewTypes`
+OR fine tune it through `allowedPreviewMimeTypes`.
+
+This is by default setup as following:
+```js
+['image', 'html', 'text', 'video', 'audio', 'flash', 'object']
+```
+
+#### allowedPreviewMimeTypes
+
+_array_ the list of allowed mime types for preview. This is set to null by default which means all possible mime types are allowed. This setting works in combination
+with `allowedPreviewTypes` to filter only the needed file types allowed for preview. You can check this [list of allowed mime types](http://www.sitepoint.com/web-foundations/mime-types-complete-list/)
+to add to this list if needed.
 
 #### previewSettings
 
@@ -540,6 +540,28 @@ where:
 
 - `{name}`: will be replaced by the file name being uploaded
 
+#### msgInvalidFileType
+_string_ the message to be displayed when the file type is not in one of the file types set in `allowedFileTypes`. Defaults to:
+
+```
+Invalid type for file "{name}". Only "{types}" files are supported.
+```
+where:
+
+- `{name}`: will be replaced by the file name being uploaded
+- `{types}`: will be replaced by the comma separated list of types defined in `allowedFileTypes`.
+
+#### msgInvalidFileExtension
+_string_ the message to be displayed when the file type is not in one of the file extensions set in `allowedFileExtensions`. Defaults to:
+
+```
+Invalid extension for file "{name}". Only "{extensions}" files are supported.
+```
+where:
+
+- `{name}`: will be replaced by the file name being uploaded
+- `{extensions}`: will be replaced by the comma separated list of extensions defined in `allowedFileExtensions`.
+
 #### msgValidationError
 _string_ the exception message to be displayed within the caption container (instead of `msgFilesSelected`), 
 when a validation error is encountered. Defaults to:
@@ -577,6 +599,7 @@ The following variables will be replaced:
 _string_ the progress message displayed in caption window when multiple (more than one) files are selected. Defaults to `{n} files selected`. The following variables will be replaced:
 
 - `{n}`: the number of files selected.
+
 
 #### previewFileType
 _string_ the type of files that are to be displayed in the preview window. Defaults to `image`. Can be one of the following:
