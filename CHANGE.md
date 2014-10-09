@@ -1,11 +1,20 @@
+version 2.5.0
+=============
+**Date:** 09-Oct-2014
+
+- (enh #36): Add validation routine for allowed file types and extensions.
+- (bug #37): HTML encode text content for preview in modal.
+- (enh #38): Highlight error CSS in file caption on validation error.
+- (bug #39): HTML encode caption hover title.
+
 version 2.4.0
 =============
 **Date:** 20-Sep-2014
 
 - (enh #30): Enhanced generic support for more preview formats (audio, video, html, flash, and other objects).
 - (enh #31): Better control and configuration of preview templates.
-- (enh #32): Added checks for file api support
-- (enh #33): Better text format validation and correct modal preview
+- (enh #32): Added checks for file api support.
+- (enh #33): Better text format validation and correct modal preview.
 
 > **Note:** There are BC Breaking Changes with release v2.4.0.
 

@@ -7,7 +7,7 @@ wide variety of files i.e. images, text, html, video, audio, flash, and objects.
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin v2.4.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin v2.5.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
 
 ## Features  
 
@@ -363,6 +363,28 @@ This is by default setup as following:
 _array_ the list of allowed mime types for preview. This is set to null by default which means all possible mime types are allowed. This setting works in combination
 with `allowedPreviewTypes` to filter only the needed file types allowed for preview. You can check this [list of allowed mime types](http://www.sitepoint.com/web-foundations/mime-types-complete-list/)
 to add to this list if needed.
+
+#### allowedFileTypes
+
+_array_ the list of allowed file types for upload. This by default is set to null which means the plugin supports all file types for upload. If an 
+invalid file type is found, then a validation error message as set in `msgInvalidFileType` will be raised. The following types as set in `fileTypeSettings` 
+are available for setup. 
+
+```js
+['image', 'html', 'text', 'video', 'audio', 'flash', 'object']
+```
+
+#### allowedFileExtensions
+
+_array_ the list of allowed file extensions for upload. This by default is set to null which means the plugin supports all file extensions for upload. If an 
+invalid file extension is found, then a validation error message as set in `msgInvalidFileExtension` will be raised. An example of setting this could be:
+
+```js
+['jpg', 'gif', 'png', 'txt']
+```
+
+> NOTE: You need to be careful in case you are setting both `allowedFileTypes` and `allowedFileExtensions`. In this case, the `allowedFileTypes` property 
+is validated first and generally precedes the `allowedFileExtensions` setting (and the latter validation maybe skipped).
 
 #### previewSettings
 

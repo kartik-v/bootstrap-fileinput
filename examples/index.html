@@ -7,7 +7,7 @@
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="../js/fileinput.min.js" type="text/javascript"></script>
+        <script src="../js/fileinput.js" type="text/javascript"></script>
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js" type="text/javascript"></script>
     </head>
     <body>
@@ -41,8 +41,9 @@
     $("#file-1").fileinput({
         initialPreview: ["<img src='Desert.jpg' class='file-preview-image'>", "<img src='Jellyfish.jpg' class='file-preview-image'>"],
         overwriteInitial: false,
-        maxFileSize: 100,
-        maxFilesNum: 10
+        maxFileSize: 1000,
+        maxFilesNum: 10,
+        allowedFileTypes: ['image', 'video', 'flash']
 	});
 	$("#file-3").fileinput({
 		showUpload: false,

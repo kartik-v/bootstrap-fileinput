@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 2.4.0
+ * @version 2.5.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -164,6 +164,14 @@
         hasFileAPISupport = function () {
             return window.File && window.FileReader && window.FileList && window.Blob;
         },
+        htmlEncode = function(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        },
         vUrl = window.URL || window.webkitURL;
 
     var FileInput = function (element, options) {
@@ -203,6 +211,8 @@
             self.previewTemplates = options.previewTemplates;
             self.allowedPreviewTypes = isEmpty(options.allowedPreviewTypes) ? defaultPreviewTypes : options.allowedPreviewTypes;
             self.allowedPreviewMimeTypes = options.allowedPreviewMimeTypes;
+            self.allowedFileTypes = options.allowedFileTypes;
+            self.allowedFileExtensions = options.allowedFileExtensions;
             self.previewSettings = options.previewSettings;
             self.fileTypeSettings = options.fileTypeSettings;
             self.showRemove = options.showRemove;
@@ -226,6 +236,8 @@
             self.msgLoading = options.msgLoading;
             self.msgProgress = options.msgProgress;
             self.msgSelected = options.msgSelected;
+            self.msgInvalidFileType = options.msgInvalidFileType;
+            self.msgInvalidFileExtension = options.msgInvalidFileExtension;
             self.previewFileType = options.previewFileType;
             self.wrapTextLength = options.wrapTextLength;
             self.wrapIndicator = options.wrapIndicator;
@@ -279,7 +291,8 @@
         initPreview: function () {
             var self = this, html = '', content = self.initialPreview, len = self.initialPreviewCount,
                 cap = self.initialCaption.length, previewId = "preview-" + uniqId(),
-                caption = (cap > 0) ? self.initialCaption : self.msgSelected.replace(/\{n\}/g, len);
+                caption = (cap > 0) ? self.initialCaption : self.msgSelected.replace(/\{n\}/g, len),
+                title = $(caption).text();
             if (isArray(content) && len > 0) {
                 for (var i = 0; i < len; i++) {
                     previewId += '-' + i;
@@ -303,7 +316,7 @@
                 } else {
                     if (cap > 0) {
                         self.$caption.html(caption);
-                        self.$captionContainer.attr('title', caption);
+                        self.$captionContainer.attr('title', title);
                         return;
                     } else {
                         return;
@@ -313,7 +326,7 @@
             self.initialPreviewContent = html;
             self.$preview.html(html);
             self.$caption.html(caption);
-            self.$captionContainer.attr('title', caption);
+            self.$captionContainer.attr('title', title);
             self.$container.removeClass('file-input-new');
         },
         clearObjects: function() {
@@ -399,6 +412,7 @@
         resetErrors: function (fade) {
             var self = this, $error = self.$previewContainer.find('.kv-fileinput-error');
             self.isError = false;
+            self.$container.removeClass('has-error');
             if (fade) {
                 $error.fadeOut('slow');
             } else {
@@ -418,6 +432,7 @@
             $error.fadeIn(800);
             self.$element.trigger('fileerror', [file, previewId, index]);
             self.$element.val('');
+            self.$container.removeClass('has-error').addClass('has-error');
             return true;
         },
         errorHandler: function (evt, caption) {
@@ -469,20 +484,24 @@
                 chkTypes = types.indexOf(cat) >=0, chkMimes = isEmpty(mimes) || (!isEmpty(mimes) && isSet(file.type, mimes));
             if (chkTypes && chkMimes) {
                 if (cat == 'text') {
-                    var strText = theFile.target.result;
+                    var strText = htmlEncode(theFile.target.result);
                     vUrl.revokeObjectURL(data);
                     if (strText.length > wrapLen) {
                         var id = 'text-' + uniqId(), height = window.innerHeight * .75,
-                            modal = self.getLayoutTemplate('modal').replace(/\{id\}/g, id).replace(/\{title\}/g,
-                                caption).replace(/\{body\}/g, strText).replace(/\{height\}/g, height);
-                        wrapInd = wrapInd.replace(/\{title\}/g, caption).replace(/\{dialog\}/g,
-                            "$('#" + id + "').modal('show')");
-                        strText = strText.substring(0, (wrapLen - 1)) + wrapInd;
+                            modal = self.getLayoutTemplate('modal')
+                                .replace(/\{id\}/g, id)
+                                .replace(/\{title\}/g, caption)
+                                .replace(/\{height\}/g, height)
+                                .replace(/\{body\}/g, strText);
+                            wrapInd = wrapInd
+                                .replace(/\{title\}/g, caption)
+                                .replace(/\{dialog\}/g, "$('#" + id + "').modal('show')");
+                            strText = strText.substring(0, (wrapLen - 1)) + wrapInd;
                     }
                     content = template
                         .replace(/\{previewId\}/g, previewId).replace(/\{caption\}/g, caption)
-                        .replace(/\{type\}/g, file.type).replace(/\{data\}/g, strText)
-                        .replace(/\{width\}/g, config.width).replace(/\{height\}/g, config.height) + modal;
+                        .replace(/\{type\}/g, file.type).replace(/\{width\}/g, config.width)
+                        .replace(/\{height\}/g, config.height).replace(/\{data\}/g, strText) + modal;
                 } else {
                     content = template
                         .replace(/\{previewId\}/g, previewId).replace(/\{caption\}/g, caption)
@@ -500,8 +519,8 @@
                 $container = self.$previewContainer, $status = self.$previewStatus, msgLoading = self.msgLoading,
                 msgProgress = self.msgProgress, msgSelected = self.msgSelected, fileType = self.previewFileType,
                 wrapLen = parseInt(self.wrapTextLength), wrapInd = self.wrapIndicator,
-                previewInitId = "preview-" + uniqId(), numFiles = files.length,
-                isText = isSet('text', self.fileTypeSettings) ? self.fileTypeSettings['text'] : defaultFileTypeSettings['text'];
+                previewInitId = "preview-" + uniqId(), numFiles = files.length, settings = self.fileTypeSettings,
+                isText = isSet('text', settings) ? settings['text'] : defaultFileTypeSettings['text'];
 
             function readFile(i) {
                 if (i >= numFiles) {
@@ -510,13 +529,39 @@
                     return;
                 }
                 var previewId = previewInitId + "-" + i, file = files[i], caption = file.name, 
-                    fileSize = (file.size ? file.size : 0) / 1000, previewData = vUrl.createObjectURL(file);
+                    fileSize = (file.size ? file.size : 0) / 1000, checkFile, 
+                    previewData = vUrl.createObjectURL(file), fileCount = 0, j, msg, typ, chk,
+                    fileTypes = self.allowedFileTypes, strTypes = isEmpty(fileTypes) ? '' : fileTypes.join(', '), 
+                    fileExt = self.allowedFileExtensions, strExt = isEmpty(fileExt) ? '' : fileExt.join(', '),
+                    fileExtExpr = isEmpty(fileExt) ? '' : new RegExp('\\.(' + fileExt.join('|') + ')$', 'i');
                 fileSize = fileSize.toFixed(2);
                 if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
-                    var msg = self.msgSizeTooLarge.replace(/\{name\}/g, caption).replace(/\{size\}/g,
+                    msg = self.msgSizeTooLarge.replace(/\{name\}/g, caption).replace(/\{size\}/g,
                         fileSize).replace(/\{maxSize\}/g, self.maxFileSize);
                     self.isError = self.showError(msg, file, previewId, i);
                     return;
+                }
+                if (!isEmpty(fileTypes) && isArray(fileTypes)) {
+                    for (j = 0; j < fileTypes.length; j++) {
+                        typ = fileTypes[j];
+                        checkFile = settings[typ];
+                        chk = (checkFile !== undefined && checkFile(file.type, caption));
+                        fileCount += isEmpty(chk) ? 0 : chk.length;
+                    }
+                    if (fileCount == 0) {
+                        msg = self.msgInvalidFileType.replace(/\{name\}/g, caption).replace(/\{types\}/g, strTypes);
+                        self.isError = self.showError(msg, file, previewId, i);
+                        return;
+                    }
+                }
+                if (fileCount == 0 && !isEmpty(fileExt) && isArray(fileExt) && !isEmpty(fileExtExpr)) {
+                    chk = caption.match(fileExtExpr);
+                    fileCount += isEmpty(chk) ? 0 : chk.length;
+                    if (fileCount == 0) {
+                        msg = self.msgInvalidFileExtension.replace(/\{name\}/g, caption).replace(/\{extensions\}/g, strExt);
+                        self.isError = self.showError(msg, file, previewId, i);
+                        return;
+                    }
                 }
                 if (!self.showPreview) {
                     setTimeout(readFile(i + 1), 1000);
@@ -607,7 +652,7 @@
                 self.showFileIcon();
             }
             self.$caption.html(log);
-            self.$captionContainer.attr('title', log);
+            self.$captionContainer.attr('title', $(log).text());
             self.$container.removeClass('file-input-new');
             $el.trigger('fileselect', [numFiles, label]);
         },
@@ -718,6 +763,8 @@
         previewTemplates: defaultPreviewTemplates,
         allowedPreviewTypes: defaultPreviewTypes,
         allowedPreviewMimeTypes: null,
+        allowedFileTypes: null,
+        allowedFileExtensions: null,
         previewSettings: defaultPreviewSettings,
         fileTypeSettings: defaultFileTypeSettings,
         browseLabel: 'Browse &hellip;',
@@ -738,6 +785,8 @@
         msgFileNotReadable: 'File "{name}" is not readable.',
         msgFilePreviewAborted: 'File preview aborted for "{name}".',
         msgFilePreviewError: 'An error occurred while reading the file "{name}".',
+        msgInvalidFileType: 'Invalid type for file "{name}". Only "{types}" files are supported.',
+        msgInvalidFileExtension: 'Invalid extension for file "{name}". Only "{extensions}" files are supported.',
         msgValidationError: '<span class="text-danger"><i class="glyphicon glyphicon-exclamation-sign"></i> File Upload Error</span>',
         msgErrorClass: 'file-error-message',
         msgLoading: 'Loading  file {index} of {files} &hellip;',
