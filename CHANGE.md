@@ -2,7 +2,7 @@ version 2.5.0
 =============
 **Date:** 09-Oct-2014
 
-- (enh #36): Add validation routine for allowed file types and extensions.
+- (enh #36): New feature. Validation routine for checking allowed file types and extensions.
 - (bug #37): HTML encode text content for preview in modal.
 - (enh #38): Highlight error CSS in file caption on validation error.
 - (bug #39): HTML encode caption hover title.
