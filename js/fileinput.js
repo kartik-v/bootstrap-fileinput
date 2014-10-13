@@ -281,7 +281,7 @@
                 self.clear(false);
                 $cap.focus();
             });
-            $($el[0].form).on('reset', $.proxy(self.reset, self));
+            $el.closest('form').on('reset', $.proxy(self.reset, self));
             self.$container.on('click', '.fileinput-remove:not([disabled])', $.proxy(self.clear, self));
         },
         refresh: function (options) {
@@ -341,16 +341,27 @@
                 $(this).remove();
             });
         },
-        clear: function (e) {
-            var self = this;
+        clearFileInput: function() {
+            var self = this, $el = self.$element;
+            // Fix for IE ver < 11, that does not clear file inputs
+            if (/MSIE/.test(navigator.userAgent)) {
+                $el.wrap('<form>').closest('form').trigger('reset');
+                $el.unwrap();
+            } else {
+                $el.val('');
+            }
+        },
+        clear: function () {
+            var self = this, e = arguments.length && arguments[0];
             if (e) {
                 e.preventDefault();
             }
             if (self.reader instanceof FileReader) {
                 self.reader.abort();
             }
-            self.$element.val('');
+            self.clearFileInput();
             self.resetErrors(true);
+            
             if (e !== false) {
                 self.$element.trigger('change');
                 self.$element.trigger('fileclear');

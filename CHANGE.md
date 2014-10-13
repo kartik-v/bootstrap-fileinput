@@ -6,6 +6,7 @@ version 2.5.0
 - (bug #37): HTML encode text content for preview in modal.
 - (enh #38): Highlight error CSS in file caption on validation error.
 - (bug #39): HTML encode caption hover title.
+- (bug #40): Fix IE (ver < 11) inability to clear fileinput values.
 
 version 2.4.0
 =============
