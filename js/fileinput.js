@@ -258,6 +258,9 @@
             self.$preview = getElement(options, 'elPreviewImage', self.$container.find('.file-preview-thumbnails'));
             self.$previewStatus = getElement(options, 'elPreviewStatus', self.$container.find('.file-preview-status'));
             self.$errorContainer = getElement(options, 'elErrorContainer', self.$previewContainer.find('.kv-fileinput-error'));
+            if (!isEmpty(self.msgErrorClass)) { 
+                self.$errorContainer.removeClass(self.msgErrorClass).addClass(self.msgErrorClass);
+            }
             self.$errorContainer.hide();
             var content = self.initialPreview;
             self.initialPreviewCount = isArray(content) ? content.length : (content.length > 0 ? content.split(self.initialDelimiter).length : 0)
@@ -428,17 +431,14 @@
             self.isError = false;
             self.$container.removeClass('has-error');
             if (fade) {
-                $error.fadeOut('slow').removeClass(self.msgErrorClass);
+                $error.fadeOut('slow');
             } else {
-                $error.hide().removeClass(self.msgErrorClass);
+                $error.hide();
             }
         },
         showError: function (msg, file, previewId, index) {
             var self = this, $error = self.$errorContainer, $el = self.$element;
             $error.html(msg);
-            if (!isEmpty(self.msgErrorClass)) { 
-                $error.removeClass(self.msgErrorClass).addClass(self.msgErrorClass);
-            }
             $error.fadeIn(800);
             $el.trigger('fileerror', [file, previewId, index]);
             self.clearFileInput();
