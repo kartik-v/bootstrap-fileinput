@@ -428,12 +428,9 @@
             self.isError = false;
             self.$container.removeClass('has-error');
             if (fade) {
-                $error.fadeOut('slow');
+                $error.fadeOut('slow').removeClass(self.msgErrorClass);
             } else {
-                $error.hide();
-            }
-            if (!isEmpty(self.msgErrorClass)) { 
-                $error.removeClass(self.msgErrorClass);
+                $error.hide().removeClass(self.msgErrorClass);
             }
         },
         showError: function (msg, file, previewId, index) {
