@@ -34,6 +34,10 @@
                     <button class="btn btn-primary">Submit</button>
                     <button class="btn btn-default" type="reset">Reset</button>
                 </div>
+                <div class="form-group">
+                    <input type="file" id="test-upload">
+                    <div id="errorBlock" class="help-block"></div>
+                </div>
             </form>
         </div>
     </body>
@@ -57,6 +61,13 @@
         } else {
             $('#file-4').fileinput('disable');
         }
+    });
+    $(document).ready(function() {
+        $("#test-upload").fileinput({
+            'showPreview' : true,
+            'allowedFileExtensions' : ['jpg', 'png','gif'],
+            'elErrorContainer': '#errorBlock'
+        });
     });
 	</script>
 </html>

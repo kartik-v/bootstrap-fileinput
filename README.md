@@ -619,6 +619,9 @@ _string_ the type of files that are to be displayed in the preview window. Defau
 
 - `{title}`: the content of the entire text file that will be displayed as a span title element.
 
+#### elErrorContainer
+_string_ the identifier for the container element displaying the error (e.g. `'#id'`). If not set, will default to the container with CSS class `kv-fileinput-error` inside the preview container (identified by `elPreviewContainer`). The `msgErrorClass` will be automatically appended to this container before displaying the error.
+
 #### elCaptionContainer
 _string_ the identifier for the container element containing the caption (e.g. `'#id'`). If not set, will default to the container with CSS class `file-caption` inside the main plugin container.
 

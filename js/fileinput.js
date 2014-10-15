@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 2.5.0
+ * @version 2.6.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -43,6 +43,7 @@
             '   <div class="file-preview-thumbnails"></div>\n' +
             '   <div class="clearfix"></div>' +
             '   <div class="file-preview-status text-center text-success"></div>\n' +
+            '   <div class="kv-fileinput-error"></div>\n' +
             '</div>',
         caption: '<div tabindex="-1" class="form-control file-caption {class}">\n' +
             '   <span class="glyphicon glyphicon-file kv-caption-icon"></span><div class="file-caption-name"></div>\n' +
@@ -256,6 +257,8 @@
             self.$previewContainer = getElement(options, 'elPreviewContainer', self.$container.find('.file-preview'));
             self.$preview = getElement(options, 'elPreviewImage', self.$container.find('.file-preview-thumbnails'));
             self.$previewStatus = getElement(options, 'elPreviewStatus', self.$container.find('.file-preview-status'));
+            self.$errorContainer = getElement(options, 'elErrorContainer', self.$previewContainer.find('.kv-fileinput-error'));
+            self.$errorContainer.hide();
             var content = self.initialPreview;
             self.initialPreviewCount = isArray(content) ? content.length : (content.length > 0 ? content.split(self.initialDelimiter).length : 0)
             self.initPreview();
@@ -421,28 +424,27 @@
             this.$captionContainer.find('.kv-caption-icon').show();
         },
         resetErrors: function (fade) {
-            var self = this, $error = self.$previewContainer.find('.kv-fileinput-error');
+            var self = this, $error = self.$errorContainer;
             self.isError = false;
             self.$container.removeClass('has-error');
             if (fade) {
                 $error.fadeOut('slow');
             } else {
-                $error.remove();
+                $error.hide();
+            }
+            if (!isEmpty(self.msgErrorClass)) { 
+                $error.removeClass(self.msgErrorClass);
             }
         },
         showError: function (msg, file, previewId, index) {
-            var self = this, $error = self.$previewContainer.find('.kv-fileinput-error');
-            if (isEmpty($error.attr('class'))) {
-                self.$previewContainer.append(
-                    '<div class="kv-fileinput-error ' + self.msgErrorClass + '">' + msg + '</div>'
-                );
-            } else {
-                $error.html(msg);
+            var self = this, $error = self.$errorContainer, $el = self.$element;
+            $error.html(msg);
+            if (!isEmpty(self.msgErrorClass)) { 
+                $error.removeClass(self.msgErrorClass).addClass(self.msgErrorClass);
             }
-            $error.hide();
             $error.fadeIn(800);
-            self.$element.trigger('fileerror', [file, previewId, index]);
-            self.$element.val('');
+            $el.trigger('fileerror', [file, previewId, index]);
+            self.clearFileInput();
             self.$container.removeClass('has-error').addClass('has-error');
             return true;
         },
@@ -810,7 +812,8 @@
         elCaptionText: null,
         elPreviewContainer: null,
         elPreviewImage: null,
-        elPreviewStatus: null
+        elPreviewStatus: null,
+        elErrorContainer: null        
     };
 
     /**
