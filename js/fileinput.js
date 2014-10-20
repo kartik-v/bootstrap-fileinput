@@ -478,7 +478,7 @@
                 previewOtherTemplate = isSet('other', self.previewTemplates) ? self.previewTemplates['other'] : defaultPreviewTemplates['other'];
             self.$preview.append("\n" + previewOtherTemplate
                 .replace(/\{previewId\}/g, previewId)
-                .replace(/\{caption\}/g, file.name)
+                .replace(/\{caption\}/g, self.slug(file.name))
                 .replace(/\{type\}/g, file.type)
                 .replace(/\{data\}/g, data));
             $obj.on('load', function(e) {
@@ -486,7 +486,7 @@
             });
         },
         previewFile: function(file, theFile, previewId, data) {
-            var self = this, i, cat = self.parseFileType(file), caption = file.name, data, obj, content, 
+            var self = this, i, cat = self.parseFileType(file), caption = self.slug(file.name), data, obj, content, 
                 types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes, fType = file.type, 
                 template = isSet(cat, self.previewTemplates) ? self.previewTemplates[cat] : defaultPreviewTemplates[cat], 
                 config = isSet(cat, self.previewSettings) ? self.previewSettings[cat] : defaultPreviewSettings[cat],
@@ -538,7 +538,7 @@
                     $status.html('');
                     return;
                 }
-                var previewId = previewInitId + "-" + i, file = files[i], caption = file.name, 
+                var previewId = previewInitId + "-" + i, file = files[i], caption = self.slug(file.name), 
                     fileSize = (file.size ? file.size : 0) / 1000, checkFile, 
                     previewData = vUrl.createObjectURL(file), fileCount = 0, j, msg, typ, chk,
                     fileTypes = self.allowedFileTypes, strTypes = isEmpty(fileTypes) ? '' : fileTypes.join(', '), 
