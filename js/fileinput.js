@@ -624,7 +624,7 @@
             readFile(0);
         },
         slug: function (text) {
-            return isEmpty(text) ? '' : text.replace(/[^\w-. ]+/g,'');
+            return isEmpty(text) ? '' : text.split(/(\\|\/)/g).pop().replace(/[^\w-.\\\/ ]+/g,'');
         },
         change: function (e) {
             var self = this, $el = self.$element, label = self.slug($el.val()),
