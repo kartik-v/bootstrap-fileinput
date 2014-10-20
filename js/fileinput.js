@@ -623,8 +623,11 @@
             }
             readFile(0);
         },
+        slug: function (text) {
+            return isEmpty(text) ? '' : text.replace(/[^\w-. ]+/g,'');
+        },
         change: function (e) {
-            var self = this, $el = self.$element, label = $el.val().replace(/\\/g, '/').replace(/.*\//, ''),
+            var self = this, $el = self.$element, label = self.slug($el.val()),
                 total = 0, $preview = self.$preview, files = $el.get(0).files, msgSelected = self.msgSelected,
                 numFiles = !isEmpty(files) ? (files.length + self.initialPreviewCount) : 1, tfiles;
             self.hideFileIcon();

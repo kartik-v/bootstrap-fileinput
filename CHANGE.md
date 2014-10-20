@@ -2,9 +2,10 @@ version 2.6.0
 =============
 **Date:** 15-Oct-2014
 
-- (enh #42): Enhance plugin to configure the `elErrorContainer` for displaying validation errors.
-- Templatize errorContainer for display within the preview window.
 - (bug #40): More correct fix for IE (ver < 11) inability to clear fileinput values.
+- Templatize errorContainer for display within the preview window.
+- (enh #42): Enhance plugin to configure the `elErrorContainer` for displaying validation errors.
+- (bug #43): Validate special characters in filename before generating caption.
 
 version 2.5.0
 =============
