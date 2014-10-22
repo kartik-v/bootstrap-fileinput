@@ -349,11 +349,23 @@
         },
         clearFileInput: function() {
             var self = this, $el = self.$element;
+            if (isEmpty($el.val())) {
+                return;
+            }
             // Fix for IE ver < 11, that does not clear file inputs
+            // Requires a sequence of steps to prevent IE crashing but
+            // still allow clearing of the file input.
             if (/MSIE/.test(navigator.userAgent)) {
-                $el.wrap('<form>').closest('form').trigger('reset');
-                $el.unwrap();
-            } else {
+                var $frm1 = $el.closest('form');
+                if ($frm1.length) {
+                    $el.wrap('<form>');
+                    var $frm2 = $el.closest('form'), $tmpEl = $(document.createElement('div'));
+                    $frm2.before($tmpEl).after($frm1).trigger('reset');
+                    $el.unwrap().appendTo($tmpEl).unwrap();
+                } else {
+                    $el.wrap('<form>').closest('form').trigger('reset').unwrap();
+                }   
+            } else { // normal input clear behavior for other sane browsers
                 $el.val('');
             }
         },

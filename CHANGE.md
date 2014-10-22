@@ -6,6 +6,7 @@ version 2.6.0
 - Templatize errorContainer for display within the preview window.
 - (enh #42): Enhance plugin to configure the `elErrorContainer` for displaying validation errors.
 - (bug #43): Validate special characters in filename before generating caption.
+- (bug #44): Browser IE10 hangs on file clear.
 
 version 2.5.0
 =============
