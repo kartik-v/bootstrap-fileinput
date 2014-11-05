@@ -253,6 +253,7 @@ The `layoutTemplates` if not set will default to:
         '   <div class="file-preview-thumbnails"></div>\n' +
         '   <div class="clearfix"></div>' +
         '   <div class="file-preview-status text-center text-success"></div>\n' +
+        '   <div class="kv-fileinput-error file-error-message"></div>\n' +
         '</div>',
     caption: '<div tabindex="-1" class="form-control file-caption {class}">\n' +
         '   <span class="glyphicon glyphicon-file kv-caption-icon"></span><div class="file-caption-name"></div>\n' +
