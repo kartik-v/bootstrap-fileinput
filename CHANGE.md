@@ -1,3 +1,9 @@
+version 2.7.0
+=============
+**Date:** 08-Nov-2014
+
+1. Set release to stable in composer.json.
+
 version 2.6.0
 =============
 **Date:** 15-Oct-2014

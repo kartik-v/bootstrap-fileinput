@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 2.6.0
+ * @version 2.7.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -292,6 +292,7 @@
         },
         refresh: function (options) {
             var self = this, params = (arguments.length) ? $.extend(self.options, options) : self.options;
+            self.$element.off();
             self.init(params);
         },
         initPreview: function () {
