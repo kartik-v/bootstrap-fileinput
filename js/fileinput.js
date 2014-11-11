@@ -108,7 +108,7 @@
             '</div>',
     };
     var defaultPreviewSettings = {
-        image: {width: "auto", height: "160px"},
+        image: {width: "100%", height: "160px"},
         html: {width: "320px", height: "180px"},
         text: {width: "160px", height: "160px"},
         video: {width: "320px", height: "240px"},

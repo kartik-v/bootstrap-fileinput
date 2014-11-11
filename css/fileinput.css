@@ -93,6 +93,7 @@
     padding: 6px;
     float: left;
     text-align: center;
+    vertical-align: middle;
 }
 
 .file-preview-frame:hover {

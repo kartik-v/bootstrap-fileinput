@@ -4,6 +4,7 @@ version 2.7.0
 
 1. Set release to stable in composer.json.
 2. enh #48: Trigger `fileloaded` event when `showPreview` is `false`.
+3. enh #49: Set image preview dimensions to auto fit and center
 
 version 2.6.0
 =============
