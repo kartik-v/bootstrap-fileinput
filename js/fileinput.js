@@ -587,6 +587,7 @@
                     }
                 }
                 if (!self.showPreview) {
+                    $el.trigger('fileloaded', [file, previewId, i]);
                     setTimeout(readFile(i + 1), 1000);
                     return;
                 }

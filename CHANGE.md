@@ -1,8 +1,9 @@
 version 2.7.0
 =============
-**Date:** 08-Nov-2014
+**Date:** 11-Nov-2014
 
 1. Set release to stable in composer.json.
+2. enh #48: Trigger `fileloaded` event when `showPreview` is `false`.
 
 version 2.6.0
 =============

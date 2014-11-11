@@ -35,7 +35,7 @@
                     <button class="btn btn-default" type="reset">Reset</button>
                 </div>
                 <div class="form-group">
-                    <input type="file" id="test-upload">
+                    <input type="file" id="test-upload" multiple>
                     <div id="errorBlock" class="help-block"></div>
                 </div>
             </form>
@@ -64,10 +64,15 @@
     });
     $(document).ready(function() {
         $("#test-upload").fileinput({
-            'showPreview' : true,
+            'showPreview' : false,
             'allowedFileExtensions' : ['jpg', 'png','gif'],
             'elErrorContainer': '#errorBlock'
         });
+        /*
+        $("#test-upload").on('fileloaded', function(event, file, previewId, index) {
+            alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
+        });
+        */
     });
 	</script>
 </html>
