@@ -718,8 +718,8 @@ This event is triggered when each file image is fully loaded in the preview wind
 
 **Example:**
 ```js
-$('#input-id').on('filereset', function(event, file, previewId, index) {
-    console.log("filereset");
+$('#input-id').on('fileimageloaded', function(event, previewId) {
+    console.log("fileimageloaded");
 });
 ```
 
