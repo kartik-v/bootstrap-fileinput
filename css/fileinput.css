@@ -1,7 +1,7 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package bootstrap-fileinput
- * @version 2.7.0
+ * @version 2.8.0
  *
  * File input styling for Bootstrap 3.0
  * Built for Yii Framework 2.0
@@ -53,12 +53,11 @@
 
 .file-caption-name {
     display: inline-block;
-    float: left;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 85%;
 }
+
 .file-error-message {
     background-color: #f2dede;
     color: #a94442;

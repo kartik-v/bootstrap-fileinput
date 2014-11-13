@@ -1,10 +1,20 @@
+version 2.8.0
+=============
+**Date:** 13-Nov-2014
+
+1. (enh #50): Dynamically auto size file captions for long file names exceeding container width. New property `autoFitCaption` 
+   is added which defaults to `true`. When this is `true` the plugin will auto fit caption text within the container dynamically
+   and responsively based on window size.
+2. (enh #51): Autosize preview images when they exceed the size of the preview container.
+3. (enh #52): Raise new `fileimageloaded` event.
+
 version 2.7.0
 =============
 **Date:** 11-Nov-2014
 
 1. Set release to stable in composer.json.
-2. enh #48: Trigger `fileloaded` event when `showPreview` is `false`.
-3. enh #49: Set image preview dimensions to auto fit and center
+2. (enh #48): Trigger `fileloaded` event when `showPreview` is `false`.
+3. (enh #49): Set image preview dimensions to auto fit and center
 
 version 2.6.0
 =============

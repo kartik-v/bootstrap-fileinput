@@ -7,7 +7,7 @@ wide variety of files i.e. images, text, html, video, audio, flash, and objects.
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin v2.7.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin v2.8.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
 
 ## Features  
 
@@ -45,6 +45,11 @@ backward compatibility (BC) for older versions that use custom templates.
 
 The following are the major changes with release v2.4.0:
 
+- Dynamically auto size the file captions for long file names exceeding container width. New property `autoFitCaption` 
+  is added which defaults to `true`. When this is `true` the plugin will auto fit caption text within the container dynamically
+  and responsively based on window size.
+- Raise new `fileimageuploaded` event that fires after image is completely loaded on the preview container.
+- Autosize preview images when they exceed the size of the preview container.
 - Completely templatized and extensible to allow configuration of the file-input the way the developer wants.
 - Plugin has been revamped to build preview intelligence based on various file preview types. The inbuilt file support types are categorized as 
   `image`, `text`, `html`, `video`,  `audio`, `flash`, `object`, and `other`.
@@ -151,6 +156,9 @@ _boolean_ whether to display the file remove/clear button. Defaults to `true`.
 
 #### showUpload
 _boolean_ whether to display the file upload button. Defaults to `true`. This will default to a form submit button, unless the uploadUrl is specified.
+
+#### autoFitCaption
+_boolean_ whether to automatically size the file caption text to fit the container for long file names overflowing the container. Defaults to `true`. When set to true, the caption text will be dynamically sized. Shrunk file names will be appended with ellipsis, and the complete filename will be displayed as a title on hover.
 
 #### captionClass
 _string_ any additional CSS class to append to the caption container.
@@ -698,6 +706,19 @@ This event is triggered when the file input is reset to initial value.
 **Example:**
 ```js
 $('#input-id').on('filereset', function(event) {
+    console.log("filereset");
+});
+```
+
+#### fileimageloaded
+This event is triggered when each file image is fully loaded in the preview window. This is only applicable for image file previews and if `showPreview` is set to true. Additional parameters available are: 
+
+- `previewId`: the identifier for the preview file container.
+
+
+**Example:**
+```js
+$('#input-id').on('filereset', function(event, file, previewId, index) {
     console.log("filereset");
 });
 ```

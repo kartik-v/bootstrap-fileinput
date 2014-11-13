@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 2.7.0
+ * @version 2.8.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -45,8 +45,9 @@
             '   <div class="file-preview-status text-center text-success"></div>\n' +
             '   <div class="kv-fileinput-error"></div>\n' +
             '</div>',
+        icon: '<span class="glyphicon glyphicon-file kv-caption-icon"></span>', 
         caption: '<div tabindex="-1" class="form-control file-caption {class}">\n' +
-            '   <span class="glyphicon glyphicon-file kv-caption-icon"></span><div class="file-caption-name"></div>\n' +
+            '   <div class="file-caption-name"></div>\n' +
             '</div>',
         modal: '<div id="{id}" class="modal fade">\n' +
             '  <div class="modal-dialog modal-lg">\n' +
@@ -108,7 +109,7 @@
             '</div>',
     };
     var defaultPreviewSettings = {
-        image: {width: "100%", height: "160px"},
+        image: {width: "auto", height: "160px"},
         html: {width: "320px", height: "180px"},
         text: {width: "160px", height: "160px"},
         video: {width: "320px", height: "240px"},
@@ -192,6 +193,7 @@
             self.reader = null;
             self.showCaption = options.showCaption;
             self.showPreview = options.showPreview;
+            self.autoFitCaption = options.autoFitCaption;
             self.maxFileSize = options.maxFileSize;
             self.maxFileCount = options.maxFileCount;
             self.msgSizeTooLarge = options.msgSizeTooLarge;
@@ -270,6 +272,7 @@
                 caption: self.$caption.html()
             };
             self.options = options;
+            self.autoSizeCaption();
             self.$element.removeClass('file-loading');
         },
         getLayoutTemplate: function(t) {
@@ -283,6 +286,11 @@
         listen: function () {
             var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile;
             $el.on('change', $.proxy(self.change, self));
+            $(window).on('resize', function() {
+                setTimeout(function() {
+                    self.autoSizeCaption();
+                }, 100);  
+            });
             $btnFile.on('click', function (ev) {
                 self.clear(false);
                 $cap.focus();
@@ -298,8 +306,7 @@
         initPreview: function () {
             var self = this, html = '', content = self.initialPreview, len = self.initialPreviewCount,
                 cap = self.initialCaption.length, previewId = "preview-" + uniqId(),
-                caption = (cap > 0) ? self.initialCaption : self.msgSelected.replace(/\{n\}/g, len),
-                title = $(caption).text();
+                caption = (cap > 0) ? self.initialCaption : self.msgSelected.replace(/\{n\}/g, len);
             if (isArray(content) && len > 0) {
                 for (var i = 0; i < len; i++) {
                     previewId += '-' + i;
@@ -322,8 +329,7 @@
                     }
                 } else {
                     if (cap > 0) {
-                        self.$caption.html(caption);
-                        self.$captionContainer.attr('title', title);
+                        self.setCaption(caption);
                         return;
                     } else {
                         return;
@@ -332,8 +338,7 @@
             }
             self.initialPreviewContent = html;
             self.$preview.html(html);
-            self.$caption.html(caption);
-            self.$captionContainer.attr('title', title);
+            self.setCaption(caption);
             self.$container.removeClass('file-input-new');
         },
         clearObjects: function() {
@@ -378,6 +383,7 @@
             if (self.reader instanceof FileReader) {
                 self.reader.abort();
             }
+            self.autoSizeCaption();
             self.clearFileInput();
             self.resetErrors(true);
             
@@ -399,7 +405,7 @@
                 var cap = (!self.overwriteInitial && self.initialCaption.length > 0) ?
                     self.original.caption : '';
                 self.$caption.html(cap);
-                self.$captionContainer.attr('title', '');
+                self.$caption.attr('title', '');
                 self.$container.removeClass('file-input-new').addClass('file-input-new');
             }
             self.hideFileIcon();
@@ -532,6 +538,7 @@
                         .replace(/\{width\}/g, config.width).replace(/\{height\}/g, config.height);
                 }
                 $preview.append("\n" + content);
+                self.autoSizeImage(previewId);
             } else {
                 self.previewDefault(file, previewId);
             }
@@ -640,6 +647,44 @@
         slug: function (text) {
             return isEmpty(text) ? '' : text.split(/(\\|\/)/g).pop().replace(/[^\w-.\\\/ ]+/g,'');
         },
+        setCaption: function(content) {
+            var self = this, title = $('<div>' + content + '</div>').text(),
+                icon = self.layoutTemplates['icon'], 
+                out = icon + title;
+            if (self.$caption.length == 0) {
+                return;
+            }
+            self.$caption.html(out);
+            self.$caption.attr('title', title);
+            self.autoSizeCaption();
+        },
+        autoSizeImage: function(previewId) {
+            var self = this, $preview = self.$preview, 
+                $thumb = $preview.find("#" + previewId), 
+                $img = $thumb.find('img');
+            if (!$img.length) {
+                return;
+            }
+            $img.on('load', function() {
+                var w1 = $thumb.width(), w2 = $preview.width();
+                if (w1 > w2) {
+                    $img.css('width', '100%');
+                    $thumb.css('width', '97%');
+                }
+                self.$element.trigger('fileimageloaded', previewId);
+            });
+        },
+        autoSizeCaption: function() {
+            var self = this;
+            if (self.$caption.length == 0 || !self.autoFitCaption) {
+                return;
+            }
+            self.$caption.css('width', 0);
+            setTimeout(function() {
+                var w = self.$captionContainer.width();
+                self.$caption.css('width', 0.98 * w);
+            }, 100);
+        },
         change: function (e) {
             var self = this, $el = self.$element, label = self.slug($el.val()),
                 total = 0, $preview = self.$preview, files = $el.get(0).files, msgSelected = self.msgSelected,
@@ -678,8 +723,7 @@
             } else {
                 self.showFileIcon();
             }
-            self.$caption.html(log);
-            self.$captionContainer.attr('title', $(log).text());
+            self.setCaption(log);
             self.$container.removeClass('file-input-new');
             $el.trigger('fileselect', [numFiles, label]);
         },
@@ -776,6 +820,7 @@
         showPreview: true,
         showRemove: true,
         showUpload: true,
+        autoFitCaption: true, 
         mainClass: '',
         previewClass: '',
         captionClass: '',
