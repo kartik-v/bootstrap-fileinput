@@ -698,6 +698,7 @@
                 tfiles = e.target.files;
             }
             if (tfiles.length === 0) {
+                $el.trigger('fileselectnone');
                 return;
             }
             self.resetErrors();
