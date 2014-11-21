@@ -292,7 +292,7 @@
                 }, 100);  
             });
             $btnFile.on('click', function (ev) {
-                self.clear(false);
+                self.$element.trigger('filebrowse');
                 $cap.focus();
             });
             $el.closest('form').on('reset', $.proxy(self.reset, self));
@@ -697,7 +697,8 @@
             } else {
                 tfiles = e.target.files;
             }
-            if (tfiles.length === 0) {
+            if (isEmpty(tfiles) || tfiles.length === 0) {
+                self.clear(false);
                 $el.trigger('fileselectnone');
                 return;
             }
