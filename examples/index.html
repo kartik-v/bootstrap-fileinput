@@ -62,6 +62,12 @@
             $('#file-4').fileinput('disable');
         }
     });
+    $('#file-4').on('fileselectnone', function() {
+        alert('Huh! You selected no files.');
+    });
+    $('#file-4').on('filebrowse', function() {
+        alert('File browse clicked for #file-4');
+    });
     $(document).ready(function() {
         $("#test-upload").fileinput({
             'showPreview' : false,

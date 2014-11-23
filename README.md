@@ -7,7 +7,7 @@ wide variety of files i.e. images, text, html, video, audio, flash, and objects.
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin v2.8.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin v2.9.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
 
 ## Features  
 
@@ -715,11 +715,29 @@ This event is triggered when each file image is fully loaded in the preview wind
 
 - `previewId`: the identifier for the preview file container.
 
-
 **Example:**
 ```js
 $('#input-id').on('fileimageloaded', function(event, previewId) {
     console.log("fileimageloaded");
+});
+```
+#### filebrowse
+This event is triggered when the file browse button is clicked to open the file selection dialog.
+
+**Example:**
+```js
+$('#input-id').on('filebrowse', function(event) {
+    console.log("File browse triggered.");
+});
+```
+
+#### fileselectnone
+This event is triggered when no files are selected by the user for a repeat selection scenario (i.e. on a file input that already contains previously selected files). This event is better applicable for browsers like Google Chrome, which clear the file input when the file selection dialog is cancelled. For other browsers, this event is typically triggered only when one resets the form or clears file input (using the remove button).
+
+**Example:**
+```js
+$('#input-id').on('fileselectnone', function(event) {
+    console.log("Huh! No files were selected.");
 });
 ```
 
