@@ -1,6 +1,6 @@
 version 2.9.0
 =============
-**Date:** 22-Nov-2014
+**Date:** 23-Nov-2014
 
 1. (enh #53): Validations and events for right reset of files when browse button is clicked.
 2. (enh #55): Clear the files when file browse dialog is cancelled only if the browser clears the native file input.
