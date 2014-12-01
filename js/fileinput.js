@@ -429,14 +429,14 @@
             self.isDisabled = true;
             self.$element.attr('disabled', 'disabled');
             self.$container.find(".kv-fileinput-caption").addClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload").attr("disabled", true);
+            self.$container.find(".btn-default, .btn-file, .fileinput-remove, .kv-fileinput-upload").attr("disabled", true);
         },
         enable: function (e) {
             var self = this;
             self.isDisabled = false;
             self.$element.removeAttr('disabled');
             self.$container.find(".kv-fileinput-caption").removeClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload").removeAttr("disabled");
+            self.$container.find(".btn-default, .btn-file, .fileinput-remove, .kv-fileinput-upload").removeAttr("disabled");
         },
         hideFileIcon: function () {
             if (this.overwriteInitial) {
