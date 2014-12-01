@@ -1,3 +1,10 @@
+version 2.9.1
+=============
+**Date:** 01-Dec-2014
+
+1. (enh #60): Enhance upload button for disable/enable when used with `<a>` tag.
+
+
 version 2.9.0
 =============
 **Date:** 23-Nov-2014

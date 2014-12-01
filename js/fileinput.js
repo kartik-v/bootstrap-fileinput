@@ -286,6 +286,7 @@
         listen: function () {
             var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile;
             $el.on('change', $.proxy(self.change, self));
+            
             $(window).on('resize', function() {
                 setTimeout(function() {
                     self.autoSizeCaption();
@@ -784,10 +785,10 @@
             if (self.isDisabled) {
                 status = ' disabled ';
             }
-            if (isEmpty(self.uploadUrl)) {
+            if (isEmpty(self.uploadUrl) || self.isDisabled) {
                 content = '<button type="submit" class="' + css + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</button>';
             } else {
-                content = '<a href="' + self.uploadUrl + '" class="' + self.uploadClass + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</a>';
+                content = '<a href="' + self.uploadUrl + '" class="' + css + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</a>';
             }
             return content;
         }
