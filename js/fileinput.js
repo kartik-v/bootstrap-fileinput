@@ -649,7 +649,7 @@
                 }
             }
             readFile(0);
-            self.updateFileDetails(numFiles);
+            self.updateFileDetails(numFiles, false);
         },
         updateFileDetails: function(numFiles) {
             var self = this, msgSelected = self.msgSelected, $el = self.$element, 
@@ -665,7 +665,9 @@
             }
             self.setCaption(log);
             self.$container.removeClass('file-input-new');
-            $el.trigger('fileselect', [numFiles, label]);
+            if (arguments.length == 1) {
+                $el.trigger('fileselect', [numFiles, label]);
+            }
         },
         change: function (e) {
             var self = this, $el = self.$element, label = self.slug($el.val()),

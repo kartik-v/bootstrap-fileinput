@@ -15,7 +15,7 @@
             <h1>Bootstrap File Input Example</h1>
             <form enctype="multipart/form-data">
                 <div class="form-group">
-                    <input id="file-1" type="file" multiple=true data-preview-file-type="any">
+                    <input id="file-1" class="file" type="file" multiple=true data-preview-file-type="any">
                 </div>
                 <div class="form-group">
                     <input id="file-1a" type="file" multiple=true class="file" data-show-upload="false" data-preview-file-type="any" data-initial-caption="Kartik" data-overwrite-initial="false">
@@ -35,7 +35,7 @@
                     <button class="btn btn-default" type="reset">Reset</button>
                 </div>
                 <div class="form-group">
-                    <input type="file" id="test-upload" multiple>
+                    <input type="file" class="file" id="test-upload" multiple>
                     <div id="errorBlock" class="help-block"></div>
                 </div>
             </form>
@@ -52,6 +52,9 @@
             return filename.replace('(', '_').replace(']', '_');
         }
 	});
+    $(".file").on('fileselect', function(event, n, l) {
+        alert('File Selected. Name: ' + l + ', Num: ' + n);
+    });
 	$("#file-3").fileinput({
 		showUpload: false,
 		showCaption: false,
