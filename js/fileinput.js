@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 2.9.0
+ * @version 3.0.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -246,6 +246,7 @@
             self.wrapIndicator = options.wrapIndicator;
             self.isError = false;
             self.isDisabled = self.$element.attr('disabled') || self.$element.attr('readonly');
+            self.slug = typeof options.slugCallback == "function" ? options.slugCallback : self.slugDefault;
             if (isEmpty(self.$element.attr('id'))) {
                 self.$element.attr('id', uniqId());
             }
@@ -378,9 +379,6 @@
         },
         clear: function () {
             var self = this, e = arguments.length && arguments[0];
-            if (e) {
-                e.preventDefault();
-            }
             if (self.reader instanceof FileReader) {
                 self.reader.abort();
             }
@@ -544,6 +542,9 @@
                 self.previewDefault(file, previewId);
             }
         },
+        slugDefault: function (text) {
+            return isEmpty(text) ? '' : text.split(/(\\|\/)/g).pop().replace(/[^\w-.\\\/ ]+/g,'');
+        },
         readFiles: function (files) {
             this.reader = new FileReader();
             var self = this, $el = self.$element, $preview = self.$preview, reader = self.reader,
@@ -552,7 +553,7 @@
                 wrapLen = parseInt(self.wrapTextLength), wrapInd = self.wrapIndicator,
                 previewInitId = "preview-" + uniqId(), numFiles = files.length, settings = self.fileTypeSettings,
                 isText = isSet('text', settings) ? settings['text'] : defaultFileTypeSettings['text'];
-
+                
             function readFile(i) {
                 if (i >= numFiles) {
                     $container.removeClass('loading');
@@ -618,6 +619,7 @@
                         }, 1000);
                         setTimeout(function () {
                             readFile(i + 1);
+                            self.refreshPreview(numFiles);
                         }, 1500);
                         $el.trigger('fileloaded', [file, previewId, i]);
                     };
@@ -639,52 +641,30 @@
                     }
                 } else {
                     self.previewDefault(file, previewId);
+                    setTimeout(function() {
+                        readFile(i + 1);
+                        self.refreshPreview(numFiles);
+                    }, 1500);
                     $el.trigger('fileloaded', [file, previewId, i]);
-                    setTimeout(readFile(i + 1), 1000);
                 }
             }
             readFile(0);
         },
-        slug: function (text) {
-            return isEmpty(text) ? '' : text.split(/(\\|\/)/g).pop().replace(/[^\w-.\\\/ ]+/g,'');
-        },
-        setCaption: function(content) {
-            var self = this, title = $('<div>' + content + '</div>').text(),
-                icon = self.layoutTemplates['icon'], 
-                out = icon + title;
-            if (self.$caption.length == 0) {
-                return;
+        refreshPreview: function(numFiles) {
+            var self = this, msgSelected = self.msgSelected, $el = self.$element, 
+            label = self.slug($el.val()),
+                log = numFiles > 1 ? msgSelected.replace(/\{n\}/g, numFiles) : label;
+            if (self.isError) {
+                self.$previewContainer.removeClass('loading');
+                self.$previewStatus.html('');
+                self.$captionContainer.find('.kv-caption-icon').hide();
+                log = self.msgValidationError;
+            } else {
+                self.showFileIcon();
             }
-            self.$caption.html(out);
-            self.$caption.attr('title', title);
-            self.autoSizeCaption();
-        },
-        autoSizeImage: function(previewId) {
-            var self = this, $preview = self.$preview, 
-                $thumb = $preview.find("#" + previewId), 
-                $img = $thumb.find('img');
-            if (!$img.length) {
-                return;
-            }
-            $img.on('load', function() {
-                var w1 = $thumb.width(), w2 = $preview.width();
-                if (w1 > w2) {
-                    $img.css('width', '100%');
-                    $thumb.css('width', '97%');
-                }
-                self.$element.trigger('fileimageloaded', previewId);
-            });
-        },
-        autoSizeCaption: function() {
-            var self = this;
-            if (self.$caption.length == 0 || !self.autoFitCaption) {
-                return;
-            }
-            self.$caption.css('width', 0);
-            setTimeout(function() {
-                var w = self.$captionContainer.width();
-                self.$caption.css('width', 0.98 * w);
-            }, 100);
+            self.setCaption(log);
+            self.$container.removeClass('file-input-new');
+            $el.trigger('fileselect', [numFiles, label]);
         },
         change: function (e) {
             var self = this, $el = self.$element, label = self.slug($el.val()),
@@ -719,16 +699,44 @@
             }
             self.readFiles(files);
             self.reader = null;
-            var log = numFiles > 1 ? msgSelected.replace(/\{n\}/g, numFiles) : label;
-            if (self.isError) {
-                self.$captionContainer.find('.kv-caption-icon').hide();
-                log = self.msgValidationError;
-            } else {
-                self.showFileIcon();
+        },
+        autoSizeImage: function(previewId) {
+            var self = this, $preview = self.$preview, 
+                $thumb = $preview.find("#" + previewId), 
+                $img = $thumb.find('img');
+            if (!$img.length) {
+                return;
             }
-            self.setCaption(log);
-            self.$container.removeClass('file-input-new');
-            $el.trigger('fileselect', [numFiles, label]);
+            $img.on('load', function() {
+                var w1 = $thumb.width(), w2 = $preview.width();
+                if (w1 > w2) {
+                    $img.css('width', '100%');
+                    $thumb.css('width', '97%');
+                }
+                self.$element.trigger('fileimageloaded', previewId);
+            });
+        },
+        autoSizeCaption: function() {
+            var self = this;
+            if (self.$caption.length == 0 || !self.autoFitCaption) {
+                return;
+            }
+            self.$caption.css('width', 0);
+            setTimeout(function() {
+                var w = self.$captionContainer.width();
+                self.$caption.css('width', 0.98 * w);
+            }, 100);
+        },
+        setCaption: function(content) {
+            var self = this, title = $('<div>' + content + '</div>').text(),
+                icon = self.layoutTemplates['icon'], 
+                out = icon + title;
+            if (self.$caption.length == 0) {
+                return;
+            }
+            self.$caption.html(out);
+            self.$caption.attr('title', title);
+            self.autoSizeCaption();
         },
         initBrowse: function ($container) {
             var self = this;
@@ -875,7 +883,8 @@
         elPreviewContainer: null,
         elPreviewImage: null,
         elPreviewStatus: null,
-        elErrorContainer: null        
+        elErrorContainer: null,
+        slugCallback: null
     };
 
     /**
@@ -888,5 +897,4 @@
             $input.fileinput();
         }
     });
-
 })(window.jQuery);

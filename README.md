@@ -7,7 +7,7 @@ wide variety of files i.e. images, text, html, video, audio, flash, and objects.
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin v2.9.1 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin v3.0.0 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
 
 ## Features  
 
@@ -645,6 +645,17 @@ _string_ the identifier for the element containing the preview image thumbnails 
 
 #### elPreviewStatus
 _string_ the identifier for the element containing the preview progress status (e.g. `'#id'`). If not set, will default to the container with CSS class `file-preview-status` inside the main plugin container.
+
+#### slugCallback
+_function_ a callback to convert the filename as a slug string eliminating special characters. If not set, it will use the plugin's own internal `slugDefault` method. This callback function includes the filename as parameter and must return a converted filename string.
+
+**Example:**
+
+```js
+slugCallback: function(filename) {
+    return filename.replace('(', '_');
+}
+```
 
 ### Plugin Events
 The plugin supports these events:

@@ -1,9 +1,10 @@
-version 2.9.1
+version 3.0.0
 =============
-**Date:** 01-Dec-2014
+**Date:** 03-Dec-2014
 
 1. (enh #60): Enhance upload button for disable/enable when used with `<a>` tag.
-
+2. (bug #61): Refresh preview to show errors correctly after each file is validated.
+3. (enh #64): Add ability to override the slug method with a `slugCallback` property.
 
 version 2.9.0
 =============

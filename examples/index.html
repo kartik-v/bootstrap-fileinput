@@ -47,7 +47,10 @@
         overwriteInitial: false,
         maxFileSize: 1000,
         maxFilesNum: 10,
-        allowedFileTypes: ['image', 'video', 'flash']
+        allowedFileTypes: ['image', 'video', 'flash'],
+        slugCallback: function(filename) {
+            return filename.replace('(', '_').replace(']', '_');
+        }
 	});
 	$("#file-3").fileinput({
 		showUpload: false,
