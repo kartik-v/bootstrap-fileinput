@@ -619,7 +619,7 @@
                         }, 1000);
                         setTimeout(function () {
                             readFile(i + 1);
-                            self.refreshPreview(numFiles);
+                            self.updateFileDetails(numFiles);
                         }, 1500);
                         $el.trigger('fileloaded', [file, previewId, i]);
                     };
@@ -643,14 +643,15 @@
                     self.previewDefault(file, previewId);
                     setTimeout(function() {
                         readFile(i + 1);
-                        self.refreshPreview(numFiles);
+                        self.updateFileDetails(numFiles);
                     }, 1500);
                     $el.trigger('fileloaded', [file, previewId, i]);
                 }
             }
             readFile(0);
+            self.updateFileDetails(numFiles);
         },
-        refreshPreview: function(numFiles) {
+        updateFileDetails: function(numFiles) {
             var self = this, msgSelected = self.msgSelected, $el = self.$element, 
             label = self.slug($el.val()),
                 log = numFiles > 1 ? msgSelected.replace(/\{n\}/g, numFiles) : label;
