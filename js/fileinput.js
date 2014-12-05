@@ -163,6 +163,14 @@
         uniqId = function () {
             return Math.round(new Date().getTime() + (Math.random() * 100));
         },
+        isIE = function(ver) {
+            var div = document.createElement("div"), status;
+            div.innerHTML = "<!--[if IE " + ver + "]><i></i><![endif]-->";
+            status = (div.getElementsByTagName("i").length == 1);
+            document.body.appendChild(div);
+            div.parentNode.removeChild(div);
+            return status;
+        },
         hasFileAPISupport = function () {
             return window.File && window.FileReader && window.FileList && window.Blob;
         },
@@ -178,7 +186,7 @@
 
     var FileInput = function (element, options) {
         this.$element = $(element);
-        if (hasFileAPISupport()) {
+        if (hasFileAPISupport() || isIE(9)) {
             this.init(options);
             this.listen();
         } else {
@@ -191,6 +199,8 @@
         init: function (options) {
             var self = this;
             self.reader = null;
+            self.isIE9 = isIE(9);
+            self.isIE10 = isIE(10);
             self.showCaption = options.showCaption;
             self.showPreview = options.showPreview;
             self.autoFitCaption = options.autoFitCaption;
@@ -363,23 +373,26 @@
             // Fix for IE ver < 11, that does not clear file inputs
             // Requires a sequence of steps to prevent IE crashing but
             // still allow clearing of the file input.
-            if (/MSIE/.test(navigator.userAgent)) {
-                var $frm1 = $el.closest('form');
-                if ($frm1.length) {
-                    $el.wrap('<form>');
-                    var $frm2 = $el.closest('form'), $tmpEl = $(document.createElement('div'));
-                    $frm2.before($tmpEl).after($frm1).trigger('reset');
-                    $el.unwrap().appendTo($tmpEl).unwrap();
+            if (self.isIE9 || self.isIE10) {
+                var $srcFrm = $el.closest('form'), 
+                    $tmpFrm = $(document.createElement('form')),
+                    $tmpEl = $(document.createElement('div'));
+                $el.before($tmpEl);
+                if ($srcFrm.length) {
+                    $srcFrm.after($tmpFrm);
                 } else {
-                    $el.wrap('<form>').closest('form').trigger('reset').unwrap();
-                }   
+                    $tmpEl.after($tmpFrm);
+                }
+                $tmpFrm.append($el).trigger('reset');
+                $tmpEl.before($el).remove();
+                $tmpFrm.remove();
             } else { // normal input clear behavior for other sane browsers
                 $el.val('');
             }
         },
         clear: function () {
             var self = this, e = arguments.length && arguments[0];
-            if (self.reader instanceof FileReader) {
+            if (!self.isIE9 && self.reader instanceof FileReader) {
                 self.reader.abort();
             }
             self.autoSizeCaption();
@@ -673,6 +686,9 @@
             var self = this, $el = self.$element, label = self.slug($el.val()),
                 total = 0, $preview = self.$preview, files = $el.get(0).files, msgSelected = self.msgSelected,
                 numFiles = !isEmpty(files) ? (files.length + self.initialPreviewCount) : 1, tfiles;
+            if (self.isError) {
+                return;
+            }
             self.hideFileIcon();
             if (e.target.files === undefined) {
                 tfiles = e.target && e.target.value ? [
@@ -700,7 +716,11 @@
                 self.$container.removeClass('file-input-new');
                 return;
             }
-            self.readFiles(files);
+            if (!self.isIE9) {
+                self.readFiles(files);
+            } else {
+                self.updateFileDetails(1);
+            }
             self.reader = null;
         },
         autoSizeImage: function(previewId) {
@@ -807,7 +827,7 @@
 
     //FileInput plugin definition
     $.fn.fileinput = function (option) {
-        if (!hasFileAPISupport()) {
+        if (!hasFileAPISupport() && !isIE(9)) {
           return;
         }
         

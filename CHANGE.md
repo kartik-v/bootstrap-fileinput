@@ -1,11 +1,17 @@
 version 3.0.0
 =============
-**Date:** 03-Dec-2014
+**Date:** 05-Dec-2014
 
 1. (enh #60): Enhance upload button for disable/enable when used with `<a>` tag.
 2. (bug #61): Refresh preview to show errors correctly after each file is validated.
 3. (enh #64): Add ability to override the slug method with a `slugCallback` property.
 4. (enh #65): Correct validation of `refreshPreview` using `updateFileDetails`.
+5. (enh #67): Enhance support for IE browsers
+    - Add specific validations for parsing IE versions rightly
+    - Enhance plugin to extend styling support to IE 9 (with the limitation that IE 9 does not support HTML 5 features like multiple file upload)
+    - Fix clearing of file input rightly for IE 9 & IE 10
+    - Degrade plugin automatically to a native file input for older IE versions
+    - Prevent change method firing twice when file is cleared after error is encountered in IE 11.
 
 version 2.9.0
 =============
