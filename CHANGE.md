@@ -12,6 +12,7 @@ version 3.0.0
     - Fix clearing of file input rightly for IE 9 & IE 10
     - Degrade plugin automatically to a native file input for older IE versions
     - Prevent change method firing twice when file is cleared after error is encountered in IE 11.
+6. (bug #68): Fix refresh method of the fileinput to trigger change correctly.
 
 version 2.9.0
 =============

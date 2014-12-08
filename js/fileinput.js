@@ -282,8 +282,8 @@
                 preview: self.$preview.html(),
                 caption: self.$caption.html()
             };
-            self.options = options;
             self.autoSizeCaption();
+            self.options = options;
             self.$element.removeClass('file-loading');
         },
         getLayoutTemplate: function(t) {
@@ -297,7 +297,6 @@
         listen: function () {
             var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile;
             $el.on('change', $.proxy(self.change, self));
-            
             $(window).on('resize', function() {
                 setTimeout(function() {
                     self.autoSizeCaption();
@@ -311,9 +310,10 @@
             self.$container.on('click', '.fileinput-remove:not([disabled])', $.proxy(self.clear, self));
         },
         refresh: function (options) {
-            var self = this, params = (arguments.length) ? $.extend(self.options, options) : self.options;
-            self.$element.off();
+            var self = this, $el = self.$element, params = (arguments.length) ? $.extend(self.options, options) : self.options;
+            $el.off();
             self.init(params);
+            $el.on('change', $.proxy(self.change, self));
         },
         initPreview: function () {
             var self = this, html = '', content = self.initialPreview, len = self.initialPreviewCount,

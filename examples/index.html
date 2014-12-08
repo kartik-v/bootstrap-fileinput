@@ -34,6 +34,7 @@
                 </div>
                 <div class="form-group">
                     <button class="btn btn-warning" type="button">Disable Test</button>
+                    <button class="btn btn-info" type="reset">Refresh Test</button>
                     <button class="btn btn-primary">Submit</button>
                     <button class="btn btn-default" type="reset">Reset</button>
                 </div>
@@ -55,9 +56,11 @@
             return filename.replace('(', '_').replace(']', '_');
         }
 	});
+    /*
     $(".file").on('fileselect', function(event, n, l) {
         alert('File Selected. Name: ' + l + ', Num: ' + n);
     });
+    */
 	$("#file-3").fileinput({
 		showUpload: false,
 		showCaption: false,
@@ -70,13 +73,18 @@
         } else {
             $('#file-4').fileinput('disable');
         }
+    });    
+    $(".btn-info").on('click', function() {
+        $('#file-4').fileinput('refresh', {previewClass:'bg-info'});
     });
+    /*
     $('#file-4').on('fileselectnone', function() {
         alert('Huh! You selected no files.');
     });
     $('#file-4').on('filebrowse', function() {
         alert('File browse clicked for #file-4');
     });
+    */
     $(document).ready(function() {
         $("#test-upload").fileinput({
             'showPreview' : false,
