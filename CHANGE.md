@@ -1,6 +1,6 @@
 version 3.0.0
 =============
-**Date:** 05-Dec-2014
+**Date:** 08-Dec-2014
 
 1. (enh #60): Enhance upload button for disable/enable when used with `<a>` tag.
 2. (bug #61): Refresh preview to show errors correctly after each file is validated.
