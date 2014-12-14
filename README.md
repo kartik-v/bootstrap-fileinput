@@ -357,7 +357,7 @@ The `layoutTemplates` if not set will default to:
     actionDelete: '<button type="button" class="kv-file-remove {removeClass}" title="{removeTitle}"{dataUrl}{dataKey}>{removeIcon}</button>\n',
     actionUpload: '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">{uploadIcon}</button>\n'
 
-};
+}
 ```
 
 #### previewTemplates
