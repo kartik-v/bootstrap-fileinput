@@ -943,13 +943,6 @@ $('#input-id').on('filedelete', function(event, key) {
 });
 ```
 
-```js
-$('#input-id').on('fileunlock', function(event, filestack) {
-    var fstack = filestack.filter(function(n){ return n != undefined });
-    console.log('Files selected - ' + fstack.length);
-});
-```
-
 #### filedeleteerror
 This event is triggered when an error is faced in deletion of each thumbnail file in the `initialPreview` content set. Additional parameters available are: 
 
