@@ -570,7 +570,7 @@ _string_ the CSS class for the file upload button. Defaults to `btn btn-default`
 _string_ the title to display on hover for the file remove button. Defaults to `Upload selected files`.
 
 #### uploadUrl
-_string_ the URL for the upload processing action (typically for ajax based processing). Defaults to `null`. If this is not set or `null`, then the upload button action will default to form submission. NOTE: This is MANDATORY if you want to use advanced features like drag & drop, append/remove files, selectively upload files via ajax etc.
+_string_ the URL for the upload processing action (typically for ajax based processing). Defaults to `null`. If this is not set or `null`, then the upload button action will default to form submission. NOTE: This is MANDATORY if you want to use advanced features like drag & drop, append/remove files, selectively upload files via ajax etc. The plugin automatically send `$_FILES` data to the server with the input `name` attribute as the key if provided. If input name is not set, the key defaults to `file-data`.
 
 #### uploadExtraData
 _object_ the extra data that will be passed as data to the url/AJAX server call via POST.
