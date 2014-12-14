@@ -766,20 +766,21 @@ _string_ CSS class for the drag & drop zone title. Defaults to `file-drop-zone-t
 
 #### fileActionSettings
 _object_ configuration for setting up file actions for newly selected file thumbnails in the preview window. The following properties can be set:
-    - `removeIcon`: _string_, icon for remove button to be displayed in each file thumbnail.
-    - `removeClass`: _string_, CSS class for the remove button in each file thumbnail.
-    - `removeTitle`: _string_, title for remove button in each file thumbnail.
-    - `uploadIcon`: _string_, icon for upload button to be displayed in each file thumbnail.
-    - `uploadClass`: _string_, CSS class for the remove button in each file thumbnail.
-    - `uploadTitle`: _string_, title for remove button in each file thumbnail.
-    - `indicatorNew`: _string_, an indicator (HTML markup) for new pending upload displayed in each file thumbnail.
-    - `indicatorSuccess`: _string_, an indicator (HTML markup) for successful upload displayed in each file thumbnail.
-    - `indicatorError`: _string_, an indicator (HTML markup) for error in upload displayed in each file thumbnail.
-    - `indicatorLoading`: _string_, an indicator (HTML markup) for ongoing upload displayed in each file thumbnail.
-    - `indicatorNewTitle`: _string_, title to display on hover of indicator for new pending upload in each file thumbnail.
-    - `indicatorSuccessTitle`: _string_, title to display on hover of indicator for successful in each file thumbnail.
-    - `indicatorErrorTitle`: _string_, title to display on hover of indicator for error in upload in each file thumbnail.
-    - `indicatorLoadingTitle`: _string_, title to display on hover of indicator for ongoing upload in each file thumbnail.
+
+- `removeIcon`: _string_, icon for remove button to be displayed in each file thumbnail.
+- `removeClass`: _string_, CSS class for the remove button in each file thumbnail.
+- `removeTitle`: _string_, title for remove button in each file thumbnail.
+- `uploadIcon`: _string_, icon for upload button to be displayed in each file thumbnail.
+- `uploadClass`: _string_, CSS class for the remove button in each file thumbnail.
+- `uploadTitle`: _string_, title for remove button in each file thumbnail.
+- `indicatorNew`: _string_, an indicator (HTML markup) for new pending upload displayed in each file thumbnail.
+- `indicatorSuccess`: _string_, an indicator (HTML markup) for successful upload displayed in each file thumbnail.
+- `indicatorError`: _string_, an indicator (HTML markup) for error in upload displayed in each file thumbnail.
+- `indicatorLoading`: _string_, an indicator (HTML markup) for ongoing upload displayed in each file thumbnail.
+- `indicatorNewTitle`: _string_, title to display on hover of indicator for new pending upload in each file thumbnail.
+- `indicatorSuccessTitle`: _string_, title to display on hover of indicator for successful in each file thumbnail.
+- `indicatorErrorTitle`: _string_, title to display on hover of indicator for error in upload in each file thumbnail.
+- `indicatorLoadingTitle`: _string_, title to display on hover of indicator for ongoing upload in each file thumbnail.
 
 Defaults to the following setting:
 ```js
