@@ -938,7 +938,7 @@ This event is triggered after deletion of each thumbnail file in the `initialPre
 - `key`: the key passed within `initialPreviewConfig` for the selected file that will be passed as POST data to the `url`.
 
 ```js
-$('#input-id').on('filedelete', function(event, key) {
+$('#input-id').on('filedeleted', function(event, key) {
     console.log('Key = ' + key);
 });
 ```
