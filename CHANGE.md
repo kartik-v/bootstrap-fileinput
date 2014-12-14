@@ -1,3 +1,62 @@
+version 4.0.0
+=============
+**Date:** 14-Dec-2014
+
+1. (enh #70): Version 4.0 enhancements.
+2. Renamed `initialDelimiter` to `initialPreviewDelimiter`
+
+### Version 4.0 Features
+
+1. Add functionality for AJAX based UPLOAD using HTML5 FormData (most modern browsers support it). Will degrade to normal Form Based File submission if this is not supported.
+2. To use AJAX Upload, the `uploadUrl` property is MANDATORY and must be set.
+3. Enhance plugin to now allow files to be added, appended, removed (based on FEEDBACK from many). Thus one can append files to preview.
+4. New DRAG & DROP zone available in preview to drag and drop files and append.
+5. Delete or upload files one by one OR in batch.
+6. If `showPreview` is set to false, or uploadUrl is not supported plugin will degrade to normal form based upload.
+7. Configurable indicators for file awaiting upload, file successfully uploaded, files errored in upload.
+8. Ability to add extra form data with ajax based uploads.
+9. Upload progress bar and individual thumbnail upload indicators.
+10. Ability to cancel and abort ongoing AJAX uploads.
+11. Templates have been revamped and enhanced for each file type.
+12. Ensure plugin is still lean in size and optimized for performance inspite of the above features by optimally utilizing HTML5 & jquery features only.
+
+### New properties added
+
+1. `showCancel`: shows a cancel button for aborting ajax uploads (defaults to `true`).
+2. `cancelLabel`: label for the cancel button.
+3. `cancelTitle`: title for the cancel button on hover.
+4. `cancelIcon`: icon markup for the cancel button
+5. `cancelClass`: CSS class for the cancel button.
+6. `removeTitle`: title for the remove button on hover.
+7. `uploadTitle`: title for the upload button on hover.
+8. `uploadUrl`: the url that will be used to process AJAX based uploads (using FormData XHR2).
+9. `uploadExtraData`: extra data that will be passed as data to the url/AJAX server call via POST
+10. `uploadAsync`: whether the batch upload of multiple files will be asynchronous/in parallel. Defaults to `true`.
+11. `initialPreviewShowDelete`:  shows a delete button for each initial preview content's thumbnail (defaults to `true`).
+12. `initialPreviewConfig`: configuration for setting up each `initialPreviewContent` item (associative array/object)
+    - `caption`: The caption or filename to display for each initial preview item content.
+    - `width`: The CSS width of the image/content displayed.
+    - `url`: The URL for deleting the image/content via AJAX (shown only for `initialPreviewContent`).
+    - `key`: The key that will be passed to the URL via POST (shown only for `initialPreviewContent`).
+13. `dropZoneEnabled`: Enable a drag and drop zone for dragging files and is available only for ajax based uploads (defaults to `true`). 
+14. `dropZoneTitle`: Title to be displayed in the drag & drop zone. 
+15. `dropZoneTitleClass`: CSS class for the drag & drop zone title.
+16. `fileActionSettings`: configuration for setting up actions for newly selected file thumbnails in the preview (associative array/object)
+    - `removeIcon`: icon for remove button to be displayed in each file thumbnail.
+    - `removeClass`: CSS class for the remove button in each file thumbnail.
+    - `removeTitle`: title for remove button in each file thumbnail.
+    - `uploadIcon`: icon for upload button to be displayed in each file thumbnail.
+    - `uploadClass`: CSS class for the remove button in each file thumbnail.
+    - `uploadTitle`: title for remove button in each file thumbnail.
+    - `indicatorNew`: an indicator (HTML markup) for new pending upload displayed in each file thumbnail.
+    - `indicatorSuccess`: an indicator (HTML markup) for successful upload displayed in each file thumbnail.
+    - `indicatorError`: an indicator (HTML markup) for error in upload displayed in each file thumbnail.
+    - `indicatorLoading`: an indicator (HTML markup) for ongoing upload displayed in each file thumbnail.
+    - `indicatorNewTitle`: title to display on hover of indicator for new pending upload in each file thumbnail.
+    - `indicatorSuccessTitle`: title to display on hover of indicator for successful in each file thumbnail.
+    - `indicatorErrorTitle`: title to display on hover of indicator for error in upload in each file thumbnail.
+    - `indicatorLoadingTitle`: title to display on hover of indicator for ongoing upload in each file thumbnail.
+
 version 3.0.0
 =============
 **Date:** 08-Dec-2014

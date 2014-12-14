@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- release v3.0.0, copyright 2014 Kartik Visweswaran -->
+<!-- release v4.0.0, copyright 2014 Kartik Visweswaran -->
 <html lang="en">
     <head>
         <meta charset="UTF-8"/>
@@ -30,7 +30,7 @@
                     <input id="file-3" type="file" multiple=true>
                 </div>
                 <div class="form-group">
-                    <input id="file-4" type="file" class="file" data-upload-url="http://plugins.krajee.com/test">
+                    <input id="file-4" type="file" class="file" data-upload-url="#">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-warning" type="button">Disable Test</button>
@@ -42,16 +42,24 @@
                     <input type="file" class="file" id="test-upload" multiple>
                     <div id="errorBlock" class="help-block"></div>
                 </div>
+                <div class="form-group">
+                    <input id="file-5" class="file" type="file" multiple=true data-preview-file-type="any" data-upload-url="#">
+                </div>
             </form>
         </div>
     </body>
 	<script>
     $("#file-1").fileinput({
         initialPreview: ["<img src='Desert.jpg' class='file-preview-image'>", "<img src='Jellyfish.jpg' class='file-preview-image'>"],
+        initialPreviewConfig: [
+            {caption: 'Desert.jpg', width: '120px', url: '#'},
+            {caption: 'Jellyfish.jpg', width: '120px', url: '#'},
+        ],
+        uploadUrl: '#',
         overwriteInitial: false,
         maxFileSize: 1000,
         maxFilesNum: 10,
-        allowedFileTypes: ['image', 'video', 'flash'],
+        //allowedFileTypes: ['image', 'video', 'flash'],
         slugCallback: function(filename) {
             return filename.replace('(', '_').replace(']', '_');
         }
@@ -66,6 +74,11 @@
 		showCaption: false,
 		browseClass: "btn btn-primary btn-lg",
 		fileType: "any"
+	});
+	$("#file-4").fileinput({
+		uploadExtraData: [
+            {id: 'kar1', value: '10'}
+        ],
 	});
     $(".btn-warning").on('click', function() {
         if ($('#file-4').attr('disabled')) {
