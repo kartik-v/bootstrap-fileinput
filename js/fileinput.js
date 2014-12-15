@@ -744,6 +744,7 @@
                     self.original.caption : '';
                 self.$caption.html(cap);
                 self.$caption.attr('title', '');
+                addCss(self.$container, 'file-input-new');
             }
             if (self.$container.find('.file-preview-frame').length == 0) {
                 self.initialCaption = '';
