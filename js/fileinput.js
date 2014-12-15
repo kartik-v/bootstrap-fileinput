@@ -352,7 +352,7 @@
                 var i, len = self.filestack.length, template = self.getLayoutTemplate('progress');
                 setTimeout(function() {
                     self.lock();
-                    self.setProgress(5);
+                    self.setProgress(0);
                     if ((self.uploadAsync || totLen == 1) && self.showPreview) {
                         for (i = 0; i < len; i++) {
                             if (self.filestack[i] !== undefined) {
