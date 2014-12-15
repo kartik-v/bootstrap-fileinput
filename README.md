@@ -3,7 +3,7 @@ bootstrap-fileinput
 
 An enhanced HTML 5 file input for Bootstrap 3.x with file preview for various files, offers multiple selection, and more. This plugin is inspired by [this blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). 
 The plugin enhances these concepts and simplifies the widget initialization with simple HTML markup on a file input. It offers support for previewing a 
-wide variety of files i.e. images, text, html, video, audio, flash, and objects. In addition, with release 4.0.0 the plugin now supports AJAX based uploads,and previewing, appending, or deleting files before upload.
+wide variety of files i.e. images, text, html, video, audio, flash, and objects.
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
@@ -357,7 +357,7 @@ The `layoutTemplates` if not set will default to:
     actionDelete: '<button type="button" class="kv-file-remove {removeClass}" title="{removeTitle}"{dataUrl}{dataKey}>{removeIcon}</button>\n',
     actionUpload: '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">{uploadIcon}</button>\n'
 
-}
+};
 ```
 
 #### previewTemplates
@@ -570,7 +570,7 @@ _string_ the CSS class for the file upload button. Defaults to `btn btn-default`
 _string_ the title to display on hover for the file remove button. Defaults to `Upload selected files`.
 
 #### uploadUrl
-_string_ the URL for the upload processing action (typically for ajax based processing). Defaults to `null`. If this is not set or `null`, then the upload button action will default to form submission. NOTE: This is MANDATORY if you want to use advanced features like drag & drop, append/remove files, selectively upload files via ajax etc. The plugin automatically send `$_FILES` data to the server with the input `name` attribute as the key if provided. If input name is not set, the key defaults to `file-data`.
+_string_ the URL for the upload processing action (typically for ajax based processing). Defaults to `null`. If this is not set or `null`, then the upload button action will default to form submission. NOTE: This is MANDATORY if you want to use advanced features like drag & drop, append/remove files, selectively upload files via ajax etc.
 
 #### uploadExtraData
 _object_ the extra data that will be passed as data to the url/AJAX server call via POST.
@@ -766,21 +766,20 @@ _string_ CSS class for the drag & drop zone title. Defaults to `file-drop-zone-t
 
 #### fileActionSettings
 _object_ configuration for setting up file actions for newly selected file thumbnails in the preview window. The following properties can be set:
-
-- `removeIcon`: _string_, icon for remove button to be displayed in each file thumbnail.
-- `removeClass`: _string_, CSS class for the remove button in each file thumbnail.
-- `removeTitle`: _string_, title for remove button in each file thumbnail.
-- `uploadIcon`: _string_, icon for upload button to be displayed in each file thumbnail.
-- `uploadClass`: _string_, CSS class for the remove button in each file thumbnail.
-- `uploadTitle`: _string_, title for remove button in each file thumbnail.
-- `indicatorNew`: _string_, an indicator (HTML markup) for new pending upload displayed in each file thumbnail.
-- `indicatorSuccess`: _string_, an indicator (HTML markup) for successful upload displayed in each file thumbnail.
-- `indicatorError`: _string_, an indicator (HTML markup) for error in upload displayed in each file thumbnail.
-- `indicatorLoading`: _string_, an indicator (HTML markup) for ongoing upload displayed in each file thumbnail.
-- `indicatorNewTitle`: _string_, title to display on hover of indicator for new pending upload in each file thumbnail.
-- `indicatorSuccessTitle`: _string_, title to display on hover of indicator for successful in each file thumbnail.
-- `indicatorErrorTitle`: _string_, title to display on hover of indicator for error in upload in each file thumbnail.
-- `indicatorLoadingTitle`: _string_, title to display on hover of indicator for ongoing upload in each file thumbnail.
+    - `removeIcon`: _string_, icon for remove button to be displayed in each file thumbnail.
+    - `removeClass`: _string_, CSS class for the remove button in each file thumbnail.
+    - `removeTitle`: _string_, title for remove button in each file thumbnail.
+    - `uploadIcon`: _string_, icon for upload button to be displayed in each file thumbnail.
+    - `uploadClass`: _string_, CSS class for the remove button in each file thumbnail.
+    - `uploadTitle`: _string_, title for remove button in each file thumbnail.
+    - `indicatorNew`: _string_, an indicator (HTML markup) for new pending upload displayed in each file thumbnail.
+    - `indicatorSuccess`: _string_, an indicator (HTML markup) for successful upload displayed in each file thumbnail.
+    - `indicatorError`: _string_, an indicator (HTML markup) for error in upload displayed in each file thumbnail.
+    - `indicatorLoading`: _string_, an indicator (HTML markup) for ongoing upload displayed in each file thumbnail.
+    - `indicatorNewTitle`: _string_, title to display on hover of indicator for new pending upload in each file thumbnail.
+    - `indicatorSuccessTitle`: _string_, title to display on hover of indicator for successful in each file thumbnail.
+    - `indicatorErrorTitle`: _string_, title to display on hover of indicator for error in upload in each file thumbnail.
+    - `indicatorLoadingTitle`: _string_, title to display on hover of indicator for ongoing upload in each file thumbnail.
 
 Defaults to the following setting:
 ```js
@@ -938,8 +937,15 @@ This event is triggered after deletion of each thumbnail file in the `initialPre
 - `key`: the key passed within `initialPreviewConfig` for the selected file that will be passed as POST data to the `url`.
 
 ```js
-$('#input-id').on('filedeleted', function(event, key) {
+$('#input-id').on('filedelete', function(event, key) {
     console.log('Key = ' + key);
+});
+```
+
+```js
+$('#input-id').on('fileunlock', function(event, filestack) {
+    var fstack = filestack.filter(function(n){ return n != undefined });
+    console.log('Files selected - ' + fstack.length);
 });
 ```
 
@@ -1030,18 +1036,6 @@ $('#input-id').fileinput('refresh');
 
 // example 2 (modify plugin options at runtime)
 $('#input-id').fileinput('refresh', {browseLabel: 'Select...', removeLabel: 'Delete'});
-```
-
-#### lock
-Locks the file input by disabling all actions/buttons except a cancel button to abort ongoing AJAX requests (for ajax uploads only).
-```js
-$('#input-id').fileinput('lock');
-```
-
-#### unlock
-Unlocks and enables the file input back again by reversing the outcome of the `lock` action.
-```js
-$('#input-id').fileinput('unlock');
 ```
 
 ## License

@@ -7,7 +7,8 @@
  * 
  * The plugin drastically enhances the HTML file input to preview multiple files on the client before
  * upload. In addition it provides the ability to preview content of images, text, videos, audio, html, 
- * flash and other objects.
+ * flash and other objects. It also offers the ability to upload and delete files using AJAX, and add 
+ * files in batches (i.e. preview, append, or remove before upload).
  * 
  * Author: Kartik Visweswaran
  * Copyright: 2014, Kartik Visweswaran, Krajee.com
@@ -304,6 +305,7 @@
             self.options = options;
             self.setFileDropZoneTitle();
             self.uploadCount = 0;
+            self.uploadPercent = 0;
             self.$element.removeClass('file-loading');
         },
         getLayoutTemplate: function(t) {
@@ -346,23 +348,26 @@
                 }
                 self.$progress.removeClass('hide');
                 self.uploadCount = 0;
+                self.uploadPercent = 0;
                 var i, len = self.filestack.length, template = self.getLayoutTemplate('progress');
-                self.lock();
-                if (self.uploadAsync || totLen == 1 || self.showPreview) {
-                    for (i = 0; i < len; i++) {
-                        if (self.filestack[i] !== undefined) {
-                            self.upload(i, true);
+                setTimeout(function() {
+                    self.lock();
+                    self.setProgress(5);
+                    if ((self.uploadAsync || totLen == 1) && self.showPreview) {
+                        for (i = 0; i < len; i++) {
+                            if (self.filestack[i] !== undefined) {
+                                self.upload(i, true);
+                            }
                         }
+                        return;
                     }
-                    return;
-                }
-                self.setProgress(5);
-                self.uploadBatch();
+                    self.uploadBatch();
+                }, 100);
             });
         },
         setProgress: function(percent) {
-            var self = this, template = self.getLayoutTemplate('progress');
-            self.$progress.html(template.replace(/\{percent\}/g, percent));
+            var self = this, template = self.getLayoutTemplate('progress'), pct = Math.min(percent, 100);
+            self.$progress.html(template.replace(/\{percent\}/g, pct));
         },
         lock: function() {
             var self = this;
@@ -683,6 +688,7 @@
         resetUpload: function() {
             var self = this;
             self.uploadCount = 0;
+            self.uploadPercent = 0;
             self.setProgress(0);
             addCss(self.$progress, 'hide');
             self.ajaxRequests = [];
@@ -791,6 +797,21 @@
                 }
             });
         },
+        initXhr: function(xhrobj) {
+            var self = this;
+            if (xhrobj.upload) {
+                xhrobj.upload.addEventListener('progress', function(event) {
+                    var pct = 0, position = event.loaded || event.position, total = event.total;
+                    if (event.lengthComputable) {
+                        pct = Math.ceil(position / total * 98);
+                    }
+                    self.uploadPercent = Math.max(pct, self.uploadPercent);
+                    //Set progress
+                    self.setProgress(self.uploadPercent);
+                }, false);
+            }
+            return xhrobj;
+        },
         upload: function(i) {
             var self = this, files = self.getFileStack(), formdata = new FormData(),
                 previewId = self.previewInitId + "-" + i, $thumb = $('#' + previewId), 
@@ -815,7 +836,8 @@
                     }
                     self.uploadCount++;
                     var pct = total > 0 ? Math.ceil(self.uploadCount * 100/total) : 0;
-                    self.setProgress(pct);
+                    self.uploadPercent = Math.max(pct, self.uploadPercent);
+                    self.setProgress(self.uploadPercent);
                     self.initPreviewDeletes();
                 },
                 resetActions = function() {
@@ -828,6 +850,10 @@
             formdata.append('file_id', i);
             self.uploadExtra(formdata);
             self.ajaxRequests.push($.ajax({
+                xhr: function() {
+                    var xhrobj = $.ajaxSettings.xhr();
+                    return self.initXhr(xhrobj);
+                },
                 url: self.uploadUrl,
                 type: 'POST',
                 dataType: 'json',
@@ -882,14 +908,6 @@
                     $indicator.html(config[icon]);
                     $indicator.attr('title', config[msg]);
                 },
-                updateProgress = function() {
-                    if (self.$preview.find('file-uploading').length == 0) {
-                        self.unlock();
-                    }
-                    self.uploadCount++;
-                    var pct = total > 0 ? Math.ceil(self.uploadCount * 100/total) : 0;
-                    self.setProgress(pct);
-                },
                 setAllUploaded = function() {
                     $.each(files, function(key, data) {
                         self.filestack[key] = undefined;
@@ -902,6 +920,10 @@
             });
             self.uploadExtra(formdata);
             $.ajax({
+                xhr: function() {
+                    var xhrobj = $.ajaxSettings.xhr();
+                    return self.initXhr(xhrobj);
+                },
                 url: self.uploadUrl,
                 type: 'POST',
                 dataType: 'json',
@@ -935,7 +957,6 @@
                                 if (keys.length == 0) {
                                     $thumb.removeClass('file-uploading');
                                     setIndicator(key, 'indicatorError', 'indicatorErrorTitle');
-                                    updateProgress();
                                     return;
                                 }
                                 if ($.inArray(key, keys)) {
@@ -953,14 +974,16 @@
                             });
                             self.showUploadError(data.error, formdata, null, null, 'filebatchuploaderror');
                         }
-                        updateProgress();
-                    }, 500);
+                    }, 100);
+                },
+                complete: function () {
+                    self.setProgress(100);
+                    self.unlock();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     self.showError(errorThrown, formdata, null, null, 'filebatchuploaderror');
                     self.uploadFileCount = total - 1;
                     self.$preview.find('.file-preview-frame').removeClass('file-uploading');
-                    updateProgress();
                 }
             });
         },
@@ -1159,7 +1182,7 @@
                 }
                 if (!self.showPreview) {
                     $el.trigger('fileloaded', [file, previewId, i]);
-                    setTimeout(readFile(i + 1), 1000);
+                    setTimeout(readFile(i + 1), 500);
                     return;
                 }
                 if ($preview.length > 0 && typeof FileReader !== "undefined") {
@@ -1179,11 +1202,11 @@
                         setTimeout(function () {
                             $status.html(msg);
                             vUrl.revokeObjectURL(previewData);
-                        }, 1000);
+                        }, 500);
                         setTimeout(function () {
                             readFile(i + 1);
                             self.updateFileDetails(numFiles);
-                        }, 1500);
+                        }, 500);
                         $el.trigger('fileloaded', [file, previewId, i]);
                     };
                     reader.onprogress = function (data) {
@@ -1194,7 +1217,7 @@
                                 .replace(/\{percent\}/g, progress).replace(/\{name\}/g, caption);
                             setTimeout(function () {
                                 $status.html(msg);
-                            }, 1000);
+                            }, 500);
                         }
                     };
                     if (isText(file.type, caption)) {
@@ -1207,7 +1230,7 @@
                     setTimeout(function() {
                         readFile(i + 1);
                         self.updateFileDetails(numFiles);
-                    }, 1500);
+                    }, 500);
                     $el.trigger('fileloaded', [file, previewId, i]);
                 }
                 self.filestack.push(file);
