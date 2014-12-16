@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 4.0.0
+ * @version 4.0.1
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -181,7 +181,7 @@
         audio: {width: "213px", height: "80px"},
         flash: {width: "213px", height: "160px"},
         object: {width: "213px", height: "160px"},
-        other: {width: "160px", height: "160px"}
+        other: {width: "160px", height: "auto"}
     };
     var defaultFileTypeSettings = {
         image: function(vType, vName) {
@@ -280,6 +280,7 @@
                 self.refreshContainer();
             }
             self.$progress = self.$container.find('.kv-upload-progress');
+            self.$btnUpload = self.$container.find('.kv-fileinput-upload')
             self.$captionContainer = getElement(options, 'elCaptionContainer', self.$container.find('.file-caption'));
             self.$caption = getElement(options, 'elCaptionText', self.$container.find('.file-caption-name'));
             self.$previewContainer = getElement(options, 'elPreviewContainer', self.$container.find('.file-preview'));
@@ -326,6 +327,9 @@
             });
             $btnFile.on('click', function (ev) {
                 self.$element.trigger('filebrowse');
+                if (self.isError && !self.isUploadable) {
+                    self.clear(false);
+                }
                 $cap.focus();
             });
             $el.closest('form').on('reset', $.proxy(self.reset, self));
@@ -352,6 +356,7 @@
                 var i, len = self.filestack.length, template = self.getLayoutTemplate('progress');
                 setTimeout(function() {
                     self.lock();
+                    self.resetUpload();
                     self.setProgress(0);
                     if ((self.uploadAsync || totLen == 1) && self.showPreview) {
                         for (i = 0; i < len; i++) {
@@ -689,8 +694,10 @@
             var self = this;
             self.uploadCount = 0;
             self.uploadPercent = 0;
+            self.$btnUpload.removeAttr('disabled');
             self.setProgress(0);
             addCss(self.$progress, 'hide');
+            self.resetErrors(false);
             self.ajaxRequests = [];
         },
         cancel: function() {
@@ -715,6 +722,7 @@
             if (!self.isIE9 && self.reader instanceof FileReader) {
                 self.reader.abort();
             }
+            self.$btnUpload.removeAttr('disabled');
             self.resetUpload();
             self.filestack = [];
             self.autoSizeCaption();
@@ -768,7 +776,9 @@
                 self.$container.removeClass('file-input-new');
             }
             self.setFileDropZoneTitle();
-            self.resetUpload();
+            if (self.isUploadable) {
+                self.resetUpload();
+            }
             self.filestack = [];
         },
         disable: function (e) {
@@ -882,7 +892,7 @@
                             self.$element.trigger('fileuploaded', [formdata, previewId, i]);
                         } else {
                             setIndicator('indicatorError', 'indicatorErrorTitle');
-                            self.showError(data.error, formdata, previewId, i, 'fileuploaderror');
+                            self.showUploadError(data.error, formdata, previewId, i, 'fileuploaderror');
                         }
                         updateProgress();
                         resetActions();
@@ -894,7 +904,7 @@
                         var cap = files[i].name;
                         self.showUploadError('<b>' + cap + '</b>: ' + errorThrown, formdata, previewId, i, 'fileuploaderror');
                     } else {
-                        self.showError(errorThrown, formdata, previewId, i, 'fileuploaderror');
+                        self.showUploadError(errorThrown, formdata, previewId, i, 'fileuploaderror');
                     }
                     updateProgress();
                     resetActions();
@@ -982,7 +992,7 @@
                     self.unlock();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    self.showError(errorThrown, formdata, null, null, 'filebatchuploaderror');
+                    self.showUploadError(errorThrown, formdata, null, null, 'filebatchuploaderror');
                     self.uploadFileCount = total - 1;
                     self.$preview.find('.file-preview-frame').removeClass('file-uploading');
                 }
@@ -1000,6 +1010,7 @@
             var self = this, $error = self.$errorContainer;
             self.isError = false;
             self.$container.removeClass('has-error');
+            $error.html('');
             if (fade) {
                 $error.fadeOut('slow');
             } else {
@@ -1029,6 +1040,7 @@
                 self.clearFileInput();
             }
             addCss(self.$container, 'has-error');
+            self.$btnUpload.attr('disabled', true);
             return true;
         },
         errorHandler: function (evt, caption) {
@@ -1060,15 +1072,28 @@
             return 'other';
         },
         previewDefault: function(file, previewId) {
-            var self = this, data = vUrl.createObjectURL(file), $obj = $('#' + previewId), 
-                footer = self.renderFileFooter(file.name, self.previewSettings.other.width),
+            var self = this;
+            if (!self.showPreview) {
+                return;
+            }
+            var data = vUrl.createObjectURL(file), $obj = $('#' + previewId), 
+                config = self.previewSettings.other,
+                footer = self.renderFileFooter(file.name, config.width),
                 previewOtherTemplate = self.getPreviewTemplate('other'), 
-                ind = previewId.slice(previewId.lastIndexOf('-') + 1);
+                ind = previewId.slice(previewId.lastIndexOf('-') + 1),
+                frameClass = '';
+            if (arguments.length > 2) {
+                var $err = $(self.msgValidationError);
+                footer = '<i class="glyphicon glyphicon-exclamation-sign text-danger pull-right"></i>' + file.name;
+                frameClass = ' btn disabled';
+            }
             self.$preview.append("\n" + previewOtherTemplate
                 .replace(/\{previewId\}/g, previewId)
-                .replace(/\{frameClass\}/g, '')
+                .replace(/\{frameClass\}/g, frameClass)
                 .replace(/\{fileindex\}/g, ind)
                 .replace(/\{caption\}/g, self.slug(file.name))
+                .replace(/\{width\}/g, config.width)
+                .replace(/\{height\}/g, config.height)
                 .replace(/\{type\}/g, file.type)
                 .replace(/\{data\}/g, data)
                 .replace(/\{footer\}/g, footer));
@@ -1077,7 +1102,11 @@
             });
         },
         previewFile: function(file, theFile, previewId, data) {
-            var self = this, cat = self.parseFileType(file), caption = self.slug(file.name), data, obj, content, 
+            var self = this;
+            if (!self.showPreview) {
+                return;
+            }
+            var cat = self.parseFileType(file), caption = self.slug(file.name), data, obj, content, 
                 types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes, fType = file.type, 
                 template = isSet(cat, self.previewTemplates) ? self.previewTemplates[cat] : defaultPreviewTemplates[cat], 
                 config = isSet(cat, self.previewSettings) ? self.previewSettings[cat] : defaultPreviewSettings[cat],
@@ -1136,7 +1165,11 @@
                 wrapLen = parseInt(self.wrapTextLength), wrapInd = self.wrapIndicator,
                 previewInitId = self.previewInitId, numFiles = files.length, settings = self.fileTypeSettings,
                 isText = isSet('text', settings) ? settings['text'] : defaultFileTypeSettings['text'],
-                ctr = self.filestack.length;
+                ctr = self.filestack.length,
+                throwError = function(msg, file, previewId, index) {
+                    self.previewDefault(file, previewId, true);
+                    return self.isUploadable ? self.showUploadError(msg, file, previewId, index) : self.showError(msg, file, previewId, index);
+                };
             function readFile(i) {
                 if (isEmpty($el.attr('multiple'))) {
                     numFiles = 1;
@@ -1156,7 +1189,7 @@
                 if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
                     msg = self.msgSizeTooLarge.replace(/\{name\}/g, caption).replace(/\{size\}/g,
                         fileSize).replace(/\{maxSize\}/g, self.maxFileSize);
-                    self.isError = self.showError(msg, file, previewId, i);
+                    self.isError = throwError(msg, file, previewId, i);
                     return;
                 }
                 if (!isEmpty(fileTypes) && isArray(fileTypes)) {
@@ -1168,7 +1201,7 @@
                     }
                     if (fileCount == 0) {
                         msg = self.msgInvalidFileType.replace(/\{name\}/g, caption).replace(/\{types\}/g, strTypes);
-                        self.isError = self.showError(msg, file, previewId, i);
+                        self.isError = throwError(msg, file, previewId, i);
                         return;
                     }
                 }
@@ -1177,7 +1210,7 @@
                     fileCount += isEmpty(chk) ? 0 : chk.length;
                     if (fileCount == 0) {
                         msg = self.msgInvalidFileExtension.replace(/\{name\}/g, caption).replace(/\{extensions\}/g, strExt);
-                        self.isError = self.showError(msg, file, previewId, i);
+                        self.isError = throwError(msg, file, previewId, i);
                         return;
                     }
                 }
@@ -1227,7 +1260,7 @@
                         reader.readAsArrayBuffer(file);
                     }
                 } else {
-                    self.previewDefault(file, previewId, i);
+                    self.previewDefault(file, previewId);
                     setTimeout(function() {
                         readFile(i + 1);
                         self.updateFileDetails(numFiles);
@@ -1265,11 +1298,10 @@
                 files = isDragDrop ? e.originalEvent.dataTransfer.files : $el.get(0).files, 
                 msgSelected = self.msgSelected,
                 numFiles = !isEmpty(files) ? (files.length + self.initialPreviewCount) : 1, tfiles,
-                ctr = self.filestack.length, isAjaxUpload = (self.isUploadable && ctr != 0);
-            
-            if (self.isError && !isAjaxUpload) {
-                return;
-            }
+                ctr = self.filestack.length, isAjaxUpload = (self.isUploadable && ctr != 0),
+                throwError = function(msg, file, previewId, index) {
+                    return self.isUploadable ? self.showUploadError(msg, file, previewId, index) : self.showError(msg, file, previewId, index);
+                };
             self.resetUpload();
             
             self.hideFileIcon();
@@ -1303,7 +1335,7 @@
             var total = self.isUploadable ? self.getFileStack().length + tfiles.length : tfiles.length;
             if (self.maxFileCount > 0 && total > self.maxFileCount) {
                 var msg = self.msgFilesTooMany.replace(/\{m\}/g, self.maxFileCount).replace(/\{n\}/g, total);
-                self.isError = self.showError(msg, null, null, null);
+                self.isError = throwError(msg, null, null, null);
                 self.$captionContainer.find('.kv-caption-icon').hide();
                 self.$caption.html(self.msgValidationError);
                 self.$container.removeClass('file-input-new');

@@ -15,7 +15,7 @@
             <h1>Bootstrap File Input Example</h1>
             <form enctype="multipart/form-data">
                 <div class="form-group">
-                    <input id="file-0" class="file" type="file" multiple=true data-show-preview="false">
+                    <input id="file-0" class="file" type="file" multiple=true>
                 </div>
                 <div class="form-group">
                     <input id="file-1" class="file" type="file" multiple=true data-preview-file-type="any">
@@ -49,6 +49,9 @@
         </div>
     </body>
 	<script>
+    $("#file-0").fileinput({
+        'allowedFileExtensions' : ['jpg', 'png','gif'],
+    });
     $("#file-1").fileinput({
         initialPreview: ["<img src='Desert.jpg' class='file-preview-image'>", "<img src='Jellyfish.jpg' class='file-preview-image'>"],
         initialPreviewConfig: [
@@ -56,6 +59,7 @@
             {caption: 'Jellyfish.jpg', width: '120px', url: '#'},
         ],
         uploadUrl: '#',
+        allowedFileExtensions : ['jpg', 'png','gif'],
         overwriteInitial: false,
         maxFileSize: 1000,
         maxFilesNum: 10,
