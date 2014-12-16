@@ -355,13 +355,13 @@
                 if (self.isDisabled || $(this).hasClass('disabled') || !isEmpty($(this).attr('disabled')) || totLen == 0) {
                     return;
                 }
+                self.resetUpload();
                 self.$progress.removeClass('hide');
                 self.uploadCount = 0;
                 self.uploadPercent = 0;
                 var i, len = self.filestack.length, template = self.getLayoutTemplate('progress');
                 setTimeout(function() {
                     self.lock();
-                    self.resetUpload();
                     self.setProgress(0);
                     if ((self.uploadAsync || totLen == 1) && self.showPreview) {
                         for (i = 0; i < len; i++) {
