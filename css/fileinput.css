@@ -1,7 +1,7 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package bootstrap-fileinput
- * @version 4.1.0
+ * @version 4.0.0
  *
  * File input styling for Bootstrap 3.0
  * Built for Yii Framework 2.0
@@ -101,7 +101,7 @@
 
 .file-preview-image {
     height: 160px;
-    text-align: center;
+    vertical-align: text-center;
 }
 
 .file-preview-text {
@@ -112,13 +112,18 @@
 }
 
 .file-preview-other {
-    width: 160px;
-    font-family: Monaco, Consolas, monospace;
-    font-size: 11px;
-    vertical-align: middle;
+    padding-top: 48px;
     text-align: center;
 }
 
+.file-preview-other i {
+    font-size: 2.4em;
+}
+.file-other-error { 
+    width: 100%;
+    padding-top: 30px;
+    text-align:right
+}
 .file-input-new .file-preview, .file-input-new .close, .file-input-new .glyphicon-file, .file-input-new .fileinput-remove-button, .file-input-new .fileinput-upload-button {
     display: none;
 }
@@ -182,8 +187,4 @@
 
 .file-icon-large {
     font-size: 1.2em;
-}
-
-.kv-fileinput-error ul {
-    margin: 3px 0;
 }

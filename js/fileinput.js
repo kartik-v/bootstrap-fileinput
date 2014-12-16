@@ -44,8 +44,8 @@
             '      <param name="autoPlay" value="false" />\n' +
             '      <param name="autoStart" value="false" />\n'+
             '      <param name="quality" value="high" />\n',
-        DEFAULT_PREVIEW = '<div class="file-preview-other" ' + STYLE_SETTING + '>\n' +
-            '       <h2><i class="glyphicon glyphicon-file"></i></h2>\n' +
+        DEFAULT_PREVIEW = '<div class="file-preview-other">\n' +
+            '       <i class="glyphicon glyphicon-file"></i>\n' +
             '   </div>';
             
     var defaultFileActionSettings = {
@@ -184,8 +184,8 @@
         video: {width: "213px", height: "160px"},
         audio: {width: "213px", height: "80px"},
         flash: {width: "213px", height: "160px"},
-        object: {width: "213px", height: "160px"},
-        other: {width: "160px", height: "auto"}
+        object: {width: "160px", height: "160px"},
+        other: {width: "160px", height: "160px"}
     };
     var defaultFileTypeSettings = {
         image: function(vType, vName) {
@@ -508,13 +508,16 @@
             }
             return '';
         },
-        renderFileFooter: function(caption, width, indicator) {
+        renderFileFooter: function(caption, width) {
             var self = this, config = self.fileActionSettings,
                 template = self.getLayoutTemplate('footer');
             if (self.isUploadable) {
                 var footer = template.replace(/\{actions\}/g, self.renderFileActions(true, true, false, false, false));
                 return footer.replace(/\{caption\}/g, caption).replace(/\{width\}/g, width)
                     .replace(/\{indicator\}/g, config.indicatorNew).replace(/\{indicatorTitle\}/g, config.indicatorNewTitle);
+            } else {
+                return template.replace(/\{actions\}/g, '').replace(/\{caption\}/g, caption).replace(/\{width\}/g, width)
+                    .replace(/\{indicator\}/g, '').replace(/\{indicatorTitle\}/g, '');
             }
             return '';
         },
@@ -1083,14 +1086,16 @@
             }
             var data = vUrl.createObjectURL(file), $obj = $('#' + previewId), 
                 config = self.previewSettings.other,
-                footer = self.renderFileFooter(file.name, config.width),
+                footer = self.isUploadable ? 
+                    self.renderFileFooter(file.name, config.width) : 
+                    self.renderFileFooter(file.name, config.width, false),
                 previewOtherTemplate = self.getPreviewTemplate('other'), 
                 ind = previewId.slice(previewId.lastIndexOf('-') + 1),
                 frameClass = '';
             if (arguments.length > 2) {
                 var $err = $(self.msgValidationError);
-                footer = '<i class="glyphicon glyphicon-exclamation-sign text-danger pull-right"></i>' + file.name;
                 frameClass = ' btn disabled';
+                footer += '<div class="file-other-error text-danger"><i class="glyphicon glyphicon-exclamation-sign"></i></div>';
             }
             self.$preview.append("\n" + previewOtherTemplate
                 .replace(/\{previewId\}/g, previewId)
