@@ -1,11 +1,12 @@
-version 4.0.1
+version 4.1.0
 =============
-**Date:** 16-Dec-2014
+**Date:** 17-Dec-2014
 
 1. (enh #74): Enhancements to file validation errors for both FORM and AJAX uploads.
     - For normal Form based uploads automatically disable the Upload button
     - Display a separate error styled thumbnail for the file that faced the validation error.
     - Reset errors correctly to overwrite files with a new change or drag/drop
+2. (enh #75): Better validation of browser support for drag and drop.
 
 version 4.0.0
 =============

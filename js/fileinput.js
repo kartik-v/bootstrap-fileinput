@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 4.0.1
+ * @version 4.1.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -26,6 +26,10 @@
         },
         hasFileAPISupport = function () {
             return window.File && window.FileReader;
+        },
+        hasDragDropSupport = function() {
+            var $div = document.createElement('div');
+            return !isIE(9) && (('draggable' in $div) || ('ondragstart' in $div && 'ondrop' in $div));
         },
         hasFileUploadSupport = function () {
             return hasFileAPISupport && window.FormData;
@@ -265,6 +269,7 @@
             self.filestack = [];
             self.ajaxRequests = [];
             self.isError = false;
+            self.dropZoneEnabled = hasDragDropSupport() && self.dropZoneEnabled;
             self.isDisabled = self.$element.attr('disabled') || self.$element.attr('readonly');
             self.isUploadable = hasFileUploadSupport && !isEmpty(self.uploadUrl);
             self.slug = typeof options.slugCallback == "function" ? options.slugCallback : self.slugDefault;
