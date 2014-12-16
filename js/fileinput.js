@@ -638,7 +638,7 @@
                                     $content.remove();
                                     resetProgress();
                                 });
-                            }, 500);
+                            }, 100);
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             self.showError(errorThrown, null, $el.attr('id'), key, 'filedeleteerror');
@@ -886,7 +886,7 @@
                         }
                         updateProgress();
                         resetActions();
-                    }, 500);
+                    }, 100);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     setIndicator('indicatorError', 'indicatorErrorTitle');
@@ -1183,7 +1183,7 @@
                 }
                 if (!self.showPreview) {
                     $el.trigger('fileloaded', [file, previewId, i]);
-                    setTimeout(readFile(i + 1), 500);
+                    setTimeout(readFile(i + 1), 100);
                     return;
                 }
                 if ($preview.length > 0 && typeof FileReader !== "undefined") {
@@ -1203,11 +1203,11 @@
                         setTimeout(function () {
                             $status.html(msg);
                             vUrl.revokeObjectURL(previewData);
-                        }, 500);
+                        }, 100);
                         setTimeout(function () {
                             readFile(i + 1);
                             self.updateFileDetails(numFiles);
-                        }, 500);
+                        }, 100);
                         $el.trigger('fileloaded', [file, previewId, i]);
                     };
                     reader.onprogress = function (data) {
@@ -1218,7 +1218,7 @@
                                 .replace(/\{percent\}/g, progress).replace(/\{name\}/g, caption);
                             setTimeout(function () {
                                 $status.html(msg);
-                            }, 500);
+                            }, 100);
                         }
                     };
                     if (isText(file.type, caption)) {
@@ -1231,7 +1231,7 @@
                     setTimeout(function() {
                         readFile(i + 1);
                         self.updateFileDetails(numFiles);
-                    }, 500);
+                    }, 100);
                     $el.trigger('fileloaded', [file, previewId, i]);
                 }
                 self.filestack.push(file);
