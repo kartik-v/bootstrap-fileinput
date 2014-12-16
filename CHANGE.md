@@ -4,6 +4,7 @@ version 4.0.0
 
 1. (enh #70): Version 4.0 enhancements.
 2. Renamed `initialDelimiter` to `initialPreviewDelimiter`
+3. (bug #72): Fix bootstrap version constraint.
 
 ### Version 4.0 Features
 
