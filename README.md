@@ -437,11 +437,26 @@ The `previewTemplates` if not set will default to:
         '   </object>\n' + 
         '   {footer}\n' +
         '</div>',
-    other: '<div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+    other: '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}" title="{caption}" ' + STYLE_SETTING + '>\n' +
         '   ' + DEFAULT_PREVIEW + '\n' +
         '   {footer}\n' +
         '</div>',
 }
+```
+
+The values of the constants used in the above templates are as follows:
+
+```
+STYLE_SETTING = 'style="width:{width};height:{height};"',
+OBJECT_PARAMS = '      &lt;param name="controller" value="true" />\n' +
+    '      &lt;param name="allowFullScreen" value="true" />\n' +
+    '      &lt;param name="allowScriptAccess" value="always" />\n' +
+    '      &lt;param name="autoPlay" value="false" />\n' +
+    '      &lt;param name="autoStart" value="false" />\n'+
+    '      &lt;param name="quality" value="high" />\n',
+DEFAULT_PREVIEW = '&lt;div class="file-preview-other">\n' +
+    '       &lt;i class="glyphicon glyphicon-file">&lt;/i>\n' +
+    '   &lt;/div>'
 ```
 
 #### allowedFileTypes
@@ -495,7 +510,7 @@ _object_ the format settings (width and height) for rendering each preview file 
     video: {width: "213px", height: "160px"},
     audio: {width: "213px", height: "80px"},
     flash: {width: "213px", height: "160px"},
-    object: {width: "213px", height: "160px"},
+    object: {width: "160px", height: "160px"},
     other: {width: "160px", height: "160px"}
 }
 ```
