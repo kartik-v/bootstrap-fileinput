@@ -1224,6 +1224,7 @@
                         return;
                     }
                 }
+                self.filestack.push(file);
                 if (!self.showPreview) {
                     self.filestack.push(file);
                     setTimeout(readFile(i + 1), 100);
@@ -1278,7 +1279,7 @@
                     }, 100);
                     $el.trigger('fileloaded', [file, previewId, i]);
                 }
-                self.filestack.push(file);
+                
             }
             readFile(0);
             self.updateFileDetails(numFiles, false);
