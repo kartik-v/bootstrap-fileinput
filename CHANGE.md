@@ -1,3 +1,10 @@
+version 4.1.1
+=============
+**Date:** 18-Dec-2014
+
+1. (bug #76): Update filestack when `showPreview` is false.
+2. (bug #78): Set uploadExtraData parameters to be correctly sent via POST.
+
 version 4.1.0
 =============
 **Date:** 17-Dec-2014

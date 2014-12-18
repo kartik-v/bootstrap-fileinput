@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 4.1.0
+ * @version 4.1.1
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -810,9 +810,9 @@
             if (self.uploadExtraData.length == 0) {
                 return;
             }
-            $.each(self.uploadExtraData, function(j, data) {
-                if (!isEmpty(data.id) && !isEmpty(data.value)) {
-                    fd.append(data.id, data.value);
+            $.each(self.uploadExtraData, function(key, value) {
+                if (!isEmpty(key) && !isEmpty(value)) {
+                    fd.append(key, value);
                 }
             });
         },
@@ -1226,6 +1226,7 @@
                 }
                 if (!self.showPreview) {
                     $el.trigger('fileloaded', [file, previewId, i]);
+                    self.filestack.push(file);
                     setTimeout(readFile(i + 1), 100);
                     return;
                 }
