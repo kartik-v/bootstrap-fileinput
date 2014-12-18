@@ -1266,7 +1266,7 @@
                         }
                     };
                     if (isText(file.type, caption)) {
-                        reader.readAsText(file);
+                        reader.readAsText(file, self.textEncoding);
                     } else {
                         reader.readAsArrayBuffer(file);
                     }
@@ -1573,7 +1573,8 @@
         dropZoneEnabled: true,
         dropZoneTitle: 'Drag & drop files here &hellip;',
         dropZoneTitleClass: 'file-drop-zone-title',
-        fileActionSettings: {}
+        fileActionSettings: {},
+        textEncoding: 'UTF-8'
     };
 
     /**

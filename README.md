@@ -816,6 +816,9 @@ Defaults to the following setting:
 }
 ```
 
+#### textEncoding
+_string_ the encoding to be used while reading a text file. Applicable only for previewing text files. Defaults to `UTF-8`. 
+
 ### Plugin Events
 The plugin supports these events:
 

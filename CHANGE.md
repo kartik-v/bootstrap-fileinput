@@ -4,6 +4,7 @@ version 4.1.1
 
 1. (bug #76): Update filestack when `showPreview` is false.
 2. (bug #78): Set uploadExtraData parameters to be correctly sent via POST.
+3. (enh #58): Set a new property `textEncoding` for reading the text files with right encoding.
 
 version 4.1.0
 =============
