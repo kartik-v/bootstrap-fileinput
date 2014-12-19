@@ -16,7 +16,6 @@ version 4.1.2
     - `filelock`
     - `fileunlock`
 
-
 version 4.1.1
 =============
 **Date:** 18-Dec-2014
