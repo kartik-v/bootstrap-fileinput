@@ -849,6 +849,7 @@
                 updateProgress = function() {
                     if (self.$preview.find('file-uploading').length == 0) {
                         self.unlock();
+                        self.$element.trigger('filebatchuploadcomplete', [self.filestack, self.uploadExtraData]);
                     }
                     if (!allFiles) {
                         return;

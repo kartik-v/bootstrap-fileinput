@@ -1051,7 +1051,7 @@ $('#input-id').on('filebatchuploaderror', function(event, formdata, extraData) {
 ```
 
 #### filebatchuploadcomplete
-This event is triggered after completion of the synchronous ajax batch upload (i.e. when `uploadAsync` is `false`). Additional parameters available are: 
+This event is triggered after completion of either the synchronous and asynchronous ajax batch upload. Additional parameters available are: 
 
 - `filestack`: the array of selected file objects.
 - `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
