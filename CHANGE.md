@@ -1,3 +1,22 @@
+version 4.1.2
+=============
+**Date:** 19-Dec-2014
+
+1. (enh #81): Add new events:
+    - `filebatchuploadsuccess`
+    - `filebatchuploadcomplete`
+    
+2. (enh #80): Allow access to `uploadExtraData` to following events
+    - `filepreupload`
+    - `fileuploaded`
+    - `fileuploaderror`
+    - `filebatchuploaderror`
+    - `filebatchuploadsuccess`
+    - `filebatchuploadcomplete`
+    - `filelock`
+    - `fileunlock`
+
+
 version 4.1.1
 =============
 **Date:** 18-Dec-2014

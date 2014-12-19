@@ -7,7 +7,7 @@ wide variety of files i.e. images, text, html, video, audio, flash, and objects.
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin v4.1.1 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin v4.1.2 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
 
 ## Features  
 
@@ -78,6 +78,8 @@ built upon HTML5 FormData and XMLHttpRequest Level 2 standards. Most modern brow
 9. Upload progress bar and individual thumbnail upload indicators.
 10. Ability to cancel and abort ongoing AJAX uploads.
 11. Ensure plugin is still lean in size and optimized for performance inspite of the above features by optimally utilizing HTML5 & jquery features only.
+
+> NOTE: Drag and Drop zone functionality, selectively appending or deleting files, and upload indicator with progress are ONLY AVAILABLE if you use AJAX BASED uploads (by setting `uploadUrl`).
 
 ## Demo
 
@@ -918,9 +920,10 @@ $('#input-id').on('fileselectnone', function(event) {
 This event is triggered when the upload process is launched by clicking a upload button, and the entire widget is locked (disabled) until upload is getting processed. Only the `Cancel` button will be enabled when the file input is locked. Additional parameters available are: 
 
 - `filestack`: the array of selected file objects.
+- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
 
 ```js
-$('#input-id').on('filelock', function(event, filestack) {
+$('#input-id').on('filelock', function(event, filestack, extraData) {
     var fstack = filestack.filter(function(n){ return n != undefined });
     console.log('Files selected - ' + fstack.length);
 });
@@ -930,9 +933,10 @@ $('#input-id').on('filelock', function(event, filestack) {
 This event is triggered when the upload process is completed (successfully or with error). The entire widget is unlocked (enabled) and reverts to initial state. Additional parameters available are: 
 
 - `filestack`: the array of selected file objects.
+- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
 
 ```js
-$('#input-id').on('fileunlock', function(event, filestack) {
+$('#input-id').on('fileunlock', function(event, filestack, extraData) {
     var fstack = filestack.filter(function(n){ return n != undefined });
     console.log('Files selected - ' + fstack.length);
 });
@@ -984,11 +988,12 @@ $('#input-id').on('filedeleteerror', function(event, formdata, preview, index) {
 This event is triggered before upload of each thumbnail file. Additional parameters available are: 
 
 - `formdata`: the FormData object which is passed via XHR2.
+- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
 - `previewId`: the identifier of the preview thumbnail container.
 - `index`: the zero-based index of the file in the preview container.
 
 ```js
-$('#input-id').on('filepreupload', function(event, formdata, preview, index) {
+$('#input-id').on('filepreupload', function(event, formdata, extraData, preview, index) {
     console.log('File pre upload triggered');
 });
 ```
@@ -997,11 +1002,12 @@ $('#input-id').on('filepreupload', function(event, formdata, preview, index) {
 This event is triggered after upload is completed for each thumbnail file. Additional parameters available are: 
 
 - `formdata`: the FormData object which is passed via XHR2.
+- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
 - `previewId`: the identifier of each file's parent thumbnail div element in the preview window.
 - `index`: the zero-based index of the file in the file stack.
 
 ```js
-$('#input-id').on('fileuploaded', function(event, formdata, preview, index) {
+$('#input-id').on('fileuploaded', function(event, formdata, extraData, preview, index) {
     console.log('File uploaded triggered');
 });
 ```
@@ -1010,14 +1016,52 @@ $('#input-id').on('fileuploaded', function(event, formdata, preview, index) {
 This event is triggered when an error is faced in deletion of each thumbnail file in the `initialPreview` content set. Additional parameters available are: 
 
 - `formdata`: the FormData object which is passed via XHR2.
+- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
 - `previewId`: the identifier of each file's parent thumbnail div element in the preview window.
 - `index`: the zero-based index of the file in the file stack.
 
 ```js
-$('#input-id').on('fileuploaderror', function(event, formdata, preview, index) {
+$('#input-id').on('fileuploaderror', function(event, formdata, extraData, preview, index) {
     console.log('File upload error');
 });
 ```
+
+#### filebatchuploadsuccess
+This event is triggered after a successful synchronous batch upload (i.e. when `uploadAsync` is `false`). Additional parameters available are: 
+
+- `filestack`: the array of selected file objects.
+- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
+
+```js
+$('#input-id').on('filebatchuploadsuccess', function(formdata, extraData) {
+    console.log('File batch upload success');
+});
+```
+
+#### filebatchuploaderror
+This event is triggered when any error is faced in the synchronous batch upload (i.e. when `uploadAsync` is `false`). Additional parameters available are: 
+
+- `formdata`: the FormData object which is passed via XHR2.
+- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
+
+```js
+$('#input-id').on('filebatchuploaderror', function(event, formdata, extraData) {
+    console.log('File upload error');
+});
+```
+
+#### filebatchuploadcomplete
+This event is triggered after completion of the synchronous ajax batch upload (i.e. when `uploadAsync` is `false`). Additional parameters available are: 
+
+- `filestack`: the array of selected file objects.
+- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
+
+```js
+$('#input-id').on('filebatchuploadcomplete', function(formdata, extraData) {
+    console.log('File batch upload complete');
+});
+```
+
 ### Plugin Methods
 The plugin supports these methods:
 

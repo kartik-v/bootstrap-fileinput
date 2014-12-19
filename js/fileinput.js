@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 4.1.1
+ * @version 4.1.2
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -389,7 +389,7 @@
             if (self.showCancel) {
                 self.$container.find('.fileinput-cancel').removeClass('hide');
             }
-            self.$element.trigger('filelock', [self.filestack]);
+            self.$element.trigger('filelock', [self.filestack, self.uploadExtraData]);
         },
         unlock: function() {
             var self = this;
@@ -400,7 +400,7 @@
             if (self.showRemove) {
                 self.$container.find('.fileinput-remove').removeClass('hide');
             }
-            self.$element.trigger('fileunlock', [self.filestack]);
+            self.$element.trigger('fileunlock', [self.filestack, self.uploadExtraData]);
         },
         refresh: function (options) {
             var self = this, $el = self.$element,
@@ -888,7 +888,7 @@
                     if (!allFiles) {
                         self.lock();
                     }
-                    self.$element.trigger('filepreupload', [formdata, previewId, i])
+                    self.$element.trigger('filepreupload', [formdata, self.uploadExtraData, previewId, i])
                 },
                 success: function(data, textStatus, jqXHR) {
                     setTimeout(function() {
@@ -897,10 +897,10 @@
                             $btnUpload.hide();
                             $btnDelete.hide();
                             self.filestack[i] = undefined;
-                            self.$element.trigger('fileuploaded', [formdata, previewId, i]);
+                            self.$element.trigger('fileuploaded', [formdata, self.uploadExtraData, previewId, i]);
                         } else {
                             setIndicator('indicatorError', 'indicatorErrorTitle');
-                            self.showUploadError(data.error, formdata, previewId, i, 'fileuploaderror');
+                            self.showUploadError(data.error, formdata, self.uploadExtraData, previewId, i);
                         }
                         updateProgress();
                         resetActions();
@@ -910,9 +910,9 @@
                     setIndicator('indicatorError', 'indicatorErrorTitle');
                     if (allFiles) {
                         var cap = files[i].name;
-                        self.showUploadError('<b>' + cap + '</b>: ' + errorThrown, formdata, previewId, i, 'fileuploaderror');
+                        self.showUploadError('<b>' + cap + '</b>: ' + errorThrown, formdata, self.uploadExtraData, previewId, i);
                     } else {
-                        self.showUploadError(errorThrown, formdata, previewId, i, 'fileuploaderror');
+                        self.showUploadError(errorThrown, formdata, self.uploadExtraData, previewId, i);
                     }
                     updateProgress();
                     resetActions();
@@ -970,6 +970,7 @@
                             } else {
                                 self.reset();
                             }
+                            self.$element.trigger('filebatchuploadsuccess', [self.filestack, self.uploadExtraData]);
                         } else {
                             self.$preview.find('.file-preview-frame').each(function() {
                                 var $thumb = $(this), key = $thumb.attr('data-fileindex');
@@ -991,16 +992,17 @@
                                     self.filestack[key] = undefined;
                                 }
                             });
-                            self.showUploadError(data.error, formdata, null, null, 'filebatchuploaderror');
+                            self.showUploadError(data.error, formdata, self.uploadExtraData, null, null, 'filebatchuploaderror');
                         }
                     }, 100);
                 },
                 complete: function () {
                     self.setProgress(100);
                     self.unlock();
+                    self.$element.trigger('filebatchuploadcomplete', [self.filestack, self.uploadExtraData]);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    self.showUploadError(errorThrown, formdata, null, null, 'filebatchuploaderror');
+                    self.showUploadError(errorThrown, formdata, self.uploadExtraData, null, null, 'filebatchuploaderror');
                     self.uploadFileCount = total - 1;
                     self.$preview.find('.file-preview-frame').removeClass('file-uploading');
                 }
@@ -1025,16 +1027,16 @@
                 $error.hide();
             }
         },
-        showUploadError: function (msg, file, previewId, index) {
+        showUploadError: function (msg, file, extraData, previewId, index) {
             var self = this, $error = self.$errorContainer, $el = self.$element, 
-                ev = arguments.length > 4 ? arguments[4] : 'fileerror';
+                ev = arguments.length > 4 ? arguments[4] : 'fileuploaderror';
             if ($error.find('ul').length == 0) {
                 $error.html('<ul class="text-left"><li>' + msg + '</li></ul>');
             } else {
                 $error.find('ul').append('<li>' + msg + '</li>');
             }
             $error.fadeIn(800);
-            $el.trigger(ev, [file, previewId, index]);
+            $el.trigger(ev, [file, extraData, previewId, index]);
             addCss(self.$container, 'has-error');
             return true;
         },
@@ -1178,7 +1180,7 @@
                 ctr = self.filestack.length,
                 throwError = function(msg, file, previewId, index) {
                     self.previewDefault(file, previewId, true);
-                    return self.isUploadable ? self.showUploadError(msg, file, previewId, index) : self.showError(msg, file, previewId, index);
+                    return self.isUploadable ? self.showUploadError(msg, file, self.uploadExtraData, previewId, index) : self.showError(msg, file, previewId, index);
                 };
             function readFile(i) {
                 if (isEmpty($el.attr('multiple'))) {
@@ -1311,7 +1313,7 @@
                 numFiles = !isEmpty(files) ? (files.length + self.initialPreviewCount) : 1, tfiles,
                 ctr = self.filestack.length, isAjaxUpload = (self.isUploadable && ctr != 0),
                 throwError = function(msg, file, previewId, index) {
-                    return self.isUploadable ? self.showUploadError(msg, file, previewId, index) : self.showError(msg, file, previewId, index);
+                    return self.isUploadable ? self.showUploadError(msg, file, self.uploadExtraData, previewId, index) : self.showError(msg, file, previewId, index);
                 };
             self.resetUpload();
             
