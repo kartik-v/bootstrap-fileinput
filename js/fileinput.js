@@ -898,7 +898,7 @@
                             $btnUpload.hide();
                             $btnDelete.hide();
                             self.filestack[i] = undefined;
-                            self.$element.trigger('fileuploaded', [formdata, self.uploadExtraData, previewId, i]);
+                            self.$element.trigger('fileuploaded', [data, formdata, self.uploadExtraData, data, previewId, i]);
                         } else {
                             setIndicator('indicatorError', 'indicatorErrorTitle');
                             self.showUploadError(data.error, formdata, self.uploadExtraData, previewId, i);
@@ -971,7 +971,7 @@
                             } else {
                                 self.reset();
                             }
-                            self.$element.trigger('filebatchuploadsuccess', [self.filestack, self.uploadExtraData]);
+                            self.$element.trigger('filebatchuploadsuccess', [self.filestack, self.uploadExtraData, data]);
                         } else {
                             self.$preview.find('.file-preview-frame').each(function() {
                                 var $thumb = $(this), key = $thumb.attr('data-fileindex');

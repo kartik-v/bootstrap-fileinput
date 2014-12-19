@@ -1003,11 +1003,12 @@ This event is triggered after upload is completed for each thumbnail file. Addit
 
 - `formdata`: the FormData object which is passed via XHR2.
 - `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
+- `responseData`: the data sent via ajax response.
 - `previewId`: the identifier of each file's parent thumbnail div element in the preview window.
 - `index`: the zero-based index of the file in the file stack.
 
 ```js
-$('#input-id').on('fileuploaded', function(event, formdata, extraData, preview, index) {
+$('#input-id').on('fileuploaded', function(event, formdata, extraData, responseData, preview, index) {
     console.log('File uploaded triggered');
 });
 ```
@@ -1031,9 +1032,10 @@ This event is triggered after a successful synchronous batch upload (i.e. when `
 
 - `filestack`: the array of selected file objects.
 - `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
+- `responseData`: the data sent via ajax response.
 
 ```js
-$('#input-id').on('filebatchuploadsuccess', function(formdata, extraData) {
+$('#input-id').on('filebatchuploadsuccess', function(formdata, extraData, responseData) {
     console.log('File batch upload success');
 });
 ```
