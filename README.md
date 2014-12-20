@@ -7,7 +7,7 @@ The plugin incorporates a simple HTML markup with enhanced CSS styling of a HTML
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin v4.1.2 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
+> NOTE: The latest version of the plugin v4.1.3 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
 
 ## Features  
 
@@ -987,13 +987,18 @@ $('#input-id').on('filedeleteerror', function(event, formdata, preview, index) {
 #### filepreupload
 This event is triggered before upload of each thumbnail file. Additional parameters available are: 
 
-- `formdata`: the FormData object which is passed via XHR2.
-- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
+- `data`: This is a data object (associative array) that sends the following information, whose keys are:
+    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
+    - `files`: the file stack array (or empty object if not available).
+    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
+    - `response`: the data sent via ajax response (or empty object if not available).
 - `previewId`: the identifier of the preview thumbnail container.
 - `index`: the zero-based index of the file in the preview container.
 
 ```js
-$('#input-id').on('filepreupload', function(event, formdata, extraData, preview, index) {
+$('#input-id').on('filepreupload', function(event, data, previewId, index) {
+    var formdata = data.form, files = data.files, 
+        extradata = data.extra, responsedata = data.response;
     console.log('File pre upload triggered');
 });
 ```
@@ -1001,14 +1006,18 @@ $('#input-id').on('filepreupload', function(event, formdata, extraData, preview,
 #### fileuploaded
 This event is triggered after upload is completed for each thumbnail file. Additional parameters available are: 
 
-- `formdata`: the FormData object which is passed via XHR2.
-- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
-- `responseData`: the data sent via ajax response.
+- `data`: This is a data object (associative array) that sends the following information, whose keys are:
+    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
+    - `files`: the file stack array (or empty object if not available).
+    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
+    - `response`: the data sent via ajax response (or empty object if not available).
 - `previewId`: the identifier of each file's parent thumbnail div element in the preview window.
 - `index`: the zero-based index of the file in the file stack.
 
 ```js
-$('#input-id').on('fileuploaded', function(event, formdata, extraData, responseData, preview, index) {
+$('#input-id').on('fileuploaded', function(event, data, previewId, index) {
+    var formdata = data.form, files = data.files, 
+        extradata = data.extra, responsedata = data.response;
     console.log('File uploaded triggered');
 });
 ```
@@ -1016,13 +1025,18 @@ $('#input-id').on('fileuploaded', function(event, formdata, extraData, responseD
 #### fileuploaderror
 This event is triggered when an error is faced in deletion of each thumbnail file in the `initialPreview` content set. Additional parameters available are: 
 
-- `formdata`: the FormData object which is passed via XHR2.
-- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
+- `data`: This is a data object (associative array) that sends the following information, whose keys are:
+    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
+    - `files`: the file stack array (or empty object if not available).
+    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
+    - `response`: the data sent via ajax response (or empty object if not available).
 - `previewId`: the identifier of each file's parent thumbnail div element in the preview window.
 - `index`: the zero-based index of the file in the file stack.
 
 ```js
-$('#input-id').on('fileuploaderror', function(event, formdata, extraData, preview, index) {
+$('#input-id').on('fileuploaderror', function(event, data, previewId, index) {
+    var formdata = data.form, files = data.files, 
+        extradata = data.extra, responsedata = data.response;
     console.log('File upload error');
 });
 ```
@@ -1030,12 +1044,16 @@ $('#input-id').on('fileuploaderror', function(event, formdata, extraData, previe
 #### filebatchuploadsuccess
 This event is triggered after a successful synchronous batch upload (i.e. when `uploadAsync` is `false`). Additional parameters available are: 
 
-- `filestack`: the array of selected file objects.
-- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
-- `responseData`: the data sent via ajax response.
+- `data`: This is a data object (associative array) that sends the following information, whose keys are:
+    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
+    - `files`: the file stack array (or empty object if not available).
+    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
+    - `response`: the data sent via ajax response (or empty object if not available).
 
 ```js
-$('#input-id').on('filebatchuploadsuccess', function(formdata, extraData, responseData) {
+$('#input-id').on('filebatchuploadsuccess', function(event, data) {
+    var formdata = data.form, files = data.files, 
+        extradata = data.extra, responsedata = data.response;
     console.log('File batch upload success');
 });
 ```
@@ -1043,11 +1061,16 @@ $('#input-id').on('filebatchuploadsuccess', function(formdata, extraData, respon
 #### filebatchuploaderror
 This event is triggered when any error is faced in the synchronous batch upload (i.e. when `uploadAsync` is `false`). Additional parameters available are: 
 
-- `formdata`: the FormData object which is passed via XHR2.
-- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
+- `data`: This is a data object (associative array) that sends the following information, whose keys are:
+    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
+    - `files`: the file stack array (or empty object if not available).
+    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
+    - `response`: the data sent via ajax response (or empty object if not available).
 
 ```js
-$('#input-id').on('filebatchuploaderror', function(event, formdata, extraData) {
+$('#input-id').on('filebatchuploaderror', function(event, data) {
+    var formdata = data.form, files = data.files, 
+        extradata = data.extra, responsedata = data.response;
     console.log('File upload error');
 });
 ```
@@ -1055,11 +1078,15 @@ $('#input-id').on('filebatchuploaderror', function(event, formdata, extraData) {
 #### filebatchuploadcomplete
 This event is triggered after completion of either the synchronous and asynchronous ajax batch upload. Additional parameters available are: 
 
-- `filestack`: the array of selected file objects.
-- `extraData`: the `uploadExtraData` settings for the plugin (will return an empty object if not set).
-
+- `data`: This is a data object (associative array) that sends the following information, whose keys are:
+    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
+    - `files`: the file stack array (or empty object if not available).
+    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
+    - `response`: the data sent via ajax response (or empty object if not available).
 ```js
-$('#input-id').on('filebatchuploadcomplete', function(formdata, extraData) {
+$('#input-id').on('filebatchuploadcomplete', function(event, data) {
+    var formdata = data.form, files = data.files, 
+        extradata = data.extra, responsedata = data.response;
     console.log('File batch upload complete');
 });
 ```

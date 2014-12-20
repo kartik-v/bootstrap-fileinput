@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 4.1.2
+ * @version 4.1.3
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -892,16 +892,22 @@
                     self.$element.trigger('filepreupload', [formdata, self.uploadExtraData, previewId, i])
                 },
                 success: function(data, textStatus, jqXHR) {
+                    var outData = {
+                        form: formdata,
+                        files: self.filestack,
+                        extra: self.uploadExtraData,
+                        response: data
+                    };
                     setTimeout(function() {
                         if(typeof data.error === 'undefined') {
                             setIndicator('indicatorSuccess', 'indicatorSuccessTitle');
                             $btnUpload.hide();
                             $btnDelete.hide();
                             self.filestack[i] = undefined;
-                            self.$element.trigger('fileuploaded', [data, formdata, self.uploadExtraData, data, previewId, i]);
+                            self.$element.trigger('fileuploaded', [outData, previewId, i]);
                         } else {
                             setIndicator('indicatorError', 'indicatorErrorTitle');
-                            self.showUploadError(data.error, formdata, self.uploadExtraData, previewId, i);
+                            self.showUploadError(data.error, outData, previewId, i);
                         }
                         updateProgress();
                         resetActions();
@@ -909,11 +915,17 @@
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     setIndicator('indicatorError', 'indicatorErrorTitle');
+                    var outData = {
+                        form: formdata,
+                        files: self.filestack,
+                        extra: self.uploadExtraData,
+                        response: {}
+                    };
                     if (allFiles) {
                         var cap = files[i].name;
-                        self.showUploadError('<b>' + cap + '</b>: ' + errorThrown, formdata, self.uploadExtraData, previewId, i);
+                        self.showUploadError('<b>' + cap + '</b>: ' + errorThrown, outData, previewId, i);
                     } else {
-                        self.showUploadError(errorThrown, formdata, self.uploadExtraData, previewId, i);
+                        self.showUploadError(errorThrown, outData, previewId, i);
                     }
                     updateProgress();
                     resetActions();
@@ -924,9 +936,17 @@
             var self = this, files = self.filestack, total = files.length, 
                 config = self.fileActionSettings; formdata = new FormData(),
                 setIndicator = function (i, icon, msg) {
-                    $indicator = $('#' + self.previewInitId + "-" + i).find('.file-upload-indicator'), 
+                    var $indicator = $('#' + self.previewInitId + "-" + i).find('.file-upload-indicator');
                     $indicator.html(config[icon]);
                     $indicator.attr('title', config[msg]);
+                },
+                enableActions = function (i, disabled) {
+                    var $thumb = $('#' + self.previewInitId + "-" + i),
+                        $btnUpload = $thumb.find('.kv-file-upload'), 
+                        $btnDelete = $thumb.find('.kv-file-delete');
+                    $thumb.removeClass('file-uploading');
+                    $btnUpload.removeAttr('disabled');
+                    $btnDelete.removeAttr('disabled');
                 },
                 setAllUploaded = function() {
                     $.each(files, function(key, data) {
@@ -952,10 +972,24 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function() {
-                    addCss(self.$preview.find('.file-preview-frame'), 'file-uploading');
                     self.lock();
+                    if (!self.showPreview) {
+                        return;
+                    }
+                    self.$preview.find('.file-preview-frame').each(function() {
+                        var $thumb = $(this), $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove');
+                        addCss($thumb, 'file-uploading');
+                        $btnUpload.attr('disabled', true);
+                        $btnDelete.attr('disabled', true);
+                    });
                 },
                 success: function(data, textStatus, jqXHR) {
+                    var outData = {
+                        form: formdata,
+                        files: self.filestack,
+                        extra: self.uploadExtraData,
+                        response: data
+                    };
                     setTimeout(function() {
                         var keys = isEmpty(data.errorkeys) ? [] : data.errorkeys;
                         if(typeof data.error === 'undefined' || isEmpty(data.error)) {
@@ -966,34 +1000,30 @@
                                 self.$preview.find('.file-preview-frame').each(function() {
                                     var $thumb = $(this), key = $thumb.attr('data-fileindex');
                                     setIndicator(key, 'indicatorSuccess', 'indicatorSuccessTitle');
-                                    $thumb.removeClass('file-uploading');
+                                    enableActions(key);
                                 });
                             } else {
                                 self.reset();
                             }
-                            self.$element.trigger('filebatchuploadsuccess', [self.filestack, self.uploadExtraData, data]);
+                            self.$element.trigger('filebatchuploadsuccess', [outData]);
                         } else {
                             self.$preview.find('.file-preview-frame').each(function() {
                                 var $thumb = $(this), key = $thumb.attr('data-fileindex');
+                                enableActions(key);
                                 if (keys.length == 0) {
-                                    $thumb.removeClass('file-uploading');
                                     setIndicator(key, 'indicatorError', 'indicatorErrorTitle');
                                     return;
                                 }
                                 if ($.inArray(key, keys)) {
                                     setIndicator(key, 'indicatorError', 'indicatorErrorTitle');
                                 } else {
-                                    var $upload = $thumb.find('.kv-file-upload'), $remove = $thumb.find('.kv-file-remove');
-                                    addCss($upload, 'disabled');
-                                    addCss($remove, 'disabled');
-                                    $upload.hide();
-                                    $remove.hide();
-                                    $thumb.removeClass('file-uploading');
+                                    $thumb.find('.kv-file-upload').hide();
+                                    $thumb.find('.kv-file-remove').hide();
                                     setIndicator(key, 'indicatorSuccess', 'indicatorSuccessTitle');
                                     self.filestack[key] = undefined;
                                 }
                             });
-                            self.showUploadError(data.error, formdata, self.uploadExtraData, null, null, 'filebatchuploaderror');
+                            self.showUploadError(data.error, outData, null, null, 'filebatchuploaderror');
                         }
                     }, 100);
                 },
@@ -1003,9 +1033,17 @@
                     self.$element.trigger('filebatchuploadcomplete', [self.filestack, self.uploadExtraData]);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    self.showUploadError(errorThrown, formdata, self.uploadExtraData, null, null, 'filebatchuploaderror');
+                    var outData = {
+                        form: formdata,
+                        files: self.filestack,
+                        extra: self.uploadExtraData,
+                        response: {}
+                    };
+                    self.showUploadError(errorThrown, outData, null, null, 'filebatchuploaderror');
                     self.uploadFileCount = total - 1;
                     self.$preview.find('.file-preview-frame').removeClass('file-uploading');
+                    self.$preview.find('.file-preview-frame kv-file-upload').removeAttr('disabled');
+                    self.$preview.find('.file-preview-frame kv-file-delete').removeAttr('disabled');
                 }
             });
         },
@@ -1028,7 +1066,7 @@
                 $error.hide();
             }
         },
-        showUploadError: function (msg, file, extraData, previewId, index) {
+        showUploadError: function (msg, data, previewId, index) {
             var self = this, $error = self.$errorContainer, $el = self.$element, 
                 ev = arguments.length > 4 ? arguments[4] : 'fileuploaderror';
             if ($error.find('ul').length == 0) {
@@ -1037,7 +1075,7 @@
                 $error.find('ul').append('<li>' + msg + '</li>');
             }
             $error.fadeIn(800);
-            $el.trigger(ev, [file, extraData, previewId, index]);
+            $el.trigger(ev, [data, previewId, index]);
             addCss(self.$container, 'has-error');
             return true;
         },
@@ -1181,7 +1219,13 @@
                 ctr = self.filestack.length,
                 throwError = function(msg, file, previewId, index) {
                     self.previewDefault(file, previewId, true);
-                    return self.isUploadable ? self.showUploadError(msg, file, self.uploadExtraData, previewId, index) : self.showError(msg, file, previewId, index);
+                    var outData = {
+                        form: {},
+                        files: files,
+                        extra: self.uploadExtraData,
+                        response: {}
+                    };
+                    return self.isUploadable ? self.showUploadError(msg, outData, previewId, index) : self.showError(msg, file, previewId, index);
                 };
             function readFile(i) {
                 if (isEmpty($el.attr('multiple'))) {
@@ -1314,7 +1358,13 @@
                 numFiles = !isEmpty(files) ? (files.length + self.initialPreviewCount) : 1, tfiles,
                 ctr = self.filestack.length, isAjaxUpload = (self.isUploadable && ctr != 0),
                 throwError = function(msg, file, previewId, index) {
-                    return self.isUploadable ? self.showUploadError(msg, file, self.uploadExtraData, previewId, index) : self.showError(msg, file, previewId, index);
+                    var outData = {
+                        form: {},
+                        files: files,
+                        extra: self.uploadExtraData,
+                        response: {}
+                    };
+                    return self.isUploadable ? self.showUploadError(msg, outData, previewId, index) : self.showError(msg, file, previewId, index);
                 };
             self.resetUpload();
             

@@ -1,11 +1,23 @@
+version 4.1.3
+=============
+**Date:** 20-Dec-2014
+
+1. (enh #85): Combine output data as a single object, that is sent for various file upload events. 
+    - `filepreupload`
+    - `fileuploaded`
+    - `fileuploaderror`
+    - `filebatchuploaderror`
+    - `filebatchuploadsuccess`
+    - `filebatchuploadcomplete`
+2. (enh #86): Disable thumbnail action buttons when upload is in progress.
+    
 version 4.1.2
 =============
 **Date:** 19-Dec-2014
 
 1. (enh #81): Add new events:
     - `filebatchuploadsuccess`
-    - `filebatchuploadcomplete`
-    
+    - `filebatchuploadcomplete` 
 2. (enh #80): Allow access to `uploadExtraData` and `responseData` to following events
     - `filepreupload`
     - `fileuploaded`
