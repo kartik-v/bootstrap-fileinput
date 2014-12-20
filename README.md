@@ -1023,7 +1023,7 @@ $('#input-id').on('fileuploaded', function(event, data, previewId, index) {
 ```
 
 #### fileuploaderror
-This event is triggered when an error is faced in deletion of each thumbnail file in the `initialPreview` content set. Additional parameters available are: 
+This event is triggered when an upload or file input validation error is encountered primarily for ajax uploads. Additional parameters available are: 
 
 - `data`: This is a data object (associative array) that sends the following information, whose keys are:
     - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
