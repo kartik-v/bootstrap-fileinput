@@ -817,30 +817,31 @@
             });
         },
         initXhr: function(xhrobj) {
-            var self = this;
+            var self = this, factor = arguments.length > 1 ? (self.uploadCount + 1) * 100/arguments[1] : 98;
             if (xhrobj.upload) {
                 xhrobj.upload.addEventListener('progress', function(event) {
                     var pct = 0, position = event.loaded || event.position, total = event.total;
                     if (event.lengthComputable) {
-                        pct = Math.ceil(position / total * 98);
+                        pct = Math.ceil(position / total * factor);
                     }
                     self.uploadPercent = Math.max(pct, self.uploadPercent);
-                    //Set progress
                     self.setProgress(self.uploadPercent);
                 }, false);
             }
             return xhrobj;
         },
         upload: function(i) {
-            var self = this, files = self.getFileStack(), formdata = new FormData(),
+            var self = this, files = self.getFileStack(), total = files.length, formdata = new FormData(), 
                 previewId = self.previewInitId + "-" + i, $thumb = $('#' + previewId), 
                 $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove'),
                 $indicator = $thumb.find('.file-upload-indicator'), config = self.fileActionSettings;
+            if (total == 0) {
+                return;
+            }
             if ($btnUpload.hasClass('disabled')) {
                 return;
             }
             var percent,
-                total = files.length,
                 allFiles = arguments.length > 1,
                 setIndicator = function (icon, msg) {
                     $indicator.html(config[icon]);
@@ -872,7 +873,7 @@
             self.ajaxRequests.push($.ajax({
                 xhr: function() {
                     var xhrobj = $.ajaxSettings.xhr();
-                    return self.initXhr(xhrobj);
+                    return self.initXhr(xhrobj, self.getFileStack().length);
                 },
                 url: self.uploadUrl,
                 type: 'POST',
@@ -933,8 +934,11 @@
             }));
         },
         uploadBatch: function() {
-            var self = this, files = self.filestack, total = files.length, 
-                config = self.fileActionSettings; formdata = new FormData(),
+            var self = this, files = self.filestack, total = files.length;
+            if (total == 0) {
+                return;
+            }
+            var config = self.fileActionSettings; formdata = new FormData(),
                 setIndicator = function (i, icon, msg) {
                     var $indicator = $('#' + self.previewInitId + "-" + i).find('.file-upload-indicator');
                     $indicator.html(config[icon]);

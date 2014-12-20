@@ -10,7 +10,8 @@ version 4.1.3
     - `filebatchuploadsuccess`
     - `filebatchuploadcomplete`
 2. (enh #86): Disable thumbnail action buttons when upload is in progress.
-    
+3. (enh #87): More correct progress indicator percentage for asynchronous upload.
+
 version 4.1.2
 =============
 **Date:** 19-Dec-2014
