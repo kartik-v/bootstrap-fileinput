@@ -365,7 +365,7 @@
                 if ((self.uploadAsync || totLen == 1) && self.showPreview) {
                     for (i = 0; i < len; i++) {
                         if (self.filestack[i] !== undefined) {
-                            self.upload(i, true);
+                            self.upload(i, self.getFileStack(), true);
                         }
                     }
                     return;
@@ -485,7 +485,7 @@
                 $el.off('click').on('click', function() {
                     var $frame = $el.closest('.file-preview-frame'),
                         ind = $frame.attr('data-fileindex');
-                    self.upload(ind);
+                    self.upload(ind, self.getFileStack());
                 });
             });
         },
@@ -618,38 +618,36 @@
                             self.$element.trigger('filepredelete', [vKey]);
                         },
                         success: function(data, textStatus, jqXHR) {
-                            setTimeout(function() {
-                                if(typeof data.error === 'undefined') {
-                                    self.$element.trigger('filedeleted', [vKey]);
-                                } else {
-                                    self.showError(data.error, null, $el.attr('id'), key, 'filedeleteerror');
-                                    resetProgress();
-                                }
-                                $frame.removeClass('file-uploading').addClass('file-deleted');
-                                $frame.fadeOut('slow', function() {
-                                    self.clearObjects($frame);
-                                    $frame.remove();
-                                    var $content = $(document.createElement('div')).html(self.original.preview);
-                                    $content.find('.file-preview-frame').each(function() {
-                                        var $el = $(this);
-                                        if ($el.find('.kv-file-remove').attr('data-key') == vKey) {
-                                            $el.remove();
-                                        }
-                                    });
-                                    self.initialPreviewContent = $content.html();
-                                    if (self.initialPreviewCount > 0) {
-                                        self.initialPreviewCount--;
+                            if(typeof data.error === 'undefined') {
+                                self.$element.trigger('filedeleted', [vKey]);
+                            } else {
+                                self.showError(data.error, null, $el.attr('id'), key, 'filedeleteerror');
+                                resetProgress();
+                            }
+                            $frame.removeClass('file-uploading').addClass('file-deleted');
+                            $frame.fadeOut('slow', function() {
+                                self.clearObjects($frame);
+                                $frame.remove();
+                                var $content = $(document.createElement('div')).html(self.original.preview);
+                                $content.find('.file-preview-frame').each(function() {
+                                    var $el = $(this);
+                                    if ($el.find('.kv-file-remove').attr('data-key') == vKey) {
+                                        $el.remove();
                                     }
-                                    var caption = (self.initialCaption.length > 0) ? 
-                                        self.initialCaption : 
-                                        self.msgSelected.replace(/\{n\}/g, self.initialPreviewCount);
-                                    self.original.preview = $content.html();
-                                    self.setCaption(caption);
-                                    self.original.caption = self.$caption.html();
-                                    $content.remove();
-                                    resetProgress();
                                 });
-                            }, 50);
+                                self.initialPreviewContent = $content.html();
+                                if (self.initialPreviewCount > 0) {
+                                    self.initialPreviewCount--;
+                                }
+                                var caption = (self.initialCaption.length > 0) ? 
+                                    self.initialCaption : 
+                                    self.msgSelected.replace(/\{n\}/g, self.initialPreviewCount);
+                                self.original.preview = $content.html();
+                                self.setCaption(caption);
+                                self.original.caption = self.$caption.html();
+                                $content.remove();
+                                resetProgress();
+                            });
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             self.showError(errorThrown, null, $el.attr('id'), key, 'filedeleteerror');
@@ -828,8 +826,8 @@
             }
             return xhrobj;
         },
-        upload: function(i) {
-            var self = this, files = self.getFileStack(), total = files.length, formdata = new FormData(), 
+        upload: function(i, files) {
+            var self = this, total = files.length, formdata = new FormData(), 
                 previewId = self.previewInitId + "-" + i, $thumb = $('#' + previewId), 
                 $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove'),
                 $indicator = $thumb.find('.file-upload-indicator'), config = self.fileActionSettings;
@@ -840,27 +838,31 @@
                 return;
             }
             var percent,
-                allFiles = arguments.length > 1,
+                allFiles = arguments.length > 2,
                 setIndicator = function (icon, msg) {
                     $indicator.html(config[icon]);
                     $indicator.attr('title', config[msg]);
                 },
-                checkAllUploaded = function() {
+                updateProgress = function() {
+                    if (allFiles && self.uploadPercent >= 100) {
+                        self.$element.trigger('filebatchuploadcomplete', [self.filestack, self.uploadExtraData]);
+                        return;
+                    }
                     if (self.$preview.find('file-uploading').length == 0) {
                         self.unlock();
-                        self.$element.trigger('filebatchuploadcomplete', [self.filestack, self.uploadExtraData]);
-                        self.setProgress(100);
+                        self.clearFileInput();
                     }
-                },
-                updateProgress = function() {
-                    checkAllUploaded();
-                    if (!allFiles) {
+                    if (!allFiles || total == 0) {
                         return;
                     }
                     self.uploadCount++;
-                    self.uploadPercent = 80 + (total > 0 ? Math.ceil(self.uploadCount * 20/total) : 0);
+                    var pct = 80 + Math.ceil(self.uploadCount * 20/total);
+                    self.uploadPercent = Math.max(pct, self.uploadPercent);
                     self.setProgress(self.uploadPercent);
                     self.initPreviewDeletes();
+                    if (allFiles && self.uploadPercent >= 100) {
+                        self.$element.trigger('filebatchuploadcomplete', [self.filestack, self.uploadExtraData]);
+                    }
                 },
                 resetActions = function() {
                     $btnUpload.removeAttr('disabled');
@@ -884,6 +886,12 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function() {
+                    var outData = {
+                        form: formdata,
+                        files: self.filestack,
+                        extra: self.uploadExtraData,
+                        response: {}
+                    };
                     setIndicator('indicatorLoading', 'indicatorLoadingTitle');
                     addCss($thumb, 'file-uploading');
                     $btnUpload.attr('disabled', true);
@@ -891,7 +899,7 @@
                     if (!allFiles) {
                         self.lock();
                     }
-                    self.$element.trigger('filepreupload', [formdata, self.uploadExtraData, previewId, i])
+                    self.$element.trigger('filepreupload', [outData, previewId, i])
                 },
                 success: function(data, textStatus, jqXHR) {
                     var outData = {
@@ -900,21 +908,24 @@
                         extra: self.uploadExtraData,
                         response: data
                     };
-                    if(typeof data.error === 'undefined') {
-                        setIndicator('indicatorSuccess', 'indicatorSuccessTitle');
-                        $btnUpload.hide();
-                        $btnDelete.hide();
-                        self.filestack[i] = undefined;
-                        self.$element.trigger('fileuploaded', [outData, previewId, i]);
-                    } else {
-                        setIndicator('indicatorError', 'indicatorErrorTitle');
-                        self.showUploadError(data.error, outData, previewId, i);
-                    }
-                    updateProgress();
-                    resetActions();
+                    setTimeout(function() {
+                        if(typeof data.error === 'undefined') {
+                            setIndicator('indicatorSuccess', 'indicatorSuccessTitle');
+                            $btnUpload.hide();
+                            $btnDelete.hide();
+                            self.filestack[i] = undefined;
+                            self.$element.trigger('fileuploaded', [outData, previewId, i]);
+                        } else {
+                            setIndicator('indicatorError', 'indicatorErrorTitle');
+                            self.showUploadError(data.error, outData, previewId, i);
+                        }
+                    }, 100);
                 },
                 complete: function() {
-                    checkAllUploaded();
+                    setTimeout(function() {
+                        updateProgress();
+                        resetActions();
+                    }, 100);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     setIndicator('indicatorError', 'indicatorErrorTitle');
@@ -930,8 +941,6 @@
                     } else {
                         self.showUploadError(errorThrown, outData, previewId, i);
                     }
-                    updateProgress();
-                    resetActions();
                 }
             }));
         },
@@ -958,6 +967,7 @@
                     $.each(files, function(key, data) {
                         self.filestack[key] = undefined;
                     });
+                    self.clearFileInput();
                 };
             $.each(files, function(key, data) {
                 if (files[key] !== undefined) {
@@ -1035,6 +1045,7 @@
                     self.setProgress(100);
                     self.unlock();
                     self.$element.trigger('filebatchuploadcomplete', [self.filestack, self.uploadExtraData]);
+                    self.clearFileInput();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     var outData = {
@@ -1277,7 +1288,7 @@
                 }
                 if (!self.showPreview) {
                     self.filestack.push(file);
-                    setTimeout(readFile(i + 1), 50);
+                    setTimeout(readFile(i + 1), 100);
                     $el.trigger('fileloaded', [file, previewId, i]);
                     return;
                 }
@@ -1298,11 +1309,11 @@
                         setTimeout(function () {
                             $status.html(msg);
                             vUrl.revokeObjectURL(previewData);
-                        }, 50);
+                        }, 100);
                         setTimeout(function () {
                             readFile(i + 1);
                             self.updateFileDetails(numFiles);
-                        }, 50);
+                        }, 100);
                         $el.trigger('fileloaded', [file, previewId, i]);
                     };
                     reader.onprogress = function (data) {
@@ -1313,7 +1324,7 @@
                                 .replace(/\{percent\}/g, progress).replace(/\{name\}/g, caption);
                             setTimeout(function () {
                                 $status.html(msg);
-                            }, 50);
+                            }, 100);
                         }
                     };
                     if (isText(file.type, caption)) {
@@ -1326,7 +1337,7 @@
                     setTimeout(function() {
                         readFile(i + 1);
                         self.updateFileDetails(numFiles);
-                    }, 50);
+                    }, 100);
                     $el.trigger('fileloaded', [file, previewId, i]);
                 }
                 self.filestack.push(file);
