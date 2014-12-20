@@ -845,12 +845,10 @@
                 },
                 updateProgress = function() {
                     if (allFiles && self.uploadPercent >= 100) {
-                        self.$element.trigger('filebatchuploadcomplete', [self.filestack, self.uploadExtraData]);
-                        return;
-                    }
-                    if (self.$preview.find('file-uploading').length == 0) {
                         self.unlock();
                         self.clearFileInput();
+                        self.$element.trigger('filebatchuploadcomplete', [self.filestack, self.uploadExtraData]);
+                        return;
                     }
                     if (!allFiles || total == 0) {
                         return;
