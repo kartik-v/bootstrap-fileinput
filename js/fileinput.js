@@ -815,15 +815,13 @@
             });
         },
         initXhr: function(xhrobj) {
-            var self = this, factor = arguments.length > 1 ? 90 : 98,
-                addfact = arguments.length > 1 ? (self.uploadCount + 1) * 10/arguments[1] : 0;
+            var self = this, factor = arguments.length > 1 ? 80 : 98;
             if (xhrobj.upload) {
                 xhrobj.upload.addEventListener('progress', function(event) {
                     var pct = 0, position = event.loaded || event.position, total = event.total;
                     if (event.lengthComputable) {
-                        pct = Math.ceil((position / total * factor) + addfact);
+                        pct = Math.ceil(position / total * factor);
                     }
-                    
                     self.uploadPercent = Math.max(pct, self.uploadPercent);
                     self.setProgress(self.uploadPercent);
                 }, false);
@@ -855,9 +853,8 @@
                     if (!allFiles) {
                         return;
                     }
+                    self.uploadPercent += total > 0 ? Math.ceil(self.uploadCount * 20/total) : 0;
                     self.uploadCount++;
-                    var pct = total > 0 ? Math.ceil(self.uploadCount * 100/total) : 0;
-                    self.uploadPercent = Math.max(pct, self.uploadPercent);
                     self.setProgress(self.uploadPercent);
                     self.initPreviewDeletes();
                 },
