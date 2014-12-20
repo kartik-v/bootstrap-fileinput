@@ -222,6 +222,7 @@ _string_, the delimiter to be used for splitting the initial preview content as 
 
 #### initialPreviewConfig
 _array_, the configuration for setting up important properties for each `initialPreview` item (that is setup as part of `initialPreview`). Each element in the array should be an object/associative array consisting of the following keys:
+
     - `caption`: _string_, the caption or filename to display for each initial preview item content.
     - `width`: _string_, the CSS width of the image/content displayed.
     - `url`: _string_, the URL for deleting the image/content in the initial preview via AJAX post response.
