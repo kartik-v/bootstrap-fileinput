@@ -6,7 +6,7 @@ version 4.1.2
     - `filebatchuploadsuccess`
     - `filebatchuploadcomplete`
     
-2. (enh #80): Allow access to `uploadExtraData` to following events
+2. (enh #80): Allow access to `uploadExtraData` and `responseData` to following events
     - `filepreupload`
     - `fileuploaded`
     - `fileuploaderror`
