@@ -814,8 +814,8 @@
                 }
             });
         },
-        initXhr: function(xhrobj) {
-            var self = this, factor = arguments.length > 1 ? 80 : 98;
+        initXhr: function(xhrobj, factor) {
+            var self = this;
             if (xhrobj.upload) {
                 xhrobj.upload.addEventListener('progress', function(event) {
                     var pct = 0, position = event.loaded || event.position, total = event.total;
@@ -859,8 +859,8 @@
                     self.initPreviewDeletes();
                 },
                 resetActions = function() {
-                    $btnUpload.removeClass('disabled');
-                    $btnDelete.removeClass('disabled');
+                    $btnUpload.removeAttr('disabled');
+                    $btnDelete.removeAttr('disabled');
                     $thumb.removeClass('file-uploading');
                 };
             
@@ -870,7 +870,7 @@
             self.ajaxRequests.push($.ajax({
                 xhr: function() {
                     var xhrobj = $.ajaxSettings.xhr();
-                    return self.initXhr(xhrobj, self.getFileStack().length);
+                    return self.initXhr(xhrobj, 80);
                 },
                 url: self.uploadUrl,
                 type: 'POST',
@@ -882,8 +882,8 @@
                 beforeSend: function() {
                     setIndicator('indicatorLoading', 'indicatorLoadingTitle');
                     addCss($thumb, 'file-uploading');
-                    addCss($btnUpload, 'disabled');
-                    addCss($btnDelete, 'disabled');
+                    $btnUpload.attr('disabled', true);
+                    $btnDelete.attr('disabled', true);
                     if (!allFiles) {
                         self.lock();
                     }
@@ -961,7 +961,7 @@
             $.ajax({
                 xhr: function() {
                     var xhrobj = $.ajaxSettings.xhr();
-                    return self.initXhr(xhrobj);
+                    return self.initXhr(xhrobj, 98);
                 },
                 url: self.uploadUrl,
                 type: 'POST',
