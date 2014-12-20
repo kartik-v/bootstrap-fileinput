@@ -845,16 +845,20 @@
                     $indicator.html(config[icon]);
                     $indicator.attr('title', config[msg]);
                 },
-                updateProgress = function() {
+                checkAllUploaded = function() {
                     if (self.$preview.find('file-uploading').length == 0) {
                         self.unlock();
                         self.$element.trigger('filebatchuploadcomplete', [self.filestack, self.uploadExtraData]);
+                        self.setProgress(100);
                     }
+                },
+                updateProgress = function() {
+                    checkAllUploaded();
                     if (!allFiles) {
                         return;
                     }
-                    self.uploadPercent += total > 0 ? Math.ceil(self.uploadCount * 20/total) : 0;
                     self.uploadCount++;
+                    self.uploadPercent = 80 + (total > 0 ? Math.ceil(self.uploadCount * 20/total) : 0);
                     self.setProgress(self.uploadPercent);
                     self.initPreviewDeletes();
                 },
@@ -908,6 +912,9 @@
                     }
                     updateProgress();
                     resetActions();
+                },
+                complete: function() {
+                    checkAllUploaded();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     setIndicator('indicatorError', 'indicatorErrorTitle');
