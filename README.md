@@ -1115,7 +1115,7 @@ $('#input-id').on('filebatchuploaderror', function(event, data) {
 ```
 
 #### filebatchuploadcomplete
-This event is triggered after completion of either the synchronous and asynchronous ajax batch upload. Additional parameters available are: 
+This event is triggered after completion of either the synchronous OR asynchronous ajax batch upload. Additional parameters available are: 
 
 - `data`: This is a data object (associative array) that sends the following information, whose keys are:
     - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
