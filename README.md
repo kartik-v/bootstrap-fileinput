@@ -67,7 +67,7 @@ built upon HTML5 FormData and XMLHttpRequest Level 2 standards. Most modern brow
 8. Ability to add extra form data with ajax based uploads.
 9. Upload progress bar and individual thumbnail upload indicators.
 10. Ability to cancel and abort ongoing AJAX uploads.
-11. Build up initial preview content (e.g. gallery of uploaded images). You can set initial preview actions (prebuilt support for initial preview delete). Other custom action buttons can be set for initial preview thumbnails as well. 
+11. Build up initial preview content (e.g. gallery of saved images). You can set initial preview actions (prebuilt support for initial preview delete). Other custom action buttons can be set for initial preview thumbnails as well. 
 12. Ensure plugin is still lean in size and optimized for performance inspite of the above features by optimally utilizing HTML5 & jquery features only.
 
 > NOTE: Drag and Drop zone functionality, selectively appending or deleting files, and upload indicator with progress are ONLY AVAILABLE if you use AJAX BASED uploads (by setting `uploadUrl`).
