@@ -344,28 +344,29 @@
         listen: function () {
             var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile;
             $el.on('change', $.proxy(self.change, self));
-            $(window).on('resize', function() {
+            $(window).off('resize').on('resize', function() {
                 setTimeout(function() {
                     self.autoSizeCaption();
                 }, 50);  
             });
-            $btnFile.on('click', function (ev) {
+            $btnFile.off('click').on('click', function (ev) {
                 self.raise('filebrowse');
                 if (self.isError && !self.isUploadable) {
                     self.clear(false);
                 }
                 $cap.focus();
             });
-            $el.closest('form').on('reset', $.proxy(self.reset, self));
-            self.$container.on('click', '.fileinput-remove:not([disabled])', $.proxy(self.clear, self));
-            self.$container.on('click', '.fileinput-cancel', $.proxy(self.cancel, self));
+            $el.closest('form').off('reset').on('reset', $.proxy(self.reset, self));
+            self.$container.off('click')
+                .on('click', '.fileinput-remove:not([disabled])', $.proxy(self.clear, self))
+                .on('click', '.fileinput-cancel', $.proxy(self.cancel, self));
             if (self.isUploadable && self.dropZoneEnabled && self.showPreview) {
                 self.initDragDrop();
             }
             if (!self.isUploadable) {
                 return;
             }
-            self.$container.find('.kv-fileinput-upload').on('click', function(e) {
+            self.$container.find('.kv-fileinput-upload').off('click').on('click', function(e) {
                 if (!self.isUploadable) {
                     return;
                 }
@@ -436,9 +437,9 @@
             $el.off();
             self.init(params);
             var $zone = self.$container.find('.file-drop-zone');
-            $el.on('change', $.proxy(self.change, self));
             $zone.off('dragenter dragover drop');
             $(document).off('dragenter dragover drop');
+            self.listen();
             self.setFileDropZoneTitle();
         },
         initDragDrop: function() {
