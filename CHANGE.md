@@ -7,7 +7,8 @@ version 4.1.4
 3. (enh #90): New event `filebatchpreupload` for both synchronous and asynchronous batch uploads.
 4. (enh #91): Pass FileReader instance with outData in events.
 5. (enh #92): Realign event triggering timing for batch uploads to ensure outData is available.
-6. Code cleanup with reusable methods for event raising and outData generation.
+6. (enh #93): Better styling of file upload icon indicators in thumbnails.
+7. Code cleanup with reusable methods for event raising and outData generation.
 
 version 4.1.3
 =============
