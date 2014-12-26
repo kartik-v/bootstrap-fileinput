@@ -1,3 +1,14 @@
+version 4.1.4
+=============
+**Date:** 26-Dec-2014
+
+1. (enh #88): Allow uploadExtraData to be passed as a callback.
+2. (enh #89): New `otherActionButtons` to allow adding customized initial preview content actions.
+3. (enh #90): New event `filebatchpreupload` for both synchronous and asynchronous batch uploads.
+4. (enh #91): Pass FileReader instance with outData in events.
+5. (enh #92): Realign event triggering timing for batch uploads to ensure outData is available.
+6. Code cleanup with reusable methods for event raising and outData generation.
+
 version 4.1.3
 =============
 **Date:** 20-Dec-2014
