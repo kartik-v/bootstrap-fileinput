@@ -581,7 +581,24 @@ _string_ the title to display on hover for the file remove button. Defaults to `
 _string_ the URL for the upload processing action (typically for ajax based processing). Defaults to `null`. If this is not set or `null`, then the upload button action will default to form submission. NOTE: This is MANDATORY if you want to use advanced features like drag & drop, append/remove files, selectively upload files via ajax etc.
 
 #### uploadExtraData
-_object_ the extra data that will be passed as data to the url/AJAX server call via POST.
+_object | function_ the extra data that will be passed as data to the url/AJAX server call via POST. This can be setup either as an object (associative array of keys and values) or as a function callback. As an object, it can be set for example as:
+
+```js
+ {id: 100, value: '100 Details'}
+```
+
+As a function callback, it can be setup for example as:
+
+```js
+function() {
+    var obj = {};
+    $('.your-form-class').find('input').each(function() {
+        var id = $(this).attr('id'), val = $(this).val();
+        obj[id] = val;
+    });
+    return obj;
+}
+```
 
 #### uploadAsync
 _bool_ whether the batch upload of multiple files will be asynchronous/in parallel. Defaults to `true`.
