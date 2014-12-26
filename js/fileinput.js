@@ -438,7 +438,7 @@
             var $zone = self.$container.find('.file-drop-zone');
             $el.on('change', $.proxy(self.change, self));
             $zone.off('dragenter dragover drop');
-            self.$(document).off('dragenter dragover drop');
+            $(document).off('dragenter dragover drop');
             self.setFileDropZoneTitle();
         },
         initDragDrop: function() {

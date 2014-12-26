@@ -9,6 +9,7 @@ version 4.1.4
 5. (enh #92): Realign event triggering timing for batch uploads to ensure outData is available.
 6. (enh #93): Better styling of file upload icon indicators in thumbnails.
 7. Code cleanup with reusable methods for event raising and outData generation.
+8. (bug #95): Correct event off for drag & drop in plugin refresh method.
 
 version 4.1.3
 =============
