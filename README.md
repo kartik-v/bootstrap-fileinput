@@ -880,7 +880,7 @@ are:
 - `file`: the file object instance
 - `previewId`: the identifier for the preview file container.
 - `index`: the zero-based sequential index of the loaded file in the preview list
-
+- `reader`: the FileReader instance if available.
 
 **Example:**
 ```js
