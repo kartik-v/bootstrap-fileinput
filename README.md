@@ -885,7 +885,7 @@ are:
 
 **Example:**
 ```js
-$('#input-id').on('fileloaded', function(event, file, previewId, index) {
+$('#input-id').on('fileloaded', function(event, file, previewId, index, reader) {
     console.log("fileloaded");
 });
 ```
