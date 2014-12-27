@@ -863,8 +863,9 @@ This event is triggered when a client validation error is encountered for an upl
 Additional parameters available are: 
 
 - `file`: the file object instance
-- `previewId`: the identifier for the preview file container.
+- `previewId`: the identifier for the preview file container
 - `index`: the zero-based sequential index of the loaded file in the preview list
+- `reader`: the FileReader instance if available
 
 **Example:**
 ```js
@@ -878,9 +879,9 @@ This event is triggered after a file is loaded in the preview. Additional parame
 are: 
 
 - `file`: the file object instance
-- `previewId`: the identifier for the preview file container.
+- `previewId`: the identifier for the preview file container
 - `index`: the zero-based sequential index of the loaded file in the preview list
-- `reader`: the FileReader instance if available.
+- `reader`: the FileReader instance if available
 
 **Example:**
 ```js
@@ -902,7 +903,7 @@ $('#input-id').on('filereset', function(event) {
 #### fileimageloaded
 This event is triggered when each file image is fully loaded in the preview window. This is only applicable for image file previews and if `showPreview` is set to true. Additional parameters available are: 
 
-- `previewId`: the identifier for the preview file container.
+- `previewId`: the identifier for the preview file container
 
 **Example:**
 ```js
@@ -1006,7 +1007,7 @@ This event is triggered before upload of each thumbnail file. Additional paramet
     - `files`: the file stack array (or empty object if not available).
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
-    - `reader`: the FileReader instance if available.
+    - `reader`: the FileReader instance if available
 - `previewId`: the identifier of the preview thumbnail container.
 - `index`: the zero-based index of the file in the preview container.
 
@@ -1027,7 +1028,7 @@ asynchronous batch uploads after each file in the selection is uploaded via ajax
     - `files`: the file stack array (or empty object if not available).
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
-    - `reader`: the FileReader instance if available.
+    - `reader`: the FileReader instance if available
 - `previewId`: the identifier of each file's parent thumbnail div element in the preview window.
 - `index`: the zero-based index of the file in the file stack.
 
@@ -1047,7 +1048,7 @@ This event is triggered when an upload or file input validation error is encount
     - `files`: the file stack array (or empty object if not available).
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
-    - `reader`: the FileReader instance if available.
+    - `reader`: the FileReader instance if available
 - `previewId`: the identifier of each file's parent thumbnail div element in the preview window.
 - `index`: the zero-based index of the file in the file stack.
 
@@ -1068,7 +1069,7 @@ Additional parameters available are:
     - `files`: the file stack array (or empty object if not available).
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
-    - `reader`: the FileReader instance if available.
+    - `reader`: the FileReader instance if available
 
 ```js
 $('#input-id').on('filebatchpreupload', function(event, data) {
@@ -1086,7 +1087,7 @@ This event is triggered after a successful synchronous batch upload (i.e. when `
     - `files`: the file stack array (or empty object if not available).
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
-    - `reader`: the FileReader instance if available.
+    - `reader`: the FileReader instance if available
 
 ```js
 $('#input-id').on('filebatchuploadsuccess', function(event, data) {
@@ -1104,7 +1105,7 @@ This event is triggered when any error is faced in the synchronous batch upload 
     - `files`: the file stack array (or empty object if not available).
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
-    - `reader`: the FileReader instance if available.
+    - `reader`: the FileReader instance if available
 
 ```js
 $('#input-id').on('filebatchuploaderror', function(event, data) {
@@ -1122,7 +1123,7 @@ This event is triggered after completion of either the synchronous OR asynchrono
     - `files`: the file stack array (or empty object if not available).
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
-    - `reader`: the FileReader instance if available.
+    - `reader`: the FileReader instance if available
 
 ```js
 $('#input-id').on('filebatchuploadcomplete', function(event, data) {
