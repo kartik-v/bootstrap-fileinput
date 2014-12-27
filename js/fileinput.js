@@ -1095,7 +1095,7 @@
                 $error.find('ul').append('<li>' + msg + '</li>');
             }
             $error.fadeIn(800);
-            self.raise(ev, [data, previewId, index, self.reader]);
+            self.raise(ev, [data, previewId, index]);
             addCss(self.$container, 'has-error');
             return true;
         },
