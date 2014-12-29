@@ -1373,7 +1373,7 @@
                 numFiles = !isEmpty(files) ? (files.length + self.initialPreviewCount) : 1, tfiles,
                 ctr = self.filestack.length, isAjaxUpload = (self.isUploadable && ctr != 0),
                 throwError = function(msg, file, previewId, index) {
-                    var outData = self.getOutData(formdata, {}, files);
+                    var outData = self.getOutData({}, files);
                     return self.isUploadable ? self.showUploadError(msg, outData, previewId, index) : self.showError(msg, file, previewId, index);
                 };
             self.resetUpload();
