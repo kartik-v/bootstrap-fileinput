@@ -7,7 +7,7 @@ The plugin incorporates a simple HTML markup with enhanced CSS styling of a HTML
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin v4.1.4 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
+> NOTE: The latest version of the plugin v4.1.5 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
 
 ## Features  
 
