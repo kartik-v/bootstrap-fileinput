@@ -1095,7 +1095,7 @@
                 $error.find('ul').append('<li>' + msg + '</li>');
             }
             $error.fadeIn(800);
-            self.raise(ev, [data, previewId, index]);
+            self.raise(ev, [data, previewId, index, self.reader]);
             addCss(self.$container, 'has-error');
             return true;
         },
@@ -1239,7 +1239,7 @@
                 ctr = self.filestack.length, 
                 throwError = function(msg, file, previewId, index) {
                     self.previewDefault(file, previewId, true);
-                    var outData = self.getOutData(formdata, {}, files);
+                    var outData = self.getOutData({}, {}, files);
                     return self.isUploadable ? self.showUploadError(msg, outData, previewId, index) : self.showError(msg, file, previewId, index);
                 };
             function readFile(i) {
