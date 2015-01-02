@@ -264,6 +264,7 @@
             }
             self.uploadFileAttr = !isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
             self.reader = null;
+            self.formdata = {};
             self.isIE9 = isIE(9);
             self.isIE10 = isIE(10);
             self.filestack = [];
@@ -330,11 +331,11 @@
             var self = this;
             return isSet(t, self.previewTemplates) ? self.previewTemplates[t] : defaultPreviewTemplates[t];
         },
-        getOutData: function (formdata) {
-            var self = this, responsedata = arguments.length > 1 ? arguments[1] : {},
-                filesdata = arguments.length > 2 ? arguments[2] : self.filestack;
+        getOutData: function () {
+            var self = this, responsedata = arguments.length > 0 ? arguments[0] : {},
+                filesdata = arguments.length > 1 ? arguments[1] : self.filestack;
             return {
-                form: formdata,
+                form: self.formdata,
                 files: filesdata,
                 extra: self.getExtraData(),
                 response: responsedata,
@@ -383,7 +384,7 @@
                 self.lock();
                 self.setProgress(0);
                 if ((self.uploadAsync || totLen == 1) && self.showPreview) {
-                    var outData = self.getOutData(null);
+                    var outData = self.getOutData();
                     self.raise('filebatchpreupload', [outData]);
                     for (i = 0; i < len; i++) {
                         if (self.filestack[i] !== undefined) {
@@ -817,6 +818,7 @@
                 self.resetUpload();
             }
             self.filestack = [];
+            self.formdata = {};
         },
         disable: function (e) {
             var self = this;
@@ -867,7 +869,8 @@
             return xhrobj;
         },
         upload: function(i, files) {
-            var self = this, total = files.length, formdata = new FormData(), 
+            self.formdata = new FormData();
+            var self = this, total = files.length, formdata = self.formdata, 
                 previewId = self.previewInitId + "-" + i, $thumb = $('#' + previewId), 
                 $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove'),
                 $indicator = $thumb.find('.file-upload-indicator'), config = self.fileActionSettings;
@@ -914,7 +917,7 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function() {
-                    var outData = self.getOutData(formdata);
+                    var outData = self.getOutData();
                     setIndicator('indicatorLoading', 'indicatorLoadingTitle');
                     addCss($thumb, 'file-uploading');
                     $btnUpload.attr('disabled', true);
@@ -925,7 +928,7 @@
                     self.raise('filepreupload', [outData, previewId, i])
                 },
                 success: function(data, textStatus, jqXHR) {
-                    var outData = self.getOutData(formdata, data);
+                    var outData = self.getOutData(data);
                     setTimeout(function() {
                         if(typeof data.error === 'undefined') {
                             setIndicator('indicatorSuccess', 'indicatorSuccessTitle');
@@ -947,7 +950,7 @@
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     setIndicator('indicatorError', 'indicatorErrorTitle');
-                    var outData = self.getOutData(formdata);
+                    var outData = self.getOutData();
                     if (allFiles) {
                         var cap = files[i].name;
                         self.showUploadError('<b>' + cap + '</b>: ' + errorThrown, outData, previewId, i);
@@ -959,10 +962,11 @@
         },
         uploadBatch: function() {
             var self = this, files = self.filestack, total = files.length;
+            self.formdata = new FormData();
             if (total == 0) {
                 return;
             }
-            var config = self.fileActionSettings; formdata = new FormData(),
+            var config = self.fileActionSettings, formdata = self.formdata,
                 setIndicator = function (i, icon, msg) {
                     var $indicator = $('#' + self.previewInitId + "-" + i).find('.file-upload-indicator');
                     $indicator.html(config[icon]);
@@ -1002,7 +1006,7 @@
                 contentType: false,
                 beforeSend: function() {
                     self.lock();
-                    var outData = self.getOutData(formdata);
+                    var outData = self.getOutData();
                     if (!self.showPreview) {
                         return;
                     }
@@ -1015,7 +1019,7 @@
                     self.raise('filebatchpreupload', [outData]);
                 },
                 success: function(data, textStatus, jqXHR) {
-                    var outData = self.getOutData(formdata, data);
+                    var outData = self.getOutData(data);
                     var keys = isEmpty(data.errorkeys) ? [] : data.errorkeys;
                     if(typeof data.error === 'undefined' || isEmpty(data.error)) {
                         self.raise('filebatchuploadsuccess', [outData]);
@@ -1058,7 +1062,7 @@
                     self.clearFileInput();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    var outData = self.getOutData(formdata);
+                    var outData = self.getOutData();
                     self.showUploadError(errorThrown, outData, null, null, 'filebatchuploaderror');
                     self.uploadFileCount = total - 1;
                     self.$preview.find('.file-preview-frame').removeClass('file-uploading');
@@ -1239,7 +1243,7 @@
                 ctr = self.filestack.length, 
                 throwError = function(msg, file, previewId, index) {
                     self.previewDefault(file, previewId, true);
-                    var outData = self.getOutData({}, {}, files);
+                    var outData = self.getOutData({}, files);
                     return self.isUploadable ? self.showUploadError(msg, outData, previewId, index) : self.showError(msg, file, previewId, index);
                 };
             function readFile(i) {
@@ -1373,7 +1377,7 @@
                 numFiles = !isEmpty(files) ? (files.length + self.initialPreviewCount) : 1, tfiles,
                 ctr = self.filestack.length, isAjaxUpload = (self.isUploadable && ctr != 0),
                 throwError = function(msg, file, previewId, index) {
-                    var outData = self.getOutData(formdata, {}, files);
+                    var outData = self.getOutData({}, files);
                     return self.isUploadable ? self.showUploadError(msg, outData, previewId, index) : self.showError(msg, file, previewId, index);
                 };
             self.resetUpload();

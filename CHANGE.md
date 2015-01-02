@@ -1,6 +1,6 @@
 version 4.1.5
 =============
-**Date:** 30-Dec-2014
+**Date:** 02-Jan-2015
 
 1. (bug #100, #101): Set right params for error thrown during reading of files.
 
