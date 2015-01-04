@@ -961,9 +961,10 @@ $('#input-id').on('fileunlock', function(event, filestack, extraData) {
 This event is triggered before deletion of each thumbnail file in the `initialPreview` content set. Additional parameters available are: 
 
 - `key`: the key passed within `initialPreviewConfig` for the selected file for delete.
+- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction.
 
 ```js
-$('#input-id').on('filepredelete', function(event, key) {
+$('#input-id').on('filepredelete', function(event, key, jqXHR) {
     console.log('Key = ' + key);
 });
 ```
@@ -1010,9 +1011,10 @@ This event is triggered before upload of each thumbnail file. Additional paramet
     - `reader`: the FileReader instance if available
 - `previewId`: the identifier of the preview thumbnail container.
 - `index`: the zero-based index of the file in the preview container.
+- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction.
 
 ```js
-$('#input-id').on('filepreupload', function(event, data, previewId, index) {
+$('#input-id').on('filepreupload', function(event, data, previewId, index, jqXHR) {
     var form = data.form, files = data.files, extra = data.extra, 
         response = data.response, reader = data.reader;
     console.log('File pre upload triggered');
@@ -1070,9 +1072,10 @@ Additional parameters available are:
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
     - `reader`: the FileReader instance if available
+- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction.
 
 ```js
-$('#input-id').on('filebatchpreupload', function(event, data) {
+$('#input-id').on('filebatchpreupload', function(event, data, jqXHR) {
     var form = data.form, files = data.files, extra = data.extra, 
         response = data.response, reader = data.reader;
     console.log('File batch pre upload triggered');

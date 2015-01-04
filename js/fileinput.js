@@ -646,10 +646,10 @@
                         type: 'POST',
                         dataType: 'json',
                         data: {key: vKey},
-                        beforeSend: function() {
+                        beforeSend: function(jqXHR) {
                             addCss($frame, 'file-uploading');
                             addCss($el, 'disabled');
-                            self.raise('filepredelete', [vKey]);
+                            self.raise('filepredelete', [vKey, jqXHR]);
                         },
                         success: function(data, textStatus, jqXHR) {
                             if(typeof data.error === 'undefined') {
@@ -916,7 +916,7 @@
                 cache: false,
                 processData: false,
                 contentType: false,
-                beforeSend: function() {
+                beforeSend: function(jqXHR) {
                     var outData = self.getOutData();
                     setIndicator('indicatorLoading', 'indicatorLoadingTitle');
                     addCss($thumb, 'file-uploading');
@@ -925,7 +925,7 @@
                     if (!allFiles) {
                         self.lock();
                     }
-                    self.raise('filepreupload', [outData, previewId, i])
+                    self.raise('filepreupload', [outData, previewId, i, jqXHR])
                 },
                 success: function(data, textStatus, jqXHR) {
                     var outData = self.getOutData(data);
@@ -1004,7 +1004,7 @@
                 cache: false,
                 processData: false,
                 contentType: false,
-                beforeSend: function() {
+                beforeSend: function(jqXHR) {
                     self.lock();
                     var outData = self.getOutData();
                     if (!self.showPreview) {
@@ -1016,7 +1016,7 @@
                         $btnUpload.attr('disabled', true);
                         $btnDelete.attr('disabled', true);
                     });
-                    self.raise('filebatchpreupload', [outData]);
+                    self.raise('filebatchpreupload', [outData, jqXHR]);
                 },
                 success: function(data, textStatus, jqXHR) {
                     var outData = self.getOutData(data);
