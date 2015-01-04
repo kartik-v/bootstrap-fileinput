@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version 4.1.4
+ * @version 4.1.5
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -332,14 +332,16 @@
             return isSet(t, self.previewTemplates) ? self.previewTemplates[t] : defaultPreviewTemplates[t];
         },
         getOutData: function () {
-            var self = this, responsedata = arguments.length > 0 ? arguments[0] : {},
-                filesdata = arguments.length > 1 ? arguments[1] : self.filestack;
+            var self = this, jqXHR = arguments.length > 0 ? arguments[0] : {},
+                responsedata = arguments.length > 1 ? arguments[1] : {},
+                filesdata = arguments.length > 2 ? arguments[2] : self.filestack;
             return {
                 form: self.formdata,
                 files: filesdata,
                 extra: self.getExtraData(),
                 response: responsedata,
-                reader: self.reader
+                reader: self.reader,
+                jqXHR: jqXHR
             };
         },
         listen: function () {
@@ -653,9 +655,9 @@
                         },
                         success: function(data, textStatus, jqXHR) {
                             if(typeof data.error === 'undefined') {
-                                self.raise('filedeleted', [vKey]);
+                                self.raise('filedeleted', [vKey, jqXHR]);
                             } else {
-                                self.showError(data.error, null, $el.attr('id'), key, 'filedeleteerror');
+                                self.showError(data.error, null, $el.attr('id'), key, 'filedeleteerror', jqXHR);
                                 resetProgress();
                             }
                             $frame.removeClass('file-uploading').addClass('file-deleted');
@@ -684,7 +686,7 @@
                             });
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            self.showError(errorThrown, null, $el.attr('id'), key, 'filedeleteerror');
+                            self.showError(errorThrown, null, $el.attr('id'), key, 'filedeleteerror', jqXHR);
                             $frame.removeClass('file-uploading');
                             resetProgress();
                         }
@@ -917,7 +919,7 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function(jqXHR) {
-                    var outData = self.getOutData();
+                    var outData = self.getOutData(jqXHR);
                     setIndicator('indicatorLoading', 'indicatorLoadingTitle');
                     addCss($thumb, 'file-uploading');
                     $btnUpload.attr('disabled', true);
@@ -925,10 +927,10 @@
                     if (!allFiles) {
                         self.lock();
                     }
-                    self.raise('filepreupload', [outData, previewId, i, jqXHR])
+                    self.raise('filepreupload', [outData, previewId, i])
                 },
                 success: function(data, textStatus, jqXHR) {
-                    var outData = self.getOutData(data);
+                    var outData = self.getOutData(jqXHR, data);
                     setTimeout(function() {
                         if(typeof data.error === 'undefined') {
                             setIndicator('indicatorSuccess', 'indicatorSuccessTitle');
@@ -950,7 +952,7 @@
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     setIndicator('indicatorError', 'indicatorErrorTitle');
-                    var outData = self.getOutData();
+                    var outData = self.getOutData(jqXHR);
                     if (allFiles) {
                         var cap = files[i].name;
                         self.showUploadError('<b>' + cap + '</b>: ' + errorThrown, outData, previewId, i);
@@ -961,12 +963,12 @@
             }));
         },
         uploadBatch: function() {
-            var self = this, files = self.filestack, total = files.length;
-            self.formdata = new FormData();
+            var self = this, files = self.filestack, total = files.length, formdata = new FormData();
+            self.formdata = formdata;
             if (total == 0) {
                 return;
             }
-            var config = self.fileActionSettings, formdata = self.formdata,
+            var config = self.fileActionSettings,
                 setIndicator = function (i, icon, msg) {
                     var $indicator = $('#' + self.previewInitId + "-" + i).find('.file-upload-indicator');
                     $indicator.html(config[icon]);
@@ -992,7 +994,7 @@
                 }
             });
             self.uploadExtra(formdata);
-            $.ajax({
+            self.ajaxRequests.push($.ajax({
                 xhr: function() {
                     var xhrobj = $.ajaxSettings.xhr();
                     return self.initXhr(xhrobj, 98);
@@ -1006,7 +1008,7 @@
                 contentType: false,
                 beforeSend: function(jqXHR) {
                     self.lock();
-                    var outData = self.getOutData();
+                    var outData = self.getOutData(jqXHR);
                     if (!self.showPreview) {
                         return;
                     }
@@ -1016,10 +1018,10 @@
                         $btnUpload.attr('disabled', true);
                         $btnDelete.attr('disabled', true);
                     });
-                    self.raise('filebatchpreupload', [outData, jqXHR]);
+                    self.raise('filebatchpreupload', [outData]);
                 },
                 success: function(data, textStatus, jqXHR) {
-                    var outData = self.getOutData(data);
+                    var outData = self.getOutData(jqXHR, data);
                     var keys = isEmpty(data.errorkeys) ? [] : data.errorkeys;
                     if(typeof data.error === 'undefined' || isEmpty(data.error)) {
                         self.raise('filebatchuploadsuccess', [outData]);
@@ -1062,14 +1064,14 @@
                     self.clearFileInput();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    var outData = self.getOutData();
+                    var outData = self.getOutData(jqXHR);
                     self.showUploadError(errorThrown, outData, null, null, 'filebatchuploaderror');
                     self.uploadFileCount = total - 1;
                     self.$preview.find('.file-preview-frame').removeClass('file-uploading');
                     self.$preview.find('.file-preview-frame kv-file-upload').removeAttr('disabled');
                     self.$preview.find('.file-preview-frame kv-file-delete').removeAttr('disabled');
                 }
-            });
+            }));
         },
         hideFileIcon: function () {
             if (this.overwriteInitial) {
@@ -1091,7 +1093,7 @@
             }
         },
         showUploadError: function (msg, data, previewId, index) {
-            var self = this, $error = self.$errorContainer, 
+            var self = this, $error = self.$errorContainer,
                 ev = arguments.length > 4 ? arguments[4] : 'fileuploaderror';
             if ($error.find('ul').length == 0) {
                 $error.html('<ul class="text-left"><li>' + msg + '</li></ul>');
@@ -1105,10 +1107,11 @@
         },
         showError: function (msg, file, previewId, index) {
             var self = this, $error = self.$errorContainer,
-                ev = arguments.length > 4 ? arguments[4] : 'fileerror';
+                ev = arguments.length > 4 ? arguments[4] : 'fileerror',
+                jqXHR = arguments.length > 5 ? arguments[5] : {};
             $error.html(msg);
             $error.fadeIn(800);
-            self.raise(ev, [file, previewId, index, self.reader]);
+            self.raise(ev, [file, previewId, index, self.reader, jqXHR]);
             if (!self.isUploadable) {
                 self.clearFileInput();
             }
@@ -1243,7 +1246,7 @@
                 ctr = self.filestack.length, 
                 throwError = function(msg, file, previewId, index) {
                     self.previewDefault(file, previewId, true);
-                    var outData = self.getOutData({}, files);
+                    var outData = self.getOutData({}, {}, files);
                     return self.isUploadable ? self.showUploadError(msg, outData, previewId, index) : self.showError(msg, file, previewId, index);
                 };
             function readFile(i) {
@@ -1377,7 +1380,7 @@
                 numFiles = !isEmpty(files) ? (files.length + self.initialPreviewCount) : 1, tfiles,
                 ctr = self.filestack.length, isAjaxUpload = (self.isUploadable && ctr != 0),
                 throwError = function(msg, file, previewId, index) {
-                    var outData = self.getOutData({}, files);
+                    var outData = self.getOutData({}, {}, files);
                     return self.isUploadable ? self.showUploadError(msg, outData, previewId, index) : self.showError(msg, file, previewId, index);
                 };
             self.resetUpload();

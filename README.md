@@ -961,7 +961,7 @@ $('#input-id').on('fileunlock', function(event, filestack, extraData) {
 This event is triggered before deletion of each thumbnail file in the `initialPreview` content set. Additional parameters available are: 
 
 - `key`: the key passed within `initialPreviewConfig` for the selected file for delete.
-- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction.
+- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
 
 ```js
 $('#input-id').on('filepredelete', function(event, key, jqXHR) {
@@ -973,6 +973,7 @@ $('#input-id').on('filepredelete', function(event, key, jqXHR) {
 This event is triggered after deletion of each thumbnail file in the `initialPreview` content set. Additional parameters available are: 
 
 - `key`: the key passed within `initialPreviewConfig` for the selected file that will be passed as POST data to the `url`.
+- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
 
 ```js
 $('#input-id').on('filedelete', function(event, key) {
@@ -993,6 +994,7 @@ This event is triggered when an error is faced in deletion of each thumbnail fil
 - `data`: this is always null for `filedeleteerror`.
 - `previewId`: the identifier of the preview thumbnail container.
 - `index`: the zero-based index of the file in the preview container.
+- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
 
 ```js
 $('#input-id').on('filedeleteerror', function(event, data, preview, index) {
@@ -1009,9 +1011,9 @@ This event is triggered before upload of each thumbnail file. Additional paramet
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
     - `reader`: the FileReader instance if available
+    - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
 - `previewId`: the identifier of the preview thumbnail container.
 - `index`: the zero-based index of the file in the preview container.
-- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction.
 
 ```js
 $('#input-id').on('filepreupload', function(event, data, previewId, index, jqXHR) {
@@ -1031,6 +1033,7 @@ asynchronous batch uploads after each file in the selection is uploaded via ajax
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
     - `reader`: the FileReader instance if available
+    - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
 - `previewId`: the identifier of each file's parent thumbnail div element in the preview window.
 - `index`: the zero-based index of the file in the file stack.
 
@@ -1051,6 +1054,7 @@ This event is triggered when an upload or file input validation error is encount
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
     - `reader`: the FileReader instance if available
+    - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
 - `previewId`: the identifier of each file's parent thumbnail div element in the preview window.
 - `index`: the zero-based index of the file in the file stack.
 
@@ -1072,7 +1076,7 @@ Additional parameters available are:
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
     - `reader`: the FileReader instance if available
-- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction.
+    - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
 
 ```js
 $('#input-id').on('filebatchpreupload', function(event, data, jqXHR) {
@@ -1109,6 +1113,7 @@ This event is triggered when any error is faced in the synchronous batch upload 
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
     - `reader`: the FileReader instance if available
+    - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
 
 ```js
 $('#input-id').on('filebatchuploaderror', function(event, data) {
@@ -1121,17 +1126,11 @@ $('#input-id').on('filebatchuploaderror', function(event, data) {
 #### filebatchuploadcomplete
 This event is triggered after completion of either the synchronous OR asynchronous ajax batch upload. Additional parameters available are: 
 
-- `data`: This is a data object (associative array) that sends the following information, whose keys are:
-    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
-    - `files`: the file stack array (or empty object if not available).
-    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
-    - `response`: the data sent via ajax response (or empty object if not available).
-    - `reader`: the FileReader instance if available
+- `files`: the file stack array (or empty object if not available).
+- `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
 
 ```js
-$('#input-id').on('filebatchuploadcomplete', function(event, data) {
-    var form = data.form, files = data.files, extra = data.extra, 
-        response = data.response, reader = data.reader;
+$('#input-id').on('filebatchuploadcomplete', function(event, files, extra) {
     console.log('File batch upload complete');
 });
 ```

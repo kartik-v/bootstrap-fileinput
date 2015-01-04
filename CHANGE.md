@@ -1,8 +1,11 @@
 version 4.1.5
 =============
-**Date:** 02-Jan-2015
+**Date:** 05-Jan-2015
 
 1. (bug #100, #101): Set right params for error thrown during reading of files.
+2. (bug #104): Fix formdata not defined.
+3. (enh #105): Expose current jqXHR object on ajax events.
+4. (enh #106): Enhance events for ajax requests and enable cancelling sync uploads
 
 version 4.1.4
 =============
