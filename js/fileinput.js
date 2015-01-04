@@ -869,11 +869,11 @@
             return xhrobj;
         },
         upload: function(i, files) {
-            self.formdata = new FormData();
-            var self = this, total = files.length, formdata = self.formdata, 
+            var self = this, total = files.length, formdata = new FormData(),
                 previewId = self.previewInitId + "-" + i, $thumb = $('#' + previewId), 
                 $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove'),
                 $indicator = $thumb.find('.file-upload-indicator'), config = self.fileActionSettings;
+            self.formdata = formdata;
             if (total == 0) {
                 return;
             }
