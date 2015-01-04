@@ -866,6 +866,7 @@ Additional parameters available are:
 - `previewId`: the identifier for the preview file container
 - `index`: the zero-based sequential index of the loaded file in the preview list
 - `reader`: the FileReader instance if available
+- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
 
 **Example:**
 ```js
