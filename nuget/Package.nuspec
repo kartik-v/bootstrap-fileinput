@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>bootstrap-fileinput</id>
+	<title>bootstrap-fileinput</title>
+    <version>4.1.5</version>
+    <authors>Kartik Visweswaran, Robert Kiss (nuget package)</authors>
+    <owners>Kartik Visweswaran</owners>
+    <licenseUrl>https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/kartik-v/bootstrap-fileinput</projectUrl>
+    <iconUrl>http://getbootstrap.com/favicon.ico</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An enhanced HTML 5 file input for Bootstrap 3.x with file preview for various files, offers multiple selection, and more.</description>
+    <releaseNotes>https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>bootstrap bootstrap-fileinput</tags>
+    <dependencies>
+      <dependency id="bootstrap" version="3.0.0" />
+    </dependencies>
+  </metadata>
+</package>
