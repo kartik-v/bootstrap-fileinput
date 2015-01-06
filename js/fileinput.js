@@ -949,6 +949,9 @@
                         updateProgress();
                         resetActions();
                     }, 100);
+                    if (!allFiles) {
+                        self.unlock();
+                    }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     setIndicator('indicatorError', 'indicatorErrorTitle');
