@@ -334,10 +334,9 @@
         getOutData: function () {
             var self = this, jqXHR = arguments.length > 0 ? arguments[0] : {},
                 responsedata = arguments.length > 1 ? arguments[1] : {},
-                filesdata = arguments.length > 2 ? arguments[2] : self.filestack,
-                formdata = arguments.length > 3 ? arguments[3] : self.formdata;
+                filesdata = arguments.length > 2 ? arguments[2] : self.filestack;
             return {
-                form: formdata,
+                form: self.formdata,
                 files: filesdata,
                 extra: self.getExtraData(),
                 response: responsedata,
@@ -520,7 +519,7 @@
                 $el.off('click').on('click', function() {
                     var $frame = $el.closest('.file-preview-frame'),
                         ind = $frame.attr('data-fileindex');
-                    self.upload(ind, self.getFileStack());
+                    self.upload(ind, self.filestack);
                 });
             });
         },
@@ -876,6 +875,7 @@
                 previewId = self.previewInitId + "-" + i, $thumb = $('#' + previewId), 
                 $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove'),
                 $indicator = $thumb.find('.file-upload-indicator'), config = self.fileActionSettings;
+            self.formdata = formdata;
             if (total == 0) {
                 return;
             }
@@ -919,7 +919,7 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function(jqXHR) {
-                    var outData = self.getOutData(jqXHR, {}, self.filestack, formdata);
+                    var outData = self.getOutData(jqXHR);
                     setIndicator('indicatorLoading', 'indicatorLoadingTitle');
                     addCss($thumb, 'file-uploading');
                     $btnUpload.attr('disabled', true);
@@ -930,7 +930,7 @@
                     self.raise('filepreupload', [outData, previewId, i])
                 },
                 success: function(data, textStatus, jqXHR) {
-                    var outData = self.getOutData(jqXHR, data, self.filestack, formdata);
+                    var outData = self.getOutData(jqXHR, data);
                     setTimeout(function() {
                         if(typeof data.error === 'undefined') {
                             setIndicator('indicatorSuccess', 'indicatorSuccessTitle');
@@ -955,7 +955,7 @@
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     setIndicator('indicatorError', 'indicatorErrorTitle');
-                    var outData = self.getOutData(jqXHR, {}, self.filestack, formdata);
+                    var outData = self.getOutData(jqXHR);
                     if (allFiles) {
                         var cap = files[i].name;
                         self.showUploadError('<b>' + cap + '</b>: ' + errorThrown, outData, previewId, i);
