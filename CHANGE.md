@@ -6,7 +6,8 @@ version 4.1.5
 2. (bug #104): Fix formdata not defined.
 3. (enh #105): Expose current jqXHR object on ajax events.
 4. (enh #106): Enhance events for ajax requests and enable cancelling sync uploads
-5. (enh #112): Fix asynchronous upload.
+5. (enh #108): Add nuget package.
+6. (bug #112): Fix formdata initialization for asynchronous upload.
 
 version 4.1.4
 =============
