@@ -1,15 +1,16 @@
 version 4.1.5
 =============
-**Date:** 05-Jan-2015
+**Date:** 07-Jan-2015
 
 1. (bug #100, #101): Set right params for error thrown during reading of files.
 2. (bug #104): Fix formdata not defined.
 3. (enh #105): Expose current jqXHR object on ajax events.
 4. (enh #106): Enhance events for ajax requests and enable cancelling sync uploads
+5. (enh #112): Fix asynchronous upload.
 
 version 4.1.4
 =============
-**Date:** 26-Dec-2014
+**Date:** 26-Dec-2015
 
 1. (enh #88): Allow uploadExtraData to be passed as a callback.
 2. (enh #89): New `otherActionButtons` to allow adding customized initial preview content actions.
@@ -23,7 +24,7 @@ version 4.1.4
 
 version 4.1.3
 =============
-**Date:** 20-Dec-2014
+**Date:** 20-Dec-2015
 
 1. (enh #85): Combine output data as a single object, that is sent for various file upload events. 
     - `filepreupload`
@@ -37,7 +38,7 @@ version 4.1.3
 
 version 4.1.2
 =============
-**Date:** 19-Dec-2014
+**Date:** 19-Dec-2015
 
 1. (enh #81): Add new events:
     - `filebatchuploadsuccess`
@@ -54,7 +55,7 @@ version 4.1.2
 
 version 4.1.1
 =============
-**Date:** 18-Dec-2014
+**Date:** 18-Dec-2015
 
 1. (bug #76): Update filestack when `showPreview` is false.
 2. (bug #78): Set uploadExtraData parameters to be correctly sent via POST.
@@ -62,7 +63,7 @@ version 4.1.1
 
 version 4.1.0
 =============
-**Date:** 17-Dec-2014
+**Date:** 17-Dec-2015
 
 1. (enh #74): Enhancements to file validation errors for both FORM and AJAX uploads.
     - For normal Form based uploads automatically disable the Upload button
@@ -72,7 +73,7 @@ version 4.1.0
 
 version 4.0.0
 =============
-**Date:** 14-Dec-2014
+**Date:** 14-Dec-2015
 
 1. (enh #70): Version 4.0 enhancements.
 2. Renamed `initialDelimiter` to `initialPreviewDelimiter`
@@ -132,7 +133,7 @@ version 4.0.0
 
 version 3.0.0
 =============
-**Date:** 08-Dec-2014
+**Date:** 08-Dec-2015
 
 1. (enh #60): Enhance upload button for disable/enable when used with `<a>` tag.
 2. (bug #61): Refresh preview to show errors correctly after each file is validated.
@@ -148,7 +149,7 @@ version 3.0.0
 
 version 2.9.0
 =============
-**Date:** 23-Nov-2014
+**Date:** 23-Nov-2015
 
 1. (enh #53): Validations and events for right reset of files when browse button is clicked.
 2. (enh #55): Clear the files when file browse dialog is cancelled only if the browser clears the native file input.
@@ -156,7 +157,7 @@ version 2.9.0
 
 version 2.8.0
 =============
-**Date:** 13-Nov-2014
+**Date:** 13-Nov-2015
 
 1. (enh #50): Dynamically auto size file captions for long file names exceeding container width. New property `autoFitCaption` 
    is added which defaults to `true`. When this is `true` the plugin will auto fit caption text within the container dynamically
@@ -166,7 +167,7 @@ version 2.8.0
 
 version 2.7.0
 =============
-**Date:** 11-Nov-2014
+**Date:** 11-Nov-2015
 
 1. Set release to stable in composer.json.
 2. (enh #48): Trigger `fileloaded` event when `showPreview` is `false`.
@@ -174,7 +175,7 @@ version 2.7.0
 
 version 2.6.0
 =============
-**Date:** 15-Oct-2014
+**Date:** 15-Oct-2015
 
 - (bug #40): More correct fix for IE (ver < 11) inability to clear fileinput values.
 - Templatize errorContainer for display within the preview window.
@@ -184,7 +185,7 @@ version 2.6.0
 
 version 2.5.0
 =============
-**Date:** 09-Oct-2014
+**Date:** 09-Oct-2015
 
 - (enh #36): New feature. Validation routine for checking allowed file types and extensions.
 - (bug #37): HTML encode text content for preview in modal.
@@ -194,7 +195,7 @@ version 2.5.0
 
 version 2.4.0
 =============
-**Date:** 20-Sep-2014
+**Date:** 20-Sep-2015
 
 - (enh #30): Enhanced generic support for more preview formats (audio, video, html, flash, and other objects).
 - (enh #31): Better control and configuration of preview templates.
@@ -232,21 +233,21 @@ through `maxFileSize` property) so that it does not affect the preview performan
 
 version 2.3.0
 =============
-**Date:** 19-Sep-2014
+**Date:** 19-Sep-2015
 
 1. (enh #28, #29): Added support for previewing flash and video files.
 2. Better replacement of tags in templates. Replaces all tag occurences with this new release.
 
 version 2.2.0
 =============
-**Date:** 19-Aug-2014
+**Date:** 19-Aug-2015
 
 1. (enh #24): Update readAsBinaryString to readAsArrayBuffer
 2. (enh #25): Graceful degrade to normal file input for older browsers (including previous versions of Safari).
 
 version 2.1.0
 =============
-**Date:** 11-Aug-2014
+**Date:** 11-Aug-2015
 
 1. (enh #16, #17): Added exception handling for trapping FileReader API errors
 2. New configuration property added: `maxFilesCount`. Defaults to `0` which means unlimited.
@@ -262,7 +263,7 @@ version 2.1.0
 
 version 2.0.0
 =============
-**Date:** 25-Jul-2014
+**Date:** 25-Jul-2015
 
 1. (enh #12, #13, #14): Various enhancements and fixes.
 2. (enh #15): Enhanced validation of file size through `maxFileSize` configuration.
@@ -276,21 +277,21 @@ version 2.0.0
 
 version 1.9.0
 =============
-**Date:** 21-Jul-2014
+**Date:** 21-Jul-2015
 
 1. (enh #9): Enhanced caption template and styling for captions to prevent overflow of long file names out of the caption container.
 2. (enh #10): Ability to display initial caption, when initialPreview is false.
 
 version 1.8.0
 =============
-**Date:** 15-Jul-2014
+**Date:** 15-Jul-2015
 
 ### Additions
 1. (enh #9): Enhanced caption template and styling for captions to prevent overflow of long file names out of the caption container.
 
 version 1.7.0
 =============
-**Date:** 02-Jul-2014
+**Date:** 02-Jul-2015
 
 ### Additions
 1. The plugin now offers an additional `overwriteInitial` option. This is by default set to `true`, whereby, any `initialPreview`
@@ -299,7 +300,7 @@ version 1.7.0
 
 version 1.6.0
 =============
-**Date:** 03-Jun-2014
+**Date:** 03-Jun-2015
 
 ### Additions
 1. The plugin now offers an additional `refresh` method. This enables you to dynamically change element attributes or plugin options
@@ -307,7 +308,7 @@ version 1.6.0
 
 version 1.5.0
 =============
-**Date:** 23-May-2014
+**Date:** 23-May-2015
 
 ### Additions
 1. The plugin now offers an option to display initial preview of images/text/other files. This is useful
@@ -325,7 +326,7 @@ version 1.5.0
 
 version 1.0.0
 =============
-**Date:** 01-Jan-2014 
+**Date:** 01-Jan-2015 
 
 Initial release. The following features are included in this release:
 

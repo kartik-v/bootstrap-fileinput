@@ -1,5 +1,5 @@
 /*!
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  * @version 4.1.5
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
@@ -11,7 +11,7 @@
  * files in batches (i.e. preview, append, or remove before upload).
  * 
  * Author: Kartik Visweswaran
- * Copyright: 2014, Kartik Visweswaran, Krajee.com
+ * Copyright: 2015, Kartik Visweswaran, Krajee.com
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
  */
@@ -334,9 +334,10 @@
         getOutData: function () {
             var self = this, jqXHR = arguments.length > 0 ? arguments[0] : {},
                 responsedata = arguments.length > 1 ? arguments[1] : {},
-                filesdata = arguments.length > 2 ? arguments[2] : self.filestack;
+                filesdata = arguments.length > 2 ? arguments[2] : self.filestack,
+                formdata = arguments.length > 3 ? arguments[3] : self.formdata;
             return {
-                form: self.formdata,
+                form: formdata,
                 files: filesdata,
                 extra: self.getExtraData(),
                 response: responsedata,
@@ -875,7 +876,6 @@
                 previewId = self.previewInitId + "-" + i, $thumb = $('#' + previewId), 
                 $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove'),
                 $indicator = $thumb.find('.file-upload-indicator'), config = self.fileActionSettings;
-            self.formdata = formdata;
             if (total == 0) {
                 return;
             }
@@ -919,7 +919,7 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function(jqXHR) {
-                    var outData = self.getOutData(jqXHR);
+                    var outData = self.getOutData(jqXHR, {}, self.filestack, formdata);
                     setIndicator('indicatorLoading', 'indicatorLoadingTitle');
                     addCss($thumb, 'file-uploading');
                     $btnUpload.attr('disabled', true);
@@ -930,7 +930,7 @@
                     self.raise('filepreupload', [outData, previewId, i])
                 },
                 success: function(data, textStatus, jqXHR) {
-                    var outData = self.getOutData(jqXHR, data);
+                    var outData = self.getOutData(jqXHR, data, self.filestack, formdata);
                     setTimeout(function() {
                         if(typeof data.error === 'undefined') {
                             setIndicator('indicatorSuccess', 'indicatorSuccessTitle');
@@ -952,7 +952,7 @@
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     setIndicator('indicatorError', 'indicatorErrorTitle');
-                    var outData = self.getOutData(jqXHR);
+                    var outData = self.getOutData(jqXHR, {}, self.filestack, formdata);
                     if (allFiles) {
                         var cap = files[i].name;
                         self.showUploadError('<b>' + cap + '</b>: ' + errorThrown, outData, previewId, i);
