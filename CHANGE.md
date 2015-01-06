@@ -7,7 +7,7 @@ version 4.1.5
 3. (enh #105): Expose current jqXHR object on ajax events.
 4. (enh #106): Enhance events for ajax requests and enable cancelling sync uploads
 5. (enh #108): Add nuget package.
-6. (bug #112): Fix formdata initialization for asynchronous upload.
+6. (bug #112): Fix undefined filestack for individual file upload within preview.
 
 version 4.1.4
 =============
