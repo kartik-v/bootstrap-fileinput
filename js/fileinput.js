@@ -490,6 +490,7 @@
                 $zone.prepend('<div class="' + self.dropZoneTitleClass + '">' + self.dropZoneTitle + '</div>');
             }
             self.$container.removeClass('file-input-new');
+            addCss(self.$container, 'file-input-ajax-new');
         },
         initFileActions: function() {
             var self = this;
@@ -1370,7 +1371,7 @@
                 self.showFileIcon();
             }
             self.setCaption(log);
-            self.$container.removeClass('file-input-new');
+            self.$container.removeClass('file-input-new file-input-ajax-new');
             if (arguments.length == 1) {
                 self.raise('fileselect', [numFiles, label]);
             }
@@ -1425,7 +1426,7 @@
                 self.isError = throwError(msg, null, null, null);
                 self.$captionContainer.find('.kv-caption-icon').hide();
                 self.$caption.html(self.msgValidationError);
-                self.$container.removeClass('file-input-new');
+                self.$container.removeClass('file-input-new file-input-ajax-new');
                 return;
             }
             if (!self.isIE9) {
@@ -1537,7 +1538,7 @@
             return '<button type="button" title="' + self.cancelTitle + '" class="hide ' + css + '">' + self.cancelIcon + self.cancelLabel + '</button>';
         },
         renderUpload: function () {
-            var self = this, css = self.uploadClass + ' kv-fileinput-upload', content = '', status = '';
+            var self = this, css = self.uploadClass + ' kv-fileinput-upload fileinput-upload-button', content = '', status = '';
             if (!self.showUpload) {
                 return '';
             }

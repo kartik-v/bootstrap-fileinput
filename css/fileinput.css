@@ -124,7 +124,9 @@
     padding-top: 30px;
     text-align:right
 }
-.file-input-new .file-preview, .file-input-new .close, .file-input-new .glyphicon-file, .file-input-new .fileinput-remove-button, .file-input-new .fileinput-upload-button {
+.file-input-new .file-preview, .file-input-new .close, .file-input-new .glyphicon-file, 
+.file-input-new .fileinput-remove-button, .file-input-new .fileinput-upload-button,
+.file-input-ajax-new .fileinput-remove-button, .file-input-ajax-new .fileinput-upload-button  {
     display: none;
 }
 

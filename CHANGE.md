@@ -11,6 +11,7 @@ version 4.1.5
 7. (bug #113): Icon layout template undefined when using user template.
 8. (bug #114): Prevent multiple file selection when using single file configuration.
 9. (enh #115): Autosize file caption responsively on window resize.
+10. (enh #116): Hide remove and upload buttons until unless file(s) are selected.
 
 version 4.1.4
 =============
