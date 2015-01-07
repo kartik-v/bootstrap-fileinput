@@ -1466,7 +1466,7 @@
         },
         setCaption: function(content) {
             var self = this, title = $('<div>' + content + '</div>').text(),
-                icon = self.layoutTemplates['icon'], 
+                icon = self.getLayoutTemplate('icon'), 
                 out = icon + title;
             if (self.$caption.length == 0) {
                 return;
