@@ -1464,7 +1464,7 @@
             self.$caption.css('width', 0);
             setTimeout(function() {
                 var w = self.$captionContainer.width();
-                self.$caption.css('width', 0.98 * w);
+                self.$caption.css('width', 0.98 * w + 'px');
             }, 50);
         },
         setCaption: function(content) {
