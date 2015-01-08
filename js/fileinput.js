@@ -308,7 +308,6 @@
                 preview: self.$preview.html(),
                 caption: self.$caption.html()
             };
-            self.autoSizeCaption();
             self.options = options;
             self.setFileDropZoneTitle();
             self.uploadCount = 0;
@@ -347,11 +346,6 @@
         listen: function () {
             var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile;
             $el.on('change', $.proxy(self.change, self));
-            $(window).off('resize').on('resize', function() {
-                setTimeout(function() {
-                    self.autoSizeCaption();
-                }, 50);
-            });
             $btnFile.off('click').on('click', function (ev) {
                 self.raise('filebrowse');
                 if (self.isError && !self.isUploadable) {
@@ -766,7 +760,6 @@
             self.$btnUpload.removeAttr('disabled');
             self.resetUpload();
             self.filestack = [];
-            self.autoSizeCaption();
             self.clearFileInput();
             self.resetErrors(true);
 
@@ -1457,17 +1450,6 @@
                 self.raise('fileimageloaded', previewId);
             });
         },
-        autoSizeCaption: function() {
-            var self = this;
-            if (self.$caption.length == 0 || !self.autoFitCaption) {
-                return;
-            }
-            self.$caption.css('width', 0);
-            setTimeout(function() {
-                var w = self.$captionContainer.width();
-                self.$caption.css('width', 0.98 * w + 'px');
-            }, 50);
-        },
         setCaption: function(content) {
             var self = this, title = $('<div>' + content + '</div>').text(),
                 icon = self.getLayoutTemplate('icon'),
@@ -1477,7 +1459,6 @@
             }
             self.$caption.html(out);
             self.$caption.attr('title', title);
-            self.autoSizeCaption();
         },
         initBrowse: function ($container) {
             var self = this;

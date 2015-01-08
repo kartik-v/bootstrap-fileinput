@@ -54,10 +54,14 @@
 .file-caption-name {
     display: inline-block;
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    max-height: 20px;
 }
 
+.kv-search-container .kv-search-clear {
+    position: absolute;
+    padding: 10px;
+    right: 0px;
+}
 .file-error-message {
     background-color: #f2dede;
     color: #a94442;
