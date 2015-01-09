@@ -1,6 +1,6 @@
 version 4.1.5
 =============
-**Date:** 07-Jan-2015
+**Date:** 09-Jan-2015
 
 1. (bug #100, #101): Set right params for error thrown during reading of files.
 2. (bug #104): Fix formdata not defined.
@@ -13,6 +13,7 @@ version 4.1.5
 9. (enh #115): Autosize file caption responsively on window resize.
 10. (enh #116): Hide remove and upload buttons until unless file(s) are selected.
 11. (enh #119): Enhance caption to include ellipsis for long file names
+12. (bug #120): Correct multiple iterations of upload for async batch uploads.
 
 version 4.1.4
 =============

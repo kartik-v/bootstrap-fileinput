@@ -400,7 +400,7 @@
                     self.raise('filebatchpreupload', [outData]);
                     for (i = 0; i < len; i++) {
                         if (self.filestack[i] !== undefined) {
-                            self.upload(i, self.getFileStack(), true);
+                            self.upload(i, self.filestack, true);
                         }
                     }
                     setTimeout(function() {
