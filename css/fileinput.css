@@ -55,6 +55,17 @@
     display: inline-block;
     overflow: hidden;
     max-height: 20px;
+    padding-right: 10px;
+}
+
+.file-caption-ellipsis {
+    position: absolute;
+    right: 10px;
+    margin-top: -6px;
+    font-size: 1.2em;
+    display: none;
+    font-weight: bold;
+    cursor: default;
 }
 
 .kv-search-container .kv-search-clear {

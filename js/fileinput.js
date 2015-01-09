@@ -89,6 +89,7 @@
         '</div>',
         icon: '<span class="glyphicon glyphicon-file kv-caption-icon"></span>',
         caption: '<div tabindex="-1" class="form-control file-caption {class}">\n' +
+        '   <span class="file-caption-ellipsis">&hellip;</span>\n' +
         '   <div class="file-caption-name"></div>\n' +
         '</div>',
         modal: '<div id="{id}" class="modal fade">\n' +
@@ -313,6 +314,7 @@
             self.uploadCount = 0;
             self.uploadPercent = 0;
             self.$element.removeClass('file-loading');
+            self.setEllipsis();
         },
         raise: function(event) {
             var self = this;
@@ -343,9 +345,23 @@
                 jqXHR: jqXHR
             };
         },
+        setEllipsis: function() {
+            var self = this, $ellipsis = self.$captionContainer.find('.file-caption-ellipsis'), $cap = self.$caption,
+                $div = $cap.clone().css('height', 'auto').hide();
+            self.$captionContainer.parent().before($div);
+            if ($div.outerWidth() > $cap.outerWidth()) {
+               $ellipsis.show();
+            } else {
+               $ellipsis.hide();
+            }
+            $div.remove();
+        },
         listen: function () {
             var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile;
             $el.on('change', $.proxy(self.change, self));
+            $(window).on('resize', function() {
+                self.setEllipsis();
+            });
             $btnFile.off('click').on('click', function (ev) {
                 self.raise('filebrowse');
                 if (self.isError && !self.isUploadable) {
@@ -775,6 +791,7 @@
                 self.showFileIcon();
                 self.$preview.html(self.original.preview);
                 self.$caption.html(self.original.caption);
+                self.setEllipsis();
                 self.initPreviewDeletes();
                 self.$container.removeClass('file-input-new');
             } else {
@@ -785,6 +802,7 @@
                 var cap = (!self.overwriteInitial && self.initialCaption.length > 0) ?
                     self.original.caption : '';
                 self.$caption.html(cap);
+                self.setEllipsis();
                 self.$caption.attr('title', '');
                 addCss(self.$container, 'file-input-new');
             }
@@ -792,6 +810,7 @@
                 self.initialCaption = '';
                 self.original.caption = '';
                 self.$caption.html('');
+                self.setEllipsis();
                 self.$captionContainer.find('.kv-caption-icon').hide();
             }
             self.hideFileIcon();
@@ -804,6 +823,7 @@
             self.clear(false);
             self.$preview.html(self.original.preview);
             self.$caption.html(self.original.caption);
+            self.setEllipsis();
             self.$container.find('.fileinput-filename').text('');
             self.raise('filereset');
             if (self.initialPreview.length > 0) {
@@ -1419,6 +1439,7 @@
                 self.isError = throwError(msg, null, null, null);
                 self.$captionContainer.find('.kv-caption-icon').hide();
                 self.$caption.html(self.msgValidationError);
+                self.setEllipsis();
                 self.$container.removeClass('file-input-new file-input-ajax-new');
                 return;
             }
@@ -1459,6 +1480,8 @@
             }
             self.$caption.html(out);
             self.$caption.attr('title', title);
+            self.$captionContainer.find('.file-caption-ellipsis').attr('title', title);
+            self.setEllipsis();
         },
         initBrowse: function ($container) {
             var self = this;
@@ -1565,7 +1588,6 @@
         showRemove: true,
         showUpload: true,
         showCancel: true,
-        autoFitCaption: true,
         mainClass: '',
         previewClass: '',
         captionClass: '',

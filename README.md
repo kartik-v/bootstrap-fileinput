@@ -36,9 +36,7 @@ The plugin incorporates a simple HTML markup with enhanced CSS styling of a HTML
 11. Upload action defaults to form submit. Supports an upload route/server action parameter for custom ajax based upload.
 12. Triggers JQuery events for advanced development. Events currently available are `filereset`, `fileclear`, `filecleared`, `fileloaded`, and `fileerror`.
 13. Disabled and readonly file input support.
-14. Dynamically auto size the file captions for long file names exceeding container width. New property `autoFitCaption` 
-  is added which defaults to `true`. When this is `true` the plugin will auto fit caption text within the container dynamically
-  and responsively based on window size.
+14. Dynamically auto size the file captions for long file names exceeding container width. 
 15. Raise new `fileimageuploaded` event that fires after image is completely loaded on the preview container.
 16. Autosize preview images when they exceed the size of the preview container.
 17. Completely templatized and extensible to allow configuration of the file-input the way the developer wants.
@@ -155,9 +153,6 @@ _boolean_ whether to display the file upload button. Defaults to `true`. This wi
 
 #### showCancel
 _boolean_ whether to display the file upload cancel button. Defaults to `true`. This will be only enabled and displayed when an AJAX upload is in process.
-
-#### autoFitCaption
-_boolean_ whether to automatically size the file caption text to fit the container for long file names overflowing the container. Defaults to `true`. When set to true, the caption text will be dynamically sized. Shrunk file names will be appended with ellipsis, and the complete filename will be displayed as a title on hover.
 
 #### captionClass
 _string_ any additional CSS class to append to the caption container.
