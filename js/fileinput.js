@@ -885,7 +885,7 @@
             return xhrobj;
         },
         upload: function(i, files) {
-            var self = this, total = files.length, formdata = new FormData(),
+            var self = this, total = self.getFileStack().length, formdata = new FormData(),
                 previewId = self.previewInitId + "-" + i, $thumb = $('#' + previewId),
                 $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove'),
                 $indicator = $thumb.find('.file-upload-indicator'), config = self.fileActionSettings;
