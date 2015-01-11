@@ -14,6 +14,7 @@ version 4.1.5
 10. (enh #116): Hide remove and upload buttons until unless file(s) are selected.
 11. (enh #119): Enhance caption to include ellipsis for long file names
 12. (bug #120): Correct multiple iterations of upload for async batch uploads.
+13. (enh #121): Animate progress bars by default for upload progress.
 
 version 4.1.4
 =============

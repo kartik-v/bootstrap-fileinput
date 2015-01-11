@@ -106,7 +106,7 @@
         '  </div>\n' +
         '</div>',
         progress: '<div class="progress">\n' +
-        '    <div class="progress-bar progress-bar-success progress-bar-striped text-center" role="progressbar" aria-valuenow="{percent}" aria-valuemin="0" aria-valuemax="100" style="width:{percent}%;">\n' +
+        '    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{percent}" aria-valuemin="0" aria-valuemax="100" style="width:{percent}%;">\n' +
         '        {percent}%\n' +
         '     </div>\n' +
         '</div>',
