@@ -437,15 +437,15 @@ The values of the constants used in the above templates are as follows:
 
 ```
 STYLE_SETTING = 'style="width:{width};height:{height};"',
-OBJECT_PARAMS = '      &lt;param name="controller" value="true" />\n' +
-    '      &lt;param name="allowFullScreen" value="true" />\n' +
-    '      &lt;param name="allowScriptAccess" value="always" />\n' +
-    '      &lt;param name="autoPlay" value="false" />\n' +
-    '      &lt;param name="autoStart" value="false" />\n'+
-    '      &lt;param name="quality" value="high" />\n',
-DEFAULT_PREVIEW = '&lt;div class="file-preview-other">\n' +
-    '       &lt;i class="glyphicon glyphicon-file">&lt;/i>\n' +
-    '   &lt;/div>'
+OBJECT_PARAMS = '      <param name="controller" value="true" />\n' +
+    '      <param name="allowFullScreen" value="true" />\n' +
+    '      <param name="allowScriptAccess" value="always" />\n' +
+    '      <param name="autoPlay" value="false" />\n' +
+    '      <param name="autoStart" value="false" />\n'+
+    '      <param name="quality" value="high" />\n',
+DEFAULT_PREVIEW = '<div class="file-preview-other">\n' +
+    '       <i class="glyphicon glyphicon-file"></i>\n' +
+    '   </div>'
 ```
 
 #### allowedFileTypes
