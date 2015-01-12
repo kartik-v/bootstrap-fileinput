@@ -435,7 +435,7 @@ The `previewTemplates` if not set will default to:
 
 The values of the constants used in the above templates are as follows:
 
-```
+```js
 STYLE_SETTING = 'style="width:{width};height:{height};"',
 OBJECT_PARAMS = '      <param name="controller" value="true" />\n' +
     '      <param name="allowFullScreen" value="true" />\n' +
