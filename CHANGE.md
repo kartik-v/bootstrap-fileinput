@@ -1,6 +1,6 @@
 version 4.1.5
 =============
-**Date:** 09-Jan-2015
+**Date:** 12-Jan-2015
 
 1. (bug #100, #101): Set right params for error thrown during reading of files.
 2. (bug #104): Fix formdata not defined.
