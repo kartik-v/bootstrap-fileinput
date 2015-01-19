@@ -7,7 +7,7 @@ The plugin incorporates a simple HTML markup with enhanced CSS styling of a HTML
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin v4.1.5 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
+> NOTE: The latest version of the plugin v4.1.6 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
 
 ## Features  
 
@@ -1131,6 +1131,24 @@ $('#input-id').on('filebatchuploadcomplete', function(event, files, extra) {
 });
 ```
 
+#### filedisabled
+This event is triggered when the file input widget is disabled (prevents any modification) using the `disable` method.
+
+```js
+$('#input-id').on('filedisabled', function(event) {
+    console.log('File disabled.');
+});
+```
+
+#### fileenabled
+This event is triggered when the file input widget is enabled (allows modification) using the `enable` method.
+
+```js
+$('#input-id').on('fileenabled', function(event) {
+    console.log('File enabled.');
+});
+```
+
 ### Plugin Methods
 The plugin supports these methods:
 
@@ -1152,12 +1170,6 @@ Reset the file input.
 $('#input-id').fileinput('reset');
 ```
 
-#### clear
-Clear the file input.
-```js
-$('#input-id').fileinput('clear');
-```
-
 #### refresh
 Refreshes the file input plugin based on options provided. You can supply an array of plugin options as a parameter.
 ```js
@@ -1167,6 +1179,40 @@ $('#input-id').fileinput('refresh');
 
 // example 2 (modify plugin options at runtime)
 $('#input-id').fileinput('refresh', {browseLabel: 'Select...', removeLabel: 'Delete'});
+```
+
+#### clear
+Clear the file input and all files from preview.
+```js
+$('#input-id').fileinput('clear');
+```
+
+#### upload
+Trigger ajax upload of the files that are selected. Applicable only if `uploadUrl` is set.
+
+```js
+$('#input-id').fileinput('upload');
+```
+
+#### cancel
+Cancel an ongoing ajax upload of the files.
+
+```js
+$('#input-id').fileinput('cancel');
+```
+
+#### lock
+Locks the file input by disabling all actions/buttons except a cancel button to abort ongoing AJAX requests (for ajax uploads only).
+
+```js
+$('#input-id').fileinput('lock');
+```
+
+#### unlock
+Unlocks and enables the file input back again by reversing the outcome of the `lock` action.
+
+```js
+$('#input-id').fileinput('unlock');
 ```
 
 ## License
