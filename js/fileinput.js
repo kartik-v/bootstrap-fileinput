@@ -257,6 +257,7 @@
         constructor: FileInput,
         init: function (options) {
             var self = this, $el = self.$element;
+            self.locked = false;
             for (key in options) {
                 self[key] = options[key];
             }
@@ -415,7 +416,10 @@
                     }
                 }
                 setTimeout(function () {
-                    $(document).ajaxStop(function () {
+                    $(document).off('.kvfileinput').on('ajaxStop.kvfileinput', function () {
+                        if (!self.locked) {
+                            return;
+                        }
                         self.setProgress(100);
                         self.$preview.find('file-preview-frame').removeClass('file-loading');
                         self.unlock();
@@ -437,6 +441,7 @@
             if (self.showCancel) {
                 self.$container.find('.fileinput-cancel').removeClass('hide');
             }
+            self.locked = true;
             self.raise('filelock', [self.filestack, self.getExtraData()]);
         },
         unlock: function () {
@@ -448,7 +453,30 @@
             if (self.showRemove) {
                 self.$container.find('.fileinput-remove').removeClass('hide');
             }
+            self.resetFileStack();
+            self.locked = false;
             self.raise('fileunlock', [self.filestack, self.getExtraData()]);
+        },
+        resetFileStack: function () {
+            var self = this, i = 0, newstack = [];
+            self.$preview.find('.file-preview-frame').each(function () {
+                var $thumb = $(this), ind = $thumb.attr('data-fileindex'),
+                    file = self.filestack[ind];
+                if (file !== undefined) {
+                    newstack[i] = file;
+                    $thumb.attr({
+                        'id': self.previewInitId + '-' + i,
+                        'data-fileindex': i
+                    });
+                    i++;
+                } else {
+                    $thumb.attr({
+                        'id': $thumb.attr('id') + '-1',
+                        'data-fileindex': '-1'
+                    });
+                }
+            });
+            self.filestack = newstack;
         },
         refresh: function (options) {
             var self = this, $el = self.$element,
@@ -765,16 +793,17 @@
                 for (i = 0; i < len; i++) {
                     xhr[i].abort();
                 }
-                self.$preview.find('file-preview-frame').each(function () {
-                    $thumb = $(this), ind = $thumb.attr('data-fileindex');
-                    $thumb.removeClass('file-uploading');
-                    if (self.filestack[ind] !== undefined) {
-                        $thumb.find('.kv-file-upload').removeClass('disabled');
-                        $thumb.find('.kv-file-upload').removeClass('disabled');
-                    }
-                });
-                self.unlock();
             }
+            self.$preview.find('.file-preview-frame').each(function () {  
+                $thumb = $(this), ind = $thumb.attr('data-fileindex');
+                $thumb.removeClass('file-uploading');
+                if (self.filestack[ind] !== undefined) {
+                    $thumb.find('.kv-file-upload').removeClass('disabled').removeAttr('disabled');
+                    $thumb.find('.kv-file-remove').removeClass('disabled').removeAttr('disabled');
+                }
+                self.unlock();
+            });
+            self.locked = false;
         },
         clear: function () {
             var self = this, e = arguments.length > 0 && arguments[0];
@@ -1053,13 +1082,13 @@
                         }
                     } else {
                         self.$preview.find('.file-preview-frame').each(function () {
-                            var $thumb = $(this), key = $thumb.attr('data-fileindex');
+                            var $thumb = $(this), key = parseInt($thumb.attr('data-fileindex'));
                             enableActions(key);
                             if (keys.length == 0) {
                                 setIndicator(key, 'indicatorError', 'indicatorErrorTitle');
                                 return;
                             }
-                            if ($.inArray(key, keys)) {
+                            if ($.inArray(key, keys) != -1) {
                                 setIndicator(key, 'indicatorError', 'indicatorErrorTitle');
                             } else {
                                 $thumb.find('.kv-file-upload').hide();
@@ -1081,6 +1110,13 @@
                     var outData = self.getOutData(jqXHR);
                     self.showUploadError(errorThrown, outData, null, null, 'filebatchuploaderror');
                     self.uploadFileCount = total - 1;
+                    self.$preview.find('.file-preview-frame').each(function () {  
+                        var $thumb = $(this), key = $thumb.attr('data-fileindex');
+                        $thumb.removeClass('file-uploading');
+                        if (self.filestack[key] !== undefined) {
+                            setIndicator(key, 'indicatorError', 'indicatorErrorTitle');
+                        }
+                    });
                     self.$preview.find('.file-preview-frame').removeClass('file-uploading');
                     self.$preview.find('.file-preview-frame kv-file-upload').removeAttr('disabled');
                     self.$preview.find('.file-preview-frame kv-file-delete').removeAttr('disabled');
