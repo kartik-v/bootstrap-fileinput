@@ -6,7 +6,7 @@ version 4.1.6
 2. (enh #131): Allow empty values in extra data to be submitted.
 3. (enh #136):Create new upload method that can be called externally.
 4. (enh #137): Trigger new events - `filedisabled` and `fileenabled`.
-4. (enh #139): Reset file stack correctly on ajax upload completion.
+5. (enh #139): Reset file stack correctly on ajax upload completion.
 
 version 4.1.5
 =============
