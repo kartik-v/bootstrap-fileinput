@@ -1,7 +1,7 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  * @package bootstrap-fileinput
- * @version 4.1.6
+ * @version 4.1.7
  *
  * File input styling for Bootstrap 3.0
  * Built for Yii Framework 2.0
@@ -56,6 +56,7 @@
     overflow: hidden;
     max-height: 20px;
     padding-right: 10px;
+    word-break: break-all;
 }
 
 .file-caption-ellipsis {
@@ -66,6 +67,14 @@
     display: none;
     font-weight: bold;
     cursor: default;
+}
+
+.kv-has-ellipsis .file-caption-ellipsis {
+    display: inline;
+}
+
+.kv-has-ellipsis {
+    padding-right: 17px;
 }
 
 .kv-search-container .kv-search-clear {

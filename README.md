@@ -7,7 +7,7 @@ The plugin incorporates a simple HTML markup with enhanced CSS styling of a HTML
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin v4.1.6 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
+> NOTE: The latest version of the plugin v4.1.7 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
 
 ## Features  
 
@@ -483,10 +483,55 @@ This is by default setup as following:
 
 #### allowedPreviewMimeTypes
 
-_array_ the list of allowed mime types for preview. This is set to null by default which means all possible mime types are allowed. This setting works in combination
-with `allowedPreviewTypes` to filter only the needed file types allowed for preview. You can check this [list of allowed mime types](http://www.sitepoint.com/web-foundations/mime-types-complete-list/)
-to add to this list if needed.
+_array_ the list of allowed mime types for preview. This is set to null by default which means all possible mime types are allowed. This setting works in combination with `allowedPreviewTypes` to filter only the needed file types allowed for preview. You can check this [list of allowed mime types](http://www.sitepoint.com/web-foundations/mime-types-complete-list/) to add to this list if needed.
 
+#### customLayoutTags
+
+_object_ the list of additional custom tags that will be replaced in the **layout** templates. This should be an associative array object of `key: value` pairs, where:
+
+- `key`: _string_, is the tag to be replaced and as a standard is recommended to be enclosed between braces.
+- `value`: _string|function_, is the value that will replace the tag key above. This can be setup either as a string or callback function.
+
+For example:
+
+```js
+// example 1 - tags with value set as string
+customLayoutTags: {
+    '{tagA}': '<span class="label label-default">Tag A</span>',
+    '{tagB}': 'Tag B',
+}
+
+// example 2 - tags with value set as callback
+customLayoutTags: {
+    '{tagC}': function() {
+        return $("#element-id").val();
+    }
+}
+```
+
+#### customPreviewTags
+
+_object_ the list of additional custom tags that will be replaced in the **preview** templates. This should be an associative array object of `key: value` pairs, where:
+
+- `key`: _string_, is the tag to be replaced and as a standard is recommended to be enclosed between braces.
+- `value`: _string|function_, is the value that will replace the tag key above. This can be setup either as a string or callback function.
+
+For example:
+
+```js
+// example 1 - tags with value set as string
+customPreviewTags: {
+    '{tagA}': '<span class="label label-default">Tag A</span>',
+    '{tagB}': 'Tag B',
+}
+
+// example 2 - tags with value set as callback
+customPreviewTags: {
+    '{tagC}': function() {
+        return $("#element-id").val();
+    }
+}
+```
 #### previewSettings
 
 _object_ the format settings (width and height) for rendering each preview file type. This is by default setup as following:
@@ -634,6 +679,16 @@ _string_ the exception message to be displayed when the file selected is not fou
 
 ```
 File "{name}" not found!
+```
+where:
+
+- `{name}`: will be replaced by the file name being uploaded
+
+#### msgFileSecured
+_string_ the exception message to be displayed when the file selected is not allowed to be accessed due to a security exception. Defaults to:
+
+```
+Security restrictions prevent reading the file "{name}".
 ```
 where:
 
@@ -914,6 +969,18 @@ This event is triggered when the file browse button is clicked to open the file 
 ```js
 $('#input-id').on('filebrowse', function(event) {
     console.log("File browse triggered.");
+});
+```
+
+#### filebatchselected
+This event is triggered after a batch of files are selected and displayed in the preview.
+Additional parameters available are: 
+
+- `files`: the file stack array (or empty object if not available).
+
+```js
+$('#input-id').on('filebatchselected', function(event, files) {
+    console.log('File batch selected triggered');
 });
 ```
 
