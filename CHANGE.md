@@ -8,6 +8,7 @@ version 4.1.7
 4. (enh #153): Improve error handler for trapping FileReader security exceptions and new property `msgFileSecured` will display the security exception message.
 5. (enh #154): Code cleanup and restructure for JS lint changes (using JSHint Code cleanup library).
 6. (enh #155): Allow display of long file names without spaces/word breaks.
+7. (enh #156): Fix reset of file stack for various upload modes (single, batch async and batch sync).
 
 version 4.1.6
 =============
