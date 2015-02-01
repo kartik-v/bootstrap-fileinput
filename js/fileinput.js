@@ -23,8 +23,8 @@
     var isIE = function (ver) {
             var div = document.createElement("div"), status;
             div.innerHTML = "<!--[if IE " + ver + "]><i></i><![endif]-->";
-            status = (div.getElementsByTagName("i").length === 1);
             document.body.appendChild(div);
+            status = (div.getElementsByTagName("i").length === 1);
             div.parentNode.removeChild(div);
             return status;
         },
@@ -292,6 +292,7 @@
         constructor: FileInput,
         init: function (options) {
             var self = this, $el = self.$element, content;
+            self.locked = false;
             $.each(options, function (key, value) {
                 self[key] = value;
             });
@@ -458,6 +459,18 @@
                         self.uploadSingle(i, self.filestack, true);
                     }
                 }
+                setTimeout(function () {
+                    $(document).off('.kvfileinput').on('ajaxStop.kvfileinput', function () {
+                        if (!self.locked) {
+                            return;
+                        }
+                        self.setProgress(100);
+                        self.$preview.find('file-preview-frame').removeClass('file-loading');
+                        self.unlock();
+                        self.clearFileInput();
+                        self.raise('filebatchuploadcomplete', [self.filestack, self.getExtraData()]);
+                    });
+                }, 100);
                 return;
             }
             self.uploadBatch();
@@ -472,13 +485,11 @@
             if (self.showCancel) {
                 self.$container.find('.fileinput-cancel').removeClass('hide');
             }
+            self.locked = true;
             self.raise('filelock', [self.filestack, self.getExtraData()]);
         },
-        unlock: function (reset) {
+        unlock: function () {
             var self = this;
-            if (reset === undefined) {
-                reset = true;
-            }
             self.enable();
             if (self.showCancel) {
                 addCss(self.$container.find('.fileinput-cancel'), 'hide');
@@ -486,9 +497,8 @@
             if (self.showRemove) {
                 self.$container.find('.fileinput-remove').removeClass('hide');
             }
-            if (reset) {
-                self.resetFileStack();
-            }
+            self.resetFileStack();
+            self.locked = false;
             self.raise('fileunlock', [self.filestack, self.getExtraData()]);
         },
         resetFileStack: function () {
@@ -496,19 +506,16 @@
             self.$preview.find('.file-preview-frame').each(function () {
                 var $thumb = $(this), ind = $thumb.attr('data-fileindex'),
                     file = self.filestack[ind];
-                if (ind == -1) {
-                    return;
-                }
                 if (file !== undefined) {
                     newstack[i] = file;
                     $thumb.attr({
                         'id': self.previewInitId + '-' + i,
                         'data-fileindex': i
                     });
-                    i += 1;
+                    i = i + 1;
                 } else {
                     $thumb.attr({
-                        'id': 'uploaded-' + uniqId(),
+                        'id': $thumb.attr('id') + '-1',
                         'data-fileindex': '-1'
                     });
                 }
@@ -599,7 +606,7 @@
                 $el.off('click').on('click', function () {
                     var $frame = $el.closest('.file-preview-frame'),
                         ind = $frame.attr('data-fileindex');
-                    self.uploadSingle(ind, self.filestack, false);
+                    self.uploadSingle(ind, self.filestack);
                 });
             });
         },
@@ -836,6 +843,7 @@
                 }
                 self.unlock();
             });
+            self.locked = false;
         },
         clear: function (trig) {
             var self = this, cap;
@@ -975,7 +983,7 @@
         },
         uploadSingle: function (i, files, allFiles) {
             var self = this, total = self.getFileStack().length, formdata = new FormData(), outData,
-                previewId = self.previewInitId + "-" + i, $thumb = $('#' + previewId), cap, pct, chkComplete,
+                previewId = self.previewInitId + "-" + i, $thumb = $('#' + previewId), cap, pct,
                 $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove'),
                 $indicator = $thumb.find('.file-upload-indicator'), config = self.fileActionSettings,
                 hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
@@ -984,16 +992,7 @@
             if (total === 0 || !hasPostData || $btnUpload.hasClass('disabled')) {
                 return;
             }
-            chkComplete = function () {
-                var $thumbs = self.$preview.find('.file-preview-frame.file-uploading'), chk = $thumbs.length;
-                if (chk > 0) {
-                    return;
-                }
-                self.setProgress(100);
-                self.unlock();
-                self.clearFileInput();
-                self.raise('filebatchuploadcomplete', [self.filestack, self.getExtraData()]);
-            };
+            allFiles = allFiles || false;
             setIndicator = function (icon, msg) {
                 $indicator.html(config[icon]);
                 $indicator.attr('title', config[msg]);
@@ -1032,9 +1031,6 @@
                         $btnUpload.hide();
                         $btnDelete.hide();
                         self.filestack[i] = undefined;
-                        if (!allFiles) {
-                            self.resetFileStack();
-                        }
                         self.raise('fileuploaded', [outData, previewId, i]);
                     } else {
                         setIndicator('indicatorError', 'indicatorErrorTitle');
@@ -1046,12 +1042,10 @@
                 setTimeout(function () {
                     updateProgress();
                     resetActions();
-                    if (!allFiles) {
-                        self.unlock(false);
-                    } else {
-                        chkComplete();
-                    }
                 }, 100);
+                if (!allFiles) {
+                    self.unlock();
+                }
             };
             fnError = function (jqXHR, textStatus, errorThrown) {
                 setIndicator('indicatorError', 'indicatorErrorTitle');
@@ -1651,7 +1645,6 @@
         }
     };
 
-    //FileInput plugin definition
     $.fn.fileinput = function (option) {
         if (!hasFileAPISupport() && !isIE(9)) {
             return;
