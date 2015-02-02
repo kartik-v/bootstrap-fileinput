@@ -73,7 +73,7 @@
             '   {caption}\n' +
             '   <div class="input-group-btn">\n' +
             '       {remove}\n' +
-            '       {cancel}\n' +
+                '       {cancel}\n' +
             '       {upload}\n' +
             '       {browse}\n' +
             '   </div>\n' +
@@ -1633,7 +1633,7 @@
         },
         renderCancel: function () {
             var self = this, css = self.cancelClass + ' fileinput-cancel fileinput-cancel-button';
-            if (self.showCancel) {
+            if (!self.showCancel) {
                 return '';
             }
             return '<button type="button" title="' + self.cancelTitle + '" class="hide ' + css + '">' + self.cancelIcon + self.cancelLabel + '</button>';
