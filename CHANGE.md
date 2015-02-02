@@ -1,6 +1,6 @@
 version 4.1.7
 =============
-**Date**: 31-Jan-2015
+**Date**: 02-Feb-2015
 
 1. (enh #149): Custom tags support for layoutTemplates and previewTemplates (new properties `customLayoutTags` and `customPreviewTags` included).
 2. (enh #151): New `filebatchselected` event triggered after every batch of files are selected.
@@ -9,6 +9,11 @@ version 4.1.7
 5. (enh #154): Code cleanup and restructure for JS lint changes (using JSHint Code cleanup library).
 6. (enh #155): Allow display of long file names without spaces/word breaks.
 7. (enh #156): Fix reset of file stack for various upload modes (single, batch async and batch sync).
+8. (enh #157): Upload progress bar styling enhancements.
+    - Allow upload progress bar css class to be configurable 
+    - Create and allow two different styles/css classes for progress bar
+       - `progressClass`: styling for progress bar when upload is in process
+       - `progressCompleteClass`: styling for progress bar when upload is complete
 
 version 4.1.6
 =============

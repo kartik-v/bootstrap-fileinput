@@ -284,6 +284,10 @@ The `preview` and `caption` templates can understand the following special tags 
 
 - `{class}`: the CSS class as set in the `mainClass`, `captionClass` or `previewClass` properties.
 
+Similarly, the `progress` layout template can understand the following special tags which will be replaced:
+
+- `{class}`: the CSS class as set in the `progressClass` or `progressCompleteClass` properties.
+
 The `layoutTemplates` if not set will default to:
 
 ```js
@@ -329,7 +333,7 @@ The `layoutTemplates` if not set will default to:
         '  </div>\n' +
         '</div>',
     progress: '<div class="progress">\n' +
-        '    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{percent}" aria-valuemin="0" aria-valuemax="100" style="width:{percent}%;">\n' +
+        '    <div class="{class}" role="progressbar" aria-valuenow="{percent}" aria-valuemin="0" aria-valuemax="100" style="width:{percent}%;">\n' +
         '        {percent}%\n' +
         '     </div>\n' +
         '</div>',
@@ -784,6 +788,11 @@ _string_ the progress message displayed in caption window when multiple (more th
 
 - `{n}`: the number of files selected.
 
+#### progressClass
+_string_ the upload progress bar CSS class to be applied when AJAX upload is in process (applicable only for ajax uploads). Defaults to `progress-bar progress-bar-success progress-bar-striped active`. 
+
+#### progressCompleteClass
+_string_ the upload progress bar CSS class to be applied when AJAX upload is complete. Defaults to `progress-bar progress-bar-success`. 
 
 #### previewFileType
 _string_ the type of files that are to be displayed in the preview window. Defaults to `image`. Can be one of the following:
