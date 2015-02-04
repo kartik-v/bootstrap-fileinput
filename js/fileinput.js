@@ -383,7 +383,7 @@
             var self = this;
             jqXHR = jqXHR || {};
             responseData = responseData || {};
-            filesData = filesData || self.filestack;
+            filesData = filesData || self.filestack.slice(0);
             return {
                 form: self.formdata,
                 files: filesData,
