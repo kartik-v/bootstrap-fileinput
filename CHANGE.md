@@ -15,6 +15,7 @@ version 4.1.7
        - `progressClass`: styling for progress bar when upload is in process
        - `progressCompleteClass`: styling for progress bar when upload is complete
 9. (bug #159): Ensure filestack is passed correctly with `outData` for events.
+10. (bug #160): Correct documentation typo for usage.
 
 version 4.1.6
 =============
