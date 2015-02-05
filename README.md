@@ -894,6 +894,9 @@ _string_ markup for additional action buttons to display within the initial prev
 #### textEncoding
 _string_ the encoding to be used while reading a text file. Applicable only for previewing text files. Defaults to `UTF-8`. 
 
+#### ajaxSettings
+_object_ additional ajax settings to pass to the plugin before submitting the ajax request. Applicable only for ajax uploads. This can be useful to pass additional tokens to headers or one can use it for setting other ajax options for advanced cases. Refer the [jQuery ajax documentation](http://api.jquery.com/jQuery.ajax/) for the various settings you can configure.
+
 ### Plugin Events
 The plugin supports these events:
 

@@ -957,9 +957,9 @@
             return xhrobj;
         },
         ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError) {
-            var self = this;
+            var self = this, settings;
             self.uploadExtra();
-            self.ajaxRequests.push($.ajax({
+            settings = $.extend(self.ajaxSettings, {
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
                     return self.initXhr(xhrobj, 98);
@@ -975,7 +975,8 @@
                 success: fnSuccess,
                 complete: fnComplete,
                 error: fnError
-            }));
+            });
+            self.ajaxRequests.push($.ajax(settings));
         },
         uploadSingle: function (i, files, allFiles) {
             var self = this, total = self.getFileStack().length, formdata = new FormData(), outData,
@@ -1757,7 +1758,8 @@
         dropZoneTitleClass: 'file-drop-zone-title',
         fileActionSettings: {},
         otherActionButtons: '',
-        textEncoding: 'UTF-8'
+        textEncoding: 'UTF-8',
+        ajaxSettings: {}
     };
 
     $.fn.fileinput.Constructor = FileInput;
