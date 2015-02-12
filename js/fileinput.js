@@ -959,7 +959,7 @@
         ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError) {
             var self = this, settings;
             self.uploadExtra();
-            settings = $.extend(self.ajaxSettings, {
+            settings = $.extend({
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
                     return self.initXhr(xhrobj, 98);
@@ -975,7 +975,7 @@
                 success: fnSuccess,
                 complete: fnComplete,
                 error: fnError
-            });
+            },self.ajaxSettings);
             self.ajaxRequests.push($.ajax(settings));
         },
         uploadSingle: function (i, files, allFiles) {
