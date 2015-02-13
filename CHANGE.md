@@ -1,6 +1,6 @@
 version 4.1.7
 =============
-**Date**: 04-Feb-2015
+**Date**: 13-Feb-2015
 
 1. (enh #149): Custom tags support for layoutTemplates and previewTemplates (new properties `customLayoutTags` and `customPreviewTags` included).
 2. (enh #151): New `filebatchselected` event triggered after every batch of files are selected.
@@ -17,6 +17,7 @@ version 4.1.7
 9. (bug #159): Ensure filestack is passed correctly with `outData` for events.
 10. (bug #160): Correct documentation typo for usage.
 11. (enh #162): New property ajaxSettings to allow configuring ajax params.
+12. Set copyright year to current.
 
 version 4.1.6
 =============
