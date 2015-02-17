@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- release v4.1.7, copyright 2015 Kartik Visweswaran -->
+<!-- release v4.1.7, copyright 2014 - 2015 Kartik Visweswaran -->
 <html lang="en">
     <head>
         <meta charset="UTF-8"/>
@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="container kv-main">
-            <h1>Bootstrap File Input Example</h1>
+            <h1>Bootstrap File Input Example <small><a href="https://github.com/kartik-v/bootstrap-fileinput-samples"><i class="glyphicon glyphicon-download"></i> Download Sample Files</a></small></h1>
             <form enctype="multipart/form-data">
                 <input id="file-0" class="file" type="file" multiple=true>
                 <br>
@@ -20,10 +20,7 @@
                     <input id="file-0a" class="file" type="file">
                 </div>
                 <div class="form-group">
-                    <input id="file-1" class="file" type="file" multiple=true data-preview-file-type="any">
-                </div>
-                <div class="form-group">
-                    <input id="file-1a" type="file" multiple=true class="file" data-show-upload="false" data-preview-file-type="any" data-initial-caption="Kartik" data-overwrite-initial="false">
+                    <input id="file-1" type="file" multiple=true class="file" data-show-upload="false" data-preview-file-type="any" data-initial-caption="Kartik" data-overwrite-initial="false">
                 </div>
                 <div class="form-group">
                     <input id="file-2" type="file" class="file" readonly=true data-show-upload="false">
@@ -55,12 +52,7 @@
         'allowedFileExtensions' : ['jpg', 'png','gif'],
     });
     $("#file-1").fileinput({
-        initialPreview: ["<img src='Desert.jpg' class='file-preview-image'>", "<img src='Jellyfish.jpg' class='file-preview-image'>"],
-        initialPreviewConfig: [
-            {caption: 'Desert.jpg', width: '120px', url: '#'},
-            {caption: 'Jellyfish.jpg', width: '120px', url: '#'},
-        ],
-        uploadUrl: '#',
+        uploadUrl: '#', // you must set a valid URL here else you will get an error
         allowedFileExtensions : ['jpg', 'png','gif'],
         overwriteInitial: false,
         maxFileSize: 1000,

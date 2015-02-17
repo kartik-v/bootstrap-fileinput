@@ -18,6 +18,7 @@ version 4.1.7
 10. (bug #160): Correct documentation typo for usage.
 11. (enh #162): New property ajaxSettings to allow configuring ajax params.
 12. Set copyright year to current.
+13. Relocate sample files from examples directory to [bootstrap-fileinput-samples](https://github.com/kartik-v/bootstrap-fileinput-samples) repo.
 
 version 4.1.6
 =============
