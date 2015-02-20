@@ -1536,7 +1536,7 @@
                 return;
             }
             if (!self.isIE9) {
-                self.readFiles(files);
+                self.readFiles(tfiles);
             } else {
                 self.updateFileDetails(1);
             }
