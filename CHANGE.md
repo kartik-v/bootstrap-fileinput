@@ -1,3 +1,9 @@
+version 4.1.8
+=============
+**Date**: 20-Feb-2015
+
+1. (bug #171): Fix typo for files validation.
+
 version 4.1.7
 =============
 **Date**: 13-Feb-2015
