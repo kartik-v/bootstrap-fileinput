@@ -125,7 +125,7 @@
             '    <div class="clearfix"></div>\n' +
             '</div>',
         tActionDelete = '<button type="button" class="kv-file-remove {removeClass}" ' +
-            'title="{removeTitle}"{dataUrl}{dataKey}>{removeIcon}</button>\n',
+            'title="{removeTitle}"{dataUrl}{dataKey}{dataIndex}>{removeIcon}</button>\n',
         tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
             '   {uploadIcon}\n</button>\n',
         tGeneric = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}">\n' +
@@ -622,7 +622,7 @@
                 url = isSet('url', config) ? config.url : false,
                 key = isSet('key', config) ? config.key : null,
                 disabled = (url === false),
-                actions = self.initialPreviewShowDelete ? self.renderFileActions(false, true, disabled, url, key) : '',
+                actions = self.initialPreviewShowDelete ? self.renderFileActions(false, true, disabled, url, key, i) : '',
                 footer = template.repl('{actions}', actions);
             return footer.repl('{caption}', caption).repl('{width}', width)
                 .repl('{indicator}', '').repl('{indicatorTitle}', '');
@@ -631,7 +631,7 @@
             var self = this, config = self.fileActionSettings, footer,
                 template = self.getLayoutTemplate('footer');
             if (self.isUploadable) {
-                footer = template.repl('{actions}', self.renderFileActions(true, true, false, false, false));
+                footer = template.repl('{actions}', self.renderFileActions(true, true, false, false, false, false));
                 return footer.repl('{caption}', caption)
                     .repl('{width}', width)
                     .repl('{indicator}', config.indicatorNew)
@@ -643,12 +643,13 @@
                 .repl('{indicator}', '')
                 .repl('{indicatorTitle}', '');
         },
-        renderFileActions: function (showUpload, showDelete, disabled, url, key) {
+        renderFileActions: function (showUpload, showDelete, disabled, url, key, index) {
             if (!showUpload && !showDelete) {
                 return '';
             }
             var self = this,
                 vUrl = url === false ? '' : ' data-url="' + url + '"',
+                vIndex = index === false ? '' : ' data-index="' + index + '"',
                 vKey = key === false ? '' : ' data-key="' + key + '"',
                 btnDelete = self.getLayoutTemplate('actionDelete'),
                 btnUpload = '',
@@ -661,7 +662,8 @@
                 .repl('{removeIcon}', config.removeIcon)
                 .repl('{removeTitle}', config.removeTitle)
                 .repl('{dataUrl}', vUrl)
-                .repl('{dataKey}', vKey);
+                .repl('{dataKey}', vKey)
+                .repl('{dataIndex}', vIndex);
             if (showUpload) {
                 btnUpload = self.getLayoutTemplate('actionUpload')
                     .repl('{uploadClass}', config.uploadClass)
@@ -717,18 +719,20 @@
             self.$container.removeClass('file-input-new');
         },
         initPreviewDeletes: function () {
-            var self = this, extraData = self.deleteExtraData || {}, caption, $that,
+            var self = this, deleteExtraData = self.deleteExtraData || {}, caption, $that,
                 resetProgress = function () {
                     if (self.$preview.find('.kv-file-remove').length === 0) {
                         self.reset();
                     }
                 };
-            if (typeof extraData === "function") { 
-                extraData = extraData();
-            }
             self.$preview.find('.kv-file-remove').each(function () {
-                var $el = $(this), $frame = $el.closest('.file-preview-frame'),
-                    vUrl = $el.attr('data-url'), vKey = $el.attr('data-key'), $content;
+                var $el = $(this), $frame = $el.closest('.file-preview-frame'), index = $el.data('index'), 
+                    config = isEmpty(self.initialPreviewConfig[index]) ? null : self.initialPreviewConfig[index],
+                    extraData = isEmpty(config) || isEmpty(config['extra']) ? deleteExtraData : config['extra'],
+                    vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'), $content;
+                if (typeof extraData === "function") { 
+                    extraData = extraData();
+                }
                 if (vUrl === undefined || vKey === undefined) {
                     return;
                 }
@@ -1731,6 +1735,8 @@
         initialPreviewDelimiter: '*$$*',
         initialPreviewConfig: [],
         initialPreviewShowDelete: true,
+        deleteUrl: '',
+        deleteExtraData: {},
         overwriteInitial: true,
         layoutTemplates: defaultLayoutTemplates,
         previewTemplates: defaultPreviewTemplates,
@@ -1760,7 +1766,6 @@
         uploadUrl: null,
         uploadAsync: true,
         uploadExtraData: {},
-        deleteExtraData: {},
         maxFileSize: 0,
         maxFileCount: 0,
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>. Please retry your upload!',

@@ -211,8 +211,9 @@ _array_, the configuration for setting up important properties for each `initial
 
     - `caption`: _string_, the caption or filename to display for each initial preview item content.
     - `width`: _string_, the CSS width of the image/content displayed.
-    - `url`: _string_, the URL for deleting the image/content in the initial preview via AJAX post response.
+    - `url`: _string_, the URL for deleting the image/content in the initial preview via AJAX post response. This will default to `deleteUrl` if not set.
     - `key`: _string|object_, the key that will be passed as data to the `url` via AJAX POST.
+    - `extra`: _object|function_, the extra data that will be passed as data to the initial preview delete url/AJAX server call via POST. This will default to `deleteExtraData` if not set.
 
 An example configuration of `initialPreviewConfig` (for the previously set `initialPreviewContent`) can be:
 
@@ -224,13 +225,54 @@ initialPreview: [
 ],
 // initial preview configuration
 initialPreviewConfig: [
-    {caption: 'desert.jpg', 'width': '120px', 'url': '/localhost/avatar/delete', 'key': 100},
-    {caption: 'jellyfish.jpg', 'width': '120px', 'url': '/localhost/avatar/delete', 'key': 101},
+    {
+        caption: 'desert.jpg', 
+        width: '120px', 
+        url: '/localhost/avatar/delete', 
+        key: 100, 
+        extra: {id: 100}
+    },
+    {
+        caption: 'jellyfish.jpg', 
+        width: '120px', 
+        url: '/localhost/avatar/delete', 
+        key: 101, 
+        extra: function() { 
+            return {id: $("#id").val()};
+        },
+    }
 ]
 ```
 
+> Note: The ajax delete action will send the following data to server via POST:
+- `key`: the key setting as setup in `initialPreviewConfig['key']`
+- `extra`: the extra data passed either via `initialPreviewConfig['extra']` OR `deleteExtraData` if former is not set.
+
 #### initialPreviewShowDelete
 _bool_, whether the delete button will be displayed for each thumbnail that has been created with `initialPreview`.
+
+
+#### deleteExtraData
+_object | function_ the extra data that will be passed as data to the initial preview delete url/AJAX server call via POST. This will be overridden by the `initialPreviewConfig['extra']` property. This can be setup either as an object (associative array of keys and values) or as a function callback. As an object, it can be set for example as:
+
+```js
+ {id: 100, value: '100 Details'}
+```
+
+As a function callback, it can be setup for example as:
+
+```js
+function() {
+    var obj = {};
+    $('.your-form-class').find('input').each(function() {
+        var id = $(this).attr('id'), val = $(this).val();
+        obj[id] = val;
+    });
+    return obj;
+}
+```
+#### deleteUrl
+_object | function_ the URL for deleting the image/content in the initial preview via AJAX post response. This will be overridden by the `initialPreviewConfig['url']` property.
 
 #### initialCaption
 _string_ the initial preview caption text to be displayed. If you do not set a value here and `initialPreview` is set to 
@@ -265,6 +307,7 @@ _object_ the templates configuration for rendering each part of the layout. You 
     - `{removeTitle}`: the title to display on hover for the remove button. Will be replaced with the `removeTitle` set within `fileActionSettings`.
     - `{dataUrl}`: the URL for deleting the file thumbnail for `initialPreview` content only. Will be replaced with the `url` set within `initialPreviewConfig`.
     - `{dataKey}`: the key (additional data) that will be passed to the URL above via POST to the AJAX call. Will be replaced with the `key` set within `initialPreviewConfig`.    
+    - `{dataIndex}`: will be replaced with the `index` of each row item in `initialPreviewConfig`. 
 - `actionUpload`: the template for the file upload action button within the thumbnail `footer`.
     - `{uploadClass}`: the css class for the upload button. Will be replaced with the `uploadClass` set within `fileActionSettings`.
     - `{uploadIcon}`: the icon for the upload button. Will be replaced with the `uploadIcon` set within `fileActionSettings`.
@@ -348,7 +391,7 @@ The `layoutTemplates` if not set will default to:
         '    <div class="file-upload-indicator" tabindex="-1" title="{indicatorTitle}">{indicator}</div>\n' +
         '    <div class="clearfix"></div>\n' +
         '</div>',
-    actionDelete: '<button type="button" class="kv-file-remove {removeClass}" title="{removeTitle}"{dataUrl}{dataKey}>{removeIcon}</button>\n',
+    actionDelete: '<button type="button" class="kv-file-remove {removeClass}" title="{removeTitle}"{dataUrl}{dataKey}{dataIndex}>{removeIcon}</button>\n',
     actionUpload: '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">{uploadIcon}</button>\n'
 };
 ```
@@ -630,26 +673,6 @@ _bool_ whether the batch upload of multiple files will be asynchronous/in parall
 
 #### uploadExtraData
 _object | function_ the extra data that will be passed as data to the url/AJAX server call via POST. This can be setup either as an object (associative array of keys and values) or as a function callback. As an object, it can be set for example as:
-
-```js
- {id: 100, value: '100 Details'}
-```
-
-As a function callback, it can be setup for example as:
-
-```js
-function() {
-    var obj = {};
-    $('.your-form-class').find('input').each(function() {
-        var id = $(this).attr('id'), val = $(this).val();
-        obj[id] = val;
-    });
-    return obj;
-}
-```
-
-#### deleteExtraData
-_object | function_ the extra data that will be passed as data to the initial preview delete url/AJAX server call via POST. This can be setup either as an object (associative array of keys and values) or as a function callback. As an object, it can be set for example as:
 
 ```js
  {id: 100, value: '100 Details'}
