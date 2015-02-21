@@ -73,7 +73,7 @@
             '   {caption}\n' +
             '   <div class="input-group-btn">\n' +
             '       {remove}\n' +
-                '       {cancel}\n' +
+            '       {cancel}\n' +
             '       {upload}\n' +
             '       {browse}\n' +
             '   </div>\n' +
@@ -383,7 +383,7 @@
             var self = this;
             jqXHR = jqXHR || {};
             responseData = responseData || {};
-            filesData = filesData || self.filestack.slice(0);
+            filesData = filesData || self.filestack.slice(0) || {};
             return {
                 form: self.formdata,
                 files: filesData,
@@ -443,8 +443,8 @@
         },
         upload: function () {
             var self = this, totLen = self.getFileStack().length,
-                i, outData, len;
-            if (!self.isUploadable || self.isDisabled || totLen === 0) {
+                i, outData, len, hasExtraData = !$.isEmptyObject(self.getExtraData());
+            if (!self.isUploadable || self.isDisabled || (totLen === 0 && !hasExtraData)) {
                 return;
             }
             self.resetUpload();
@@ -453,6 +453,10 @@
             self.uploadPercent = 0;
             self.lock();
             self.setProgress(0);
+            if (totLen === 0 && hasExtraData) {
+                self.uploadExtraOnly();
+                return;
+            }
             len = self.filestack.length;
             if ((self.uploadAsync || totLen === 1) && self.showPreview) {
                 outData = self.getOutData();
@@ -1177,6 +1181,36 @@
                     self.formdata.append(self.uploadFileAttr, data);
                 }
             });
+            self.ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError);
+        },
+        uploadExtraOnly: function () {
+            var self = this, fnBefore, fnSuccess, fnComplete, fnError;
+            fnBefore = function (jqXHR) {
+                self.lock();
+                var outData = self.getOutData(jqXHR);
+                self.raise('filebatchpreupload', [outData]);
+                self.setProgress(50);
+            };
+            fnSuccess = function (data, textStatus, jqXHR) {
+                var outData = self.getOutData(jqXHR, data),
+                    keys = isEmpty(data.errorkeys) ? [] : data.errorkeys;
+                if (data.error === undefined || isEmpty(data.error)) {
+                    self.raise('filebatchuploadsuccess', [outData]);
+                    self.clearFileInput();
+                } else {
+                    self.showUploadError(data.error, outData, null, null, 'filebatchuploaderror');
+                }
+            };
+            fnComplete = function () {
+                self.setProgress(100);
+                self.unlock();
+                self.raise('filebatchuploadcomplete', [self.filestack, self.getExtraData()]);
+                self.clearFileInput();
+            };
+            fnError = function (jqXHR, textStatus, errorThrown) {
+                var outData = self.getOutData(jqXHR);
+                self.showUploadError(errorThrown, outData, null, null, 'filebatchuploaderror');
+            };
             self.ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError);
         },
         hideFileIcon: function () {
