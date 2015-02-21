@@ -625,6 +625,9 @@ _string_ the title to display on hover for the file remove button. Defaults to `
 #### uploadUrl
 _string_ the URL for the upload processing action (typically for ajax based processing). Defaults to `null`. If this is not set or `null`, then the upload button action will default to form submission. NOTE: This is MANDATORY if you want to use advanced features like drag & drop, append/remove files, selectively upload files via ajax etc.
 
+#### uploadAsync
+_bool_ whether the batch upload of multiple files will be asynchronous/in parallel. Defaults to `true`.
+
 #### uploadExtraData
 _object | function_ the extra data that will be passed as data to the url/AJAX server call via POST. This can be setup either as an object (associative array of keys and values) or as a function callback. As an object, it can be set for example as:
 
@@ -645,8 +648,25 @@ function() {
 }
 ```
 
-#### uploadAsync
-_bool_ whether the batch upload of multiple files will be asynchronous/in parallel. Defaults to `true`.
+#### deleteExtraData
+_object | function_ the extra data that will be passed as data to the initial preview delete url/AJAX server call via POST. This can be setup either as an object (associative array of keys and values) or as a function callback. As an object, it can be set for example as:
+
+```js
+ {id: 100, value: '100 Details'}
+```
+
+As a function callback, it can be setup for example as:
+
+```js
+function() {
+    var obj = {};
+    $('.your-form-class').find('input').each(function() {
+        var id = $(this).attr('id'), val = $(this).val();
+        obj[id] = val;
+    });
+    return obj;
+}
+```
 
 #### maxFileSize
 _float_ the maximum file size for upload in KB.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
@@ -1037,6 +1057,7 @@ This event is triggered before deletion of each thumbnail file in the `initialPr
 
 - `key`: the key passed within `initialPreviewConfig` for the selected file for delete.
 - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
+- `data`: the output of `deleteExtraData` object.
 
 ```js
 $('#input-id').on('filepredelete', function(event, key, jqXHR) {
@@ -1049,6 +1070,7 @@ This event is triggered after deletion of each thumbnail file in the `initialPre
 
 - `key`: the key passed within `initialPreviewConfig` for the selected file that will be passed as POST data to the `url`.
 - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
+- `data`: the output of `deleteExtraData` object.
 
 ```js
 $('#input-id').on('filedelete', function(event, key) {
@@ -1066,7 +1088,7 @@ $('#input-id').on('fileunlock', function(event, filestack) {
 #### filedeleteerror
 This event is triggered when an error is faced in deletion of each thumbnail file in the `initialPreview` content set. Additional parameters available are: 
 
-- `data`: this is always null for `filedeleteerror`.
+- `data`: the output of `deleteExtraData` object.
 - `previewId`: the identifier of the preview thumbnail container.
 - `index`: the zero-based index of the file in the preview container.
 - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).

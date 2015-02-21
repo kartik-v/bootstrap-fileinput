@@ -2,8 +2,9 @@ version 4.1.8
 =============
 **Date**: 21-Feb-2015
 
-1. (bug #171): Fix typo for files validation.
-2. (enh #173): Add ability to send extraData when no files are attached.
+1. (bug #167): New `deleteExtraData` property for ajax deletions.
+2. (bug #171): Fix typo for files validation.
+3. (enh #173): Add ability to send extraData when no files are attached.
 
 version 4.1.7
 =============

@@ -717,12 +717,15 @@
             self.$container.removeClass('file-input-new');
         },
         initPreviewDeletes: function () {
-            var self = this,
+            var self = this, extraData = self.deleteExtraData || {}, caption, $that,
                 resetProgress = function () {
                     if (self.$preview.find('.kv-file-remove').length === 0) {
                         self.reset();
                     }
                 };
+            if (typeof extraData === "function") { 
+                extraData = extraData();
+            }
             self.$preview.find('.kv-file-remove').each(function () {
                 var $el = $(this), $frame = $el.closest('.file-preview-frame'),
                     vUrl = $el.attr('data-url'), vKey = $el.attr('data-key'), $content;
@@ -734,17 +737,17 @@
                         url: vUrl,
                         type: 'POST',
                         dataType: 'json',
-                        data: {key: vKey},
+                        data: {key: vKey, extraData: extraData},
                         beforeSend: function (jqXHR) {
                             addCss($frame, 'file-uploading');
                             addCss($el, 'disabled');
-                            self.raise('filepredelete', [vKey, jqXHR]);
+                            self.raise('filepredelete', [vKey, jqXHR, extraData]);
                         },
                         success: function (data, textStatus, jqXHR) {
                             if (data.error === undefined) {
-                                self.raise('filedeleted', [vKey, jqXHR]);
+                                self.raise('filedeleted', [vKey, jqXHR, extraData]);
                             } else {
-                                self.showError(data.error, null, $el.attr('id'), vKey, 'filedeleteerror', jqXHR);
+                                self.showError(data.error, extraData, $el.attr('id'), vKey, 'filedeleteerror', jqXHR);
                                 resetProgress();
                             }
                             $frame.removeClass('file-uploading').addClass('file-deleted');
@@ -753,18 +756,16 @@
                                 $frame.remove();
                                 $content = $(document.createElement('div')).html(self.original.preview);
                                 $content.find('.file-preview-frame').each(function () {
-                                    var $that = $(this);
-                                    /*jshint eqeqeq: false*/
+                                    $that = $(this);
                                     if ($that.find('.kv-file-remove').attr('data-key') == vKey) {
                                         $that.remove();
                                     }
-                                    /*jshint eqeqeq: true*/
                                 });
                                 self.initialPreviewContent = $content.html();
                                 if (self.initialPreviewCount > 0) {
                                     self.initialPreviewCount -= 1;
                                 }
-                                var caption = self.initialCaption;
+                                caption = self.initialCaption;
                                 if (self.initialCaption.length === 0) {
                                     caption = self.msgSelected.repl('{n}', self.initialPreviewCount);
                                 }
@@ -776,7 +777,7 @@
                             });
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            self.showError(errorThrown, null, $el.attr('id'), vKey, 'filedeleteerror', jqXHR);
+                            self.showError(errorThrown, extraData, $el.attr('id'), vKey, 'filedeleteerror', jqXHR);
                             $frame.removeClass('file-uploading');
                             resetProgress();
                         }
@@ -1757,8 +1758,9 @@
         uploadIcon: '<i class="glyphicon glyphicon-upload"></i> ',
         uploadClass: 'btn btn-default',
         uploadUrl: null,
-        uploadExtraData: [],
         uploadAsync: true,
+        uploadExtraData: {},
+        deleteExtraData: {},
         maxFileSize: 0,
         maxFileCount: 0,
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>. Please retry your upload!',
