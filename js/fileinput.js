@@ -1190,6 +1190,7 @@
         },
         uploadExtraOnly: function () {
             var self = this, fnBefore, fnSuccess, fnComplete, fnError;
+            self.formdata = new FormData();
             fnBefore = function (jqXHR) {
                 self.lock();
                 var outData = self.getOutData(jqXHR);
