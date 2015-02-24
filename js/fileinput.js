@@ -1112,15 +1112,15 @@
             fnBefore = function (jqXHR) {
                 self.lock();
                 var outData = self.getOutData(jqXHR);
-                if (!self.showPreview) {
-                    return;
+
+                if (self.showPreview) {
+                    self.$preview.find('.file-preview-frame').each(function () {
+                        var $thumb = $(this), $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove');
+                        addCss($thumb, 'file-uploading');
+                        $btnUpload.attr('disabled', true);
+                        $btnDelete.attr('disabled', true);
+                    });
                 }
-                self.$preview.find('.file-preview-frame').each(function () {
-                    var $thumb = $(this), $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove');
-                    addCss($thumb, 'file-uploading');
-                    $btnUpload.attr('disabled', true);
-                    $btnDelete.attr('disabled', true);
-                });
                 self.raise('filebatchpreupload', [outData]);
             };
             fnSuccess = function (data, textStatus, jqXHR) {
