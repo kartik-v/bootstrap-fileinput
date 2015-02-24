@@ -9,6 +9,7 @@ version 4.1.8
 5. (enh #176): Wrong file in README installation steps fixed.
 6. (enh #177): Trigger filebatchpreupload if showPreview is `false`.
 7. (enh #178): Updated README for cancel button configuration.
+8. (enh #179): Validate and cast `maxFileSize`, `maxFileCount`, and `initialPreviewCount` to numeric - even if they have been setup as a string.
 
 version 4.1.7
 =============
