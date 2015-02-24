@@ -652,6 +652,18 @@ _string_ the CSS class for the file remove button. Defaults to `btn btn-default`
 #### removeTitle
 _string_ the title to display on hover for the file remove button. Defaults to `Clear selected files`.
 
+#### cancelLabel
+_string_ the label to display for the file cancel button. Defaults to `Cancel`.
+
+#### cancelIcon
+_string_ the icon to display before the label for the file picker/remove button. Defaults to `<i class="glyphicon glyphicon-ban-circle"></i> &nbsp;`.
+
+#### cancelClass
+_string_ the CSS class for the file cancel button. Defaults to `btn btn-default`.
+
+#### cancelTitle
+_string_ the title to display on hover for the file cancel button. Defaults to `Abort ongoing upload`.
+
 #### uploadLabel
 _string_ the label to display for the file upload button. Defaults to `Upload`.
 
