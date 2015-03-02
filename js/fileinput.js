@@ -1539,8 +1539,11 @@
             }
         },
         change: function (e) {
-            var self = this, $el = self.$element, tfiles, msg,
-                total, $preview = self.$preview, isDragDrop = arguments.length > 1,
+            var self = this, $el = self.$element;
+            if (!self.isUploadable && isEmpty($el.val())) { // IE 11 fix
+                return;
+            }
+            var tfiles, msg, total, $preview = self.$preview, isDragDrop = arguments.length > 1,
                 files = isDragDrop ? e.originalEvent.dataTransfer.files : $el.get(0).files,
                 isSingleUpload = isEmpty($el.attr('multiple')),
                 ctr = self.filestack.length, isAjaxUpload = (self.isUploadable && ctr !== 0),
