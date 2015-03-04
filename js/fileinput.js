@@ -765,7 +765,10 @@
                                 self.raise('filedeleted', [vKey, jqXHR, extraData]);
                             } else {
                                 self.showError(data.error, extraData, $el.attr('id'), vKey, 'filedeleteerror', jqXHR);
+                                $frame.removeClass('file-uploading');
+                                $el.removeClass('disabled');
                                 resetProgress();
+                                return;
                             }
                             $frame.removeClass('file-uploading').addClass('file-deleted');
                             $frame.fadeOut('slow', function () {
