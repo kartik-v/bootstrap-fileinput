@@ -245,7 +245,7 @@ initialPreviewConfig: [
 
 > Note: The ajax delete action will send the following data to server via POST:
 - `key`: the key setting as setup in `initialPreviewConfig['key']`
-- `extra`: the extra data passed either via `initialPreviewConfig['extra']` OR `deleteExtraData` if former is not set.
+- any other extra data as `key: value` pairs passed either via `initialPreviewConfig['extra']` OR `deleteExtraData` format if former is not set.
 
 #### initialPreviewShowDelete
 _bool_, whether the delete button will be displayed for each thumbnail that has been created with `initialPreview`.
