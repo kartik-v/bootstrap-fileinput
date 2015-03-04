@@ -754,7 +754,7 @@
                         url: vUrl,
                         type: 'POST',
                         dataType: 'json',
-                        data: {key: vKey, extraData: extraData},
+                        data: $.extend({key: vKey}, extraData),
                         beforeSend: function (jqXHR) {
                             addCss($frame, 'file-uploading');
                             addCss($el, 'disabled');
