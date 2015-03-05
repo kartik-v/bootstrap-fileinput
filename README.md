@@ -1107,7 +1107,7 @@ This event is triggered after deletion of each thumbnail file in the `initialPre
 - `data`: the output of `deleteExtraData` object.
 
 ```js
-$('#input-id').on('filedelete', function(event, key) {
+$('#input-id').on('filedeleted', function(event, key) {
     console.log('Key = ' + key);
 });
 ```
