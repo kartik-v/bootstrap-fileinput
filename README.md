@@ -631,6 +631,9 @@ This is by default setup as following:
 }
 ```
 
+#### previewFileIcon
+_string_ the icon to be shown in each preview file thumbnail when an unreadable file type for preview is detected. Defaults to `<i class="glyphicon glyphicon-file"></i>`.
+
 #### browseLabel
 _string_ the label to display for the file picker/browse button. Defaults to `Browse &hellip;`.
 
@@ -1107,7 +1110,7 @@ This event is triggered after deletion of each thumbnail file in the `initialPre
 - `data`: the output of `deleteExtraData` object.
 
 ```js
-$('#input-id').on('filedelete', function(event, key) {
+$('#input-id').on('filedeleted', function(event, key) {
     console.log('Key = ' + key);
 });
 ```

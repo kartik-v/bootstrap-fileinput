@@ -59,7 +59,7 @@
             '      <param name="autoStart" value="false" />\n' +
             '      <param name="quality" value="high" />\n',
         DEFAULT_PREVIEW = '<div class="file-preview-other">\n' +
-            '       <i class="glyphicon glyphicon-file"></i>\n' +
+            '       {previewFileIcon}\n' +
             '   </div>',
         defaultFileActionSettings = {
             removeIcon: '<i class="glyphicon glyphicon-trash text-danger"></i>',
@@ -387,6 +387,7 @@
         getPreviewTemplate: function (t) {
             var self = this,
                 template = isSet(t, self.previewTemplates) ? self.previewTemplates[t] : defaultPreviewTemplates[t];
+            template = template.repl('{previewFileIcon}', self.previewFileIcon);
             if (isEmpty(self.customPreviewTags)) {
                 return template;
             }
@@ -1350,7 +1351,7 @@
             }
             var self = this, cat = self.parseFileType(file), caption = self.slug(file.name), content, strText,
                 types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes,
-                tmplt = isSet(cat, self.previewTemplates) ? self.previewTemplates[cat] : defaultPreviewTemplates[cat],
+                tmplt = self.getPreviewTemplate(cat),
                 config = isSet(cat, self.previewSettings) ? self.previewSettings[cat] : defaultPreviewSettings[cat],
                 wrapLen = parseInt(self.wrapTextLength, 10), wrapInd = self.wrapIndicator,
                 chkTypes = types.indexOf(cat) >= 0, id, height,
@@ -1771,6 +1772,7 @@
         customPreviewTags: {},
         previewSettings: defaultPreviewSettings,
         fileTypeSettings: defaultFileTypeSettings,
+        previewFileIcon: '<i class="glyphicon glyphicon-file"></i>',
         browseLabel: 'Browse &hellip;',
         browseIcon: '<i class="glyphicon glyphicon-folder-open"></i> &nbsp;',
         browseClass: 'btn btn-primary',

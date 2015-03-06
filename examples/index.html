@@ -4,11 +4,11 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Krajee JQuery Plugins - &copy; Kartik</title>
-        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="../js/fileinput.js" type="text/javascript"></script>
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="container kv-main">
@@ -26,6 +26,7 @@
                     <input id="file-2" type="file" class="file" readonly=true data-show-upload="false">
                 </div> 
                 <div class="form-group">
+                    <label>Preview File Icon</label>
                     <input id="file-3" type="file" multiple=true>
                 </div>
                 <div class="form-group">
@@ -42,7 +43,7 @@
                     <div id="errorBlock" class="help-block"></div>
                 </div>
                 <div class="form-group">
-                    <input id="file-5" class="file" type="file" multiple=true data-preview-file-type="any" data-upload-url="#">
+                    <input id="file-5" class="file" type="file" multiple=true data-preview-file-type="any" data-upload-url="#" data-preview-file-icon="">
                 </div>
             </form>
         </div>
@@ -71,7 +72,8 @@
 		showUpload: false,
 		showCaption: false,
 		browseClass: "btn btn-primary btn-lg",
-		fileType: "any"
+		fileType: "any",
+        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
 	});
 	$("#file-4").fileinput({
 		uploadExtraData: [

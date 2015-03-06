@@ -12,6 +12,8 @@ version 4.1.8
 8. (enh #179): Validate and cast `maxFileSize`, `maxFileCount`, and `initialPreviewCount` to numeric - even if they have been setup as a string.
 9. (enh #181): Fix change event triggered for IE 11 when file input is set to empty.
 10. (enh #183): Delete extra data enhancements.
+11. (enh #184): Fix documentation for filedeleted event.
+12. (enh #187): New property `previewFileIcon` to configure file icon shown in preview for unreadable file types.
 
 version 4.1.7
 =============
