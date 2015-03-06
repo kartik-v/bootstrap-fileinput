@@ -610,6 +610,9 @@
                             self.reset();
                         } else {
                             n = self.initialPreviewCount + len;
+                            if (len === 0) {
+                                self.clear(false);
+                            }
                             cap = n > 1 ? self.msgSelected.repl('{n}', n) : filestack[0].name;
                             self.setCaption(cap);
                         }
