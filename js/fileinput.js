@@ -603,6 +603,7 @@
                         self.filestack[ind] = undefined;
                         self.clearObjects($frame);
                         $frame.remove();
+                        self.clearFileInput();
                         var filestack = self.getFileStack(), len = filestack.length,
                             chk = self.$container.find('.file-preview-initial').length;
                         if (len === 0 && chk === 0) {
@@ -610,9 +611,6 @@
                             self.reset();
                         } else {
                             n = self.initialPreviewCount + len;
-                            if (len === 0) {
-                                self.clear(false);
-                            }
                             cap = n > 1 ? self.msgSelected.repl('{n}', n) : filestack[0].name;
                             self.setCaption(cap);
                         }
@@ -1543,6 +1541,9 @@
             self.$container.removeClass('file-input-new file-input-ajax-new');
             if (arguments.length === 1) {
                 self.raise('fileselect', [numFiles, label]);
+            }            
+            if (self.initialPreviewContent.length > 0) {
+                self.initPreviewDeletes();
             }
         },
         change: function (e) {
@@ -1584,9 +1585,13 @@
             if (!isAjaxUpload || (isSingleUpload && ctr > 0)) {
                 if (!self.overwriteInitial) {
                     $preview.html(self.initialPreviewContent);
+                    if (self.initialPreviewContent.length > 0) {
+                        self.initPreviewDeletes();
+                    }
                 } else {
                     $preview.html('');
                 }
+                
                 if (isSingleUpload && ctr > 0) {
                     self.filestack = [];
                 }

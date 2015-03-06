@@ -14,6 +14,8 @@ version 4.1.8
 10. (enh #183): Delete extra data enhancements.
 11. (enh #184): Fix documentation for filedeleted event.
 12. (enh #187): New property `previewFileIcon` to configure file icon shown in preview for unreadable file types.
+13. (enh #188): Clear fileinput more correctly for all browsers when initialPreview is set enhancement
+14. (enh #189): Reinitialize initial preview delete events correctly on file selection.
 
 version 4.1.7
 =============
