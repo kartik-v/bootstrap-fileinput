@@ -308,6 +308,7 @@
                 }
                 self[key] = value;
             });
+            self.fileInputCleared = false;
             if (isEmpty(self.allowedPreviewTypes)) {
                 self.allowedPreviewTypes = defaultPreviewTypes;
             }
@@ -840,6 +841,7 @@
             } else { // normal input clear behavior for other sane browsers
                 $el.val('');
             }
+            self.fileInputCleared = true;
         },
         resetUpload: function () {
             var self = this;
@@ -1548,9 +1550,11 @@
         },
         change: function (e) {
             var self = this, $el = self.$element;
-            if (!self.isUploadable && isEmpty($el.val())) { // IE 11 fix
+            if (!self.isUploadable && isEmpty($el.val()) && self.fileInputCleared) { // IE 11 fix
+                self.fileInputCleared = false;
                 return;
             }
+            self.fileInputCleared = false;
             var tfiles, msg, total, $preview = self.$preview, isDragDrop = arguments.length > 1,
                 files = isDragDrop ? e.originalEvent.dataTransfer.files : $el.get(0).files,
                 isSingleUpload = isEmpty($el.attr('multiple')),
@@ -1562,8 +1566,8 @@
                 };
             self.resetUpload();
             self.hideFileIcon();
-            self.$container.find('.file-drop-zone .' + self.dropZoneTitleClass).remove();
             if (isDragDrop) {
+                self.$container.find('.file-drop-zone .' + self.dropZoneTitleClass).remove();
                 tfiles = files;
             } else {
                 if (e.target.files === undefined) {

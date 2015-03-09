@@ -52,6 +52,9 @@
     $("#file-0").fileinput({
         'allowedFileExtensions' : ['jpg', 'png','gif'],
     });
+        $("#file-0").on('fileselectnone', function() {
+            alert("HUH! No Files");
+        });
     $("#file-1").fileinput({
         uploadUrl: '#', // you must set a valid URL here else you will get an error
         allowedFileExtensions : ['jpg', 'png','gif'],
