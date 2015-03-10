@@ -79,9 +79,7 @@
         previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
 	});
 	$("#file-4").fileinput({
-		uploadExtraData: [
-            {kvId: '10'}
-        ],
+		uploadExtraData: {kvId: '10'}
 	});
     $(".btn-warning").on('click', function() {
         if ($('#file-4').attr('disabled')) {
