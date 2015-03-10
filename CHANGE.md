@@ -16,6 +16,9 @@ version 4.1.8
 12. (enh #187): New property `previewFileIcon` to configure file icon shown in preview for unreadable file types.
 13. (enh #188): Clear fileinput more correctly for all browsers when initialPreview is set enhancement
 14. (enh #189): Reinitialize initial preview delete events correctly on file selection.
+15. (enh #192): Ability to extend and add one's own ajax settings.
+    - New property `ajaxDeleteSettings` to help extend and add to delete ajax settings. 
+    - `ajaxSettings` to help extend and add upload ajax settings
 
 version 4.1.7
 =============
