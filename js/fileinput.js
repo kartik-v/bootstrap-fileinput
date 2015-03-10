@@ -1023,8 +1023,8 @@
                 return;
             }
             chkComplete = function () {
-                var $thumbs = self.$preview.find('.file-preview-frame.file-uploading'), chk = $thumbs.length && self.fileBatchCompleted;
-                if (chk > 0) {
+                var $thumbs = self.$preview.find('.file-preview-frame.file-uploading');
+                if ($thumbs.length > 0 && self.fileBatchCompleted) {
                     return;
                 }
                 self.setProgress(100);
