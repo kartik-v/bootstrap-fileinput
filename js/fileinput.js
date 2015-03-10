@@ -309,6 +309,7 @@
                 self[key] = value;
             });
             self.fileInputCleared = false;
+            self.fileBatchCompleted = true;
             if (isEmpty(self.allowedPreviewTypes)) {
                 self.allowedPreviewTypes = defaultPreviewTypes;
             }
@@ -476,6 +477,7 @@
             if ((self.uploadAsync || totLen === 1) && self.showPreview) {
                 outData = self.getOutData();
                 self.raise('filebatchpreupload', [outData]);
+                self.fileBatchCompleted = false;
                 for (i = 0; i < len; i += 1) {
                     if (self.filestack[i] !== undefined) {
                         self.uploadSingle(i, self.filestack, true);
@@ -1021,7 +1023,7 @@
                 return;
             }
             chkComplete = function () {
-                var $thumbs = self.$preview.find('.file-preview-frame.file-uploading'), chk = $thumbs.length;
+                var $thumbs = self.$preview.find('.file-preview-frame.file-uploading'), chk = $thumbs.length && self.fileBatchCompleted;
                 if (chk > 0) {
                     return;
                 }
@@ -1029,6 +1031,7 @@
                 self.unlock();
                 self.clearFileInput();
                 self.raise('filebatchuploadcomplete', [self.filestack, self.getExtraData()]);
+                self.fileBatchCompleted = true;
             };
             setIndicator = function (icon, msg) {
                 $indicator.html(config[icon]);

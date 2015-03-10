@@ -19,6 +19,7 @@ version 4.1.8
 15. (enh #192): Ability to extend and add one's own ajax settings.
     - New property `ajaxDeleteSettings` to help extend and add to delete ajax settings. 
     - `ajaxSettings` to help extend and add upload ajax settings
+16. (bug #193): Better validation for triggering `filebatchuploadcomplete` on async batch upload completion.
 
 version 4.1.7
 =============
