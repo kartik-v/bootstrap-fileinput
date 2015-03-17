@@ -1,6 +1,6 @@
 version 4.1.8
 =============
-**Date**: 13-Mar-2015
+**Date**: 17-Mar-2015
 
 1. (bug #171): Fix typo for files validation.
 2. (enh #167, #173): New `deleteExtraData` property for ajax deletions.
