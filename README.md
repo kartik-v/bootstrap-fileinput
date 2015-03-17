@@ -869,7 +869,7 @@ _string_ the progress message displayed in caption window when multiple (more th
 - `{n}`: the number of files selected.
 
 ### msgFoldersNotAllowed
-_string_ he message displayed when a folder has been dragged to the drop zone. Defaults to `Drag & drop files only! {n} folder(s) dropped were skipped.`. The following variables will be replaced The following variables will be replaced:
+_string_ the message displayed when a folder has been dragged to the drop zone. Defaults to `Drag & drop files only! {n} folder(s) dropped were skipped.`. The following variables will be replaced The following variables will be replaced:
 
 - `{n}`: the number of folders dropped.
 
