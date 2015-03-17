@@ -832,11 +832,13 @@ where:
 
 ### msgValidationError
 _string_ the exception message to be displayed within the caption container (instead of `msgFilesSelected`), 
-when a validation error is encountered. Defaults to:
+when a validation error is encountered. Defaults to `File Upload Error`.
 
-```
-<span class="text-danger"><i class="glyphicon glyphicon-exclamation-sign"></i> File Upload Error</span>
-```
+### msgValidationErrorClass
+_string_ the css class for the validation error message displayed in the caption container. Defaults to `text-danger`.
+
+### msgValidationErrorIcon
+_string_ the icon to be displayed before the validation error in the caption container. Defaults to `<i class="glyphicon glyphicon-exclamation-sign"></i> `.
 
 ### msgErrorClass
 _string_ the css class for the error message to be displayed in the preview window when the file size exceeds `maxSize`. Defaults to `file-error-message`.
@@ -1256,7 +1258,7 @@ $('#input-id').on('fileenabled', function(event) {
 ### Error Events
 
 #### fileerror
-This event is triggered when a client validation error is encountered for an uploaded file. This allows access to an object `params` as a parameter.
+This event is triggered when a client validation error is encountered for an uploaded file. This allows access to an object `data` as a parameter.
 
 - `data`: object/associative array containing the following 
     - `id`: the preview thumbnail identifier (or undefined if not available)
@@ -1267,12 +1269,12 @@ This event is triggered when a client validation error is encountered for an upl
 
 **Example:**
 ```js
-$('#input-id').on('fileerror', function(event, params) {
-   console.log(params.id);
-   console.log(params.index);
-   console.log(params.file);
-   console.log(params.reader);
-   console.log(params.files);
+$('#input-id').on('fileerror', function(event, data) {
+   console.log(data.id);
+   console.log(data.index);
+   console.log(data.file);
+   console.log(data.reader);
+   console.log(data.files);
 });
 ```
 
@@ -1280,8 +1282,8 @@ $('#input-id').on('fileerror', function(event, params) {
 This event is triggered when an upload or file input validation error is encountered primarily for ajax uploads (through the upload icon for each thumbnail or for every file uploaded when uploadAsync is `true`). Additional parameters available are: 
 
 - `data`: This is a data object (associative array) that sends the following information, whose keys are:
-    - `id`: the identifier of each file's parent thumbnail div element in the preview window.
-    - `index`: the zero-based index of the file in the file stack.
+    - `id`: the preview thumbnail identifier (or undefined if not available)
+    - `index`: the file index/preview thumbnail index (or undefined if not available).
     - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
     - `files`: the file stack array (or empty object if not available).
     - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
@@ -1320,8 +1322,8 @@ $('#input-id').on('filebatchuploaderror', function(event, data) {
 This event is triggered when an error is faced in deletion of each thumbnail file in the `initialPreview` content set. Additional parameters available are: 
 
 - `data`: This is a data object (associative array) that sends the following information, whose keys are:
-    - `id`: the identifier of the preview thumbnail container.
-    - `index`: the zero-based index of the file in the preview container.
+    - `id`: the preview thumbnail identifier (or undefined if not available)
+    - `index`: the file index/preview thumbnail index (or undefined if not available).
     - `response`: the data sent via ajax response (or empty object if not available).
     - `extra`: the output of `deleteExtraData` object.
     - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
@@ -1340,6 +1342,7 @@ This event is triggered when a folder or multiple folders have been dragged & dr
 ```js
 $('#input-id').on('filefoldererror', function(event, folders) {
     console.log('File folder dropped error');
+});
 ```
 
 #### filecustomerror
@@ -1379,7 +1382,7 @@ With release v4.1.8, you can return data for most of the events and use it for a
 
 For all the events other than ones mentioned above, you can set a custom validation error which will be triggered just before upload is initiated.
 
-This will enable you to add your additional custom validations to enhance the fileinput to be used for innumerous scenarios. It will allow an ability to return an associative object with any of the fileinput events (except the error events and the `filebatchuploadsuccess` or `filebatchuploadcomplete`) e.g. `change`, `fileselect`, `filepreupload`, `filebatchpreupload` etc.
+This will enable you to add your additional custom validations to enhance the fileinput to be used for innumerous scenarios. It will allow an ability to return an associative object with any of the fileinput events (except the events above) e.g. `change`, `fileselect`, `filepreupload`, `filebatchpreupload` etc.
 
 The object can return the following keys:
 
@@ -1408,7 +1411,7 @@ The above abort will be triggered at time of upload for (ajax uploads) OR at for
 ```js
 $('#input').on('filecustomerror', function(event, params) {
    // params.abortData will contain the additional abort data passed
-}
+});
 ```
 
 As mentioned before, the above functionality of raising a `filecustomerror` is not supported in the following events:
@@ -1421,6 +1424,7 @@ As mentioned before, the above functionality of raising a `filecustomerror` is n
 - `filebatchuploaderror`
 - `filedeleteerror`
 - `filecustomerror`
+- `fileuploaded`
 - `filebatchuploadcomplete`
 - `filebatchuploadsuccess`
 
