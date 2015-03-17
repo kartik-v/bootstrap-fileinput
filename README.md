@@ -868,7 +868,7 @@ _string_ the progress message displayed in caption window when multiple (more th
 
 - `{n}`: the number of files selected.
 
-### msgNoFolders
+### msgFoldersNotAllowed
 _string_ the progress message displayed in caption window when multiple (more than one) files are selected. Defaults to `{n} files selected`. The following variables will be replaced:
 
 - `{n}`: the number of files selected.
