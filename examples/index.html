@@ -12,18 +12,27 @@
     </head>
     <body>
         <div class="container kv-main">
+            <div class="page-header">
             <h1>Bootstrap File Input Example <small><a href="https://github.com/kartik-v/bootstrap-fileinput-samples"><i class="glyphicon glyphicon-download"></i> Download Sample Files</a></small></h1>
+            </div>
             <form enctype="multipart/form-data">
-                <input id="file-0" class="file" type="file" multiple=true>
+                <input id="file-0" class="file" type="file" multiple data-min-file-count="1">
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-default">Reset</button>
+            </form>
+            <br>
+            <form enctype="multipart/form-data">
+                <input id="file-0a" class="file" type="file" multiple data-min-file-count="3">
                 <br>
                  <div class="form-group">
-                    <input id="file-0a" class="file" type="file">
+                    <input id="file-0b" class="file" type="file">
                 </div>
                 <div class="form-group">
-                    <input id="file-1" type="file" multiple=true class="file" data-show-upload="false" data-preview-file-type="any" data-initial-caption="Kartik" data-overwrite-initial="false">
+                    <input id="file-1" type="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2">
                 </div>
                 <div class="form-group">
-                    <input id="file-2" type="file" class="file" readonly=true data-show-upload="false">
+                    <input id="file-2" type="file" class="file" readonly data-show-upload="false">
                 </div> 
                 <div class="form-group">
                     <label>Preview File Icon</label>
@@ -43,7 +52,7 @@
                     <div id="errorBlock" class="help-block"></div>
                 </div>
                 <div class="form-group">
-                    <input id="file-5" class="file" type="file" multiple=true data-preview-file-type="any" data-upload-url="#" data-preview-file-icon="">
+                    <input id="file-5" class="file" type="file" multiple data-preview-file-type="any" data-upload-url="#" data-preview-file-icon="">
                 </div>
             </form>
         </div>
@@ -52,9 +61,6 @@
     $("#file-0").fileinput({
         'allowedFileExtensions' : ['jpg', 'png','gif'],
     });
-        $("#file-0").on('fileselectnone', function() {
-            alert("HUH! No Files");
-        });
     $("#file-1").fileinput({
         uploadUrl: '#', // you must set a valid URL here else you will get an error
         allowedFileExtensions : ['jpg', 'png','gif'],

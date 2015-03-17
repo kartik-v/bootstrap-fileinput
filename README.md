@@ -48,6 +48,7 @@ This plugin was initially inspired by [this blog article](http://www.abeautifuls
 23. `previewSettings`: Allows you to configure width and height for each preview image type. The plugin has default widths and heights predefined for each type i.e `image`, `text`, `html`, `video`,  `audio`, `flash`, and `object`.
 24. `fileTypeSettings`: Allows you to configure and identify each preview file type using a callback. The plugin has default callbacks predefined to identify each type i.e `image`, `text`, `html`, `video`,  `audio`, `flash`, and `object`.
 25. Replacing tags within templates has been enhanced. With this release it will automatically check for multiple occurrences of each tag to replace within a template string.
+26. Manipulate events and add your own custom validation messages easily by returning output to abort uploads in any of the other events.
 
 ### File Upload Features
 
@@ -66,6 +67,7 @@ built upon HTML5 FormData and XMLHttpRequest Level 2 standards. Most modern brow
 10. Ability to cancel and abort ongoing AJAX uploads.
 11. Build up initial preview content (e.g. gallery of saved images). You can set initial preview actions (prebuilt support for initial preview delete). Other custom action buttons can be set for initial preview thumbnails as well. 
 12. Ensure plugin is still lean in size and optimized for performance inspite of the above features by optimally utilizing HTML5 & jquery features only.
+13. Automatically refresh preview with content from server as soon as an ajax upload finishes.
 
 > NOTE: Drag and Drop zone functionality, selectively appending or deleting files, and upload indicator with progress are ONLY AVAILABLE if you use AJAX BASED uploads (by setting `uploadUrl`).
 
@@ -111,6 +113,9 @@ Step 1: Load the following assets in your header.
 <link href="path/to/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="path/to/js/fileinput.min.js"></script>
+<!-- optionally if you need translation for your language then include 
+    locale file as mentioned below -->
+<script src="path/to/js/fileinput_locale_<lang>.js"></script>
 ```
 
 If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`.
@@ -133,39 +138,41 @@ Alternatively, you can directly call the plugin options by setting data attribut
 <input id="input-id" type="file" class="file" data-preview-file-type="text" >
 ```
 
-## Documentation
+## Translations
 
-### Plugin Options
+As shown in the installation section, translations are now enabled with release 4.1.8. You can load a locale file `/fileinput_locale_<lang>.js` after the core `fileinput.min.js` file, where `<lang>` is the language code (e.g. `de`, `fr` etc.). If  locale file does not exist, you can submit a translation for the new language via a [new pull request to add to this folder](https://github.com/kartik-v/bootstrap-fileinput/tree/master/js). Check the [sample german translation locale file]((https://github.com/kartik-v/bootstrap-fileinput/tree/master/js/fileinput_locale_de.js) to copy and create your own.
+
+## Plugin Options
 The plugin supports these following options:
 
-#### showCaption
+### showCaption
 _boolean_ whether to display the file caption. Defaults to `true`.
 
-#### showPreview
+### showPreview
 _boolean_ whether to display the file preview. Defaults to `true`.
 
-#### showRemove
+### showRemove
 _boolean_ whether to display the file remove/clear button. Defaults to `true`.
 
-#### showUpload
+### showUpload
 _boolean_ whether to display the file upload button. Defaults to `true`. This will default to a form submit button, unless the uploadUrl is specified.
 
-#### showCancel
+### showCancel
 _boolean_ whether to display the file upload cancel button. Defaults to `true`. This will be only enabled and displayed when an AJAX upload is in process.
 
-#### captionClass
+### captionClass
 _string_ any additional CSS class to append to the caption container.
 
-#### previewClass
+### previewClass
 _string_ any additional CSS class to append to the preview container.
 
-#### mainClass
+### mainClass
 _string_ any additional CSS class to append to the main plugin container.
 
-#### initialDelimiter
+### initialDelimiter
 _string_, the delimiter to be used to allow passing multiple content delimited as a string to `initialPreview`. Defaults to `'*$$*'`.
 
-#### initialPreview
+### initialPreview
 _string | array_ the initial preview content to be displayed. You can pass the minimal HTML markup for displaying your image, text, or file. 
 If set as a string, this will display a single file in the initial preview if there is no delimiter. You can set a delimiter (as defined 
 in `initialDelimiter`) to show multiple files in initial preview.  If set as an array, it will display all files in the array as an 
@@ -198,14 +205,14 @@ initialPreview: "<div class='file-preview-text'>" +
     "Filename.xlsx" + "</div>"
 ```
 
-#### initialPreviewCount
+### initialPreviewCount
 _int_, the count of initial preview items that will be added to the count of files selected in preview. This is applicable when displaying
 the right caption, when `overwriteInitial` is set to `false`.
 
-#### initialPreviewDelimiter
+### initialPreviewDelimiter
 _string_, the delimiter to be used for splitting the initial preview content as individual file thumbnails (applicable only if `initialPreview` is passed as a _string_ instead of _array_). Defaults to `*$$*`.
 
-#### initialPreviewConfig
+### initialPreviewConfig
 _array_, the configuration for setting up important properties for each `initialPreview` item (that is setup as part of `initialPreview`). Each element in the array should be an object/associative array consisting of the following keys:
 
     - `caption`: _string_, the caption or filename to display for each initial preview item content.
@@ -247,11 +254,11 @@ initialPreviewConfig: [
 - `key`: the key setting as setup in `initialPreviewConfig['key']`
 - any other extra data as `key: value` pairs passed either via `initialPreviewConfig['extra']` OR `deleteExtraData` format if former is not set.
 
-#### initialPreviewShowDelete
+### initialPreviewShowDelete
 _bool_, whether the delete button will be displayed for each thumbnail that has been created with `initialPreview`.
 
 
-#### deleteExtraData
+### deleteExtraData
 _object | function_ the extra data that will be passed as data to the initial preview delete url/AJAX server call via POST. This will be overridden by the `initialPreviewConfig['extra']` property. This can be setup either as an object (associative array of keys and values) or as a function callback. As an object, it can be set for example as:
 
 ```js
@@ -270,20 +277,20 @@ function() {
     return obj;
 }
 ```
-#### deleteUrl
+### deleteUrl
 _object | function_ the URL for deleting the image/content in the initial preview via AJAX post response. This will be overridden by the `initialPreviewConfig['url']` property.
 
-#### initialCaption
+### initialCaption
 _string_ the initial preview caption text to be displayed. If you do not set a value here and `initialPreview` is set to 
 `true` this will default to `"{preview-file-count} files selected"`, where `{preview-file-count}` is the count of the 
 files passed in `initialPreview`.
 
-#### overwriteInitial
+### overwriteInitial
 _boolean_ whether you wish to overwrite the initial preview content and caption setup. This defaults to `true`, whereby, any `initialPreview` content set 
 will be overwritten, when new file is uploaded or when files are cleared. Setting it to `false` will help displaying a saved image or file from database always - 
 useful especially when using the `multiple` file upload feature.
  
-#### layoutTemplates
+### layoutTemplates
 
 _object_ the templates configuration for rendering each part of the layout. You can set the following templates to control the widget layout:
 
@@ -395,7 +402,7 @@ The `layoutTemplates` if not set will default to:
 };
 ```
 
-#### previewTemplates
+### previewTemplates
 
 _object_ the templates configuration for rendering each preview file type. The following file types are recognized:
 
@@ -494,7 +501,7 @@ DEFAULT_PREVIEW = '<div class="file-preview-other">\n' +
     '   </div>'
 ```
 
-#### allowedFileTypes
+### allowedFileTypes
 
 _array_ the list of allowed file types for upload. This by default is set to null which means the plugin supports all file types for upload. If an 
 invalid file type is found, then a validation error message as set in `msgInvalidFileType` will be raised. The following types as set in `fileTypeSettings` 
@@ -504,7 +511,7 @@ are available for setup.
 ['image', 'html', 'text', 'video', 'audio', 'flash', 'object']
 ```
 
-#### allowedFileExtensions
+### allowedFileExtensions
 
 _array_ the list of allowed file extensions for upload. This by default is set to null which means the plugin supports all file extensions for upload. If an 
 invalid file extension is found, then a validation error message as set in `msgInvalidFileExtension` will be raised. An example of setting this could be:
@@ -516,7 +523,7 @@ invalid file extension is found, then a validation error message as set in `msgI
 > NOTE: You need to be careful in case you are setting both `allowedFileTypes` and `allowedFileExtensions`. In this case, the `allowedFileTypes` property 
 is validated first and generally precedes the `allowedFileExtensions` setting (and the latter validation maybe skipped).
 
-#### allowedPreviewTypes
+### allowedPreviewTypes
 
 _array_ the list of allowed preview types for your widget. This by default supports all file types for preview. The plugin by default treats each
 file as an object if it does not match any of the previous types. To disable this behavior, you can remove `object` from the list of `allowedPreviewTypes`
@@ -527,11 +534,11 @@ This is by default setup as following:
 ['image', 'html', 'text', 'video', 'audio', 'flash', 'object']
 ```
 
-#### allowedPreviewMimeTypes
+### allowedPreviewMimeTypes
 
 _array_ the list of allowed mime types for preview. This is set to null by default which means all possible mime types are allowed. This setting works in combination with `allowedPreviewTypes` to filter only the needed file types allowed for preview. You can check this [list of allowed mime types](http://www.sitepoint.com/web-foundations/mime-types-complete-list/) to add to this list if needed.
 
-#### customLayoutTags
+### customLayoutTags
 
 _object_ the list of additional custom tags that will be replaced in the **layout** templates. This should be an associative array object of `key: value` pairs, where:
 
@@ -555,7 +562,7 @@ customLayoutTags: {
 }
 ```
 
-#### customPreviewTags
+### customPreviewTags
 
 _object_ the list of additional custom tags that will be replaced in the **preview** templates. This should be an associative array object of `key: value` pairs, where:
 
@@ -578,7 +585,7 @@ customPreviewTags: {
     }
 }
 ```
-#### previewSettings
+### previewSettings
 
 _object_ the format settings (width and height) for rendering each preview file type. This is by default setup as following:
 
@@ -595,7 +602,7 @@ _object_ the format settings (width and height) for rendering each preview file 
 }
 ```
 
-#### fileTypeSettings
+### fileTypeSettings
 
 _object_ the settings to validate and identify each file type when a file is selected for upload. This is a list of callbacks, which accepts the file mime type and file name as a parameter.
 This is by default setup as following:
@@ -631,61 +638,61 @@ This is by default setup as following:
 }
 ```
 
-#### previewFileIcon
+### previewFileIcon
 _string_ the icon to be shown in each preview file thumbnail when an unreadable file type for preview is detected. Defaults to `<i class="glyphicon glyphicon-file"></i>`.
 
-#### browseLabel
+### browseLabel
 _string_ the label to display for the file picker/browse button. Defaults to `Browse &hellip;`.
 
-#### browseIcon
+### browseIcon
 _string_ the icon to display before the label for the file picker/browse button. Defaults to `<i class="glyphicon glyphicon-folder-open"></i> &nbsp;`.
 
-#### browseClass
+### browseClass
 _string_ the CSS class for the file picker/browse button. Defaults to `btn btn-primary`.
 
-#### removeLabel
+### removeLabel
 _string_ the label to display for the file remove button. Defaults to `Remove`.
 
-#### removeIcon
+### removeIcon
 _string_ the icon to display before the label for the file picker/remove button. Defaults to `<i class="glyphicon glyphicon-trash"></i> &nbsp;`.
 
-#### removeClass
+### removeClass
 _string_ the CSS class for the file remove button. Defaults to `btn btn-default`.
 
-#### removeTitle
+### removeTitle
 _string_ the title to display on hover for the file remove button. Defaults to `Clear selected files`.
 
-#### cancelLabel
+### cancelLabel
 _string_ the label to display for the file cancel button. Defaults to `Cancel`.
 
-#### cancelIcon
+### cancelIcon
 _string_ the icon to display before the label for the file picker/remove button. Defaults to `<i class="glyphicon glyphicon-ban-circle"></i> &nbsp;`.
 
-#### cancelClass
+### cancelClass
 _string_ the CSS class for the file cancel button. Defaults to `btn btn-default`.
 
-#### cancelTitle
+### cancelTitle
 _string_ the title to display on hover for the file cancel button. Defaults to `Abort ongoing upload`.
 
-#### uploadLabel
+### uploadLabel
 _string_ the label to display for the file upload button. Defaults to `Upload`.
 
-#### uploadIcon
+### uploadIcon
 _string_ the icon to display before the label for the file upload button. Defaults to `<i class="glyphicon glyphicon-upload"></i> &nbsp;`.
 
-#### uploadClass
+### uploadClass
 _string_ the CSS class for the file upload button. Defaults to `btn btn-default`.
 
-#### uploadTitle
+### uploadTitle
 _string_ the title to display on hover for the file remove button. Defaults to `Upload selected files`.
 
-#### uploadUrl
+### uploadUrl
 _string_ the URL for the upload processing action (typically for ajax based processing). Defaults to `null`. If this is not set or `null`, then the upload button action will default to form submission. NOTE: This is MANDATORY if you want to use advanced features like drag & drop, append/remove files, selectively upload files via ajax etc.
 
-#### uploadAsync
+### uploadAsync
 _bool_ whether the batch upload of multiple files will be asynchronous/in parallel. Defaults to `true`.
 
-#### uploadExtraData
+### uploadExtraData
 _object | function_ the extra data that will be passed as data to the url/AJAX server call via POST. This can be setup either as an object (associative array of keys and values) or as a function callback. As an object, it can be set for example as:
 
 ```js
@@ -705,13 +712,16 @@ function() {
 }
 ```
 
-#### maxFileSize
+### maxFileSize
 _float_ the maximum file size for upload in KB.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
 
-#### maxFileCount
-_float_ the maximum number of files allowed for each multiple upload. If set to `0`, it means number of files allowed is unlimited. Defaults to `0`.
+### minFileCount
+_int_ the minimum number of files allowed for each multiple upload. If set to `0`, it means number of files are optional. Defaults to `0`.
 
-#### msgSizeTooLarge
+### maxFileCount
+_int_ the maximum number of files allowed for each multiple upload. If set to `0`, it means number of files allowed is unlimited. Defaults to `0`.
+
+### msgSizeTooLarge
 _string_ the message to be displayed when the file size exceeds maximum size. Defaults to:
 
 ```
@@ -722,6 +732,18 @@ where:
 - `{name}`: will be replaced by the file name being uploaded
 - `{size}`: will be replaced by the uploaded file size
 - `{maxSize}`: will be replaced by the `maxFileSize` parameter.
+
+### msgFilesTooLess
+_string_ the message to be displayed when the file count is less than the minimum count as set in `minFileCount`. Defaults to:
+
+```
+You must select at least <b>{n}</b> {files} to upload. Please retry your upload!
+```
+
+where:
+
+- `{n}`: will be replaced by the allowed minimum files as set in `minFileCount`
+- `{files}`: will be replaced with `fileSingle` or `filePlural` properties in locale file depending on the `minFileCount`.
 
 ### msgFilesTooMany
 _string_ the message to be displayed when the file count exceeds maximum count as set in `maxFileCount`. Defaults to:
@@ -735,7 +757,7 @@ where:
 - `{n}`: will be replaced by number of files selected for upload
 - `{m}`: will be replaced by the allowed maximum files as set in `maxFileCount`
 
-#### msgFileNotFound
+### msgFileNotFound
 _string_ the exception message to be displayed when the file selected is not found by the FileReader. Defaults to:
 
 ```
@@ -745,7 +767,7 @@ where:
 
 - `{name}`: will be replaced by the file name being uploaded
 
-#### msgFileSecured
+### msgFileSecured
 _string_ the exception message to be displayed when the file selected is not allowed to be accessed due to a security exception. Defaults to:
 
 ```
@@ -755,7 +777,7 @@ where:
 
 - `{name}`: will be replaced by the file name being uploaded
 
-#### msgFileNotReadable
+### msgFileNotReadable
 _string_ the exception message to be displayed when the file selected is not readable by the FileReader API. Defaults to:
 
 ```
@@ -765,7 +787,7 @@ where:
 
 - `{name}`: will be replaced by the file name being uploaded
 
-#### msgFilePreviewAborted
+### msgFilePreviewAborted
 _string_ the exception message to be displayed when the file preview upload is aborted. Defaults to:
 
 ```
@@ -775,7 +797,7 @@ where:
 
 - `{name}`: will be replaced by the file name being uploaded
 
-#### msgFilePreviewError
+### msgFilePreviewError
 _string_ the exception message to be displayed for any other error when previewing the file. Defaults to:
 
 ```
@@ -785,7 +807,7 @@ where:
 
 - `{name}`: will be replaced by the file name being uploaded
 
-#### msgInvalidFileType
+### msgInvalidFileType
 _string_ the message to be displayed when the file type is not in one of the file types set in `allowedFileTypes`. Defaults to:
 
 ```
@@ -796,7 +818,7 @@ where:
 - `{name}`: will be replaced by the file name being uploaded
 - `{types}`: will be replaced by the comma separated list of types defined in `allowedFileTypes`.
 
-#### msgInvalidFileExtension
+### msgInvalidFileExtension
 _string_ the message to be displayed when the file type is not in one of the file extensions set in `allowedFileExtensions`. Defaults to:
 
 ```
@@ -807,7 +829,7 @@ where:
 - `{name}`: will be replaced by the file name being uploaded
 - `{extensions}`: will be replaced by the comma separated list of extensions defined in `allowedFileExtensions`.
 
-#### msgValidationError
+### msgValidationError
 _string_ the exception message to be displayed within the caption container (instead of `msgFilesSelected`), 
 when a validation error is encountered. Defaults to:
 
@@ -815,10 +837,10 @@ when a validation error is encountered. Defaults to:
 <span class="text-danger"><i class="glyphicon glyphicon-exclamation-sign"></i> File Upload Error</span>
 ```
 
-#### msgErrorClass
+### msgErrorClass
 _string_ the css class for the error message to be displayed in the preview window when the file size exceeds `maxSize`. Defaults to `file-error-message`.
 
-#### msgLoading
+### msgLoading
 _string_ the message displayed when the files are getting read and loaded for preview. Defaults to 
 
 ```Loading  file {index} of {files} &hellip;```
@@ -828,7 +850,7 @@ The following special variables will be replaced:
 - `{index}`: the sequence number of the current file being loaded.
 - `{files}`: the total number of files selected for upload.
 
-#### msgProgress
+### msgProgress
 _string_ the progress message displayed as each file is loaded for preview. Defaults to:
 
 ```Loading file {index} of {files} - {name} - {percent}% completed.```
@@ -840,18 +862,23 @@ The following variables will be replaced:
 - `{percent}`: the percentage of file read and loaded.
 - `{name}`: the name of the current file being loaded.
 
-#### msgSelected
+### msgSelected
 _string_ the progress message displayed in caption window when multiple (more than one) files are selected. Defaults to `{n} files selected`. The following variables will be replaced:
 
 - `{n}`: the number of files selected.
 
-#### progressClass
+### msgNoFolders
+_string_ the progress message displayed in caption window when multiple (more than one) files are selected. Defaults to `{n} files selected`. The following variables will be replaced:
+
+- `{n}`: the number of files selected.
+
+### progressClass
 _string_ the upload progress bar CSS class to be applied when AJAX upload is in process (applicable only for ajax uploads). Defaults to `progress-bar progress-bar-success progress-bar-striped active`. 
 
-#### progressCompleteClass
+### progressCompleteClass
 _string_ the upload progress bar CSS class to be applied when AJAX upload is complete. Defaults to `progress-bar progress-bar-success`. 
 
-#### previewFileType
+### previewFileType
 _string_ the type of files that are to be displayed in the preview window. Defaults to `image`. Can be one of the following:
 
 - `image`: Only `image` type files will be shown in preview.
@@ -860,33 +887,33 @@ _string_ the type of files that are to be displayed in the preview window. Defau
 
 Files other than `image` or `text` will be displayed as a thumbnail with the filename in the preview window.
 
-#### wrapTextLength
+### wrapTextLength
 _integer_ the number of characters after which the content will be stripped/wrapped for text preview. Defaults to `250`.
 
-#### wrapIndicator
+### wrapIndicator
 _string_ the type of files that are to be displayed in the preview window. Defaults to ` <span class="wrap-indicator" title="{title}">[&hellip;]</span>`.  The following variables will be replaced:
 
 - `{title}`: the content of the entire text file that will be displayed as a span title element.
 
-#### elErrorContainer
+### elErrorContainer
 _string_ the identifier for the container element displaying the error (e.g. `'#id'`). If not set, will default to the container with CSS class `kv-fileinput-error` inside the preview container (identified by `elPreviewContainer`). The `msgErrorClass` will be automatically appended to this container before displaying the error.
 
-#### elCaptionContainer
+### elCaptionContainer
 _string_ the identifier for the container element containing the caption (e.g. `'#id'`). If not set, will default to the container with CSS class `file-caption` inside the main plugin container.
 
-#### elCaptionText
+### elCaptionText
 _string_ the identifier for the container element containing the caption text (e.g. `'#id'`). If not set, will default to the container with CSS class `file-caption-name` inside the main plugin container.
 
-#### elPreviewContainer
+### elPreviewContainer
 _string_ the identifier for the container element containing the preview (e.g. `'#id'`). If not set, will default to the container with CSS class `file-preview` inside the main plugin container.
 
-#### elPreviewImage
+### elPreviewImage
 _string_ the identifier for the element containing the preview image thumbnails (e.g. `'#id'`). If not set, will default to the container with CSS class `file-preview-thumbnails` inside the main plugin container.
 
-#### elPreviewStatus
+### elPreviewStatus
 _string_ the identifier for the element containing the preview progress status (e.g. `'#id'`). If not set, will default to the container with CSS class `file-preview-status` inside the main plugin container.
 
-#### slugCallback
+### slugCallback
 _function_ a callback to convert the filename as a slug string eliminating special characters. If not set, it will use the plugin's own internal `slugDefault` method. This callback function includes the filename as parameter and must return a converted filename string.
 
 **Example:**
@@ -897,16 +924,16 @@ slugCallback: function(filename) {
 }
 ```
 
-#### dropZoneEnabled
+### dropZoneEnabled
 _bool_ whether to enable a drag and drop zone for dragging and dropping files to. This is available only for ajax based uploads. Defaults to `true`. 
 
-#### dropZoneTitle
+### dropZoneTitle
 _string_ title to be displayed in the drag and drop zone. This is available only for ajax based uploads. Defaults to `Drag & drop files here &hellip;`. 
 
-#### dropZoneTitleClass
+### dropZoneTitleClass
 _string_ CSS class for the drag & drop zone title. Defaults to `file-drop-zone-title`. 
 
-#### fileActionSettings
+### fileActionSettings
 _object_ configuration for setting up file actions for newly selected file thumbnails in the preview window. The following properties can be set:
     - `removeIcon`: _string_, icon for remove button to be displayed in each file thumbnail.
     - `removeClass`: _string_, CSS class for the remove button in each file thumbnail.
@@ -943,23 +970,27 @@ Defaults to the following setting:
 }
 ```
 
-#### otherActionButtons
+### otherActionButtons
 _string_ markup for additional action buttons to display within the initial preview thumbnails (for example displaying an image edit button). The following tags can be used in the markup and will be automatically replaced:
 
 - `{dataKey}`: Will be replaced with the `key` set within `initialPreviewConfig`.    
 
-#### textEncoding
+### textEncoding
 _string_ the encoding to be used while reading a text file. Applicable only for previewing text files. Defaults to `UTF-8`. 
 
-#### ajaxSettings
+### ajaxSettings
 _object_ additional ajax settings to pass to the plugin before submitting the ajax request. Applicable only for ajax uploads. This can be useful to pass additional tokens to headers or one can use it for setting other ajax options for advanced cases. Refer the [jQuery ajax documentation](http://api.jquery.com/jQuery.ajax/) for the various settings you can configure.
 
-#### ajaxDeleteSettings
+### ajaxDeleteSettings
 _object_ additional ajax settings to pass to the plugin before submitting the delete ajax request in each initial preview thumbnail. Applicable only for ajax deletions. This can be useful to pass additional tokens to headers or one can use it for setting other ajax options for advanced cases. Refer the [jQuery ajax documentation](http://api.jquery.com/jQuery.ajax/) for the various settings you can configure.
 
+### showAjaxErrorDetails
+_boolean_ whether to show details of the error stack from the server log when an error is encountered via ajax response. Defaults to `true`.
 
-### Plugin Events
+## Plugin Events
 The plugin supports these events:
+
+### File Events
 
 #### fileclear
 This event is triggered when the file input the remove button is pressed for clearing the file preview.
@@ -978,23 +1009,6 @@ This event is triggered after the files in the preview are cleared.
 ```js
 $('#input-id').on('filecleared', function(event) {
     console.log("filecleared");
-});
-```
-
-#### fileerror
-This event is triggered when a client validation error is encountered for an uploaded file. 
-Additional parameters available are: 
-
-- `file`: the file object instance
-- `previewId`: the identifier for the preview file container
-- `index`: the zero-based sequential index of the loaded file in the preview list
-- `reader`: the FileReader instance if available
-- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
-
-**Example:**
-```js
-$('#input-id').on('fileerror', function(event, file, previewId, index) {
-    console.log("fileerror");
 });
 ```
 
@@ -1126,20 +1140,6 @@ $('#input-id').on('fileunlock', function(event, filestack) {
 });
 ```
 
-#### filedeleteerror
-This event is triggered when an error is faced in deletion of each thumbnail file in the `initialPreview` content set. Additional parameters available are: 
-
-- `data`: the output of `deleteExtraData` object.
-- `previewId`: the identifier of the preview thumbnail container.
-- `index`: the zero-based index of the file in the preview container.
-- `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
-
-```js
-$('#input-id').on('filedeleteerror', function(event, data, preview, index) {
-    console.log('File delete error');
-});
-```
-
 #### filepreupload
 This event is triggered before upload of each thumbnail file. Additional parameters available are: 
 
@@ -1183,27 +1183,6 @@ $('#input-id').on('fileuploaded', function(event, data, previewId, index) {
 });
 ```
 
-#### fileuploaderror
-This event is triggered when an upload or file input validation error is encountered primarily for ajax uploads. Additional parameters available are: 
-
-- `data`: This is a data object (associative array) that sends the following information, whose keys are:
-    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
-    - `files`: the file stack array (or empty object if not available).
-    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
-    - `response`: the data sent via ajax response (or empty object if not available).
-    - `reader`: the FileReader instance if available
-    - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
-- `previewId`: the identifier of each file's parent thumbnail div element in the preview window.
-- `index`: the zero-based index of the file in the file stack.
-
-```js
-$('#input-id').on('fileuploaderror', function(event, data, previewId, index) {
-    var form = data.form, files = data.files, extra = data.extra, 
-        response = data.response, reader = data.reader;
-    console.log('File upload error');
-});
-```
-
 #### filebatchpreupload
 This event is triggered before a batch upload (for both synchronous and asynchronous uploads) after the upload button is clicked. 
 Additional parameters available are: 
@@ -1242,24 +1221,6 @@ $('#input-id').on('filebatchuploadsuccess', function(event, data) {
 });
 ```
 
-#### filebatchuploaderror
-This event is triggered when any error is faced in the synchronous batch upload (i.e. when `uploadAsync` is `false`). Additional parameters available are: 
-
-- `data`: This is a data object (associative array) that sends the following information, whose keys are:
-    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
-    - `files`: the file stack array (or empty object if not available).
-    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
-    - `response`: the data sent via ajax response (or empty object if not available).
-    - `reader`: the FileReader instance if available
-    - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
-
-```js
-$('#input-id').on('filebatchuploaderror', function(event, data) {
-    var form = data.form, files = data.files, extra = data.extra, 
-        response = data.response, reader = data.reader;
-    console.log('File upload error');
-});
-```
 
 #### filebatchuploadcomplete
 This event is triggered after completion of either the synchronous OR asynchronous ajax batch upload. Additional parameters available are: 
@@ -1291,28 +1252,199 @@ $('#input-id').on('fileenabled', function(event) {
 });
 ```
 
+### Error Events
+
+#### fileerror
+This event is triggered when a client validation error is encountered for an uploaded file. This allows access to an object `params` as a parameter.
+
+- `data`: object/associative array containing the following 
+    - `id`: the preview thumbnail identifier (or undefined if not available)
+    - `index`: the file index/preview thumbnail index (or undefined if not available)
+    - `file`: the file object (or undefined if not available)
+    - `reader`: the file reader instance (or undefined if not available)
+    - `files`: the file stack array (or empty object if not available).
+
+**Example:**
+```js
+$('#input-id').on('fileerror', function(event, params) {
+   console.log(params.id);
+   console.log(params.index);
+   console.log(params.file);
+   console.log(params.reader);
+   console.log(params.files);
+});
+```
+
+#### fileuploaderror
+This event is triggered when an upload or file input validation error is encountered primarily for ajax uploads (through the upload icon for each thumbnail or for every file uploaded when uploadAsync is `true`). Additional parameters available are: 
+
+- `data`: This is a data object (associative array) that sends the following information, whose keys are:
+    - `id`: the identifier of each file's parent thumbnail div element in the preview window.
+    - `index`: the zero-based index of the file in the file stack.
+    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
+    - `files`: the file stack array (or empty object if not available).
+    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
+    - `response`: the data sent via ajax response (or empty object if not available).
+    - `reader`: the FileReader instance if available
+    - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
+
+```js
+$('#input-id').on('fileuploaderror', function(event, data, previewId, index) {
+    var form = data.form, files = data.files, extra = data.extra, 
+        response = data.response, reader = data.reader;
+    console.log('File upload error');
+});
+```
+
+#### filebatchuploaderror
+This event is triggered when any error is faced in the synchronous batch upload (i.e. when `uploadAsync` is `false`). Additional parameters available are: 
+
+- `data`: This is a data object (associative array) that sends the following information, whose keys are:
+    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
+    - `files`: the file stack array (or empty object if not available).
+    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
+    - `response`: the data sent via ajax response (or empty object if not available).
+    - `reader`: the FileReader instance if available
+    - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
+
+```js
+$('#input-id').on('filebatchuploaderror', function(event, data) {
+    var form = data.form, files = data.files, extra = data.extra, 
+        response = data.response, reader = data.reader;
+    console.log('File upload error');
+});
+```
+
+#### filedeleteerror
+This event is triggered when an error is faced in deletion of each thumbnail file in the `initialPreview` content set. Additional parameters available are: 
+
+- `data`: This is a data object (associative array) that sends the following information, whose keys are:
+    - `id`: the identifier of the preview thumbnail container.
+    - `index`: the zero-based index of the file in the preview container.
+    - `response`: the data sent via ajax response (or empty object if not available).
+    - `extra`: the output of `deleteExtraData` object.
+    - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
+
+```js
+$('#input-id').on('filedeleteerror', function(event, data) {
+    console.log('File delete error');
+});
+```
+
+#### filefoldererror
+This event is triggered when a folder or multiple folders have been dragged & dropped to the file preview drop zone. Additional parameters available are: 
+
+- `folders`: The count of folders dropped.
+
+```js
+$('#input-id').on('filefoldererror', function(event, folders) {
+    console.log('File folder dropped error');
+```
+
+#### filecustomerror
+This event is triggered manually by the user from one of the other events by returning an error object from the source event. Refer **Event Manipulation** section for details. Additional parameters available are: 
+
+- `data`: This is a data object (associative array) that sends the following information, whose keys are:
+    - `form`: the FormData object which is passed via XHR2 (or empty object if not available).
+    - `response`: the aborted data sent when returned when triggering the validation error from the source event. 
+    - `files`: the file stack array (or empty object if not available).
+    - `extra`: the `uploadExtraData` settings for the plugin (or empty object if not available).
+    - `reader`: the FileReader instance if available
+    - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (an empty object usually).
+
+```js
+$("#input").on('filecustomerror', function(event, params) {
+   console.log(params.id);
+   console.log(params.index);
+   console.log(params.data);
+});
+```
+
+### Event Manipulation
+With release v4.1.8, you can return data for most of the events and use it for advanced processing. This functionality is not applicable for the following events.
+
+- `fileclear`
+- `filecleared`
+- `filereset`
+- `fileerror`
+- `fileuploaderror`
+- `filebatchuploaderror`
+- `filedeleteerror`
+- `filefoldererror`
+- `filecustomerror`
+- `fileuploaded`
+- `filebatchuploadcomplete`
+- `filebatchuploadsuccess`
+
+For all the events other than ones mentioned above, you can set a custom validation error which will be triggered just before upload is initiated.
+
+This will enable you to add your additional custom validations to enhance the fileinput to be used for innumerous scenarios. It will allow an ability to return an associative object with any of the fileinput events (except the error events and the `filebatchuploadsuccess` or `filebatchuploadcomplete`) e.g. `change`, `fileselect`, `filepreupload`, `filebatchpreupload` etc.
+
+The object can return the following keys:
+
+- `message`: _string_, the validation error message to be displayed before upload. If this is set the plugin will automatically abort the upload whenever called and display this as an error message. You can use this property for example to read a file and perform your own custom validation.
+- `data`: _object_, an optional associative array of additional data at abort, that you can pass for usage later. 
+
+**Example**
+
+- **STEP 1:** You can trigger an error to abort from `filepreupload`
+
+```js
+$('#input').on('filepreupload', function(event, data, previewId, index, jqXHR) {
+    // do your validation and return an error like below
+    if (customValidationFailed) {
+       return {
+           message: 'You are not allowed to do that', 
+           data: {key1: 'Key 1', detail1: 'Detail 1'}
+       };
+   }
+});
+```
+The above abort will be triggered at time of upload for (ajax uploads) OR at form submission (for non-ajax uploads).
+
+- **STEP 2:** Reading additional data at abort by trapping the `filecustomerror` event
+
+```js
+$('#input').on('filecustomerror', function(event, params) {
+   // params.abortData will contain the additional abort data passed
+}
+```
+
+As mentioned before, the above functionality of raising a `filecustomerror` is not supported in the following events:
+
+- `fileclear`
+- `filecleared`
+- `filereset`
+- `fileerror`
+- `fileuploaderror`
+- `filebatchuploaderror`
+- `filedeleteerror`
+- `filecustomerror`
+- `filebatchuploadcomplete`
+- `filebatchuploadsuccess`
+
 ### Plugin Methods
 The plugin supports these methods:
 
-#### disable
+### disable
 Disable the file input.
 ```js
 $('#input-id').fileinput('disable');
 ```
 
-#### enable
+### enable
 Enable the file input.
 ```js
 $('#input-id').fileinput('enable');
 ```
 
-#### reset
+### reset
 Reset the file input.
 ```js
 $('#input-id').fileinput('reset');
 ```
 
-#### refresh
+### refresh
 Refreshes the file input plugin based on options provided. You can supply an array of plugin options as a parameter.
 ```js
 // example 1 (disable at runtime)
@@ -1323,34 +1455,34 @@ $('#input-id').fileinput('refresh');
 $('#input-id').fileinput('refresh', {browseLabel: 'Select...', removeLabel: 'Delete'});
 ```
 
-#### clear
+### clear
 Clear the file input and all files from preview.
 ```js
 $('#input-id').fileinput('clear');
 ```
 
-#### upload
+### upload
 Trigger ajax upload of the files that are selected. Applicable only if `uploadUrl` is set.
 
 ```js
 $('#input-id').fileinput('upload');
 ```
 
-#### cancel
+### cancel
 Cancel an ongoing ajax upload of the files.
 
 ```js
 $('#input-id').fileinput('cancel');
 ```
 
-#### lock
+### lock
 Locks the file input by disabling all actions/buttons except a cancel button to abort ongoing AJAX requests (for ajax uploads only).
 
 ```js
 $('#input-id').fileinput('lock');
 ```
 
-#### unlock
+### unlock
 Unlocks and enables the file input back again by reversing the outcome of the `lock` action.
 
 ```js

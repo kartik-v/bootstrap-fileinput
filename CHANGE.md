@@ -1,6 +1,6 @@
 version 4.1.8
 =============
-**Date**: 24-Feb-2015
+**Date**: 13-Mar-2015
 
 1. (bug #171): Fix typo for files validation.
 2. (enh #167, #173): New `deleteExtraData` property for ajax deletions.
@@ -20,6 +20,31 @@ version 4.1.8
     - New property `ajaxDeleteSettings` to help extend and add to delete ajax settings. 
     - `ajaxSettings` to help extend and add upload ajax settings
 16. (bug #193): Better validation for triggering `filebatchuploadcomplete` on async batch upload completion.
+17. (enh #202): Ability to add Translations / Locales.
+    - Identify and group all messages that need to be translated configurable via `$.fn.fileinput.locales['<lang-code>']`
+    - Set default english messages configuration `$.fn.fileinput.locales['en']` within the plugin core code
+    - Individual locale files need to be created as separate js files e.g. `fileinput_locale_<lang>.js`
+18. (enh #203): Enhancements and revamp of all error events.
+    - fileerror
+    - fileuploaderror
+    - filebatchuploaderror
+    - filedeleteerror
+    - filefoldererror (new event - see #209)
+    - filecustomerror (new event - see #206)
+19. (enh #204): New properties `fileMinCount` and `msgFilesTooLess` (useful to make file input mandatory).
+    - The `fileMinCount` property will allow to set the minimum file count needed before triggering upload. It will work for both `ajax` uploads and `normal form based submission`.
+    - This will enable you to set the file input to be a mandatory / required input. (e.g. `fileMinCount` = `1`). The `msgFilesTooLess` will be displayed and error raised.
+    - If `fileMinCount` is set to `0` it will be treated as files are optional and no error will be triggered.
+20. (enh #205): Allow to auto set initialPreview within `filebatchuploadcomplete` & `filebatchuploadsuccess`.
+    - Allows you to auto define the `initialPreview` and  `initialPreviewConfig` after an ajax upload by returning these within the data object from your ajax response on `fileuploaded` & `filebatchuploadsuccess`. 
+21. (enh #206): Ability to add custom validation and trigger custom error to abort upload.
+    - This enhancement will enable you to add your additional custom validations to enhance the fileinput to be used for innumerous scenarios. It will allow an ability to return an associative object with any of the fileinput events (except the error events and the `filebatchuploadsuccess` or `filebatchuploadcomplete`) e.g. `change`, `fileselect`, `filepreupload`, `filebatchpreupload` etc. The object can return the following keys:
+        - `message`: _string_, the validation error message to be displayed before upload. If this is set the plugin will automatically abort the upload whenever called and display this as an error message. You can use this property for example to read a file and perform your own custom validation.
+        - `data`: _object_, an optional associative array of additional data that you can pass for usage later. 
+    - You can get this data by reading `abortData` in the parameters for the new `filecustomerror` event. This new event will be triggered during upload, when  you have triggered an abort from any of the other events. 
+22. (enh #209): Better validation for folder drag and drop and auto-skip any dropped folders. New property `msgFoldersNotAllowed` added to the plugin to allow configuring the message shown. The event `filefoldererror` is triggered when a folder is dragged.
+23. (enh #211): Add ability to show detailed server error stack via `showAjaxErrorDetails`.
+24. (enh #212): Revamp preview to use a new preview caching object.
 
 version 4.1.7
 =============

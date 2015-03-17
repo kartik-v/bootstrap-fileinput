@@ -20,7 +20,8 @@
         "ajax",
         "multiple",
         "delete",
-        "progress"
+        "progress",
+        "gallery"
     ],
     "dependencies": {
         "jquery": ">= 1.9.0",
