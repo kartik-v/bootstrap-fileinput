@@ -49,6 +49,7 @@ This plugin was initially inspired by [this blog article](http://www.abeautifuls
 24. `fileTypeSettings`: Allows you to configure and identify each preview file type using a callback. The plugin has default callbacks predefined to identify each type i.e `image`, `text`, `html`, `video`,  `audio`, `flash`, and `object`.
 25. Replacing tags within templates has been enhanced. With this release it will automatically check for multiple occurrences of each tag to replace within a template string.
 26. Manipulate events and add your own custom validation messages easily by returning output to abort uploads in any of the other events.
+27. Support for translations and locales.
 
 ### File Upload Features
 
