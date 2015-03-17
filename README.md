@@ -119,7 +119,7 @@ Step 1: Load the following assets in your header.
 <script src="path/to/js/fileinput_locale_<lang>.js"></script>
 ```
 
-If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`.
+If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`. The locale file `fileinput_locale_<lang>.js` can be optionally included for translating for your language if needed.
 
 Step 2: Initialize the plugin on your page. For example,
 
