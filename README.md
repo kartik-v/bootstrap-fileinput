@@ -140,7 +140,7 @@ Alternatively, you can directly call the plugin options by setting data attribut
 
 ## Translations
 
-As shown in the installation section, translations are now enabled with release 4.1.8. You can load a locale file `/fileinput_locale_<lang>.js` after the core `fileinput.min.js` file, where `<lang>` is the language code (e.g. `de`, `fr` etc.). If  locale file does not exist, you can submit a translation for the new language via a [new pull request to add to this folder](https://github.com/kartik-v/bootstrap-fileinput/tree/master/js). Check the [sample german translation locale file]((https://github.com/kartik-v/bootstrap-fileinput/tree/master/js/fileinput_locale_de.js) to copy and create your own.
+As shown in the installation section, translations are now enabled with release 4.1.8. You can load a locale file `/fileinput_locale_<lang>.js` after the core `fileinput.min.js` file, where `<lang>` is the language code (e.g. `de`, `fr` etc.). If  locale file does not exist, you can submit a translation for the new language via a [new pull request to add to this folder](https://github.com/kartik-v/bootstrap-fileinput/tree/master/js). Check the [sample english file]((https://github.com/kartik-v/bootstrap-fileinput/tree/master/js/fileinput_locale_en.js) to copy and create one for your own language.
 
 ## Plugin Options
 The plugin supports these following options:
