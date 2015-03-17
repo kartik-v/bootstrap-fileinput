@@ -33,7 +33,7 @@
         msgLoading: 'Wird Geladen Datei {index} von {files} &hellip;',
         msgProgress: 'Wird Geladen Datei {index} von {files} - {name} - {percent}% fertiggestellt.',
         msgSelected: '{n} Dateien ausgewählt',
-        msgFoldersNotAllowed: 'Drag & Drop Dateien nur! {n} Ordner fallen gelassen wurden übersprungen.',
+        msgFoldersNotAllowed: 'Drag & Drop Dateien nur! Sprungen {n} gesunken Ordner.',
         dropZoneTitle: 'Drag & Drop Dateien hier &hellip;'
     };
 

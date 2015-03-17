@@ -1,5 +1,5 @@
 /*!
- * FileInput English Translations - Sample file for copying and creating other translations
+ * FileInput <language> Translations - Template file for copying and creating other translations
  *
  * This file must be loaded after 'fileinput.js'. Patterns in braces '{}', or
  * any HTML markup tags in the messages must not be converted or translated.
@@ -35,7 +35,7 @@
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
         msgSelected: '{n} files selected',
-        msgFoldersNotAllowed: 'Drag & drop files only! {n} folder(s) dropped were skipped.',
+        msgFoldersNotAllowed: 'Drag & drop files only! Skipped {n} dropped folder(s).',
         dropZoneTitle: 'Drag & drop files here &hellip;'
     };
 
