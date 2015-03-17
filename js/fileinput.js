@@ -926,7 +926,10 @@
                         $frame.fadeOut('slow', function () {
                             self.clearObjects($frame);
                             $frame.remove();
-                            resetProgress();
+                            resetProgress();                            
+                            if (self.$preview.find('.file-preview-frame').length === 0) {
+                                self.reset();
+                            } 
                         });
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
