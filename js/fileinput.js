@@ -65,19 +65,20 @@
                     .repl('{footer}', previewCache.footer(id, i, isDisabled));
             },
             add: function (id, content, config, append) {
-                var data = $.extend(true, {}, previewCache.data[id]), len = data.content.length;
+                var data = $.extend(true, {}, previewCache.data[id]), index;
                 if (!isArray(content)) {
                     content = content.split(data.delimiter);
                 }
                 if (append) {
-                    data.content.push(content);
-                    data.config.push(config);
+                    index = data.content.push(content) - 1;
+                    data.config[index] = config;
                 } else {
+                    index = content.length;
                     data.content = content;
                     data.config = config;
                 }
                 previewCache.data[id] = data;
-                return len;
+                return index;
             },
             set: function (id, content, config, append) {
                 var data = $.extend(true, {}, previewCache.data[id]), i;
@@ -1144,7 +1145,7 @@
             }, self.ajaxSettings);
             self.ajaxRequests.push($.ajax(settings));
         },
-        initUploadSuccess: function (out, $thumb) {
+        initUploadSuccess: function (out, $thumb, allFiles) {
             var self = this, append, data, index, $newThumb, content, config;
             if (typeof out !== 'object') {
                 return;
@@ -1155,10 +1156,10 @@
                 append = out.append === undefined || out.append ? true : false;
                 self.overwriteInitial = false;
                 if ($thumb !== undefined) {
-                    index = previewCache.add(self.id, content, config[0], append);
-                    data = previewCache.get(self.id, index, false);
-                    $newThumb = $(data).hide();
-                    setTimeout(function () {
+                    setTimeout(function() {
+                        index = previewCache.add(self.id, content, config[0], append);
+                        data = previewCache.get(self.id, index, false);
+                        $newThumb = $(data).hide();
                         $thumb.after($newThumb).fadeOut('slow', function () {
                             $newThumb.fadeIn('slow').css('display:inline-block');
                         });
@@ -1239,7 +1240,7 @@
                         $btnDelete.hide();
                         self.filestack[i] = undefined;
                         self.raise('fileuploaded', [outData, previewId, i]);
-                        self.initUploadSuccess(data, $thumb);
+                        self.initUploadSuccess(data, $thumb, allFiles);
                         if (!allFiles) {
                             self.resetFileStack();
                         }
