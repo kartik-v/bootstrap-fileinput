@@ -313,8 +313,7 @@ _object_ the templates configuration for rendering each part of the layout. You 
     - `{removeIcon}`: the icon for the remove button. Will be replaced with the `removeIcon` set within `fileActionSettings`.
     - `{removeTitle}`: the title to display on hover for the remove button. Will be replaced with the `removeTitle` set within `fileActionSettings`.
     - `{dataUrl}`: the URL for deleting the file thumbnail for `initialPreview` content only. Will be replaced with the `url` set within `initialPreviewConfig`.
-    - `{dataKey}`: the key (additional data) that will be passed to the URL above via POST to the AJAX call. Will be replaced with the `key` set within `initialPreviewConfig`.    
-    - `{dataIndex}`: will be replaced with the `index` of each row item in `initialPreviewConfig`. 
+    - `{dataKey}`: the key (additional data) that will be passed to the URL above via POST to the AJAX call. Will be replaced with the `key` set within `initialPreviewConfig`.
 - `actionUpload`: the template for the file upload action button within the thumbnail `footer`.
     - `{uploadClass}`: the css class for the upload button. Will be replaced with the `uploadClass` set within `fileActionSettings`.
     - `{uploadIcon}`: the icon for the upload button. Will be replaced with the `uploadIcon` set within `fileActionSettings`.
@@ -398,7 +397,7 @@ The `layoutTemplates` if not set will default to:
         '    <div class="file-upload-indicator" tabindex="-1" title="{indicatorTitle}">{indicator}</div>\n' +
         '    <div class="clearfix"></div>\n' +
         '</div>',
-    actionDelete: '<button type="button" class="kv-file-remove {removeClass}" title="{removeTitle}"{dataUrl}{dataKey}{dataIndex}>{removeIcon}</button>\n',
+    actionDelete: '<button type="button" class="kv-file-remove {removeClass}" title="{removeTitle}"{dataUrl}{dataKey}>{removeIcon}</button>\n',
     actionUpload: '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">{uploadIcon}</button>\n'
 };
 ```

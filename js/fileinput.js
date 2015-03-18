@@ -101,6 +101,10 @@
                 if (!previewCache.count(id)) {
                     return;
                 }
+                if (previewCache.count(id) === 1) {
+                    delete previewCache.data[id];
+                    return;
+                }
                 previewCache.data[id].content.splice(index, 1);
                 previewCache.data[id].config.splice(index, 1);
             },
@@ -244,7 +248,7 @@
             '    <div class="clearfix"></div>\n' +
             '</div>',
         tActionDelete = '<button type="button" class="kv-file-remove {removeClass}" ' +
-            'title="{removeTitle}"{dataUrl}{dataKey}{dataIndex}>{removeIcon}</button>\n',
+            'title="{removeTitle}"{dataUrl}{dataKey}>{removeIcon}</button>\n',
         tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
             '   {uploadIcon}\n</button>\n',
         tGeneric = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}">\n' +
@@ -430,7 +434,6 @@
             self.filestack = [];
             self.ajaxRequests = [];
             self.isError = false;
-            self.noFiles = false;
             self.uploadAborted = false;
             self.dropZoneEnabled = hasDragDropSupport() && self.dropZoneEnabled;
             self.isDisabled = self.$element.attr('disabled') || self.$element.attr('readonly');
@@ -574,16 +577,13 @@
             $btnFile.off('click').on('click', function () {
                 self.raise('filebrowse');
                 if (self.isError && !self.isUploadable) {
-                    self.clear(true);
+                    self.clear();
                 }
                 $cap.focus();
             });
             $form.off('reset').on('reset', $.proxy(self.reset, self));
-            self.$container.find('.fileinput-remove:not([disabled])').off('click').on('click', function () {
-                self.clear(true);
-            });
             self.$container.off('click')
-                //.on('click', '.fileinput-remove:not([disabled])', $.proxy(self.clear, self))
+                .on('click', '.fileinput-remove:not([disabled])', $.proxy(self.clear, self))
                 .on('click', '.fileinput-cancel', $.proxy(self.cancel, self));
             if (self.isUploadable && self.dropZoneEnabled && self.showPreview) {
                 self.initDragDrop();
@@ -629,7 +629,6 @@
                 $error = self.$errorContainer;
             $error.html(msg);
             self.isError = true;
-            self.noFiles = true;
             self.updateFileDetails(0);
             $error.fadeIn(800);
             self.raise('fileerror', [params]);
@@ -838,7 +837,6 @@
             }
             var self = this,
                 vUrl = url === false ? '' : ' data-url="' + url + '"',
-                vIndex = index === false ? '' : ' data-index="' + index + '"',
                 vKey = key === false ? '' : ' data-key="' + key + '"',
                 btnDelete = self.getLayoutTemplate('actionDelete'),
                 btnUpload = '',
@@ -851,8 +849,7 @@
                 .repl('{removeIcon}', config.removeIcon)
                 .repl('{removeTitle}', config.removeTitle)
                 .repl('{dataUrl}', vUrl)
-                .repl('{dataKey}', vKey)
-                .repl('{dataIndex}', vIndex);
+                .repl('{dataKey}', vKey);
             if (showUpload) {
                 btnUpload = self.getLayoutTemplate('actionUpload')
                     .repl('{uploadClass}', config.uploadClass)
@@ -888,9 +885,7 @@
                 };
             self.$preview.find('.kv-file-remove').each(function () {
                 var $el = $(this), $frame = $el.closest('.file-preview-frame'),
-                    cache = previewCache.data[self.id], index = parseInt($el.data('index')),
-                    config = isEmpty(cache.config) && isEmpty(cache.config[index]) ? null : cache.config[index],
-                    extraData = isEmpty(config) || isEmpty(config.extra) ? deleteExtraData : config.extra,
+                    cache = previewCache.data[self.id], index, config, extraData ,
                     vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'), settings,
                     params = {id: $el.attr('id'), key: vKey, extra: extraData};
                 if (typeof extraData === "function") {
@@ -910,6 +905,9 @@
                         self.raise('filepredelete', [vKey, jqXHR, extraData]);
                     },
                     success: function (data, textStatus, jqXHR) {
+                        index = parseInt($frame.data('fileindex').replace('init_', ''));
+                        config = isEmpty(cache.config) && isEmpty(cache.config[index]) ? null : cache.config[index];
+                        extraData = isEmpty(config) || isEmpty(config.extra) ? deleteExtraData : config.extra
                         if (data.error === undefined) {
                             previewCache.unset(self.id, index);
                             self.raise('filedeleted', [vKey, jqXHR, extraData]);
@@ -927,7 +925,7 @@
                             self.clearObjects($frame);
                             $frame.remove();
                             resetProgress();                            
-                            if (self.$preview.find('.file-preview-frame').length === 0) {
+                            if (!previewCache.count(self.id)) {
                                 self.reset();
                             } 
                         });
@@ -1009,7 +1007,7 @@
                 self.unlock();
             });
         },
-        clear: function (trig) {
+        clear: function () {
             var self = this, cap;
             if (!self.isIE9 && self.reader instanceof FileReader) {
                 self.reader.abort();
@@ -1019,11 +1017,7 @@
             self.filestack = [];
             self.clearFileInput();
             self.resetErrors(true);
-            if (trig !== true && !self.noFiles) {
-                //self.raise('change');
-                self.raise('fileclear');
-            }
-            self.noFiles = false;
+            self.raise('fileclear');
             if (!self.overwriteInitial && previewCache.count(self.id)) {
                 self.showFileIcon();
                 self.resetPreview();
@@ -1065,7 +1059,7 @@
         },
         reset: function () {
             var self = this;
-            self.clear(true);
+            self.clear();
             self.resetPreview();
             self.setEllipsis();
             self.$container.find('.fileinput-filename').text('');
@@ -1723,7 +1717,6 @@
                 }
                 self.filestack.push(file);
             }
-
             readFile(0);
             self.updateFileDetails(numFiles, false);
         },
@@ -1756,7 +1749,6 @@
                 return;
             }
             self.fileInputCleared = false;
-            self.noFiles = false;
             var tfiles, msg, total, $preview = self.$preview, isDragDrop = arguments.length > 1,
                 files = isDragDrop ? e.originalEvent.dataTransfer.files : $el.get(0).files,
                 isSingleUpload = isEmpty($el.attr('multiple')), i = 0, f, m, folders = 0,
@@ -1793,7 +1785,7 @@
             }
             if (isEmpty(tfiles) || tfiles.length === 0) {
                 if (!isAjaxUpload) {
-                    self.clear(true);
+                    self.clear();
                 }
                 self.showFolderError(folders);
                 self.raise('fileselectnone');
@@ -2070,7 +2062,7 @@
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
         msgSelected: '{n} files selected',
-        msgFoldersNotAllowed: 'Drag & drop files only! Skipped {n} dropped folder(s).',
+        msgFoldersNotAllowed: 'Drag & drop files only! {n} folder(s) dropped were skipped.',
         dropZoneTitle: 'Drag & drop files here &hellip;'
     };
 

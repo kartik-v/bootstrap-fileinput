@@ -45,6 +45,7 @@ version 4.1.8
 22. (enh #209): Better validation for folder drag and drop and auto-skip any dropped folders. New property `msgFoldersNotAllowed` added to the plugin to allow configuring the message shown. The event `filefoldererror` is triggered when a folder is dragged.
 23. (enh #211): Add ability to show detailed server error stack via `showAjaxErrorDetails`.
 24. (enh #212): Revamp preview to use a new preview caching object.
+25. (enh #213): Code cleanup, eliminate change event on clear and properly reset preview cache after ajax deletes.
 
 version 4.1.7
 =============
