@@ -50,13 +50,21 @@
                     }
                 };
             },
+            fetch: function (id) {
+                return previewCache.data[id].content.filter(function (n) {
+                    return n !== undefined;
+                });
+            },
             count: function (id) {
-                return !!previewCache.data[id] && !!previewCache.data[id].content ? previewCache.data[id].content.length : 0;
+                return !!previewCache.data[id] && !!previewCache.data[id].content ? previewCache.fetch(id).length : 0;
             },
             get: function (id, i, isDisabled) {
                 var ind = 'init_' + i, data = previewCache.data[id],
                     previewId = data.initId + '-' + ind;
                 isDisabled = isDisabled === undefined ? true : isDisabled;
+                if (data.content[i] === undefined) {
+                    return '';
+                }
                 return data.template
                     .repl('{previewId}', previewId)
                     .repl('{frameClass}', ' file-preview-initial')
@@ -99,15 +107,16 @@
                 previewCache.data[id] = data;
             },
             unset: function (id, index) {
-                if (!previewCache.count(id)) {
+                var chk = previewCache.count(id);
+                if (!chk) {
                     return;
                 }
-                if (previewCache.count(id) === 1) {
+                if (chk === 1) {
                     delete previewCache.data[id];
                     return;
                 }
-                previewCache.data[id].content.splice(index, 1);
-                previewCache.data[id].config.splice(index, 1);
+                previewCache.data[id].content[index] = undefined;
+                previewCache.data[id].config[index] = undefined;
             },
             out: function (id) {
                 var html = '', data = previewCache.data[id], caption, len = previewCache.count(id);
@@ -887,7 +896,7 @@
                 };
             self.$preview.find('.kv-file-remove').each(function () {
                 var $el = $(this), $frame = $el.closest('.file-preview-frame'),
-                    cache = previewCache.data[self.id], index, config, extraData ,
+                    cache = previewCache.data[self.id], index, config, extraData,
                     vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'), settings,
                     params = {id: $el.attr('id'), key: vKey, extra: extraData};
                 if (typeof extraData === "function") {
@@ -926,10 +935,10 @@
                         $frame.fadeOut('slow', function () {
                             self.clearObjects($frame);
                             $frame.remove();
-                            resetProgress();                            
+                            resetProgress();
                             if (!previewCache.count(self.id)) {
                                 self.reset();
-                            } 
+                            }
                         });
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -1727,6 +1736,7 @@
                 }
                 self.filestack.push(file);
             }
+
             readFile(0);
             self.updateFileDetails(numFiles, false);
         },
