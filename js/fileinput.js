@@ -112,7 +112,8 @@
                     return;
                 }
                 if (chk === 1) {
-                    delete previewCache.data[id];
+                    previewCache.data[id].content = [];
+                    previewCache.data[id].config = [];
                     return;
                 }
                 previewCache.data[id].content[index] = undefined;
