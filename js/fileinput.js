@@ -666,6 +666,7 @@
                 outData = self.getOutData();
                 self.raise('filebatchpreupload', [outData]);
                 self.fileBatchCompleted = false;
+                self.uploadCache = {content: [], config: [], append: true};
                 for (i = 0; i < len; i += 1) {
                     if (self.filestack[i] !== undefined) {
                         self.uploadSingle(i, self.filestack, true);
@@ -982,6 +983,7 @@
         },
         resetUpload: function () {
             var self = this;
+            self.uploadCache = {content: [], config: [], append: true};
             self.uploadCount = 0;
             self.uploadPercent = 0;
             self.$btnUpload.removeAttr('disabled');
@@ -1155,20 +1157,24 @@
                 config = out.initialPreviewConfig || [];
                 append = out.append === undefined || out.append ? true : false;
                 self.overwriteInitial = false;
-                if ($thumb !== undefined) {
-                    setTimeout(function() {
-                        index = previewCache.add(self.id, content, config[0], append);
-                        data = previewCache.get(self.id, index, false);
-                        $newThumb = $(data).hide();
-                        $thumb.after($newThumb).fadeOut('slow', function () {
-                            $newThumb.fadeIn('slow').css('display:inline-block');
-                        });
+                if ($thumb !== undefined && !!allFiles) {
+                    index = previewCache.add(self.id, content, config[0], append);
+                    data = previewCache.get(self.id, index, false);
+                    $newThumb = $(data).hide();
+                    $thumb.after($newThumb).fadeOut('slow', function () {
+                        $newThumb.fadeIn('slow').css('display:inline-block');
                         self.initPreviewDeletes();
-                    }, 200);
+                    });
                 } else {
-                    previewCache.set(self.id, content, config, append);
-                    self.initPreview();
-                    self.initPreviewDeletes();
+                    if (allFiles) {
+                        self.uploadCache.content.push(content[0]);
+                        self.uploadCache.config.push(config[0]);
+                        self.uploadCache.append = append;
+                    } else {
+                        previewCache.set(self.id, content, config, append);
+                        self.initPreview();
+                        self.initPreviewDeletes();
+                    }
                 }
             }
         },
@@ -1189,6 +1195,9 @@
                 if ($thumbs.length > 0 && self.fileBatchCompleted) {
                     return;
                 }
+                previewCache.set(self.id, self.uploadCache.content, self.uploadCache.config, self.uploadCache.append);
+                self.initPreview();
+                self.initPreviewDeletes();
                 self.setProgress(100);
                 self.unlock();
                 self.clearFileInput();
