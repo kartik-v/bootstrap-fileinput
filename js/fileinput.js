@@ -918,7 +918,7 @@
                     success: function (data, textStatus, jqXHR) {
                         index = parseInt($frame.data('fileindex').replace('init_', ''));
                         config = isEmpty(cache.config) && isEmpty(cache.config[index]) ? null : cache.config[index];
-                        extraData = isEmpty(config) || isEmpty(config.extra) ? deleteExtraData : config.extra
+                        extraData = isEmpty(config) || isEmpty(config.extra) ? deleteExtraData : config.extra;
                         if (data.error === undefined) {
                             previewCache.unset(self.id, index);
                             self.raise('filedeleted', [vKey, jqXHR, extraData]);
