@@ -46,6 +46,7 @@ version 4.1.8
 23. (enh #211): Add ability to show detailed server error stack via `showAjaxErrorDetails`.
 24. (enh #212): Revamp preview to use a new preview caching object.
 25. (enh #213): Code cleanup, eliminate change event on clear and properly reset preview cache after ajax deletes.
+26. (enh #215): Set default delete method REST compliant.
 
 version 4.1.7
 =============

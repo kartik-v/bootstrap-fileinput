@@ -907,7 +907,7 @@
                 }
                 settings = $.extend({
                     url: vUrl,
-                    type: 'POST',
+                    type: 'DELETE',
                     dataType: 'json',
                     data: $.extend({key: vKey}, extraData),
                     beforeSend: function (jqXHR) {
@@ -919,7 +919,7 @@
                         index = parseInt($frame.data('fileindex').replace('init_', ''));
                         config = isEmpty(cache.config) && isEmpty(cache.config[index]) ? null : cache.config[index];
                         extraData = isEmpty(config) || isEmpty(config.extra) ? deleteExtraData : config.extra;
-                        if (data.error === undefined) {
+                        if (data === undefined || data.error === undefined) {
                             previewCache.unset(self.id, index);
                             self.raise('filedeleted', [vKey, jqXHR, extraData]);
                         } else {
