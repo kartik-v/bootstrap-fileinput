@@ -672,6 +672,7 @@
                 return;
             }
             len = self.filestack.length;
+            self.hasInitData = false;
             if (self.uploadAsync && self.showPreview) {
                 outData = self.getOutData();
                 self.raise('filebatchpreupload', [outData]);
@@ -1159,10 +1160,11 @@
         },
         initUploadSuccess: function (out, $thumb, allFiles) {
             var self = this, append, data, index, $newThumb, content, config;
-            if (typeof out !== 'object') {
+            if (typeof out !== 'object' || $.isEmptyObject(out)) {
                 return;
             }
-            if (out.initialPreview !== undefined) {
+            if (out.initialPreview !== undefined && out.initialPreview.length > 0) {
+                self.hasInitData = true;
                 content = out.initialPreview || [];
                 config = out.initialPreviewConfig || [];
                 append = out.append === undefined || out.append ? true : false;
@@ -1206,8 +1208,10 @@
                     return;
                 }
                 previewCache.set(self.id, self.uploadCache.content, self.uploadCache.config, self.uploadCache.append);
-                self.initPreview();
-                self.initPreviewDeletes();
+                if (self.hasInitData) {
+                    self.initPreview();
+                    self.initPreviewDeletes();
+                }
                 self.setProgress(100);
                 self.unlock();
                 self.clearFileInput();
