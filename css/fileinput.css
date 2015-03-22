@@ -24,6 +24,7 @@
     background: transparent url('../img/loading.gif') top left no-repeat;
     border: none;
 }
+
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -82,6 +83,7 @@
     padding: 10px;
     right: 0px;
 }
+
 .file-error-message {
     background-color: #f2dede;
     color: #a94442;
@@ -89,6 +91,7 @@
     border-radius: 5px;
     padding: 5px;
 }
+
 .file-caption-disabled {
     background-color: #EEEEEE;
     cursor: not-allowed;
@@ -143,14 +146,16 @@
 .file-preview-other i {
     font-size: 2.4em;
 }
-.file-other-error { 
+
+.file-other-error {
     width: 100%;
     padding-top: 30px;
-    text-align:right
+    text-align: right
 }
-.file-input-new .file-preview, .file-input-new .close, .file-input-new .glyphicon-file, 
+
+.file-input-new .file-preview, .file-input-new .close, .file-input-new .glyphicon-file,
 .file-input-new .fileinput-remove-button, .file-input-new .fileinput-upload-button,
-.file-input-ajax-new .fileinput-remove-button, .file-input-ajax-new .fileinput-upload-button  {
+.file-input-ajax-new .fileinput-remove-button, .file-input-ajax-new .fileinput-upload-button {
     display: none;
 }
 
@@ -173,7 +178,7 @@
 }
 
 .file-thumbnail-footer .file-caption-name {
-    padding-top:4px;
+    padding-top: 4px;
     font-size: 11px;
     color: #777;
 }
@@ -190,23 +195,23 @@
 }
 
 .file-drop-zone {
-    border:1px dashed #aaa;
+    border: 1px dashed #aaa;
     border-radius: 4px;
     height: 100%;
-    text-align:center;
-    vertical-align:middle;
-    margin:12px 15px 12px 12px;
-    padding:5px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 12px 15px 12px 12px;
+    padding: 5px;
 }
 
 .file-drop-zone-title {
-	color: #aaa;
+    color: #aaa;
     font-size: 40px;
     padding: 85px 10px;
 }
 
 .highlighted {
-    border:2px dashed #999!important;
+    border: 2px dashed #999 !important;
     background-color: #f0f0f0;
 }
 

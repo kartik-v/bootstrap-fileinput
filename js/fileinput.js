@@ -493,13 +493,11 @@
         parseError: function (jqXHR, errorThrown, fileName) {
             var self = this, errMsg = $.trim(errorThrown + ''),
                 dot = errMsg.slice(-1) === '.' ? '' : '.',
-                text = '<pre class="text-left">' + $(jqXHR.responseText).text().replace(/\n\s*\n/g, '\n') + '</pre>';
+                text = $(jqXHR.responseText).text();
             if (self.showAjaxErrorDetails) {
-                if (errMsg.replace(/\s/g, "X").length > 0) {
-                    errMsg += dot + '<br>' + text;
-                } else {
-                    errMsg = text;
-                }
+                text = $.trim(text.replace(/\n\s*\n/g, '\n'));
+                text = text.length > 0 ? '<pre>' + text + '</pre>' : '';
+                errMsg += dot + text;
             } else {
                 errMsg += dot;
             }
@@ -1486,9 +1484,9 @@
         showUploadError: function (msg, params, event) {
             var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror';
             if ($error.find('ul').length === 0) {
-                $error.html('<ul class="text-left"><br><li>' + msg + '</li></ul>');
+                $error.html('<ul><li>' + msg + '</li></ul>');
             } else {
-                $error.find('ul').append('<br><li>' + msg + '</li>');
+                $error.find('ul').append('<li>' + msg + '</li>');
             }
             $error.fadeIn(800);
             self.raise(ev, [params]);
