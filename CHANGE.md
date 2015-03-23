@@ -49,6 +49,7 @@ version 4.1.8
 26. (enh #215): Set default delete method REST compliant.
 27. (enh #216): Add Hungarian Translations.
 28. (enh #217): Ensure `filebatchselected` event is triggered after FileReader completes reading files selected.
+29. (enh #218): Do not clear preview for ajaxuploads until remove button clicked.
 
 version 4.1.7
 =============

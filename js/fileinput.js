@@ -1637,7 +1637,7 @@
                     if (self.isUploadable && self.filestack.length > 0) {
                         self.raise('filebatchselected', [self.getFileStack()]);
                     } else {
-                        self.raise('filebatchselected', [tfiles]);
+                        self.raise('filebatchselected', [files]);
                     }
                     $container.removeClass('loading');
                     $status.html('');
@@ -1774,7 +1774,7 @@
             var tfiles, msg, total, $preview = self.$preview, isDragDrop = arguments.length > 1,
                 files = isDragDrop ? e.originalEvent.dataTransfer.files : $el.get(0).files,
                 isSingleUpload = isEmpty($el.attr('multiple')), i = 0, f, m, folders = 0,
-                ctr = self.filestack.length, isAjaxUpload = (self.isUploadable && ctr !== 0),
+                ctr = self.filestack.length, isAjaxUpload = self.isUploadable,
                 throwError = function (mesg, file, previewId, index) {
                     var p1 = $.extend(self.getOutData({}, {}, files), {id: previewId, index: index}),
                         p2 = {id: previewId, index: index, file: file, files: files};
