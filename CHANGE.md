@@ -48,6 +48,7 @@ version 4.1.8
 25. (enh #213): Code cleanup, eliminate change event on clear and properly reset preview cache after ajax deletes.
 26. (enh #215): Set default delete method REST compliant.
 27. (enh #216): Add Hungarian Translations.
+28. (enh #217): Ensure `filebatchselected` event is triggered after FileReader completes reading files selected.
 
 version 4.1.7
 =============

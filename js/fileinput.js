@@ -1021,9 +1021,6 @@
         },
         clear: function () {
             var self = this, cap;
-            if (!self.isIE9 && self.reader instanceof FileReader) {
-                self.reader.abort();
-            }
             self.$btnUpload.removeAttr('disabled');
             self.resetUpload();
             self.filestack = [];
@@ -1080,9 +1077,6 @@
                 self.$container.removeClass('file-input-new');
             }
             self.setFileDropZoneTitle();
-            if (self.isUploadable) {
-                self.resetUpload();
-            }
             self.filestack = [];
             self.formdata = {};
         },
@@ -1639,7 +1633,12 @@
                 if (isEmpty($el.attr('multiple'))) {
                     numFiles = 1;
                 }
-                if (i >= numFiles) {
+                if (i >= numFiles) {                    
+                    if (self.isUploadable && self.filestack.length > 0) {
+                        self.raise('filebatchselected', [self.getFileStack()]);
+                    } else {
+                        self.raise('filebatchselected', [tfiles]);
+                    }
                     $container.removeClass('loading');
                     $status.html('');
                     return;
@@ -1781,6 +1780,7 @@
                         p2 = {id: previewId, index: index, file: file, files: files};
                     return self.isUploadable ? self.showUploadError(mesg, p1) : self.showError(mesg, p2);
                 };
+            self.reader = null;
             self.resetUpload();
             self.hideFileIcon();
             if (self.isUploadable) {
@@ -1845,12 +1845,6 @@
                 self.updateFileDetails(1);
             }
             self.showFolderError(folders);
-            if (isAjaxUpload) {
-                self.raise('filebatchselected', [self.getFileStack()]);
-            } else {
-                self.raise('filebatchselected', [tfiles]);
-            }
-            self.reader = null;
         },
         autoSizeImage: function (previewId) {
             var self = this, $preview = self.$preview,
