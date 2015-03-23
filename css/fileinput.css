@@ -92,6 +92,11 @@
     padding: 5px;
 }
 
+.file-error-message pre, .file-error-message ul {
+    margin: 5px 0;
+    text-align: left;
+}
+
 .file-caption-disabled {
     background-color: #EEEEEE;
     cursor: not-allowed;
