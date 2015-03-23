@@ -1,6 +1,6 @@
 version 4.1.8
 =============
-**Date**: 17-Mar-2015
+**Date**: 23-Mar-2015
 
 1. (bug #171): Fix typo for files validation.
 2. (enh #167, #173): New `deleteExtraData` property for ajax deletions.
@@ -47,6 +47,7 @@ version 4.1.8
 24. (enh #212): Revamp preview to use a new preview caching object.
 25. (enh #213): Code cleanup, eliminate change event on clear and properly reset preview cache after ajax deletes.
 26. (enh #215): Set default delete method REST compliant.
+27. (enh #216): Add Hungarian Translations.
 
 version 4.1.7
 =============
