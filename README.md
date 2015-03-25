@@ -258,6 +258,50 @@ initialPreviewConfig: [
 ### initialPreviewShowDelete
 _bool_, whether the delete button will be displayed for each thumbnail that has been created with `initialPreview`.
 
+### previewThumbTags
+_array_, this will be a list of tags used in thumbnail templates that will be replaced dynamically within the thumbnail markup, when the thumbnail is rendered. For example:
+
+```js
+// change thumbnail footer template
+layoutTemplates.footer = '<div class="file-thumbnail-footer">\n' +
+'    <div class="file-caption-name">{caption}</div>\n' +
+'    {CUSTOM_TAG_NEW}\n' +
+'    {CUSTOM_TAG_INIT}\n' +
+'    {actions}\n' +
+'</div>';
+
+// set preview template tags
+previewThumbTags = {
+    '{CUSTOM_TAG_NEW}': '<span class="custom-css">CUSTOM MARKUP</span>',
+    '{CUSTOM_TAG_INIT}': '&nbsp;'
+};
+```
+
+### initialPreviewThumbTags
+_array_, this is an extension of `previewThumbTags` specifically for initial preview content - but will be configured as an array of objects corresponding to each initial preview thumbnail. The initial preview thumbnails set via `initialPreview` will read this configuration for replacing tags. Extending example above:
+
+
+```js
+// change thumbnail footer template
+layoutTemplates.footer = '<div class="file-thumbnail-footer">\n' +
+'    <div class="file-caption-name">{caption}</div>\n' +
+'    {CUSTOM_TAG_NEW}\n' +
+'    {CUSTOM_TAG_INIT}\n' +
+'    {actions}\n' +
+'</div>';
+
+// setup initial preview with data keys 
+initialPreview: [
+    "<img src='/images/desert.jpg' class='file-preview-image' alt='Desert' title='Desert'>",
+    "<img src='/images/jellyfish.jpg' class='file-preview-image' alt='Jelly Fish' title='Jelly Fish'>",
+],
+
+// set initial preview template tags
+initialPreviewThumbTags = {
+    '{CUSTOM_TAG_NEW}': '&nbsp;',
+    '{CUSTOM_TAG_INIT}': '<span class="custom-css">CUSTOM MARKUP</span>'
+};
+```
 
 ### deleteExtraData
 _object | function_ the extra data that will be passed as data to the initial preview delete url/AJAX server call via POST. This will be overridden by the `initialPreviewConfig['extra']` property. This can be setup either as an object (associative array of keys and values) or as a function callback. As an object, it can be set for example as:

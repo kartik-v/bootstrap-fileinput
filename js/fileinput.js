@@ -38,6 +38,7 @@
                 previewCache.data[id] = {
                     content: content,
                     config: config,
+                    tags: obj.initialPreviewThumbTags,
                     delimiter: obj.initialPreviewDelimiter,
                     template: obj.previewGenericTemplate,
                     msg: obj.msgSelected,
@@ -60,17 +61,21 @@
             },
             get: function (id, i, isDisabled) {
                 var ind = 'init_' + i, data = previewCache.data[id],
-                    previewId = data.initId + '-' + ind;
+                    previewId = data.initId + '-' + ind, out;
                 isDisabled = isDisabled === undefined ? true : isDisabled;
                 if (data.content[i] === undefined) {
                     return '';
                 }
-                return data.template
+                out = data.template
                     .repl('{previewId}', previewId)
                     .repl('{frameClass}', ' file-preview-initial')
                     .repl('{fileindex}', ind)
                     .repl('{content}', data.content[i])
                     .repl('{footer}', previewCache.footer(id, i, isDisabled));
+                if (data.tags.length && data.tags[i]) {
+                    out = replaceTags(out, data.tags[i]);
+                }
+                return out;
             },
             add: function (id, content, config, append) {
                 var data = $.extend(true, {}, previewCache.data[id]), index;
@@ -88,7 +93,7 @@
                 previewCache.data[id] = data;
                 return index;
             },
-            set: function (id, content, config, append) {
+            set: function (id, content, config, tags, append) {
                 var data = $.extend(true, {}, previewCache.data[id]), i;
                 if (!isArray(content)) {
                     content = content.split(data.delimiter);
@@ -100,9 +105,13 @@
                     for (i = 0; i < config.length; i++) {
                         data.config.push(config[i]);
                     }
+                    for (i = 0; i < tags.length; i++) {
+                        data.tags.push(tags[i]);
+                    }
                 } else {
                     data.content = content;
                     data.config = config;
+                    data.tags = tags;
                 }
                 previewCache.data[id] = data;
             },
@@ -403,6 +412,7 @@
         },
         replaceTags = function (str, tags) {
             var out = str;
+            tags = tags || {};
             $.each(tags, function (key, value) {
                 if (typeof value === "function") {
                     value = value();
@@ -675,7 +685,7 @@
                 outData = self.getOutData();
                 self.raise('filebatchpreupload', [outData]);
                 self.fileBatchCompleted = false;
-                self.uploadCache = {content: [], config: [], append: true};
+                self.uploadCache = {content: [], config: [], tags: [], append: true};
                 for (i = 0; i < len; i += 1) {
                     if (self.filestack[i] !== undefined) {
                         self.uploadSingle(i, self.filestack, true);
@@ -827,20 +837,23 @@
             });
         },
         renderFileFooter: function (caption, width) {
-            var self = this, config = self.fileActionSettings, footer,
+            var self = this, config = self.fileActionSettings, footer, out,
                 template = self.getLayoutTemplate('footer');
             if (self.isUploadable) {
                 footer = template.repl('{actions}', self.renderFileActions(true, true, false, false, false, false));
-                return footer.repl('{caption}', caption)
+                out = footer.repl('{caption}', caption)
                     .repl('{width}', width)
                     .repl('{indicator}', config.indicatorNew)
                     .repl('{indicatorTitle}', config.indicatorNewTitle);
+            } else {
+                out = template.repl('{actions}', '')
+                    .repl('{caption}', caption)
+                    .repl('{width}', width)
+                    .repl('{indicator}', '')
+                    .repl('{indicatorTitle}', '');
             }
-            return template.repl('{actions}', '')
-                .repl('{caption}', caption)
-                .repl('{width}', width)
-                .repl('{indicator}', '')
-                .repl('{indicatorTitle}', '');
+            out = replaceTags(out, self.previewThumbTags);
+            return out;
         },
         renderFileActions: function (showUpload, showDelete, disabled, url, key, index) {
             if (!showUpload && !showDelete) {
@@ -992,7 +1005,7 @@
         },
         resetUpload: function () {
             var self = this;
-            self.uploadCache = {content: [], config: [], append: true};
+            self.uploadCache = {content: [], config: [], tags: [], append: true};
             self.uploadCount = 0;
             self.uploadPercent = 0;
             self.$btnUpload.removeAttr('disabled');
@@ -1151,7 +1164,7 @@
             self.ajaxRequests.push($.ajax(settings));
         },
         initUploadSuccess: function (out, $thumb, allFiles) {
-            var self = this, append, data, index, $newThumb, content, config;
+            var self = this, append, data, index, $newThumb, content, config, tags;
             if (typeof out !== 'object' || $.isEmptyObject(out)) {
                 return;
             }
@@ -1159,10 +1172,11 @@
                 self.hasInitData = true;
                 content = out.initialPreview || [];
                 config = out.initialPreviewConfig || [];
+                tags = out.initialPreviewThumbTags || [];
                 append = out.append === undefined || out.append ? true : false;
                 self.overwriteInitial = false;
                 if ($thumb !== undefined && !!allFiles) {
-                    index = previewCache.add(self.id, content, config[0], append);
+                    index = previewCache.add(self.id, content, config[0], tags[0], append);
                     data = previewCache.get(self.id, index, false);
                     $newThumb = $(data).hide();
                     $thumb.after($newThumb).fadeOut('slow', function () {
@@ -1173,9 +1187,10 @@
                     if (allFiles) {
                         self.uploadCache.content.push(content[0]);
                         self.uploadCache.config.push(config[0]);
+                        self.uploadCache.config.push(tags[0]);
                         self.uploadCache.append = append;
                     } else {
-                        previewCache.set(self.id, content, config, append);
+                        previewCache.set(self.id, content, config, tags, append);
                         self.initPreview();
                         self.initPreviewDeletes();
                     }
@@ -1199,7 +1214,8 @@
                 if ($thumbs.length > 0 && self.fileBatchCompleted) {
                     return;
                 }
-                previewCache.set(self.id, self.uploadCache.content, self.uploadCache.config, self.uploadCache.append);
+                previewCache.set(self.id, self.uploadCache.content, self.uploadCache.config, self.uploadCache.tags,
+                    self.uploadCache.append);
                 if (self.hasInitData) {
                     self.initPreview();
                     self.initPreviewDeletes();
@@ -1633,7 +1649,7 @@
                 if (isEmpty($el.attr('multiple'))) {
                     numFiles = 1;
                 }
-                if (i >= numFiles) {                    
+                if (i >= numFiles) {
                     if (self.isUploadable && self.filestack.length > 0) {
                         self.raise('filebatchselected', [self.getFileStack()]);
                     } else {
@@ -1999,6 +2015,8 @@
         initialPreview: [],
         initialPreviewDelimiter: '*$$*',
         initialPreviewConfig: [],
+        initialPreviewThumbTags: [],
+        previewThumbTags: {},
         initialPreviewShowDelete: true,
         deleteUrl: '',
         deleteExtraData: {},

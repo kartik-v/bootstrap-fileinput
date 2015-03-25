@@ -1,6 +1,6 @@
 version 4.1.8
 =============
-**Date**: 23-Mar-2015
+**Date**: 25-Mar-2015
 
 1. (bug #171): Fix typo for files validation.
 2. (enh #167, #173): New `deleteExtraData` property for ajax deletions.
@@ -50,6 +50,7 @@ version 4.1.8
 27. (enh #216): Add Hungarian Translations.
 28. (enh #217): Ensure `filebatchselected` event is triggered after FileReader completes reading files selected.
 29. (enh #218): Do not clear preview for ajaxuploads until remove button clicked.
+30. (enh #222): Enhance to include dynamically replaceable thumbnail tags. Two new properties `previewThumbTags` and `initialPreviewThumbTags` will be available for configuration.
 
 version 4.1.7
 =============
