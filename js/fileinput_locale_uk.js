@@ -12,7 +12,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales.en = {
+    $.fn.fileinput.locales.uk = {
         fileSingle: 'файл',
         filePlural: 'файли',
         browseLabel: 'Вибрати &hellip;',
@@ -22,9 +22,9 @@
         cancelTitle: 'Скасувати поточну загрузку',
         uploadLabel: 'Загрузити',
         uploadTitle: 'Загрузити вибрані файли',
-        msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) перевищує максимальний розмыр <b>{maxSize} KB</b>. Спробуйте знову!',
-        msgFilesTooLess: 'Ви повинні вибрати як мінімум <b>{n}</b> {files} для загрузки. Спробуйте знову!',
-        msgFilesTooMany: 'Кількість вибраних файлів <b>({n})</b> перевищує максимально допустиму кількість <b>{m}</b>. Спробуйте знову!',
+        msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) перевищує максимальний розмыр <b>{maxSize} KB</b>',
+        msgFilesTooLess: 'Ви повинні вибрати як мінімум <b>{n}</b> {files} для загрузки',
+        msgFilesTooMany: 'Кількість вибраних файлів <b>({n})</b> перевищує максимально допустиму кількість <b>{m}</b>',
         msgFileNotFound: 'Файл "{name}" не знайдено!',
         msgFileSecured: 'Обмеження безпеки перешкоджають читанню файла "{name}".',
         msgFileNotReadable: 'Файл "{name}" неможливо прочитати.',
@@ -40,5 +40,5 @@
         dropZoneTitle: 'Перетяніть файли сюди &hellip;'
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.en);
+    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.uk);
 })(window.jQuery);
