@@ -53,6 +53,7 @@ version 4.1.8
 30. (enh #222): Enhance to include dynamically replaceable thumbnail tags. Two new properties `previewThumbTags` and `initialPreviewThumbTags` will be available for configuration.
 31. (enh #225): Create Russian translations.
 32. (enh #226): Create Spanish (Latin American) translations.
+33. (enh #227): Created Ukranian translations and updated Russian translations.
 
 version 4.1.7
 =============
