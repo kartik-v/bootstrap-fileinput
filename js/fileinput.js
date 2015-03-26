@@ -31,13 +31,13 @@
         previewCache = {
             data: {},
             init: function (obj) {
-                var content = obj.initialPreview, config = obj.initialPreviewConfig, id = obj.id;
+                var content = obj.initialPreview, id = obj.id;
                 if (content.length > 0 && !isArray(content)) {
                     content = content.split(obj.initialPreviewDelimiter);
                 }
                 previewCache.data[id] = {
                     content: content,
-                    config: config,
+                    config: obj.initialPreviewConfig,
                     tags: obj.initialPreviewThumbTags,
                     delimiter: obj.initialPreviewDelimiter,
                     template: obj.previewGenericTemplate,
@@ -1187,7 +1187,7 @@
                     if (allFiles) {
                         self.uploadCache.content.push(content[0]);
                         self.uploadCache.config.push(config[0]);
-                        self.uploadCache.config.push(tags[0]);
+                        self.uploadCache.tags.push(tags[0]);
                         self.uploadCache.append = append;
                     } else {
                         previewCache.set(self.id, content, config, tags, append);

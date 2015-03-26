@@ -51,6 +51,8 @@ version 4.1.8
 28. (enh #217): Ensure `filebatchselected` event is triggered after FileReader completes reading files selected.
 29. (enh #218): Do not clear preview for ajaxuploads until remove button clicked.
 30. (enh #222): Enhance to include dynamically replaceable thumbnail tags. Two new properties `previewThumbTags` and `initialPreviewThumbTags` will be available for configuration.
+31. (enh #225): Create Russian translations.
+32. (enh #226): Create Spanish (Latin American) translations.
 
 version 4.1.7
 =============

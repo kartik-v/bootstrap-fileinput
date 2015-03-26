@@ -1,5 +1,5 @@
 /*!
- * FileInput Spanish (latinamerican) Translations - Template file for copying and creating other translations
+ * FileInput Spanish (Latin American) Translations
  *
  * This file must be loaded after 'fileinput.js'. Patterns in braces '{}', or
  * any HTML markup tags in the messages must not be converted or translated.
@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales.en = {
+    $.fn.fileinput.locales.es = {
         fileSingle: 'archivo',
         filePlural: 'archivos',
         browseLabel: 'Buscar &hellip;',
@@ -39,5 +39,5 @@
         dropZoneTitle: 'Arrastre y suelte los archivos aquí &hellip;'
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.en);
+    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.es);
 })(window.jQuery);
