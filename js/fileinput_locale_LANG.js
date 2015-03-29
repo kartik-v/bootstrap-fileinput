@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales.en = {
+    $.fn.fileinput.locales._LANG_ = {
         fileSingle: 'file',
         filePlural: 'files',
         browseLabel: 'Browse &hellip;',
@@ -39,5 +39,5 @@
         dropZoneTitle: 'Drag & drop files here &hellip;'
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.en);
+    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales._LANG_);
 })(window.jQuery);
