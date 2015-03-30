@@ -55,6 +55,7 @@ version 4.1.8
 32. (enh #226): Create Spanish (Latin American) translations.
 33. (enh #227): Created Ukranian translations and updated Russian translations.
 34. (enh #228): Created Thai translations.
+35. (enh #229): Created French translations.
 
 version 4.1.7
 =============
