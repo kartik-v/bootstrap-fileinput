@@ -56,6 +56,7 @@ version 4.1.8
 33. (enh #227): Created Ukranian translations and updated Russian translations.
 34. (enh #228): Created Thai translations.
 35. (enh #229): Created French translations.
+36. (enh #230): More correct initial preview delete reset.
 
 version 4.1.7
 =============

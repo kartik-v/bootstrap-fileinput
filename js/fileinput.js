@@ -949,7 +949,7 @@
                             self.clearObjects($frame);
                             $frame.remove();
                             resetProgress();
-                            if (!previewCache.count(self.id)) {
+                            if (!previewCache.count(self.id) && self.getFileStack().length === 0) {
                                 self.reset();
                             }
                         });
