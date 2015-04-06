@@ -110,10 +110,13 @@ You can also manually install the plugin easily to your project. Just download t
 Step 1: Load the following assets in your header. 
 
 ```html
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 <link href="path/to/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="path/to/js/fileinput.min.js"></script>
+<!-- bootstrap.js below is only needed if you wish to the feature of viewing details
+     of text file preview via modal dialog -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- optionally if you need translation for your language then include 
     locale file as mentioned below -->
 <script src="path/to/js/fileinput_locale_<lang>.js"></script>

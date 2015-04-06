@@ -1,3 +1,9 @@
+version 4.1.9
+=============
+**Date**: 06-Apr-2015
+
+1. (enh #232): Update docs to reflect updated bootstrap CDN domain.
+
 version 4.1.8
 =============
 **Date**: 30-Mar-2015
