@@ -3,6 +3,8 @@ version 4.1.9
 **Date**: 06-Apr-2015
 
 1. (enh #232): Update docs to reflect updated bootstrap CDN domain.
+2. (enh #237): Better styling of file caption icon.
+3. (bug #238): Correct initialization of plugin variables when other than maxFileCount & maxFileSize.
 
 version 4.1.8
 =============

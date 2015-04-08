@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version 4.1.8
+ * @version 4.1.9
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -437,10 +437,7 @@
         init: function (options) {
             var self = this, $el = self.$element, t;
             $.each(options, function (key, value) {
-                if (key === 'maxFileCount' || key === 'maxFileSize') {
-                    self[key] = getNum(value);
-                }
-                self[key] = value;
+                self[key] = (key === 'maxFileCount' || key === 'maxFileSize') ? getNum(value) : value;
             });
             self.fileInputCleared = false;
             self.fileBatchCompleted = true;
@@ -1895,7 +1892,7 @@
                 self.msgValidationErrorIcon + title + '</span>';
             } else {
                 title = $('<div>' + content + '</div>').text();
-                out = title + self.getLayoutTemplate('icon');
+                out = self.getLayoutTemplate('icon') + title;
             }
             self.$caption.html(out);
             self.$caption.attr('title', title);
