@@ -5,6 +5,7 @@ version 4.1.9
 1. (enh #232): Update docs to reflect updated bootstrap CDN domain.
 2. (enh #237): Better styling of file caption icon.
 3. (bug #238): Correct initialization of plugin variables when other than maxFileCount & maxFileSize.
+4. (enh #241): Enhancements to initial preview delete to perform validations before delete.
 
 version 4.1.8
 =============

@@ -452,7 +452,7 @@
             self.filestack = [];
             self.ajaxRequests = [];
             self.isError = false;
-            self.uploadAborted = false;
+            self.ajaxAborted = false;
             self.dropZoneEnabled = hasDragDropSupport() && self.dropZoneEnabled;
             self.isDisabled = self.$element.attr('disabled') || self.$element.attr('readonly');
             self.isUploadable = hasFileUploadSupport && !isEmpty(self.uploadUrl);
@@ -511,13 +511,15 @@
             return fileName ? '<b>' + fileName + ': </b>' + jqXHR : errMsg;
         },
         raise: function (event, params) {
-            var self = this, e = $.Event(event), out;
+            var self = this, e = $.Event(event), out = false;
             if (params !== undefined) {
                 self.$element.trigger(e, params);
             } else {
                 self.$element.trigger(e);
             }
-            out = e.result || false;
+            if (e.result) {
+                out = true;
+            }
             if (!out) {
                 return;
             }
@@ -538,7 +540,7 @@
                     break;
                 // can trigger filecustomerror to abort upload
                 default:
-                    self.uploadAborted = out;
+                    self.ajaxAborted = out;
                     break;
             }
         },
@@ -627,14 +629,14 @@
         },
         abort: function (params) {
             var self = this, data;
-            if (self.uploadAborted && typeof self.uploadAborted === "object" && self.uploadAborted.message !== undefined) {
-                if (self.uploadAborted.data !== undefined) {
-                    data = self.getOutData({}, self.uploadAborted.data);
+            if (self.ajaxAborted && typeof self.ajaxAborted === "object" && self.ajaxAborted.message !== undefined) {
+                if (self.ajaxAborted.data !== undefined) {
+                    data = self.getOutData({}, self.ajaxAborted.data);
                 } else {
                     data = self.getOutData();
                 }
                 data = $.extend(data, params);
-                self.showUploadError(self.uploadAborted.message, data, 'filecustomerror');
+                self.showUploadError(self.ajaxAborted.message, data, 'filecustomerror');
                 return true;
             }
             return false;
@@ -921,9 +923,14 @@
                     dataType: 'json',
                     data: $.extend({key: vKey}, extraData),
                     beforeSend: function (jqXHR) {
-                        addCss($frame, 'file-uploading');
-                        addCss($el, 'disabled');
+                        self.ajaxAborted = false;
                         self.raise('filepredelete', [vKey, jqXHR, extraData]);
+                        if (self.ajaxAborted) {
+                            jqXHR.abort();
+                        } else {
+                            addCss($frame, 'file-uploading');
+                            addCss($el, 'disabled');
+                        }                            
                     },
                     success: function (data, textStatus, jqXHR) {
                         index = parseInt($frame.data('fileindex').replace('init_', ''));
@@ -1009,7 +1016,7 @@
             self.setProgress(0);
             addCss(self.$progress, 'hide');
             self.resetErrors(false);
-            self.uploadAborted = false;
+            self.ajaxAborted = false;
             self.ajaxRequests = [];
         },
         cancel: function () {
