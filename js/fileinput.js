@@ -908,12 +908,15 @@
                 };
             self.$preview.find('.kv-file-remove').each(function () {
                 var $el = $(this), $frame = $el.closest('.file-preview-frame'),
-                    cache = previewCache.data[self.id], index, config, extraData,
-                    vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'), settings,
-                    params = {id: $el.attr('id'), key: vKey, extra: extraData};
+                    cache = previewCache.data[self.id], settings, params,
+                    vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'),
+                    index = parseInt($frame.data('fileindex').replace('init_', '')),
+                    config = isEmpty(cache.config) && isEmpty(cache.config[index]) ? null : cache.config[index],
+                    extraData = isEmpty(config) || isEmpty(config.extra) ? deleteExtraData : config.extra;
                 if (typeof extraData === "function") {
                     extraData = extraData();
                 }
+                params = {id: $el.attr('id'), key: vKey, extra: extraData};
                 if (vUrl === undefined || vKey === undefined) {
                     return;
                 }
@@ -933,9 +936,6 @@
                         }                            
                     },
                     success: function (data, textStatus, jqXHR) {
-                        index = parseInt($frame.data('fileindex').replace('init_', ''));
-                        config = isEmpty(cache.config) && isEmpty(cache.config[index]) ? null : cache.config[index];
-                        extraData = isEmpty(config) || isEmpty(config.extra) ? deleteExtraData : config.extra;
                         if (data === undefined || data.error === undefined) {
                             previewCache.unset(self.id, index);
                             self.raise('filedeleted', [vKey, jqXHR, extraData]);
