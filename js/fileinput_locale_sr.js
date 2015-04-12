@@ -40,5 +40,5 @@
         dropZoneTitle: 'Prevucite datoteke ovde &hellip;'
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales._LANG_);
+    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.sr);
 })(window.jQuery);
