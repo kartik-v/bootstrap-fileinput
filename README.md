@@ -1,6 +1,10 @@
 bootstrap-fileinput
 ====================
 
+[![Bower version](https://badge.fury.io/bo/bootstrap-fileinput.svg)](http://badge.fury.io/bo/bootstrap-fileinput)
+[![Packagist Version](https://poser.pugx.org/kartik-v/bootstrap-fileinput/v/stable.svg)](https://packagist.org/packages/kartik-v/bootstrap-fileinput) 
+[![Packagist Downloads](https://poser.pugx.org/kartik-v/bootstrap-fileinput/downloads.svg)](https://packagist.org/packages/kartik-v/bootstrap-fileinput) 
+
 An enhanced HTML 5 file input for Bootstrap 3.x with file preview for various files, offers multiple selection, and more. The plugin allows you a simple way to setup an advanced file picker/upload control built to work specially with Bootstrap CSS3 styles. It enhances the file input functionality further, by offering support to preview a wide variety of files i.e. images, text, html, video, audio, flash, and objects. In addition, it includes AJAX based uploads, dragging &amp; dropping files, viewing upload progress, and selectively previewing, adding, or deleting files.
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
