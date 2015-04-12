@@ -7,6 +7,7 @@ version 4.1.9
 3. (bug #238): Correct initialization of plugin variables when other than maxFileCount & maxFileSize.
 4. (enh #241): Enhancements to initial preview delete to perform validations before delete.
 5. (bug #243): Correct sending of `deleteExtraData`.
+6. (enh #244): Add Serbian translations.
 
 version 4.1.8
 =============
