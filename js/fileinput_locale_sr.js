@@ -12,7 +12,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales._LANG_ = {
+    $.fn.fileinput.locales.sr = {
         fileSingle: 'datoteka',
         filePlural: 'datoteke',
         browseLabel: 'Izaberi &hellip;',
