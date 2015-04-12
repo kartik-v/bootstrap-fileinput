@@ -885,10 +885,14 @@
                 .repl('{other}', otherButtons);
         },
         initPreview: function (isInit) {
-            var self = this, cap, out;
+            var self = this, cap = self.initialCaption || '', out;
             if (!previewCache.count(self.id)) {
                 self.$preview.html('');
-                self.setCaption('');
+                if (isInit) {
+                    self.setCaption(cap);
+                } else {
+                    self.initCaption();
+                }
                 return;
             }
             out = previewCache.out(self.id);
@@ -904,6 +908,7 @@
                 resetProgress = function () {
                     if (self.$preview.find('.kv-file-remove').length === 0) {
                         self.reset();
+                        self.initialCaption = '';
                     }
                 };
             self.$preview.find('.kv-file-remove').each(function () {
@@ -1056,16 +1061,16 @@
                 });
                 self.$preview.html('');
                 cap = (!self.overwriteInitial && self.initialCaption.length > 0) ? self.initialCaption : '';
-                self.$caption.html(cap);
+                self.setCaption(cap);
                 self.setEllipsis();
                 self.$caption.attr('title', '');
                 addCss(self.$container, 'file-input-new');
             }
             if (self.$container.find('.file-preview-frame').length === 0) {
-                self.initialCaption = '';
-                self.$caption.html('');
+                if (!self.initCaption()) {
+                    self.$captionContainer.find('.kv-caption-icon').hide();
+                }
                 self.setEllipsis();
-                self.$captionContainer.find('.kv-caption-icon').hide();
             }
             self.hideFileIcon();
             self.raise('filecleared');
@@ -1080,7 +1085,7 @@
                 self.setCaption(out.caption);
             } else {
                 self.$preview.html('');
-                self.$caption.html('');
+                self.initCaption();
             }
         },
         reset: function () {
@@ -1887,6 +1892,16 @@
                 }
                 self.raise('fileimageloaded', previewId);
             });
+        },
+        initCaption: function () {
+            var self = this, cap;
+            if (self.overwriteInitial) {
+                self.$caption.html('');
+                return false;
+            }
+            cap = self.initialCaption || '';
+            self.setCaption(cap);
+            return true;
         },
         setCaption: function (content, isError) {
             var self = this, err = isError || false, title, out;

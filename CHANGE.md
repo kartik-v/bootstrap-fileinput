@@ -8,6 +8,7 @@ version 4.1.9
 4. (enh #241): Enhancements to initial preview delete to perform validations before delete.
 5. (bug #243): Correct sending of `deleteExtraData`.
 6. (enh #244): Add Serbian translations.
+7. (enh #245): Allow initial caption to be set without initial preview.
 
 version 4.1.8
 =============
