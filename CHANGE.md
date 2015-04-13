@@ -9,6 +9,7 @@ version 4.1.9
 5. (bug #243): Correct sending of `deleteExtraData`.
 6. (enh #244): Add Serbian translations.
 7. (enh #245): Allow initial caption to be set without initial preview.
+8. (bug #247): Correct mime types validation.
 
 version 4.1.8
 =============

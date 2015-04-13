@@ -1595,7 +1595,7 @@
                 config = isSet(cat, self.previewSettings) ? self.previewSettings[cat] : defaultPreviewSettings[cat],
                 wrapLen = parseInt(self.wrapTextLength, 10), wrapInd = self.wrapIndicator,
                 chkTypes = types.indexOf(cat) >= 0, id, height,
-                chkMimes = isEmpty(mimes) || (!isEmpty(mimes) && isSet(file.type, mimes)),
+                chkMimes = isEmpty(mimes) || (!isEmpty(mimes) && mimes.indexOf(file.type) !== -1),
                 footer = self.renderFileFooter(caption, config.width), modal = '',
                 ind = previewId.slice(previewId.lastIndexOf('-') + 1);
             if (chkTypes && chkMimes) {
