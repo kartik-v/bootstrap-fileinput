@@ -1905,14 +1905,14 @@
         },
         setCaption: function (content, isError) {
             var self = this, err = isError || false, title, out;
-            if (isEmpty(content) || self.$caption.length === 0) {
-                return;
-            }
             if (err) {
                 title = $('<div>' + self.msgValidationError + '</div>').text();
                 out = '<span class="' + self.msgValidationErrorClass + '">' +
                 self.msgValidationErrorIcon + title + '</span>';
             } else {
+                if (isEmpty(content) || self.$caption.length === 0) {
+                    return;
+                }
                 title = $('<div>' + content + '</div>').text();
                 out = self.getLayoutTemplate('icon') + title;
             }
