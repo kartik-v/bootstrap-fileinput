@@ -10,6 +10,8 @@ version 4.1.9
 6. (enh #244): Add Serbian translations.
 7. (enh #245): Allow initial caption to be set without initial preview.
 8. (bug #247): Correct mime types validation.
+9. (enh #248): keep chinese characters in file caption.
+10. (bug #249): Fix error message content display.
 
 version 4.1.8
 =============
