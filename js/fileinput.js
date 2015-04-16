@@ -1633,7 +1633,7 @@
             }
         },
         slugDefault: function (text) {
-            return isEmpty(text) ? '' : text.split(/(\\|\/)/g).pop().replace(/[^\w\-.\\\/ ]+/g, '');
+            return isEmpty(text) ? '' : text.split(/(\\|\/)/g).pop().replace(/[^\w\u00C0-\u017F\-.\\\/ ]+/g, '');
         },
         getFileStack: function () {
             var self = this;

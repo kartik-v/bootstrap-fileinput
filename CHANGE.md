@@ -12,7 +12,8 @@ version 4.1.9
 8. (bug #247): Correct mime types validation.
 9. (enh #248): keep chinese characters in file caption.
 10. (bug #249): Fix error message content display.
-11. (enh #251): Add Italian localizations.
+11. (enh #250): Change default slug routine to allow umlauts in filenames.
+12. (enh #251): Add Italian localizations.
 
 version 4.1.8
 =============
