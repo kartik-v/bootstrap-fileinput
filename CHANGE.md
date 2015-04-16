@@ -15,6 +15,7 @@ version 4.1.9
 11. (enh #250): Change default slug routine to allow umlauts in filenames.
 12. (enh #251): Add Italian localizations.
 13. (enh #252): Enhance async batch completion.
+14. (bug #253): Fix initial preview delete cache initialization.
 
 version 4.1.8
 =============

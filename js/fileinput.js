@@ -63,7 +63,7 @@
                 var ind = 'init_' + i, data = previewCache.data[id],
                     previewId = data.initId + '-' + ind, out;
                 isDisabled = isDisabled === undefined ? true : isDisabled;
-                if (data.content[i] === undefined) {
+                if (data.content[i] === null) {
                     return '';
                 }
                 out = data.template
@@ -127,8 +127,8 @@
                     previewCache.data[id].config = [];
                     return;
                 }
-                previewCache.data[id].content[index] = undefined;
-                previewCache.data[id].config[index] = undefined;
+                previewCache.data[id].content[index] = null;
+                previewCache.data[id].config[index] = null;
             },
             out: function (id) {
                 var html = '', data = previewCache.data[id], caption, len = previewCache.count(id);
