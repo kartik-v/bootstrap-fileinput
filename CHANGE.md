@@ -1,6 +1,6 @@
 version 4.1.9
 =============
-**Date**: 06-Apr-2015
+**Date**: 16-Apr-2015
 
 1. (enh #232): Update docs to reflect updated bootstrap CDN domain.
 2. (enh #237): Better styling of file caption icon.
@@ -12,6 +12,7 @@ version 4.1.9
 8. (bug #247): Correct mime types validation.
 9. (enh #248): keep chinese characters in file caption.
 10. (bug #249): Fix error message content display.
+11. (enh #251): Add Italian localizations.
 
 version 4.1.8
 =============
