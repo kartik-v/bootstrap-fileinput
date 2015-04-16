@@ -77,7 +77,7 @@
                 }
                 return out;
             },
-            add: function (id, content, config, append) {
+            add: function (id, content, config, tags, append) {
                 var data = $.extend(true, {}, previewCache.data[id]), index;
                 if (!isArray(content)) {
                     content = content.split(data.delimiter);
@@ -85,10 +85,12 @@
                 if (append) {
                     index = data.content.push(content) - 1;
                     data.config[index] = config;
+                    data.tags[index] = tags;
                 } else {
                     index = content.length;
                     data.content = content;
                     data.config = config;
+                    data.tags = tags;
                 }
                 previewCache.data[id] = data;
                 return index;
@@ -911,20 +913,21 @@
                         self.initialCaption = '';
                     }
                 };
+                
             self.$preview.find('.kv-file-remove').each(function () {
-                var $el = $(this), $frame = $el.closest('.file-preview-frame'),
-                    cache = previewCache.data[self.id], settings, params,
-                    vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'),
-                    index = parseInt($frame.data('fileindex').replace('init_', '')),
-                    config = isEmpty(cache.config) && isEmpty(cache.config[index]) ? null : cache.config[index],
-                    extraData = isEmpty(config) || isEmpty(config.extra) ? deleteExtraData : config.extra;
+                var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key');
+                if (isEmpty(vUrl) || vKey === undefined) {
+                    return;
+                }
+                var $frame = $el.closest('.file-preview-frame'), cache = previewCache.data[self.id], 
+                    settings, params,index = $frame.data('fileindex'), config, extraData;
+                index = parseInt(index.replace('init_', ''));
+                config = isEmpty(cache.config) && isEmpty(cache.config[index]) ? null : cache.config[index];
+                extraData = isEmpty(config) || isEmpty(config.extra) ? deleteExtraData : config.extra;
                 if (typeof extraData === "function") {
                     extraData = extraData();
                 }
                 params = {id: $el.attr('id'), key: vKey, extra: extraData};
-                if (vUrl === undefined || vKey === undefined) {
-                    return;
-                }
                 settings = $.extend({
                     url: vUrl,
                     type: 'DELETE',
@@ -1220,20 +1223,22 @@
             }
             chkComplete = function () {
                 var $thumbs = self.$preview.find(PREVIEW_FRAMES + '.file-uploading');
-                if ($thumbs.length > 0 && self.fileBatchCompleted) {
+                if ($thumbs.length > 0 || self.fileBatchCompleted) {
                     return;
                 }
-                previewCache.set(self.id, self.uploadCache.content, self.uploadCache.config, self.uploadCache.tags,
-                    self.uploadCache.append);
-                if (self.hasInitData) {
-                    self.initPreview();
-                    self.initPreviewDeletes();
-                }
-                self.setProgress(100);
-                self.unlock();
-                self.clearFileInput();
-                self.raise('filebatchuploadcomplete', [self.filestack, self.getExtraData()]);
                 self.fileBatchCompleted = true;
+                setTimeout(function() {
+                    previewCache.set(self.id, self.uploadCache.content, self.uploadCache.config, self.uploadCache.tags,
+                        self.uploadCache.append);
+                    if (self.hasInitData) {
+                        self.initPreview();
+                        self.initPreviewDeletes();
+                    }
+                    self.setProgress(100);
+                    self.unlock();
+                    self.clearFileInput();
+                    self.raise('filebatchuploadcomplete', [self.filestack, self.getExtraData()]);
+                }, 100);
             };
             setIndicator = function (icon, msg) {
                 $indicator.html(config[icon]);
@@ -1297,9 +1302,7 @@
                     if (!allFiles) {
                         self.unlock(false);
                     } else {
-                        setTimeout(function () {
-                            chkComplete();
-                        }, 500);
+                        chkComplete();
                     }
                 }, 100);
             };

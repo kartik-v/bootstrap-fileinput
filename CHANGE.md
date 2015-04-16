@@ -14,6 +14,7 @@ version 4.1.9
 10. (bug #249): Fix error message content display.
 11. (enh #250): Change default slug routine to allow umlauts in filenames.
 12. (enh #251): Add Italian localizations.
+13. (enh #252): Enhance async batch completion.
 
 version 4.1.8
 =============
