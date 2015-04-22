@@ -1187,7 +1187,7 @@
                 tags = out.initialPreviewThumbTags || [];
                 append = out.append === undefined || out.append ? true : false;
                 self.overwriteInitial = false;
-                if ($thumb !== undefined && !!allFiles) {
+                if ($thumb !== undefined && !allFiles) {
                     index = previewCache.add(self.id, content, config[0], tags[0], append);
                     data = previewCache.get(self.id, index, false);
                     $newThumb = $(data).hide();

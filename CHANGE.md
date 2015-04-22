@@ -16,6 +16,7 @@ version 4.1.9
 12. (enh #251): Add Italian localizations.
 13. (enh #252): Enhance async batch completion.
 14. (bug #253): Fix initial preview delete cache initialization.
+15. (bug #257): Fix upload single to replace thumbs correctly.
 
 version 4.1.8
 =============
