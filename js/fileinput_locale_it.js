@@ -36,7 +36,7 @@
         msgValidationError: 'Errore caricamento file',
         msgLoading: 'Caricamento file {index} di {files}&hellip;',
         msgProgress: 'Caricamento file {index} di {files} - {name} - {percent}% completato.',
-        msgSelected: '{n} file selezionati',
+        msgSelected: '{n} {files} selezionati',
         msgFoldersNotAllowed: 'Trascina solo file! Ignorata/e {n} cartella/e.',
         dropZoneTitle: 'Trascina i file qui&hellip;'
     };

@@ -32,7 +32,7 @@
         msgValidationError: 'Fehler beim Hochladen',
         msgLoading: 'Lade Datei {index} von {files} hoch&hellip;',
         msgProgress: 'Datei {index} von {files} - {name} - zu {percent}% fertiggestellt.',
-        msgSelected: '{n} Dateien ausgewählt',
+        msgSelected: '{n} {files} ausgewählt',
         msgFoldersNotAllowed: 'Drag & Drop funktioniert nur bei Dateien! {n} Ordner übersprungen.',
         dropZoneTitle: 'Dateien hierher ziehen &hellip;'
     };

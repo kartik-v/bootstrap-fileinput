@@ -118,7 +118,7 @@ Step 1: Load the following assets in your header.
 ```html
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 <link href="path/to/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="path/to/js/fileinput.min.js"></script>
 <!-- bootstrap.js below is only needed if you wish to the feature of viewing details
      of text file preview via modal dialog -->

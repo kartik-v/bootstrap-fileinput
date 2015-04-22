@@ -41,7 +41,9 @@
                     tags: obj.initialPreviewThumbTags,
                     delimiter: obj.initialPreviewDelimiter,
                     template: obj.previewGenericTemplate,
-                    msg: obj.msgSelected,
+                    msg: function(n) {
+                        return obj.getMsgSelected(n);
+                    },
                     initId: obj.previewInitId,
                     footer: obj.getLayoutTemplate('footer'),
                     isDelete: obj.initialPreviewShowDelete,
@@ -53,11 +55,12 @@
             },
             fetch: function (id) {
                 return previewCache.data[id].content.filter(function (n) {
-                    return n !== undefined;
+                    return n !== null;
                 });
             },
-            count: function (id) {
-                return !!previewCache.data[id] && !!previewCache.data[id].content ? previewCache.fetch(id).length : 0;
+            count: function (id, all) {
+                return !!previewCache.data[id] && !!previewCache.data[id].content ? 
+                    (all ? previewCache.data[id].content.length : previewCache.fetch(id).length): 0;
             },
             get: function (id, i, isDisabled) {
                 var ind = 'init_' + i, data = previewCache.data[id],
@@ -131,14 +134,14 @@
                 previewCache.data[id].config[index] = null;
             },
             out: function (id) {
-                var html = '', data = previewCache.data[id], caption, len = previewCache.count(id);
+                var html = '', data = previewCache.data[id], caption, len = previewCache.count(id, true);
                 if (len === 0) {
                     return {content: '', caption: ''};
                 }
                 for (var i = 0; i < len; i++) {
                     html += previewCache.get(id, i);
                 }
-                caption = data.msg.repl('{n}', len);
+                caption = data.msg(previewCache.count(id));
                 return {content: html, caption: caption};
             },
             footer: function (id, i, isDisabled) {
@@ -822,7 +825,7 @@
                             self.reset();
                         } else {
                             n = chk + len;
-                            cap = n > 1 ? self.msgSelected.repl('{n}', n) : filestack[0].name;
+                            cap = n > 1 ? self.getMsgSelected(n) : filestack[0].name;
                             self.setCaption(cap);
                         }
                     });
@@ -836,6 +839,10 @@
                     self.uploadSingle(ind, self.filestack, false);
                 });
             });
+        },
+        getMsgSelected: function(n) {
+            var self = this, strFiles = n === 1 ? self.fileSingle : self.filePlural;
+            return self.msgSelected.repl('{n}', n).repl('{files}', strFiles);
         },
         renderFileFooter: function (caption, width) {
             var self = this, config = self.fileActionSettings, footer, out,
@@ -944,9 +951,13 @@
                         }                            
                     },
                     success: function (data, textStatus, jqXHR) {
+                        var n, cap;
                         if (data === undefined || data.error === undefined) {
                             previewCache.unset(self.id, index);
+                            n = previewCache.count(self.id),
+                            cap = n > 0? self.getMsgSelected(n) : '';
                             self.raise('filedeleted', [vKey, jqXHR, extraData]);
+                            self.setCaption(cap);
                         } else {
                             params.jqXHR = jqXHR;
                             params.response = data;
@@ -961,7 +972,8 @@
                             self.clearObjects($frame);
                             $frame.remove();
                             resetProgress();
-                            if (!previewCache.count(self.id) && self.getFileStack().length === 0) {
+                            if (!n && self.getFileStack().length === 0) {
+                                self.setCaption('');
                                 self.reset();
                             }
                         });
@@ -1194,6 +1206,7 @@
                     $thumb.after($newThumb).fadeOut('slow', function () {
                         $newThumb.fadeIn('slow').css('display:inline-block');
                         self.initPreviewDeletes();
+                        self.clearFileInput();
                     });
                 } else {
                     if (allFiles) {
@@ -1771,11 +1784,11 @@
             self.updateFileDetails(numFiles, false);
         },
         updateFileDetails: function (numFiles) {
-            var self = this, msgSelected = self.msgSelected, $el = self.$element, fileStack = self.getFileStack(),
+            var self = this, $el = self.$element, fileStack = self.getFileStack(),
                 name = $el.val() || (fileStack.length && fileStack[0].name) || '', label = self.slug(name),
                 n = self.isUploadable ? fileStack.length : numFiles,
                 nFiles = previewCache.count(self.id) + n,
-                log = n > 1 ? msgSelected.repl('{n}', nFiles) : label;
+                log = n > 1 ? self.getMsgSelected(nFiles) : label;
             if (self.isError) {
                 self.$previewContainer.removeClass('loading');
                 self.$previewStatus.html('');
@@ -2118,7 +2131,7 @@
         msgValidationError: 'File Upload Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
-        msgSelected: '{n} files selected',
+        msgSelected: '{n} {files} selected',
         msgFoldersNotAllowed: 'Drag & drop files only! {n} folder(s) dropped were skipped.',
         dropZoneTitle: 'Drag & drop files here &hellip;'
     };

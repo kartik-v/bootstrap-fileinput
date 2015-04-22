@@ -35,7 +35,7 @@
         msgValidationError: 'Помилка під час загрузки файла',
         msgLoading: 'Загрузка файла {index} із {files} &hellip;',
         msgProgress: 'Загрузка файла {index} із {files} - {name} - {percent}% завершено.',
-        msgSelected: '{n} файл(ів) вибрано',
+        msgSelected: '{n} {files} вибрано',
         msgFoldersNotAllowed: 'Дозволено перетягувати тільки файли! Пропущено {n} папок.',
         dropZoneTitle: 'Перетяніть файли сюди &hellip;'
     };

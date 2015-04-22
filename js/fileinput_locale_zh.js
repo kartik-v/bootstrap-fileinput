@@ -35,7 +35,7 @@
         msgValidationError: '文件上传错误',
         msgLoading: '加载第 {index} 文件 共 {files} &hellip;',
         msgProgress: '加载第 {index} 文件 共 {files} - {name} - {percent}% 完成.',
-        msgSelected: '{n} 个文件选中',
+        msgSelected: '{n} {files} 选中',
         msgFoldersNotAllowed: '只支持拖拽文件! 跳过 {n} 拖拽的文件夹.',
         dropZoneTitle: '拖拽文件到这里 &hellip;',
         slugCallback: function(text) {

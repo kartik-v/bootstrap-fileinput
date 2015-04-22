@@ -17,6 +17,7 @@ version 4.1.9
 13. (enh #252): Enhance async batch completion.
 14. (bug #253): Fix initial preview delete cache initialization.
 15. (bug #257): Fix upload single to replace thumbs correctly.
+16. (enh #258): Enhance messages to include file plural and single.
 
 version 4.1.8
 =============

@@ -34,7 +34,7 @@
         msgValidationError: 'File Upload Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
-        msgSelected: '{n} files selected',
+        msgSelected: '{n} {files} selected',
         msgFoldersNotAllowed: 'Drag & drop files only! Skipped {n} dropped folder(s).',
         dropZoneTitle: 'Drag & drop files here &hellip;'
     };

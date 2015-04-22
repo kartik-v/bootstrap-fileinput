@@ -35,7 +35,7 @@
         msgValidationError: 'Greška prilikom otpremanja fajla',
         msgLoading: 'Učitavanje datoteke {index} od {files} &hellip;',
         msgProgress: 'Učitavanje datoteke {index} od {files} - {name} - {percent}% završeno.',
-        msgSelected: '{n} datoteka je označeno',
+        msgSelected: '{n} {files} je označeno',
         msgFoldersNotAllowed: 'Moguće je prevlačiti samo datoteke! Preskočeno je {n} fascikla.',
         dropZoneTitle: 'Prevucite datoteke ovde &hellip;'
     };

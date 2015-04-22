@@ -34,7 +34,7 @@
         msgValidationError: 'Fájl ellenörzési hiba.',
         msgLoading: '{index} / {files} töltése &hellip;',
         msgProgress: 'Feltöltés: {index} / {files} - {name} - {percent}% kész.',
-        msgSelected: '{n} fájl kiválasztva.',
+        msgSelected: '{n} {files} kiválasztva.',
         msgFoldersNotAllowed: 'Csak fájlokat húzzon ide! Kihagyva {n} könyvtár.',
         dropZoneTitle: 'Fájlok húzása ide &hellip;'
     };

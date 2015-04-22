@@ -34,7 +34,7 @@
         msgValidationError: 'อัพโหลดไฟล์มีปัญหา',
         msgLoading: 'กำลังโหลดไฟล์ {index} จาก {files} &hellip;',
         msgProgress: 'กำลังโหลดไฟล์ {index} จาก {files} - {name} - {percent}%',
-        msgSelected: '{n} ถูกเลือกไฟล์',
+        msgSelected: '{n} {files} ถูกเลือก',
         msgFoldersNotAllowed: 'Drag & drop เฉพาะไฟล์เท่านั้น! ข้าม dropped folder จำนวน {n}',
         dropZoneTitle: 'Drag & drop ไฟล์ตรงนี้ &hellip;'
     };
