@@ -18,6 +18,8 @@ version 4.1.9
 14. (bug #253): Fix initial preview delete cache initialization.
 15. (bug #257): Fix upload single to replace thumbs correctly.
 16. (enh #258): Enhance messages to include file plural and single.
+17. (enh #259): Add Polish translations.
+18. (enh #263): Enhance parsing of file preview thumbnails and actions.
 
 version 4.1.8
 =============

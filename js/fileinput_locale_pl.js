@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales._LANG_ = {
+    $.fn.fileinput.locales.pl = {
         fileSingle: 'plik',
         filePlural: 'pliki',
         browseLabel: 'Przeglądaj &hellip;',
@@ -34,10 +34,10 @@
         msgValidationError: 'Błąd podczas przesyłania pliku.',
         msgLoading: 'Wczytywanie pliku {index} z {files} &hellip;',
         msgProgress: 'Wczytywanie pliku {index} z {files} - {name} - {percent}% zakończone.',
-        msgSelected: '{n} wybranych plików',
+        msgSelected: '{n} {files} zaznaczonych',
         msgFoldersNotAllowed: 'Metodą przeciągnij i upuść, można przenosić tylko pliki. Pominięto {n} katalogów.',
         dropZoneTitle: 'Przeciągnij i upuść pliki tu &hellip;'
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales._LANG_);
+    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.pl);
 })(window.jQuery);

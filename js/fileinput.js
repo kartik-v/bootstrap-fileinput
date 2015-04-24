@@ -41,15 +41,15 @@
                     tags: obj.initialPreviewThumbTags,
                     delimiter: obj.initialPreviewDelimiter,
                     template: obj.previewGenericTemplate,
-                    msg: function(n) {
+                    msg: function (n) {
                         return obj.getMsgSelected(n);
                     },
                     initId: obj.previewInitId,
                     footer: obj.getLayoutTemplate('footer'),
                     isDelete: obj.initialPreviewShowDelete,
                     caption: obj.initialCaption,
-                    actions: function (showUpload, showDelete, disabled, url, key, index) {
-                        return obj.renderFileActions(showUpload, showDelete, disabled, url, key, index);
+                    actions: function (showUpload, showDelete, disabled, url, key) {
+                        return obj.renderFileActions(showUpload, showDelete, disabled, url, key);
                     }
                 };
             },
@@ -59,8 +59,8 @@
                 });
             },
             count: function (id, all) {
-                return !!previewCache.data[id] && !!previewCache.data[id].content ? 
-                    (all ? previewCache.data[id].content.length : previewCache.fetch(id).length): 0;
+                return !!previewCache.data[id] && !!previewCache.data[id].content ?
+                    (all ? previewCache.data[id].content.length : previewCache.fetch(id).length) : 0;
             },
             get: function (id, i, isDisabled) {
                 var ind = 'init_' + i, data = previewCache.data[id],
@@ -156,7 +156,7 @@
                     url = isSet('url', config) ? config.url : false,
                     key = isSet('key', config) ? config.key : null,
                     disabled = (url === false) && isDisabled,
-                    actions = data.isDelete ? data.actions(false, true, disabled, url, key, i) : '',
+                    actions = data.isDelete ? data.actions(false, true, disabled, url, key) : '',
                     footer = data.footer.repl('{actions}', actions);
                 return footer
                     .repl('{caption}', caption)
@@ -165,7 +165,6 @@
                     .repl('{indicatorTitle}', '');
             }
         },
-        PREVIEW_FRAMES = '.file-preview-frame:not(.file-preview-initial)',
         getNum = function (num, def) {
             def = def || 0;
             if (typeof num === "number") {
@@ -730,7 +729,7 @@
         },
         resetFileStack: function () {
             var self = this, i = 0, newstack = [];
-            self.$preview.find(PREVIEW_FRAMES).each(function () {
+            self.getThumbs().each(function () {
                 var $thumb = $(this), ind = $thumb.attr('data-fileindex'),
                     file = self.filestack[ind];
                 if (ind === -1) {
@@ -840,7 +839,7 @@
                 });
             });
         },
-        getMsgSelected: function(n) {
+        getMsgSelected: function (n) {
             var self = this, strFiles = n === 1 ? self.fileSingle : self.filePlural;
             return self.msgSelected.repl('{n}', n).repl('{files}', strFiles);
         },
@@ -848,7 +847,7 @@
             var self = this, config = self.fileActionSettings, footer, out,
                 template = self.getLayoutTemplate('footer');
             if (self.isUploadable) {
-                footer = template.repl('{actions}', self.renderFileActions(true, true, false, false, false, false));
+                footer = template.repl('{actions}', self.renderFileActions(true, true, false, false, false));
                 out = footer.repl('{caption}', caption)
                     .repl('{width}', width)
                     .repl('{indicator}', config.indicatorNew)
@@ -863,7 +862,7 @@
             out = replaceTags(out, self.previewThumbTags);
             return out;
         },
-        renderFileActions: function (showUpload, showDelete, disabled, url, key, index) {
+        renderFileActions: function (showUpload, showDelete, disabled, url, key) {
             if (!showUpload && !showDelete) {
                 return '';
             }
@@ -920,14 +919,14 @@
                         self.initialCaption = '';
                     }
                 };
-                
+
             self.$preview.find('.kv-file-remove').each(function () {
                 var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key');
                 if (isEmpty(vUrl) || vKey === undefined) {
                     return;
                 }
-                var $frame = $el.closest('.file-preview-frame'), cache = previewCache.data[self.id], 
-                    settings, params,index = $frame.data('fileindex'), config, extraData;
+                var $frame = $el.closest('.file-preview-frame'), cache = previewCache.data[self.id],
+                    settings, params, index = $frame.data('fileindex'), config, extraData;
                 index = parseInt(index.replace('init_', ''));
                 config = isEmpty(cache.config) && isEmpty(cache.config[index]) ? null : cache.config[index];
                 extraData = isEmpty(config) || isEmpty(config.extra) ? deleteExtraData : config.extra;
@@ -948,14 +947,14 @@
                         } else {
                             addCss($frame, 'file-uploading');
                             addCss($el, 'disabled');
-                        }                            
+                        }
                     },
                     success: function (data, textStatus, jqXHR) {
                         var n, cap;
                         if (data === undefined || data.error === undefined) {
                             previewCache.unset(self.id, index);
-                            n = previewCache.count(self.id),
-                            cap = n > 0? self.getMsgSelected(n) : '';
+                            n = previewCache.count(self.id);
+                            cap = n > 0 ? self.getMsgSelected(n) : '';
                             self.raise('filedeleted', [vKey, jqXHR, extraData]);
                             self.setCaption(cap);
                         } else {
@@ -1046,7 +1045,7 @@
                     xhr[i].abort();
                 }
             }
-            self.$preview.find(PREVIEW_FRAMES).each(function () {
+            self.getThumbs().each(function () {
                 var $thumb = $(this), ind = $thumb.attr('data-fileindex');
                 $thumb.removeClass('file-uploading');
                 if (self.filestack[ind] !== undefined) {
@@ -1071,7 +1070,7 @@
                 self.initPreviewDeletes();
                 self.$container.removeClass('file-input-new');
             } else {
-                self.$preview.find(PREVIEW_FRAMES).each(function () {
+                self.getThumbs().each(function () {
                     self.clearObjects($(this));
                 });
                 self.$preview.html('');
@@ -1134,6 +1133,10 @@
             self.$container.find(".kv-fileinput-caption").removeClass("file-caption-disabled");
             self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload").removeAttr("disabled");
             self.initDragDrop();
+        },
+        getThumbs: function (css) {
+            css = css || '';
+            return this.$preview.find('.file-preview-frame:not(.file-preview-initial)' + css);
         },
         getExtraData: function () {
             var self = this, data = self.uploadExtraData;
@@ -1235,12 +1238,12 @@
                 return;
             }
             chkComplete = function () {
-                var $thumbs = self.$preview.find(PREVIEW_FRAMES + '.file-uploading');
+                var $thumbs = self.getThumbs('.file-uploading');
                 if ($thumbs.length > 0 || self.fileBatchCompleted) {
                     return;
                 }
                 self.fileBatchCompleted = true;
-                setTimeout(function() {
+                setTimeout(function () {
                     previewCache.set(self.id, self.uploadCache.content, self.uploadCache.config, self.uploadCache.tags,
                         self.uploadCache.append);
                     if (self.hasInitData) {
@@ -1353,7 +1356,7 @@
                 $btnDelete.removeAttr('disabled');
             };
             setAllUploaded = function () {
-                $.each(files, function (key, data) {
+                $.each(files, function (key) {
                     self.filestack[key] = undefined;
                 });
                 self.clearFileInput();
@@ -1362,7 +1365,7 @@
                 self.lock();
                 var outData = self.getOutData(jqXHR);
                 if (self.showPreview) {
-                    self.$preview.find(PREVIEW_FRAMES).each(function () {
+                    self.getThumbs().each(function () {
                         var $thumb = $(this), $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove');
                         addCss($thumb, 'file-uploading');
                         $btnUpload.attr('disabled', true);
@@ -1375,15 +1378,15 @@
                 }
             };
             fnSuccess = function (data, textStatus, jqXHR) {
-                var outData = self.getOutData(jqXHR, data),
+                var outData = self.getOutData(jqXHR, data), $thumbs = self.getThumbs(),
                     keys = isEmpty(data.errorkeys) ? [] : data.errorkeys;
                 if (data.error === undefined || isEmpty(data.error)) {
                     self.raise('filebatchuploadsuccess', [outData]);
                     setAllUploaded();
                     if (self.showPreview) {
-                        self.$preview.find('.kv-file-upload').hide();
-                        self.$preview.find('.kv-file-remove').hide();
-                        self.$preview.find(PREVIEW_FRAMES).each(function () {
+                        $thumbs.find('.kv-file-upload').hide();
+                        $thumbs.find('.kv-file-remove').hide();
+                        $thumbs.each(function () {
                             var $thumb = $(this), key = $thumb.attr('data-fileindex');
                             setIndicator(key, 'indicatorSuccess', 'indicatorSuccessTitle');
                             enableActions(key);
@@ -1394,7 +1397,7 @@
                     }
                 } else {
                     if (self.showPreview) {
-                        self.$preview.find(PREVIEW_FRAMES).each(function () {
+                        $thumbs.each(function () {
                             var $thumb = $(this), key = parseInt($thumb.attr('data-fileindex'), 10);
                             enableActions(key);
                             if (keys.length === 0) {
@@ -1428,16 +1431,16 @@
                 if (!self.showPreview) {
                     return;
                 }
-                self.$preview.find(PREVIEW_FRAMES).each(function () {
+                self.getThumbs().each(function () {
                     var $thumb = $(this), key = $thumb.attr('data-fileindex');
                     $thumb.removeClass('file-uploading');
                     if (self.filestack[key] !== undefined) {
                         setIndicator(key, 'indicatorError', 'indicatorErrorTitle');
                     }
                 });
-                self.$preview.find(PREVIEW_FRAMES).removeClass('file-uploading');
-                self.$preview.find(PREVIEW_FRAMES + ' .kv-file-upload').removeAttr('disabled');
-                self.$preview.find(PREVIEW_FRAMES + ' .kv-file-delete').removeAttr('disabled');
+                self.getThumbs().removeClass('file-uploading');
+                self.getThumbs(' .kv-file-upload').removeAttr('disabled');
+                self.getThumbs(' .kv-file-delete').removeAttr('disabled');
             };
             $.each(files, function (key, data) {
                 if (!isEmpty(files[key])) {
