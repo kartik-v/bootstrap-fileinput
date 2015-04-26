@@ -20,6 +20,7 @@ version 4.1.9
 16. (enh #258): Enhance messages to include file plural and single.
 17. (enh #259): Add Polish translations.
 18. (enh #263): Enhance parsing of file preview thumbnails and actions.
+19. (enh #264): Validate input type of file before initializing plugin.
 
 version 4.1.8
 =============

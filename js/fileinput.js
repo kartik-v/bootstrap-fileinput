@@ -427,17 +427,33 @@
         },
         objUrl = window.URL || window.webkitURL,
         FileInput = function (element, options) {
-            this.$element = $(element);
+            var self = this;
+            self.$element = $(element);
+            if (!self.validate()) {
+                return;
+            }
             if (hasFileAPISupport() || isIE(9)) {
-                this.init(options);
-                this.listen();
+                self.init(options);
+                self.listen();
             } else {
-                this.$element.removeClass('file-loading');
+                self.$element.removeClass('file-loading');
             }
         };
 
     FileInput.prototype = {
         constructor: FileInput,
+        validate: function() {
+            var self = this, $exception;
+            if (self.$element.attr('type') === 'file') {
+                return true;
+            }
+            $exception = '<div class="help-block alert alert-warning">' +
+                '<h4>Invalid Input Type</h4>' +
+                'You must set an input <code>type = file</code> for <b>bootstrap-fileinput</b> plugin to initialize.' +
+                '</div>';
+            self.$element.after($exception);
+            return false;
+        },
         init: function (options) {
             var self = this, $el = self.$element, t;
             $.each(options, function (key, value) {
