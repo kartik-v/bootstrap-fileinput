@@ -1,6 +1,6 @@
 version 4.1.9
 =============
-**Date**: 16-Apr-2015
+**Date**: 30-Apr-2015
 
 1. (enh #232): Update docs to reflect updated bootstrap CDN domain.
 2. (enh #237): Better styling of file caption icon.
@@ -21,6 +21,7 @@ version 4.1.9
 17. (enh #259): Add Polish translations.
 18. (enh #263): Enhance parsing of file preview thumbnails and actions.
 19. (enh #264): Validate input type of file before initializing plugin.
+20. (enh #269): Add Turkish translations.
 
 version 4.1.8
 =============
