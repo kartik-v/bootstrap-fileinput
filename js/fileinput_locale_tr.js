@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales._LANG_ = {
+    $.fn.fileinput.locales.tr = {
         fileSingle: 'dosya',
         filePlural: 'dosyalar',
         browseLabel: 'Gözat &hellip;',
