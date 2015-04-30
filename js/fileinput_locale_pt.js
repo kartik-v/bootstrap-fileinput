@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales._LANG_ = {
+    $.fn.fileinput.locales.pt= {
         fileSingle: 'ficheiro',
         filePlural: 'ficheiros',
         browseLabel: 'Procurar &hellip;',
@@ -39,5 +39,5 @@
         dropZoneTitle: 'Arrastar e largar ficheiros aqui &hellip;'
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales._LANG_);
+    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.pt);
 })(window.jQuery);
