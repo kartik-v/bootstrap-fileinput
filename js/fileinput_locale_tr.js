@@ -39,5 +39,5 @@
         dropZoneTitle: 'Dosyaları buraya sürükleyip bırakın &hellip;'
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales._LANG_);
+    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.tr);
 })(window.jQuery);
