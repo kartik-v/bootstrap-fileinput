@@ -1,5 +1,5 @@
 /*!
- * FileInput <nl> Translations
+ * FileInput Dutch Translations
  *
  * This file must be loaded after 'fileinput.js'. Patterns in braces '{}', or
  * any HTML markup tags in the messages must not be converted or translated.
@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales._LANG_ = {
+    $.fn.fileinput.locales.nl = {
         fileSingle: 'bestand',
         filePlural: 'bestanden',
         browseLabel: 'Zoek &hellip;',
@@ -39,5 +39,5 @@
         dropZoneTitle: 'Drag & drop bestanden hier &hellip;'
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales._LANG_);
+    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.nl);
 })(window.jQuery);

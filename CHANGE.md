@@ -23,6 +23,7 @@ version 4.1.9
 19. (enh #264): Validate input type of file before initializing plugin.
 20. (enh #269): Add Turkish translations.
 21. (enh #270): Add Portugese translations.
+22. (enh #271): Add Dutch translations.
 
 version 4.1.8
 =============
