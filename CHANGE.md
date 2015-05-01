@@ -22,6 +22,7 @@ version 4.1.9
 18. (enh #263): Enhance parsing of file preview thumbnails and actions.
 19. (enh #264): Validate input type of file before initializing plugin.
 20. (enh #269): Add Turkish translations.
+21. (enh #270): Add Portugese translations.
 
 version 4.1.8
 =============
