@@ -21,7 +21,7 @@
         cancelTitle: 'Devam eden yüklemeyi iptal et',
         uploadLabel: 'Yükle',
         uploadTitle: 'Seçilen dosyaları yükle',
-        msgSizeTooLarge: '"{name}" dosyasının boyutu (<b>{size} KB</b>) izin verilen azami dosya boyutu olan <b>{maxSize} KB</b>'tan büyük. Lütfen tekrar deneyin!',
+        msgSizeTooLarge: '"{name}" dosyasının boyutu (<b>{size} KB</b>) izin verilen azami dosya boyutu olan <b>{maxSize} KB</b>\'tan büyük. Lütfen tekrar deneyin!',
         msgFilesTooLess: 'Yüklemek için en az <b>{n}</b> {files} dosya seçmelisiniz. Lütfen tekrar deneyin!',
         msgFilesTooMany: 'Yüklemek için seçtiğiniz dosya sayısı <b>({n})</b> azami limitin <b>{m}</b> altında olmalıdır. Lütfen tekrar deneyin!',
         msgFileNotFound: '"{name}" dosyası bulunamadı!',
