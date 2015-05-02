@@ -1929,12 +1929,11 @@
             });
         },
         initCaption: function () {
-            var self = this, cap;
-            if (self.overwriteInitial) {
+            var self = this, cap = self.initialCaption || '';
+            if (self.overwriteInitial || isEmpty(cap)) {
                 self.$caption.html('');
                 return false;
             }
-            cap = self.initialCaption || '';
             self.setCaption(cap);
             return true;
         },
