@@ -1,3 +1,9 @@
+version 4.2.0
+=============
+**Date**: 05-May-2015
+
+1. (enh #275): Add Czech & Slovakian translations.
+
 version 4.1.9
 =============
 **Date**: 02-May-2015
