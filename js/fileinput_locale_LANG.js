@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales._LANG_ = {
+    $.fn.fileinputLocales._LANG_ = {
         fileSingle: 'file',
         filePlural: 'files',
         browseLabel: 'Browse &hellip;',
@@ -38,6 +38,4 @@
         msgFoldersNotAllowed: 'Drag & drop files only! Skipped {n} dropped folder(s).',
         dropZoneTitle: 'Drag & drop files here &hellip;'
     };
-
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales._LANG_);
 })(window.jQuery);

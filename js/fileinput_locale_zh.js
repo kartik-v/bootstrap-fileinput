@@ -12,7 +12,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales.zh = {
+    $.fn.fileinputLocales.zh = {
         fileSingle: '文件',
         filePlural: '多个文件',
         browseLabel: '选择 &hellip;',
@@ -42,6 +42,4 @@
             return text ? text.split(/(\\|\/)/g).pop().replace(/[^\w\u4e00-\u9fa5\-.\\\/ ]+/g, '') : '';
         }
     };
-
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.zh);
 })(window.jQuery);

@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales.hu = {
+    $.fn.fileinputLocales.hu = {
         fileSingle: 'fájl',
         filePlural: 'fájlok',
         browseLabel: 'Böngész &hellip;',
@@ -38,6 +38,4 @@
         msgFoldersNotAllowed: 'Csak fájlokat húzzon ide! Kihagyva {n} könyvtár.',
         dropZoneTitle: 'Fájlok húzása ide &hellip;'
     };
-
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.hu);
 })(window.jQuery);

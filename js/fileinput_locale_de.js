@@ -9,7 +9,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales.de = {
+    $.fn.fileinputLocales.de = {
         fileSingle: 'Datei',
         filePlural: 'Dateien',
         browseLabel: 'Auswählen &hellip;',
@@ -36,6 +36,4 @@
         msgFoldersNotAllowed: 'Drag & Drop funktioniert nur bei Dateien! {n} Ordner übersprungen.',
         dropZoneTitle: 'Dateien hierher ziehen &hellip;'
     };
-
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.de);
 })(window.jQuery);

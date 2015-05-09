@@ -1,8 +1,9 @@
 version 4.2.0
 =============
-**Date**: 05-May-2015
+**Date**: 09-May-2015
 
 1. (enh #275): Add Czech & Slovakian translations.
+2. (enh #277): New `language` property to allow configuring multi lang widgets on same page.
 
 version 4.1.9
 =============

@@ -13,7 +13,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales.it = {
+    $.fn.fileinputLocales.it = {
         fileSingle: 'file',
         filePlural: 'file',
         browseLabel: 'Sfoglia&hellip;',
@@ -40,6 +40,4 @@
         msgFoldersNotAllowed: 'Trascina solo file! Ignorata/e {n} cartella/e.',
         dropZoneTitle: 'Trascina i file qui&hellip;'
     };
-
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.it);
 })(window.jQuery);

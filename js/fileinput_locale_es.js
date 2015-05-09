@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales.es = {
+    $.fn.fileinputLocales.es = {
         fileSingle: 'archivo',
         filePlural: 'archivos',
         browseLabel: 'Buscar &hellip;',
@@ -38,6 +38,4 @@
         msgFoldersNotAllowed: 'Arrastre y suelte únicamente archivos! Se omite {n} carpeta(s).',
         dropZoneTitle: 'Arrastre y suelte los archivos aquí &hellip;'
     };
-
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.es);
 })(window.jQuery);

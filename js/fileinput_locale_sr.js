@@ -12,7 +12,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales.sr = {
+    $.fn.fileinputLocales.sr = {
         fileSingle: 'datoteka',
         filePlural: 'datoteke',
         browseLabel: 'Izaberi &hellip;',
@@ -39,6 +39,4 @@
         msgFoldersNotAllowed: 'Moguće je prevlačiti samo datoteke! Preskočeno je {n} fascikla.',
         dropZoneTitle: 'Prevucite datoteke ovde &hellip;'
     };
-
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.sr);
 })(window.jQuery);

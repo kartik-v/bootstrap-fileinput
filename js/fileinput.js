@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version 4.1.9
+ * @version 4.2.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -17,6 +17,9 @@
  */
 (function ($) {
     "use strict";
+
+    $.fn.fileinputLocales = {};
+
     String.prototype.repl = function (from, to) {
         return this.split(from).join(to);
     };
@@ -442,15 +445,15 @@
 
     FileInput.prototype = {
         constructor: FileInput,
-        validate: function() {
+        validate: function () {
             var self = this, $exception;
             if (self.$element.attr('type') === 'file') {
                 return true;
             }
             $exception = '<div class="help-block alert alert-warning">' +
-                '<h4>Invalid Input Type</h4>' +
-                'You must set an input <code>type = file</code> for <b>bootstrap-fileinput</b> plugin to initialize.' +
-                '</div>';
+            '<h4>Invalid Input Type</h4>' +
+            'You must set an input <code>type = file</code> for <b>bootstrap-fileinput</b> plugin to initialize.' +
+            '</div>';
             self.$element.after($exception);
             return false;
         },
@@ -2039,12 +2042,16 @@
         var args = Array.apply(null, arguments);
         args.shift();
         return this.each(function () {
-            var $this = $(this),
-                data = $this.data('fileinput'),
-                options = typeof option === 'object' && option;
+            var $this = $(this), data = $this.data('fileinput'), defaults,
+                options = typeof option === 'object' && option,
+                lang = options.language || $this.data('language') || 'en';
 
             if (!data) {
-                data = new FileInput(this, $.extend({}, $.fn.fileinput.defaults, options, $(this).data()));
+                defaults = $.extend({}, $.fn.fileinput.defaults);
+                if (lang !== 'en' && !isEmpty($.fn.fileinputLocales[lang])) {
+                    defaults = $.extend(defaults, $.fn.fileinputLocales[lang]);
+                }
+                data = new FileInput(this, $.extend(defaults, options, $this.data()));
                 $this.data('fileinput', data);
             }
 
@@ -2055,6 +2062,7 @@
     };
 
     $.fn.fileinput.defaults = {
+        language: 'en',
         showCaption: true,
         showPreview: true,
         showRemove: true,
@@ -2124,9 +2132,7 @@
         showAjaxErrorDetails: true
     };
 
-    $.fn.fileinput.locales = {};
-
-    $.fn.fileinput.locales.en = {
+    $.fn.fileinputLocales.en = {
         fileSingle: 'file',
         filePlural: 'files',
         browseLabel: 'Browse &hellip;',
@@ -2154,7 +2160,7 @@
         dropZoneTitle: 'Drag & drop files here &hellip;'
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.en);
+    $.extend($.fn.fileinput.defaults, $.fn.fileinputLocales.en);
 
     $.fn.fileinput.Constructor = FileInput;
 
@@ -2163,8 +2169,8 @@
      * into a bootstrap fileinput control.
      */
     $(document).ready(function () {
-        var $input = $('input.file[type=file]'), count = $input.attr('type') ? $input.length : 0;
-        if (count > 0) {
+        var $input = $('input.file[type=file]');
+        if ($input.length) {
             $input.fileinput();
         }
     });
