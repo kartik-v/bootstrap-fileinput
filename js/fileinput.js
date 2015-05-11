@@ -523,7 +523,8 @@
         parseError: function (jqXHR, errorThrown, fileName) {
             var self = this, errMsg = $.trim(errorThrown + ''),
                 dot = errMsg.slice(-1) === '.' ? '' : '.',
-                text = $(jqXHR.responseText).text();
+                text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined
+                        ? jqXHR.responseJSON.error : jqXHR.responseText;
             if (self.showAjaxErrorDetails) {
                 text = $.trim(text.replace(/\n\s*\n/g, '\n'));
                 text = text.length > 0 ? '<pre>' + text + '</pre>' : '';
