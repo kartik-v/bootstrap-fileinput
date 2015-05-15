@@ -13,7 +13,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinputLocales.it = {
+    $.fn.fileinputLocales['it'] = {
         fileSingle: 'file',
         filePlural: 'file',
         browseLabel: 'Sfoglia&hellip;',

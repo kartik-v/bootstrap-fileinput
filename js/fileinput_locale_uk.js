@@ -12,7 +12,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinputLocales.uk = {
+    $.fn.fileinputLocales['uk'] = {
         fileSingle: 'файл',
         filePlural: 'файли',
         browseLabel: 'Вибрати &hellip;',

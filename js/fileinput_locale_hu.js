@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinputLocales.hu = {
+    $.fn.fileinputLocales['hu'] = {
         fileSingle: 'fájl',
         filePlural: 'fájlok',
         browseLabel: 'Böngész &hellip;',

@@ -9,7 +9,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinputLocales.de = {
+    $.fn.fileinputLocales['de'] = {
         fileSingle: 'Datei',
         filePlural: 'Dateien',
         browseLabel: 'Auswählen &hellip;',

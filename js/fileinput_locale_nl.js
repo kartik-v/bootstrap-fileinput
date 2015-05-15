@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinputLocales.nl = {
+    $.fn.fileinputLocales['nl'] = {
         fileSingle: 'bestand',
         filePlural: 'bestanden',
         browseLabel: 'Zoek &hellip;',
