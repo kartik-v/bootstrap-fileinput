@@ -1,3 +1,11 @@
+version 4.2.1
+=============
+**Date**: 22-May-2015
+
+1. (enh #279, #280): Fixed error for failed response types.
+2. (enh #287): Add Brazilian Portugese (pt-BR) translations.
+3. (enh #296): Fixed license identifiers in bower.json and composer.json.
+
 version 4.2.0
 =============
 **Date**: 11-May-2015
