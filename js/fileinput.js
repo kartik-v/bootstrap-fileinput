@@ -524,7 +524,7 @@
             var self = this, errMsg = $.trim(errorThrown + ''),
                 dot = errMsg.slice(-1) === '.' ? '' : '.',
                 text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined
-                        ? jqXHR.responseJSON.error : jqXHR.responseText;
+                    ? jqXHR.responseJSON.error : jqXHR.responseText;
             if (self.showAjaxErrorDetails) {
                 text = $.trim(text.replace(/\n\s*\n/g, '\n'));
                 text = text.length > 0 ? '<pre>' + text + '</pre>' : '';
@@ -1879,6 +1879,16 @@
                 return;
             }
             self.resetErrors();
+            total = self.isUploadable ? self.getFileStack().length + tfiles.length : tfiles.length;
+            if (self.maxFileCount > 0 && total > self.maxFileCount) {
+                msg = self.msgFilesTooMany.repl('{m}', self.maxFileCount).repl('{n}', total);
+                self.isError = throwError(msg, null, null, null);
+                self.$captionContainer.find('.kv-caption-icon').hide();
+                self.$caption.html(self.msgValidationError);
+                self.setEllipsis();
+                self.$container.removeClass('file-input-new file-input-ajax-new');
+                return;
+            }
             if (!isAjaxUpload || (isSingleUpload && ctr > 0)) {
                 if (!self.overwriteInitial && previewCache.count(self.id)) {
                     var out = previewCache.out(self.id);
@@ -1892,16 +1902,11 @@
                 if (isSingleUpload && ctr > 0) {
                     self.filestack = [];
                 }
-            }
-            total = self.isUploadable ? self.getFileStack().length + tfiles.length : tfiles.length;
-            if (self.maxFileCount > 0 && total > self.maxFileCount) {
-                msg = self.msgFilesTooMany.repl('{m}', self.maxFileCount).repl('{n}', total);
-                self.isError = throwError(msg, null, null, null);
-                self.$captionContainer.find('.kv-caption-icon').hide();
-                self.$caption.html(self.msgValidationError);
-                self.setEllipsis();
-                self.$container.removeClass('file-input-new file-input-ajax-new');
-                return;
+            } else {
+                if (isAjaxUpload && self.overwriteInitial) {
+                    $preview.html('');
+                    self.filestack = [];
+                }
             }
             if (!self.isIE9) {
                 self.readFiles(tfiles);

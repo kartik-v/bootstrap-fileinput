@@ -4,8 +4,9 @@ version 4.2.1
 
 1. (enh #279, #280): Fixed error for failed response types.
 2. (enh #287): Add Brazilian Portugese (pt-BR) translations.
-3. (enh #296): Fixed license identifiers in bower.json and composer.json.
-4. (enh #297): Add Romanian translations.
+3. (bug #295): Validate `overwriteInitial` correctly for ajax uploads.
+4. (enh #296): Fixed license identifiers in bower.json and composer.json.
+5. (enh #297): Add Romanian translations.
 
 version 4.2.0
 =============
