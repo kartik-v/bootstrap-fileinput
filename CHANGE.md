@@ -7,6 +7,11 @@ version 4.2.1
 3. (bug #295): Validate `overwriteInitial` correctly for ajax uploads.
 4. (enh #296): Fixed license identifiers in bower.json and composer.json.
 5. (enh #297): Add Romanian translations.
+6. (enh #299): Enhancements for displaying uploaded file thumbnails.
+    - New property `showUploadedThumbs` that will display uploaded thumbnails until the remove/clear button is explicitly pressed.
+    - New event `filesuccessremove`. This will be triggered on removing the uploaded thumbnail using the thumbnail delete button. The event shares the following parameters:
+        - `id`: the HTML id attribute of the thumbnail container 
+      The `event` can be set to return `false` to abort the thumbnail removal.
 
 version 4.2.0
 =============

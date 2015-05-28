@@ -173,6 +173,9 @@ _boolean_ whether to display the file upload button. Defaults to `true`. This wi
 ### showCancel
 _boolean_ whether to display the file upload cancel button. Defaults to `true`. This will be only enabled and displayed when an AJAX upload is in process.
 
+### showUploadedThumbs
+_boolean_ whether to persist display of the uploaded file thumbnails in the preview window (for ajax uploads) until the remove/clear button is pressed. Defaults to `true`.  When set to `false`, a next batch of files selected for upload will clear these thumbnails from preview.
+
 ### captionClass
 _string_ any additional CSS class to append to the caption container.
 
@@ -1292,6 +1295,22 @@ $('#input-id').on('filebatchuploadcomplete', function(event, files, extra) {
 });
 ```
 
+#### filesuccessremove
+This event is triggered after a successfully uploaded thumbnail is removed using the thumbnail delete button. This is usually applicable when you have **showUploadedThumbs** set to `true`. Additional parameters available are: 
+
+- `id`: the HTML ID attribute for the thumbnail container element.
+
+The event can return `false` to abort the thumbnail removal.
+
+```js
+$('#input-id').on('filesuccessremove', function(event, id) {
+    if (some_processing_function(id)) {
+       console.log('Uploaded thumbnail successfully removed');
+    } else {
+        return false; // abort the thumbnail removal
+    }
+});
+```
 #### filedisabled
 This event is triggered when the file input widget is disabled (prevents any modification) using the `disable` method.
 
