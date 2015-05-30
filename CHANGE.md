@@ -13,6 +13,7 @@ version 4.2.1
         - `id`: the HTML id attribute of the thumbnail container 
       The `event` can be set to return `false` to abort the thumbnail removal.
 7. (enh #302): Add Greek (el) translations.
+8. (enh #303): Validate only files to be dragged and dropped.
 
 version 4.2.0
 =============

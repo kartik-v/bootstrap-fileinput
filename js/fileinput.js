@@ -776,19 +776,22 @@
             $el.off();
             self.init(params);
             $zone = self.$container.find('.file-drop-zone');
-            $zone.off('dragenter dragover drop');
+            $zone.off('dragenter dragover dragleave drop');
             $(document).off('dragenter dragover drop');
             self.listen();
             self.setFileDropZoneTitle();
         },
         initDragDrop: function () {
             var self = this, $zone = self.$container.find('.file-drop-zone');
-            $zone.off('dragenter dragover drop');
+            $zone.off('dragenter dragover dragleave drop');
             $(document).off('dragenter dragover drop');
             $zone.on('dragenter dragover', function (e) {
+                var hasFiles = $.inArray('Files', e.originalEvent.dataTransfer.types) > -1;
                 e.stopPropagation();
                 e.preventDefault();
-                if (self.isDisabled) {
+                if (self.isDisabled || !hasFiles) {
+                    e.originalEvent.dataTransfer.effectAllowed= 'none';
+                    e.originalEvent.dataTransfer.dropEffect= 'none';
                     return;
                 }
                 addCss($(this), 'highlighted');
@@ -803,7 +806,7 @@
             });
             $zone.on('drop', function (e) {
                 e.preventDefault();
-                if (self.isDisabled) {
+                if (self.isDisabled || isEmpty(e.originalEvent.dataTransfer.files)) {
                     return;
                 }
                 self.change(e, 'dragdrop');
