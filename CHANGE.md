@@ -12,6 +12,7 @@ version 4.2.1
     - New event `filesuccessremove`. This will be triggered on removing the uploaded thumbnail using the thumbnail delete button. The event shares the following parameters:
         - `id`: the HTML id attribute of the thumbnail container 
       The `event` can be set to return `false` to abort the thumbnail removal.
+7. (enh #302): Add Greek (el) translations.
 
 version 4.2.0
 =============
