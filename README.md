@@ -235,6 +235,8 @@ _array_, the configuration for setting up important properties for each `initial
     - `width`: _string_, the CSS width of the image/content displayed.
     - `url`: _string_, the URL for deleting the image/content in the initial preview via AJAX post response. This will default to `deleteUrl` if not set.
     - `key`: _string|object_, the key that will be passed as data to the `url` via AJAX POST.
+    - `frameClass`: _string_, the additional frame css class to set for the file's thumbnail frame.
+    - `frameAttr`: _object_, the HTML attribute settings (set as key:value pairs) for the thumbnail frame.
     - `extra`: _object|function_, the extra data that will be passed as data to the initial preview delete url/AJAX server call via POST. This will default to `deleteExtraData` if not set.
 
 An example configuration of `initialPreviewConfig` (for the previously set `initialPreviewContent`) can be:
@@ -259,6 +261,11 @@ initialPreviewConfig: [
         width: '120px', 
         url: '/localhost/avatar/delete', 
         key: 101, 
+        frameClass: 'my-custom-frame-css',
+        frameAttr: {
+            style: 'height:80px',
+            title: 'My Custom Title',
+        },
         extra: function() { 
             return {id: $("#id").val()};
         },

@@ -66,20 +66,30 @@
                     (all ? previewCache.data[id].content.length : previewCache.fetch(id).length) : 0;
             },
             get: function (id, i, isDisabled) {
-                var ind = 'init_' + i, data = previewCache.data[id],
-                    previewId = data.initId + '-' + ind, out;
+                var ind = 'init_' + i, data = previewCache.data[id], config = data.config[i], 
+                    previewId = data.initId + '-' + ind, out, $tmp, frameAttr = {},
+                    frameClass = ' file-preview-initial';
                 isDisabled = isDisabled === undefined ? true : isDisabled;
                 if (data.content[i] === null) {
                     return '';
                 }
+                if (!isEmpty(config.frameClass)) {
+                    frameClass += ' ' + config.frameClass;
+                }
                 out = data.template
                     .repl('{previewId}', previewId)
-                    .repl('{frameClass}', ' file-preview-initial')
+                    .repl('{frameClass}', frameClass)
                     .repl('{fileindex}', ind)
                     .repl('{content}', data.content[i])
                     .repl('{footer}', previewCache.footer(id, i, isDisabled));
                 if (data.tags.length && data.tags[i]) {
                     out = replaceTags(out, data.tags[i]);
+                }
+                if (!isEmpty(config.frameAttr)) {
+                    $tmp = $(document.createElement('div')).html(out);
+                    $tmp.find('.file-preview-initial').attr(config.frameAttr);
+                    out = $tmp.html();
+                    $tmp.remove();
                 }
                 return out;
             },
