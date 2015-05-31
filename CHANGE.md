@@ -14,7 +14,8 @@ version 4.2.1
       The `event` can be set to return `false` to abort the thumbnail removal.
 7. (enh #302): Add Greek (el) translations.
 8. (enh #303): Validate only files to be dragged and dropped.
-9. (enh #307): Allow setting thumbnail frame style and attributes via `initialPreviewConfig`.
+9. (enh #305): Implement better cleanup of memory with `revokeObjectURL`.
+10. (enh #307): Allow setting thumbnail frame style and attributes via `initialPreviewConfig`.
 
 version 4.2.0
 =============

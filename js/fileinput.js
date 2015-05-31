@@ -73,7 +73,7 @@
                 if (data.content[i] === null) {
                     return '';
                 }
-                if (!isEmpty(config.frameClass)) {
+                if (!isEmpty(config) && !isEmpty(config.frameClass)) {
                     frameClass += ' ' + config.frameClass;
                 }
                 out = data.template
@@ -85,7 +85,7 @@
                 if (data.tags.length && data.tags[i]) {
                     out = replaceTags(out, data.tags[i]);
                 }
-                if (!isEmpty(config.frameAttr)) {
+                if (!isEmpty(config) && !isEmpty(config.frameAttr)) {
                     $tmp = $(document.createElement('div')).html(out);
                     $tmp.find('.file-preview-initial').attr(config.frameAttr);
                     out = $tmp.html();
@@ -845,6 +845,7 @@
                 var $el = $(this), $frame = $el.closest('.file-preview-frame'),
                     ind = $frame.attr('data-fileindex'), n, cap;
                 $el.off('click').on('click', function () {
+                    self.cleanMemory($frame);
                     $frame.fadeOut('slow', function () {
                         self.filestack[ind] = undefined;
                         self.clearObjects($frame);
@@ -1102,9 +1103,16 @@
                 self.unlock();
             });
         },
+        cleanMemory: function($thumb) {
+            var data = $thumb.is('img') ? $thumb.attr('src') : $thumb.find('source').attr('src');
+            objUrl.revokeObjectURL(data);
+        },
         clear: function () {
             var self = this, cap;
             self.$btnUpload.removeAttr('disabled');
+            self.getThumbs().find('video,audio,img').each(function() {
+                self.cleanMemory($(this));
+            });
             self.resetUpload();
             self.filestack = [];
             self.clearFileInput();
@@ -1278,6 +1286,7 @@
                 var $thumb = $(this), $remove = $thumb.find('.kv-file-remove');
                 $remove.removeAttr('disabled').off('click').on('click', function () {
                     var out = self.raise('filesuccessremove', [$thumb.attr('id'), $thumb.data('fileindex')]);
+                    self.cleanMemory($thumb);
                     if (out === false) {
                         return;
                     }
@@ -1654,9 +1663,6 @@
                 .repl('{type}', file.type)
                 .repl('{data}', data)
                 .repl('{footer}', footer));
-            $obj.on('load', function () {
-                objUrl.revokeObjectURL($obj.attr('data'));
-            });
         },
         previewFile: function (file, theFile, previewId, data) {
             if (!this.showPreview) {
@@ -1674,7 +1680,6 @@
             if (chkTypes && chkMimes) {
                 if (cat === 'text') {
                     strText = htmlEncode(theFile.target.result);
-                    objUrl.revokeObjectURL(data);
                     if (strText.length > wrapLen) {
                         id = 'text-' + uniqId();
                         height = window.innerHeight * 0.75;
@@ -1802,9 +1807,6 @@
                             .repl('{percent}', 50).repl('{name}', caption);
                         setTimeout(function () {
                             $status.html(msg);
-                            objUrl.revokeObjectURL(previewData);
-                        }, 100);
-                        setTimeout(function () {
                             readFile(i + 1);
                             self.updateFileDetails(numFiles);
                         }, 100);
@@ -1968,6 +1970,8 @@
                     $cap.attr('title', $cap.text());
                 }
                 self.raise('fileimageloaded', previewId);
+                objUrl.revokeObjectURL($img.attr('src'));
+
             });
         },
         initCaption: function () {
