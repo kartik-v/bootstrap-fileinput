@@ -1492,6 +1492,7 @@ The above abort will be triggered at time of upload for (ajax uploads) OR at for
 ```js
 $('#input').on('filecustomerror', function(event, params) {
    // params.abortData will contain the additional abort data passed
+   // params.abortMessage will contain the aborted error message passed
 });
 ```
 

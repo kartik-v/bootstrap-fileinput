@@ -570,9 +570,9 @@
                 case 'filecustomerror':
                 case 'filesuccessremove':
                     break;
-                // can trigger filecustomerror to abort upload
+                // receive data response via `filecustomerror` event`
                 default:
-                    self.ajaxAborted = true;
+                    self.ajaxAborted = e.result;
                     break;
             }
             return true;
@@ -663,12 +663,9 @@
         abort: function (params) {
             var self = this, data;
             if (self.ajaxAborted && typeof self.ajaxAborted === "object" && self.ajaxAborted.message !== undefined) {
-                if (self.ajaxAborted.data !== undefined) {
-                    data = self.getOutData({}, self.ajaxAborted.data);
-                } else {
-                    data = self.getOutData();
-                }
-                data = $.extend(data, params);
+                data = $.extend(self.getOutData(), params);
+                data.abortData = self.ajaxAborted.data || {};
+                data.abortMessage = self.ajaxAborted.message;
                 self.showUploadError(self.ajaxAborted.message, data, 'filecustomerror');
                 return true;
             }

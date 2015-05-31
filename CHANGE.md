@@ -1,6 +1,6 @@
 version 4.2.1
 =============
-**Date**: 22-May-2015
+**Date**: 31-May-2015
 
 1. (enh #279, #280): Fixed error for failed response types.
 2. (enh #287): Add Brazilian Portugese (pt-BR) translations.
@@ -15,7 +15,7 @@ version 4.2.1
 7. (enh #302): Add Greek (el) translations.
 8. (enh #303): Validate only files to be dragged and dropped.
 9. (enh #305): Implement better cleanup of memory with `revokeObjectURL`.
-10. (enh #307): Allow setting thumbnail frame style and attributes via `initialPreviewConfig`.
+10. (enh #307): Allow setting thumbnail frame css class and attributes via `initialPreviewConfig`.
 
 version 4.2.0
 =============
