@@ -996,7 +996,7 @@
                     },
                     success: function (data, textStatus, jqXHR) {
                         var n, cap;
-                        if (data === undefined || data.error === undefined) {
+                        if (isEmpty(data) || isEmpty(data.error)) {
                             previewCache.unset(self.id, index);
                             n = previewCache.count(self.id);
                             cap = n > 0 ? self.getMsgSelected(n) : '';
@@ -1362,7 +1362,7 @@
                 outData = self.getOutData(jqXHR, data);
                 params = $.extend(params, outData);
                 setTimeout(function () {
-                    if (data.error === undefined) {
+                    if (isEmpty(data) || isEmpty(data.error)) {
                         self.setThumbStatus($thumb, 'Success');
                         $btnUpload.hide();
                         self.filestack[i] = undefined;
@@ -1437,7 +1437,7 @@
             fnSuccess = function (data, textStatus, jqXHR) {
                 var outData = self.getOutData(jqXHR, data), $thumbs = self.getThumbs(),
                     keys = isEmpty(data.errorkeys) ? [] : data.errorkeys;
-                if (data.error === undefined || isEmpty(data.error)) {
+                if (isEmpty(data) || isEmpty(data.error)) {
                     self.raise('filebatchuploadsuccess', [outData]);
                     setAllUploaded();
                     if (self.showPreview) {
@@ -1529,7 +1529,7 @@
             };
             fnSuccess = function (data, textStatus, jqXHR) {
                 var outData = self.getOutData(jqXHR, data);
-                if (data.error === undefined || isEmpty(data.error)) {
+                if (isEmpty(data) || isEmpty(data.error)) {
                     self.raise('filebatchuploadsuccess', [outData]);
                     self.clearFileInput();
                     self.initUploadSuccess(data);

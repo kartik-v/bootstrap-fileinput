@@ -16,6 +16,7 @@ version 4.2.1
 8. (enh #303): Validate only files to be dragged and dropped.
 9. (enh #305): Implement better cleanup of memory with `revokeObjectURL`.
 10. (enh #307): Allow setting thumbnail frame css class and attributes via `initialPreviewConfig`.
+11. (enh #308): Better check for `data.error` being empty.
 
 version 4.2.0
 =============
