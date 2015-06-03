@@ -196,7 +196,7 @@
             return !isIE(9) && ($div.draggable !== undefined || ($div.ondragstart !== undefined && $div.ondrop !== undefined));
         },
         hasFileUploadSupport = function () {
-            return hasFileAPISupport && window.FormData;
+            return hasFileAPISupport() && window.FormData;
         },
         addCss = function ($el, css) {
             $el.removeClass(css).addClass(css);
@@ -445,7 +445,10 @@
             if (!self.validate()) {
                 return;
             }
-            if (hasFileAPISupport() || isIE(9)) {
+            self.isPreviewable = hasFileAPISupport();
+            self.isIE9 = isIE(9);
+            self.isIE10 = isIE(10);
+            if (self.isPreviewable || self.isIE9) {
                 self.init(options);
                 self.listen();
             } else {
@@ -477,18 +480,19 @@
             if (isEmpty(self.allowedPreviewTypes)) {
                 self.allowedPreviewTypes = defaultPreviewTypes;
             }
+            if (!self.isPreviewable) {
+                self.showPreview = false;
+            }
             self.uploadFileAttr = !isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
             self.reader = null;
             self.formdata = {};
-            self.isIE9 = isIE(9);
-            self.isIE10 = isIE(10);
             self.filestack = [];
             self.ajaxRequests = [];
             self.isError = false;
             self.ajaxAborted = false;
             self.dropZoneEnabled = hasDragDropSupport() && self.dropZoneEnabled;
             self.isDisabled = self.$element.attr('disabled') || self.$element.attr('readonly');
-            self.isUploadable = hasFileUploadSupport && !isEmpty(self.uploadUrl);
+            self.isUploadable = hasFileUploadSupport() && !isEmpty(self.uploadUrl);
             self.slug = typeof options.slugCallback === "function" ? options.slugCallback : self.slugDefault;
             self.mainTemplate = self.showCaption ? self.getLayoutTemplate('main1') : self.getLayoutTemplate('main2');
             self.captionTemplate = self.getLayoutTemplate('caption');
@@ -643,11 +647,20 @@
                 $form.on('submit', $.proxy(self.submitForm, self));
             }
             self.$container.find('.kv-fileinput-upload').off('click').on('click', function (e) {
+                var $btn = $(this), $form, isEnabled = !$btn.hasClass('disabled') && isEmpty($btn.attr('disabled'));
                 if (!self.isUploadable) {
+                    if (isEnabled && $btn.attr('type') !== 'submit') {
+                        $form = $btn.closest('form');
+                        // downgrade to normal form submit if possible
+                        if ($form.length) {
+                            $form.trigger('submit'); 
+                        }
+                        e.preventDefault();
+                    }
                     return;
                 }
                 e.preventDefault();
-                if (!$(this).hasClass('disabled') && isEmpty($(this).attr('disabled'))) {
+                if (isEnabled) {
                     self.upload();
                 }
             });
@@ -1835,7 +1848,6 @@
                 }
                 self.filestack.push(file);
             }
-
             readFile(0);
             self.updateFileDetails(numFiles, false);
         },
@@ -1940,7 +1952,7 @@
                     self.filestack = [];
                 }
             }
-            if (!self.isIE9) {
+            if (self.isPreviewable) {
                 self.readFiles(tfiles);
             } else {
                 self.updateFileDetails(1);
