@@ -1929,7 +1929,7 @@
                 msg = self.msgFilesTooMany.repl('{m}', self.maxFileCount).repl('{n}', total);
                 self.isError = throwError(msg, null, null, null);
                 self.$captionContainer.find('.kv-caption-icon').hide();
-                self.$caption.html(self.msgValidationError);
+                self.setCaption('', true);
                 self.setEllipsis();
                 self.$container.removeClass('file-input-new file-input-ajax-new');
                 return;
@@ -1993,8 +1993,8 @@
             return true;
         },
         setCaption: function (content, isError) {
-            var self = this, err = isError || false, title, out;
-            if (err) {
+            var self = this, title, out;
+            if (isError) {
                 title = $('<div>' + self.msgValidationError + '</div>').text();
                 out = '<span class="' + self.msgValidationErrorClass + '">' +
                 self.msgValidationErrorIcon + title + '</span>';

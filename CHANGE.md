@@ -1,6 +1,6 @@
 version 4.2.1
 =============
-**Date**: 03-Jun-2015
+**Date**: 05-Jun-2015
 
 1. (enh #279, #280): Fixed error for failed response types.
 2. (enh #287): Add Brazilian Portugese (pt-BR) translations.
@@ -18,6 +18,7 @@ version 4.2.1
 10. (enh #307): Allow setting thumbnail frame css class and attributes via `initialPreviewConfig`.
 11. (enh #308): Better check for `data.error` being empty.
 12. (enh #309): Fixes for older browsers.
+13. (bug #310): Set missing caption icon on error.
 
 version 4.2.0
 =============
