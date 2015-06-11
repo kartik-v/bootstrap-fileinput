@@ -1654,7 +1654,7 @@
                 return;
             }
             var self = this, data = objUrl.createObjectURL(file), $obj = $('#' + previewId),
-                config = self.previewSettings.other,
+                config = self.previewSettings.other || defaultPreviewSettings.other,
                 footer = self.renderFileFooter(file.name, config.width),
                 previewOtherTemplate = self.getPreviewTemplate('other'),
                 ind = previewId.slice(previewId.lastIndexOf('-') + 1),
