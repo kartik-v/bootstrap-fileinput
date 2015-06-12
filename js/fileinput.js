@@ -1278,9 +1278,13 @@
                     });
                 } else {
                     if (allFiles) {
-                        self.uploadCache.content.push(content[0]);
-                        self.uploadCache.config.push(config[0]);
-                        self.uploadCache.tags.push(tags[0]);
+                        /*!preview all returned files? */
+	                    for(i=0;i<content.length;i++) {
+                            self.uploadCache.content.push(content[i]);
+						    self.uploadCache.config.push(config[i]);
+						    self.uploadCache.tags.push(tags[i]);
+                        }
+                        /*! end */
                         self.uploadCache.append = append;
                     } else {
                         previewCache.set(self.id, content, config, tags, append);
