@@ -686,7 +686,7 @@
         },
         noFilesError: function (params) {
             var self = this, label = self.minFileCount > 1 ? self.filePlural : self.fileSingle,
-                msg = self.msgFilesTooLess.repl('{n}', self.minFileCount).repl('{files}', label),
+                msg = self.msgFilesTooLess.replace('{n}', self.minFileCount).replace('{files}', label),
                 $error = self.$errorContainer;
             $error.html(msg);
             self.isError = true;
@@ -699,7 +699,9 @@
         setProgress: function (p) {
             var self = this, pct = Math.min(p, 100),
                 template = pct < 100 ? self.progressTemplate : self.progressCompleteTemplate;
-            self.$progress.html(template.repl('{percent}', pct));
+            if (!isEmpty(template)) {
+                self.$progress.html(template.repl('{percent}', pct));
+            }
         },
         upload: function () {
             var self = this, totLen = self.getFileStack().length, params = {},
@@ -867,7 +869,7 @@
                             self.reset();
                         } else {
                             n = chk + len;
-                            cap = n > 1 ? self.getMsgSelected(n) : filestack[0].name;
+                            cap = n > 1 ? self.getMsgSelected(n) : (filestack[0] ? filestack[0].name : '');
                             self.setCaption(cap);
                         }
                     });
@@ -884,7 +886,7 @@
         },
         getMsgSelected: function (n) {
             var self = this, strFiles = n === 1 ? self.fileSingle : self.filePlural;
-            return self.msgSelected.repl('{n}', n).repl('{files}', strFiles);
+            return self.msgSelected.replace('{n}', n).replace('{files}', strFiles);
         },
         renderFileFooter: function (caption, width) {
             var self = this, config = self.fileActionSettings, footer, out,
@@ -949,8 +951,8 @@
             var self = this, $thumbs = !self.showUploadedThumbs ? self.$preview.find('.file-preview-frame') :
                 self.$preview.find('.file-preview-frame:not(.file-preview-success)');
             $thumbs.remove();
-            if (!self.$preview.find('.file-preview-frame').length) {
-                self.resetErrors();
+            if (!self.$preview.find('.file-preview-frame').length || !self.showPreview) {
+                self.resetUpload();
             }
         },
         initPreview: function (isInit) {
@@ -1628,19 +1630,19 @@
             var self = this, err = evt.target.error;
             switch (err.code) {
                 case err.NOT_FOUND_ERR:
-                    self.showError(self.msgFileNotFound.repl('{name}', caption));
+                    self.showError(self.msgFileNotFound.replace('{name}', caption));
                     break;
                 case err.SECURITY_ERR:
-                    self.showError(self.msgFileSecured.repl('{name}', caption));
+                    self.showError(self.msgFileSecured.replace('{name}', caption));
                     break;
                 case err.NOT_READABLE_ERR:
-                    self.showError(self.msgFileNotReadable.repl('{name}', caption));
+                    self.showError(self.msgFileNotReadable.replace('{name}', caption));
                     break;
                 case err.ABORT_ERR:
-                    self.showError(self.msgFilePreviewAborted.repl('{name}', caption));
+                    self.showError(self.msgFilePreviewAborted.replace('{name}', caption));
                     break;
                 default:
-                    self.showError(self.msgFilePreviewError.repl('{name}', caption));
+                    self.showError(self.msgFilePreviewError.replace('{name}', caption));
             }
         },
         parseFileType: function (file) {
@@ -1772,9 +1774,9 @@
                 }
                 fileSize = fileSize.toFixed(2);
                 if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
-                    msg = self.msgSizeTooLarge.repl('{name}', caption)
-                        .repl('{size}', fileSize)
-                        .repl('{maxSize}', self.maxFileSize);
+                    msg = self.msgSizeTooLarge.replace('{name}', caption)
+                        .replace('{size}', fileSize)
+                        .replace('{maxSize}', self.maxFileSize);
                     self.isError = throwError(msg, file, previewId, i);
                     return;
                 }
@@ -1786,7 +1788,7 @@
                         fileCount += isEmpty(chk) ? 0 : chk.length;
                     }
                     if (fileCount === 0) {
-                        msg = self.msgInvalidFileType.repl('{name}', caption).repl('{types}', strTypes);
+                        msg = self.msgInvalidFileType.replace('{name}', caption).replace('{types}', strTypes);
                         self.isError = throwError(msg, file, previewId, i);
                         return;
                     }
@@ -1795,7 +1797,7 @@
                     chk = caption.match(fileExtExpr);
                     fileCount += isEmpty(chk) ? 0 : chk.length;
                     if (fileCount === 0) {
-                        msg = self.msgInvalidFileExtension.repl('{name}', caption).repl('{extensions}',
+                        msg = self.msgInvalidFileExtension.replace('{name}', caption).replace('{extensions}',
                             strExt);
                         self.isError = throwError(msg, file, previewId, i);
                         return;
@@ -1808,7 +1810,7 @@
                     return;
                 }
                 if ($preview.length > 0 && FileReader !== undefined) {
-                    $status.html(msgLoading.repl('{index}', i + 1).repl('{files}', numFiles));
+                    $status.html(msgLoading.replace('{index}', i + 1).replace('{files}', numFiles));
                     $container.addClass('loading');
                     reader.onerror = function (evt) {
                         self.errorHandler(evt, caption);
@@ -1819,8 +1821,8 @@
                     };
                     reader.onloadend = function () {
                         msg = msgProgress
-                            .repl('{index}', i + 1).repl('{files}', numFiles)
-                            .repl('{percent}', 50).repl('{name}', caption);
+                            .replace('{index}', i + 1).replace('{files}', numFiles)
+                            .replace('{percent}', 50).replace('{name}', caption);
                         setTimeout(function () {
                             $status.html(msg);
                             readFile(i + 1);
@@ -1831,8 +1833,8 @@
                     reader.onprogress = function (data) {
                         if (data.lengthComputable) {
                             var fact = (data.loaded / data.total) * 100, progress = Math.ceil(fact);
-                            msg = msgProgress.repl('{index}', i + 1).repl('{files}', numFiles)
-                                .repl('{percent}', progress).repl('{name}', caption);
+                            msg = msgProgress.replace('{index}', i + 1).replace('{files}', numFiles)
+                                .replace('{percent}', progress).replace('{name}', caption);
                             setTimeout(function () {
                                 $status.html(msg);
                             }, 100);
@@ -1933,7 +1935,7 @@
             self.resetErrors();
             total = self.isUploadable ? self.getFileStack().length + tfiles.length : tfiles.length;
             if (self.maxFileCount > 0 && total > self.maxFileCount) {
-                msg = self.msgFilesTooMany.repl('{m}', self.maxFileCount).repl('{n}', total);
+                msg = self.msgFilesTooMany.replace('{m}', self.maxFileCount).replace('{n}', total);
                 self.isError = throwError(msg, null, null, null);
                 self.$captionContainer.find('.kv-caption-icon').hide();
                 self.setCaption('', true);
@@ -1996,18 +1998,18 @@
             });
         },
         checkDimensions: function (i, chk, $img, $thumb, fname, type, params) {
-            var self = this, dim, msg, tag = chk === 'Small' ? 'min' : 'max',
-                limit = self[tag + 'Image' + type], test, $imgEl = $img[0];
-            if (isEmpty(limit)) {
+            var self = this, msg, dim, tag = chk === 'Small' ? 'min' : 'max',
+                limit = self[tag + 'Image' + type], $imgEl, isValid;
+            if (isEmpty(limit) || !$img.length ) {
                 return;
             }
-            msg = self['msgImage' + type + chk];
+            $imgEl = $img[0];
             dim = (type === 'Width') ? $imgEl.naturalWidth || $imgEl.width : $imgEl.naturalHeight || $imgEl.height;
-            test = chk === 'Small' ? dim >= limit : dim <= limit;
-            if (!$img.length || test) {
+            isValid = chk === 'Small' ? dim >= limit : dim <= limit;
+            if (isValid) {
                 return;
             }
-            msg = msg.replace('{name}', fname).replace('{size}', limit);
+            msg = self['msgImage' + type + chk].replace('{name}', fname).replace('{size}', limit);
             self.showUploadError(msg, params);
             self.setThumbStatus($thumb, 'Error');
             self.filestack[i] = null;

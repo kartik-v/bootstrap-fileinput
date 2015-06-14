@@ -1,6 +1,6 @@
 version 4.2.1
 =============
-**Date**: 14-Jun-2015
+**Date**: 15-Jun-2015
 
 1. (enh #279, #280): Fixed error for failed response types.
 2. (enh #287): Add Brazilian Portugese (pt-BR) translations.
@@ -32,6 +32,7 @@ version 4.2.1
         - `msgImageWidthLarge`
         - `msgImageHeightLarge`
 17. (enh #329): Message translation updates.
+18. (enh #330): Minor enhancements in validating preview and progress bar display.
 
 version 4.2.0
 =============
