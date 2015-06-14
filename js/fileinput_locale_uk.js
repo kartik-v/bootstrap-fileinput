@@ -37,6 +37,10 @@
         msgProgress: 'Загрузка файла {index} із {files} - {name} - {percent}% завершено.',
         msgSelected: '{n} {files} вибрано',
         msgFoldersNotAllowed: 'Дозволено перетягувати тільки файли! Пропущено {n} папок.',
+        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
+        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
+        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
+        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
         dropZoneTitle: 'Перетяніть файли сюди &hellip;'
     };
 })(window.jQuery);

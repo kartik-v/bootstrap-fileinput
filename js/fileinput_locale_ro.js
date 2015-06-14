@@ -37,6 +37,10 @@
         msgProgress: 'Se încarcă fișierul {index} din {files} - {name} - {percent}% încărcat.',
         msgSelected: '{n} {files} încărcate',
         msgFoldersNotAllowed: 'Se poate doar trăgând fișierele! Se renunță la {n} dosar(e).',
+        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
+        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
+        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
+        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
         dropZoneTitle: 'Trage fișierele aici &hellip;'
     };
 })(window.jQuery);

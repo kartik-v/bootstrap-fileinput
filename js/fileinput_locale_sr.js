@@ -37,6 +37,10 @@
         msgProgress: 'Učitavanje datoteke {index} od {files} - {name} - {percent}% završeno.',
         msgSelected: '{n} {files} je označeno',
         msgFoldersNotAllowed: 'Moguće je prevlačiti samo datoteke! Preskočeno je {n} fascikla.',
+        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
+        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
+        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
+        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
         dropZoneTitle: 'Prevucite datoteke ovde &hellip;'
     };
 })(window.jQuery);

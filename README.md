@@ -778,6 +778,18 @@ function() {
 }
 ```
 
+### maxImageWidth
+_int_ the maximum allowed image width in `px` if you are uploading image files. Defaults to `null` which means no limit on image width.
+
+### maxImageHeight
+_int_ the maximum allowed image height in `px` if you are uploading image files. Defaults to `null` which means no limit on image height.
+
+### minImageWidth
+_int_ the minimum allowed image width in `px` if you are uploading image files. Defaults to `null` which means no limit on image width.
+
+### minImageHeight
+_int_ the minimum allowed image height in `px` if you are uploading image files. Defaults to `null` which means no limit on image height.
+
 ### maxFileSize
 _float_ the maximum file size for upload in KB.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
 
@@ -939,6 +951,50 @@ _string_ the progress message displayed in caption window when multiple (more th
 _string_ the message displayed when a folder has been dragged to the drop zone. Defaults to `Drag & drop files only! {n} folder(s) dropped were skipped.`. The following variables will be replaced The following variables will be replaced:
 
 - `{n}`: the number of folders dropped.
+
+### msgImageWidthSmall
+_string_ the exception message to be displayed when the file selected for preview is an image and its width is less than the `minImageWidth` setting. Defaults to:
+
+```
+Width of image file "{name}" must be at least {size} px.
+```
+where:
+
+- `{name}`: will be replaced by the file name being uploaded
+- `{size}`: will be replaced by the `minImageWidth` setting.
+
+### msgImageHeightSmall
+_string_ the exception message to be displayed when the file selected for preview is an image and its height is less than the `minImageHeight` setting. Defaults to:
+
+```
+Width of image file "{name}" must be at least {size} px.
+```
+where:
+
+- `{name}`: will be replaced by the file name being uploaded
+- `{size}`: will be replaced by the `minImageHeight` setting.
+
+### msgImageWidthLarge
+_string_ the exception message to be displayed when the file selected for preview is an image and its width exceeds the `maxImageWidth` setting. Defaults to:
+
+```
+Width of image file "{name}" cannot exceed {size} px.
+```
+where:
+
+- `{name}`: will be replaced by the file name being uploaded
+- `{size}`: will be replaced by the `maxImageWidth` setting.
+
+### msgImageHeightLarge
+_string_ the exception message to be displayed when the file selected for preview is an image and its height exceeds the `maxImageHeight` setting. Defaults to:
+
+```
+Height of image file "{name}" cannot exceed {size} px.
+```
+where:
+
+- `{name}`: will be replaced by the file name being uploaded
+- `{size}`: will be replaced by the `maxImageHeight` setting.
 
 ### progressClass
 _string_ the upload progress bar CSS class to be applied when AJAX upload is in process (applicable only for ajax uploads). Defaults to `progress-bar progress-bar-success progress-bar-striped active`. 

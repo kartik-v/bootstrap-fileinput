@@ -36,6 +36,10 @@
         msgProgress: 'Feltöltés: {index} / {files} - {name} - {percent}% kész.',
         msgSelected: '{n} {files} kiválasztva.',
         msgFoldersNotAllowed: 'Csak fájlokat húzzon ide! Kihagyva {n} könyvtár.',
+        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
+        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
+        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
+        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
         dropZoneTitle: 'Fájlok húzása ide &hellip;'
     };
 })(window.jQuery);

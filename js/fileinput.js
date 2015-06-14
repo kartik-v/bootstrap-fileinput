@@ -860,7 +860,7 @@
                         self.filestack[ind] = undefined;
                         self.clearObjects($frame);
                         $frame.remove();
-                        var filestack = self.getFileStack(), len = filestack.length,
+                        var filestack = self.getFileStack(true), len = filestack.length,
                             chk = previewCache.count(self.id);
                         self.clearFileInput();
                         if (len === 0 && chk === 0) {
@@ -949,6 +949,9 @@
             var self = this, $thumbs = !self.showUploadedThumbs ? self.$preview.find('.file-preview-frame') :
                 self.$preview.find('.file-preview-frame:not(.file-preview-success)');
             $thumbs.remove();
+            if (!self.$preview.find('.file-preview-frame').length) {
+                self.resetErrors();
+            }
         },
         initPreview: function (isInit) {
             var self = this, cap = self.initialCaption || '', out;
@@ -1677,7 +1680,7 @@
                 .repl('{data}', data)
                 .repl('{footer}', footer));
         },
-        previewFile: function (file, theFile, previewId, data) {
+        previewFile: function (i, file, theFile, previewId, data) {
             if (!this.showPreview) {
                 return;
             }
@@ -1718,7 +1721,7 @@
                         .repl('{footer}', footer).repl('{fileindex}', ind);
                 }
                 self.$preview.append("\n" + content);
-                self.autoSizeImage(previewId);
+                self.validateImage(i, previewId);
             } else {
                 self.previewDefault(file, previewId);
             }
@@ -1726,10 +1729,10 @@
         slugDefault: function (text) {
             return isEmpty(text) ? '' : text.split(/(\\|\/)/g).pop().replace(/[^\w\u00C0-\u017F\-.\\\/ ]+/g, '');
         },
-        getFileStack: function () {
-            var self = this;
+        getFileStack: function (skipNull) {
+            var self = this, status;
             return self.filestack.filter(function (n) {
-                return n !== undefined;
+                return (skipNull ? n !== undefined : n !== undefined && n !== null);
             });
         },
         readFiles: function (files) {
@@ -1811,7 +1814,7 @@
                         self.errorHandler(evt, caption);
                     };
                     reader.onload = function (theFile) {
-                        self.previewFile(file, theFile, previewId, previewData);
+                        self.previewFile(i, file, theFile, previewId, previewData);
                         self.initFileActions();
                     };
                     reader.onloadend = function () {
@@ -1963,10 +1966,10 @@
             }
             self.showFolderError(folders);
         },
-        autoSizeImage: function (previewId) {
-            var self = this, $preview = self.$preview,
-                $thumb = $preview.find("#" + previewId),
-                $img = $thumb.find('img'), w1, w2, $cap;
+        validateImage: function (i, previewId) {
+            var self = this, $preview = self.$preview, params, w1, w2, $cap,
+                $thumb = $preview.find("#" + previewId), fname = 'Untitled',
+                $img = $thumb.find('img');
             if (!$img.length) {
                 return;
             }
@@ -1980,12 +1983,34 @@
                 $cap = $img.closest('.file-preview-frame').find('.file-caption-name');
                 if ($cap.length) {
                     $cap.width($img.width());
-                    $cap.attr('title', $cap.text());
+                    fname = $cap.text();
+                    $cap.attr('title', fname);
                 }
-                self.raise('fileimageloaded', previewId);
+                params = {ind: i, id: previewId};
+                self.checkDimensions(i, 'Small', $img, $thumb, fname, 'Width', params);
+                self.checkDimensions(i, 'Small', $img, $thumb, fname, 'Height', params);
+                self.checkDimensions(i, 'Large', $img, $thumb, fname, 'Width', params);
+                self.checkDimensions(i, 'Large', $img, $thumb, fname, 'Height', params);
+                self.raise('fileimageloaded', [previewId]);
                 objUrl.revokeObjectURL($img.attr('src'));
-
             });
+        },
+        checkDimensions: function (i, chk, $img, $thumb, fname, type, params) {
+            var self = this, dim, msg, tag = chk === 'Small' ? 'min' : 'max',
+                limit = self[tag + 'Image' + type], test, $imgEl = $img[0];
+            if (isEmpty(limit)) {
+                return;
+            }
+            msg = self['msgImage' + type + chk];
+            dim = (type === 'Width') ? $imgEl.naturalWidth || $imgEl.width : $imgEl.naturalHeight || $imgEl.height;
+            test = chk === 'Small' ? dim >= limit : dim <= limit;
+            if (!$img.length || test) {
+                return;
+            }
+            msg = msg.replace('{name}', fname).replace('{size}', limit);
+            self.showUploadError(msg, params);
+            self.setThumbStatus($thumb, 'Error');
+            self.filestack[i] = null;
         },
         initCaption: function () {
             var self = this, cap = self.initialCaption || '';
@@ -2161,6 +2186,10 @@
         uploadUrl: null,
         uploadAsync: true,
         uploadExtraData: {},
+        minImageWidth: null,
+        minImageHeight: null,
+        maxImageWidth: null,
+        maxImageHeight: null,
         maxFileSize: 0,
         minFileCount: 0,
         maxFileCount: 0,
@@ -2214,6 +2243,10 @@
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
         msgSelected: '{n} {files} selected',
         msgFoldersNotAllowed: 'Drag & drop files only! {n} folder(s) dropped were skipped.',
+        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
+        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
+        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
+        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
         dropZoneTitle: 'Drag & drop files here &hellip;'
     };
 

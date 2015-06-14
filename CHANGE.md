@@ -21,6 +21,16 @@ version 4.2.1
 13. (bug #310): Set missing caption icon on error.
 14. (bug #315): Fix parsing of preview settings for default (other) preview.
 15. (bug #327): More correct clearing of preview.
+16. (bug #328): Implement image dimension validations.
+    - New properties added to the plugin:
+        - `minImageWidth`
+        - `minImageHeight`
+        - `maxImageWidth`
+        - `maxImageHeight`
+        - `msgImageWidthSmall`
+        - `msgImageHeightSmall`
+        - `msgImageWidthLarge`
+        - `msgImageHeightLarge`
 
 version 4.2.0
 =============
