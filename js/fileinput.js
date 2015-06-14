@@ -66,7 +66,7 @@
                     (all ? previewCache.data[id].content.length : previewCache.fetch(id).length) : 0;
             },
             get: function (id, i, isDisabled) {
-                var ind = 'init_' + i, data = previewCache.data[id], config = data.config[i], 
+                var ind = 'init_' + i, data = previewCache.data[id], config = data.config[i],
                     previewId = data.initId + '-' + ind, out, $tmp, frameAttr = {},
                     frameClass = ' file-preview-initial';
                 isDisabled = isDisabled === undefined ? true : isDisabled;
@@ -653,7 +653,7 @@
                         $form = $btn.closest('form');
                         // downgrade to normal form submit if possible
                         if ($form.length) {
-                            $form.trigger('submit'); 
+                            $form.trigger('submit');
                         }
                         e.preventDefault();
                     }
@@ -810,8 +810,8 @@
                 e.stopPropagation();
                 e.preventDefault();
                 if (self.isDisabled || !hasFiles) {
-                    e.originalEvent.dataTransfer.effectAllowed= 'none';
-                    e.originalEvent.dataTransfer.dropEffect= 'none';
+                    e.originalEvent.dataTransfer.effectAllowed = 'none';
+                    e.originalEvent.dataTransfer.dropEffect = 'none';
                     return;
                 }
                 addCss($(this), 'highlighted');
@@ -1113,14 +1113,18 @@
                 self.unlock();
             });
         },
-        cleanMemory: function($thumb) {
+        cleanMemory: function ($thumb) {
             var data = $thumb.is('img') ? $thumb.attr('src') : $thumb.find('source').attr('src');
             objUrl.revokeObjectURL(data);
+        },
+        hasInitialPreview: function () {
+            var self = this;
+            return !self.overwriteInitial && previewCache.count(self.id);
         },
         clear: function () {
             var self = this, cap;
             self.$btnUpload.removeAttr('disabled');
-            self.getThumbs().find('video,audio,img').each(function() {
+            self.getThumbs().find('video,audio,img').each(function () {
                 self.cleanMemory($(this));
             });
             self.resetUpload();
@@ -1128,7 +1132,7 @@
             self.clearFileInput();
             self.resetErrors(true);
             self.raise('fileclear');
-            if (!self.overwriteInitial && previewCache.count(self.id)) {
+            if (self.hasInitialPreview()) {
                 self.showFileIcon();
                 self.resetPreview();
                 self.setEllipsis();
@@ -1163,13 +1167,12 @@
                 self.$preview.html(out.content);
                 self.setCaption(out.caption);
             } else {
-                self.$preview.html('');
+                self.clearPreview();
                 self.initCaption();
             }
         },
         reset: function () {
             var self = this;
-            self.clear();
             self.resetPreview();
             self.setEllipsis();
             self.$container.find('.fileinput-filename').text('');
@@ -1292,7 +1295,7 @@
         },
         initSuccessThumbs: function () {
             var self = this;
-            self.getThumbs('.file-preview-success').each(function(){
+            self.getThumbs('.file-preview-success').each(function () {
                 var $thumb = $(this), $remove = $thumb.find('.kv-file-remove');
                 $remove.removeAttr('disabled').off('click').on('click', function () {
                     var out = self.raise('filesuccessremove', [$thumb.attr('id'), $thumb.data('fileindex')]);
@@ -1848,6 +1851,7 @@
                 }
                 self.filestack.push(file);
             }
+
             readFile(0);
             self.updateFileDetails(numFiles, false);
         },
@@ -1935,7 +1939,7 @@
                 return;
             }
             if (!isAjaxUpload || (isSingleUpload && ctr > 0)) {
-                if (!self.overwriteInitial && previewCache.count(self.id)) {
+                if (self.hasInitialPreview()) {
                     var out = previewCache.out(self.id);
                     $preview.html(out.content);
                     self.setCaption(out.caption);
@@ -1947,7 +1951,7 @@
                     self.filestack = [];
                 }
             } else {
-                if (isAjaxUpload && self.overwriteInitial) {
+                if (isAjaxUpload && ctr === 0 && (!previewCache.count(self.id) || self.overwriteInitial)) {
                     self.clearPreview();
                     self.filestack = [];
                 }
