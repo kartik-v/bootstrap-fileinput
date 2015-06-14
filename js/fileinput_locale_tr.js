@@ -36,10 +36,10 @@
         msgProgress: 'Dosya yükleniyor {index} / {files} - {name} - %{percent} tamamlandı.',
         msgSelected: '{n} {files} seçildi',
         msgFoldersNotAllowed: 'Yalnızca dosyaları sürükleyip bırakabilirsiniz! {n} dizin(ler) göz ardı edildi.',
-        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
-        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
-        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
-        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
+        msgImageWidthSmall: 'Görüntü dosyası "{name}" genişliği en az {size} piksel olmalıdır.',
+        msgImageHeightSmall: 'Görüntü dosyası "{name}" yüksekliği en az {size} piksel olmalıdır.',
+        msgImageWidthLarge: 'Görüntü dosyası "{name}" genişliği {size} px geçemez.',
+        msgImageHeightLarge: 'Resim dosyası "{name}" Yükseklik {size} px geçemez.',
         dropZoneTitle: 'Dosyaları buraya sürükleyip bırakın &hellip;'
     };
 })(window.jQuery);

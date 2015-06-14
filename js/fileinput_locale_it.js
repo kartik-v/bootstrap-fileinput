@@ -38,10 +38,10 @@
         msgProgress: 'Caricamento file {index} di {files} - {name} - {percent}% completato.',
         msgSelected: '{n} {files} selezionati',
         msgFoldersNotAllowed: 'Trascina solo file! Ignorata/e {n} cartella/e.',
-        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
-        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
-        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
-        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
+        msgImageWidthSmall: 'Larghezza di file immagine "{name}" deve essere di almeno {size} px.',
+        msgImageHeightSmall: 'Altezza di file immagine "{name}" deve essere di almeno {size} px.',
+        msgImageWidthLarge: 'Larghezza di file immagine "{name}" non può superare {size} px.',
+        msgImageHeightLarge: 'Altezza di file immagine "{name}" non può superare {size} px.',
         dropZoneTitle: 'Trascina i file qui&hellip;'
     };
 })(window.jQuery);

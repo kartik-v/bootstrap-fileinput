@@ -35,12 +35,12 @@
         msgValidationError: 'Ошибка при загрузке файла',
         msgLoading: 'Загрузка файла {index} из {files} &hellip;',
         msgProgress: 'Загрузка файла {index} из {files} - {name} - {percent}% завершено.',
-        msgSelected: '{n} {files} выбрано',
+        msgSelected: 'Выбрано файлов: {n}',
         msgFoldersNotAllowed: 'Разрешено только перетаскивание файлов! Пропущено {n} папок.',
-        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
-        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
-        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
-        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
+        msgImageWidthSmall: 'Ширина файла изображения {name} должны быть по крайней мере {size} точек.',
+        msgImageHeightSmall: 'Высота файла изображения {name} должны быть по крайней мере {size} точек.',
+        msgImageWidthLarge: 'Ширина файл изображения "{name}", не может превышать {size} точек.',
+        msgImageHeightLarge: 'Высота файл изображения "{name}", не может превышать {size} точек.',
         dropZoneTitle: 'Перетащите файлы сюда &hellip;'
     };
 })(window.jQuery);

@@ -36,10 +36,10 @@
         msgProgress: 'Transmission du fichier {index} sur {files} - {name} - {percent}% faits.',
         msgSelected: '{n} {files} sélectionné(s)',
         msgFoldersNotAllowed: 'Glissez et déposez uniquement des fichiers ! {n} répertoire(s) exclu(s).',
-        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
-        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
-        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
-        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
+        msgImageWidthSmall: 'Largeur de fichier image "{name}" doit être d\'au moins {size} px.',
+        msgImageHeightSmall: 'Hauteur de fichier image "{name}" doit être d\'au moins {size} px.',
+        msgImageWidthLarge: 'Largeur de fichier image "{name}" ne peut pas dépasser {size} px.',
+        msgImageHeightLarge: 'Hauteur de fichier image "{name}" ne peut pas dépasser {size} px.',
         dropZoneTitle: 'Glissez et déposez les fichiers ici&hellip;'
     };
 })(window.jQuery);

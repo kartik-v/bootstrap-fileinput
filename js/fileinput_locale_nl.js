@@ -36,10 +36,10 @@
         msgProgress: 'Bestanden laden {index} van de {files} - {name} - {percent}% compleet.',
         msgSelected: '{n} {files} geselecteerd',
         msgFoldersNotAllowed: 'Drag & drop bestanden alleen! overgeslagen {n} mappen(s).',
-        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
-        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
-        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
-        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
+        msgImageWidthSmall: 'Breedte van de image-bestand "{name}" moet minstens {size} px zijn.',
+        msgImageHeightSmall: 'Hoogte van de beeld bestand "{name}" moet minstens {size} px zijn.',
+        msgImageWidthLarge: 'Breedte van de image-bestand "{name}" kan niet hoger zijn dan {size} px.',
+        msgImageHeightLarge: 'Hoogte van het beeld bestand "{name}" kan niet hoger zijn dan {size} px.',
         dropZoneTitle: 'Drag & drop bestanden hier &hellip;'
     };
 })(window.jQuery);

@@ -36,10 +36,10 @@
         msgProgress: 'Nahrávanie súboru {index} z {files} - {name} - {percent}% dokončené.',
         msgSelected: '{n} {files} vybraté',
         msgFoldersNotAllowed: 'Tiahni a pusť iba súbory! Vynechané {n} pustené prečinok(y).',
-        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
-        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
-        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
-        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
+        msgImageWidthSmall: 'Šírka image súboru "{name}", musí byť minimálne {size} px.',
+        msgImageHeightSmall: 'Výška image súboru "{name}", musí byť minimálne {size} px.',
+        msgImageWidthLarge: 'Šírka image súboru "{name}" nemôže presiahnuť {size} px.',
+        msgImageHeightLarge: 'Výška súboru obrazu "{name}" nesmie presiahnuť {size} px.',
         dropZoneTitle: 'Tiahni a pusť súbory tu &hellip;'
     };
 })(window.jQuery);

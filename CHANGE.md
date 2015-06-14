@@ -31,6 +31,7 @@ version 4.2.1
         - `msgImageHeightSmall`
         - `msgImageWidthLarge`
         - `msgImageHeightLarge`
+17. (enh #329): Message translation updates.
 
 version 4.2.0
 =============
