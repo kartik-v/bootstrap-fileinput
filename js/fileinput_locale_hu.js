@@ -13,7 +13,7 @@
 
     $.fn.fileinputLocales['hu'] = {
         fileSingle: 'fájl',
-        filePlural: 'fájlok',
+        filePlural: 'fájl',
         browseLabel: 'Böngész &hellip;',
         removeLabel: 'Eltávolít',
         removeTitle: 'Kijelölt fájlok törlése',
