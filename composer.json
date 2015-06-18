@@ -11,7 +11,6 @@
             "homepage": "http://www.krajee.com/"
         }
     ],
-	"minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "kartik\\plugins\\fileinput\\": ""
