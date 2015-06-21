@@ -1283,6 +1283,7 @@
                         $newThumb.fadeIn('slow').css('display:inline-block');
                         self.initPreviewDeletes();
                         self.clearFileInput();
+                        $thumb.remove();
                     });
                 } else {
                     if (allFiles) {

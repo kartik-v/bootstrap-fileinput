@@ -1,3 +1,9 @@
+version 4.2.3
+=============
+**Date**: 21-Jun-2015
+
+1. (enh #336): Fixes to reset preview via `initUploadSuccess`.
+
 version 4.2.2
 =============
 **Date**: 18-Jun-2015
