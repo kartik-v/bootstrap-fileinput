@@ -12,7 +12,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for various fi
 
 This plugin was initially inspired by [this blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). But the plugin has now matured with various additional features and enhancements to be a complete (yet simple) file management tool and solution for web developers. 
 
-> NOTE: The latest version of the plugin v4.2.2 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
+> NOTE: The latest version of the plugin v4.2.3 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
 
 ## Features  
 
