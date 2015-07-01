@@ -1211,15 +1211,15 @@
             css = css || '';
             return this.$preview.find('.file-preview-frame:not(.file-preview-initial)' + css);
         },
-        getExtraData: function () {
+        getExtraData: function (previewId, index) {
             var self = this, data = self.uploadExtraData;
             if (typeof self.uploadExtraData === "function") {
-                data = self.uploadExtraData();
+                data = self.uploadExtraData(previewId, index);
             }
             return data;
         },
-        uploadExtra: function () {
-            var self = this, data = self.getExtraData();
+        uploadExtra: function (previewId, index) {
+            var self = this, data = self.getExtraData(previewId, index);
             if (data.length === 0) {
                 return;
             }
@@ -1241,9 +1241,9 @@
             }
             return xhrobj;
         },
-        ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError) {
+        ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError, previewId, i) {
             var self = this, settings;
-            self.uploadExtra();
+            self.uploadExtra(previewId, i);
             settings = $.extend({
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
@@ -1419,7 +1419,7 @@
             };
             formdata.append(self.uploadFileAttr, files[i]);
             formdata.append('file_id', i);
-            self.ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError);
+            self.ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, previewId, i);
         },
         uploadBatch: function () {
             var self = this, files = self.filestack, total = files.length, config,
