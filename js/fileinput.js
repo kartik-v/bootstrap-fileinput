@@ -1243,7 +1243,8 @@
         },
         ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError) {
             var self = this, settings;
-            self.uploadExtra();
+            // to support extra field update in fnBefore function
+            // self.uploadExtra();
             settings = $.extend({
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
@@ -1256,7 +1257,11 @@
                 cache: false,
                 processData: false,
                 contentType: false,
-                beforeSend: fnBefore,
+                beforeSend: function() {
+                    fnBefore();
+                    // to support extra field update in fnBefore function
+                    self.uploadExtra();                    
+                },
                 success: fnSuccess,
                 complete: fnComplete,
                 error: fnError
