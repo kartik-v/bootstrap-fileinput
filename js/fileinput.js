@@ -1258,8 +1258,8 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function() {
-                    fnBefore();
                     // to support extra field update in fnBefore function
+                    fnBefore.apply(this, arguments);
                     self.uploadExtra();                    
                 },
                 success: fnSuccess,
