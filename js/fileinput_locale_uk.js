@@ -39,8 +39,8 @@
         msgFoldersNotAllowed: 'Дозволено перетягувати тільки файли! Пропущено {n} папок.',
         msgImageWidthSmall: 'Ширина зображення "{name}" повинна бути не менше {size} px.',
         msgImageHeightSmall: 'Висота зображення "{name}" повинна бути не менше {size} px.',
-        msgImageWidthLarge: 'Ширина зображення "{name}", не може перевищувати {size} px.',
-        msgImageHeightLarge: 'Висота зображення "{name}", не може перевищувати {size} px.',
+        msgImageWidthLarge: 'Ширина зображення "{name}" не може перевищувати {size} px.',
+        msgImageHeightLarge: 'Висота зображення "{name}" не може перевищувати {size} px.',
         dropZoneTitle: 'Перетягніть файли сюди &hellip;'
     };
 })(window.jQuery);
