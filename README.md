@@ -185,9 +185,6 @@ _string_ any additional CSS class to append to the preview container.
 ### mainClass
 _string_ any additional CSS class to append to the main plugin container.
 
-### initialDelimiter
-_string_, the delimiter to be used to allow passing multiple content delimited as a string to `initialPreview`. Defaults to `'*$$*'`.
-
 ### initialPreview
 _string | array_ the initial preview content to be displayed. You can pass the minimal HTML markup for displaying your image, text, or file. 
 If set as a string, this will display a single file in the initial preview if there is no delimiter. You can set a delimiter (as defined 
