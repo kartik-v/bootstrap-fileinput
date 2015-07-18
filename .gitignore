@@ -1,2 +1,3 @@
 nuget/content/
 nuget/bootstrap-fileinput.*.nupkg
+.DS_Store
