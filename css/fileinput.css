@@ -54,7 +54,6 @@
 .file-caption-name {
     display: inline-block;
     overflow: hidden;
-    max-height: 20px;
     padding-right: 10px;
     word-break: break-all;
 }

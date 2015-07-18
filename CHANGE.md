@@ -8,6 +8,7 @@ Change Log: `bootstrap-fileinput`
 1. (enh #340): Receive `previewId` and `index` in extra data for individual thumbnail uploads (ajax).
 2. (enh #342): Add ability to modify extra data before ajax upload in `beforeSend` events.
 3. (enh #351): Updates to Ukranian & Russian translations.
+3. (enh #354): Few styling enhancements to fileinput container and caption name.
 
 ## version 4.2.3
 

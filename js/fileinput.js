@@ -2051,7 +2051,7 @@
         },
         createContainer: function () {
             var self = this,
-                $container = $(document.createElement("span"))
+                $container = $(document.createElement("div"))
                     .attr({"class": 'file-input file-input-new'})
                     .html(self.renderMain());
             self.$element.before($container);
