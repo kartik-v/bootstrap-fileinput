@@ -12,7 +12,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for various fi
 
 This plugin was initially inspired by [this blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). But the plugin has now matured with various additional features and enhancements to be a complete (yet simple) file management tool and solution for web developers. 
 
-> NOTE: The latest version of the plugin v4.2.3 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
+> NOTE: The latest version of the plugin v4.2.4 has been released. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
 
 ## Features  
 
@@ -765,10 +765,14 @@ _object | function_ the extra data that will be passed as data to the url/AJAX s
  {id: 100, value: '100 Details'}
 ```
 
-As a function callback, it can be setup for example as:
+As a function callback, the `uploadExtraData` can be setup as shown below. Note that for uploading individual file via thumbnail, the callback can also receive the thumbnail `previewId` and `index` as parameters. These are described below:
+
+- `previewId`: the identifier for the preview file container (only available when uploading each thumbnail file)
+- `index`: the zero-based sequential index of the loaded file in the preview list (only available when uploading each thumbnail file)
 
 ```js
-function() {
+// previewId and index is only available for individual file upload via the thumbnail
+function (previewId, index) {
     var obj = {};
     $('.your-form-class').find('input').each(function() {
         var id = $(this).attr('id'), val = $(this).val();

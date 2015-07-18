@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version 4.2.3
+ * @version 4.2.4
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -1211,15 +1211,15 @@
             css = css || '';
             return this.$preview.find('.file-preview-frame:not(.file-preview-initial)' + css);
         },
-        getExtraData: function () {
+        getExtraData: function (previewId, index) {
             var self = this, data = self.uploadExtraData;
             if (typeof self.uploadExtraData === "function") {
-                data = self.uploadExtraData();
+                data = self.uploadExtraData(previewId, index);
             }
             return data;
         },
-        uploadExtra: function () {
-            var self = this, data = self.getExtraData();
+        uploadExtra: function (previewId, index) {
+            var self = this, data = self.getExtraData(previewId, index);
             if (data.length === 0) {
                 return;
             }
@@ -1241,10 +1241,8 @@
             }
             return xhrobj;
         },
-        ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError) {
+        ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError, previewId, index) {
             var self = this, settings;
-            // to support extra field update in fnBefore function
-            // self.uploadExtra();
             settings = $.extend({
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
@@ -1258,9 +1256,8 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function() {
-                    // to support extra field update in fnBefore function
                     fnBefore.apply(this, arguments);
-                    self.uploadExtra();                    
+                    self.uploadExtra(previewId, index);                    
                 },
                 success: fnSuccess,
                 complete: fnComplete,
@@ -1424,7 +1421,7 @@
             };
             formdata.append(self.uploadFileAttr, files[i]);
             formdata.append('file_id', i);
-            self.ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError);
+            self.ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, previewId, i);
         },
         uploadBatch: function () {
             var self = this, files = self.filestack, total = files.length, config,

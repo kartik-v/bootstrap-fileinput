@@ -1,17 +1,28 @@
-version 4.2.3
-=============
+Change Log: `bootstrap-fileinput`
+=================================
+
+## version 4.2.4
+
+**Date**: 18-Jul-2015
+
+1. (enh #340): Receive `previewId` and `index` in extra data for individual thumbnail uploads (ajax).
+2. (enh #342): Add ability to modify extra data before ajax upload in `beforeSend` events.
+3. (enh #351): Updates to Ukranian & Russian translations.
+
+## version 4.2.3
+
 **Date**: 21-Jun-2015
 
 1. (enh #336): Fixes to reset preview via `initUploadSuccess`.
 
-version 4.2.2
-=============
+## version 4.2.2
+
 **Date**: 18-Jun-2015
 
 1. (enh #332): Bump nuget and bower package versions.
 
-version 4.2.1
-=============
+## version 4.2.1
+
 **Date**: 15-Jun-2015
 
 1. (enh #279, #280): Fixed error for failed response types.
@@ -46,15 +57,15 @@ version 4.2.1
 17. (enh #329): Message translation updates.
 18. (enh #330): Minor enhancements in validating preview and progress bar display.
 
-version 4.2.0
-=============
+## version 4.2.0
+
 **Date**: 11-May-2015
 
 1. (enh #275): Add Czech & Slovakian translations.
 2. (enh #277): New `language` property to allow configuring multi lang widgets on same page.
 
-version 4.1.9
-=============
+## version 4.1.9
+
 **Date**: 02-May-2015
 
 1. (enh #232): Update docs to reflect updated bootstrap CDN domain.
@@ -81,8 +92,8 @@ version 4.1.9
 22. (enh #271): Add Dutch translations.
 23. (bug #273): Reset caption correctly after all initial preview is deleted.
 
-version 4.1.8
-=============
+## version 4.1.8
+
 **Date**: 30-Mar-2015
 
 1. (bug #171): Fix typo for files validation.
@@ -141,8 +152,8 @@ version 4.1.8
 35. (enh #229): Created French translations.
 36. (enh #230): More correct initial preview delete reset.
 
-version 4.1.7
-=============
+## version 4.1.7
+
 **Date**: 13-Feb-2015
 
 1. (enh #149): Custom tags support for layoutTemplates and previewTemplates (new properties `customLayoutTags` and `customPreviewTags` included).
@@ -163,8 +174,8 @@ version 4.1.7
 12. Set copyright year to current.
 13. Relocate sample files from examples directory to [bootstrap-fileinput-samples](https://github.com/kartik-v/bootstrap-fileinput-samples) repo.
 
-version 4.1.6
-=============
+## version 4.1.6
+
 **Date:** 20-Jan-2015
 
 1. (enh #124): Allow submission of extra data even if no files are selected.
@@ -173,8 +184,8 @@ version 4.1.6
 4. (enh #137): Trigger new events - `filedisabled` and `fileenabled`.
 5. (enh #139): Reset file stack correctly on ajax upload completion.
 
-version 4.1.5
-=============
+## version 4.1.5
+
 **Date:** 12-Jan-2015
 
 1. (bug #100, #101): Set right params for error thrown during reading of files.
@@ -191,8 +202,8 @@ version 4.1.5
 12. (bug #120): Correct multiple iterations of upload for async batch uploads.
 13. (enh #121): Animate progress bars by default for upload progress.
 
-version 4.1.4
-=============
+## version 4.1.4
+
 **Date:** 26-Dec-2014
 
 1. (enh #88): Allow uploadExtraData to be passed as a callback.
@@ -205,8 +216,8 @@ version 4.1.4
 8. (bug #95): Correct event off for drag & drop in plugin refresh method.
 9. (bug #97): Reset events correctly with plugin refresh method.
 
-version 4.1.3
-=============
+## version 4.1.3
+
 **Date:** 20-Dec-2014
 
 1. (enh #85): Combine output data as a single object, that is sent for various file upload events. 
@@ -219,8 +230,8 @@ version 4.1.3
 2. (enh #86): Disable thumbnail action buttons when upload is in progress.
 3. (enh #87): More correct progress indicator percentage for asynchronous upload.
 
-version 4.1.2
-=============
+## version 4.1.2
+
 **Date:** 19-Dec-2014
 
 1. (enh #81): Add new events:
@@ -236,16 +247,16 @@ version 4.1.2
     - `filelock`
     - `fileunlock`
 
-version 4.1.1
-=============
+## version 4.1.1
+
 **Date:** 18-Dec-2014
 
 1. (bug #76): Update filestack when `showPreview` is false.
 2. (bug #78): Set uploadExtraData parameters to be correctly sent via POST.
 3. (enh #58): Set a new property `textEncoding` for reading the text files with right encoding.
 
-version 4.1.0
-=============
+## version 4.1.0
+
 **Date:** 17-Dec-2014
 
 1. (enh #74): Enhancements to file validation errors for both FORM and AJAX uploads.
@@ -254,13 +265,13 @@ version 4.1.0
     - Reset errors correctly to overwrite files with a new change or drag/drop
 2. (enh #75): Better validation of browser support for drag and drop.
 
-version 4.0.0
-=============
+## version 4.0.0
+
 **Date:** 14-Dec-2014
 
 1. (enh #70): Version 4.0 enhancements.
 2. Renamed `initialDelimiter` to `initialPreviewDelimiter`
-3. (bug #72): Fix bootstrap version constraint.
+3. (bug #72): Fix bootstrap ## version constraint.
 
 ### Version 4.0 Features
 
@@ -314,8 +325,8 @@ version 4.0.0
     - `indicatorErrorTitle`: title to display on hover of indicator for error in upload in each file thumbnail.
     - `indicatorLoadingTitle`: title to display on hover of indicator for ongoing upload in each file thumbnail.
 
-version 3.0.0
-=============
+## version 3.0.0
+
 **Date:** 08-Dec-2014
 
 1. (enh #60): Enhance upload button for disable/enable when used with `<a>` tag.
@@ -330,16 +341,16 @@ version 3.0.0
     - Prevent change method firing twice when file is cleared after error is encountered in IE 11.
 6. (bug #68): Fix refresh method of the fileinput to trigger change correctly.
 
-version 2.9.0
-=============
+## version 2.9.0
+
 **Date:** 23-Nov-2014
 
 1. (enh #53): Validations and events for right reset of files when browse button is clicked.
 2. (enh #55): Clear the files when file browse dialog is cancelled only if the browser clears the native file input.
 3. (enh #56): Trigger new events `filebrowse` and `fileselectnone`.
 
-version 2.8.0
-=============
+## version 2.8.0
+
 **Date:** 13-Nov-2014
 
 1. (enh #50): Dynamically auto size file captions for long file names exceeding container width. New property `autoFitCaption` 
@@ -348,16 +359,16 @@ version 2.8.0
 2. (enh #51): Autosize preview images when they exceed the size of the preview container.
 3. (enh #52): Raise new `fileimageloaded` event.
 
-version 2.7.0
-=============
+## version 2.7.0
+
 **Date:** 11-Nov-2014
 
 1. Set release to stable in composer.json.
 2. (enh #48): Trigger `fileloaded` event when `showPreview` is `false`.
 3. (enh #49): Set image preview dimensions to auto fit and center
 
-version 2.6.0
-=============
+## version 2.6.0
+
 **Date:** 15-Oct-2014
 
 - (bug #40): More correct fix for IE (ver < 11) inability to clear fileinput values.
@@ -366,8 +377,8 @@ version 2.6.0
 - (bug #43): Validate special characters in filename before generating caption.
 - (bug #44): Browser IE10 hangs on file clear.
 
-version 2.5.0
-=============
+## version 2.5.0
+
 **Date:** 09-Oct-2014
 
 - (enh #36): New feature. Validation routine for checking allowed file types and extensions.
@@ -376,8 +387,8 @@ version 2.5.0
 - (bug #39): HTML encode caption hover title.
 - (bug #40): Fix IE (ver < 11) inability to clear fileinput values.
 
-version 2.4.0
-=============
+## version 2.4.0
+
 **Date:** 20-Sep-2014
 
 - (enh #30): Enhanced generic support for more preview formats (audio, video, html, flash, and other objects).
@@ -414,22 +425,22 @@ The following are the major changes with release v2.4.0:
 that support the HTML5 `video`/`audio` tags. Note that browsers have limited number of video/audio formats supported by the HTML5 video element (e.g. mp4, webm, ogg, mp3, wav). The size of video files are recommended to be small (to be controlled 
 through `maxFileSize` property) so that it does not affect the preview performance. You can copy a few files from the `examples` directory of this plugin repo, to test a few examples of flash and video files.
 
-version 2.3.0
-=============
+## version 2.3.0
+
 **Date:** 19-Sep-2014
 
 1. (enh #28, #29): Added support for previewing flash and video files.
 2. Better replacement of tags in templates. Replaces all tag occurences with this new release.
 
-version 2.2.0
-=============
+## version 2.2.0
+
 **Date:** 19-Aug-2014
 
 1. (enh #24): Update readAsBinaryString to readAsArrayBuffer
 2. (enh #25): Graceful degrade to normal file input for older browsers (including previous versions of Safari).
 
-version 2.1.0
-=============
+## version 2.1.0
+
 **Date:** 11-Aug-2014
 
 1. (enh #16, #17): Added exception handling for trapping FileReader API errors
@@ -444,8 +455,8 @@ version 2.1.0
 10. (enh #22): Enhance file caption message display for validation errors.
 11. Other minor bug fixes.
 
-version 2.0.0
-=============
+## version 2.0.0
+
 **Date:** 25-Jul-2014
 
 1. (enh #12, #13, #14): Various enhancements and fixes.
@@ -458,22 +469,22 @@ version 2.0.0
 8. Automatic scale images for preview, when images are too wide to fit in container.
 9. Added delimiter option for `initialPreview` to pass multiple content delimited as a string.
 
-version 1.9.0
-=============
+## version 1.9.0
+
 **Date:** 21-Jul-2014
 
 1. (enh #9): Enhanced caption template and styling for captions to prevent overflow of long file names out of the caption container.
 2. (enh #10): Ability to display initial caption, when initialPreview is false.
 
-version 1.8.0
-=============
+## version 1.8.0
+
 **Date:** 15-Jul-2014
 
 ### Additions
 1. (enh #9): Enhanced caption template and styling for captions to prevent overflow of long file names out of the caption container.
 
-version 1.7.0
-=============
+## version 1.7.0
+
 **Date:** 02-Jul-2014
 
 ### Additions
@@ -481,16 +492,16 @@ version 1.7.0
    content set will be overwritten, when new file is uploaded or when files are cleared. Setting it to `false` will help displaying 
    a saved image or file from database always - useful especially when using the `multiple` file upload feature.
 
-version 1.6.0
-=============
+## version 1.6.0
+
 **Date:** 03-Jun-2014
 
 ### Additions
 1. The plugin now offers an additional `refresh` method. This enables you to dynamically change element attributes or plugin options
    at runtime and refresh the widget.
 
-version 1.5.0
-=============
+## version 1.5.0
+
 **Date:** 23-May-2014
 
 ### Additions
@@ -507,8 +518,8 @@ version 1.5.0
 - elPreviewImage
 - elPreviewStatus
 
-version 1.0.0
-=============
+## version 1.0.0
+
 **Date:** 01-Jan-2014 
 
 Initial release. The following features are included in this release:
