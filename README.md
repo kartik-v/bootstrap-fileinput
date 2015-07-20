@@ -185,6 +185,9 @@ _string_ any additional CSS class to append to the preview container.
 ### mainClass
 _string_ any additional CSS class to append to the main plugin container.
 
+### initialDelimiter
+_string_, the delimiter to be used to allow passing multiple content delimited as a string to `initialPreview`. Defaults to `'*$$*'`.
+
 ### initialPreview
 _string | array_ the initial preview content to be displayed. You can pass the minimal HTML markup for displaying your image, text, or file. 
 If set as a string, this will display a single file in the initial preview if there is no delimiter. You can set a delimiter (as defined 
@@ -1113,7 +1116,7 @@ _object_ additional ajax settings to pass to the plugin before submitting the de
 _boolean_ whether to show details of the error stack from the server log when an error is encountered via ajax response. Defaults to `true`.
 
 ## Plugin Events
-The plugin supports these events:
+The plugin supports the following events. Each of the events below are triggered with a `.fileinput` namespace. So you can trap the events with or without the namespace. For example `fileclear` event can also be trapped as `fileclear.fileinput`.
 
 ### File Events
 
@@ -1586,6 +1589,12 @@ $('#input-id').fileinput('enable');
 Reset the file input.
 ```js
 $('#input-id').fileinput('reset');
+```
+
+### destroy
+Destroys the file input.
+```js
+$('#input-id').fileinput('destroy');
 ```
 
 ### refresh

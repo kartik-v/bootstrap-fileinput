@@ -3,12 +3,14 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.2.4
 
-**Date**: 18-Jul-2015
+**Date**: 20-Jul-2015
 
 1. (enh #340): Receive `previewId` and `index` in extra data for individual thumbnail uploads (ajax).
 2. (enh #342): Add ability to modify extra data before ajax upload in `beforeSend` events.
 3. (enh #351): Updates to Ukranian & Russian translations.
-3. (enh #354): Few styling enhancements to fileinput container and caption name.
+4. (enh #356): Implement `destroy` method.
+5. (enh #357): Enhanced and better `refresh` method.
+6. (enh #358): Implement event namespaces and enhance event triggering process.
 
 ## version 4.2.3
 

@@ -31,6 +31,10 @@
             div.parentNode.removeChild(div);
             return status;
         },
+        handler = function ($el, event, callback, skipNS) {
+            var ev = skipNS ? event : event + '.fileinput';
+            $el.off(ev).on(ev, callback);
+        },
         previewCache = {
             data: {},
             init: function (obj) {
@@ -537,8 +541,8 @@
         parseError: function (jqXHR, errorThrown, fileName) {
             var self = this, errMsg = $.trim(errorThrown + ''),
                 dot = errMsg.slice(-1) === '.' ? '' : '.',
-                text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined
-                    ? jqXHR.responseJSON.error : jqXHR.responseText;
+                text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined ?
+                    jqXHR.responseJSON.error : jqXHR.responseText;
             if (self.showAjaxErrorDetails) {
                 text = $.trim(text.replace(/\n\s*\n/g, '\n'));
                 text = text.length > 0 ? '<pre>' + text + '</pre>' : '';
@@ -549,7 +553,7 @@
             return fileName ? '<b>' + fileName + ': </b>' + jqXHR : errMsg;
         },
         raise: function (event, params) {
-            var self = this, e = $.Event(event);
+            var self = this, e = $.Event(event + '.fileinput');
             if (params !== undefined) {
                 self.$element.trigger(e, params);
             } else {
@@ -624,29 +628,28 @@
         },
         listen: function () {
             var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile,
-                $form = $el.closest('form');
-            $el.on('change', $.proxy(self.change, self));
-            $(window).on('resize', function () {
+                $form = $el.closest('form'), $cont = self.$container;
+            handler($el, 'change', $.proxy(self.change, self));
+            handler($(window), 'resize', function () {
                 self.setEllipsis();
             });
-            $btnFile.off('click').on('click', function () {
+            handler($btnFile, 'click', function () {
                 self.raise('filebrowse');
                 if (self.isError && !self.isUploadable) {
                     self.clear();
                 }
                 $cap.focus();
             });
-            $form.off('reset').on('reset', $.proxy(self.reset, self));
-            self.$container.off('click')
-                .on('click', '.fileinput-remove:not([disabled])', $.proxy(self.clear, self))
-                .on('click', '.fileinput-cancel', $.proxy(self.cancel, self));
+            handler($form, 'reset', $.proxy(self.reset, self));
+            handler($cont.find('.fileinput-remove:not([disabled])'), 'click', $.proxy(self.clear, self));
+            handler($cont.find('.fileinput-cancel'), 'click', $.proxy(self.cancel, self));
             if (self.isUploadable && self.dropZoneEnabled && self.showPreview) {
                 self.initDragDrop();
             }
             if (!self.isUploadable) {
-                $form.on('submit', $.proxy(self.submitForm, self));
+                handler($form, 'submit', $.proxy(self.submitForm, self));
             }
-            self.$container.find('.kv-fileinput-upload').off('click').on('click', function (e) {
+            handler(self.$container.find('.kv-fileinput-upload'), 'click', function (e) {
                 var $btn = $(this), $form, isEnabled = !$btn.hasClass('disabled') && isEmpty($btn.attr('disabled'));
                 if (!self.isUploadable) {
                     if (isEnabled && $btn.attr('type') !== 'submit') {
@@ -792,22 +795,25 @@
             });
             self.filestack = newstack;
         },
+        destroy: function () {
+            var self = this, $cont = self.$container;
+            $cont.find('.file-drop-zone').off();
+            self.$element.insertBefore($cont).off('.fileinput').removeData();
+            $cont.off().remove();
+        },
         refresh: function (options) {
-            var self = this, $el = self.$element, $zone,
-                params = (arguments.length) ? $.extend(self.options, options) : self.options;
-            $el.off();
-            self.init(params);
-            $zone = self.$container.find('.file-drop-zone');
-            $zone.off('dragenter dragover dragleave drop');
-            $(document).off('dragenter dragover drop');
-            self.listen();
-            self.setFileDropZoneTitle();
+            var self = this, $el = self.$element;
+            options = options ? $.extend(self.options, options) : self.options;
+            self.destroy();
+            $el.fileinput(options);
+            if ($el.val()) {
+                $el.trigger('change.fileinput');
+            }
         },
         initDragDrop: function () {
-            var self = this, $zone = self.$container.find('.file-drop-zone');
-            $zone.off('dragenter dragover dragleave drop');
-            $(document).off('dragenter dragover drop');
-            $zone.on('dragenter dragover', function (e) {
+            var self = this, $zone = self.$container.find('.file-drop-zone'),
+                allEvents = 'dragenter.fileinput dragover.fileinput drop.fileinput';
+            handler($zone, 'dragenter.fileinput dragover.fileinput', function (e) {
                 var hasFiles = $.inArray('Files', e.originalEvent.dataTransfer.types) > -1;
                 e.stopPropagation();
                 e.preventDefault();
@@ -817,8 +823,8 @@
                     return;
                 }
                 addCss($(this), 'highlighted');
-            });
-            $zone.on('dragleave', function (e) {
+            }, true);
+            handler($zone, 'dragleave', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
                 if (self.isDisabled) {
@@ -826,7 +832,7 @@
                 }
                 $(this).removeClass('highlighted');
             });
-            $zone.on('drop', function (e) {
+            handler($zone, 'drop', function (e) {
                 e.preventDefault();
                 if (self.isDisabled || isEmpty(e.originalEvent.dataTransfer.files)) {
                     return;
@@ -834,10 +840,10 @@
                 self.change(e, 'dragdrop');
                 $(this).removeClass('highlighted');
             });
-            $(document).on('dragenter dragover drop', function (e) {
+            handler($(document), allEvents, function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-            });
+            }, true);
         },
         setFileDropZoneTitle: function () {
             var self = this, $zone = self.$container.find('.file-drop-zone');
@@ -856,7 +862,7 @@
             self.$preview.find('.kv-file-remove').each(function () {
                 var $el = $(this), $frame = $el.closest('.file-preview-frame'),
                     ind = $frame.attr('data-fileindex'), n, cap;
-                $el.off('click').on('click', function () {
+                handler($el, 'click', function () {
                     self.cleanMemory($frame);
                     $frame.fadeOut('slow', function () {
                         self.filestack[ind] = undefined;
@@ -877,7 +883,7 @@
             });
             self.$preview.find('.kv-file-upload').each(function () {
                 var $el = $(this);
-                $el.off('click').on('click', function () {
+                handler($el, 'click', function () {
                     var $frame = $el.closest('.file-preview-frame'),
                         ind = $frame.attr('data-fileindex');
                     self.uploadSingle(ind, self.filestack, false);
@@ -1049,7 +1055,7 @@
                         resetProgress();
                     }
                 }, self.ajaxDeleteSettings);
-                $el.off('click').on('click', function () {
+                handler($el, 'click', function () {
                     $.ajax(settings);
                 });
             });
@@ -1255,9 +1261,9 @@
                 cache: false,
                 processData: false,
                 contentType: false,
-                beforeSend: function() {
+                beforeSend: function () {
                     fnBefore.apply(this, arguments);
-                    self.uploadExtra(previewId, index);                    
+                    self.uploadExtra(previewId, index);
                 },
                 success: fnSuccess,
                 complete: fnComplete,
@@ -1305,7 +1311,8 @@
             var self = this;
             self.getThumbs('.file-preview-success').each(function () {
                 var $thumb = $(this), $remove = $thumb.find('.kv-file-remove');
-                $remove.removeAttr('disabled').off('click').on('click', function () {
+                $remove.removeAttr('disabled');
+                handler($remove, 'click', function () {
                     var out = self.raise('filesuccessremove', [$thumb.attr('id'), $thumb.data('fileindex')]);
                     self.cleanMemory($thumb);
                     if (out === false) {
@@ -1460,7 +1467,7 @@
             };
             fnSuccess = function (data, textStatus, jqXHR) {
                 var outData = self.getOutData(jqXHR, data), $thumbs = self.getThumbs(),
-                    keys = isEmpty(data.errorkeys) ? [] : data.errorkeys;
+                    keys = isEmpty(data.errorkeys) ? [] : data.errorkeys, key = 0;
                 if (isEmpty(data) || isEmpty(data.error)) {
                     self.raise('filebatchuploadsuccess', [outData]);
                     setAllUploaded();
@@ -1495,6 +1502,7 @@
                                 self.setThumbStatus($thumb, 'Success');
                                 self.filestack[key] = undefined;
                             }
+                            key++;
                         });
                         self.initUploadSuccess(data);
                     }
@@ -1828,8 +1836,8 @@
                             .replace('{percent}', 50).replace('{name}', caption);
                         setTimeout(function () {
                             $status.html(msg);
-                            readFile(i + 1);
                             self.updateFileDetails(numFiles);
+                            readFile(i + 1);
                         }, 100);
                         self.raise('fileloaded', [file, previewId, i, reader]);
                     };
@@ -1861,7 +1869,7 @@
             }
 
             readFile(0);
-            self.updateFileDetails(numFiles, false);
+            //self.updateFileDetails(numFiles, false);
         },
         updateFileDetails: function (numFiles) {
             var self = this, $el = self.$element, fileStack = self.getFileStack(),
@@ -1978,7 +1986,7 @@
             if (!$img.length) {
                 return;
             }
-            $img.on('load', function () {
+            handler($img, 'load', function () {
                 w1 = $thumb.width();
                 w2 = $preview.width();
                 if (w1 > w2) {
@@ -2003,7 +2011,7 @@
         checkDimensions: function (i, chk, $img, $thumb, fname, type, params) {
             var self = this, msg, dim, tag = chk === 'Small' ? 'min' : 'max',
                 limit = self[tag + 'Image' + type], $imgEl, isValid;
-            if (isEmpty(limit) || !$img.length ) {
+            if (isEmpty(limit) || !$img.length) {
                 return;
             }
             $imgEl = $img[0];
