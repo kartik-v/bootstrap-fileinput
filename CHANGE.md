@@ -10,7 +10,7 @@ Change Log: `bootstrap-fileinput`
 3. (enh #351): Updates to Ukranian & Russian translations.
 4. (enh #356): Implement `destroy` method.
 5. (enh #357): Enhanced and better `refresh` method.
-6. (enh #358): Implement event namespaces and enhance event triggering process.
+6. (enh #358): Implement event namespaces and enhance event handling process.
 
 ## version 4.2.3
 
