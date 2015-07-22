@@ -1153,6 +1153,9 @@
                 self.getThumbs().each(function () {
                     self.clearObjects($(this));
                 });
+                if (self.isUploadable) {
+                    previewCache.data[self.id] = {};
+                }
                 self.$preview.html('');
                 cap = (!self.overwriteInitial && self.initialCaption.length > 0) ? self.initialCaption : '';
                 self.setCaption(cap);
@@ -1188,7 +1191,8 @@
             self.setEllipsis();
             self.$container.find('.fileinput-filename').text('');
             self.raise('filereset');
-            if (self.initialPreview.length > 0) {
+            addCss(self.$container, 'file-input-new');
+            if (self.$preview.find('.file-preview-frame').length || self.isUploadable && self.dropZoneEnabled) {
                 self.$container.removeClass('file-input-new');
             }
             self.setFileDropZoneTitle();
@@ -1201,7 +1205,7 @@
             self.raise('filedisabled');
             self.$element.attr('disabled', 'disabled');
             self.$container.find(".kv-fileinput-caption").addClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload").attr("disabled", true);
+            self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload, .file-preview-frame button").attr("disabled", true);
             self.initDragDrop();
         },
         enable: function () {
@@ -1210,7 +1214,7 @@
             self.raise('fileenabled');
             self.$element.removeAttr('disabled');
             self.$container.find(".kv-fileinput-caption").removeClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload").removeAttr("disabled");
+            self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload, .file-preview-frame button").removeAttr("disabled");
             self.initDragDrop();
         },
         getThumbs: function (css) {
@@ -1620,6 +1624,7 @@
             }
             $error.fadeIn(800);
             self.raise(ev, [params]);
+            self.$container.removeClass('file-input-new');
             addCss(self.$container, 'has-error');
             return true;
         },
@@ -1633,6 +1638,7 @@
             if (!self.isUploadable) {
                 self.clearFileInput();
             }
+            self.$container.removeClass('file-input-new');
             addCss(self.$container, 'has-error');
             self.$btnUpload.attr('disabled', true);
             return true;
@@ -1869,7 +1875,7 @@
             }
 
             readFile(0);
-            //self.updateFileDetails(numFiles, false);
+            self.updateFileDetails(numFiles, false);
         },
         updateFileDetails: function (numFiles) {
             var self = this, $el = self.$element, fileStack = self.getFileStack(),
