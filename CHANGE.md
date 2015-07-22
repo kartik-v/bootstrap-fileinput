@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.2.4
 
-**Date**: 20-Jul-2015
+**Date**: 22-Jul-2015
 
 1. (enh #340): Receive `previewId` and `index` in extra data for individual thumbnail uploads (ajax).
 2. (enh #342): Add ability to modify extra data before ajax upload in `beforeSend` events.

@@ -553,7 +553,7 @@
             return fileName ? '<b>' + fileName + ': </b>' + jqXHR : errMsg;
         },
         raise: function (event, params) {
-            var self = this, e = $.Event(event + '.fileinput');
+            var self = this, e = $.Event(event);
             if (params !== undefined) {
                 self.$element.trigger(e, params);
             } else {

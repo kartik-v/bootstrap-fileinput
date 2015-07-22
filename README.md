@@ -1116,7 +1116,8 @@ _object_ additional ajax settings to pass to the plugin before submitting the de
 _boolean_ whether to show details of the error stack from the server log when an error is encountered via ajax response. Defaults to `true`.
 
 ## Plugin Events
-The plugin supports the following events. Each of the events below are triggered with a `.fileinput` namespace. So you can trap the events with or without the namespace. For example `fileclear` event can also be trapped as `fileclear.fileinput`.
+
+The plugin supports the following events. 
 
 ### File Events
 
