@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinputLocales['_LANG_'] = {
+    $.fn.fileinputLocales['bg'] = {
         fileSingle: 'файл',
         filePlural: 'файла',
         browseLabel: 'Избери &hellip;',

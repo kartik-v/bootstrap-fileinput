@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.2.5
+
+**Date**: 22-Jul-2015
+
+1. (enh #362): Add Bulgarian translations.
+
 ## version 4.2.4
 
 **Date**: 22-Jul-2015
