@@ -7,7 +7,8 @@ Change Log: `bootstrap-fileinput`
 
 1. (enh #362): Add Bulgarian translations.
 2. (bug #370): Reverts #342 with better fix.
-3. (enh #372): Create new event `filepreajax`.
+3. (enh #371): Ability to replace files in the preview. New `autoReplace` property.
+4. (enh #372): Create new event `filepreajax`.
 
 ## version 4.2.4
 

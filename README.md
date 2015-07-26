@@ -176,6 +176,9 @@ _boolean_ whether to display the file upload cancel button. Defaults to `true`. 
 ### showUploadedThumbs
 _boolean_ whether to persist display of the uploaded file thumbnails in the preview window (for ajax uploads) until the remove/clear button is pressed. Defaults to `true`.  When set to `false`, a next batch of files selected for upload will clear these thumbnails from preview.
 
+### autoReplace
+_boolean_ whether to automatically replace the files in the preview after the `maxFileCount` limit is reached and a new set of file(s) is/are selected. This will only work if a valid  `maxFileCount` is set. Defaults to `false`.
+
 ### captionClass
 _string_ any additional CSS class to append to the caption container.
 
@@ -1270,7 +1273,7 @@ $('#input-id').on('fileunlock', function(event, filestack) {
 ```
 
 #### filepreajax
-This event is triggered before submission of the upload ajax request. You could use this event to manipulate the uploadExtraData before its submitted via ajax. The following additional parameters are also available but only if the upload is triggered via each thumbnail upload button.
+This event is triggered before submission of the upload ajax request. You could use this event to manipulate the `uploadExtraData` before its submitted via ajax. The following additional parameters are also available specifically and only if the upload is triggered via each thumbnail upload button.
 
 - `previewId`: the identifier of the preview thumbnail container.
 - `index`: the zero-based index of the file in the preview container.
