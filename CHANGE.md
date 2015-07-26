@@ -3,9 +3,11 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.2.5
 
-**Date**: 22-Jul-2015
+**Date**: 27-Jul-2015
 
 1. (enh #362): Add Bulgarian translations.
+2. (bug #370): Reverts #342 with better fix.
+3. (enh #372): Create new event `filepreajax`.
 
 ## version 4.2.4
 

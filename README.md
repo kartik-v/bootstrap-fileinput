@@ -1269,8 +1269,20 @@ $('#input-id').on('fileunlock', function(event, filestack) {
 });
 ```
 
+#### filepreajax
+This event is triggered before submission of the upload ajax request. You could use this event to manipulate the uploadExtraData before its submitted via ajax. The following additional parameters are also available but only if the upload is triggered via each thumbnail upload button.
+
+- `previewId`: the identifier of the preview thumbnail container.
+- `index`: the zero-based index of the file in the preview container.
+
+```js
+$('#input-id').on('filepreajax', function(event, previewId, index) {
+    console.log('File pre ajax triggered');
+});
+```
+
 #### filepreupload
-This event is triggered before upload of each thumbnail file. Additional parameters available are: 
+This event is triggered before upload of each thumbnail file. This event is triggered after `filepreajax` and within the ajax `beforeSend`. Additional parameters available are: 
 
 - `data`: This is a data object (associative array) that sends the following information, whose keys are:
     - `form`: the FormData object which is passed via XHR2 (or empty object if not available).

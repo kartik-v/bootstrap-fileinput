@@ -1253,6 +1253,8 @@
         },
         ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError, previewId, index) {
             var self = this, settings;
+            self.raise('filepreajax', [previewId, index]);
+            self.uploadExtra(previewId, index);
             settings = $.extend({
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
@@ -1265,10 +1267,7 @@
                 cache: false,
                 processData: false,
                 contentType: false,
-                beforeSend: function () {
-                    fnBefore.apply(this, arguments);
-                    self.uploadExtra(previewId, index);
-                },
+                beforeSend: fnBefore,
                 success: fnSuccess,
                 complete: fnComplete,
                 error: fnError
