@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.2.6
+
+**Date**: 27-Jul-2015
+
+1. (enh #373): Default delete ajax request type to POST (instead of DELETE).
+
 ## version 4.2.5
 
 **Date**: 27-Jul-2015
