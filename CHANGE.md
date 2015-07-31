@@ -6,6 +6,7 @@ Change Log: `bootstrap-fileinput`
 **Date**: 27-Jul-2015
 
 1. (enh #373): Default delete ajax request type to POST (instead of DELETE).
+2. (enh #376): Ability to validate initial/server files for max and min file count.
 
 ## version 4.2.5
 

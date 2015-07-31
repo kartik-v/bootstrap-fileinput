@@ -669,8 +669,8 @@
             });
         },
         submitForm: function () {
-            var self = this, $el = self.$element, files = $el.get(0).files;
-            if (files && files.length < self.minFileCount && self.minFileCount > 0) {
+            var self = this, $el = self.$element, files = $el.get(0).files, fileCount;
+            if (files && self.minFileCount > 0 && self.getFileCount(files.length) < self.minFileCount) {
                 self.noFilesError({});
                 return false;
             }
@@ -709,7 +709,7 @@
         upload: function () {
             var self = this, totLen = self.getFileStack().length, params = {},
                 i, outData, len, hasExtraData = !$.isEmptyObject(self.getExtraData());
-            if (totLen < self.minFileCount && self.minFileCount > 0) {
+            if (self.minFileCount > 0 && self.getFileCount(totLen) < self.minFileCount) {
                 self.noFilesError(params);
                 return;
             }
@@ -863,6 +863,9 @@
                 var $el = $(this), $frame = $el.closest('.file-preview-frame'),
                     ind = $frame.attr('data-fileindex'), n, cap;
                 handler($el, 'click', function () {
+                    if (!self.validateMinCount()) {
+                        return false;
+                    }
                     self.cleanMemory($frame);
                     $frame.fadeOut('slow', function () {
                         self.filestack[ind] = undefined;
@@ -990,7 +993,7 @@
                 };
 
             self.$preview.find('.kv-file-remove').each(function () {
-                var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key');
+                var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'), len;
                 if (isEmpty(vUrl) || vKey === undefined) {
                     return;
                 }
@@ -1005,7 +1008,7 @@
                 params = {id: $el.attr('id'), key: vKey, extra: extraData};
                 settings = $.extend({
                     url: vUrl,
-                    type: 'POST',
+                    type: 'DELETE',
                     dataType: 'json',
                     data: $.extend({key: vKey}, extraData),
                     beforeSend: function (jqXHR) {
@@ -1056,6 +1059,9 @@
                     }
                 }, self.ajaxDeleteSettings);
                 handler($el, 'click', function () {
+                    if (!self.validateMinCount()) {
+                        return false;
+                    }
                     $.ajax(settings);
                 });
             });
@@ -1915,6 +1921,22 @@
                 self.initPreviewDeletes();
             }
         },
+        validateMinCount: function() {
+            var self = this, len = self.isUploadable ? self.getFileStack().length : self.$element.get(0).files.length;
+            if (self.validateInitialCount && self.minFileCount > 0 && self.getFileCount(len - 1) < self.minFileCount) {
+                self.noFilesError({});
+                return false;
+            }
+            return true;
+        },
+        getFileCount: function(fileCount) {
+            var self = this, addCount = 0;
+            if (self.validateInitialCount && !self.overwriteInitial) {
+                addCount = previewCache.count(self.id);
+                fileCount += addCount;
+            }
+            return fileCount;
+        },
         change: function (e) {
             var self = this, $el = self.$element;
             if (!self.isUploadable && isEmpty($el.val()) && self.fileInputCleared) { // IE 11 fix
@@ -1969,6 +1991,7 @@
             self.resetErrors();
             len = tfiles.length;
             total = self.isUploadable ? self.getFileStack().length + len : len;
+            total = self.getFileCount(total);
             if (self.maxFileCount > 0 && total > self.maxFileCount) {
                 if (!self.autoReplace || len > self.maxFileCount) {
                     n = (self.autoReplace && len > self.maxFileCount) ? len : total;
@@ -2230,6 +2253,7 @@
         maxFileSize: 0,
         minFileCount: 0,
         maxFileCount: 0,
+        validateInitialCount: false,
         msgValidationErrorClass: 'text-danger',
         msgValidationErrorIcon: '<i class="glyphicon glyphicon-exclamation-sign"></i> ',
         msgErrorClass: 'file-error-message',
@@ -2265,9 +2289,9 @@
         cancelTitle: 'Abort ongoing upload',
         uploadLabel: 'Upload',
         uploadTitle: 'Upload selected files',
-        msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>. Please retry your upload!',
-        msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload. Please retry your upload!',
-        msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>. Please retry your upload!',
+        msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>.',
+        msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',
+        msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>.',
         msgFileNotFound: 'File "{name}" not found!',
         msgFileSecured: 'Security restrictions prevent reading the file "{name}".',
         msgFileNotReadable: 'File "{name}" is not readable.',

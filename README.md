@@ -806,6 +806,9 @@ _int_ the minimum number of files allowed for each multiple upload. If set to `0
 ### maxFileCount
 _int_ the maximum number of files allowed for each multiple upload. If set to `0`, it means number of files allowed is unlimited. Defaults to `0`.
 
+### validateInitialCount
+_boolean_ whether to include initial preview file count (server uploaded files) in validating `minFileCount` and `maxFileCount`. Defaults to `false`.
+
 ### msgSizeTooLarge
 _string_ the message to be displayed when the file size exceeds maximum size. Defaults to:
 
