@@ -66,6 +66,10 @@
     cursor: default;
 }
 
+.file-preview-detail-modal  {
+    text-align: left;
+}
+
 .file-preview-other-footer .file-actions {
     margin-top: 10px;
 }

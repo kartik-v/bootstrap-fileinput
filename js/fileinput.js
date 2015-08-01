@@ -15,15 +15,11 @@
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
  */
-
 (function ($) {
     "use strict";
 
     $.fn.fileinputLocales = {};
 
-    String.prototype.repl = function (from, to) {
-        return this.split(from).join(to);
-    };
     var isIE = function (ver) {
             var div = document.createElement("div"), status;
             div.innerHTML = "<!--[if IE " + ver + "]><i></i><![endif]-->";
@@ -81,11 +77,11 @@
                     frameClass += ' ' + config.frameClass;
                 }
                 out = data.template
-                    .repl('{previewId}', previewId)
-                    .repl('{frameClass}', frameClass)
-                    .repl('{fileindex}', ind)
-                    .repl('{content}', data.content[i])
-                    .repl('{footer}', previewCache.footer(id, i, isDisabled));
+                    .replace(/\{previewId\}/g, previewId)
+                    .replace(/\{frameClass\}/g, frameClass)
+                    .replace(/\{fileindex\}/g, ind)
+                    .replace(/\{content\}/g, data.content[i])
+                    .replace(/\{footer\}/g, previewCache.footer(id, i, isDisabled));
                 if (data.tags.length && data.tags[i]) {
                     out = replaceTags(out, data.tags[i]);
                 }
@@ -174,12 +170,11 @@
                     key = isSet('key', config) ? config.key : null,
                     disabled = (url === false) && isDisabled,
                     actions = data.isDelete ? data.actions(false, true, disabled, url, key) : '',
-                    footer = data.footer.repl('{actions}', actions);
-                return footer
-                    .repl('{caption}', caption)
-                    .repl('{width}', width)
-                    .repl('{indicator}', '')
-                    .repl('{indicatorTitle}', '');
+                    footer = data.footer.replace(/\{actions\}/g, actions);
+                return footer.replace(/\{caption\}/g, caption)
+                    .replace(/\{width\}/g, width)
+                    .replace(/\{indicator\}/g, '')
+                    .replace(/\{indicatorTitle\}/g, '');
             }
         },
         getNum = function (num, def) {
@@ -258,7 +253,7 @@
             '   <span class="file-caption-ellipsis">&hellip;</span>\n' +
             '   <div class="file-caption-name"></div>\n' +
             '</div>',
-        tModal = '<div id="{id}" class="modal fade">\n' +
+        tModal = '<div id="{id}" class="file-preview-detail-modal modal fade">\n' +
             '  <div class="modal-dialog modal-lg">\n' +
             '    <div class="modal-content">\n' +
             '      <div class="modal-header">\n' +
@@ -266,7 +261,7 @@
             '        <h3 class="modal-title">{heading} <small>{title}</small></h3>\n' +
             '      </div>\n' +
             '      <div class="modal-body">\n' +
-            '        <textarea class="form-control" style="font-family:Monaco,Consolas,monospace; height: {height}px;" readonly>{body}</textarea>\n' +
+            '           <pre>{body}</pre>\n' +
             '      </div>\n' +
             '    </div>\n' +
             '  </div>\n' +
@@ -430,20 +425,21 @@
             return Math.round(new Date().getTime() + (Math.random() * 100));
         },
         htmlEncode = function (str) {
-            return String(str).repl('&', '&amp;')
-                .repl('"', '&quot;')
-                .repl("'", '&#39;')
-                .repl('<', '&lt;')
-                .repl('>', '&gt;');
+            var $el = $(document.createElement('div')).html(str), 
+                out = $el.text();
+            $el.remove();
+            return out;
         },
         replaceTags = function (str, tags) {
             var out = str;
-            tags = tags || {};
+            if (!tags) {
+                return out;
+            }
             $.each(tags, function (key, value) {
                 if (typeof value === "function") {
                     value = value();
                 }
-                out = out.repl(key, value);
+                out = out.split(key).join(value);
             });
             return out;
         },
@@ -619,7 +615,7 @@
                 }
             }
             if (content.indexOf('{previewFileIcon}') > -1) {
-                return content.repl('{previewFileIconClass}', self.previewFileIconClass).repl('{previewFileIcon}', icn);
+                return content.replace(/\{previewFileIconClass\}/g, self.previewFileIconClass).replace(/\{previewFileIcon\}/g, icn);
             }
             return content;
         },
@@ -724,7 +720,7 @@
             var self = this, pct = Math.min(p, 100),
                 template = pct < 100 ? self.progressTemplate : self.progressCompleteTemplate;
             if (!isEmpty(template)) {
-                self.$progress.html(template.repl('{percent}', pct));
+                self.$progress.html(template.replace(/\{percent\}/g, pct));
             }
         },
         upload: function () {
@@ -922,17 +918,17 @@
             var self = this, config = self.fileActionSettings, footer, out,
                 template = self.getLayoutTemplate('footer');
             if (self.isUploadable) {
-                footer = template.repl('{actions}', self.renderFileActions(true, true, false, false, false));
-                out = footer.repl('{caption}', caption)
-                    .repl('{width}', width)
-                    .repl('{indicator}', config.indicatorNew)
-                    .repl('{indicatorTitle}', config.indicatorNewTitle);
+                footer = template.replace(/\{actions\}/g, self.renderFileActions(true, true, false, false, false));
+                out = footer.replace(/\{caption\}/g, caption)
+                    .replace(/\{width\}/g, width)
+                    .replace(/\{indicator\}/g, config.indicatorNew)
+                    .replace(/\{indicatorTitle\}/g, config.indicatorNewTitle);
             } else {
-                out = template.repl('{actions}', '')
-                    .repl('{caption}', caption)
-                    .repl('{width}', width)
-                    .repl('{indicator}', '')
-                    .repl('{indicatorTitle}', '');
+                out = template.replace(/\{actions\}/g, '')
+                    .replace(/\{caption\}/g, caption)
+                    .replace(/\{width\}/g, width)
+                    .replace(/\{indicator\}/g, '')
+                    .replace(/\{indicatorTitle\}/g, '');
             }
             out = replaceTags(out, self.previewThumbTags);
             return out;
@@ -947,25 +943,25 @@
                 btnDelete = self.getLayoutTemplate('actionDelete'),
                 btnUpload = '',
                 template = self.getLayoutTemplate('actions'),
-                otherButtons = self.otherActionButtons.repl('{dataKey}', vKey),
+                otherButtons = self.otherActionButtons.replace(/\{dataKey\}/g, vKey),
                 config = self.fileActionSettings,
                 removeClass = disabled ? config.removeClass + ' disabled' : config.removeClass;
             btnDelete = btnDelete
-                .repl('{removeClass}', removeClass)
-                .repl('{removeIcon}', config.removeIcon)
-                .repl('{removeTitle}', config.removeTitle)
-                .repl('{dataUrl}', vUrl)
-                .repl('{dataKey}', vKey);
+                .replace(/\{removeClass\}/g, removeClass)
+                .replace(/\{removeIcon\}/g, config.removeIcon)
+                .replace(/\{removeTitle\}/g, config.removeTitle)
+                .replace(/\{dataUrl\}/g, vUrl)
+                .replace(/\{dataKey\}/g, vKey);
             if (showUpload) {
                 btnUpload = self.getLayoutTemplate('actionUpload')
-                    .repl('{uploadClass}', config.uploadClass)
-                    .repl('{uploadIcon}', config.uploadIcon)
-                    .repl('{uploadTitle}', config.uploadTitle);
+                    .replace(/\{uploadClass\}/g, config.uploadClass)
+                    .replace(/\{uploadIcon\}/g, config.uploadIcon)
+                    .replace(/\{uploadTitle\}/g, config.uploadTitle);
             }
             return template
-                .repl('{delete}', btnDelete)
-                .repl('{upload}', btnUpload)
-                .repl('{other}', otherButtons);
+                .replace(/\{delete\}/g, btnDelete)
+                .replace(/\{upload\}/g, btnUpload)
+                .replace(/\{other\}/g, otherButtons);
         },
         setThumbStatus: function ($thumb, status) {
             var self = this, icon = 'indicator' + status, msg = icon + 'Title',
@@ -1029,7 +1025,7 @@
                 params = {id: $el.attr('id'), key: vKey, extra: extraData};
                 settings = $.extend({
                     url: vUrl,
-                    type: 'DELETE',
+                    type: 'POST',
                     dataType: 'json',
                     data: $.extend({key: vKey}, extraData),
                     beforeSend: function (jqXHR) {
@@ -1652,7 +1648,7 @@
             if (!folders) {
                 return;
             }
-            $error.html(self.msgFoldersNotAllowed.repl('{n}', folders));
+            $error.html(self.msgFoldersNotAllowed.replace(/\{n\}/g, folders));
             $error.fadeIn(800);
             addCss(self.$container, 'has-error');
             self.raise('filefoldererror', [folders]);
@@ -1730,15 +1726,15 @@
                 footer += '<div class="file-other-error text-danger"><i class="glyphicon glyphicon-exclamation-sign"></i></div>';
             }
             self.$preview.append("\n" + previewOtherTemplate
-                .repl('{previewId}', previewId)
-                .repl('{frameClass}', frameClass)
-                .repl('{fileindex}', ind)
-                .repl('{caption}', self.slug(file.name))
-                .repl('{width}', config.width)
-                .repl('{height}', config.height)
-                .repl('{type}', file.type)
-                .repl('{data}', data)
-                .repl('{footer}', footer));
+                .replace(/\{previewId\}/g, previewId)
+                .replace(/\{frameClass\}/g, frameClass)
+                .replace(/\{fileindex\}/g, ind)
+                .replace(/\{caption\}/g, self.slug(file.name))
+                .replace(/\{width\}/g, config.width)
+                .replace(/\{height\}/g, config.height)
+                .replace(/\{type\}/g, file.type)
+                .replace(/\{data\}/g, data)
+                .replace(/\{footer\}/g, footer));
         },
         previewFile: function (i, file, theFile, previewId, data) {
             if (!this.showPreview) {
@@ -1748,7 +1744,7 @@
                 content, strText, types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes,
                 tmplt = self.getPreviewTemplate(cat), chkTypes = types && types.indexOf(cat) >= 0, id, height,
                 config = isSet(cat, self.previewSettings) ? self.previewSettings[cat] : defaultPreviewSettings[cat],
-                chkMimes = mimes && mimes.indexOf(file.type) !== -1, 
+                chkMimes = mimes && mimes.indexOf(file.type) !== -1,
                 footer = self.renderFileFooter(caption, config.width), modal = '',
                 ind = previewId.slice(previewId.lastIndexOf('-') + 1);
             if (chkTypes || chkMimes) {
@@ -1757,22 +1753,22 @@
                     strText = htmlEncode(theFile.target.result);
                     id = 'text-' + uniqId();
                     height = window.innerHeight * 0.75;
-                    content = tmplt.repl('{zoom}',  self.getLayoutTemplate('zoom'));
+                    content = tmplt.replace(/\{zoom\}/g,  self.getLayoutTemplate('zoom'));
                     modal = self.getLayoutTemplate('modal').replace('{id}', id)
-                        .repl('{title}', caption).repl('{height}', height)
-                        .repl('{body}', strText).repl('{heading}', self.msgZoomModalHeading);
-                    content = content.repl('{previewId}', previewId).repl('{caption}', caption)
-                        .repl('{width}', config.width).repl('{height}', config.height)
-                        .repl('{frameClass}', '').repl('{zoomInd}', self.zoomIndicator)
-                        .repl('{footer}', footer).repl('{fileindex}', ind)
-                        .repl('{type}', file.type).repl('{zoomTitle}', self.msgZoomTitle)
-                        .repl('{dialog}', "$('#" + id + "').modal('show')")
-                        .repl('{data}', strText) + modal;
+                        .replace(/\{title\}/g, caption)
+                        .replace(/\{body\}/g, strText).replace(/\{heading\}/g, self.msgZoomModalHeading);
+                    content = content.replace(/\{previewId\}/g, previewId).replace(/\{caption\}/g, caption)
+                        .replace(/\{width\}/g, config.width).replace(/\{height\}/g, config.height)
+                        .replace(/\{frameClass\}/g, '').replace(/\{zoomInd\}/g, self.zoomIndicator)
+                        .replace(/\{footer\}/g, footer).replace(/\{fileindex\}/g, ind)
+                        .replace(/\{type\}/g, file.type).replace(/\{zoomTitle\}/g, self.msgZoomTitle)
+                        .replace(/\{dialog\}/g, "$('#" + id + "').modal('show')")
+                        .replace(/\{data\}/g, strText) + modal;
                 } else {
-                    content = tmplt.repl('{previewId}', previewId).repl('{caption}', caption)
-                        .repl('{frameClass}', '').repl('{type}', file.type).repl('{fileindex}', ind)
-                        .repl('{width}', config.width).repl('{height}', config.height)
-                        .repl('{footer}', footer).repl('{data}', data);
+                    content = tmplt.replace(/\{previewId\}/g, previewId).replace(/\{caption\}/g, caption)
+                        .replace(/\{frameClass\}/g, '').replace(/\{type\}/g, file.type).replace(/\{fileindex\}/g, ind)
+                        .replace(/\{width\}/g, config.width).replace(/\{height\}/g, config.height)
+                        .replace(/\{footer\}/g, footer).replace(/\{data\}/g, data);
                 }
                 self.$preview.append("\n" + content);
                 self.validateImage(i, previewId);
@@ -2133,17 +2129,17 @@
         },
         renderMain: function () {
             var self = this, dropCss = (self.isUploadable && self.dropZoneEnabled) ? ' file-drop-zone' : '',
-                preview = self.showPreview ? self.getLayoutTemplate('preview').repl('{class}', self.previewClass)
-                    .repl('{dropClass}', dropCss) : '',
+                preview = self.showPreview ? self.getLayoutTemplate('preview').replace(/\{class\}/g, self.previewClass)
+                    .replace(/\{dropClass\}/g, dropCss) : '',
                 css = self.isDisabled ? self.captionClass + ' file-caption-disabled' : self.captionClass,
-                caption = self.captionTemplate.repl('{class}', css + ' kv-fileinput-caption');
-            return self.mainTemplate.repl('{class}', self.mainClass)
-                .repl('{preview}', preview)
-                .repl('{caption}', caption)
-                .repl('{upload}', self.renderUpload())
-                .repl('{remove}', self.renderRemove())
-                .repl('{cancel}', self.renderCancel())
-                .repl('{browse}', self.renderBrowse());
+                caption = self.captionTemplate.replace(/\{class\}/g, css + ' kv-fileinput-caption');
+            return self.mainTemplate.replace(/\{class\}/g, self.mainClass)
+                .replace(/\{preview\}/g, preview)
+                .replace(/\{caption\}/g, caption)
+                .replace(/\{upload\}/g, self.renderUpload())
+                .replace(/\{remove\}/g, self.renderRemove())
+                .replace(/\{cancel\}/g, self.renderCancel())
+                .replace(/\{browse\}/g, self.renderBrowse());
         },
         renderBrowse: function () {
             var self = this, css = self.browseClass + ' btn-file', status = '';
