@@ -42,6 +42,14 @@
         msgImageHeightSmall: 'ความสูงของภาพไฟล์ "{name}" ต้องมีอย่างน้อย {size} px.',
         msgImageWidthLarge: 'ความกว้างของภาพไฟล์ "{name}" ไม่เกิน {size} พิกเซล.',
         msgImageHeightLarge: 'ความสูงของไฟล์ภาพ "{name}" ไม่เกิน {size} พิกเซล.',
-        dropZoneTitle: 'Drag & drop ไฟล์ตรงนี้ &hellip;'
+        dropZoneTitle: 'Drag & drop ไฟล์ตรงนี้ &hellip;',
+        fileActionSettings: {
+            removeTitle: 'Remove file',
+            uploadTitle: 'Upload file',
+            indicatorNewTitle: 'Not uploaded yet',
+            indicatorSuccessTitle: 'Uploaded',
+            indicatorErrorTitle: 'Upload Error',
+            indicatorLoadingTitle: 'Uploading ...'
+        }
     };
 })(window.jQuery);

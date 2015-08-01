@@ -42,6 +42,14 @@
         msgImageHeightSmall: 'La altura de la imagen "{name}" debe ser al menos {size} px.',
         msgImageWidthLarge: 'El ancho de la imagen "{name}" no puede exceder de {size} px.',
         msgImageHeightLarge: 'La altura de la imagen "{name}" no puede exceder de {size} px.',
-        dropZoneTitle: 'Arrastre y suelte aquí los archivos &hellip;'
+        dropZoneTitle: 'Arrastre y suelte aquí los archivos &hellip;',
+        fileActionSettings: {
+            removeTitle: 'Remove file',
+            uploadTitle: 'Upload file',
+            indicatorNewTitle: 'Not uploaded yet',
+            indicatorSuccessTitle: 'Uploaded',
+            indicatorErrorTitle: 'Upload Error',
+            indicatorLoadingTitle: 'Uploading ...'
+        }
     };
 })(window.jQuery);

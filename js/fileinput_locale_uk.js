@@ -43,6 +43,14 @@
         msgImageHeightSmall: 'Висота зображення "{name}" повинна бути не менше {size} px.',
         msgImageWidthLarge: 'Ширина зображення "{name}" не може перевищувати {size} px.',
         msgImageHeightLarge: 'Висота зображення "{name}" не може перевищувати {size} px.',
-        dropZoneTitle: 'Перетягніть файли сюди &hellip;'
+        dropZoneTitle: 'Перетягніть файли сюди &hellip;',
+        fileActionSettings: {
+            removeTitle: 'Remove file',
+            uploadTitle: 'Upload file',
+            indicatorNewTitle: 'Not uploaded yet',
+            indicatorSuccessTitle: 'Uploaded',
+            indicatorErrorTitle: 'Upload Error',
+            indicatorLoadingTitle: 'Uploading ...'
+        }
     };
 })(window.jQuery);

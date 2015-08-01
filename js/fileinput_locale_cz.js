@@ -42,6 +42,14 @@
         msgImageHeightSmall: 'Výška image soubor "{name}", musí být alespoň {size} px.',
         msgImageWidthLarge: 'Šířka obrazového souboru "{name}" nelze překročit {size} px.',
         msgImageHeightLarge: 'Výška obrazového souboru "{name}" nelze překročit {size} px.',
-        dropZoneTitle: 'Táhni a pusť soubory sem &hellip;'
+        dropZoneTitle: 'Táhni a pusť soubory sem &hellip;',
+        fileActionSettings: {
+            removeTitle: 'Odstranit soubor',
+            uploadTitle: 'nahrát soubor',
+            indicatorNewTitle: 'Ještě nenahrál',
+            indicatorSuccessTitle: 'Nahraný',
+            indicatorErrorTitle: 'Nahrát Chyba',
+            indicatorLoadingTitle: 'Nahrávání ...'
+        }
     };
 })(window.jQuery);

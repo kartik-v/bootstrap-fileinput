@@ -42,6 +42,14 @@
         msgImageHeightSmall: 'Görüntü dosyası "{name}" yüksekliği en az {size} piksel olmalıdır.',
         msgImageWidthLarge: 'Görüntü dosyası "{name}" genişliği {size} px geçemez.',
         msgImageHeightLarge: 'Resim dosyası "{name}" Yükseklik {size} px geçemez.',
-        dropZoneTitle: 'Dosyaları buraya sürükleyip bırakın &hellip;'
+        dropZoneTitle: 'Dosyaları buraya sürükleyip bırakın &hellip;',
+        fileActionSettings: {
+            removeTitle: 'Remove file',
+            uploadTitle: 'Upload file',
+            indicatorNewTitle: 'Not uploaded yet',
+            indicatorSuccessTitle: 'Uploaded',
+            indicatorErrorTitle: 'Upload Error',
+            indicatorLoadingTitle: 'Uploading ...'
+        }
     };
 })(window.jQuery);

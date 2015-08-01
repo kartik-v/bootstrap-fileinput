@@ -253,7 +253,7 @@
             '   <span class="file-caption-ellipsis">&hellip;</span>\n' +
             '   <div class="file-caption-name"></div>\n' +
             '</div>',
-        tModal = '<div id="{id}" class="file-preview-detail-modal modal fade">\n' +
+        tModal = '<div id="{id}" class="file-preview-detail-modal modal fade" tabindex="-1">\n' +
             '  <div class="modal-dialog modal-lg">\n' +
             '    <div class="modal-content">\n' +
             '      <div class="modal-header">\n' +

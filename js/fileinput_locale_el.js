@@ -42,6 +42,14 @@
         msgImageHeightSmall: 'Ύψος του αρχείου εικόνας "{name}" πρέπει να είναι τουλάχιστον {size} px.',
         msgImageWidthLarge: 'Πλάτος του αρχείου εικόνας "{name}" δεν μπορεί να υπερβαίνει το {size} px.',
         msgImageHeightLarge: 'Ύψος του αρχείου εικόνας "{name}" δεν μπορεί να υπερβαίνει το {size} px.',
-        dropZoneTitle: 'Σύρετε τα αρχεία εδώ &hellip;'
+        dropZoneTitle: 'Σύρετε τα αρχεία εδώ &hellip;',
+        fileActionSettings: {
+            removeTitle: 'Αφαιρέστε το αρχείο',
+            uploadTitle: 'Ανεβάστε το αρχείο',
+            indicatorNewTitle: 'Δεν ανεβάσει ακόμα',
+            indicatorSuccessTitle: 'Προστέθηκε',
+            indicatorErrorTitle: 'Ανέβασμα Σφάλμα',
+            indicatorLoadingTitle: 'Μεταφόρτωση ...'
+        }
     };
 })(window.jQuery);

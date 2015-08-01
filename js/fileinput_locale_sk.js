@@ -42,6 +42,14 @@
         msgImageHeightSmall: 'Výška image súboru "{name}", musí byť minimálne {size} px.',
         msgImageWidthLarge: 'Šírka image súboru "{name}" nemôže presiahnuť {size} px.',
         msgImageHeightLarge: 'Výška súboru obrazu "{name}" nesmie presiahnuť {size} px.',
-        dropZoneTitle: 'Tiahni a pusť súbory tu &hellip;'
+        dropZoneTitle: 'Tiahni a pusť súbory tu &hellip;',
+        fileActionSettings: {
+            removeTitle: 'Remove file',
+            uploadTitle: 'Upload file',
+            indicatorNewTitle: 'Not uploaded yet',
+            indicatorSuccessTitle: 'Uploaded',
+            indicatorErrorTitle: 'Upload Error',
+            indicatorLoadingTitle: 'Uploading ...'
+        }
     };
 })(window.jQuery);

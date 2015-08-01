@@ -9,6 +9,7 @@ Change Log: `bootstrap-fileinput`
 2. (enh #376): Ability to validate initial/server files for max and min file count.
 3. (enh #377): Various enhancements to text preview.
 4. (enh #378): Ability to configure different icon thumbnails for preview files.
+5. (enh #379): Combine more translatable settings and update locale js files.
 
 ## version 4.2.5
 

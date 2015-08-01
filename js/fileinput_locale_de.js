@@ -40,6 +40,14 @@
         msgImageHeightSmall: 'Höhe der Bilddatei "{name}" muss mindestens {size} px betragen.',
         msgImageWidthLarge: 'Breite der Bilddatei "{name}" nicht überschreiten {size} px.',
         msgImageHeightLarge: 'Höhe der Bilddatei "{name}" nicht überschreiten {size} px.',
-        dropZoneTitle: 'Dateien hierher ziehen &hellip;'
+        dropZoneTitle: 'Dateien hierher ziehen &hellip;',
+        fileActionSettings: {
+            removeTitle: 'Datei entfernen',
+            uploadTitle: 'Datei hochladen',
+            indicatorNewTitle: 'Noch nicht hochgeladen',
+            indicatorSuccessTitle: 'Hochgeladen',
+            indicatorErrorTitle: 'Upload Fehler',
+            indicatorLoadingTitle: 'Hochladen ...'
+        }
     };
 })(window.jQuery);

@@ -43,6 +43,14 @@
         msgImageHeightSmall: 'Înălțimea fișier imagine "{name}" trebuie să fie de cel puțin {size} px.',
         msgImageWidthLarge: 'Lățimea de fișier de imagine "{name}" nu poate depăși {size} px.',
         msgImageHeightLarge: 'Înălțimea fișier imagine "{name}" nu poate depăși {size} px.',
-        dropZoneTitle: 'Trage fișierele aici &hellip;'
+        dropZoneTitle: 'Trage fișierele aici &hellip;',
+        fileActionSettings: {
+            removeTitle: 'Remove file',
+            uploadTitle: 'Upload file',
+            indicatorNewTitle: 'Not uploaded yet',
+            indicatorSuccessTitle: 'Uploaded',
+            indicatorErrorTitle: 'Upload Error',
+            indicatorLoadingTitle: 'Uploading ...'
+        }
     };
 })(window.jQuery);

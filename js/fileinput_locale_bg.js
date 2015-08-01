@@ -42,6 +42,14 @@
         msgImageHeightSmall: 'Височината на изображението "{name}" трябва да е поне {size} px.',
         msgImageWidthLarge: 'Широчината на изображението "{name}" не може да е по-голяма от {size} px.',
         msgImageHeightLarge: 'Височината на изображението "{name}" нее може да е по-голяма от {size} px.',
-        dropZoneTitle: 'Пуснете файловете тук &hellip;'
+        dropZoneTitle: 'Пуснете файловете тук &hellip;',
+        fileActionSettings: {
+            removeTitle: 'Махни файл',
+            uploadTitle: 'Качване на файл',
+            indicatorNewTitle: 'Все още не е качил',
+            indicatorSuccessTitle: 'Качено',
+            indicatorErrorTitle: 'Качи Error',
+            indicatorLoadingTitle: 'Качва се ...'
+        }
     };
 })(window.jQuery);

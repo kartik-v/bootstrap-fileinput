@@ -44,6 +44,14 @@
         msgImageHeightSmall: 'Altezza di file immagine "{name}" deve essere di almeno {size} px.',
         msgImageWidthLarge: 'Larghezza di file immagine "{name}" non può superare {size} px.',
         msgImageHeightLarge: 'Altezza di file immagine "{name}" non può superare {size} px.',
-        dropZoneTitle: 'Trascina i file qui&hellip;'
+        dropZoneTitle: 'Trascina i file qui&hellip;',
+        fileActionSettings: {
+            removeTitle: 'Remove file',
+            uploadTitle: 'Upload file',
+            indicatorNewTitle: 'Not uploaded yet',
+            indicatorSuccessTitle: 'Uploaded',
+            indicatorErrorTitle: 'Upload Error',
+            indicatorLoadingTitle: 'Uploading ...'
+        }
     };
 })(window.jQuery);

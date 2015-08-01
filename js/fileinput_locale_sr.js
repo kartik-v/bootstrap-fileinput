@@ -43,6 +43,14 @@
         msgImageHeightSmall: 'Висина Имаге Филе "{name}" мора бити најмање {size} пк.',
         msgImageWidthLarge: 'Ширина Имаге Филе "{name}" не може бити већи од {size} пк.',
         msgImageHeightLarge: 'Висина Имаге Филе "{name}" не може бити већи од {size} пк.',
-        dropZoneTitle: 'Prevucite datoteke ovde &hellip;'
+        dropZoneTitle: 'Prevucite datoteke ovde &hellip;',
+        fileActionSettings: {
+            removeTitle: 'Remove file',
+            uploadTitle: 'Upload file',
+            indicatorNewTitle: 'Not uploaded yet',
+            indicatorSuccessTitle: 'Uploaded',
+            indicatorErrorTitle: 'Upload Error',
+            indicatorLoadingTitle: 'Uploading ...'
+        }
     };
 })(window.jQuery);
