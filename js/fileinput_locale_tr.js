@@ -21,6 +21,8 @@
         cancelTitle: 'Devam eden yüklemeyi iptal et',
         uploadLabel: 'Yükle',
         uploadTitle: 'Seçilen dosyaları yükle',
+        msgZoomTitle: 'Ayrıntıları görüntüle',
+        msgZoomModalHeading: 'Detaylı Önizleme',
         msgSizeTooLarge: '"{name}" dosyasının boyutu (<b>{size} KB</b>) izin verilen azami dosya boyutu olan <b>{maxSize} KB</b>\'tan büyük.',
         msgFilesTooLess: 'Yüklemek için en az <b>{n}</b> {files} dosya seçmelisiniz.',
         msgFilesTooMany: 'Yüklemek için seçtiğiniz dosya sayısı <b>({n})</b> azami limitin <b>{m}</b> altında olmalıdır.',

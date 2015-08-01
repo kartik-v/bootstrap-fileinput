@@ -21,6 +21,8 @@
         cancelTitle: 'Abortar la subida en curso',
         uploadLabel: 'Subir archivo',
         uploadTitle: 'Subir archivos seleccionados',
+        msgZoomTitle: 'Ver detalles',
+        msgZoomModalHeading: 'Vista previa detallada',
         msgSizeTooLarge: 'Archivo "{name}" (<b>{size} KB</b>) excede el tamaño máximo permitido de <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Debe seleccionar al menos <b>{n}</b> {files} a cargar.',
         msgFilesTooMany: 'El número de archivos seleccionados a cargar <b>({n})</b> excede el límite máximo permitido de <b>{m}</b>.',

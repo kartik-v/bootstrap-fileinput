@@ -21,6 +21,8 @@
         cancelTitle: 'Anuluj wysyłanie',
         uploadLabel: 'Wgraj',
         uploadTitle: 'Wgraj zaznaczone pliki',
+        msgZoomTitle: 'Pokaż szczegóły',
+        msgZoomModalHeading: 'Szczegółowe Podgląd',
         msgSizeTooLarge: 'Plik o nazwie "{name}" (<b>{size} KB</b>) przekroczył maksymalną dopuszczalną wielkość pliku wynoszącą <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Musisz wybrać przynajmniej <b>{n}</b> {files} do wgrania.',
         msgFilesTooMany: 'Liczba plików wybranych do wgrania w liczbie <b>({n})</b>, przekracza maksymalny dozwolony limit wynoszący <b>{m}</b>.',

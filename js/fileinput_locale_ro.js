@@ -22,6 +22,8 @@
         cancelTitle: 'Anulează încărcarea curentă',
         uploadLabel: 'Încarcă',
         uploadTitle: 'Încarcă fișierele selectate',
+        msgZoomTitle: 'Vezi detalii',
+        msgZoomModalHeading: 'Previzualizare detaliată',
         msgSizeTooLarge: 'Fișierul "{name}" (<b>{size} KB</b>) depășește limita maximă de încărcare de <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Trebuie să selectezi cel puțin <b>{n}</b> {files} pentru a încărca.',
         msgFilesTooMany: 'Numărul fișierelor pentru încărcare <b>({n})</b> depășește limita maximă de <b>{m}</b>.',

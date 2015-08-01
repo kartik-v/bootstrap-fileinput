@@ -15,6 +15,7 @@
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
  */
+
 (function ($) {
     "use strict";
 
@@ -71,8 +72,7 @@
             },
             get: function (id, i, isDisabled) {
                 var ind = 'init_' + i, data = previewCache.data[id], config = data.config[i],
-                    previewId = data.initId + '-' + ind, out, $tmp, frameAttr = {},
-                    frameClass = ' file-preview-initial';
+                    previewId = data.initId + '-' + ind, out, $tmp, frameClass = ' file-preview-initial';
                 isDisabled = isDisabled === undefined ? true : isDisabled;
                 if (data.content[i] === null) {
                     return '';
@@ -213,8 +213,8 @@
             '      <param name="autoStart" value="false" />\n' +
             '      <param name="quality" value="high" />\n',
         DEFAULT_PREVIEW = '<div class="file-preview-other">\n' +
-            '       {previewFileIcon}\n' +
-            '   </div>',
+            '   <span class="{previewFileIconClass}">{previewFileIcon}</span>\n' +
+            '</div>',
         defaultFileActionSettings = {
             removeIcon: '<i class="glyphicon glyphicon-trash text-danger"></i>',
             removeClass: 'btn btn-xs btn-default',
@@ -223,7 +223,7 @@
             uploadClass: 'btn btn-xs btn-default',
             uploadTitle: 'Upload file',
             indicatorNew: '<i class="glyphicon glyphicon-hand-down text-warning"></i>',
-            indicatorSuccess: '<i class="glyphicon glyphicon-ok-sign file-icon-large text-success"></i>',
+            indicatorSuccess: '<i class="glyphicon glyphicon-ok-sign file-icon-lg text-success"></i>',
             indicatorError: '<i class="glyphicon glyphicon-exclamation-sign text-danger"></i>',
             indicatorLoading: '<i class="glyphicon glyphicon-hand-up text-muted"></i>',
             indicatorNewTitle: 'Not uploaded yet',
@@ -263,7 +263,7 @@
             '    <div class="modal-content">\n' +
             '      <div class="modal-header">\n' +
             '        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n' +
-            '        <h3 class="modal-title">Detailed Preview <small>{title}</small></h3>\n' +
+            '        <h3 class="modal-title">{heading} <small>{title}</small></h3>\n' +
             '      </div>\n' +
             '      <div class="modal-body">\n' +
             '        <textarea class="form-control" style="font-family:Monaco,Consolas,monospace; height: {height}px;" readonly>{body}</textarea>\n' +
@@ -292,6 +292,9 @@
             'title="{removeTitle}"{dataUrl}{dataKey}>{removeIcon}</button>\n',
         tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
             '   {uploadIcon}\n</button>\n',
+        tZoom =  '<button type="button" class="btn btn-default btn-sm btn-block" title="{zoomTitle}: {caption}" onclick="{dialog}">\n' +
+            '   {zoomInd}\n' +
+            '</button>\n',
         tGeneric = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}">\n' +
             '   {content}\n' +
             '   {footer}\n' +
@@ -307,9 +310,8 @@
             '   {footer}\n' +
             '</div>\n',
         tText = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}">\n' +
-            '   <div class="file-preview-text" title="{caption}" ' + STYLE_SETTING + '>\n' +
-            '       {data}\n' +
-            '   </div>\n' +
+            '   <pre class="file-preview-text" title="{caption}" ' + STYLE_SETTING + '>{data}</pre>\n' +
+            '   {zoom}\n' +
             '   {footer}\n' +
             '</div>',
         tVideo = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
@@ -345,13 +347,16 @@
             '</div>',
         tOther = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
             ' title="{caption}" ' + STYLE_SETTING + '>\n' +
+            '   <div class="file-preview-other-frame">\n'+
             '   ' + DEFAULT_PREVIEW + '\n' +
-            '   {footer}\n' +
+            '   </div>\n' +
+            '   <div class="file-preview-other-footer">{footer}</div>\n' +
             '</div>',
         defaultLayoutTemplates = {
             main1: tMain1,
             main2: tMain2,
             preview: tPreview,
+            zoom: tZoom,
             icon: tIcon,
             caption: tCaption,
             modal: tModal,
@@ -391,10 +396,10 @@
                 return (vType !== undefined) ? vType === 'text/html' : vName.match(/\.(htm|html)$/i);
             },
             text: function (vType, vName) {
-                return (vType !== undefined && vType.match('text.*')) || vName.match(/\.(txt|md|csv|nfo|php|ini)$/i);
+                return (vType !== undefined && vType.match('text.*')) || vName.match(/\.(txt|md|csv|nfo|ini|json|php|js|css)$/i);
             },
             video: function (vType, vName) {
-                return (vType !== undefined && vType.match(/\.video\/(ogg|mp4|webm)$/i)) || vName.match(/\.(og?|mp4|webm)$/i);
+                return (vType !== undefined && vType.match(/\.video\/(ogg|mp4|webm|3gp)$/i)) || vName.match(/\.(og?|mp4|webm|3gp)$/i);
             },
             audio: function (vType, vName) {
                 return (vType !== undefined && vType.match(/\.audio\/(ogg|mp3|wav)$/i)) || vName.match(/\.(ogg|mp3|wav)$/i);
@@ -481,9 +486,6 @@
             });
             self.fileInputCleared = false;
             self.fileBatchCompleted = true;
-            if (isEmpty(self.allowedPreviewTypes)) {
-                self.allowedPreviewTypes = defaultPreviewTypes;
-            }
             if (!self.isPreviewable) {
                 self.showPreview = false;
             }
@@ -596,11 +598,30 @@
         getPreviewTemplate: function (t) {
             var self = this,
                 template = isSet(t, self.previewTemplates) ? self.previewTemplates[t] : defaultPreviewTemplates[t];
-            template = template.repl('{previewFileIcon}', self.previewFileIcon);
             if (isEmpty(self.customPreviewTags)) {
                 return template;
             }
             return replaceTags(template, self.customPreviewTags);
+        },
+        parseFilePreviewIcon: function (content, fname) {
+            var self = this, ext, icn = self.previewFileIcon;
+            if (fname && fname.indexOf('.') > -1) {
+                ext = fname.split('.').pop();
+                if (self.previewFileIconSettings && self.previewFileIconSettings[ext]) {
+                    icn = self.previewFileIconSettings[ext];
+                }
+                if (self.previewFileExtSettings) {
+                    $.each(self.previewFileExtSettings, function(key, func) {
+                        if (self.previewFileIconSettings[key] && func(ext)) {
+                            icn = self.previewFileIconSettings[key];
+                        }
+                    });
+                }
+            }
+            if (content.indexOf('{previewFileIcon}') > -1) {
+                return content.repl('{previewFileIconClass}', self.previewFileIconClass).repl('{previewFileIcon}', icn);
+            }
+            return content;
         },
         getOutData: function (jqXHR, responseData, filesData) {
             var self = this;
@@ -669,7 +690,7 @@
             });
         },
         submitForm: function () {
-            var self = this, $el = self.$element, files = $el.get(0).files, fileCount;
+            var self = this, $el = self.$element, files = $el.get(0).files;
             if (files && self.minFileCount > 0 && self.getFileCount(files.length) < self.minFileCount) {
                 self.noFilesError({});
                 return false;
@@ -993,7 +1014,7 @@
                 };
 
             self.$preview.find('.kv-file-remove').each(function () {
-                var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'), len;
+                var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key');
                 if (isEmpty(vUrl) || vKey === undefined) {
                     return;
                 }
@@ -1457,10 +1478,9 @@
             self.ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, previewId, i);
         },
         uploadBatch: function () {
-            var self = this, files = self.filestack, total = files.length, config,
+            var self = this, files = self.filestack, total = files.length, params = {},
                 hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
-                setAllUploaded, enableActions, fnBefore, fnSuccess, fnComplete, fnError,
-                params = {};
+                setAllUploaded, fnBefore, fnSuccess, fnComplete, fnError;
             self.formdata = new FormData();
             if (total === 0 || !hasPostData || self.abort(params)) {
                 return;
@@ -1700,12 +1720,11 @@
             if (!this.showPreview) {
                 return;
             }
-            var self = this, data = objUrl.createObjectURL(file), $obj = $('#' + previewId),
+            var self = this, data = objUrl.createObjectURL(file), frameClass = '', fname = file ? file.name : '',
                 config = self.previewSettings.other || defaultPreviewSettings.other,
                 footer = self.renderFileFooter(file.name, config.width),
-                previewOtherTemplate = self.getPreviewTemplate('other'),
                 ind = previewId.slice(previewId.lastIndexOf('-') + 1),
-                frameClass = '';
+                previewOtherTemplate = self.parseFilePreviewIcon(self.getPreviewTemplate('other'), fname);
             if (isDisabled === true) {
                 frameClass = ' btn disabled';
                 footer += '<div class="file-other-error text-danger"><i class="glyphicon glyphicon-exclamation-sign"></i></div>';
@@ -1725,41 +1744,35 @@
             if (!this.showPreview) {
                 return;
             }
-            var self = this, cat = self.parseFileType(file), caption = self.slug(file.name), content, strText,
-                types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes,
-                tmplt = self.getPreviewTemplate(cat),
+            var self = this, cat = self.parseFileType(file), fname = file ? file.name : '', caption = self.slug(fname),
+                content, strText, types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes,
+                tmplt = self.getPreviewTemplate(cat), chkTypes = types && types.indexOf(cat) >= 0, id, height,
                 config = isSet(cat, self.previewSettings) ? self.previewSettings[cat] : defaultPreviewSettings[cat],
-                wrapLen = parseInt(self.wrapTextLength, 10), wrapInd = self.wrapIndicator,
-                chkTypes = types.indexOf(cat) >= 0, id, height,
-                chkMimes = isEmpty(mimes) || (!isEmpty(mimes) && mimes.indexOf(file.type) !== -1),
+                chkMimes = mimes && mimes.indexOf(file.type) !== -1, 
                 footer = self.renderFileFooter(caption, config.width), modal = '',
                 ind = previewId.slice(previewId.lastIndexOf('-') + 1);
-            if (chkTypes && chkMimes) {
+            if (chkTypes || chkMimes) {
+                tmplt = self.parseFilePreviewIcon(tmplt, fname.split('.').pop());
                 if (cat === 'text') {
                     strText = htmlEncode(theFile.target.result);
-                    if (strText.length > wrapLen) {
-                        id = 'text-' + uniqId();
-                        height = window.innerHeight * 0.75;
-                        modal = self.getLayoutTemplate('modal').repl('{id}', id)
-                            .repl('{title}', caption)
-                            .repl('{height}', height)
-                            .repl('{body}', strText);
-                        wrapInd = wrapInd
-                            .repl('{title}', caption)
-                            .repl('{dialog}', "$('#" + id + "').modal('show')");
-                        strText = strText.substring(0, (wrapLen - 1)) + wrapInd;
-                    }
-                    content = tmplt.repl('{previewId}', previewId).repl('{caption}', caption)
-                        .repl('{frameClass}', '')
-                        .repl('{type}', file.type).repl('{width}', config.width)
-                        .repl('{height}', config.height).repl('{data}', strText)
-                        .repl('{footer}', footer).repl('{fileindex}', ind) + modal;
+                    id = 'text-' + uniqId();
+                    height = window.innerHeight * 0.75;
+                    content = tmplt.repl('{zoom}',  self.getLayoutTemplate('zoom'));
+                    modal = self.getLayoutTemplate('modal').replace('{id}', id)
+                        .repl('{title}', caption).repl('{height}', height)
+                        .repl('{body}', strText).repl('{heading}', self.msgZoomModalHeading);
+                    content = content.repl('{previewId}', previewId).repl('{caption}', caption)
+                        .repl('{width}', config.width).repl('{height}', config.height)
+                        .repl('{frameClass}', '').repl('{zoomInd}', self.zoomIndicator)
+                        .repl('{footer}', footer).repl('{fileindex}', ind)
+                        .repl('{type}', file.type).repl('{zoomTitle}', self.msgZoomTitle)
+                        .repl('{dialog}', "$('#" + id + "').modal('show')")
+                        .repl('{data}', strText) + modal;
                 } else {
                     content = tmplt.repl('{previewId}', previewId).repl('{caption}', caption)
-                        .repl('{frameClass}', '')
-                        .repl('{type}', file.type).repl('{data}', data)
+                        .repl('{frameClass}', '').repl('{type}', file.type).repl('{fileindex}', ind)
                         .repl('{width}', config.width).repl('{height}', config.height)
-                        .repl('{footer}', footer).repl('{fileindex}', ind);
+                        .repl('{footer}', footer).repl('{data}', data);
                 }
                 self.$preview.append("\n" + content);
                 self.validateImage(i, previewId);
@@ -1771,7 +1784,7 @@
             return isEmpty(text) ? '' : text.split(/(\\|\/)/g).pop().replace(/[^\w\u00C0-\u017F\-.\\\/ ]+/g, '');
         },
         getFileStack: function (skipNull) {
-            var self = this, status;
+            var self = this;
             return self.filestack.filter(function (n) {
                 return (skipNull ? n !== undefined : n !== undefined && n !== null);
             });
@@ -1921,7 +1934,7 @@
                 self.initPreviewDeletes();
             }
         },
-        validateMinCount: function() {
+        validateMinCount: function () {
             var self = this, len = self.isUploadable ? self.getFileStack().length : self.$element.get(0).files.length;
             if (self.validateInitialCount && self.minFileCount > 0 && self.getFileCount(len - 1) < self.minFileCount) {
                 self.noFilesError({});
@@ -1929,7 +1942,7 @@
             }
             return true;
         },
-        getFileCount: function(fileCount) {
+        getFileCount: function (fileCount) {
             var self = this, addCount = 0;
             if (self.validateInitialCount && !self.overwriteInitial) {
                 addCount = previewCache.count(self.id);
@@ -1944,7 +1957,7 @@
                 return;
             }
             self.fileInputCleared = false;
-            var tfiles, msg, total, $preview = self.$preview, isDragDrop = arguments.length > 1,
+            var tfiles, msg, total, isDragDrop = arguments.length > 1,
                 files = isDragDrop ? e.originalEvent.dataTransfer.files : $el.get(0).files,
                 isSingleUpload = isEmpty($el.attr('multiple')), i = 0, f, n, folders = 0,
                 ctr = self.filestack.length, isAjaxUpload = self.isUploadable, len,
@@ -2007,7 +2020,7 @@
                     self.resetPreviewThumbs(isAjaxUpload);
                 }
             } else {
-                 if (!isAjaxUpload || flagSingle) {
+                if (!isAjaxUpload || flagSingle) {
                     self.resetPreviewThumbs(false);
                     if (flagSingle) {
                         self.filestack = [];
@@ -2235,6 +2248,9 @@
         previewSettings: defaultPreviewSettings,
         fileTypeSettings: defaultFileTypeSettings,
         previewFileIcon: '<i class="glyphicon glyphicon-file"></i>',
+        previewFileIconClass: 'file-icon-4x',
+        previewFileIconSettings: {},
+        previewFileExtSettings: {},
         browseIcon: '<i class="glyphicon glyphicon-folder-open"></i> &nbsp;',
         browseClass: 'btn btn-primary',
         removeIcon: '<i class="glyphicon glyphicon-trash"></i> ',
@@ -2260,8 +2276,7 @@
         progressClass: "progress-bar progress-bar-success progress-bar-striped active",
         progressCompleteClass: "progress-bar progress-bar-success",
         previewFileType: 'image',
-        wrapTextLength: 250,
-        wrapIndicator: ' <span class="wrap-indicator" title="{title}" onclick="{dialog}">[&hellip;]</span>',
+        zoomIndicator: '<i class="glyphicon glyphicon-zoom-in"></i>',
         elCaptionContainer: null,
         elCaptionText: null,
         elPreviewContainer: null,
@@ -2289,6 +2304,8 @@
         cancelTitle: 'Abort ongoing upload',
         uploadLabel: 'Upload',
         uploadTitle: 'Upload selected files',
+        msgZoomTitle: 'View details',
+        msgZoomModalHeading: 'Detailed Preview',
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',
         msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>.',

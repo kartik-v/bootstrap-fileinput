@@ -442,7 +442,7 @@ The `layoutTemplates` if not set will default to:
         '    <div class="modal-content">\n' +
         '      <div class="modal-header">\n' +
         '        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n' +
-        '        <h3 class="modal-title">Detailed Preview <small>{title}</small></h3>\n' +
+        '        <h3 class="modal-title">{heading} <small>{title}</small></h3>\n' +
         '      </div>\n' +
         '      <div class="modal-body">\n' +
         '        <textarea class="form-control" style="font-family:Monaco,Consolas,monospace; height: {height}px;" readonly>{body}</textarea>\n' +
@@ -450,6 +450,9 @@ The `layoutTemplates` if not set will default to:
         '    </div>\n' +
         '  </div>\n' +
         '</div>',
+    zoom: '<button type="button" class="btn btn-default btn-sm btn-block" title="{zoomTitle}: {caption}" onclick="{dialog}">\n' +
+        '   {zoomInd}\n' +
+        '</button>\n',
     progress: '<div class="progress">\n' +
         '    <div class="{class}" role="progressbar" aria-valuenow="{percent}" aria-valuemin="0" aria-valuemax="100" style="width:{percent}%;">\n' +
         '        {percent}%\n' +
@@ -494,6 +497,10 @@ The following tags will be parsed and replaced in each of the templates:
 - `{type}`: will be replaced with the file type.
 - `{content}`: this is applicable only for the `generic` template. It will be replaced with the raw HTML markup as set in `initialPreview`. None of 
    the above tags will be parsed for the `generic` template.
+- `{dialog}`: currently applicable only for text file previews. Will be replaced with the JS code to launch the modal dialog.
+- `{zoomTitle}`: currently applicable only for text file previews. This will be replaced with the `msgZoomTitle` property. This is the title that is displayed on hover of the zoom button (which on clicking will display the text file).
+- `{zoomInd}`: currently applicable only for text file previews. This will be replaced with the `zoomIndicator` property. This is the title that is displayed on hover of the zoom button (which on clicking will display the text file).
+- `{heading}`: currently applicable only for text file previews. This represents the modal dialog heading title. This will be replaced with the `msgZoomModalHeading` property. 
 
 As noted, if you are coming from an earlier release (before v2.4.0), all preview templates have now been combined into one property, instead of separate templates for image, text etc. 
 
@@ -515,12 +522,13 @@ The `previewTemplates` if not set will default to:
         '   <img src="{data}" class="file-preview-image" title="{caption}" alt="{caption}" ' + STYLE_SETTING + '>\n' +
         '   {footer}\n' +
         '</div>\n',
-    text: '<div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}">\n' +
-        '   <div class="file-preview-text" title="{caption}" ' + STYLE_SETTING + '>\n' +
-        '       {data}\n' + 
-        '   </div>\n' + 
+    text: '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}">\n' +
+        '   <pre class="file-preview-text" title="{caption}" ' + STYLE_SETTING + '>{data}</pre>\n' +
+        '   <button type="button" class="btn btn-default btn-sm btn-block" title="{zoomText}: {caption}" onclick="{dialog}">\n' +
+        '       {zoomInd}\n' +
+        '   </button>\n' +
         '   {footer}\n' +
-        '</div>\n',
+        '</div>',
     video: '<div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}" title="{caption}" ' + STYLE_SETTING + '>\n' +
         '   <video width="{width}" height="{height}" controls>\n' +
         '       <source src="{data}" type="{type}">\n' +
@@ -548,10 +556,13 @@ The `previewTemplates` if not set will default to:
         '   </object>\n' + 
         '   {footer}\n' +
         '</div>',
-    other: '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}" title="{caption}" ' + STYLE_SETTING + '>\n' +
+    other: '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
+        ' title="{caption}" ' + STYLE_SETTING + '>\n' +
+        '   <div class="file-preview-other-frame">\n'+
         '   ' + DEFAULT_PREVIEW + '\n' +
-        '   {footer}\n' +
-        '</div>',
+        '   </div>\n' +
+        '   <div class="file-preview-other-footer">{footer}</div>\n' +
+        '</div>'
 }
 ```
 
@@ -566,9 +577,14 @@ OBJECT_PARAMS = '      <param name="controller" value="true" />\n' +
     '      <param name="autoStart" value="false" />\n'+
     '      <param name="quality" value="high" />\n',
 DEFAULT_PREVIEW = '<div class="file-preview-other">\n' +
-    '       <i class="glyphicon glyphicon-file"></i>\n' +
-    '   </div>'
+    '   <span class="{previewFileIconClass}">{previewFileIcon}</span>\n' +
+    '</div>'
 ```
+
+where:
+
+- `{previewFileIcon}`: corresponds to the [previewFileIcon](#option-previewfileicon) property.
+- `{previewFileIconClass}`: corresponds to the [previewFileIconClass](#option-previewfileiconclass) property.
 
 ### allowedFileTypes
 
@@ -708,7 +724,49 @@ This is by default setup as following:
 ```
 
 ### previewFileIcon
-_string_ the icon to be shown in each preview file thumbnail when an unreadable file type for preview is detected. Defaults to `<i class="glyphicon glyphicon-file"></i>`.
+_string_ the default icon to be shown in each preview file thumbnail when an unreadable file type for preview is detected. Defaults to `<i class="glyphicon glyphicon-file"></i>`.
+
+### previewFileIconClass
+_string_ the CSS class to be applied to the preview file icon container. Defaults to `file-icon-4x`.
+
+### previewFileIconSettings
+_object_ the preview icon markup settings for each file extension (type). You need to set this as `key: value` pairs, where the `key` corresponds to a file extension (e.g. `doc`, `docx`, `xls` etc.), and the `value` corresponds to the markup of the icon to be rendered. If this is not set OR a file extension is not set here, the preview will default to [previewFileIcon](#option-previewfileicon). Note that displaying the icons instead of file content is controlled via [allowedPreviewTypes](#option-allowedpreviewtypes) and [allowedPreviewMimeTypes](#option-allowedpreviewmimetypes).
+
+You can setup `previewFileIconSettings` as shown below:
+
+```js
+previewFileIconSettings: {
+    'doc': '<i class="fa fa-file-word-o text-primary"></i>',
+    'xls': '<i class="fa fa-file-excel-o text-success"></i>',
+    'ppt': '<i class="fa fa-file-powerpoint-o text-danger"></i>',
+    'jpg': '<i class="fa fa-file-photo-o text-warning"></i>',
+    'pdf': '<i class="fa fa-file-pdf-o text-danger"></i>',
+    'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
+}
+```
+
+### previewFileExtSettings
+_object_ the extensions to be auto derived for each file extension (type). This is useful if you want to set the same icon for multiple file extension types. You need to set this as `key: value` pairs, where the `key` corresponds to a file extension as set in [previewFileIconSettings](#option-previewfileiconsettings) (e.g. `doc`, `docx`, `xls` etc.). The `value` will be a function callback that accepts the following parameter:
+
+- `ext`: _string_, the file extension (without the `.` [dot]) of the file currently selected in the preview 
+
+You can configure the callback to match the set of file extensions (via regex or similar) for each `key` and return a boolean output if the file extension matches. 
+
+For example, you can setup `previewFileExtSettings` as shown below:
+
+```js
+previewFileExtSettings: {
+    'doc': function(ext) {
+        return ext.match(/(doc|docx)$/i);
+    },
+    'xls': function(ext) {
+        return ext.match(/(xls|xlsx)$/i);
+    },
+    'ppt': function(ext) {
+        return ext.match(/(ppt|pptx)$/i);
+    }
+}
+```
 
 ### browseLabel
 _string_ the label to display for the file picker/browse button. Defaults to `Browse &hellip;`.
@@ -808,6 +866,12 @@ _int_ the maximum number of files allowed for each multiple upload. If set to `0
 
 ### validateInitialCount
 _boolean_ whether to include initial preview file count (server uploaded files) in validating `minFileCount` and `maxFileCount`. Defaults to `false`.
+
+### msgZoomTitle
+_string_ the title displayed (before the file name) on hover of the zoom button for zooming the file content in a modal window. This is currently applicable only for text file previews. Defaults to `View details`.
+
+### msgZoomModalHeading
+_string_ the heading of the modal dialog that displays the zoomed file content. This is currently applicable only for text file previews.  This is currently applicable only for text file previews. Defaults to `Detailed Preview`.
 
 ### msgSizeTooLarge
 _string_ the message to be displayed when the file size exceeds maximum size. Defaults to:
@@ -1021,13 +1085,8 @@ _string_ the type of files that are to be displayed in the preview window. Defau
 
 Files other than `image` or `text` will be displayed as a thumbnail with the filename in the preview window.
 
-### wrapTextLength
-_integer_ the number of characters after which the content will be stripped/wrapped for text preview. Defaults to `250`.
-
-### wrapIndicator
-_string_ the type of files that are to be displayed in the preview window. Defaults to ` <span class="wrap-indicator" title="{title}">[&hellip;]</span>`.  The following variables will be replaced:
-
-- `{title}`: the content of the entire text file that will be displayed as a span title element.
+### zoomIndicator
+_string_ the icon for zooming the file content in a new modal dialog.  This is currently applicable only for text file previews. Defaults to `<i class="glyphicon glyphicon-zoom-in"></i>`.  The following variables will be replaced:
 
 ### elErrorContainer
 _string_ the identifier for the container element displaying the error (e.g. `'#id'`). If not set, will default to the container with CSS class `kv-fileinput-error` inside the preview container (identified by `elPreviewContainer`). The `msgErrorClass` will be automatically appended to this container before displaying the error.

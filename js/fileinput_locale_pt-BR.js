@@ -21,6 +21,8 @@
         cancelTitle: 'Interromper envio em andamento',
         uploadLabel: 'Enviar',
         uploadTitle: 'Enviar arquivos selecionados',
+        msgZoomTitle: 'Ver detalhes',
+        msgZoomModalHeading: 'Pré-visualização detalhada',
         msgSizeTooLarge: 'O arquivo "{name}" (<b>{size} KB</b>) excede o tamanho máximo permitido de <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Você deve selecionar pelo menos <b>{n}</b> {files} para enviar.',
         msgFilesTooMany: 'O número de arquivos selecionados para o envio <b>({n})</b> excede o limite máximo permitido de <b>{m}</b>.',

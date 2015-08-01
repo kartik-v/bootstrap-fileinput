@@ -21,6 +21,8 @@
         cancelTitle: 'Annuleer gaande upload',
         uploadLabel: 'Upload',
         uploadTitle: 'Upload geselecteerde bestanden',
+        msgZoomTitle: 'Bekijk details',
+        msgZoomModalHeading: 'Gedetailleerde Voorbeeld',
         msgSizeTooLarge: 'Bestand "{name}" (<b>{size} KB</b>) is groter dan de toegestaande <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'U moet minstens <b>{n}</b> {files} selecteren om te uploaden.',
         msgFilesTooMany: 'Aantal geselecteerde bestanden <b>({n})</b> is meer dan de toegestaande <b>{m}</b>.',

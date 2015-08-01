@@ -21,6 +21,8 @@
         cancelTitle: 'Feltöltés megszakítása',
         uploadLabel: 'Feltöltés',
         uploadTitle: 'Kijelölt fájlok feltöltése',
+        msgZoomTitle: 'Részletek megtekintése',
+        msgZoomModalHeading: 'Részletes Preview',
         msgSizeTooLarge: '"{name}" fájl (<b>{size} KB</b>) mérete nagyobb a megengedettnél <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Legalább <b>{n}</b> {files} ki kell választania a feltöltéshez.',
         msgFilesTooMany: 'A feltölteni kívánt fájlok száma <b>({n})</b> elérte a megengedett maximumot <b>{m}</b>.',

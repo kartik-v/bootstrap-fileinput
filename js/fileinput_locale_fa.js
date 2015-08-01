@@ -22,6 +22,8 @@
         cancelTitle: 'لغو بارگزاری جاری',
         uploadLabel: 'بارگذاری',
         uploadTitle: 'بارگذاری فایل‌های انتخاب شده',
+        msgZoomTitle: 'دیدن جزئیات',
+        msgZoomModalHeading: 'پیشنمایش مفصل',
         msgSizeTooLarge: 'فایل "{name}" (<b>{size} کیلوبایت</b>) از حداکثر مجاز <b>{maxSize} کیلوبایت</b>.',
         msgFilesTooLess: 'شما باید حداقل <b>{n}</b> {files} فایل برای بارگذاری انتخاب کنید.',
         msgFilesTooMany: 'تعداد فایل‌های انتخاب شده برای بارگذاری <b>({n})</b> از حداکثر مجاز عبور کرده است <b>{m}</b>.',

@@ -22,6 +22,8 @@
         cancelTitle: 'Prekini trenutno otpremanje',
         uploadLabel: 'Otpremi',
         uploadTitle: 'Otpremi označene datoteke',
+        msgZoomTitle: 'Приказ детаља',
+        msgZoomModalHeading: 'Детаљан приказ',
         msgSizeTooLarge: 'Datoteka "{name}" (<b>{size} KB</b>) prekoračuje maksimalnu dozvoljenu veličinu datoteke od <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Morate odabrati najmanje <b>{n}</b> {files} za otpremanje.',
         msgFilesTooMany: 'Broj datoteka označenih za otpremanje <b>({n})</b> prekoračuje maksimalni dozvoljeni limit od <b>{m}</b>.',

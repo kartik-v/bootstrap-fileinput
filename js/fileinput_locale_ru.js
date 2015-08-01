@@ -22,6 +22,8 @@
         cancelTitle: 'Отменить текущую загрузку',
         uploadLabel: 'Загрузить',
         uploadTitle: 'Загрузить выбранные файлы',
+        msgZoomTitle: 'посмотреть детали',
+        msgZoomModalHeading: 'Подробное превью',
         msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) превышает максимальный размер <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Вы должны выбрать как минимум <b>{n}</b> {files} для загрузки.',
         msgFilesTooMany: 'Количество выбранных файлов <b>({n})</b> превышает максимально допустимое количество <b>{m}</b>.',

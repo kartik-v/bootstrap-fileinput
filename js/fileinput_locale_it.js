@@ -23,6 +23,8 @@
         cancelTitle: 'Annulla i caricamenti in corso',
         uploadLabel: 'Carica',
         uploadTitle: 'Carica i file selezionati',
+        msgZoomTitle: 'Guarda i dettagli',
+        msgZoomModalHeading: 'Anteprima dettagliata',
         msgSizeTooLarge: 'Il file "{name}" (<b>{size} KB</b>) eccede la dimensione massima di caricamento di <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Devi selezionare almeno <b>{n}</b> {files} da caricare.',
         msgFilesTooMany: 'Il numero di file selezionati per il caricamento <b>({n})</b> eccede il numero massimo di file accettati <b>{m}</b>.',

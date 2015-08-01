@@ -21,6 +21,8 @@
         cancelTitle: "Annuler l'envoi en cours",
         uploadLabel: 'Transférer',
         uploadTitle: 'Transférer les fichiers sélectionnés',
+        msgZoomTitle: 'Voir les détails',
+        msgZoomModalHeading: 'Aperçu détaillé',
         msgSizeTooLarge: 'Le fichier "{name}" (<b>{size} KB</b>) dépasse la taille maximale autorisée qui est de <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Vous devez sélectionner au moins <b>{n}</b> {files} à transmetter.',
         msgFilesTooMany: 'Le nombre de fichier sélectionné <b>({n})</b> dépasse la quantité maximale autorisée qui est de <b>{m}</b>.',

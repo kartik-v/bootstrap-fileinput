@@ -21,6 +21,8 @@
         cancelTitle: 'Abortar carregamento ',
         uploadLabel: 'Carregar',
         uploadTitle: 'Carregar ficheiros seleccionados',
+        msgZoomTitle: 'Ver detalhes',
+        msgZoomModalHeading: 'Pré-visualização detalhada',
         msgSizeTooLarge: 'Ficheiro "{name}" (<b>{size} KB</b>) excede o tamanho máximo permido de <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Deve seleccionar pelo menos <b>{n}</b> {files} para fazer upload.',
         msgFilesTooMany: 'Número máximo de ficheiros seleccionados <b>({n})</b> excede o limite máximo de <b>{m}</b>.',

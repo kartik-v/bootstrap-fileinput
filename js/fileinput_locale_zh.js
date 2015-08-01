@@ -22,6 +22,8 @@
         cancelTitle: '取消进行中的上传',
         uploadLabel: '上传',
         uploadTitle: '上传选中文件',
+        msgZoomTitle: '查看详情',
+        msgZoomModalHeading: '详细预览',
         msgSizeTooLarge: '文件 "{name}" (<b>{size} KB</b>) 超过了允许大小 <b>{maxSize} KB</b>.',
         msgFilesTooLess: '你必须选择最少 <b>{n}</b> {files} 来上传. ',
         msgFilesTooMany: '选择的上传文件个数 <b>({n})</b> 超出最大文件的限制个数 <b>{m}</b>.',

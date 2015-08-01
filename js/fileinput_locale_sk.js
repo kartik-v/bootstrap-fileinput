@@ -21,6 +21,8 @@
         cancelTitle: 'Prerušiť  nahrávanie',
         uploadLabel: 'Nahrať',
         uploadTitle: 'Nahrať vybraté súbory',
+        msgZoomTitle: 'Zobraziť podrobnosti',
+        msgZoomModalHeading: 'Detailný náhľad',
         msgSizeTooLarge: 'Súbor "{name}" (<b>{size} KB</b>): prekročenie - maximálna povolená veľkosť <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Musíte vybrať najmenej <b>{n}</b> {files} pre nahranie.',
         msgFilesTooMany: 'Počet vybratých súborov pre nahranie <b>({n})</b>: prekročenie - maximálny povolený limit <b>{m}</b>.',
