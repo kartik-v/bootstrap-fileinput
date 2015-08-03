@@ -678,7 +678,7 @@ _object_ the format settings (width and height) for rendering each preview file 
 {
     image: {width: "auto", height: "160px"},
     html: {width: "213px", height: "160px"},
-    text: {width: "160px", height: "160px"},
+    text: {width: "160px", height: "136px"},
     video: {width: "213px", height: "160px"},
     audio: {width: "213px", height: "80px"},
     flash: {width: "213px", height: "160px"},

@@ -287,7 +287,7 @@
             'title="{removeTitle}"{dataUrl}{dataKey}>{removeIcon}</button>\n',
         tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
             '   {uploadIcon}\n</button>\n',
-        tZoom =  '<button type="button" class="btn btn-default btn-sm btn-block" title="{zoomTitle}: {caption}" onclick="{dialog}">\n' +
+        tZoom =  '<button type="button" class="btn btn-default btn-xs btn-block" title="{zoomTitle}: {caption}" onclick="{dialog}">\n' +
             '   {zoomInd}\n' +
             '</button>\n',
         tGeneric = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}">\n' +
@@ -376,7 +376,7 @@
         defaultPreviewSettings = {
             image: {width: "auto", height: "160px"},
             html: {width: "213px", height: "160px"},
-            text: {width: "160px", height: "160px"},
+            text: {width: "160px", height: "136px"},
             video: {width: "213px", height: "160px"},
             audio: {width: "213px", height: "80px"},
             flash: {width: "213px", height: "160px"},
