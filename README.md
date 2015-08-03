@@ -612,7 +612,7 @@ is validated first and generally precedes the `allowedFileExtensions` setting (a
 
 _array_ the list of allowed preview types for your widget. This by default supports all file types for preview. The plugin by default treats each
 file as an object if it does not match any of the previous types. To disable this behavior, you can remove `object` from the list of `allowedPreviewTypes`
-OR fine tune it through `allowedPreviewMimeTypes`.
+OR fine tune it through `allowedPreviewMimeTypes`. To disable content preview for all file-types and show the `previewIcon` instead as a thumbnail, set this to null, empty, or `false`.
 
 This is by default setup as following:
 ```js
