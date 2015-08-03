@@ -70,19 +70,6 @@
     text-align: left;
 }
 
-.file-preview-other-footer .file-actions {
-    margin-top: 10px;
-}
-
-.file-preview-other-footer .file-caption-name {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 160px;
-    text-align: center;
-}
-
 .kv-has-ellipsis .file-caption-ellipsis {
     display: inline;
 }
@@ -163,7 +150,7 @@
     text-align: center;
     vertical-align: middle;
     width: 160px;
-    height: 140px;
+    height: 160px;
     border: 2px dashed #999;
     border-radius: 25px;
     opacity: 0.8;
@@ -208,21 +195,31 @@
     float: right;
 }
 
-.file-thumbnail-footer .file-caption-name {
-    padding-top: 4px;
-    font-size: 11px;
-    color: #777;
-}
-
 .file-upload-indicator {
     padding-top: 2px;
     cursor: default;
 }
 
 .file-upload-indicator:hover {
-    font-size: 1.2em;
     font-weight: bold;
     padding-top: 0;
+}
+
+.file-footer-caption {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 160px;
+    text-align: center;
+    padding-top: 4px;
+    font-size: 11px;
+    color: #777;
+    margin: 5px auto 10px auto;
+}
+
+.file-footer-caption:hover {
+    color: #333;
 }
 
 .file-drop-zone {

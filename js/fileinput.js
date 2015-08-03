@@ -273,14 +273,14 @@
             '     </div>\n' +
             '</div>',
         tFooter = '<div class="file-thumbnail-footer">\n' +
-            '    <div class="file-caption-name">{caption}</div>\n' +
+            '    <div class="file-footer-caption">{caption}</div>\n' +
             '    {actions}\n' +
             '</div>',
         tActions = '<div class="file-actions">\n' +
             '    <div class="file-footer-buttons">\n' +
             '        {upload}{delete}{other}' +
             '    </div>\n' +
-            '    <div class="file-upload-indicator" tabindex="-1" title="{indicatorTitle}">{indicator}</div>\n' +
+            '    <div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
             '    <div class="clearfix"></div>\n' +
             '</div>',
         tActionDelete = '<button type="button" class="kv-file-remove {removeClass}" ' +
