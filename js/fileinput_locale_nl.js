@@ -44,12 +44,12 @@
         msgImageHeightLarge: 'Hoogte van het beeld bestand "{name}" kan niet hoger zijn dan {size} px.',
         dropZoneTitle: 'Drag & drop bestanden hier &hellip;',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: 'Verwijder bestand',
+            uploadTitle: 'bestand uploaden',
+            indicatorNewTitle: 'Nog niet geupload',
+            indicatorSuccessTitle: 'geupload',
+            indicatorErrorTitle: 'uploaden Error',
+            indicatorLoadingTitle: 'uploaden ...'
         }
     };
 })(window.jQuery);

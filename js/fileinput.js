@@ -273,7 +273,7 @@
             '     </div>\n' +
             '</div>',
         tFooter = '<div class="file-thumbnail-footer">\n' +
-            '    <div class="file-footer-caption">{caption}</div>\n' +
+            '    <div class="file-footer-caption" title="{caption}">{caption}</div>\n' +
             '    {actions}\n' +
             '</div>',
         tActions = '<div class="file-actions">\n' +
@@ -2035,7 +2035,7 @@
             self.showFolderError(folders);
         },
         validateImage: function (i, previewId) {
-            var self = this, $preview = self.$preview, params, w1, w2, $cap,
+            var self = this, $preview = self.$preview, params, w1, w2, 
                 $thumb = $preview.find("#" + previewId), fname = 'Untitled',
                 $img = $thumb.find('img');
             if (!$img.length) {
@@ -2047,12 +2047,6 @@
                 if (w1 > w2) {
                     $img.css('width', '100%');
                     $thumb.css('width', '97%');
-                }
-                $cap = $img.closest('.file-preview-frame').find('.file-caption-name');
-                if ($cap.length) {
-                    $cap.width($img.width());
-                    fname = $cap.text();
-                    $cap.attr('title', fname);
                 }
                 params = {ind: i, id: previewId};
                 self.checkDimensions(i, 'Small', $img, $thumb, fname, 'Width', params);

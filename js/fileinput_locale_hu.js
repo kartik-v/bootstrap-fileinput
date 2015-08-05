@@ -44,12 +44,12 @@
         msgImageHeightLarge: 'Magassága image file "{name}" nem haladhatja meg a {size} px.',
         dropZoneTitle: 'Fájlok húzása ide &hellip;',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: 'A fájl eltávolítása',
+            uploadTitle: 'fájl feltöltése',
+            indicatorNewTitle: 'Nem feltöltve',
+            indicatorSuccessTitle: 'Feltöltött',
+            indicatorErrorTitle: 'Feltöltés Error',
+            indicatorLoadingTitle: 'Feltöltése ...'
         }
     };
 })(window.jQuery);

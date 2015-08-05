@@ -11,6 +11,8 @@ Change Log: `bootstrap-fileinput`
 4. (enh #378): Ability to configure different icon thumbnails for preview files.
 5. (enh #379): Combine more translatable settings and update locale js files.
 6. (enh #380, #381): Consistent styling for thumbnails.
+7. Update translations to include `fileActionSettings`.
+8. (enh #385): Updated Russian & Ukranian translations.
 
 ## version 4.2.5
 

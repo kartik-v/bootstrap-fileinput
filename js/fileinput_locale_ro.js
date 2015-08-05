@@ -45,12 +45,12 @@
         msgImageHeightLarge: 'Înălțimea fișier imagine "{name}" nu poate depăși {size} px.',
         dropZoneTitle: 'Trage fișierele aici &hellip;',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: 'Scoateți fișier',
+            uploadTitle: 'Incarca fisier',
+            indicatorNewTitle: 'Nu a încărcat încă',
+            indicatorSuccessTitle: 'încărcat',
+            indicatorErrorTitle: 'Încărcați eroare',
+            indicatorLoadingTitle: 'Se încarcă ...'
         }
     };
 })(window.jQuery);

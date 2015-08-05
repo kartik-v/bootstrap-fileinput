@@ -48,12 +48,12 @@
             return text ? text.split(/(\\|\/)/g).pop().replace(/[^\w\u4e00-\u9fa5\-.\\\/ ]+/g, '') : '';
         },
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: '删除文件',
+            uploadTitle: '上传文件',
+            indicatorNewTitle: '没有上传',
+            indicatorSuccessTitle: '上传',
+            indicatorErrorTitle: '上传错误',
+            indicatorLoadingTitle: '上传 ...'
         }
     };
 })(window.jQuery);

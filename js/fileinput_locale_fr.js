@@ -44,12 +44,12 @@
         msgImageHeightLarge: 'Hauteur de fichier image "{name}" ne peut pas dépasser {size} px.',
         dropZoneTitle: 'Glissez et déposez les fichiers ici&hellip;',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: 'Supprimer le fichier',
+            uploadTitle: 'Télécharger un fichier',
+            indicatorNewTitle: 'Pas encore téléchargé',
+            indicatorSuccessTitle: 'Posté',
+            indicatorErrorTitle: 'Ajouter erreur',
+            indicatorLoadingTitle: 'ajout ...'
         }
     };
 })(window.jQuery);

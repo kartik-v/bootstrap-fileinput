@@ -44,12 +44,12 @@
         msgImageHeightLarge: 'ความสูงของไฟล์ภาพ "{name}" ไม่เกิน {size} พิกเซล.',
         dropZoneTitle: 'Drag & drop ไฟล์ตรงนี้ &hellip;',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: 'ลบไฟล์',
+            uploadTitle: 'อัปโหลดไฟล์',
+            indicatorNewTitle: 'ยังไม่ได้อัปโหลด',
+            indicatorSuccessTitle: 'อัพโหลด',
+            indicatorErrorTitle: 'อัปโหลดข้อผิดพลาด',
+            indicatorLoadingTitle: 'อัพโหลด ...'
         }
     };
 })(window.jQuery);

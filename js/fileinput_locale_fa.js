@@ -45,12 +45,12 @@
         msgImageHeightLarge: 'ارتفاع فایل تصویر "{name}" نمی‌تواند از {size} پیکسل بیشتر باشد.',
         dropZoneTitle: 'فایل‌ها را بکشید و در اینجا رها کنید &hellip;',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: 'حذف فایل',
+            uploadTitle: 'آپلود فایل',
+            indicatorNewTitle: 'آپلود نشده است',
+            indicatorSuccessTitle: 'آپلود شده',
+            indicatorErrorTitle: 'بارگذاری خطا',
+            indicatorLoadingTitle: 'آپلود ...'
         }
     };
 })(window.jQuery);

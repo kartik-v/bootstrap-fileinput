@@ -44,12 +44,12 @@
         msgImageHeightLarge: 'Altura do arquivo de imagem "{name}" não pode exceder {size} px.',
         dropZoneTitle: 'Arrastar e largar ficheiros aqui &hellip;',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: 'Remover arquivo',
+            uploadTitle: 'Carregar arquivo',
+            indicatorNewTitle: 'Ainda não carregou',
+            indicatorSuccessTitle: 'Carregado',
+            indicatorErrorTitle: 'Carregar Erro',
+            indicatorLoadingTitle: 'A carregar ...'
         }
     };
 })(window.jQuery);

@@ -45,12 +45,12 @@
         msgImageHeightLarge: 'Висина Имаге Филе "{name}" не може бити већи од {size} пк.',
         dropZoneTitle: 'Prevucite datoteke ovde &hellip;',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: 'Уклони датотеку',
+            uploadTitle: 'филе уплоад',
+            indicatorNewTitle: 'Још није уплоадед',
+            indicatorSuccessTitle: 'Постављено',
+            indicatorErrorTitle: 'Додај Грешка',
+            indicatorLoadingTitle: 'уплоадинг ...'
         }
     };
 })(window.jQuery);

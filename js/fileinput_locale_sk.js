@@ -44,12 +44,12 @@
         msgImageHeightLarge: 'Výška súboru obrazu "{name}" nesmie presiahnuť {size} px.',
         dropZoneTitle: 'Tiahni a pusť súbory tu &hellip;',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: 'odstrániť súbor',
+            uploadTitle: 'nahrať súbor',
+            indicatorNewTitle: 'Ešte nenahral',
+            indicatorSuccessTitle: 'nahral',
+            indicatorErrorTitle: 'nahrať Chyba',
+            indicatorLoadingTitle: 'nahrávanie ...'
         }
     };
 })(window.jQuery);

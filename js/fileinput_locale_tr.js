@@ -44,12 +44,12 @@
         msgImageHeightLarge: 'Resim dosyası "{name}" Yükseklik {size} px geçemez.',
         dropZoneTitle: 'Dosyaları buraya sürükleyip bırakın &hellip;',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: 'dosyayı kaldır',
+            uploadTitle: 'dosya yükleme',
+            indicatorNewTitle: 'Henüz yüklendi',
+            indicatorSuccessTitle: 'yüklendi',
+            indicatorErrorTitle: 'Yükleme Hatası',
+            indicatorLoadingTitle: 'Yükleme ...'
         }
     };
 })(window.jQuery);
