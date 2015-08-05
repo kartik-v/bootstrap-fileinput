@@ -478,7 +478,16 @@
         init: function (options) {
             var self = this, $el = self.$element, t;
             $.each(options, function (key, value) {
-                self[key] = (key === 'maxFileCount' || key === 'maxFileSize') ? getNum(value) : value;
+                switch (key) {
+                    case 'minFileCount':
+                    case 'maxFileCount':
+                    case 'maxFileSize':
+                        self[key] = getNum(value);
+                        break;
+                    default:
+                        self[key] = value;
+                        break;
+                }
             });
             self.fileInputCleared = false;
             self.fileBatchCompleted = true;
@@ -541,7 +550,7 @@
                 dot = errMsg.slice(-1) === '.' ? '' : '.',
                 text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined ?
                     jqXHR.responseJSON.error : jqXHR.responseText;
-            if (self.showAjaxErrorDetails) {
+            if (self.showAjaxErrorDetails && text) {
                 text = $.trim(text.replace(/\n\s*\n/g, '\n'));
                 text = text.length > 0 ? '<pre>' + text + '</pre>' : '';
                 errMsg += dot + text;

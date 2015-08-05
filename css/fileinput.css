@@ -103,10 +103,6 @@
     opacity: 1;
 }
 
-.file-input .btn[disabled], .file-input .btn .disabled {
-    cursor: not-allowed;
-}
-
 .file-preview {
     border-radius: 5px;
     border: 1px solid #ddd;
@@ -198,11 +194,13 @@
 .file-upload-indicator {
     padding-top: 2px;
     cursor: default;
+    opacity: 0.8;
+    width: 60%;
 }
 
 .file-upload-indicator:hover {
     font-weight: bold;
-    padding-top: 0;
+    opacity: 1;
 }
 
 .file-footer-caption {
@@ -219,7 +217,7 @@
 }
 
 .file-footer-caption:hover {
-    color: #333;
+    color: #000;
 }
 
 .file-drop-zone {
@@ -248,4 +246,8 @@
     background-position: center bottom 10px;
     background-repeat: no-repeat;
     opacity: 0.6;
+}
+
+.file-input .btn[disabled], .file-input .btn .disabled, .file-input .btn[disabled] *, .file-input .btn .disabled * {
+    cursor: not-allowed;
 }
