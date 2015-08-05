@@ -45,12 +45,12 @@
         msgImageHeightLarge: 'Высота изображения "{name}" не может превышать {size} px.',
         dropZoneTitle: 'Перетащите файлы сюда &hellip;',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            removeTitle: 'Удалить файл',
+            uploadTitle: 'Загрузить файл',
+            indicatorNewTitle: 'Еще не загружен',
+            indicatorSuccessTitle: 'Загружен',
+            indicatorErrorTitle: 'Ошибка загрузки',
+            indicatorLoadingTitle: 'Загрузка ...'
         }
     };
 })(window.jQuery);
