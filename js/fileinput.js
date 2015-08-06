@@ -2184,16 +2184,18 @@
             return content;
         }
     };
-
-    //FileInput plugin definition
+//FileInput plugin definition
     $.fn.fileinput = function (option) {
+
         if (!hasFileAPISupport() && !isIE(9)) {
             return;
         }
 
         var args = Array.apply(null, arguments);
         args.shift();
-        return this.each(function () {
+        var retVals = [];
+        
+        this.each(function () {
             var $this = $(this), data = $this.data('fileinput'), defaults,
                 options = typeof option === 'object' && option,
                 lang = options.language || $this.data('language') || 'en';
@@ -2208,9 +2210,17 @@
             }
 
             if (typeof option === 'string') {
-                data[option].apply(data, args);
+                //console.log(data[option].apply(data, args));
+                retVals.push(data[option].apply(data, args));
             }
         });
+        if(retVals.length == 1){
+            return retVals[0];
+        }else if(retVals.length == 0){
+            return this;
+        }else{
+            return retVals;
+        }
     };
 
     $.fn.fileinput.defaults = {
