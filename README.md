@@ -437,6 +437,9 @@ The `layoutTemplates` if not set will default to:
         '   <span class="file-caption-ellipsis">&hellip;</span>\n' +
         '   <div class="file-caption-name"></div>\n' +
         '</div>',
+    btnDefault: '<button type="{type}" tabindex="500" title="{title}" class="{css}"{status}>{icon}{label}</button>',
+    btnLink: '<a href="{href}" tabindex="500" title="{title}" class="{css}"{status}>{icon}{label}</a>',
+    btnBrowse: '<div tabindex="500" class="{css}"{status}>{icon}{label}</div>',
     modal: '<div id="{id}" class="modal fade">\n' +
         '  <div class="modal-dialog modal-lg">\n' +
         '    <div class="modal-content">\n' +
@@ -502,7 +505,21 @@ The following tags will be parsed and replaced in each of the templates:
 - `{zoomInd}`: currently applicable only for text file previews. This will be replaced with the `zoomIndicator` property. This is the title that is displayed on hover of the zoom button (which on clicking will display the text file).
 - `{heading}`: currently applicable only for text file previews. This represents the modal dialog heading title. This will be replaced with the `msgZoomModalHeading` property. 
 
-As noted, if you are coming from an earlier release (before v2.4.0), all preview templates have now been combined into one property, instead of separate templates for image, text etc. 
+The following templates will be used in rendering the main buttons for upload, remove, cancel, and browse.
+
+- `btnDefault`: The template for upload, remove, and cancel buttons
+- `btnLink`: The template for upload button when used with ajax (i.e. when `uploadUrl` is set).
+- `btnBrowse`: The template for the browse button.
+
+The following tags will be parsed and auto replaced in the above button templates:
+
+- `{type}`: the HTML button type, defaults to `button` for most buttons and `submit` for form based uploads
+- `{title}`: the title to display on button hover.
+- `{css}`: the CSS class for the button. This is derived from settings for `uploadClass` or `removeClass` or `cancelClass` or `browseClass`.
+- `{status}`: the disabled status for the button if available (else will be blank).
+- `{icon}`: the button icon as identified by `uploadIcon` or `removeIcon` or `cancelIcon` or `browseIcon`.
+- `{label}`: the button label as identified by `uploadLabel` or `removeLabel` or `cancelLabel` or `browseLabel`.
+- `{href}`: applicable only for Upload button for ajax uploads and will be replaced with the `uploadUrl` property.
 
 The `previewTemplates` if not set will default to:
 

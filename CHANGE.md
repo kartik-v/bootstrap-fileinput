@@ -14,6 +14,7 @@ Change Log: `bootstrap-fileinput`
 7. Update translations to include `fileActionSettings`.
 8. (enh #382): Better implementation for parsing text in `parseError` method.
 9. (enh #385): Updated Russian & Ukranian translations.
+10. (enh #389): New templates and styling enhancements to caption and main buttons.
 
 ## version 4.2.5
 

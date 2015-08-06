@@ -249,10 +249,12 @@
             '    </div>\n' +
             '</div>',
         tIcon = '<span class="glyphicon glyphicon-file kv-caption-icon"></span>',
-        tCaption = '<div tabindex="-1" class="form-control file-caption {class}">\n' +
-            '   <span class="file-caption-ellipsis">&hellip;</span>\n' +
+        tCaption = '<div tabindex="500" class="form-control file-caption {class}">\n' +
             '   <div class="file-caption-name"></div>\n' +
-            '</div>',
+            '</div>\n',
+        tBtnDefault = '<button type="{type}" tabindex="500" title="{title}" class="{css}"{status}>{icon}{label}</button>',
+        tBtnLink = '<a href="{href}" tabindex="500" title="{title}" class="{css}"{status}>{icon}{label}</a>',
+        tBtnBrowse = '<div tabindex="500" class="{css}"{status}>{icon}{label}</div>',
         tModal = '<div id="{id}" class="file-preview-detail-modal modal fade" tabindex="-1">\n' +
             '  <div class="modal-dialog modal-lg">\n' +
             '    <div class="modal-content">\n' +
@@ -359,7 +361,10 @@
             footer: tFooter,
             actions: tActions,
             actionDelete: tActionDelete,
-            actionUpload: tActionUpload
+            actionUpload: tActionUpload,
+            btnDefault: tBtnDefault,
+            btnLink: tBtnLink,
+            btnBrowse: tBtnBrowse
         },
         defaultPreviewTemplates = {
             generic: tGeneric,
@@ -517,7 +522,7 @@
                 self.refreshContainer();
             }
             self.$progress = self.$container.find('.kv-upload-progress');
-            self.$btnUpload = self.$container.find('.kv-fileinput-upload');
+            self.$btnUpload = self.$container.find('.fileinput-upload');
             self.$captionContainer = getElement(options, 'elCaptionContainer', self.$container.find('.file-caption'));
             self.$caption = getElement(options, 'elCaptionText', self.$container.find('.file-caption-name'));
             self.$previewContainer = getElement(options, 'elPreviewContainer', self.$container.find('.file-preview'));
@@ -543,7 +548,6 @@
             t = self.getLayoutTemplate('progress');
             self.progressTemplate = t.replace('{class}', self.progressClass);
             self.progressCompleteTemplate = t.replace('{class}', self.progressCompleteClass);
-            self.setEllipsis();
         },
         parseError: function (jqXHR, errorThrown, fileName) {
             var self = this, errMsg = $.trim(errorThrown + ''),
@@ -642,23 +646,10 @@
                 jqXHR: jqXHR
             };
         },
-        setEllipsis: function () {
-            var self = this, $capCont = self.$captionContainer, $cap = self.$caption,
-                $div = $cap.clone().css('height', 'auto').hide();
-            $capCont.parent().before($div);
-            $capCont.removeClass('kv-has-ellipsis');
-            if ($div.outerWidth() > $cap.outerWidth()) {
-                $capCont.addClass('kv-has-ellipsis');
-            }
-            $div.remove();
-        },
         listen: function () {
             var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile,
                 $form = $el.closest('form'), $cont = self.$container;
             handler($el, 'change', $.proxy(self.change, self));
-            handler($(window), 'resize', function () {
-                self.setEllipsis();
-            });
             handler($btnFile, 'click', function () {
                 self.raise('filebrowse');
                 if (self.isError && !self.isUploadable) {
@@ -675,7 +666,7 @@
             if (!self.isUploadable) {
                 handler($form, 'submit', $.proxy(self.submitForm, self));
             }
-            handler(self.$container.find('.kv-fileinput-upload'), 'click', function (e) {
+            handler(self.$container.find('.fileinput-upload'), 'click', function (e) {
                 var $btn = $(this), $form, isEnabled = !$btn.hasClass('disabled') && isEmpty($btn.attr('disabled'));
                 if (!self.isUploadable) {
                     if (isEnabled && $btn.attr('type') !== 'submit') {
@@ -1178,7 +1169,6 @@
             if (self.hasInitialPreview()) {
                 self.showFileIcon();
                 self.resetPreview();
-                self.setEllipsis();
                 self.initPreviewDeletes();
                 self.$container.removeClass('file-input-new');
             } else {
@@ -1191,7 +1181,6 @@
                 self.$preview.html('');
                 cap = (!self.overwriteInitial && self.initialCaption.length > 0) ? self.initialCaption : '';
                 self.setCaption(cap);
-                self.setEllipsis();
                 self.$caption.attr('title', '');
                 addCss(self.$container, 'file-input-new');
             }
@@ -1199,7 +1188,6 @@
                 if (!self.initCaption()) {
                     self.$captionContainer.find('.kv-caption-icon').hide();
                 }
-                self.setEllipsis();
             }
             self.hideFileIcon();
             self.raise('filecleared');
@@ -1236,7 +1224,6 @@
         reset: function () {
             var self = this;
             self.resetPreview();
-            self.setEllipsis();
             self.$container.find('.fileinput-filename').text('');
             self.raise('filereset');
             addCss(self.$container, 'file-input-new');
@@ -1253,7 +1240,7 @@
             self.raise('filedisabled');
             self.$element.attr('disabled', 'disabled');
             self.$container.find(".kv-fileinput-caption").addClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload, .file-preview-frame button").attr("disabled",
+            self.$container.find(".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button").attr("disabled",
                 true);
             self.initDragDrop();
         },
@@ -1263,7 +1250,7 @@
             self.raise('fileenabled');
             self.$element.removeAttr('disabled');
             self.$container.find(".kv-fileinput-caption").removeClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .kv-fileinput-upload, .file-preview-frame button").removeAttr("disabled");
+            self.$container.find(".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button").removeAttr("disabled");
             self.initDragDrop();
         },
         getThumbs: function (css) {
@@ -2017,7 +2004,6 @@
                     self.isError = throwError(msg, null, null, null);
                     self.$captionContainer.find('.kv-caption-icon').hide();
                     self.setCaption('', true);
-                    self.setEllipsis();
                     self.$container.removeClass('file-input-new file-input-ajax-new');
                     return;
                 }
@@ -2108,7 +2094,6 @@
             self.$caption.html(out);
             self.$caption.attr('title', title);
             self.$captionContainer.find('.file-caption-ellipsis').attr('title', title);
-            self.setEllipsis();
         },
         initBrowse: function ($container) {
             var self = this;
@@ -2139,50 +2124,49 @@
             return self.mainTemplate.replace(/\{class\}/g, self.mainClass)
                 .replace(/\{preview\}/g, preview)
                 .replace(/\{caption\}/g, caption)
-                .replace(/\{upload\}/g, self.renderUpload())
-                .replace(/\{remove\}/g, self.renderRemove())
-                .replace(/\{cancel\}/g, self.renderCancel())
-                .replace(/\{browse\}/g, self.renderBrowse());
+                .replace(/\{upload\}/g, self.renderButton('upload'))
+                .replace(/\{remove\}/g, self.renderButton('remove'))
+                .replace(/\{cancel\}/g, self.renderButton('cancel'))
+                .replace(/\{browse\}/g, self.renderButton('browse'));
         },
-        renderBrowse: function () {
-            var self = this, css = self.browseClass + ' btn-file', status = '';
-            if (self.isDisabled) {
-                status = ' disabled ';
+        renderButton: function(type) {
+            var self = this, tmplt = self.getLayoutTemplate('btnDefault'), css = self[type + 'Class'],
+                status = self.isDisabled ? ' disabled' : '', title = self[type + 'Title'],
+                icon = self[type + 'Icon'], label = self[type + 'Label'], btnType = 'button';
+            switch (type) {
+                case 'remove':
+                    if (!self.showRemove) {
+                        return '';
+                    }
+                    break;
+                case 'cancel':
+                    if (!self.showCancel) {
+                        return '';
+                    }
+                    css += ' hide';
+                    break;
+                case 'upload':
+                    if (!self.showUpload) {
+                        return '';
+                    }
+                    if (self.isUploadable && !self.isDisabled) {
+                        tmplt = self.getLayoutTemplate('btnLink').replace('{href}', self.uploadUrl);
+                    } else {
+                        btnType = 'submit';
+                    }
+                    break;
+                case 'browse':
+                    tmplt = self.getLayoutTemplate('btnBrowse');
+                    break;
             }
-            return '<div class="' + css + '"' + status + '> ' + self.browseIcon + self.browseLabel + ' </div>';
+            css += type === 'browse' ? ' btn-file' : ' fileinput-' + type + ' fileinput-' + type + '-button';
+            return tmplt.replace('{type}', btnType)
+                .replace('{css}', css)
+                .replace('{title}', title)
+                .replace('{status}', status)
+                .replace('{icon}', icon)
+                .replace('{label}', label);
         },
-        renderRemove: function () {
-            var self = this, css = self.removeClass + ' fileinput-remove fileinput-remove-button', status = '';
-            if (!self.showRemove) {
-                return '';
-            }
-            if (self.isDisabled) {
-                status = ' disabled ';
-            }
-            return '<button type="button" title="' + self.removeTitle + '" class="' + css + '"' + status + '>' + self.removeIcon + self.removeLabel + '</button>';
-        },
-        renderCancel: function () {
-            var self = this, css = self.cancelClass + ' fileinput-cancel fileinput-cancel-button';
-            if (!self.showCancel) {
-                return '';
-            }
-            return '<button type="button" title="' + self.cancelTitle + '" class="hide ' + css + '">' + self.cancelIcon + self.cancelLabel + '</button>';
-        },
-        renderUpload: function () {
-            var self = this, css = self.uploadClass + ' kv-fileinput-upload fileinput-upload-button', content = '', status = '';
-            if (!self.showUpload) {
-                return '';
-            }
-            if (self.isDisabled) {
-                status = ' disabled ';
-            }
-            if (!self.isUploadable || self.isDisabled) {
-                content = '<button type="submit" title="' + self.uploadTitle + '"class="' + css + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</button>';
-            } else {
-                content = '<a href="' + self.uploadUrl + '" title="' + self.uploadTitle + '" class="' + css + '"' + status + '>' + self.uploadIcon + self.uploadLabel + '</a>';
-            }
-            return content;
-        }
     };
 
     //FileInput plugin definition
