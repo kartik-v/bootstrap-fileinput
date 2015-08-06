@@ -2186,14 +2186,14 @@
     };
 //FileInput plugin definition
     $.fn.fileinput = function (option) {
-
+    //I dont know the legal nessesity to clearly mark changes made that were not part of original but Ill let you know what I changed -as
         if (!hasFileAPISupport() && !isIE(9)) {
             return;
         }
 
         var args = Array.apply(null, arguments);
         args.shift();
-        var retVals = [];
+        var retVals = []; //-as
         
         this.each(function () {
             var $this = $(this), data = $this.data('fileinput'), defaults,
@@ -2211,9 +2211,11 @@
 
             if (typeof option === 'string') {
                 //console.log(data[option].apply(data, args));
-                retVals.push(data[option].apply(data, args));
+                retVals.push(data[option].apply(data, args)); // changed to push to array -as
             }
         });
+        //this whole retVal logic was changed up  -as
+        //will return this when there is no return vals like before
         if(retVals.length == 1){
             return retVals[0];
         }else if(retVals.length == 0){
