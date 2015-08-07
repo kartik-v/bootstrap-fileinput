@@ -50,7 +50,7 @@
     height: 25px;
 }
 
-.file-preview-detail-modal  {
+.file-preview-detail-modal {
     text-align: left;
 }
 
@@ -99,7 +99,7 @@
 
 .file-preview-image {
     height: 160px;
-    vertical-align: text-center;
+    vertical-align: middle;
 }
 
 .file-preview-text {
@@ -125,10 +125,9 @@
 .file-preview-other:hover {
     opacity: 1;
 }
+
 .file-other-error {
-    width: 100%;
-    padding-top: 30px;
-    text-align: right
+    text-align: left;
 }
 
 .file-icon-lg {
@@ -212,9 +211,7 @@
 }
 
 .file-uploading {
-    background-image: url('../img/loading-sm.gif');
-    background-position: center bottom 10px;
-    background-repeat: no-repeat;
+    background: url('../img/loading-sm.gif') no-repeat center bottom 10px;
     opacity: 0.6;
 }
 

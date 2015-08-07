@@ -289,7 +289,7 @@
             'title="{removeTitle}"{dataUrl}{dataKey}>{removeIcon}</button>\n',
         tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
             '   {uploadIcon}\n</button>\n',
-        tZoom =  '<button type="button" class="btn btn-default btn-xs btn-block" title="{zoomTitle}: {caption}" onclick="{dialog}">\n' +
+        tZoom = '<button type="button" class="btn btn-default btn-xs btn-block" title="{zoomTitle}: {caption}" onclick="{dialog}">\n' +
             '   {zoomInd}\n' +
             '</button>\n',
         tGeneric = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}">\n' +
@@ -344,7 +344,7 @@
             '</div>',
         tOther = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
             ' title="{caption}" ' + STYLE_SETTING + '>\n' +
-            '   <div class="file-preview-other-frame">\n'+
+            '   <div class="file-preview-other-frame">\n' +
             '   ' + DEFAULT_PREVIEW + '\n' +
             '   </div>\n' +
             '   <div class="file-preview-other-footer">{footer}</div>\n' +
@@ -430,7 +430,7 @@
             return Math.round(new Date().getTime() + (Math.random() * 100));
         },
         htmlEncode = function (str) {
-            var $el = $(document.createElement('div')).html(str), 
+            var $el = $(document.createElement('div')).html(str),
                 out = $el.text();
             $el.remove();
             return out;
@@ -620,7 +620,7 @@
                     icn = self.previewFileIconSettings[ext];
                 }
                 if (self.previewFileExtSettings) {
-                    $.each(self.previewFileExtSettings, function(key, func) {
+                    $.each(self.previewFileExtSettings, function (key, func) {
                         if (self.previewFileIconSettings[key] && func(ext)) {
                             icn = self.previewFileIconSettings[key];
                         }
@@ -1551,8 +1551,8 @@
                 self.setProgress(100);
                 self.unlock();
                 self.initSuccessThumbs();
-                self.raise('filebatchuploadcomplete', [self.filestack, self.getExtraData()]);
                 self.clearFileInput();
+                self.raise('filebatchuploadcomplete', [self.filestack, self.getExtraData()]);
             };
             fnError = function (jqXHR, textStatus, errorThrown) {
                 var outData = self.getOutData(jqXHR), errMsg = self.parseError(jqXHR, errorThrown);
@@ -1610,8 +1610,8 @@
             fnComplete = function () {
                 self.setProgress(100);
                 self.unlock();
-                self.raise('filebatchuploadcomplete', [self.filestack, self.getExtraData()]);
                 self.clearFileInput();
+                self.raise('filebatchuploadcomplete', [self.filestack, self.getExtraData()]);
             };
             fnError = function (jqXHR, textStatus, errorThrown) {
                 var outData = self.getOutData(jqXHR), errMsg = self.parseError(jqXHR, errorThrown);
@@ -1719,7 +1719,10 @@
                 previewOtherTemplate = self.parseFilePreviewIcon(self.getPreviewTemplate('other'), fname);
             if (isDisabled === true) {
                 frameClass = ' btn disabled';
-                footer += '<div class="file-other-error text-danger"><i class="glyphicon glyphicon-exclamation-sign"></i></div>';
+                if (!self.isUploadable) {
+                    footer += '<div class="file-other-error" title="' + self.fileActionSettings.indicatorErrorTitle +
+                    '">' + self.fileActionSettings.indicatorError + '</div>';
+                }
             }
             self.$preview.append("\n" + previewOtherTemplate
                 .replace(/\{previewId\}/g, previewId)
@@ -1731,6 +1734,9 @@
                 .replace(/\{type\}/g, file.type)
                 .replace(/\{data\}/g, data)
                 .replace(/\{footer\}/g, footer));
+            if (isDisabled === true && self.isUploadable) {
+                self.setThumbStatus($('#' + previewId), 'Error');
+            }
         },
         previewFile: function (i, file, theFile, previewId, data) {
             if (!this.showPreview) {
@@ -1738,7 +1744,7 @@
             }
             var self = this, cat = self.parseFileType(file), fname = file ? file.name : '', caption = self.slug(fname),
                 content, strText, types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes,
-                tmplt = self.getPreviewTemplate(cat), chkTypes = types && types.indexOf(cat) >= 0, id, height,
+                tmplt = self.getPreviewTemplate(cat), chkTypes = types && types.indexOf(cat) >= 0, id,
                 config = isSet(cat, self.previewSettings) ? self.previewSettings[cat] : defaultPreviewSettings[cat],
                 chkMimes = mimes && mimes.indexOf(file.type) !== -1,
                 footer = self.renderFileFooter(caption, config.width), modal = '',
@@ -1748,8 +1754,7 @@
                 if (cat === 'text') {
                     strText = htmlEncode(theFile.target.result);
                     id = 'text-' + uniqId();
-                    height = window.innerHeight * 0.75;
-                    content = tmplt.replace(/\{zoom\}/g,  self.getLayoutTemplate('zoom'));
+                    content = tmplt.replace(/\{zoom\}/g, self.getLayoutTemplate('zoom'));
                     modal = self.getLayoutTemplate('modal').replace('{id}', id)
                         .replace(/\{title\}/g, caption)
                         .replace(/\{body\}/g, strText).replace(/\{heading\}/g, self.msgZoomModalHeading);
@@ -2030,7 +2035,7 @@
             self.showFolderError(folders);
         },
         validateImage: function (i, previewId) {
-            var self = this, $preview = self.$preview, params, w1, w2, 
+            var self = this, $preview = self.$preview, params, w1, w2,
                 $thumb = $preview.find("#" + previewId), fname = 'Untitled',
                 $img = $thumb.find('img');
             if (!$img.length) {
@@ -2129,10 +2134,10 @@
                 .replace(/\{cancel\}/g, self.renderButton('cancel'))
                 .replace(/\{browse\}/g, self.renderButton('browse'));
         },
-        renderButton: function(type) {
+        renderButton: function (type) {
             var self = this, tmplt = self.getLayoutTemplate('btnDefault'), css = self[type + 'Class'],
-                status = self.isDisabled ? ' disabled' : '', title = self[type + 'Title'],
-                icon = self[type + 'Icon'], label = self[type + 'Label'], btnType = 'button';
+                title = self[type + 'Title'], icon = self[type + 'Icon'], label = self[type + 'Label'], 
+                status = self.isDisabled ? ' disabled' : '', btnType = 'button';
             switch (type) {
                 case 'remove':
                     if (!self.showRemove) {
@@ -2158,6 +2163,8 @@
                 case 'browse':
                     tmplt = self.getLayoutTemplate('btnBrowse');
                     break;
+                default:
+                    return '';
             }
             css += type === 'browse' ? ' btn-file' : ' fileinput-' + type + ' fileinput-' + type + '-button';
             return tmplt.replace('{type}', btnType)
@@ -2166,7 +2173,7 @@
                 .replace('{status}', status)
                 .replace('{icon}', icon)
                 .replace('{label}', label);
-        },
+        }
     };
 
     //FileInput plugin definition
