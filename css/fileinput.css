@@ -21,6 +21,11 @@
     border: none;
 }
 
+.file-object {
+    margin: 0 0 -5px 0;
+    padding: 0;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -117,8 +122,8 @@
     vertical-align: middle;
     width: 160px;
     height: 160px;
-    border: 2px dashed #999;
-    border-radius: 25px;
+    border: 2px solid #999;
+    border-radius: 30px;
     opacity: 0.8;
 }
 

@@ -530,7 +530,7 @@ The `previewTemplates` if not set will default to:
         '   {footer}\n' +
         '</div>\n',
     html: '<div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}">\n' +
-        '    <object data="{data}" type="{type}" width="{width}" height="{height}">\n' +
+        '    <object class="file-object" data="{data}" type="{type}" width="{width}" height="{height}">\n' +
         '       ' + DEFAULT_PREVIEW + '\n' +
         '    </object>\n' + 
         '   {footer}\n' +
@@ -561,13 +561,13 @@ The `previewTemplates` if not set will default to:
         '   {footer}\n' +
         '</div>\n',
     flash: '<div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}" title="{caption}" ' + STYLE_SETTING + '>\n' +
-        '   <object type="application/x-shockwave-flash" width="{width}" height="{height}" data="{data}">\n' +
+        '   <object class="file-object" type="application/x-shockwave-flash" width="{width}" height="{height}" data="{data}">\n' +
         OBJECT_PARAMS + '       ' + DEFAULT_PREVIEW + '\n' +
         '   </object>\n' + 
         '   {footer}\n' +
         '</div>\n',
     object: '<div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}" title="{caption}" ' + STYLE_SETTING + '>\n' +
-        '    <object data="{data}" type="{type}" width="{width}" height="{height}">\n' +
+        '    <object class="file-object" data="{data}" type="{type}" width="{width}" height="{height}">\n' +
         '      <param name="movie" value="{caption}" />\n' +
         OBJECT_PARAMS + '           ' + DEFAULT_PREVIEW + '\n' +
         '   </object>\n' + 

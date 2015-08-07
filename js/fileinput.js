@@ -297,7 +297,7 @@
             '   {footer}\n' +
             '</div>\n',
         tHtml = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}">\n' +
-            '    <object data="{data}" type="{type}" width="{width}" height="{height}">\n' +
+            '    <object class="file-object" data="{data}" type="{type}" width="{width}" height="{height}">\n' +
             '       ' + DEFAULT_PREVIEW + '\n' +
             '    </object>\n' +
             '   {footer}\n' +
@@ -329,14 +329,14 @@
             '</div>',
         tFlash = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
             ' title="{caption}" ' + STYLE_SETTING + '>\n' +
-            '   <object type="application/x-shockwave-flash" width="{width}" height="{height}" data="{data}">\n' +
+            '   <object class="file-object" type="application/x-shockwave-flash" width="{width}" height="{height}" data="{data}">\n' +
             OBJECT_PARAMS + '       ' + DEFAULT_PREVIEW + '\n' +
             '   </object>\n' +
             '   {footer}\n' +
             '</div>\n',
         tObject = '<div class="file-preview-frame{frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
             ' title="{caption}" ' + STYLE_SETTING + '>\n' +
-            '   <object data="{data}" type="{type}" width="{width}" height="{height}">\n' +
+            '   <object class="file-object" data="{data}" type="{type}" width="{width}" height="{height}">\n' +
             '       <param name="movie" value="{caption}" />\n' +
             OBJECT_PARAMS + '         ' + DEFAULT_PREVIEW + '\n' +
             '   </object>\n' +
@@ -2136,7 +2136,7 @@
         },
         renderButton: function (type) {
             var self = this, tmplt = self.getLayoutTemplate('btnDefault'), css = self[type + 'Class'],
-                title = self[type + 'Title'], icon = self[type + 'Icon'], label = self[type + 'Label'], 
+                title = self[type + 'Title'], icon = self[type + 'Icon'], label = self[type + 'Label'],
                 status = self.isDisabled ? ' disabled' : '', btnType = 'button';
             switch (type) {
                 case 'remove':
