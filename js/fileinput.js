@@ -430,10 +430,11 @@
             return Math.round(new Date().getTime() + (Math.random() * 100));
         },
         htmlEncode = function (str) {
-            var $el = $(document.createElement('div')).html(str),
-                out = $el.text();
-            $el.remove();
-            return out;
+            return str.replace(/\</g, '&lt;')
+                .replace(/\</g, '&gt;')
+                .replace(/\&/g, '&amp;')
+                .replace(/\"/g, '&quot;')
+                .replace(/\'/g, '&apos;');
         },
         replaceTags = function (str, tags) {
             var out = str;
@@ -699,6 +700,8 @@
                 data = $.extend(self.getOutData(), params);
                 data.abortData = self.ajaxAborted.data || {};
                 data.abortMessage = self.ajaxAborted.message;
+                self.cancel();
+                self.setProgress(100);
                 self.showUploadError(self.ajaxAborted.message, data, 'filecustomerror');
                 return true;
             }
@@ -1501,6 +1504,7 @@
                 self.raise('filebatchpreupload', [outData]);
                 if (self.abort(outData)) {
                     jqXHR.abort();
+                    self.setProgress(100);
                 }
             };
             fnSuccess = function (data, textStatus, jqXHR) {

@@ -17,6 +17,7 @@ Change Log: `bootstrap-fileinput`
 10. (enh #389): New templates and styling enhancements to caption and main buttons.
 11. (enh #390): Thumbnail error display enhancements.
 12. (enh #391): Thumbnail styling enhancements for flash, html, and object types.
+13. (enh #393): Minor enhancements to abort events before upload.
 
 ## version 4.2.5
 
