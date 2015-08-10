@@ -1198,11 +1198,12 @@
             self.setFileDropZoneTitle();
         },
         resetPreview: function () {
-            var self = this, out;
+            var self = this, out, cap;
             if (previewCache.count(self.id)) {
                 out = previewCache.out(self.id);
                 self.$preview.html(out.content);
-                self.setCaption(out.caption);
+                cap = self.initialCaption ? self.initialCaption : out.caption;
+                self.setCaption(cap);
             } else {
                 self.clearPreview();
                 self.initCaption();
