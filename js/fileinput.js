@@ -415,7 +415,7 @@
             }
         },
         isEmpty = function (value, trim) {
-            return value === null || value === undefined || value.length === 0 || (trim && $.trim(value) === '');
+            return value === undefined || value === null || value.length === 0 || (trim && $.trim(value) === '');
         },
         isArray = function (a) {
             return Array.isArray(a) || Object.prototype.toString.call(a) === '[object Array]';
@@ -1509,8 +1509,8 @@
                 }
             };
             fnSuccess = function (data, textStatus, jqXHR) {
-                var outData = self.getOutData(jqXHR, data), $thumbs = self.getThumbs(),
-                    keys = isEmpty(data.errorkeys) ? [] : data.errorkeys, key = 0;
+                var outData = self.getOutData(jqXHR, data), $thumbs = self.getThumbs(), key = 0;
+                    keys = isEmpty(data) || isEmpty(data.errorkeys) ? [] : data.errorkeys;
                 if (isEmpty(data) || isEmpty(data.error)) {
                     self.raise('filebatchuploadsuccess', [outData]);
                     setAllUploaded();
