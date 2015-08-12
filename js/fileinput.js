@@ -1509,6 +1509,7 @@
                 }
             };
             fnSuccess = function (data, textStatus, jqXHR) {
+            	if(!data) data = [];
                 var outData = self.getOutData(jqXHR, data), $thumbs = self.getThumbs(),
                     keys = isEmpty(data.errorkeys) ? [] : data.errorkeys, key = 0;
                 if (isEmpty(data) || isEmpty(data.error)) {
