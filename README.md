@@ -1105,6 +1105,13 @@ Files other than `image` or `text` will be displayed as a thumbnail with the fil
 ### zoomIndicator
 _string_ the icon for zooming the file content in a new modal dialog.  This is currently applicable only for text file previews. Defaults to `<i class="glyphicon glyphicon-zoom-in"></i>`.  The following variables will be replaced:
 
+### errorCloseButton
+_string_ the markup for the button to close the error container block. Note this button indicator must include the CSS class `kv-error-close`. If not set, this defaults to:
+
+```html
+<span class="close kv-error-close">&times;</span>
+```
+
 ### elErrorContainer
 _string_ the identifier for the container element displaying the error (e.g. `'#id'`). If not set, will default to the container with CSS class `kv-fileinput-error` inside the preview container (identified by `elPreviewContainer`). The `msgErrorClass` will be automatically appended to this container before displaying the error.
 
@@ -1315,6 +1322,34 @@ This event is triggered when the upload process is completed (successfully or wi
 $('#input-id').on('fileunlock', function(event, filestack, extraData) {
     var fstack = filestack.filter(function(n){ return n != undefined });
     console.log('Files selected - ' + fstack.length);
+});
+```
+
+#### filepreremove
+This event is triggered before removal of each thumbnail file in ajax upload mode. This is different than `filepredelete` in the sense, that this is NOT applicable for thumbnails set via `initialPreview`. The additional parameters available with this event are:
+
+- `previewId`: the identifier of the preview thumbnail container.
+- `index`: the zero-based index of the file in the preview container.
+
+>Note: You can call `event.preventDefault()` or `return false;` to abort the removal process.
+
+```js
+$('#input-id').on('filepreremove', function(event, id, index) {
+    if (!window.confirm('Do you wish to remove?')) {
+        event.preventDefault();
+    }
+});
+```
+
+#### fileremoved
+This event is triggered after removal of each thumbnail file in ajax upload mode. This is different than `filedeleted` in the sense, that this is NOT applicable for thumbnails set via `initialPreview`. The additional parameters available with this event are:
+
+- `previewId`: the identifier of the preview thumbnail container.
+- `index`: the zero-based index of the file in the preview container.
+
+```js
+$('#input-id').on('fileremoved', function(event, id, index) {
+    console.log('fileremoved id = ' + id);
 });
 ```
 

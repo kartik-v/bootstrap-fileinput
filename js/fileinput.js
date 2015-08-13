@@ -218,7 +218,7 @@
             uploadClass: 'btn btn-xs btn-default',
             uploadTitle: 'Upload file',
             indicatorNew: '<i class="glyphicon glyphicon-hand-down text-warning"></i>',
-            indicatorSuccess: '<i class="glyphicon glyphicon-ok-sign file-icon-lg text-success"></i>',
+            indicatorSuccess: '<i class="glyphicon glyphicon-ok-sign text-success"></i>',
             indicatorError: '<i class="glyphicon glyphicon-exclamation-sign text-danger"></i>',
             indicatorLoading: '<i class="glyphicon glyphicon-hand-up text-muted"></i>',
             indicatorNewTitle: 'Not uploaded yet',
@@ -430,9 +430,9 @@
             return Math.round(new Date().getTime() + (Math.random() * 100));
         },
         htmlEncode = function (str) {
-            return str.replace(/\</g, '&lt;')
-                .replace(/\</g, '&gt;')
-                .replace(/\&/g, '&amp;')
+            return str.replace(/\&/g, '&amp;')
+                .replace(/\</g, '&lt;')
+                .replace(/\>/g, '&gt;')
                 .replace(/\"/g, '&quot;')
                 .replace(/\'/g, '&apos;');
         },
@@ -549,6 +549,9 @@
             t = self.getLayoutTemplate('progress');
             self.progressTemplate = t.replace('{class}', self.progressClass);
             self.progressCompleteTemplate = t.replace('{class}', self.progressCompleteClass);
+            if (self.$element.attr('disabled')) {
+                self.disable();
+            }
         },
         parseError: function (jqXHR, errorThrown, fileName) {
             var self = this, errMsg = $.trim(errorThrown + ''),
@@ -570,6 +573,9 @@
                 self.$element.trigger(e, params);
             } else {
                 self.$element.trigger(e);
+            }
+            if (e.isDefaultPrevented()) {
+                return false;
             }
             if (!e.result) {
                 return e.result;
@@ -711,7 +717,7 @@
             var self = this, label = self.minFileCount > 1 ? self.filePlural : self.fileSingle,
                 msg = self.msgFilesTooLess.replace('{n}', self.minFileCount).replace('{files}', label),
                 $error = self.$errorContainer;
-            $error.html(msg);
+            self.addError(msg);
             self.isError = true;
             self.updateFileDetails(0);
             $error.fadeIn(800);
@@ -880,27 +886,39 @@
         initFileActions: function () {
             var self = this;
             self.$preview.find('.kv-file-remove').each(function () {
-                var $el = $(this), $frame = $el.closest('.file-preview-frame'),
-                    ind = $frame.attr('data-fileindex'), n, cap;
-                handler($el, 'click', function () {
-                    if (!self.validateMinCount()) {
+                var $el = $(this), $frame = $el.closest('.file-preview-frame'), hasError,
+                    id = $frame.attr('id'), ind = $frame.attr('data-fileindex'), n, cap, status;
+                handler($el, 'click', function (event) {
+                    status = self.raise('filepreremove', [id, ind]);
+                    if (status === false || !self.validateMinCount()) {
                         return false;
                     }
+                    hasError = $frame.hasClass('file-preview-error');
                     self.cleanMemory($frame);
                     $frame.fadeOut('slow', function () {
                         self.filestack[ind] = undefined;
                         self.clearObjects($frame);
                         $frame.remove();
-                        var filestack = self.getFileStack(true), len = filestack.length,
-                            chk = previewCache.count(self.id);
+                        if (id && hasError) {
+                            self.$errorContainer.find('li[data-file-id="' + id + '"]').fadeOut('fast', function() {
+                               $(this).remove();
+                               if (!self.$errorContainer.find('li').length &&
+                                   !self.$preview.find('.file-preview-frame.file-preview-error').length) {
+                                   self.resetErrors();
+                               }
+                            });
+                        }
+                        var filestack = self.getFileStack(true), len = filestack.length, chk = previewCache.count(self.id),
+                            hasThumb = self.showPreview && self.$preview.find('.file-preview-frame').length;
                         self.clearFileInput();
-                        if (len === 0 && chk === 0) {
+                        if (len === 0 && chk === 0 && !hasThumb) {
                             self.reset();
                         } else {
                             n = chk + len;
                             cap = n > 1 ? self.getMsgSelected(n) : (filestack[0] ? filestack[0].name : '');
                             self.setCaption(cap);
                         }
+                        self.raise('fileremoved', [id, ind]);
                     });
                 });
             });
@@ -909,7 +927,9 @@
                 handler($el, 'click', function () {
                     var $frame = $el.closest('.file-preview-frame'),
                         ind = $frame.attr('data-fileindex');
-                    self.uploadSingle(ind, self.filestack, false);
+                    if (!$frame.hasClass('file-preview-error')) {
+                        self.uploadSingle(ind, self.filestack, false);
+                    }
                 });
             });
         },
@@ -972,6 +992,10 @@
                 $indicator = $thumb.find('.file-upload-indicator'),
                 config = self.fileActionSettings;
             $thumb.removeClass('file-preview-success file-preview-error file-preview-loading');
+            if (status === 'Error') {
+                $thumb.find('.kv-file-upload').attr('disabled', true);
+                addCss($thumb, 'btn disabled');
+            }
             $indicator.html(config[icon]);
             $indicator.attr('title', config[msg]);
             $thumb.addClass(css);
@@ -1006,7 +1030,8 @@
         initPreviewDeletes: function () {
             var self = this, deleteExtraData = self.deleteExtraData || {},
                 resetProgress = function () {
-                    if (self.$preview.find('.kv-file-remove').length === 0) {
+                    var hasFiles = self.isUploadable ? previewCache.count(self.id) : self.$element.get(0).files.length;
+                    if (self.$preview.find('.kv-file-remove').length === 0 && !hasFiles) {
                         self.reset();
                         self.initialCaption = '';
                     }
@@ -1510,7 +1535,7 @@
             };
             fnSuccess = function (data, textStatus, jqXHR) {
                 var outData = self.getOutData(jqXHR, data), $thumbs = self.getThumbs(), key = 0;
-                    keys = isEmpty(data) || isEmpty(data.errorkeys) ? [] : data.errorkeys;
+                keys = isEmpty(data) || isEmpty(data.errorkeys) ? [] : data.errorkeys;
                 if (isEmpty(data) || isEmpty(data.error)) {
                     self.raise('filebatchuploadsuccess', [outData]);
                     setAllUploaded();
@@ -1633,6 +1658,15 @@
         showFileIcon: function () {
             this.$captionContainer.find('.kv-caption-icon').show();
         },
+        addError: function (msg) {
+            var self = this, $error = self.$errorContainer;
+            if (msg && $error.length) {
+                $error.html(self.errorCloseButton + msg);
+                $error.find('.kv-error-close').off('click').on('click', function () {
+                    $error.fadeOut('slow');
+                });
+            }
+        },
         resetErrors: function (fade) {
             var self = this, $error = self.$errorContainer;
             self.isError = false;
@@ -1649,17 +1683,18 @@
             if (!folders) {
                 return;
             }
-            $error.html(self.msgFoldersNotAllowed.replace(/\{n\}/g, folders));
+            self.addError(self.msgFoldersNotAllowed.replace(/\{n\}/g, folders));
             $error.fadeIn(800);
             addCss(self.$container, 'has-error');
             self.raise('filefoldererror', [folders]);
         },
         showUploadError: function (msg, params, event) {
-            var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror';
+            var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror',
+                e = params && params.id ? '<li data-file-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
             if ($error.find('ul').length === 0) {
-                $error.html('<ul><li>' + msg + '</li></ul>');
+                self.addError('<ul>' + e + '</ul>');
             } else {
-                $error.find('ul').append('<li>' + msg + '</li>');
+                $error.find('ul').append(e);
             }
             $error.fadeIn(800);
             self.raise(ev, [params]);
@@ -1671,7 +1706,7 @@
             var self = this, $error = self.$errorContainer, ev = event || 'fileerror';
             params = params || {};
             params.reader = self.reader;
-            $error.html(msg);
+            self.addError(msg);
             $error.fadeIn(800);
             self.raise(ev, [params]);
             if (!self.isUploadable) {
@@ -1777,7 +1812,7 @@
                         .replace(/\{footer\}/g, footer).replace(/\{data\}/g, data);
                 }
                 self.$preview.append("\n" + content);
-                self.validateImage(i, previewId);
+                self.validateImage(i, previewId, caption);
             } else {
                 self.previewDefault(file, previewId);
             }
@@ -1796,15 +1831,20 @@
             var self = this, $el = self.$element, $preview = self.$preview, reader = self.reader,
                 $container = self.$previewContainer, $status = self.$previewStatus, msgLoading = self.msgLoading,
                 msgProgress = self.msgProgress, previewInitId = self.previewInitId, numFiles = files.length,
-                settings = self.fileTypeSettings, ctr = self.filestack.length,
+                settings = self.fileTypeSettings, ctr = self.filestack.length, readFile,
                 throwError = function (msg, file, previewId, index) {
                     var p1 = $.extend(self.getOutData({}, {}, files), {id: previewId, index: index}),
                         p2 = {id: previewId, index: index, file: file, files: files};
                     self.previewDefault(file, previewId, true);
+                    if (self.isUploadable) {
+                        self.filestack.push(undefined);
+                    }
+                    setTimeout(readFile(index + 1), 100);
+                    self.initFileActions();
                     return self.isUploadable ? self.showUploadError(msg, p1) : self.showError(msg, p2);
                 };
 
-            function readFile(i) {
+            readFile = function (i) {
                 if (isEmpty($el.attr('multiple'))) {
                     numFiles = 1;
                 }
@@ -2039,10 +2079,10 @@
             }
             self.showFolderError(folders);
         },
-        validateImage: function (i, previewId) {
+        validateImage: function (i, previewId, fname) {
             var self = this, $preview = self.$preview, params, w1, w2,
-                $thumb = $preview.find("#" + previewId), fname = 'Untitled',
-                $img = $thumb.find('img');
+                $thumb = $preview.find("#" + previewId), $img = $thumb.find('img');
+            fname = fname || 'Untitled';
             if (!$img.length) {
                 return;
             }
@@ -2278,6 +2318,7 @@
         elPreviewImage: null,
         elPreviewStatus: null,
         elErrorContainer: null,
+        errorCloseButton: '<span class="close kv-error-close">&times;</span>',
         slugCallback: null,
         dropZoneEnabled: true,
         dropZoneTitleClass: 'file-drop-zone-title',

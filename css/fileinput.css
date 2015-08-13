@@ -64,7 +64,7 @@
     color: #a94442;
     text-align: center;
     border-radius: 5px;
-    padding: 5px;
+    padding: 5px 10px 5px 5px;
 }
 
 .file-error-message pre, .file-error-message ul {
@@ -98,7 +98,7 @@
     vertical-align: middle;
 }
 
-.file-preview-frame:hover {
+.file-preview-frame:not(.file-preview-error):hover {
     box-shadow: 3px 3px 5px 0 #333;
 }
 
@@ -127,7 +127,7 @@
     opacity: 0.8;
 }
 
-.file-preview-other:hover {
+.file-preview-frame:not(.file-preview-error) .file-preview-other:hover {
     opacity: 1;
 }
 
@@ -190,7 +190,7 @@
     margin: 5px auto 10px auto;
 }
 
-.file-footer-caption:hover {
+.file-preview-frame:not(.file-preview-error) .file-footer-caption:hover {
     color: #000;
 }
 
@@ -218,8 +218,4 @@
 .file-uploading {
     background: url('../img/loading-sm.gif') no-repeat center bottom 10px;
     opacity: 0.6;
-}
-
-.file-input .btn[disabled], .file-input .btn.disabled, .file-input .btn[disabled] *, .file-input .btn.disabled * {
-    cursor: not-allowed;
 }

@@ -20,6 +20,7 @@ Change Log: `bootstrap-fileinput`
 13. (enh #391): Thumbnail styling enhancements for flash, html, and object types.
 14. (enh #393): Minor enhancements to abort events before upload.
 15. (bug #398): Validate `data.errorkeys` more correctly.
+16. (enh #401): Various enhancements to preview file thumbnails and error validations.
 
 ## version 4.2.5
 
