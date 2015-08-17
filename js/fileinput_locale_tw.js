@@ -12,7 +12,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinputLocales['zh'] = {
+    $.fn.fileinputLocales['tw'] = {
         fileSingle: '單一檔案',
         filePlural: '複選檔案',
         browseLabel: '預覽 &hellip;',
