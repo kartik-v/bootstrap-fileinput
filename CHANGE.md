@@ -21,6 +21,7 @@ Change Log: `bootstrap-fileinput`
 14. (enh #393): Minor enhancements to abort events before upload.
 15. (bug #398): Validate `data.errorkeys` more correctly.
 16. (enh #401): Various enhancements to preview file thumbnails and error validations.
+17. (enh #405): Create traditional Chinese translations.
 
 ## version 4.2.5
 
