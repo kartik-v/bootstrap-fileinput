@@ -2238,10 +2238,9 @@
         if (!hasFileAPISupport() && !isIE(9)) {
             return;
         }
-
-        var args = Array.apply(null, arguments);
+        var args = Array.apply(null, arguments), retvals = [];
         args.shift();
-        return this.each(function () {
+        this.each(function () {
             var $this = $(this), data = $this.data('fileinput'), defaults,
                 options = typeof option === 'object' && option,
                 lang = options.language || $this.data('language') || 'en';
@@ -2256,9 +2255,17 @@
             }
 
             if (typeof option === 'string') {
-                data[option].apply(data, args);
+                retvals.push(data[option].apply(data, args));
             }
         });
+        switch (retvals.length) {
+            case 0:
+                return this;
+            case 1:
+                return retvals[0];
+            default:
+                return retvals;
+        }
     };
 
     $.fn.fileinput.defaults = {
