@@ -33,6 +33,7 @@
         msgFilePreviewError: 'Wystąpił błąd w czasie odczytu pliku "{name}".',
         msgInvalidFileType: 'Nieznny typ pliku "{name}". Tylko następujące rodzaje plików "{types}", są obsługiwane.',
         msgInvalidFileExtension: 'Złe rozszerzenie dla pliku "{name}". Tylko następujące rozszerzenia plików "{extensions}", są obsługiwane.',
+        msgUploadAborted: 'Plik przesyłanie zostało przerwane',
         msgValidationError: 'Błąd podczas przesyłania pliku.',
         msgLoading: 'Wczytywanie pliku {index} z {files} &hellip;',
         msgProgress: 'Wczytywanie pliku {index} z {files} - {name} - {percent}% zakończone.',

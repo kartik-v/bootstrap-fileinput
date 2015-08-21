@@ -33,6 +33,7 @@
         msgFilePreviewError: 'Ocorreu um erro ao ler o arquivo "{name}".',
         msgInvalidFileType: 'Tipo inválido para o arquivo "{name}". Apenas arquivos "{types}" são permitidos.',
         msgInvalidFileExtension: 'Extensão inválida para o arquivo "{name}". Apenas arquivos "{extensions}" são permitidos.',
+        msgUploadAborted: 'O upload do arquivo foi abortada',
         msgValidationError: 'Erro de envio de arquivo',
         msgLoading: 'Enviando arquivo {index} de {files}&hellip;',
         msgProgress: 'Enviando arquivo {index} de {files} - {name} - {percent}% completo.',

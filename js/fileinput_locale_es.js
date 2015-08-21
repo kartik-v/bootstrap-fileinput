@@ -33,6 +33,7 @@
         msgFilePreviewError: 'Ocurrió un error mientras se leía el archivo "{name}".',
         msgInvalidFileType: 'Tipo de archivo no válido para "{name}". Sólo archivos "{types}" son permitidos.',
         msgInvalidFileExtension: 'Extensión de archivo no válido para "{name}". Sólo archivos "{extensions}" son permitidos.',
+        msgUploadAborted: 'La carga de archivos se ha cancelado',
         msgValidationError: 'Error al subir archivo',
         msgLoading: 'Subiendo archivo {index} de {files} &hellip;',
         msgProgress: 'Subiendo archivo {index} de {files} - {name} - {percent}% completado.',

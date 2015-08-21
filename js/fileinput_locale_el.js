@@ -33,6 +33,7 @@
         msgFilePreviewError: 'Παρουσιάστηκε σφάλμα κατά την ανάγνωση του αρχείου "{name}".',
         msgInvalidFileType: 'Μη έγκυρος τύπος αρχείου "{name}". Οι τύποι αρχείων που υποστηρίζονται είναι : "{types}".',
         msgInvalidFileExtension: 'Μη έγκυρη επέκταση αρχείου "{name}". Οι επεκτάσεις που υποστηρίζονται είναι:  "{extensions}" .',
+        msgUploadAborted: 'Το ανέβασμα των αρχείων ματαιώθηκε',
         msgValidationError: 'Σφάλμα κατά την μεταφόρτωση',
         msgLoading: 'Φόρτωση αρχείου {index} από {files} &hellip;',
         msgProgress: 'Φόρτωση αρχείου {index} απο {files} - {name} - {percent}% ολοκληρώθηκε.',

@@ -998,6 +998,9 @@ where:
 - `{name}`: will be replaced by the file name being uploaded
 - `{extensions}`: will be replaced by the comma separated list of extensions defined in `allowedFileExtensions`.
 
+### msgUploadAborted
+_string_ the message to be displayed when an ongoing ajax file upload is aborted by pressing the **Cancel** button. Defaults to `The file upload was aborted`. If this is set to null or empty, the internal ajax error message will be displayed.
+
 ### msgValidationError
 _string_ the exception message to be displayed within the caption container (instead of `msgFilesSelected`), 
 when a validation error is encountered. Defaults to `File Upload Error`.

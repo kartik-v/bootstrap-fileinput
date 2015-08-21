@@ -34,6 +34,7 @@
         msgFilePreviewError: 'A intervenit o eroare în încercarea de citire a fișierului "{name}".',
         msgInvalidFileType: 'Tip de fișier incorect pentru "{name}". Sunt suportate doar fișiere de tipurile "{types}".',
         msgInvalidFileExtension: 'Extensie incorectă pentru "{name}". Sunt suportate doar extensiile "{extensions}".',
+        msgUploadAborted: 'Fișierul Încărcarea a fost întrerupt',
         msgValidationError: 'Eroare de încărcare',
         msgLoading: 'Se încarcă fișierul {index} din {files} &hellip;',
         msgProgress: 'Se încarcă fișierul {index} din {files} - {name} - {percent}% încărcat.',

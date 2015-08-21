@@ -24,15 +24,15 @@
         if (navigator.appName != 'Microsoft Internet Explorer') {
             return false;
         }
+        if (ver == 10) {
+            return RegExp('msie\\s' + ver, 'i').test(navigator.userAgent);
+        }
         var div = document.createElement("div"), status;
         div.innerHTML = "<!--[if IE " + ver + "]> <i></i> <![endif]-->";
         status = div.getElementsByTagName("i").length;
         document.body.appendChild(div);
         div.parentNode.removeChild(div);
-        if (status) {
-            return status;
-        }
-        return RegExp('msie\\s' + ver, 'i').test(navigator.userAgent);
+        return status;
     },
     handler = function ($el, event, callback, skipNS) {
         var ev = skipNS ? event : event + '.fileinput';
@@ -513,6 +513,7 @@
             self.ajaxRequests = [];
             self.isError = false;
             self.ajaxAborted = false;
+            self.cancelling = false;
             self.dropZoneEnabled = hasDragDropSupport() && self.dropZoneEnabled;
             self.isDisabled = self.$element.attr('disabled') || self.$element.attr('readonly');
             self.isUploadable = hasFileUploadSupport() && !isEmpty(self.uploadUrl);
@@ -564,6 +565,9 @@
                 dot = errMsg.slice(-1) === '.' ? '' : '.',
                 text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined ?
                     jqXHR.responseJSON.error : jqXHR.responseText;
+            if (self.cancelling && self.msgUploadAborted) {
+                errMsg = self.msgUploadAborted;
+            }
             if (self.showAjaxErrorDetails && text) {
                 text = $.trim(text.replace(/\n\s*\n/g, '\n'));
                 text = text.length > 0 ? '<pre>' + text + '</pre>' : '';
@@ -571,7 +575,8 @@
             } else {
                 errMsg += dot;
             }
-            return fileName ? '<b>' + fileName + ': </b>' + jqXHR : errMsg;
+            self.cancelling = false;
+            return fileName ? '<b>' + fileName + ': </b>' + errMsg : errMsg;
         },
         raise: function (event, params) {
             var self = this, e = $.Event(event);
@@ -1168,6 +1173,7 @@
             var self = this, xhr = self.ajaxRequests, len = xhr.length, i;
             if (len > 0) {
                 for (i = 0; i < len; i += 1) {
+                    self.cancelling = true;
                     xhr[i].abort();
                 }
             }
@@ -2358,6 +2364,7 @@
         msgFilePreviewError: 'An error occurred while reading the file "{name}".',
         msgInvalidFileType: 'Invalid type for file "{name}". Only "{types}" files are supported.',
         msgInvalidFileExtension: 'Invalid extension for file "{name}". Only "{extensions}" files are supported.',
+        msgUploadAborted: 'The file upload was aborted',
         msgValidationError: 'File Upload Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',

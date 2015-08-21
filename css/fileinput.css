@@ -219,3 +219,7 @@
     background: url('../img/loading-sm.gif') no-repeat center bottom 10px;
     opacity: 0.6;
 }
+
+.file-error-message .close  {
+    margin-top: 10px;
+}

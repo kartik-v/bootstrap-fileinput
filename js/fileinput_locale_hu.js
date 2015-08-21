@@ -33,6 +33,7 @@
         msgFilePreviewError: 'Hiba lépett fel a "{name}" fájl olvasása közben.',
         msgInvalidFileType: 'Nem megengedett fájl "{name}". Csak a "{types}" fájl típusok támogatottak.',
         msgInvalidFileExtension: 'Nem megengedett kiterjesztés / fájltípus "{name}". Csak a "{extensions}" kiterjesztés(ek) / fájltípus(ok) támogatottak.',
+        msgUploadAborted: 'A fájl feltöltés megszakítva',
         msgValidationError: 'Fájl ellenörzési hiba.',
         msgLoading: '{index} / {files} töltése &hellip;',
         msgProgress: 'Feltöltés: {index} / {files} - {name} - {percent}% kész.',

@@ -34,6 +34,7 @@
         msgFilePreviewError: '讀取 "{name}" 發生錯誤.',
         msgInvalidFileType: '檔案類型錯誤 "{name}". 只能使用 "{types}" 類型的檔案.',
         msgInvalidFileExtension: '附檔名錯誤 "{name}". 只能使用 "{extensions}" 的檔案.',
+        msgUploadAborted: '該文件上傳被中止',
         msgValidationError: '檔案上傳失敗',
         msgLoading: '載入第 {index} 個檔案，共 {files} &hellip;',
         msgProgress: '載入第 {index} 個檔案，共 {files} - {name} - {percent}% 成功.',

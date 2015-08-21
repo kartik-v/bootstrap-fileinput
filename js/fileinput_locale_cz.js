@@ -33,6 +33,7 @@
         msgFilePreviewError: 'Nastala chyba při načtení souboru "{name}".',
         msgInvalidFileType: 'Neplatný typ souboru "{name}". Pouze "{types}" souborů jsou podporovány.',
         msgInvalidFileExtension: 'Neplatná extenze souboru "{name}". Pouze "{extensions}" souborů jsou podporovány.',
+        msgUploadAborted: 'Soubor nahrávání byl přerušen',
         msgValidationError: 'Chyba nahrání souboru.',
         msgLoading: 'Nahrávání souboru {index} z {files} &hellip;',
         msgProgress: 'Nahrávání souboru {index} z {files} - {name} - {percent}% dokončeno.',

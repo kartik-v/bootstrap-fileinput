@@ -34,6 +34,7 @@
         msgFilePreviewError: 'Сталася помилка під час читання файла "{name}".',
         msgInvalidFileType: 'Заборонений тип файла для "{name}". Тільки "{types}" дозволені.',
         msgInvalidFileExtension: 'Заборонене розширення для файла "{name}". Тільки "{extensions}" дозволені.',
+        msgUploadAborted: 'Вивантаження файлу перервана',
         msgValidationError: 'Помилка під час загрузки файла',
         msgLoading: 'Загрузка файла {index} із {files} &hellip;',
         msgProgress: 'Загрузка файла {index} із {files} - {name} - {percent}% завершено.',

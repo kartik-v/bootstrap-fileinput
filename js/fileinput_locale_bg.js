@@ -33,6 +33,7 @@
         msgFilePreviewError: 'Грешка при опит за четене на файла "{name}".',
         msgInvalidFileType: 'Невалиден тип на файла "{name}". Разрешени са само "{types}".',
         msgInvalidFileExtension: 'Невалидно разрешение на "{name}". Разрешени са само "{extensions}".',
+        msgUploadAborted: 'Качите файла, бе прекратена',
         msgValidationError: 'Грешка при качване на файл.',
         msgLoading: 'Зареждане на файл {index} от общо {files} &hellip;',
         msgProgress: 'Зареждане на файл {index} от общо {files} - {name} - {percent}% завършени.',

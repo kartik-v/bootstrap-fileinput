@@ -34,6 +34,7 @@
         msgFilePreviewError: 'در هنگام خواندن فایل "{name}" خطایی رخ داد.',
         msgInvalidFileType: 'نوع فایل "{name}" معتبر نیست. فقط "{types}" پشیبانی می‌شود.',
         msgInvalidFileExtension: 'پسوند فایل "{name}" معتبر نیست. فقط "{extensions}" پشتیبانی می‌شود.',
+        msgUploadAborted: 'The file upload was aborted',
         msgValidationError: 'خطا در بارگزاری فایل',
         msgLoading: 'بارگیری فایل {index} از {files} &hellip;',
         msgProgress: 'بارگیری فایل {index} از {files} - {name} - {percent}% تمام شد.',

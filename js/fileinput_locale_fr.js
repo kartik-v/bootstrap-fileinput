@@ -33,6 +33,7 @@
         msgFilePreviewError: 'Une erreur est survenue lors de la lecture du fichier "{name}".',
         msgInvalidFileType: 'Type de document invalide pour "{name}". Seulement les documents de type "{types}" sont autorisés.',
         msgInvalidFileExtension: 'Extension invalide pour le fichier "{name}". Seules les extensions "{extensions}" sont autorisées.',
+        msgUploadAborted: 'Le téléchargement du fichier a été interrompue',
         msgValidationError: 'Erreur lors de la transmission du fichier',
         msgLoading: 'Transmission du fichier {index} sur {files}&hellip;',
         msgProgress: 'Transmission du fichier {index} sur {files} - {name} - {percent}% faits.',

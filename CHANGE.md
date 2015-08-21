@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.2.6
 
-**Date**: 07-Aug-2015
+**Date**: 21-Aug-2015
 
 1. (enh #373): Default delete ajax request type to POST (instead of DELETE).
 2. (enh #376): Ability to validate initial/server files for max and min file count.
@@ -23,6 +23,8 @@ Change Log: `bootstrap-fileinput`
 16. (enh #401): Various enhancements to preview file thumbnails and error validations.
 17. (enh #405): Create traditional Chinese translations.
 18. (enh #410): Better validation for IE 10 and below.
+19. (enh #412): Enhancements to file upload cancellation.
+20. (enh #413): Various updates to translations.
 
 ## version 4.2.5
 
