@@ -2232,16 +2232,18 @@
                 .replace('{label}', label);
         }
     };
-
-    //FileInput plugin definition
+//FileInput plugin definition
     $.fn.fileinput = function (option) {
+    //I dont know the legal nessesity to clearly mark changes made that were not part of original but Ill let you know what I changed -as
         if (!hasFileAPISupport() && !isIE(9)) {
             return;
         }
 
         var args = Array.apply(null, arguments);
         args.shift();
-        return this.each(function () {
+        var retVals = []; //-as
+        
+        this.each(function () {
             var $this = $(this), data = $this.data('fileinput'), defaults,
                 options = typeof option === 'object' && option,
                 lang = options.language || $this.data('language') || 'en';
@@ -2256,9 +2258,19 @@
             }
 
             if (typeof option === 'string') {
-                data[option].apply(data, args);
+                //console.log(data[option].apply(data, args));
+                retVals.push(data[option].apply(data, args)); // changed to push to array -as
             }
         });
+        //this whole retVal logic was changed up  -as
+        //will return this when there is no return vals like before
+        if(retVals.length == 1){
+            return retVals[0];
+        }else if(retVals.length == 0){
+            return this;
+        }else{
+            return retVals;
+        }
     };
 
     $.fn.fileinput.defaults = {
