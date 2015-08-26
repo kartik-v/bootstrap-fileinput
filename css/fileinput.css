@@ -131,6 +131,7 @@
     opacity: 1;
 }
 
+.file-actions,
 .file-other-error {
     text-align: left;
 }
@@ -158,7 +159,7 @@
 }
 
 .file-actions {
-    text-align: left;
+    margin-top: 15px;
 }
 
 .file-footer-buttons {
@@ -222,4 +223,20 @@
 
 .file-error-message .close  {
     margin-top: 10px;
+}
+.file-thumb-progress .progress, .file-thumb-progress .progress-bar {
+    height:10px;
+    font-size:9px;
+    line-height:10px;
+}
+ 
+.file-thumbnail-footer {
+    position:relative
+}
+
+.file-thumb-progress {
+    position:absolute;
+    top:22px;
+    left:0;
+    right:0;
 }

@@ -55,7 +55,7 @@
                     return obj.getMsgSelected(n);
                 },
                 initId: obj.previewInitId,
-                footer: obj.getLayoutTemplate('footer'),
+                footer: obj.getLayoutTemplate('footer').replace(/\{progress\}/g, obj.renderThumbProgress()),
                 isDelete: obj.initialPreviewShowDelete,
                 caption: obj.initialCaption,
                 actions: function (showUpload, showDelete, disabled, url, key) {
@@ -282,7 +282,7 @@
         '</div>',
     tFooter = '<div class="file-thumbnail-footer">\n' +
         '    <div class="file-footer-caption" title="{caption}">{caption}</div>\n' +
-        '    {actions}\n' +
+        '    {progress} {actions}\n' +
         '</div>',
     tActions = '<div class="file-actions">\n' +
         '    <div class="file-footer-buttons">\n' +
@@ -510,10 +510,16 @@
             self.reader = null;
             self.formdata = {};
             self.filestack = [];
+            self.uploadCount = 0;
+            self.uploadStatus = {};
+            self.fileprogress = [];
             self.ajaxRequests = [];
             self.isError = false;
             self.ajaxAborted = false;
             self.cancelling = false;
+            t = self.getLayoutTemplate('progress');
+            self.progressTemplate = t.replace('{class}', self.progressClass);
+            self.progressCompleteTemplate = t.replace('{class}', self.progressCompleteClass);
             self.dropZoneEnabled = hasDragDropSupport() && self.dropZoneEnabled;
             self.isDisabled = self.$element.attr('disabled') || self.$element.attr('readonly');
             self.isUploadable = hasFileUploadSupport() && !isEmpty(self.uploadUrl);
@@ -550,12 +556,7 @@
             self.initPreviewDeletes();
             self.options = options;
             self.setFileDropZoneTitle();
-            self.uploadCount = 0;
-            self.uploadPercent = 0;
             self.$element.removeClass('file-loading');
-            t = self.getLayoutTemplate('progress');
-            self.progressTemplate = t.replace('{class}', self.progressClass);
-            self.progressCompleteTemplate = t.replace('{class}', self.progressCompleteClass);
             if (self.$element.attr('disabled')) {
                 self.disable();
             }
@@ -736,11 +737,12 @@
             self.clearFileInput();
             addCss(self.$container, 'has-error');
         },
-        setProgress: function (p) {
+        setProgress: function (p, $el) {
             var self = this, pct = Math.min(p, 100),
                 template = pct < 100 ? self.progressTemplate : self.progressCompleteTemplate;
+            $el = $el || self.$progress;
             if (!isEmpty(template)) {
-                self.$progress.html(template.replace(/\{percent\}/g, pct));
+                $el.html(template.replace(/\{percent\}/g, pct));
             }
         },
         upload: function () {
@@ -756,9 +758,9 @@
             self.resetUpload();
             self.$progress.removeClass('hide');
             self.uploadCount = 0;
-            self.uploadPercent = 0;
+            self.uploadStatus = {};
             self.lock();
-            self.setProgress(0);
+            self.setProgress(2);
             if (totLen === 0 && hasExtraData) {
                 self.uploadExtraOnly();
                 return;
@@ -948,18 +950,23 @@
             var self = this, strFiles = n === 1 ? self.fileSingle : self.filePlural;
             return self.msgSelected.replace('{n}', n).replace('{files}', strFiles);
         },
+        renderThumbProgress: function() {
+            return '<div class="file-thumb-progress hide">' + this.progressTemplate.replace(/\{percent\}/g, '0') + '</div>';
+        },
         renderFileFooter: function (caption, width) {
             var self = this, config = self.fileActionSettings, footer, out,
-                template = self.getLayoutTemplate('footer');
+                template = self.getLayoutTemplate('footer'), progress = self.progressTemplate;
             if (self.isUploadable) {
                 footer = template.replace(/\{actions\}/g, self.renderFileActions(true, true, false, false, false));
                 out = footer.replace(/\{caption\}/g, caption)
                     .replace(/\{width\}/g, width)
+                    .replace(/\{progress\}/g, self.renderThumbProgress())
                     .replace(/\{indicator\}/g, config.indicatorNew)
                     .replace(/\{indicatorTitle\}/g, config.indicatorNewTitle);
             } else {
                 out = template.replace(/\{actions\}/g, '')
                     .replace(/\{caption\}/g, caption)
+                    .replace(/\{progress\}/g, '')
                     .replace(/\{width\}/g, width)
                     .replace(/\{indicator\}/g, '')
                     .replace(/\{indicatorTitle\}/g, '');
@@ -1161,7 +1168,7 @@
             var self = this;
             self.uploadCache = {content: [], config: [], tags: [], append: true};
             self.uploadCount = 0;
-            self.uploadPercent = 0;
+            self.uploadStatus = {};
             self.$btnUpload.removeAttr('disabled');
             self.setProgress(0);
             addCss(self.$progress, 'hide');
@@ -1314,16 +1321,29 @@
                 self.formdata.append(key, value);
             });
         },
-        initXhr: function (xhrobj, factor) {
+        setAsyncUploadStatus: function(previewId, pct, total) {
+            var self = this, sum = 0, status = self.uploadStatus[previewId] || 0;
+            self.setProgress(pct, $('#' + previewId).find('.file-thumb-progress'));
+            self.uploadStatus[previewId] = pct;
+            $.each(self.uploadStatus, function (key, value) {
+                sum += value;
+            });
+            self.setProgress(Math.ceil(sum / total));
+            
+        },
+        initXhr: function (xhrobj, previewId, fileCount) {
             var self = this;
             if (xhrobj.upload) {
                 xhrobj.upload.addEventListener('progress', function (event) {
                     var pct = 0, position = event.loaded || event.position, total = event.total;
                     if (event.lengthComputable) {
-                        pct = Math.ceil(position / total * factor);
+                        pct = Math.ceil(position / total * 100);
                     }
-                    self.uploadPercent = Math.max(pct, self.uploadPercent);
-                    self.setProgress(self.uploadPercent);
+                    if (previewId) {
+                        self.setAsyncUploadStatus(previewId, pct, fileCount);
+                    } else {
+                        self.setProgress(Math.ceil(pct));
+                    }
                 }, false);
             }
             return xhrobj;
@@ -1335,7 +1355,7 @@
             settings = $.extend({
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
-                    return self.initXhr(xhrobj, 98);
+                    return self.initXhr(xhrobj, previewId, self.getFileStack().length);
                 },
                 url: self.uploadUrl,
                 type: 'POST',
@@ -1411,9 +1431,10 @@
             var self = this, total = self.getFileStack().length, formdata = new FormData(), outData,
                 previewId = self.previewInitId + "-" + i, $thumb = $('#' + previewId + ':not(.file-preview-initial)'),
                 pct, chkComplete, $btnUpload = $thumb.find('.kv-file-upload'), $btnDelete = $thumb.find('.kv-file-remove'),
-                updateProgress, hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
+                hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
                 resetActions, fnBefore, fnSuccess, fnComplete, fnError, params = {id: previewId, index: i};
             self.formdata = formdata;
+            $('#' + previewId).find('.file-thumb-progress').removeClass('hide');
             if (total === 0 || !hasPostData || $btnUpload.hasClass('disabled') || self.abort(params)) {
                 return;
             }
@@ -1430,21 +1451,13 @@
                         self.initPreview();
                         self.initPreviewDeletes();
                     }
-                    self.setProgress(100);
                     self.unlock();
                     self.clearFileInput();
                     self.raise('filebatchuploadcomplete', [self.filestack, self.getExtraData()]);
+                    self.uploadCount = 0;
+                    self.uploadStatus = {};
+                    self.setProgress(100);
                 }, 100);
-            };
-            updateProgress = function () {
-                if (!allFiles || total === 0 || self.uploadPercent >= 100) {
-                    return;
-                }
-                self.uploadCount += 1;
-                pct = 80 + Math.ceil(self.uploadCount * 20 / total);
-                self.uploadPercent = Math.max(pct, self.uploadPercent);
-                self.setProgress(self.uploadPercent);
-                self.initPreviewDeletes();
             };
             resetActions = function () {
                 $btnUpload.removeAttr('disabled');
@@ -1490,7 +1503,6 @@
             };
             fnComplete = function () {
                 setTimeout(function () {
-                    updateProgress();
                     resetActions();
                     if (!allFiles) {
                         self.unlock(false);
@@ -1502,6 +1514,7 @@
             };
             fnError = function (jqXHR, textStatus, errorThrown) {
                 var errMsg = self.parseError(jqXHR, errorThrown, (allFiles ? files[i].name : null));
+                self.uploadStatus[previewId] = 100;
                 self.setThumbStatus($thumb, 'Error');
                 params = $.extend(params, self.getOutData(jqXHR));
                 self.showUploadError(errMsg, params);
@@ -2327,6 +2340,7 @@
         msgValidationErrorClass: 'text-danger',
         msgValidationErrorIcon: '<i class="glyphicon glyphicon-exclamation-sign"></i> ',
         msgErrorClass: 'file-error-message',
+        progressThumbClass: "progress-bar progress-bar-success progress-bar-striped active",
         progressClass: "progress-bar progress-bar-success progress-bar-striped active",
         progressCompleteClass: "progress-bar progress-bar-success",
         previewFileType: 'image',

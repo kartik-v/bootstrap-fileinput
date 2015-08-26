@@ -387,6 +387,7 @@ _object_ the templates configuration for rendering each part of the layout. You 
     - `{uploadClass}`: the css class for the upload button. Will be replaced with the `uploadClass` set within `fileActionSettings`.
     - `{uploadIcon}`: the icon for the upload button. Will be replaced with the `uploadIcon` set within `fileActionSettings`.
     - `{uploadTitle}`: the title to display on hover for the upload button. Will be replaced with the `uploadTitle` set within `fileActionSettings`.
+    - `{progress}`: will be replaced with progress bar for each thumbnail file actions based on progress bar template. This will be wrapped inside a container having a CSS class of `file-thumb-progress`.
 
 The `main1` and `main2` templates would automatically parse the following tags for replacement:
 
@@ -463,7 +464,7 @@ The `layoutTemplates` if not set will default to:
         '</div>',
     footer: '<div class="file-thumbnail-footer">\n' +
         '    <div class="file-caption-name" style="width:{width}">{caption}</div>\n' +
-        '    {actions}\n' +
+        '    {progress} {actions}\n' +
         '</div>',
     actions: '<div class="file-actions">\n' +
         '    <div class="file-footer-buttons">\n' +

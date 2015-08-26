@@ -26,6 +26,7 @@ Change Log: `bootstrap-fileinput`
 19. (enh #410): Better validation for IE 10 and below.
 20. (enh #412): Enhancements to file upload cancellation.
 21. (enh #413): Various updates to translations.
+22. (enh #426): Enhancements to progress bar and display thumbnail specific progress.
 
 ## version 4.2.5
 
