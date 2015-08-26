@@ -221,22 +221,23 @@
     opacity: 0.6;
 }
 
-.file-error-message .close  {
+.file-error-message .close {
     margin-top: 10px;
 }
+
 .file-thumb-progress .progress, .file-thumb-progress .progress-bar {
-    height:10px;
-    font-size:9px;
-    line-height:10px;
+    height: 10px;
+    font-size: 9px;
+    line-height: 10px;
 }
- 
+
 .file-thumbnail-footer {
-    position:relative
+    position: relative;
 }
 
 .file-thumb-progress {
-    position:absolute;
-    top:22px;
-    left:0;
-    right:0;
+    position: absolute;
+    top: 22px;
+    left: 0;
+    right: 0;
 }
