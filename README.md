@@ -370,7 +370,7 @@ _object_ the templates configuration for rendering each part of the layout. You 
 - `icon`: the icon to render before the caption text.
 - `caption`: the template for rendering the caption.
 - `modal`: the template for rendering the modal (for text file preview zooming).
-- `progress`: the template for the progress bar when upload is in progress (for batch/mass uploads). The following tags will be parsed and replaced automatically:
+- `progress`: the template for the progress bar when upload is in progress (for batch/mass uploads and within each preview thumbnail for async/single uploads). The upload progress bar when displayed within each thumbnail will be wrapped inside a container having a CSS class of `file-thumb-progress`. The following tags will be parsed and replaced automatically: 
     - `{percent}`: will be replaced with the upload progress percentage.
 - `footer`: the template for the footer section of each file preview thumbnail. The following tags will be parsed and replaced automatically:
     - `{actions}`: will be replaced with the output of the `actions` template.
@@ -387,7 +387,6 @@ _object_ the templates configuration for rendering each part of the layout. You 
     - `{uploadClass}`: the css class for the upload button. Will be replaced with the `uploadClass` set within `fileActionSettings`.
     - `{uploadIcon}`: the icon for the upload button. Will be replaced with the `uploadIcon` set within `fileActionSettings`.
     - `{uploadTitle}`: the title to display on hover for the upload button. Will be replaced with the `uploadTitle` set within `fileActionSettings`.
-    - `{progress}`: will be replaced with progress bar for each thumbnail file actions based on progress bar template. This will be wrapped inside a container having a CSS class of `file-thumb-progress`.
 
 The `main1` and `main2` templates would automatically parse the following tags for replacement:
 
