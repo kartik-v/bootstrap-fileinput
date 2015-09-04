@@ -44,6 +44,8 @@
         msgImageHeightSmall: 'Висота зображення "{name}" повинна бути не менше {size} px.',
         msgImageWidthLarge: 'Ширина зображення "{name}" не може перевищувати {size} px.',
         msgImageHeightLarge: 'Висота зображення "{name}" не може перевищувати {size} px.',
+        msgImageResizeError: 'Не вдалося розміри зображення, щоб змінити розмір.',
+        msgImageResizeException: 'Помилка при зміні розміру зображення.<pre>{errors}</pre>',
         dropZoneTitle: 'Перетягніть файли сюди &hellip;',
         fileActionSettings: {
             removeTitle: 'Видалити файл',

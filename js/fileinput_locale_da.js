@@ -1,5 +1,5 @@
 /*!
- * FileInput <da> Translations
+ * FileInput Danish Translations
  *
  * This file must be loaded after 'fileinput.js'. Patterns in braces '{}', or
  * any HTML markup tags in the messages must not be converted or translated.
@@ -43,6 +43,8 @@
         msgImageHeightSmall: 'H&oslash;jden af billedet "{name}" skal v&aelig;re p&aring; mindst {size} px.',
         msgImageWidthLarge: 'Bredden af billedet "{name}" m&aring; ikke v&aelig;re over {size} px.',
         msgImageHeightLarge: 'H&oslash;jden af billedet "{name}" m&aring; ikke v&aelig;re over {size} px.',
+        msgImageResizeError: 'Kunne ikke få billedets dimensioner for at ændre størrelsen.',
+        msgImageResizeException: 'Fejl ved at ændre størrelsen på billedet.<pre>{errors}</pre>',
         dropZoneTitle: 'Drag & drop filer her &hellip;',
         fileActionSettings: {
             removeTitle: 'Fjern fil',

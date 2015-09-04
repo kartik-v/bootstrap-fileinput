@@ -43,6 +43,8 @@
         msgImageHeightSmall: 'Wysokość pliku obrazu "{name}" musi być co najmniej {size} px.',
         msgImageWidthLarge: 'Szerokość pliku obrazu "{name}" nie może przekraczać {size} px.',
         msgImageHeightLarge: 'Wysokość pliku obrazu "{name}" nie może przekraczać {size} px.',
+        msgImageResizeError: 'Nie udało się uzyskać wymiary obrazu, aby zmienić rozmiar.',
+        msgImageResizeException: 'Błąd podczas zmiany rozmiaru obrazu.<pre>{errors}</pre>',
         dropZoneTitle: 'Przeciągnij i upuść pliki tu &hellip;',
         fileActionSettings: {
             removeTitle: 'Usuń plik',

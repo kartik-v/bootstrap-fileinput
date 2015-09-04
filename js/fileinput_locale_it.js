@@ -45,6 +45,8 @@
         msgImageHeightSmall: 'Altezza di file immagine "{name}" deve essere di almeno {size} px.',
         msgImageWidthLarge: 'Larghezza di file immagine "{name}" non può superare {size} px.',
         msgImageHeightLarge: 'Altezza di file immagine "{name}" non può superare {size} px.',
+        msgImageResizeError: "Impossibile ottenere le dimensioni dell'immagine per ridimensionare.",
+        msgImageResizeException: "Errore durante il ridimensionamento dell'immagine.<pre>{errors}</pre>",
         dropZoneTitle: 'Trascina i file qui&hellip;',
         fileActionSettings: {
             removeTitle: 'Rimuovere il file',

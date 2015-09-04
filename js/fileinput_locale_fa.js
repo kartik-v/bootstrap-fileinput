@@ -44,6 +44,8 @@
         msgImageHeightSmall: 'ارتفاع فایل تصویر "{name}" باید حداقل {size} پیکسل باشد.',
         msgImageWidthLarge: 'عرض فایل تصویر "{name}" نمیتواند از {size} پیکسل بیشتر باشد.',
         msgImageHeightLarge: 'ارتفاع فایل تصویر "{name}" نمی‌تواند از {size} پیکسل بیشتر باشد.',
+        msgImageResizeError: 'یافت نشد ابعاد تصویر را برای تغییر اندازه.',
+        msgImageResizeException: 'خطا در هنگام تغییر اندازه تصویر.<pre>{errors}</pre>',
         dropZoneTitle: 'فایل‌ها را بکشید و در اینجا رها کنید &hellip;',
         fileActionSettings: {
             removeTitle: 'حذف فایل',

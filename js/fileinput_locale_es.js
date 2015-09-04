@@ -43,6 +43,8 @@
         msgImageHeightSmall: 'La altura de la imagen "{name}" debe ser al menos {size} px.',
         msgImageWidthLarge: 'El ancho de la imagen "{name}" no puede exceder de {size} px.',
         msgImageHeightLarge: 'La altura de la imagen "{name}" no puede exceder de {size} px.',
+        msgImageResizeError: 'No se pudo obtener las dimensiones de imagen para cambiar el tamaño.',
+        msgImageResizeException: 'Error al cambiar el tamaño de la imagen.<pre>{errors}</pre>',
         dropZoneTitle: 'Arrastre y suelte aquí los archivos &hellip;',
         fileActionSettings: {
             removeTitle: 'Eliminar archivo',

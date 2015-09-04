@@ -43,6 +43,8 @@
         msgImageHeightSmall: 'Hoogte van de beeld bestand "{name}" moet minstens {size} px zijn.',
         msgImageWidthLarge: 'Breedte van de image-bestand "{name}" kan niet hoger zijn dan {size} px.',
         msgImageHeightLarge: 'Hoogte van het beeld bestand "{name}" kan niet hoger zijn dan {size} px.',
+        msgImageResizeError: 'Kon niet het beeld afmetingen resize.',
+        msgImageResizeException: 'Fout bij het verkleinen van het beeld.<pre>{errors}</pre>',
         dropZoneTitle: 'Drag & drop bestanden hier &hellip;',
         fileActionSettings: {
             removeTitle: 'Verwijder bestand',

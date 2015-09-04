@@ -12,7 +12,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for various fi
 
 This plugin was initially inspired by [this blog article](http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/) and [Jasny's File Input plugin](http://jasny.github.io/bootstrap/javascript/#fileinput). But the plugin has now matured with various additional features and enhancements to be a complete (yet simple) file management tool and solution for web developers. 
 
-> NOTE: The latest version of the plugin is v4.2.6 (in dev-master). Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
+> NOTE: The latest version of the plugin is v4.2.7 (dev-master). Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
 
 ## Features  
 
@@ -75,6 +75,7 @@ built upon HTML5 FormData and XMLHttpRequest Level 2 standards. Most modern brow
 11. Build up initial preview content (e.g. gallery of saved images). You can set initial preview actions (prebuilt support for initial preview delete). Other custom action buttons can be set for initial preview thumbnails as well. 
 12. Ensure plugin is still lean in size and optimized for performance inspite of the above features by optimally utilizing HTML5 & jquery features only.
 13. Automatically refresh preview with content from server as soon as an ajax upload finishes.
+14. Ability to resize images has been added since release v4.2.7. The browser must support HTML5 canvas for resizing images. In addition, this release includes various enhancements for upload management without a preview.
 
 > NOTE: Drag and Drop zone functionality, selectively appending or deleting files, and upload indicator with progress are ONLY AVAILABLE if you use AJAX BASED uploads (by setting `uploadUrl`).
 
@@ -116,19 +117,24 @@ You can also manually install the plugin easily to your project. Just download t
 Step 1: Load the following assets in your header. 
 
 ```html
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link href="path/to/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- canvas-to-blob.min.js is only needed if you wish to resize images before upload.
+     This must be loaded before fileinput.min.js -->
+<script src="path/to/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
 <script src="path/to/js/fileinput.min.js"></script>
 <!-- bootstrap.js below is only needed if you wish to the feature of viewing details
      of text file preview via modal dialog -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- optionally if you need translation for your language then include 
     locale file as mentioned below -->
 <script src="path/to/js/fileinput_locale_<lang>.js"></script>
 ```
 
 If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`. The locale file `fileinput_locale_<lang>.js` can be optionally included for translating for your language if needed.
+
+NOTE: The `canvas-to-blob.min.js` file is the source for the [JavaScript-Canvas-to-Blob plugin by blueimp](https://github.com/blueimp/JavaScript-Canvas-to-Blob). It is required to be loaded before `fileinput.js` if you wish to use the image resize feature of the **bootstrap-fileinput** plugin. For ease of access, the plugin source for JavaScript-Canvas-to-Blob is included in the `js/plugins` folder of this project repository.
 
 Step 2: Initialize the plugin on your page. For example,
 
@@ -860,17 +866,45 @@ function (previewId, index) {
 }
 ```
 
-### maxImageWidth
-_int_ the maximum allowed image width in `px` if you are uploading image files. Defaults to `null` which means no limit on image width.
-
-### maxImageHeight
-_int_ the maximum allowed image height in `px` if you are uploading image files. Defaults to `null` which means no limit on image height.
-
 ### minImageWidth
 _int_ the minimum allowed image width in `px` if you are uploading image files. Defaults to `null` which means no limit on image width.
 
 ### minImageHeight
 _int_ the minimum allowed image height in `px` if you are uploading image files. Defaults to `null` which means no limit on image height.
+
+### maxImageWidth
+_int_ the maximum allowed image width in `px` if you are uploading image files. Defaults to `null` which means no limit on image width. Note that if you set `resizeImage` property to `true`, then the entire image will be resized within this width.
+
+### maxImageHeight
+_int_ the maximum allowed image height in `px` if you are uploading image files. Defaults to `null` which means no limit on image height. Note that if you set `resizeImage` property to `true`, then the entire image will be resized within this height.
+
+### resizeImage
+_bool_ whether to add ability to resize uploaded images. Defaults to `false`. Note that resizing images requires HTML5 canvas support which is supported on most modern browsers. In addition, you must include the [JavaScript-Canvas-to-Blob plugin by blueimp](https://github.com/blueimp/JavaScript-Canvas-to-Blob) by including `canvas-to-blob.js` in your application. This JS file must be loaded before `fileinput.js` on the page. The JavaScript-Canvas-to-Blob source files are available in `js/plugins` folder of bootstrap-fileinput project page. The `canvas-to-blob.js` plugin is a polyfill for `canvas.toBlob` method and is needed for allowing the resized image files via HTML5 canvas to be returned as a blob. 
+
+### resizePreference
+_string_ preference to resize the image based on `width` or `height`. Defaults to `width`. This property is parsed only when `resizeImage` is `true`. If set to `width`, the `maxImageWidth` property is first tested and if image size is greater than this, then the image is resized to `maxImageWidth`. The image `height` is resized and adjusted in the same ratio as `width`. In case, the image width is already less than `maxImageWidth` then the `maxImageHeight` property is used to resize and width is adjusted in same ratio. 
+
+This will behave conversely, when `resizePreference` is set to `height` - the `maxImageHeight` will be first tested against image height and then the rest of steps will be similarly parsed with preference given to `height` instead of `width` as before. For example:
+
+```php
+// Example for resizePreference = 'width'
+// - will resize image width to 200 px if image width is > 200 px
+// - will resize image height to 200 px if image width is < 200 px and
+//   image height is > 200 px
+// if none of the above image will be returned as is
+$('#file-input').fileinput({
+    resizeImage: true,
+    maxImageWidth: 200,
+    maxImageHeight: 200,
+    resizePreference: 'width'
+});
+```
+
+### resizeQuality
+_float_ the quality of the resized image. This must be a decimal number between `0.00` to `1.00`. Defaults to `0.92`.
+
+### resizeDefaultImageType
+_string_ the default image mime type of the converted image after resize. Defaults to `image/jpeg`.
 
 ### maxFileSize
 _float_ the maximum file size for upload in KB.  If set to `0`, it means size allowed is unlimited. Defaults to `0`.
@@ -1090,6 +1124,23 @@ where:
 - `{name}`: will be replaced by the file name being uploaded
 - `{size}`: will be replaced by the `maxImageHeight` setting.
 
+### msgImageResizeError
+_string_ the error message to be displayed when a resize validation error occurs due to invalid image dimensions. Defaults to:
+
+```
+Could not get the image dimensions to resize.
+```
+
+### msgImageResizeException
+_string_ the exception message to be displayed when any javascript exception is thrown during resizing of the image. Defaults to:
+
+```
+Error while resizing the image.<pre>{errors}</pre>.
+```
+where:
+
+- `{errors}`: will be replaced with the exception error message.
+
 ### progressClass
 _string_ the upload progress bar CSS class to be applied when AJAX upload is in process (applicable only for ajax uploads). Defaults to `progress-bar progress-bar-success progress-bar-striped active`. 
 
@@ -1270,6 +1321,40 @@ $('#input-id').on('fileimageloaded', function(event, previewId) {
     console.log("fileimageloaded");
 });
 ```
+
+#### fileimagesloaded
+This event is triggered when all file images are fully loaded in the preview window. This is only applicable for image file previews and if `showPreview` is set to true. 
+
+**Example:**
+```js
+$('#input-id').on('fileimagesloaded', function(event) {
+    console.log("fileimagesloaded");
+});
+```
+
+#### fileimageresized
+This event is triggered when a file image in preview window is resized based on the `resizeImage` and `maxImageWidth`/`maxImageHeight` settings. This is only applicable for image file previews and if `showPreview` is set to true. Additional parameters available are: 
+
+- `previewId`: the identifier for the preview file container
+- `index`: the zero-based sequential index of the loaded file in the preview list
+
+**Example:**
+```js
+$('#input-id').on('fileimageresized', function(event, previewId, index) {
+    console.log("fileimageresized");
+});
+```
+
+#### fileimagesresized
+This event is triggered when all file images in preview window are resized based on the `resizeImage` and `maxImageWidth`/`maxImageHeight` settings. This is only applicable for image file previews and if `showPreview` is set to true. 
+
+**Example:**
+```js
+$('#input-id').on('fileimagesresized', function(event) {
+    console.log("fileimagesresized");
+});
+```
+
 #### filebrowse
 This event is triggered when the file browse button is clicked to open the file selection dialog.
 
@@ -1552,6 +1637,19 @@ $('#input-id').on('fileerror', function(event, data) {
 });
 ```
 
+#### fileimageresizeerror
+This event is triggered when an error or exception is received while resizing images (see `resizeImage` property). Additional parameters available are: 
+
+- `data`: This is a data object (associative array) that sends the following information, whose keys are:
+    - `id`: the preview thumbnail identifier (or undefined if not available)
+    - `index`: the file index/preview thumbnail index (or undefined if not available).
+
+```js
+$('#input-id').on('fileimageresizeerror', function(event, data) {
+    console.log('Image resize error');
+});
+```
+
 #### fileuploaderror
 This event is triggered when an upload or file input validation error is encountered primarily for ajax uploads (through the upload icon for each thumbnail or for every file uploaded when uploadAsync is `true`). Additional parameters available are: 
 
@@ -1566,7 +1664,7 @@ This event is triggered when an upload or file input validation error is encount
     - `jqXHR`: the `jQuery XMLHttpRequest` object used for this transaction (if available).
 
 ```js
-$('#input-id').on('fileuploaderror', function(event, data, previewId, index) {
+$('#input-id').on('fileuploaderror', function(event, data) {
     var form = data.form, files = data.files, extra = data.extra, 
         response = data.response, reader = data.reader;
     console.log('File upload error');

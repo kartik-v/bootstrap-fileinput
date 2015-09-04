@@ -43,6 +43,8 @@
         msgImageHeightSmall: 'ความสูงของภาพไฟล์ "{name}" ต้องมีอย่างน้อย {size} px.',
         msgImageWidthLarge: 'ความกว้างของภาพไฟล์ "{name}" ไม่เกิน {size} พิกเซล.',
         msgImageHeightLarge: 'ความสูงของไฟล์ภาพ "{name}" ไม่เกิน {size} พิกเซล.',
+        msgImageResizeError: 'ไม่สามารถรับขนาดภาพเพื่อปรับขนาด',
+        msgImageResizeException: 'ข้อผิดพลาดขณะปรับขนาดภาพ<pre>{errors}</pre>',
         dropZoneTitle: 'Drag & drop ไฟล์ตรงนี้ &hellip;',
         fileActionSettings: {
             removeTitle: 'ลบไฟล์',

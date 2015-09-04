@@ -43,6 +43,8 @@
         msgImageHeightSmall: 'Görüntü dosyası "{name}" yüksekliği en az {size} piksel olmalıdır.',
         msgImageWidthLarge: 'Görüntü dosyası "{name}" genişliği {size} px geçemez.',
         msgImageHeightLarge: 'Resim dosyası "{name}" Yükseklik {size} px geçemez.',
+        msgImageResizeError: 'Görüntü boyutlarını yeniden boyutlandırmak için alınamadı.',
+        msgImageResizeException: 'Hata resim boyutlandırma sırasında.<pre>{errors}</pre>',
         dropZoneTitle: 'Dosyaları buraya sürükleyip bırakın &hellip;',
         fileActionSettings: {
             removeTitle: 'dosyayı kaldır',

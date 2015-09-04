@@ -44,6 +44,8 @@
         msgImageHeightSmall: 'Înălțimea fișier imagine "{name}" trebuie să fie de cel puțin {size} px.',
         msgImageWidthLarge: 'Lățimea de fișier de imagine "{name}" nu poate depăși {size} px.',
         msgImageHeightLarge: 'Înălțimea fișier imagine "{name}" nu poate depăși {size} px.',
+        msgImageResizeError: 'Nu a putut obține dimensiunile imaginii pentru a redimensiona.',
+        msgImageResizeException: 'Eroare la redimensionarea imaginii.<pre>{errors}</pre>',
         dropZoneTitle: 'Trage fișierele aici &hellip;',
         fileActionSettings: {
             removeTitle: 'Scoateți fișier',

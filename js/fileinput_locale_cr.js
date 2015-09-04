@@ -44,6 +44,8 @@
         msgImageHeightSmall: 'Visina slikovnu datoteku "{name}" moraju biti najmanje {size} px.',
         msgImageWidthLarge: 'Širina slikovnu datoteku "{name}" ne može prelaziti {size} px.',
         msgImageHeightLarge: 'Visina slikovnu datoteku "{name}" ne može prelaziti {size} px.',
+        msgImageResizeError: 'Nije mogao dobiti dimenzije slike na veličinu.',
+        msgImageResizeException: 'Greška prilikom promjene veličine slike.<pre>{errors}</pre>',
         dropZoneTitle: 'Prevucite datoteke ovde &hellip;',
         fileActionSettings: {
             removeTitle: 'Uklonite datoteku',

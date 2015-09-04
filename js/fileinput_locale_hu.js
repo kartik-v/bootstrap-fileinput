@@ -43,6 +43,8 @@
         msgImageHeightSmall: 'Magassága image file "{name}" legalább {size} px.',
         msgImageWidthLarge: 'Szélessége image file "{name}" nem haladhatja meg a {size} px.',
         msgImageHeightLarge: 'Magassága image file "{name}" nem haladhatja meg a {size} px.',
+        msgImageResizeError: 'Nem lehet megszerezni a kép méretei átméretezni.',
+        msgImageResizeException: 'Hiba történt a méretezés.<pre>{errors}</pre>',
         dropZoneTitle: 'Fájlok húzása ide &hellip;',
         fileActionSettings: {
             removeTitle: 'A fájl eltávolítása',

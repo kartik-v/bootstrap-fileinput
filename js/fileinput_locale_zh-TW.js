@@ -44,6 +44,8 @@
         msgImageHeightSmall: '圖檔高度"{name}"必須至少為{size}像素(px).',
         msgImageWidthLarge: '圖檔寬度"{name}"不能超過{size}像素(px).',
         msgImageHeightLarge: '圖檔高度"{name}"不能超過{size}像素(px).',
+        msgImageResizeError: '無法獲取的圖像尺寸調整。',
+        msgImageResizeException: '錯誤而調整圖像大小。<pre>{errors}</pre>',
         dropZoneTitle: '拖曳檔案至此 &hellip;',
         slugCallback: function(text) {
             return text ? text.split(/(\\|\/)/g).pop().replace(/[^\w\u4e00-\u9fa5\-.\\\/ ]+/g, '') : '';

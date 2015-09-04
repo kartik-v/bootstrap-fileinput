@@ -1,6 +1,23 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.2.7
+
+**Date**: 04-Sep-2015
+
+1. (bug #420): Revamp file status progress and positioning updates for asynchronous upload.
+2. (enh #427): Add image resizing capability before upload.
+3. (enh #428): Enhancements to asynchronous uploads when `showPreview` is `false`.
+4. (bug #429): Fix for MS Edge bug that does not support drag and drop.
+5. (enh #431): Add Danish locale translations.
+6. (enh #432): Send slugged file names with the file blob when uploading via ajax.
+7. (enh #433): Added new events for image handling.
+    - `fileimageloaded` (fires after each image is loaded in preview) - this is an existing event
+    - `fileimagesloaded` (fires after all images are loaded in preview)
+    - `fileimageresized` (fires after each image in preview is resized)
+    - `fileimagesresized` (fires after all images in preview are resized)
+    - `fileimageresizeerror` (fires when any image resize error is faced)
+
 ## version 4.2.6
 
 **Date**: 26-Aug-2015

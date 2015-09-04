@@ -43,6 +43,8 @@
         msgImageHeightSmall: 'Ύψος του αρχείου εικόνας "{name}" πρέπει να είναι τουλάχιστον {size} px.',
         msgImageWidthLarge: 'Πλάτος του αρχείου εικόνας "{name}" δεν μπορεί να υπερβαίνει το {size} px.',
         msgImageHeightLarge: 'Ύψος του αρχείου εικόνας "{name}" δεν μπορεί να υπερβαίνει το {size} px.',
+        msgImageResizeError: 'Δεν θα μπορούσε να πάρει τις διαστάσεις της εικόνας για να αλλάξετε το μέγεθος.',
+        msgImageResizeException: 'Σφάλμα κατά την αλλαγή μεγέθους της εικόνας.<pre>{errors}</pre>',
         dropZoneTitle: 'Σύρετε τα αρχεία εδώ &hellip;',
         fileActionSettings: {
             removeTitle: 'Αφαιρέστε το αρχείο',

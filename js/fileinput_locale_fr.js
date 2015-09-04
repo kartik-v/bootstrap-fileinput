@@ -43,6 +43,8 @@
         msgImageHeightSmall: 'Hauteur de fichier image "{name}" doit être d\'au moins {size} px.',
         msgImageWidthLarge: 'Largeur de fichier image "{name}" ne peut pas dépasser {size} px.',
         msgImageHeightLarge: 'Hauteur de fichier image "{name}" ne peut pas dépasser {size} px.',
+        msgImageResizeError: "Impossible d'obtenir les dimensions de l'image à redimensionner.",
+        msgImageResizeException: "Erreur lors du redimensionnement de l'image.<pre>{errors}</pre>",
         dropZoneTitle: 'Glissez et déposez les fichiers ici&hellip;',
         fileActionSettings: {
             removeTitle: 'Supprimer le fichier',

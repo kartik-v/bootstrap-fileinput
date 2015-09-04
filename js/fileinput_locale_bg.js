@@ -43,6 +43,8 @@
         msgImageHeightSmall: 'Височината на изображението "{name}" трябва да е поне {size} px.',
         msgImageWidthLarge: 'Широчината на изображението "{name}" не може да е по-голяма от {size} px.',
         msgImageHeightLarge: 'Височината на изображението "{name}" нее може да е по-голяма от {size} px.',
+        msgImageResizeError: 'Не може да размерите на изображението, за да промените размера.',
+        msgImageResizeException: 'Грешка при промяна на размера на изображението.<pre>{errors}</pre>',
         dropZoneTitle: 'Пуснете файловете тук &hellip;',
         fileActionSettings: {
             removeTitle: 'Махни файл',

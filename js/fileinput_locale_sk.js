@@ -43,6 +43,8 @@
         msgImageHeightSmall: 'Výška image súboru "{name}", musí byť minimálne {size} px.',
         msgImageWidthLarge: 'Šírka image súboru "{name}" nemôže presiahnuť {size} px.',
         msgImageHeightLarge: 'Výška súboru obrazu "{name}" nesmie presiahnuť {size} px.',
+        msgImageResizeError: 'Nemožno získať rozmery obrázku zmeniť veľkosť.',
+        msgImageResizeException: 'Chyba pri zmene veľkosti obrázka.<pre>{errors}</pre>',
         dropZoneTitle: 'Tiahni a pusť súbory tu &hellip;',
         fileActionSettings: {
             removeTitle: 'odstrániť súbor',
