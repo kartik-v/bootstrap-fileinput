@@ -555,6 +555,7 @@
             self.uploadCount = 0;
             self.uploadStatus = {};
             self.uploadLog = [];
+            self.uploadAsyncCount = 0;
             self.loadedImages = [];
             self.totalImagesCount = 0;
             self.ajaxRequests = [];
@@ -1149,6 +1150,7 @@
             self.uploadCount = 0;
             self.uploadStatus = {};
             self.uploadLog = [];
+            self.uploadAsyncCount = 0;
             self.loadedImages = [];
             self.totalImagesCount = 0;
             self.$btnUpload.removeAttr('disabled');
@@ -1433,7 +1435,7 @@
                     }
                 }
             }
-            return (self.getFileStack().length === self.uploadLog.length);
+            return (self.uploadAsyncCount === self.uploadLog.length);
         },
         uploadSingle: function (i, files, allFiles) {
             var self = this, total = self.getFileStack().length, formdata = new FormData(), outData,
@@ -1450,7 +1452,8 @@
             if (total === 0 || !hasPostData || ($btnUpload && $btnUpload.hasClass('disabled')) || self.abort(params)) {
                 return;
             }
-            updateUploadLog = function (previewId) {
+            updateUploadLog = function (i, previewId) {
+                self.filestack[i] = undefined;
                 self.uploadLog.push(previewId);
                 if (self.checkAsyncComplete()) {
                     self.fileBatchCompleted = true;
@@ -1520,13 +1523,13 @@
                             self.filestack[i] = undefined;
                             self.filenames[i] = undefined;
                         } else {
-                            updateUploadLog(previewId);
+                            updateUploadLog(i, previewId);
                         }
                     } else {
                         self.setThumbStatus($thumb, 'Error');
                         self.showUploadError(data.error, params);
                         if (allFiles) {
-                            updateUploadLog(previewId);
+                            updateUploadLog(i, previewId);
                         }
                     }
                 }, 100);
@@ -1550,7 +1553,7 @@
                 var errMsg = self.parseError(jqXHR, errorThrown, (allFiles ? files[i].name : null));
                 setTimeout(function () {
                     if (allFiles) {
-                        updateUploadLog(previewId);
+                        updateUploadLog(i, previewId);
                     }
                     self.uploadStatus[previewId] = 100;
                     self.setThumbStatus($thumb, 'Error');
@@ -1743,6 +1746,7 @@
                 self.raise('filebatchpreupload', [outData]);
                 self.fileBatchCompleted = false;
                 self.uploadCache = {content: [], config: [], tags: [], append: true};
+                self.uploadAsyncCount = self.getFileStack().length;
                 for (i = 0; i < len; i++) {
                     self.uploadCache.content[i] = null;
                     self.uploadCache.config[i] = null;
