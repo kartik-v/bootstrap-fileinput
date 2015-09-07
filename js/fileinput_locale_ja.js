@@ -30,7 +30,7 @@
         uploadTitle: '選択したファイルをアップロード',
         msgZoomTitle: 'プレビュー',
         msgZoomModalHeading: 'ファイル詳細',
-        msgSizeTooLarge: 'ファイル"{name}" (<b>{size} KB</b>)はアップロード可能な上限容量<b>{maxSize} KB</b>を超えています'
+        msgSizeTooLarge: 'ファイル"{name}" (<b>{size} KB</b>)はアップロード可能な上限容量<b>{maxSize} KB</b>を超えています',
         msgFilesTooLess: '最低<b>{n}</b>個の{files}を選択してください',
         msgFilesTooMany: '選択したファイルの数<b>({n}個)</b>はアップロード可能な上限数<b>({m}個)</b>を超えています',
         msgFileNotFound: 'ファイル"{name}"はありませんでした',
