@@ -397,6 +397,7 @@ _object_ the templates configuration for rendering each part of the layout. You 
 The `main1` and `main2` templates would automatically parse the following tags for replacement:
 
 - `{class}`: the CSS class as set in the `mainClass` property.
+- `{close}`: will be replaced with the close (cross) icon (by default on top right of the preview window). The layout template to control this markup is `layoutTemplates.close`.
 - `{preview}`: the content parsed by the `previewTemplate` and will be displayed only if `showPreview` is `true`.
 - `{caption}`: the content parsed by the `captionTemplate` and will be displayed only if `showCaption` is `true`.
 - `{remove}`: the file remove/clear button and will be displayed only if `showRemove` is `true`.
@@ -429,7 +430,7 @@ The `layoutTemplates` if not set will default to:
         '</div>',
     main2: '{preview}\n<div class="kv-upload-progress hide"></div>\n{remove}\n{cancel}\n{upload}\n{browse}\n',
     preview: '<div class="file-preview {class}">\n' +
-        '    <div class="close fileinput-remove">&times;</div>\n' +
+        '    {close}\n' +
         '    <div class="{dropClass}">\n' +
         '    <div class="file-preview-thumbnails">\n' +
         '    </div>\n' +
@@ -438,6 +439,7 @@ The `layoutTemplates` if not set will default to:
         '    <div class="kv-fileinput-error"></div>\n' +
         '    </div>\n' +
         '</div>',
+    close: '<div class="close fileinput-remove">&times;</div>',
     icon: '<span class="glyphicon glyphicon-file kv-caption-icon"></span>',
     caption: '<div tabindex="-1" class="form-control file-caption {class}">\n' +
         '   <span class="file-caption-ellipsis">&hellip;</span>\n' +
@@ -645,6 +647,10 @@ This is by default setup as following:
 ### allowedPreviewMimeTypes
 
 _array_ the list of allowed mime types for preview. This is set to null by default which means all possible mime types are allowed. This setting works in combination with `allowedPreviewTypes` to filter only the needed file types allowed for preview. You can check this [list of allowed mime types](http://www.sitepoint.com/web-foundations/mime-types-complete-list/) to add to this list if needed.
+
+### defaultPreviewContent
+
+_string_ the default content / markup to show by default in the preview window whenever the files are cleared or the input is cleared. This can be useful for use cases like showing the default user profile picture or profile image before upload to overwrite. This is a bit different from `initialPreview` in the sense, that the `initialPreview` content will always be displayed unless it is deleted or overwritten based on `overwriteInitial`. The `defaultPreviewContent` on the other hand will only be shown ONLY on initialization OR whenever you clear the preview. At other times when files have been selected this will be overwritten temporarily until file(s) selected is/are cleared.
 
 ### customLayoutTags
 

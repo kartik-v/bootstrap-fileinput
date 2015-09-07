@@ -21,7 +21,7 @@
     $.fn.fileinputLocales = {};
 
     var isIE, isEdge, handler, previewCache, getNum, hasFileAPISupport, hasDragDropSupport, hasFileUploadSupport, addCss,
-        STYLE_SETTING, OBJECT_PARAMS, DEFAULT_PREVIEW, defaultFileActionSettings, tMain1, tMain2, tPreview, tIcon,
+        STYLE_SETTING, OBJECT_PARAMS, DEFAULT_PREVIEW, defaultFileActionSettings, tMain1, tMain2, tPreview, tIcon, tClose,
         tCaption, tBtnDefault, tBtnLink, tBtnBrowse, tModal, tProgress, tFooter, tActions, tActionDelete, tActionUpload,
         tZoom, tGeneric, tHtml, tImage, tText, tVideo, tAudio, tFlash, tObject, tOther, defaultLayoutTemplates,
         defaultPreviewTemplates, defaultPreviewTypes, defaultPreviewSettings, defaultFileTypeSettings, isEmpty, isArray,
@@ -286,7 +286,7 @@
     '</div>';
     tMain2 = '{preview}\n<div class="kv-upload-progress hide"></div>\n{remove}\n{cancel}\n{upload}\n{browse}\n';
     tPreview = '<div class="file-preview {class}">\n' +
-    '    <div class="close fileinput-remove">&times;</div>\n' +
+    '    {close}' +
     '    <div class="{dropClass}">\n' +
     '    <div class="file-preview-thumbnails">\n' +
     '    </div>\n' +
@@ -295,6 +295,7 @@
     '    <div class="kv-fileinput-error"></div>\n' +
     '    </div>\n' +
     '</div>';
+    tClose = '<div class="close fileinput-remove">&times;</div>\n';
     tIcon = '<span class="glyphicon glyphicon-file kv-caption-icon"></span>';
     tCaption = '<div tabindex="500" class="form-control file-caption {class}">\n' +
     '   <div class="file-caption-name"></div>\n' +
@@ -400,6 +401,7 @@
         main1: tMain1,
         main2: tMain2,
         preview: tPreview,
+        close: tClose,
         zoom: tZoom,
         icon: tIcon,
         caption: tCaption,
@@ -908,7 +910,7 @@
             if (!self.isUploadable || !self.showPreview || $zone.length === 0 || self.getFileStack().length > 0 || !self.dropZoneEnabled) {
                 return;
             }
-            if ($zone.find('.file-preview-frame').length === 0) {
+            if ($zone.find('.file-preview-frame').length === 0 && isEmpty(self.defaultPreviewContent)) {
                 $zone.prepend('<div class="' + self.dropZoneTitleClass + '">' + self.dropZoneTitle + '</div>');
             }
             self.$container.removeClass('file-input-new');
@@ -1005,6 +1007,7 @@
             if (!self.$preview.find('.file-preview-frame').length || !self.showPreview) {
                 self.resetUpload();
             }
+            self.validateDefaultPreview();
         },
         initPreview: function (isInit) {
             var self = this, cap = self.initialCaption || '', out;
@@ -1222,6 +1225,7 @@
                 self.setCaption(cap);
                 self.$caption.attr('title', '');
                 addCss(self.$container, 'file-input-new');
+                self.validateDefaultPreview();
             }
             if (self.$container.find('.file-preview-frame').length === 0) {
                 if (!self.initCaption()) {
@@ -1244,6 +1248,18 @@
                 self.clearPreview();
                 self.initCaption();
             }
+        },
+        clearDefaultPreview: function() {
+            var self = this;
+            self.$preview.find('.file-default-preview').remove();
+        },
+        validateDefaultPreview: function() {
+            var self = this;
+            if (!self.showPreview || isEmpty(self.defaultPreviewContent)) {
+                return;
+            }
+            self.$preview.html('<div class="file-default-preview">' + self.defaultPreviewContent + '</div>');
+            self.$container.removeClass('file-input-new');
         },
         resetPreviewThumbs: function (isAjax) {
             var self = this, out;
@@ -1926,6 +1942,7 @@
                     '">' + self.fileActionSettings.indicatorError + '</div>';
                 }
             }
+            self.clearDefaultPreview();
             self.$preview.append("\n" + previewOtherTemplate
                 .replace(/\{previewId}/g, previewId)
                 .replace(/\{frameClass}/g, frameClass)
@@ -1973,6 +1990,7 @@
                         .replace(/\{width}/g, config.width).replace(/\{height}/g, config.height)
                         .replace(/\{footer}/g, footer).replace(/\{data}/g, data);
                 }
+                self.clearDefaultPreview();
                 self.$preview.append("\n" + content);
                 self.validateImage(i, previewId, caption, file.type);
             } else {
@@ -2408,12 +2426,15 @@
         },
         renderMain: function () {
             var self = this, dropCss = (self.isUploadable && self.dropZoneEnabled) ? ' file-drop-zone' : '',
-                preview = self.showPreview ? self.getLayoutTemplate('preview').replace(/\{class}/g, self.previewClass)
-                    .replace(/\{dropClass}/g, dropCss) : '',
+                close = !self.showClose ? '' : self.getLayoutTemplate('close'),
+                preview = !self.showPreview ? '' : self.getLayoutTemplate('preview')
+                    .replace(/\{class}/g, self.previewClass)
+                    .replace(/\{dropClass}/g, dropCss),
                 css = self.isDisabled ? self.captionClass + ' file-caption-disabled' : self.captionClass,
                 caption = self.captionTemplate.replace(/\{class}/g, css + ' kv-fileinput-caption');
             return self.mainTemplate.replace(/\{class}/g, self.mainClass)
                 .replace(/\{preview}/g, preview)
+                .replace(/\{close}/g, close)
                 .replace(/\{caption}/g, caption)
                 .replace(/\{upload}/g, self.renderButton('upload'))
                 .replace(/\{remove}/g, self.renderButton('remove'))
@@ -2505,6 +2526,7 @@
         showRemove: true,
         showUpload: true,
         showCancel: true,
+        showClose: true,
         showUploadedThumbs: true,
         autoReplace: false,
         mainClass: '',
@@ -2527,6 +2549,7 @@
         allowedPreviewMimeTypes: null,
         allowedFileTypes: null,
         allowedFileExtensions: null,
+        defaultPreviewContent: null,
         customLayoutTags: {},
         customPreviewTags: {},
         previewSettings: defaultPreviewSettings,

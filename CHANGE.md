@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.2.7
 
-**Date**: 04-Sep-2015
+**Date**: 08-Sep-2015
 
 1. (bug #420): Revamp file status progress and positioning updates for asynchronous upload.
 2. (enh #427): Add image resizing capability before upload.
@@ -17,6 +17,9 @@ Change Log: `bootstrap-fileinput`
     - `fileimageresized` (fires after each image in preview is resized)
     - `fileimagesresized` (fires after all images in preview are resized)
     - `fileimageresizeerror` (fires when any image resize error is faced)
+8. (enh #434): Added Japanese translations.
+9. (enh #436): New property `showClose` and new layout template `close` to control close icon display.
+10. (enh #437): New property `defaultPreviewContent` to control a default preview.
 
 ## version 4.2.6
 
