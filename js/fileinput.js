@@ -2425,7 +2425,7 @@
             self.initBrowse($container);
         },
         renderMain: function () {
-            var self = this, dropCss = (self.isUploadable && self.dropZoneEnabled) ? ' file-drop-zone' : '',
+            var self = this, dropCss = (self.isUploadable && self.dropZoneEnabled) ? ' file-drop-zone' : 'file-drop-disabled',
                 close = !self.showClose ? '' : self.getLayoutTemplate('close'),
                 preview = !self.showPreview ? '' : self.getLayoutTemplate('preview')
                     .replace(/\{class}/g, self.previewClass)

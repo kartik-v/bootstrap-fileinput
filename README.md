@@ -179,6 +179,9 @@ _boolean_ whether to display the file upload button. Defaults to `true`. This wi
 ### showCancel
 _boolean_ whether to display the file upload cancel button. Defaults to `true`. This will be only enabled and displayed when an AJAX upload is in process.
 
+### showClose
+_boolean_ whether to display the close icon in the preview. Defaults to `true`. This will be only parsed when `showPreview` is true or when you are using the `{close}` tag in your preview templates.
+
 ### showUploadedThumbs
 _boolean_ whether to persist display of the uploaded file thumbnails in the preview window (for ajax uploads) until the remove/clear button is pressed. Defaults to `true`.  When set to `false`, a next batch of files selected for upload will clear these thumbnails from preview.
 
