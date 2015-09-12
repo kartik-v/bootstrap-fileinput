@@ -42,7 +42,7 @@
         div.parentNode.removeChild(div);
         return status;
     };
-    isEdge = function() {
+    isEdge = function () {
         return new RegExp('Edge\/[0-9]+', 'i').test(navigator.userAgent);
     };
     handler = function ($el, event, callback, skipNS) {
@@ -239,7 +239,7 @@
         /** @namespace div.ondragstart */
         /** @namespace div.ondrop */
         return !isIE(9) && !isEdge() && // Fix for MS Edge drag & drop support bug
-            (div.draggable !== undefined || (div.ondragstart !== undefined && div.ondrop !== undefined));
+        (div.draggable !== undefined || (div.ondragstart !== undefined && div.ondrop !== undefined));
     };
     hasFileUploadSupport = function () {
         return hasFileAPISupport() && window.FormData;
@@ -552,8 +552,7 @@
             self.uploadFileAttr = !isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
             self.reader = null;
             self.formdata = {};
-            self.filestack = [];
-            self.filenames = [];
+            self.clearStack();
             self.uploadCount = 0;
             self.uploadStatus = {};
             self.uploadLog = [];
@@ -710,6 +709,7 @@
             return {
                 form: self.formdata,
                 files: filesData,
+                filenames: self.filenames,
                 extra: self.getExtraData(),
                 response: responseData,
                 reader: self.reader,
@@ -826,7 +826,7 @@
             self.raise('fileunlock', [self.filestack, self.getExtraData()]);
         },
         resetFileStack: function () {
-            var self = this, i = 0, newstack = [];
+            var self = this, i = 0, newstack = [], newnames = [];
             self.getThumbs().each(function () {
                 var $thumb = $(this), ind = $thumb.attr('data-fileindex'),
                     file = self.filestack[ind];
@@ -835,11 +835,12 @@
                 }
                 if (file !== undefined) {
                     newstack[i] = file;
+                    newnames[i] = self.getFileName(file);
                     $thumb.attr({
                         'id': self.previewInitId + '-' + i,
                         'data-fileindex': i
                     });
-                    i += 1;
+                    i++;
                 } else {
                     $thumb.attr({
                         'id': 'uploaded-' + uniqId(),
@@ -848,10 +849,7 @@
                 }
             });
             self.filestack = newstack;
-            self.filenames = [];
-            $.each(self.filestack, function (i, file) {
-                self.filenames[i] = (file && file.name) ? self.slug(file.name) : '';
-            });
+            self.filenames = newnames;
         },
         destroy: function () {
             var self = this, $cont = self.$container;
@@ -1204,7 +1202,7 @@
                 self.cleanMemory($(this));
             });
             self.resetUpload();
-            self.filestack = [];
+            self.clearStack();
             self.clearFileInput();
             self.resetErrors(true);
             self.raise('fileclear');
@@ -1249,11 +1247,11 @@
                 self.initCaption();
             }
         },
-        clearDefaultPreview: function() {
+        clearDefaultPreview: function () {
             var self = this;
             self.$preview.find('.file-default-preview').remove();
         },
-        validateDefaultPreview: function() {
+        validateDefaultPreview: function () {
             var self = this;
             if (!self.showPreview || isEmpty(self.defaultPreviewContent)) {
                 return;
@@ -1265,7 +1263,7 @@
             var self = this, out;
             if (isAjax) {
                 self.clearPreview();
-                self.filestack = [];
+                self.clearStack();
                 return;
             }
             if (self.hasInitialPreview()) {
@@ -1287,8 +1285,7 @@
                 self.$container.removeClass('file-input-new');
             }
             self.setFileDropZoneTitle();
-            self.filestack = [];
-            self.filenames = [];
+            self.clearStack();
             self.formdata = {};
         },
         disable: function () {
@@ -1469,7 +1466,7 @@
                 return;
             }
             updateUploadLog = function (i, previewId) {
-                self.filestack[i] = undefined;
+                self.updateStack(i, undefined);
                 self.uploadLog.push(previewId);
                 if (self.checkAsyncComplete()) {
                     self.fileBatchCompleted = true;
@@ -1536,8 +1533,7 @@
                         self.raise('fileuploaded', [outData, previewId, i]);
                         if (!allFiles) {
                             self.resetFileStack();
-                            self.filestack[i] = undefined;
-                            self.filenames[i] = undefined;
+                            self.updateStack(i, undefined);
                         } else {
                             updateUploadLog(i, previewId);
                         }
@@ -1591,7 +1587,7 @@
             }
             setAllUploaded = function () {
                 $.each(files, function (key) {
-                    self.filestack[key] = undefined;
+                    self.updateStack(key, undefined);
                 });
                 self.clearFileInput();
             };
@@ -1652,7 +1648,7 @@
                             } else {
                                 $thumb.find('.kv-file-upload').hide();
                                 self.setThumbStatus($thumb, 'Success');
-                                self.filestack[key] = undefined;
+                                self.updateStack(key, undefined);
                             }
                             key++;
                         });
@@ -1793,8 +1789,7 @@
                     hasError = $frame.hasClass('file-preview-error');
                     self.cleanMemory($frame);
                     $frame.fadeOut('slow', function () {
-                        self.filestack[ind] = undefined;
-                        self.filenames[ind] = '';
+                        self.updateStack(ind, undefined);
                         self.clearObjects($frame);
                         $frame.remove();
                         if (id && hasError) {
@@ -1812,7 +1807,7 @@
                             self.reset();
                         } else {
                             n = chk + len;
-                            cap = n > 1 ? self.getMsgSelected(n) : (filestack[0] ? filestack[0].name : '');
+                            cap = n > 1 ? self.getMsgSelected(n) : (filestack[0] ? self.getFileNames()[0] : '');
                             self.setCaption(cap);
                         }
                         self.raise('fileremoved', [id, ind]);
@@ -2000,12 +1995,6 @@
         slugDefault: function (text) {
             return isEmpty(text) ? '' : text.split(/(\\|\/)/g).pop().replace(/[^\w\u00C0-\u017F\-.\\\/ ]+/g, '');
         },
-        getFileStack: function (skipNull) {
-            var self = this;
-            return self.filestack.filter(function (n) {
-                return (skipNull ? n !== undefined : n !== undefined && n !== null);
-            });
-        },
         readFiles: function (files) {
             this.reader = new FileReader();
             var self = this, $el = self.$element, $preview = self.$preview, reader = self.reader,
@@ -2017,7 +2006,7 @@
                         p2 = {id: previewId, index: index, file: file, files: files};
                     self.previewDefault(file, previewId, true);
                     if (self.isUploadable) {
-                        self.filestack.push(undefined);
+                        self.pushStack(undefined);
                     }
                     setTimeout(readFile(index + 1), 100);
                     self.initFileActions();
@@ -2032,9 +2021,6 @@
                     func = isSet(cat, self.fileTypeSettings) ? self.fileTypeSettings[cat] : defaultFileTypeSettings[cat];
                 if (func && func(file.type)) {
                     self.totalImagesCount++;
-                }
-                if (file && file.name) {
-                    self.filenames[key] = file.name;
                 }
             });
 
@@ -2092,7 +2078,7 @@
                     }
                 }
                 if (!self.showPreview) {
-                    self.filestack.push(file);
+                    self.pushStack(file);
                     setTimeout(readFile(i + 1), 100);
                     self.raise('fileloaded', [file, previewId, i, reader]);
                     return;
@@ -2142,7 +2128,7 @@
                     }, 100);
                     self.raise('fileloaded', [file, previewId, i, reader]);
                 }
-                self.filestack.push(file);
+                self.pushStack(file);
             };
 
             readFile(0);
@@ -2258,7 +2244,7 @@
                 if (!isAjaxUpload || flagSingle) {
                     self.resetPreviewThumbs(false);
                     if (flagSingle) {
-                        self.filestack = [];
+                        self.clearStack();
                     }
                 } else {
                     if (isAjaxUpload && ctr === 0 && (!previewCache.count(self.id) || self.overwriteInitial)) {
@@ -2272,6 +2258,36 @@
                 self.updateFileDetails(1);
             }
             self.showFolderError(folders);
+        },
+        getFileName: function (file) {
+            return file && file.name ? this.slug(file.name) : undefined;
+        },
+        getFileNames: function (skipNull) {
+            var self = this;
+            return self.filenames.filter(function (n) {
+                return (skipNull ? n !== undefined : n !== undefined && n !== null);
+            });
+        },
+        getFileStack: function (skipNull) {
+            var self = this;
+            return self.filestack.filter(function (n) {
+                return (skipNull ? n !== undefined : n !== undefined && n !== null);
+            });
+        },
+        clearStack: function () {
+            var self = this;
+            self.filestack = [];
+            self.filenames = [];
+        },
+        updateStack: function (i, file) {
+            var self = this;
+            self.filestack[i] = file;
+            self.filenames[i] = self.getFileName(file);
+        },
+        pushStack: function (file) {
+            var self = this;
+            self.filestack.push(file);
+            self.filenames.push(self.getFileName(file));
         },
         checkDimensions: function (i, chk, $img, $thumb, fname, type, params) {
             var self = this, msg, dim, tag = chk === 'Small' ? 'min' : 'max',
@@ -2288,7 +2304,7 @@
             msg = self['msgImage' + type + chk].replace('{name}', fname).replace('{size}', limit);
             self.showUploadError(msg, params);
             self.setThumbStatus($thumb, 'Error');
-            self.filestack[i] = null;
+            self.updateStack(i, null);
         },
         validateImage: function (i, previewId, fname, ftype) {
             var self = this, $preview = self.$preview, params, w1, w2,
@@ -2337,7 +2353,7 @@
                 if (!self.getResizedImage($img[0], config.typ, pid, ind)) {
                     errFunc(self.msgImageResizeError, params, 'fileimageresizeerror');
                     self.setThumbStatus($thumb, 'Error');
-                    self.filestack[ind] = undefined;
+                    self.updateStack(ind, undefined);
                 }
             }
             self.raise('fileimagesresized');

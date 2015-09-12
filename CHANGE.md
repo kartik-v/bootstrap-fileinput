@@ -20,6 +20,7 @@ Change Log: `bootstrap-fileinput`
 8. (enh #434): Added Japanese translations.
 9. (enh #436): New property `showClose` and new layout template `close` to control close icon display.
 10. (enh #437): New property `defaultPreviewContent` to control a default preview.
+11. (bug #442); Enhance the filenames parsing in the filestack and slug conversion.
 
 ## version 4.2.6
 
