@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.2.7
 
-**Date**: 08-Sep-2015
+**Date**: 13-Sep-2015
 
 1. (bug #420): Revamp file status progress and positioning updates for asynchronous upload.
 2. (enh #427): Add image resizing capability before upload.
