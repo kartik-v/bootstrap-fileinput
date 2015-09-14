@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.2.8
+
+**Date:** 14-Sep-2015
+
+1. Update bootstrap bower version to support only 3.x variants.
+
 ## version 4.2.7
 
 **Date**: 13-Sep-2015
