@@ -3,9 +3,12 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.2.8
 
-**Date:** 14-Sep-2015
+**Date:** 25-Sep-2015
 
 1. Update bootstrap bower version to support only 3.x variants.
+2. Implement package.json.
+3. (enh #449): Add Arabic Translations.
+4. (enh #454): Update Turkish Translations.
 
 ## version 4.2.7
 
