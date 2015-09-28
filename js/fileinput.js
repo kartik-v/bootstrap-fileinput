@@ -878,7 +878,7 @@
                     e.originalEvent.dataTransfer.dropEffect = 'none';
                     return;
                 }
-                addCss($(this), 'highlighted');
+                addCss($(this), 'file-highlighted');
             }, true);
             handler($zone, 'dragleave', function (e) {
                 e.stopPropagation();
@@ -886,7 +886,7 @@
                 if (self.isDisabled) {
                     return;
                 }
-                $(this).removeClass('highlighted');
+                $(this).removeClass('file-highlighted');
             });
             handler($zone, 'drop', function (e) {
                 e.preventDefault();
@@ -895,7 +895,7 @@
                     return;
                 }
                 self.change(e, 'dragdrop');
-                $(this).removeClass('highlighted');
+                $(this).removeClass('file-highlighted');
             });
             handler($(document), allEvents, function (e) {
                 e.stopPropagation();
@@ -2034,7 +2034,7 @@
                     } else {
                         self.raise('filebatchselected', [files]);
                     }
-                    $container.removeClass('loading');
+                    $container.removeClass('file-thumb-loading');
                     $status.html('');
                     return;
                 }
@@ -2085,7 +2085,7 @@
                 }
                 if ($preview.length > 0 && FileReader !== undefined) {
                     $status.html(msgLoading.replace('{index}', i + 1).replace('{files}', numFiles));
-                    $container.addClass('loading');
+                    $container.addClass('file-thumb-loading');
                     reader.onerror = function (evt) {
                         self.errorHandler(evt, caption);
                     };
@@ -2141,7 +2141,7 @@
                 nFiles = previewCache.count(self.id) + n,
                 log = n > 1 ? self.getMsgSelected(nFiles) : label;
             if (self.isError) {
-                self.$previewContainer.removeClass('loading');
+                self.$previewContainer.removeClass('file-thumb-loading');
                 self.$previewStatus.html('');
                 self.$captionContainer.find('.kv-caption-icon').hide();
             } else {

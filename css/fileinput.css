@@ -149,7 +149,7 @@
     display: none;
 }
 
-.loading {
+.file-thumb-loading {
     background: transparent url('../img/loading.gif') no-repeat scroll center center content-box !important;
 }
 
@@ -211,7 +211,7 @@
     padding: 85px 10px;
 }
 
-.highlighted {
+.file-highlighted {
     border: 2px dashed #999 !important;
     background-color: #f0f0f0;
 }

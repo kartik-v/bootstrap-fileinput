@@ -9,6 +9,7 @@ Change Log: `bootstrap-fileinput`
 2. Implement package.json.
 3. (enh #449): Add Arabic Translations.
 4. (enh #454): Update Turkish Translations.
+5. (enh #460): Update CSS selectors prefix to start with `file`.
 
 ## version 4.2.7
 
