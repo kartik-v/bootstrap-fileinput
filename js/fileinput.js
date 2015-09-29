@@ -2490,6 +2490,9 @@
                     return '';
             }
             css += type === 'browse' ? ' btn-file' : ' fileinput-' + type + ' fileinput-' + type + '-button';
+            if (!isEmpty(label)) {
+                label = ' <span class="' + self.buttonLabelClass + '">' + label + '</span>';
+            }
             return tmplt.replace('{type}', btnType)
                 .replace('{css}', css)
                 .replace('{title}', title)
@@ -2574,13 +2577,14 @@
         previewFileIconClass: 'file-icon-4x',
         previewFileIconSettings: {},
         previewFileExtSettings: {},
-        browseIcon: '<i class="glyphicon glyphicon-folder-open"></i> &nbsp;',
+        buttonLabelClass: 'hidden-xs',
+        browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
         browseClass: 'btn btn-primary',
-        removeIcon: '<i class="glyphicon glyphicon-trash"></i> ',
+        removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
         removeClass: 'btn btn-default',
-        cancelIcon: '<i class="glyphicon glyphicon-ban-circle"></i> ',
+        cancelIcon: '<i class="glyphicon glyphicon-ban-circle"></i>',
         cancelClass: 'btn btn-default',
-        uploadIcon: '<i class="glyphicon glyphicon-upload"></i> ',
+        uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
         uploadClass: 'btn btn-default',
         uploadUrl: null,
         uploadAsync: true,

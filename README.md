@@ -188,6 +188,9 @@ _boolean_ whether to persist display of the uploaded file thumbnails in the prev
 ### autoReplace
 _boolean_ whether to automatically replace the files in the preview after the `maxFileCount` limit is reached and a new set of file(s) is/are selected. This will only work if a valid  `maxFileCount` is set. Defaults to `false`.
 
+### buttonLabelClass
+_string_ CSS class to be set for the button labels (i.e. browse, remove, upload, and cancel). Defaults to `hidden-xs`, whereby labels are hidden for small screen devices.
+
 ### captionClass
 _string_ any additional CSS class to append to the caption container.
 
