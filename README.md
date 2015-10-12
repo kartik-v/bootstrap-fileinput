@@ -866,6 +866,8 @@ As a function callback, the `uploadExtraData` can be setup as shown below. Note 
 - `previewId`: the identifier for the preview file container (only available when uploading each thumbnail file)
 - `index`: the zero-based sequential index of the loaded file in the preview list (only available when uploading each thumbnail file)
 
+For example, assign the following function to uploadExtraData and the content of obj will be sent to the server.
+
 ```js
 // previewId and index is only available for individual file upload via the thumbnail
 function (previewId, index) {
@@ -876,6 +878,27 @@ function (previewId, index) {
     });
     return obj;
 }
+```
+
+Below is an example of a simpler callback being assigned to the uploadExtraData property.  It is most likely that you will use this mechanism to submit dynamic data, but for simplicity, this example only submits the content of "info", which is static, to "http://abc.com/webserviceName" for a fileinput with id="objFileChooser".
+
+```js
+$("#objFileChooser").fileinput({
+  allowedFileExtensions:["obj"],
+  showPreview: false,
+  uploadAsync: false,
+  uploadUrl: "http:/abc.com/webserviceName",
+  uploadExtraData: function (previewId, index) {
+    var info = {"tags": "somestuff"};
+    return info;
+  }
+});
+```
+
+In the above example, the server receives the following:
+
+```js
+{"tags": "somestuff"}
 ```
 
 ### minImageWidth
