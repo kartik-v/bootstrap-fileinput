@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version 4.2.8
+ * @version 4.2.7
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
  * features including the FileReader API. 
@@ -878,7 +878,7 @@
                     e.originalEvent.dataTransfer.dropEffect = 'none';
                     return;
                 }
-                addCss($(this), 'file-highlighted');
+                addCss($(this), 'highlighted');
             }, true);
             handler($zone, 'dragleave', function (e) {
                 e.stopPropagation();
@@ -886,7 +886,7 @@
                 if (self.isDisabled) {
                     return;
                 }
-                $(this).removeClass('file-highlighted');
+                $(this).removeClass('highlighted');
             });
             handler($zone, 'drop', function (e) {
                 e.preventDefault();
@@ -895,7 +895,7 @@
                     return;
                 }
                 self.change(e, 'dragdrop');
-                $(this).removeClass('file-highlighted');
+                $(this).removeClass('highlighted');
             });
             handler($(document), allEvents, function (e) {
                 e.stopPropagation();
@@ -2034,7 +2034,7 @@
                     } else {
                         self.raise('filebatchselected', [files]);
                     }
-                    $container.removeClass('file-thumb-loading');
+                    $container.removeClass('loading');
                     $status.html('');
                     return;
                 }
@@ -2085,7 +2085,7 @@
                 }
                 if ($preview.length > 0 && FileReader !== undefined) {
                     $status.html(msgLoading.replace('{index}', i + 1).replace('{files}', numFiles));
-                    $container.addClass('file-thumb-loading');
+                    $container.addClass('loading');
                     reader.onerror = function (evt) {
                         self.errorHandler(evt, caption);
                     };
@@ -2141,7 +2141,7 @@
                 nFiles = previewCache.count(self.id) + n,
                 log = n > 1 ? self.getMsgSelected(nFiles) : label;
             if (self.isError) {
-                self.$previewContainer.removeClass('file-thumb-loading');
+                self.$previewContainer.removeClass('loading');
                 self.$previewStatus.html('');
                 self.$captionContainer.find('.kv-caption-icon').hide();
             } else {
@@ -2383,11 +2383,35 @@
             canvas.width = width;
             canvas.height = height;
             try {
-                context.drawImage(image, 0, 0, width, height);
-                canvas.toBlob(function (blob) {
-                    self.raise('fileimageresized', [pid, ind]);
-                    self.filestack[ind] = blob;
-                }, type, self.resizeQuality);
+                EXIF.getData(image, function() {
+                    var orientation = EXIF.getTag(this, "Orientation");
+                    var x = 0;
+                    var y = 0;
+                    switch(orientation){
+                       case 8:
+                           canvas.width=height;
+                           canvas.height=width;
+                           context.rotate(-90*Math.PI/180);
+                           x = -width;
+                           break;
+                       case 3:
+                           context.rotate(180*Math.PI/180);
+                           x = -width;
+                           y = -height;
+                           break;
+                       case 6:
+                           canvas.width=height;
+                           canvas.height=width;
+                           context.rotate(90*Math.PI/180);
+                           y = -height;
+                           break;
+                    }
+                    context.drawImage(image,x,y,width,height);
+                    canvas.toBlob(function (blob) {
+                        self.raise('fileimageresized', [pid, ind]);
+                        self.filestack[ind] = blob;
+                    }, type, self.resizeQuality);
+                });
                 return true;
             }
             catch (err) {
@@ -2490,9 +2514,6 @@
                     return '';
             }
             css += type === 'browse' ? ' btn-file' : ' fileinput-' + type + ' fileinput-' + type + '-button';
-            if (!isEmpty(label)) {
-                label = ' <span class="' + self.buttonLabelClass + '">' + label + '</span>';
-            }
             return tmplt.replace('{type}', btnType)
                 .replace('{css}', css)
                 .replace('{title}', title)
@@ -2577,14 +2598,13 @@
         previewFileIconClass: 'file-icon-4x',
         previewFileIconSettings: {},
         previewFileExtSettings: {},
-        buttonLabelClass: 'hidden-xs',
-        browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+        browseIcon: '<i class="glyphicon glyphicon-folder-open"></i> &nbsp;',
         browseClass: 'btn btn-primary',
-        removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+        removeIcon: '<i class="glyphicon glyphicon-trash"></i> ',
         removeClass: 'btn btn-default',
-        cancelIcon: '<i class="glyphicon glyphicon-ban-circle"></i>',
+        cancelIcon: '<i class="glyphicon glyphicon-ban-circle"></i> ',
         cancelClass: 'btn btn-default',
-        uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+        uploadIcon: '<i class="glyphicon glyphicon-upload"></i> ',
         uploadClass: 'btn btn-default',
         uploadUrl: null,
         uploadAsync: true,
