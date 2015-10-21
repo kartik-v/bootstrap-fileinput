@@ -1532,7 +1532,6 @@
                         }
                         self.raise('fileuploaded', [outData, previewId, i]);
                         if (!allFiles) {
-                            self.resetFileStack();
                             self.updateStack(i, undefined);
                         } else {
                             updateUploadLog(i, previewId);

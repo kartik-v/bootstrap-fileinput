@@ -3,13 +3,15 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.2.8
 
-**Date:** 25-Sep-2015
+**Date:** 21-Oct-2015
 
 1. Update bootstrap bower version to support only 3.x variants.
 2. Implement package.json.
 3. (enh #449): Add Arabic Translations.
 4. (enh #454): Update Turkish Translations.
 5. (enh #460): Update CSS selectors prefix to start with `file`.
+6. (enh #462): Responsive buttons and new property `buttonLabelClass`.
+7. (enh #474): Upload via button within each preview thumbnail skips last file for async uploads.
 
 ## version 4.2.7
 
