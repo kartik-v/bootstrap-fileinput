@@ -241,3 +241,9 @@
     left: 0;
     right: 0;
 }
+
+/* IE 10 fix */
+.btn-file ::-ms-browse {
+    width:100%;
+    height:100%;
+}

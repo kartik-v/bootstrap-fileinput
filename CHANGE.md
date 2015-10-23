@@ -12,7 +12,8 @@ Change Log: `bootstrap-fileinput`
 5. (enh #460): Update CSS selectors prefix to start with `file`.
 6. (enh #462): Responsive buttons and new property `buttonLabelClass`.
 7. (enh #474): Upload via button within each preview thumbnail skips last file for async uploads.
-8. (enh #481): Universal Module Definition for use with CommonJS, AMD or browser globals.
+8. (enh #477): Fix IE10 specific styling bug for file input block button.
+9. (enh #481): Universal Module Definition for use with CommonJS, AMD or browser globals.
 
 ## version 4.2.7
 
