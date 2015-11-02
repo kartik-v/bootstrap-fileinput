@@ -1571,6 +1571,7 @@
                     }
                     if (!allFiles) {
                         self.unlock(false);
+                        self.clearFileInput();
                     } else {
                         chkComplete();
                     }
