@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.2.8
 
-**Date:** 23-Oct-2015
+**Date:** 05-Nov-2015
 
 1. Update bootstrap bower version to support only 3.x variants.
 2. Implement package.json.
@@ -15,6 +15,7 @@ Change Log: `bootstrap-fileinput`
 8. (enh #477): Fix IE10 specific styling bug for file input block button.
 9. (enh #481): Universal Module Definition for use with CommonJS, AMD or browser globals.
 10. (bug #483): Clear and reset native input after uploading each single file thumbnail.
+11. (enh #488): Publish to npm.
 
 ## version 4.2.7
 

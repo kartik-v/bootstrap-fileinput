@@ -13,10 +13,6 @@
     "bugs": {
         "url": "https://github.com/kartik-v/bootstrap-fileinput/issues"
     },
-    "main": [
-        "./css/fileinput.min.css",
-        "./js/fileinput.min.js"
-    ],
     "keywords": [
         "bootstrap",
         "file",
