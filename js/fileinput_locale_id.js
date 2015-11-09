@@ -19,7 +19,7 @@
         removeLabel: 'Hapus',
         removeTitle: 'Hapus berkas terpilih',
         cancelLabel: 'Batal',
-        cancelTitle: 'Abort ongoing upload',
+        cancelTitle: 'Batalkan proses pengunggahan',
         uploadLabel: 'Unggah',
         uploadTitle: 'Unggah berkas terpilih',
         msgZoomTitle: 'Tampilkan Rincian',
