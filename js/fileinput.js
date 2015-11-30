@@ -350,7 +350,7 @@
         '    <div class="clearfix"></div>\n' +
         '</div>';
     tActionDelete = '<button type="button" class="kv-file-remove {removeClass}" ' +
-        'title="{removeTitle}"{dataUrl}{dataKey}>{removeIcon}</button>\n';
+        'title="{removeTitle}" {dataUrl}{dataKey}>{removeIcon}</button>\n';
     tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
         '   {uploadIcon}\n</button>\n';
     tZoom = '<button type="button" class="btn btn-default btn-xs btn-block" title="{zoomTitle}: {caption}" onclick="{dialog}">\n' +
@@ -461,10 +461,12 @@
             return (vType !== undefined) ? vType === 'text/html' : vName.match(/\.(htm|html)$/i);
         },
         text: function (vType, vName) {
-            return (vType !== undefined && vType.match('text.*')) || vName.match(/\.(txt|md|csv|nfo|ini|json|php|js|css)$/i);
+            return (vType !== undefined && vType.match('text.*')) || vName.match(
+                    /\.(txt|md|csv|nfo|ini|json|php|js|css)$/i);
         },
         video: function (vType, vName) {
-            return (vType !== undefined && vType.match(/\.video\/(ogg|mp4|webm|3gp)$/i)) || vName.match(/\.(og?|mp4|webm|3gp)$/i);
+            return (vType !== undefined && vType.match(/\.video\/(ogg|mp4|webm|3gp)$/i)) || vName.match(
+                    /\.(og?|mp4|webm|3gp)$/i);
         },
         audio: function (vType, vName) {
             return (vType !== undefined && vType.match(/\.audio\/(ogg|mp3|wav)$/i)) || vName.match(/\.(ogg|mp3|wav)$/i);
@@ -714,7 +716,8 @@
                 }
             }
             if (content.indexOf('{previewFileIcon}') > -1) {
-                return content.replace(/\{previewFileIconClass}/g, self.previewFileIconClass).replace(/\{previewFileIcon}/g, icn);
+                return content.replace(/\{previewFileIconClass}/g, self.previewFileIconClass).replace(
+                    /\{previewFileIcon}/g, icn);
             }
             return content;
         },
@@ -946,7 +949,8 @@
             return self.msgSelected.replace('{n}', n).replace('{files}', strFiles);
         },
         renderThumbProgress: function () {
-            return '<div class="file-thumb-progress hide">' + this.progressTemplate.replace(/\{percent}/g, '0') + '</div>';
+            return '<div class="file-thumb-progress hide">' + this.progressTemplate.replace(/\{percent}/g,
+                    '0') + '</div>';
         },
         renderFileFooter: function (caption, width) {
             var self = this, config = self.fileActionSettings, footer, out, template = self.getLayoutTemplate('footer');
@@ -1311,7 +1315,8 @@
             self.raise('filedisabled');
             self.$element.attr('disabled', 'disabled');
             self.$container.find(".kv-fileinput-caption").addClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button").attr("disabled",
+            self.$container.find(".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button").attr(
+                "disabled",
                 true);
             self.initDragDrop();
         },
@@ -1321,7 +1326,8 @@
             self.raise('fileenabled');
             self.$element.removeAttr('disabled');
             self.$container.find(".kv-fileinput-caption").removeClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button").removeAttr("disabled");
+            self.$container.find(
+                ".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button").removeAttr("disabled");
             self.initDragDrop();
         },
         getThumbs: function (css) {
@@ -1817,7 +1823,8 @@
                                 }
                             });
                         }
-                        var filestack = self.getFileStack(true), len = filestack.length, chk = previewCache.count(self.id),
+                        var filestack = self.getFileStack(true), len = filestack.length, chk = previewCache.count(
+                            self.id),
                             hasThumb = self.showPreview && self.$preview.find('.file-preview-frame').length;
                         self.clearFileInput();
                         if (len === 0 && chk === 0 && !hasThumb) {
@@ -2035,7 +2042,8 @@
 
             $.each(files, function (key, file) {
                 var cat = 'image',
-                    func = isSet(cat, self.fileTypeSettings) ? self.fileTypeSettings[cat] : defaultFileTypeSettings[cat];
+                    func = isSet(cat,
+                        self.fileTypeSettings) ? self.fileTypeSettings[cat] : defaultFileTypeSettings[cat];
                 if (func && func(file.type)) {
                     self.totalImagesCount++;
                 }
@@ -2517,10 +2525,8 @@
                 .replace('{icon}', icon)
                 .replace('{label}', label);
         }
-    }
-    ;
+    };
 
-//FileInput plugin definition
     $.fn.fileinput = function (option) {
         if (!hasFileAPISupport() && !isIE(9)) {
             return;
@@ -2528,17 +2534,15 @@
         var args = Array.apply(null, arguments), retvals = [];
         args.shift();
         this.each(function () {
-            var $this = $(this), data = $this.data('fileinput'), defaults,
-                options = typeof option === 'object' && option,
-                lang = options.language || $this.data('language') || 'en';
+            var self = $(this), data = self.data('fileinput'), options = typeof option === 'object' && option,
+                lang = options.language || self.data('language') || 'en', config = $.fn.fileinput.defaults;
 
             if (!data) {
-                defaults = $.extend({}, $.fn.fileinput.defaults);
                 if (lang !== 'en' && !isEmpty($.fn.fileinputLocales[lang])) {
-                    defaults = $.extend(defaults, $.fn.fileinputLocales[lang]);
+                    $.extend(config, $.fn.fileinputLocales[lang]);
                 }
-                data = new FileInput(this, $.extend(defaults, options, $this.data()));
-                $this.data('fileinput', data);
+                data = new FileInput(this, $.extend(config, options, self.data()));
+                self.data('fileinput', data);
             }
 
             if (typeof option === 'string') {
