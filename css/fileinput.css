@@ -1,7 +1,7 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
  * @package bootstrap-fileinput
- * @version 4.2.8
+ * @version 4.2.9
  *
  * File input styling for Bootstrap 3.0
  * Built for Yii Framework 2.0
@@ -60,16 +60,21 @@
 }
 
 .file-error-message {
-    background-color: #f2dede;
     color: #a94442;
-    text-align: center;
-    border-radius: 5px;
-    padding: 5px 10px 5px 5px;
+    background-color: #f2dede;
+    margin: 5px;
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+    padding: 15px;
 }
 
 .file-error-message pre, .file-error-message ul {
-    margin: 5px 0;
+    margin: 0;
     text-align: left;
+}
+
+.file-error-message pre {
+    margin: 5px 0;
 }
 
 .file-caption-disabled {
@@ -124,6 +129,9 @@
     height: 160px;
     border: 2px solid #999;
     border-radius: 30px;
+}
+
+.file-preview-other:hover {
     opacity: 0.8;
 }
 
@@ -219,10 +227,6 @@
 .file-uploading {
     background: url('../img/loading-sm.gif') no-repeat center bottom 10px;
     opacity: 0.65;
-}
-
-.file-error-message .close {
-    margin-top: 5px;
 }
 
 .file-thumb-progress .progress, .file-thumb-progress .progress-bar {

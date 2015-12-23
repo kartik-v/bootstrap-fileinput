@@ -1,5 +1,5 @@
 bootstrap-fileinput
-====================
+===================
 
 [![Bower version](https://badge.fury.io/bo/bootstrap-fileinput.svg)](http://badge.fury.io/bo/bootstrap-fileinput)
 [![Latest Stable Version](https://poser.pugx.org/kartik-v/bootstrap-fileinput/v/stable)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)
@@ -11,7 +11,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for various fi
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin is v4.2.8 (dev-master). Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
+> NOTE: The latest version of the plugin is v4.2.9 (dev-master). Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
 
 ## Documentation and Demo
 

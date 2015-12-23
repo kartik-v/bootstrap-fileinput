@@ -1,6 +1,13 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.2.9
+
+**Date:** 23-Dec-2015
+
+1. (enh #521): Update Dutch Translations.
+2. (enh #530): Error alert box and preview thumbnail styling enhancements .
+
 ## version 4.2.8
 
 **Date:** 18-Nov-2015
