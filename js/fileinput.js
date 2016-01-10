@@ -2330,6 +2330,9 @@
             self.showUploadError(msg, params);
             self.setThumbStatus($thumb, 'Error');
             self.updateStack(i, null);
+            if (self.removeFromPreviewOnError) {
+                $thumb.remove();
+            }
         },
         validateImage: function (i, previewId, fname, ftype) {
             var self = this, $preview = self.$preview, params, w1, w2,
@@ -2580,6 +2583,7 @@
         initialPreviewThumbTags: [],
         previewThumbTags: {},
         initialPreviewShowDelete: true,
+        removeFromPreviewOnError: false,
         deleteUrl: '',
         deleteExtraData: {},
         overwriteInitial: true,
