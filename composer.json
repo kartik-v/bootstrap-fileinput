@@ -1,10 +1,14 @@
 {
-    "name": "kartik-v/bootstrap-fileinput",
+    "name": "stratoss/bootstrap-fileinput",
     "description": "An enhanced HTML 5 file input for Bootstrap 3.x with features for file preview for many file types, multiple selection, ajax uploads, and more.",
     "keywords": ["bootstrap", "jquery", "file", "input", "preview", "upload", "image", "multiple", "ajax", "delete", "progress"],
     "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
     "license": "BSD-3-Clause",
     "authors": [
+        {
+            "name": "Stanimir Stoyanov",
+            "email": "stanimir@datacentrix.org"
+        },
         {
             "name": "Kartik Visweswaran",
             "email": "kartikv2@gmail.com",
@@ -13,7 +17,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "kartik\\plugins\\fileinput\\": ""
+            "stratoss\\plugins\\fileinput\\": ""
         }
     }
 }

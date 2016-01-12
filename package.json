@@ -1,17 +1,18 @@
 {
     "name": "bootstrap-fileinput",
     "version": "4.2.9",
-    "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
+    "homepage": "https://github.com/stratoss/bootstrap-fileinput",
     "authors": [
+        "Stanimir Stoyanov <stanimir@datacentrix.org>",
         "Kartik Visweswaran <kartikv2@gmail.com>"
     ],
     "description": "An enhanced HTML 5 file input for Bootstrap 3.x with file preview, multiple selection, ajax uploads, and more features.",
     "repository" : {
         "type": "git", 
-        "url": "https://github.com/kartik-v/bootstrap-fileinput.git"
+        "url": "https://github.com/stratoss/bootstrap-fileinput.git"
     },
     "bugs": {
-        "url": "https://github.com/kartik-v/bootstrap-fileinput/issues"
+        "url": "https://github.com/stratoss/bootstrap-fileinput/issues"
     },
     "keywords": [
         "bootstrap",

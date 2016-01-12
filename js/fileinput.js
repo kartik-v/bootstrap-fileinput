@@ -2314,6 +2314,12 @@
             self.filestack.push(file);
             self.filenames.push(self.getFileName(file));
         },
+        removeFromStack: function(i) {
+            var self = this;
+            self.filestack.splice(i, 1);
+            self.filenames.splice(i, 1);
+
+        },
         checkDimensions: function (i, chk, $img, $thumb, fname, type, params) {
             var self = this, msg, dim, tag = chk === 'Small' ? 'min' : 'max',
                 limit = self[tag + 'Image' + type], $imgEl, isValid;
@@ -2323,13 +2329,14 @@
             $imgEl = $img[0];
             dim = (type === 'Width') ? $imgEl.naturalWidth || $imgEl.width : $imgEl.naturalHeight || $imgEl.height;
             isValid = chk === 'Small' ? dim >= limit : dim <= limit;
-            if (isValid) {
-                return;
+            if (!isValid) {
+                modifyModalDialog(translate('error'), self['msgImage' + type + chk].replace('{name}', fname).replace('{size}', limit));
+                self.removeFromStack(i);
+                if (self.removeFromPreviewOnError) {
+                    $thumb.remove();
+                }
             }
-            msg = self['msgImage' + type + chk].replace('{name}', fname).replace('{size}', limit);
-            self.showUploadError(msg, params);
-            self.setThumbStatus($thumb, 'Error');
-            self.updateStack(i, null);
+            return;
         },
         validateImage: function (i, previewId, fname, ftype) {
             var self = this, $preview = self.$preview, params, w1, w2,
@@ -2580,6 +2587,7 @@
         initialPreviewThumbTags: [],
         previewThumbTags: {},
         initialPreviewShowDelete: true,
+        removeFromPreviewOnError: false,
         deleteUrl: '',
         deleteExtraData: {},
         overwriteInitial: true,
