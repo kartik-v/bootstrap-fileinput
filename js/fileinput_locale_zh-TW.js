@@ -47,9 +47,6 @@
         msgImageResizeError: '無法獲取的圖像尺寸調整。',
         msgImageResizeException: '錯誤而調整圖像大小。<pre>{errors}</pre>',
         dropZoneTitle: '拖曳檔案至此 &hellip;',
-        slugCallback: function(text) {
-            return text ? text.split(/(\\|\/)/g).pop().replace(/[^\w\u4e00-\u9fa5\-.\\\/ ]+/g, '') : '';
-        },
         fileActionSettings: {
             removeTitle: '刪除檔案',
             uploadTitle: '上傳檔案',
