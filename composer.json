@@ -15,5 +15,10 @@
         "psr-4": {
             "kartik\\plugins\\fileinput\\": ""
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.2.x-dev"
+        }
     }
 }

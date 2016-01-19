@@ -2017,7 +2017,7 @@
             }
         },
         slugDefault: function (text) {
-            return isEmpty(text) ? '' : text.split(/(\\|\/)/g).pop().replace(/[^\w\u00C0-\u017F\-.\\\/ ]+/g, '');
+            return isEmpty(text) ? '' : String(text).replace(/[\-\[\]\/\{}\(\)\*\+\?\.\\\^\$\|<>&"']/g, '_');
         },
         readFiles: function (files) {
             this.reader = new FileReader();
