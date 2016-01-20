@@ -2,13 +2,12 @@
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
  * @version 4.2.9
  *
- * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced 
- * features including the FileReader API. 
+ * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced features including the FileReader API.
  * 
- * The plugin drastically enhances the HTML file input to preview multiple files on the client before
- * upload. In addition it provides the ability to preview content of images, text, videos, audio, html, 
- * flash and other objects. It also offers the ability to upload and delete files using AJAX, and add 
- * files in batches (i.e. preview, append, or remove before upload).
+ * The plugin drastically enhances the HTML file input to preview multiple files on the client before upload. In
+ * addition it provides the ability to preview content of images, text, videos, audio, html, flash and other objects.
+ * It also offers the ability to upload and delete files using AJAX, and add files in batches (i.e. preview, append,
+ * or remove before upload).
  * 
  * Author: Kartik Visweswaran
  * Copyright: 2015, Kartik Visweswaran, Krajee.com
@@ -40,8 +39,9 @@
         tCaption, tBtnDefault, tBtnLink, tBtnBrowse, tModal, tProgress, tFooter, tActions, tActionDelete, tActionUpload,
         tZoom, tGeneric, tHtml, tImage, tText, tVideo, tAudio, tFlash, tObject, tOther, defaultLayoutTemplates,
         defaultPreviewTemplates, defaultPreviewTypes, defaultPreviewSettings, defaultFileTypeSettings, isEmpty, isArray,
-        isSet, getElement, uniqId, htmlEncode, replaceTags, objUrl, FileInput;
+        isSet, getElement, uniqId, htmlEncode, replaceTags, objUrl, FileInput, NAMESPACE;
 
+    NAMESPACE = '.fileinput';
     isIE = function (ver) {
         // check for IE versions < 11
         if (navigator.appName !== 'Microsoft Internet Explorer') {
@@ -61,7 +61,7 @@
         return new RegExp('Edge\/[0-9]+', 'i').test(navigator.userAgent);
     };
     handler = function ($el, event, callback, skipNS) {
-        var ev = skipNS ? event : event + '.fileinput';
+        var ev = skipNS ? event : event.split(' ').join(NAMESPACE + ' ') + NAMESPACE;
         $el.off(ev).on(ev, callback);
     };
     previewCache = {
@@ -246,7 +246,7 @@
         return isNaN(num) ? def : num;
     };
     hasFileAPISupport = function () {
-        return window.File && window.FileReader;
+        return !!(window.File && window.FileReader);
     };
     hasDragDropSupport = function () {
         var div = document.createElement('div');
@@ -604,6 +604,7 @@
             } else {
                 self.refreshContainer();
             }
+            self.$dropZone = self.$container.find('.file-drop-zone');
             self.$progress = self.$container.find('.kv-upload-progress');
             self.$btnUpload = self.$container.find('.fileinput-upload');
             self.$captionContainer = getElement(options, 'elCaptionContainer', self.$container.find('.file-caption'));
@@ -617,7 +618,7 @@
                 addCss(self.$errorContainer, self.msgErrorClass);
             }
             self.$errorContainer.hide();
-            self.fileActionSettings = $.extend(defaultFileActionSettings, options.fileActionSettings);
+            self.fileActionSettings = $.extend(true, defaultFileActionSettings, options.fileActionSettings);
             self.previewInitId = "preview-" + uniqId();
             self.id = self.$element.attr('id');
             previewCache.init(self);
@@ -631,6 +632,7 @@
             }
         },
         parseError: function (jqXHR, errorThrown, fileName) {
+            /** @namespace jqXHR.responseJSON */
             var self = this, errMsg = $.trim(errorThrown + ''),
                 dot = errMsg.slice(-1) === '.' ? '' : '.',
                 text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined ?
@@ -737,43 +739,91 @@
             };
         },
         listen: function () {
-            var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile,
-                $form = $el.closest('form'), $cont = self.$container;
+            var self = this, $el = self.$element, $form = $el.closest('form'), $cont = self.$container;
             handler($el, 'change', $.proxy(self.change, self));
-            handler($btnFile, 'click', function () {
-                self.raise('filebrowse');
-                if (self.isError && !self.isUploadable) {
-                    self.clear();
-                }
-                $cap.focus();
-            });
+            handler(self.$btnFile, 'click', $.proxy(self.browse, self));
             handler($form, 'reset', $.proxy(self.reset, self));
             handler($cont.find('.fileinput-remove:not([disabled])'), 'click', $.proxy(self.clear, self));
             handler($cont.find('.fileinput-cancel'), 'click', $.proxy(self.cancel, self));
-            if (self.isUploadable && self.dropZoneEnabled && self.showPreview) {
-                self.initDragDrop();
-            }
+            self.initDragDrop();
             if (!self.isUploadable) {
                 handler($form, 'submit', $.proxy(self.submitForm, self));
             }
-            handler(self.$container.find('.fileinput-upload'), 'click', function (e) {
-                var $btn = $(this), $form, isEnabled = !$btn.hasClass('disabled') && isEmpty($btn.attr('disabled'));
-                if (!self.isUploadable) {
-                    if (isEnabled && $btn.attr('type') !== 'submit') {
-                        $form = $btn.closest('form');
-                        // downgrade to normal form submit if possible
-                        if ($form.length) {
-                            $form.trigger('submit');
-                        }
-                        e.preventDefault();
+            handler(self.$container.find('.fileinput-upload'), 'click', $.proxy(self.uploadClick, self));
+        },
+        zoneDragDropInit: function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        },
+        zoneDragEnter: function (e) {
+            var self = this, hasFiles = $.inArray('Files', e.originalEvent.dataTransfer.types) > -1;
+            self.zoneDragDropInit(e);
+            if (self.isDisabled || !hasFiles) {
+                e.originalEvent.dataTransfer.effectAllowed = 'none';
+                e.originalEvent.dataTransfer.dropEffect = 'none';
+                return;
+            }
+            addCss(self.$dropZone, 'file-highlighted');
+        },
+        zoneDragLeave: function (e) {
+            var self = this;
+            self.zoneDragDropInit(e);
+            if (self.isDisabled) {
+                return;
+            }
+            self.$dropZone.removeClass('file-highlighted');
+        },
+        zoneDrop: function (e) {
+            var self = this;
+            e.preventDefault();
+            /** @namespace e.originalEvent.dataTransfer */
+            if (self.isDisabled || isEmpty(e.originalEvent.dataTransfer.files)) {
+                return;
+            }
+            self.change(e, 'dragdrop');
+            self.$dropZone.removeClass('file-highlighted');
+        },
+        initDragDrop: function () {
+            var self = this, $zone = self.$dropZone;
+            if (self.isUploadable && self.dropZoneEnabled && self.showPreview) {
+                handler($zone, 'dragenter dragover', $.proxy(self.zoneDragEnter, self));
+                handler($zone, 'dragleave', $.proxy(self.zoneDragLeave, self));
+                handler($zone, 'drop', $.proxy(self.zoneDrop, self));
+                handler($zone, 'dragenter dragover drop', self.zoneDragDropInit);
+            }
+        },
+        browse: function (e) {
+            var self = this;
+            self.raise('filebrowse');
+            if (e && e.isDefaultPrevented()) {
+                return;
+            }
+            if (self.isError && !self.isUploadable) {
+                self.clear();
+            }
+            self.$captionContainer.focus();
+        },
+        uploadClick: function (e) {
+            var self = this, $btn = self.$container.find('.fileinput-upload'), $form,
+                isEnabled = !$btn.hasClass('disabled') && isEmpty($btn.attr('disabled'));
+            if (e && e.isDefaultPrevented()) {
+                return;
+            }
+            if (!self.isUploadable) {
+                if (isEnabled && $btn.attr('type') !== 'submit') {
+                    $form = $btn.closest('form');
+                    // downgrade to normal form submit if possible
+                    if ($form.length) {
+                        $form.trigger('submit');
                     }
-                    return;
+                    e.preventDefault();
                 }
-                e.preventDefault();
-                if (isEnabled) {
-                    self.upload();
-                }
-            });
+                return;
+            }
+            e.preventDefault();
+            if (isEnabled) {
+                self.upload();
+            }
         },
         submitForm: function () {
             var self = this, $el = self.$element, files = $el.get(0).files;
@@ -786,7 +836,7 @@
         abort: function (params) {
             var self = this, data;
             if (self.ajaxAborted && typeof self.ajaxAborted === "object" && self.ajaxAborted.message !== undefined) {
-                data = $.extend(self.getOutData(), params);
+                data = $.extend(true, {}, self.getOutData(), params);
                 data.abortData = self.ajaxAborted.data || {};
                 data.abortMessage = self.ajaxAborted.message;
                 self.cancel();
@@ -874,53 +924,17 @@
         destroy: function () {
             var self = this, $cont = self.$container;
             $cont.find('.file-drop-zone').off();
-            self.$element.insertBefore($cont).off('.fileinput').removeData();
+            self.$element.insertBefore($cont).off(NAMESPACE).removeData();
             $cont.off().remove();
         },
         refresh: function (options) {
             var self = this, $el = self.$element;
-            options = options ? $.extend(self.options, options) : self.options;
+            options = options ? $.extend(true, {}, self.options, options) : self.options;
             self.destroy();
             $el.fileinput(options);
             if ($el.val()) {
                 $el.trigger('change.fileinput');
             }
-        },
-        initDragDrop: function () {
-            var self = this, $zone = self.$container.find('.file-drop-zone'),
-                allEvents = 'dragenter.fileinput dragover.fileinput drop.fileinput';
-            handler($zone, 'dragenter.fileinput dragover.fileinput', function (e) {
-                var hasFiles = $.inArray('Files', e.originalEvent.dataTransfer.types) > -1;
-                e.stopPropagation();
-                e.preventDefault();
-                if (self.isDisabled || !hasFiles) {
-                    e.originalEvent.dataTransfer.effectAllowed = 'none';
-                    e.originalEvent.dataTransfer.dropEffect = 'none';
-                    return;
-                }
-                addCss($(this), 'file-highlighted');
-            }, true);
-            handler($zone, 'dragleave', function (e) {
-                e.stopPropagation();
-                e.preventDefault();
-                if (self.isDisabled) {
-                    return;
-                }
-                $(this).removeClass('file-highlighted');
-            });
-            handler($zone, 'drop', function (e) {
-                e.preventDefault();
-                /** @namespace e.originalEvent.dataTransfer */
-                if (self.isDisabled || isEmpty(e.originalEvent.dataTransfer.files)) {
-                    return;
-                }
-                self.change(e, 'dragdrop');
-                $(this).removeClass('file-highlighted');
-            });
-            handler($(document), allEvents, function (e) {
-                e.stopPropagation();
-                e.preventDefault();
-            }, true);
         },
         setFileDropZoneTitle: function () {
             var self = this, $zone = self.$container.find('.file-drop-zone');
@@ -1071,11 +1085,11 @@
                     extraData = extraData();
                 }
                 params = {id: $el.attr('id'), key: vKey, extra: extraData};
-                settings = $.extend({
+                settings = $.extend(true, {}, {
                     url: vUrl,
                     type: 'POST',
                     dataType: 'json',
-                    data: $.extend({key: vKey}, extraData),
+                    data: $.extend(true, {}, {key: vKey}, extraData),
                     beforeSend: function (jqXHR) {
                         self.ajaxAborted = false;
                         self.raise('filepredelete', [vKey, jqXHR, extraData]);
@@ -1382,7 +1396,7 @@
             var self = this, settings;
             self.raise('filepreajax', [previewId, index]);
             self.uploadExtra(previewId, index);
-            settings = $.extend({
+            settings = $.extend(true, {}, {
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
                     return self.initXhr(xhrobj, previewId, self.getFileStack().length);
@@ -1537,7 +1551,7 @@
                     self.lock();
                 }
                 self.raise('filepreupload', [outData, previewId, i]);
-                params = $.extend(params, outData);
+                $.extend(true, params, outData);
                 if (self.abort(params)) {
                     jqXHR.abort();
                     self.setProgress(100);
@@ -1545,7 +1559,7 @@
             };
             fnSuccess = function (data, textStatus, jqXHR) {
                 outData = self.getOutData(jqXHR, data);
-                params = $.extend(params, outData);
+                $.extend(true, params, outData);
                 setTimeout(function () {
                     if (isEmpty(data) || isEmpty(data.error)) {
                         if (self.showPreview) {
@@ -1560,8 +1574,8 @@
                             updateUploadLog(i, previewId);
                         }
                     } else {
-                        self.setThumbStatus($thumb, 'Error');
                         self.showUploadError(data.error, params);
+                        self.setPreviewError($thumb, i);
                         if (allFiles) {
                             updateUploadLog(i, previewId);
                         }
@@ -1591,8 +1605,8 @@
                         updateUploadLog(i, previewId);
                     }
                     self.uploadStatus[previewId] = 100;
-                    self.setThumbStatus($thumb, 'Error');
-                    params = $.extend(params, self.getOutData(jqXHR));
+                    self.setPreviewError($thumb, i);
+                    $.extend(true, params, self.getOutData(jqXHR));
                     self.showUploadError(errMsg, params);
                 }, 100);
             };
@@ -1601,9 +1615,9 @@
             self.ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, previewId, i);
         },
         uploadBatch: function () {
-            var self = this, files = self.filestack, total = files.length, params = {},
-                hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
-                setAllUploaded, fnBefore, fnSuccess, fnComplete, fnError;
+            var self = this, files = self.filestack, total = files.length, params = {}, fnBefore, fnSuccess, fnError,
+                fnComplete, hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
+                setAllUploaded;
             self.formdata = new FormData();
             if (total === 0 || !hasPostData || self.abort(params)) {
                 return;
@@ -1663,11 +1677,11 @@
                             $btnUpload.removeAttr('disabled');
                             $btnDelete.removeAttr('disabled');
                             if (keys.length === 0) {
-                                self.setThumbStatus($thumb, 'Error');
+                                self.setPreviewError($thumb);
                                 return;
                             }
                             if ($.inArray(key, keys) !== -1) {
-                                self.setThumbStatus($thumb, 'Error');
+                                self.setPreviewError($thumb);
                             } else {
                                 $thumb.find('.kv-file-upload').hide();
                                 self.setThumbStatus($thumb, 'Success');
@@ -1698,7 +1712,7 @@
                     var $thumb = $(this), key = $thumb.attr('data-fileindex');
                     $thumb.removeClass('file-uploading');
                     if (self.filestack[key] !== undefined) {
-                        self.setThumbStatus($thumb, 'Error');
+                        self.setPreviewError($thumb);
                     }
                 });
                 self.getThumbs().removeClass('file-uploading');
@@ -1861,7 +1875,7 @@
             var self = this, $error = self.$errorContainer;
             if (msg && $error.length) {
                 $error.html(self.errorCloseButton + msg);
-                $error.find('.kv-error-close').off('click').on('click', function () {
+                handler($error.find('.kv-error-close'), 'click', function () {
                     $error.fadeOut('slow');
                 });
             }
@@ -2017,7 +2031,7 @@
             }
         },
         slugDefault: function (text) {
-            return isEmpty(text) ? '' : String(text).replace(/[\-\[\]\/\{}\(\)\*\+\?\\\^\$\|<>&"']/g, '_');
+            return isEmpty(text) ? '' : String(text).replace(/[\-\[\]\/\{}:;#%=\(\)\*\+\?\\\^\$\|<>&"']/g, '_');
         },
         readFiles: function (files) {
             this.reader = new FileReader();
@@ -2026,14 +2040,17 @@
                 msgProgress = self.msgProgress, previewInitId = self.previewInitId, numFiles = files.length,
                 settings = self.fileTypeSettings, ctr = self.filestack.length, readFile,
                 throwError = function (msg, file, previewId, index) {
-                    var p1 = $.extend(self.getOutData({}, {}, files), {id: previewId, index: index}),
+                    var p1 = $.extend(true, {}, self.getOutData({}, {}, files), {id: previewId, index: index}),
                         p2 = {id: previewId, index: index, file: file, files: files};
                     self.previewDefault(file, previewId, true);
                     if (self.isUploadable) {
-                        self.pushStack(undefined);
+                        self.addToStack(undefined);
                     }
                     setTimeout(readFile(index + 1), 100);
                     self.initFileActions();
+                    if (self.removeFromPreviewOnError) {
+                        $('#' + previewId).remove();
+                    }
                     return self.isUploadable ? self.showUploadError(msg, p1) : self.showError(msg, p2);
                 };
 
@@ -2041,9 +2058,7 @@
             self.totalImagesCount = 0;
 
             $.each(files, function (key, file) {
-                var cat = 'image',
-                    func = isSet(cat,
-                        self.fileTypeSettings) ? self.fileTypeSettings[cat] : defaultFileTypeSettings[cat];
+                var func = self.fileTypeSettings.image || defaultFileTypeSettings.image;
                 if (func && func(file.type)) {
                     self.totalImagesCount++;
                 }
@@ -2103,7 +2118,7 @@
                     }
                 }
                 if (!self.showPreview) {
-                    self.pushStack(file);
+                    self.addToStack(file);
                     setTimeout(readFile(i + 1), 100);
                     self.raise('fileloaded', [file, previewId, i, reader]);
                     return;
@@ -2153,7 +2168,7 @@
                     }, 100);
                     self.raise('fileloaded', [file, previewId, i, reader]);
                 }
-                self.pushStack(file);
+                self.addToStack(file);
             };
 
             readFile(0);
@@ -2161,10 +2176,9 @@
         },
         updateFileDetails: function (numFiles) {
             var self = this, $el = self.$element, fileStack = self.getFileStack(),
-                name = $el.val() || (fileStack.length && fileStack[0].name) || '', label = self.slug(name),
-                n = self.isUploadable ? fileStack.length : numFiles,
-                nFiles = previewCache.count(self.id) + n,
-                log = n > 1 ? self.getMsgSelected(nFiles) : label;
+                name = $el[0].files[0].name || (fileStack.length && fileStack[0].name) || '',
+                label = self.slug(name), n = self.isUploadable ? fileStack.length : numFiles,
+                nFiles = previewCache.count(self.id) + n, log = n > 1 ? self.getMsgSelected(nFiles) : label;
             if (self.isError) {
                 self.$previewContainer.removeClass('file-thumb-loading');
                 self.$previewStatus.html('');
@@ -2204,13 +2218,11 @@
                 return;
             }
             self.fileInputCleared = false;
-            var tfiles, msg, total, isDragDrop = arguments.length > 1,
-                files = isDragDrop ? e.originalEvent.dataTransfer.files : $el.get(0).files,
-                isSingleUpload = isEmpty($el.attr('multiple')), i = 0, f, n, folders = 0,
-                ctr = self.filestack.length, isAjaxUpload = self.isUploadable, len,
-                flagSingle = (isSingleUpload && ctr > 0),
+            var tfiles, msg, total, isDragDrop = arguments.length > 1, isAjaxUpload = self.isUploadable, i = 0, f, n, len,
+                files = isDragDrop ? e.originalEvent.dataTransfer.files : $el.get(0).files, ctr = self.filestack.length,
+                isSingleUpload = isEmpty($el.attr('multiple')), flagSingle = (isSingleUpload && ctr > 0), folders = 0,
                 throwError = function (mesg, file, previewId, index) {
-                    var p1 = $.extend(self.getOutData({}, {}, files), {id: previewId, index: index}),
+                    var p1 = $.extend(true, {}, self.getOutData({}, {}, files), {id: previewId, index: index}),
                         p2 = {id: previewId, index: index, file: file, files: files};
                     return self.isUploadable ? self.showUploadError(mesg, p1) : self.showError(mesg, p2);
                 };
@@ -2309,10 +2321,21 @@
             self.filestack[i] = file;
             self.filenames[i] = self.getFileName(file);
         },
-        pushStack: function (file) {
+        addToStack: function (file) {
             var self = this;
             self.filestack.push(file);
             self.filenames.push(self.getFileName(file));
+        },
+        setPreviewError: function ($thumb, i, val) {
+            var self = this;
+            if (i) {
+                self.updateStack(i, val);
+            }
+            if (self.removeFromPreviewOnError) {
+                $thumb.remove();
+            } else {
+                self.setThumbStatus($thumb, 'Error');
+            }
         },
         checkDimensions: function (i, chk, $img, $thumb, fname, type, params) {
             var self = this, msg, dim, tag = chk === 'Small' ? 'min' : 'max',
@@ -2328,8 +2351,7 @@
             }
             msg = self['msgImage' + type + chk].replace('{name}', fname).replace('{size}', limit);
             self.showUploadError(msg, params);
-            self.setThumbStatus($thumb, 'Error');
-            self.updateStack(i, null);
+            self.setPreviewError($thumb, i, null);
         },
         validateImage: function (i, previewId, fname, ftype) {
             var self = this, $preview = self.$preview, params, w1, w2,
@@ -2377,8 +2399,7 @@
                 params = {id: pid, 'index': ind};
                 if (!self.getResizedImage($img[0], config.typ, pid, ind)) {
                     errFunc(self.msgImageResizeError, params, 'fileimageresizeerror');
-                    self.setThumbStatus($thumb, 'Error');
-                    self.updateStack(ind, undefined);
+                    self.setPreviewError($thumb, ind);
                 }
             }
             self.raise('fileimagesresized');
@@ -2535,13 +2556,14 @@
         args.shift();
         this.each(function () {
             var self = $(this), data = self.data('fileinput'), options = typeof option === 'object' && option,
-                lang = options.language || self.data('language') || 'en', config = $.fn.fileinput.defaults;
+                lang = options.language || self.data('language') || 'en', loc = {}, opts;
 
             if (!data) {
                 if (lang !== 'en' && !isEmpty($.fn.fileinputLocales[lang])) {
-                    $.extend(config, $.fn.fileinputLocales[lang]);
+                    loc = $.fn.fileinputLocales[lang];
                 }
-                data = new FileInput(this, $.extend(config, options, self.data()));
+                opts = $.extend(true, {}, $.fn.fileinput.defaults, $.fn.fileinputLocales.en, loc, options, self.data());
+                data = new FileInput(this, opts);
                 self.data('fileinput', data);
             }
 
@@ -2580,6 +2602,7 @@
         initialPreviewThumbTags: [],
         previewThumbTags: {},
         initialPreviewShowDelete: true,
+        removeFromPreviewOnError: true,
         deleteUrl: '',
         deleteExtraData: {},
         overwriteInitial: true,
@@ -2685,13 +2708,10 @@
         dropZoneTitle: 'Drag & drop files here &hellip;'
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinputLocales.en);
-
     $.fn.fileinput.Constructor = FileInput;
 
     /**
-     * Convert automatically file inputs with class 'file'
-     * into a bootstrap fileinput control.
+     * Convert automatically file inputs with class 'file' into a bootstrap fileinput control.
      */
     $(document).ready(function () {
         var $input = $('input.file[type=file]');

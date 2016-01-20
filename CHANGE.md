@@ -3,13 +3,15 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.2.9
 
-**Date:** 19-Jan-2016
+**Date:** 20-Jan-2016
 
 1. (enh #521): Update Dutch Translations.
 2. (enh #523): Add new branch `sass` for `bootstrap-sass-official` support.
 3. (enh #530): Error alert box and preview thumbnail styling enhancements.
 4. (enh #531): Enhance/Fix typos of Arabic translation.
-5. (enh #541): Improve default slug callback to accept most characters.
+5. (enh #534, enh #535): Ability to remove errored file thumbnails via `removeFromPreviewOnError`.
+6. (enh #541): Improve default slug callback to accept most characters.
+7. (enh #545): Refactor code to deep extend options correctly.
 
 ## version 4.2.8
 
