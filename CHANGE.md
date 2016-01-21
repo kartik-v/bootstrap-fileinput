@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.2.9
 
-**Date:** 20-Jan-2016
+**Date:** 22-Jan-2016
 
 1. (enh #489): Update documentation for `change` and `fileselect` events.
 2. (enh #521): Update Dutch Translations.
