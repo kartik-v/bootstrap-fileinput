@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.3.0
+
+**Date:** 25-Jan-2016
+
+1. (enh #550): Correct Drag and drop issue with v4.2.9.
+
 ## version 4.2.9
 
 **Date:** 22-Jan-2016
