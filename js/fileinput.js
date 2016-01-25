@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version 4.2.9
+ * @version 4.3.0
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced features including the FileReader API.
  * 
@@ -789,7 +789,7 @@
                 handler($zone, 'dragenter dragover', $.proxy(self.zoneDragEnter, self));
                 handler($zone, 'dragleave', $.proxy(self.zoneDragLeave, self));
                 handler($zone, 'drop', $.proxy(self.zoneDrop, self));
-                handler($zone, 'dragenter dragover drop', self.zoneDragDropInit);
+                handler($(document), 'dragenter dragover drop', self.zoneDragDropInit);
             }
         },
         browse: function (e) {
@@ -2176,7 +2176,7 @@
         },
         updateFileDetails: function (numFiles) {
             var self = this, $el = self.$element, fileStack = self.getFileStack(),
-                name = $el[0].files[0].name || (fileStack.length && fileStack[0].name) || '',
+                name = ($el[0].files[0] && $el[0].files[0].name) || (fileStack.length && fileStack[0].name) || '',
                 label = self.slug(name), n = self.isUploadable ? fileStack.length : numFiles,
                 nFiles = previewCache.count(self.id) + n, log = n > 1 ? self.getMsgSelected(nFiles) : label;
             if (self.isError) {
