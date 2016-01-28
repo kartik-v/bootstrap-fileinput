@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.3.1
+
+**Date:** 28-Jan-2016
+
+1. (enh #555): Set default value for `removeFromPreviewOnError` to `false`.
+
 ## version 4.3.0
 
 **Date:** 25-Jan-2016
