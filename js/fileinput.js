@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version 4.3.0
+ * @version 4.3.1
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced features including the FileReader API.
  * 
@@ -2602,7 +2602,7 @@
         initialPreviewThumbTags: [],
         previewThumbTags: {},
         initialPreviewShowDelete: true,
-        removeFromPreviewOnError: true,
+        removeFromPreviewOnError: false,
         deleteUrl: '',
         deleteExtraData: {},
         overwriteInitial: true,
