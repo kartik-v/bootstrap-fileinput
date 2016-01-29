@@ -34,14 +34,19 @@
 
     $.fn.fileinputLocales = {};
 
-    var isIE, isEdge, handler, previewCache, getNum, hasFileAPISupport, hasDragDropSupport, hasFileUploadSupport, addCss,
-        STYLE_SETTING, OBJECT_PARAMS, DEFAULT_PREVIEW, defaultFileActionSettings, tMain1, tMain2, tPreview, tIcon, tClose,
-        tCaption, tBtnDefault, tBtnLink, tBtnBrowse, tModal, tProgress, tFooter, tActions, tActionDelete, tActionUpload,
-        tZoom, tGeneric, tHtml, tImage, tText, tVideo, tAudio, tFlash, tObject, tOther, defaultLayoutTemplates,
-        defaultPreviewTemplates, defaultPreviewTypes, defaultPreviewSettings, defaultFileTypeSettings, isEmpty, isArray,
-        isSet, getElement, uniqId, htmlEncode, replaceTags, objUrl, FileInput, NAMESPACE;
+    var NAMESPACE, objUrl, compare, isIE, isEdge, handler, previewCache, getNum, hasFileAPISupport, hasDragDropSupport,
+        hasFileUploadSupport, addCss, STYLE_SETTING, OBJECT_PARAMS, DEFAULT_PREVIEW, defaultFileActionSettings, tMain1,
+        tMain2, tPreview, tIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse, tModal, tProgress, tFooter,
+        tActions, tActionDelete, tActionUpload, tZoom, tGeneric, tHtml, tImage, tText, tVideo, tAudio, tFlash, tObject,
+        tOther, defaultLayoutTemplates, defaultPreviewTemplates, defaultPreviewTypes, defaultPreviewSettings,
+        defaultFileTypeSettings, isEmpty, isArray, isSet, getElement, uniqId, htmlEncode, replaceTags, FileInput;
 
     NAMESPACE = '.fileinput';
+    //noinspection JSUnresolvedVariable
+    objUrl = window.URL || window.webkitURL;
+    compare = function (input, str, exact) {
+        return input !== undefined && (exact ? input === str : input.match(str));
+    };
     isIE = function (ver) {
         // check for IE versions < 11
         if (navigator.appName !== 'Microsoft Internet Explorer') {
@@ -455,27 +460,28 @@
     };
     defaultFileTypeSettings = {
         image: function (vType, vName) {
-            return (vType !== undefined) ? vType.match('image.*') : vName.match(/\.(gif|png|jpe?g)$/i);
+            return compare(vType, 'image.*') || compare(vName, /\.(gif|png|jpe?g)$/i);
         },
         html: function (vType, vName) {
-            return (vType !== undefined) ? vType === 'text/html' : vName.match(/\.(htm|html)$/i);
+            return compare(vType, 'text/html') || compare(vName, /\.(htm|html)$/i);
         },
         text: function (vType, vName) {
-            return (vType !== undefined && vType.match('text.*')) || vName.match(
-                    /\.(txt|md|csv|nfo|ini|json|php|js|css)$/i);
+            return compare(vType, 'text.*') || compare(vType, /\.(xml|javascript)$/i) ||
+                compare(vName, /\.(txt|md|csv|nfo|ini|json|php|js|css)$/i);
         },
         video: function (vType, vName) {
-            return (vType !== undefined && vType.match(/\.video\/(ogg|mp4|webm|3gp)$/i)) || vName.match(
-                    /\.(og?|mp4|webm|3gp)$/i);
+            return compare(vType, 'video.*') && (compare(vType, /(ogg|mp4|mp?g|webm|3gp)$/i) ||
+                compare(vName, /\.(og?|mp4|webm|mp?g|3gp)$/i));
         },
         audio: function (vType, vName) {
-            return (vType !== undefined && vType.match(/\.audio\/(ogg|mp3|wav)$/i)) || vName.match(/\.(ogg|mp3|wav)$/i);
+            return compare(vType, 'audio.*') && (compare(vType, /(ogg|mp3|mp?g|wav)$/i) ||
+                compare(vName, /\.(og?|mp3|mp?g|wav)$/i));
         },
         flash: function (vType, vName) {
-            return (vType !== undefined && vType === 'application/x-shockwave-flash') || vName.match(/\.(swf)$/i);
+            return compare(vType, 'application/x-shockwave-flash', true) || compare(vName, /\.(swf)$/i);
         },
-        object: function () {
-            return true;
+        object: function (vType, vName) {
+            return compare(vType, 'application/pdf', true) || compare(vName, /\.(pdf)$/i);
         },
         other: function () {
             return true;
@@ -516,8 +522,6 @@
         });
         return out;
     };
-    //noinspection JSUnresolvedVariable
-    objUrl = window.URL || window.webkitURL;
     FileInput = function (element, options) {
         var self = this;
         self.$element = $(element);
@@ -2108,7 +2112,7 @@
                     }
                 }
                 if (fileCount === 0 && !isEmpty(fileExt) && isArray(fileExt) && !isEmpty(fileExtExpr)) {
-                    chk = caption.match(fileExtExpr);
+                    chk = compare(caption, fileExtExpr);
                     fileCount += isEmpty(chk) ? 0 : chk.length;
                     if (fileCount === 0) {
                         msg = self.msgInvalidFileExtension.replace('{name}', caption).replace('{extensions}',
@@ -2262,8 +2266,7 @@
             }
             self.resetErrors();
             len = tfiles.length;
-            total = self.isUploadable ? self.getFileStack().length + len : len;
-            total = self.getFileCount(total);
+            total = self.getFileCount(self.isUploadable ? (self.getFileStack().length + len) : len);
             if (self.maxFileCount > 0 && total > self.maxFileCount) {
                 if (!self.autoReplace || len > self.maxFileCount) {
                     n = (self.autoReplace && len > self.maxFileCount) ? len : total;
@@ -2338,8 +2341,8 @@
             }
         },
         checkDimensions: function (i, chk, $img, $thumb, fname, type, params) {
-            var self = this, msg, dim, tag = chk === 'Small' ? 'min' : 'max',
-                limit = self[tag + 'Image' + type], $imgEl, isValid;
+            var self = this, msg, dim, tag = chk === 'Small' ? 'min' : 'max', limit = self[tag + 'Image' + type],
+                $imgEl, isValid;
             if (isEmpty(limit) || !$img.length) {
                 return;
             }
