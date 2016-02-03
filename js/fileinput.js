@@ -858,7 +858,7 @@
             self.isError = true;
             self.updateFileDetails(0);
             $error.fadeIn(800);
-            self.raise('fileerror', [params]);
+            self.raise('fileerror', [params, msg]);
             self.clearFileInput();
             addCss(self.$container, 'has-error');
         },
@@ -1914,7 +1914,7 @@
                 $error.find('ul').append(e);
             }
             $error.fadeIn(800);
-            self.raise(ev, [params]);
+            self.raise(ev, [params, msg]);
             self.$container.removeClass('file-input-new');
             addCss(self.$container, 'has-error');
             return true;
@@ -1925,7 +1925,7 @@
             params.reader = self.reader;
             self.addError(msg);
             $error.fadeIn(800);
-            self.raise(ev, [params]);
+            self.raise(ev, [params, msg]);
             if (!self.isUploadable) {
                 self.clearFileInput();
             }
