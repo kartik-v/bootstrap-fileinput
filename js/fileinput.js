@@ -3,12 +3,12 @@
  * @version 4.3.1
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced features including the FileReader API.
- * 
+ *
  * The plugin drastically enhances the HTML file input to preview multiple files on the client before upload. In
  * addition it provides the ability to preview content of images, text, videos, audio, html, flash and other objects.
  * It also offers the ability to upload and delete files using AJAX, and add files in batches (i.e. preview, append,
  * or remove before upload).
- * 
+ *
  * Author: Kartik Visweswaran
  * Copyright: 2015, Kartik Visweswaran, Krajee.com
  * For more JQuery plugins visit http://plugins.krajee.com
@@ -589,6 +589,7 @@
             t = self.getLayoutTemplate('progress');
             self.progressTemplate = t.replace('{class}', self.progressClass);
             self.progressCompleteTemplate = t.replace('{class}', self.progressCompleteClass);
+            self.progressErrorTemplate = t.replace('{class}', self.progressErrorClass);
             self.dropZoneEnabled = hasDragDropSupport() && self.dropZoneEnabled;
             self.isDisabled = self.$element.attr('disabled') || self.$element.attr('readonly');
             self.isUploadable = hasFileUploadSupport() && !isEmpty(self.uploadUrl);
@@ -844,30 +845,25 @@
                 data.abortData = self.ajaxAborted.data || {};
                 data.abortMessage = self.ajaxAborted.message;
                 self.cancel();
-                self.setProgress(100);
+                self.setProgress(100, self.$progress, self.msgCancelled);
                 self.showUploadError(self.ajaxAborted.message, data, 'filecustomerror');
                 return true;
             }
             return false;
         },
-        noFilesError: function (params) {
-            var self = this, label = self.minFileCount > 1 ? self.filePlural : self.fileSingle,
-                msg = self.msgFilesTooLess.replace('{n}', self.minFileCount).replace('{files}', label),
-                $error = self.$errorContainer;
-            self.addError(msg);
-            self.isError = true;
-            self.updateFileDetails(0);
-            $error.fadeIn(800);
-            self.raise('fileerror', [params]);
-            self.clearFileInput();
-            addCss(self.$container, 'has-error');
+        setProgressCancelled: function () {
+            var self = this;
+            self.setProgress(100, self.$progress, self.msgCancelled);
         },
-        setProgress: function (p, $el) {
-            var self = this, pct = Math.min(p, 100),
-                template = pct < 100 ? self.progressTemplate : self.progressCompleteTemplate;
+        setProgress: function (p, $el, error) {
+            var self = this, pct = Math.min(p, 100), template = pct < 100 ? self.progressTemplate :
+                (error ? self.progressErrorTemplate : self.progressCompleteTemplate);
             $el = $el || self.$progress;
             if (!isEmpty(template)) {
                 $el.html(template.replace(/\{percent}/g, pct));
+                if (error) {
+                    $el.find('[role="progressbar"]').html(error);
+                }
             }
         },
         lock: function () {
@@ -1215,6 +1211,7 @@
                     xhr[i].abort();
                 }
             }
+            self.setProgressCancelled();
             self.getThumbs().each(function () {
                 var $thumb = $(this), ind = $thumb.attr('data-fileindex');
                 $thumb.removeClass('file-uploading');
@@ -1558,7 +1555,7 @@
                 $.extend(true, params, outData);
                 if (self.abort(params)) {
                     jqXHR.abort();
-                    self.setProgress(100);
+                    self.setProgressCancelled();
                 }
             };
             fnSuccess = function (data, textStatus, jqXHR) {
@@ -1650,7 +1647,7 @@
                 self.raise('filebatchpreupload', [outData]);
                 if (self.abort(outData)) {
                     jqXHR.abort();
-                    self.setProgress(100);
+                    self.setProgressCancelled();
                 }
             };
             fnSuccess = function (data, textStatus, jqXHR) {
@@ -1745,7 +1742,7 @@
                 params.xhr = jqXHR;
                 if (self.abort(params)) {
                     jqXHR.abort();
-                    self.setProgress(100);
+                    self.setProgressCancelled();
                 }
             };
             fnSuccess = function (data, textStatus, jqXHR) {
@@ -1896,25 +1893,26 @@
             }
         },
         showFolderError: function (folders) {
-            var self = this, $error = self.$errorContainer;
+            var self = this, $error = self.$errorContainer, msg;
             if (!folders) {
                 return;
             }
-            self.addError(self.msgFoldersNotAllowed.replace(/\{n}/g, folders));
-            $error.fadeIn(800);
+            msg = self.msgFoldersNotAllowed.replace(/\{n}/g, folders);
+            self.addError(msg);
             addCss(self.$container, 'has-error');
-            self.raise('filefoldererror', [folders]);
+            $error.fadeIn(800);
+            self.raise('filefoldererror', [folders, msg]);
         },
         showUploadError: function (msg, params, event) {
-            var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror',
-                e = params && params.id ? '<li data-file-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
+            var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror', e = params && params.id ?
+            '<li data-file-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
             if ($error.find('ul').length === 0) {
                 self.addError('<ul>' + e + '</ul>');
             } else {
                 $error.find('ul').append(e);
             }
             $error.fadeIn(800);
-            self.raise(ev, [params]);
+            self.raise(ev, [params, msg]);
             self.$container.removeClass('file-input-new');
             addCss(self.$container, 'has-error');
             return true;
@@ -1925,7 +1923,7 @@
             params.reader = self.reader;
             self.addError(msg);
             $error.fadeIn(800);
-            self.raise(ev, [params]);
+            self.raise(ev, [params, msg]);
             if (!self.isUploadable) {
                 self.clearFileInput();
             }
@@ -1933,6 +1931,18 @@
             addCss(self.$container, 'has-error');
             self.$btnUpload.attr('disabled', true);
             return true;
+        },
+        noFilesError: function (params) {
+            var self = this, label = self.minFileCount > 1 ? self.filePlural : self.fileSingle,
+                msg = self.msgFilesTooLess.replace('{n}', self.minFileCount).replace('{files}', label),
+                $error = self.$errorContainer;
+            self.addError(msg);
+            self.isError = true;
+            self.updateFileDetails(0);
+            $error.fadeIn(800);
+            self.raise('fileerror', [params, msg]);
+            self.clearFileInput();
+            addCss(self.$container, 'has-error');
         },
         errorHandler: function (evt, caption) {
             var self = this, err = evt.target.error;
@@ -2453,13 +2463,22 @@
             return true;
         },
         setCaption: function (content, isError) {
-            var self = this, title, out;
+            var self = this, title, out, n, cap, stack = self.getFileStack();
+            if (!self.$caption.length) {
+                return;
+            }
             if (isError) {
                 title = $('<div>' + self.msgValidationError + '</div>').text();
-                out = '<span class="' + self.msgValidationErrorClass + '">' +
-                    self.msgValidationErrorIcon + title + '</span>';
+                n = stack.length;
+                if (n) {
+                    cap = n === 1 && stack[0] ? self.getFileNames()[0] : self.getMsgSelected(n);
+                } else {
+                    cap = self.getMsgSelected(self.msgNo);
+                }
+                out = '<span class="' + self.msgValidationErrorClass + '">' + self.msgValidationErrorIcon +
+                    (isEmpty(content) ? cap : content) + '</span>';
             } else {
-                if (isEmpty(content) || self.$caption.length === 0) {
+                if (isEmpty(content)) {
                     return;
                 }
                 title = $('<div>' + content + '</div>').text();
@@ -2654,6 +2673,7 @@
         progressThumbClass: "progress-bar progress-bar-success progress-bar-striped active",
         progressClass: "progress-bar progress-bar-success progress-bar-striped active",
         progressCompleteClass: "progress-bar progress-bar-success",
+        progressErrorClass: "progress-bar progress-bar-danger",
         previewFileType: 'image',
         zoomIndicator: '<i class="glyphicon glyphicon-zoom-in"></i>',
         elCaptionContainer: null,
@@ -2684,6 +2704,8 @@
         cancelTitle: 'Abort ongoing upload',
         uploadLabel: 'Upload',
         uploadTitle: 'Upload selected files',
+        msgNo: 'No',
+        msgCancelled: 'Cancelled',
         msgZoomTitle: 'View details',
         msgZoomModalHeading: 'Detailed Preview',
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>.',
@@ -2697,7 +2719,7 @@
         msgInvalidFileType: 'Invalid type for file "{name}". Only "{types}" files are supported.',
         msgInvalidFileExtension: 'Invalid extension for file "{name}". Only "{extensions}" files are supported.',
         msgUploadAborted: 'The file upload was aborted',
-        msgValidationError: 'File Upload Error',
+        msgValidationError: 'Validation Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
         msgSelected: '{n} {files} selected',
