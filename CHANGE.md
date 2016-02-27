@@ -1,9 +1,9 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.3.1 (under development)
+## version 4.3.1
 
-**Date:** 12-Feb-2016
+**Date:** 27-Feb-2016
 
 1. (enh #514): Set default value for `removeFromPreviewOnError` to `false`.
 2. (enh #554): Update documentation and demos to include `webkitdirectory` for upload.
@@ -14,6 +14,10 @@ Change Log: `bootstrap-fileinput`
 6. (enh #560): Update French Translations.
 7. (enh #565): Enhance progress bar display when upload is aborted or cancelled.
 8. (enh #567): New properties and improved messages.
+9. (enh #572): Add Finnish Translations.
+10. (enh #573): Update package.json to include `peerDependencies`.
+11. (enh #574): Change naming convention for private / internal methods. Prepend internal plugin methods with underscore `_`.
+12. (enh #575): Implement public method chaining and update docs for methods.
 
 ## version 4.3.0
 
