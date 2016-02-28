@@ -19,6 +19,7 @@ Change Log: `bootstrap-fileinput`
 11. (enh #574): Change naming convention for private / internal methods. Prepend internal plugin methods with underscore `_`.
 12. (enh #575): Implement public method chaining and update docs for methods.
 13. (bug #576): Correct previewCache initialization.
+14. (bug #577): Better label spacing for default browse icon.
 
 ## version 4.3.0
 
