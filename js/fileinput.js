@@ -619,7 +619,7 @@
             self.fileActionSettings = $.extend(true, defaultFileActionSettings, options.fileActionSettings);
             self.previewInitId = "preview-" + uniqId();
             self.id = self.$element.attr('id');
-            previewCache._init(self);
+            previewCache.init(self);
             self._initPreview(true);
             self._initPreviewDeletes();
             self.options = options;
