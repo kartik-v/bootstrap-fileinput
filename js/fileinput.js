@@ -560,6 +560,9 @@
                         break;
                 }
             });
+            if (isEmpty(self.allowedPreviewTypes)) {
+                self.allowedPreviewTypes = defaultPreviewTypes;
+            }
             self.fileInputCleared = false;
             self.fileBatchCompleted = true;
             if (!self.isPreviewable) {
@@ -2644,7 +2647,7 @@
         overwriteInitial: true,
         layoutTemplates: defaultLayoutTemplates,
         previewTemplates: defaultPreviewTemplates,
-        allowedPreviewTypes: defaultPreviewTypes,
+        allowedPreviewTypes: null,
         allowedPreviewMimeTypes: null,
         allowedFileTypes: null,
         allowedFileExtensions: null,
