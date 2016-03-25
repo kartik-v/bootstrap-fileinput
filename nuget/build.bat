@@ -28,8 +28,8 @@ REM create a new package
 NuGet Pack Package.nuspec -Exclude NuGet.exe;build.bat
 
 REM Upload the new package
-REM for %%f in (bootstrap-fileinput.*) do (
-REM	NuGet Push %%f
-REM	rmdir /s /q content
-REM	del %%f
-REM )
+for %%f in (bootstrap-fileinput.*) do (
+NuGet Push %%f
+rmdir /s /q content
+del %%f
+)

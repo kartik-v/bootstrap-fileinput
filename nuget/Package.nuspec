@@ -3,8 +3,8 @@
   <metadata>
     <id>bootstrap-fileinput</id>
 	<title>bootstrap-fileinput</title>
-    <version>4.3.1</version>
-    <authors>Kartik Visweswaran, Robert Kiss (nuget package)</authors>
+    <version>4.3.2</version>
+    <authors>Kartik Visweswaran</authors>
     <owners>Kartik Visweswaran</owners>
     <licenseUrl>https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/kartik-v/bootstrap-fileinput</projectUrl>
