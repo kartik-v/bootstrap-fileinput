@@ -1,6 +1,13 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.3.2 (under development)
+
+**Date:** 14-Mar-2016
+
+1. (bug #595): Correct initialization of `allowedPreviewTypes`.
+2. (enh #600): Synchronize latest package on NuGet.
+
 ## version 4.3.1
 
 **Date:** 28-Feb-2016

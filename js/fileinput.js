@@ -1,6 +1,6 @@
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version 4.3.1
+ * @version 4.3.2
  *
  * File input styled for Bootstrap 3.0 that utilizes HTML5 File Input's advanced features including the FileReader API.
  *
@@ -560,6 +560,9 @@
                         break;
                 }
             });
+            if (isEmpty(self.allowedPreviewTypes)) {
+                self.allowedPreviewTypes = defaultPreviewTypes;
+            }
             self.fileInputCleared = false;
             self.fileBatchCompleted = true;
             if (!self.isPreviewable) {
@@ -2644,7 +2647,7 @@
         overwriteInitial: true,
         layoutTemplates: defaultLayoutTemplates,
         previewTemplates: defaultPreviewTemplates,
-        allowedPreviewTypes: defaultPreviewTypes,
+        allowedPreviewTypes: null,
         allowedPreviewMimeTypes: null,
         allowedFileTypes: null,
         allowedFileExtensions: null,
