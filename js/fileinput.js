@@ -2601,7 +2601,7 @@
                 if (lang !== 'en' && !isEmpty($.fn.fileinputLocales[lang])) {
                     loc = $.fn.fileinputLocales[lang];
                 }
-                opts = $.extend(true, {}, $.fn.fileinput.defaults, $.fn.fileinputLocales.en, loc, options, self.data());
+                opts = $.extend(true, {}, $.fn.fileinput.defaults, $.fn.fileinputLocales.en,  options, self.data(),loc);
                 data = new FileInput(this, opts);
                 self.data('fileinput', data);
             }
