@@ -204,10 +204,12 @@
             if (chk === 1) {
                 previewCache.data[id].content = [];
                 previewCache.data[id].config = [];
+                previewCache.data[id].tags = [];
                 return;
             }
             previewCache.data[id].content[index] = null;
             previewCache.data[id].config[index] = null;
+            previewCache.data[id].tags[index] = null;
         },
         out: function (id) {
             var html = '', data = previewCache.data[id], caption, len = previewCache.count(id, true);
