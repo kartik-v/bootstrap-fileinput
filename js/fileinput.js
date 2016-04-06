@@ -142,7 +142,7 @@
                 data.config[index] = config;
                 data.tags[index] = tags;
             } else {
-                index = content.length;
+                index = content.length - 1;
                 data.content = content;
                 data.config = config;
                 data.tags = tags;
