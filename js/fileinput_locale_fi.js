@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales.fi = {
+    $.fn.fileinputLocales.fi = {
         fileSingle: 'tiedosto',
         filePlural: 'tiedostot',
         browseLabel: 'Selaa &hellip;',
@@ -39,5 +39,5 @@
         dropZoneTitle: 'Raahaa ja pudota tiedostot t&auml;h&auml;n &hellip;'
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.fi);
+    $.extend($.fn.fileinput.defaults, $.fn.fileinputLocales.fi);
 })(window.jQuery);
