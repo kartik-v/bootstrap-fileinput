@@ -19,7 +19,7 @@
         cancelTitle: 'Hochladen abbrechen',
         uploadLabel: 'Hochladen',
         uploadTitle: 'Hochladen der ausgewählten Dateien',
-        msgNo: 'Nein',
+        msgNo: 'Keine',
         msgCancelled: 'Abgebrochen',
         msgZoomTitle: 'Details anzeigen',
         msgZoomModalHeading: 'ausführliche Vorschau',
