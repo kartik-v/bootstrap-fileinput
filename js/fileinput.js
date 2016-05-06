@@ -1204,6 +1204,7 @@
                     return self._initXhr(xhrobj, previewId, self.getFileStack().length);
                 },
                 url: self.uploadUrl,
+                headers: self.uploadHeaders,
                 type: 'POST',
                 dataType: 'json',
                 data: self.formdata,
@@ -2671,6 +2672,7 @@
         cancelClass: 'btn btn-default',
         uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
         uploadClass: 'btn btn-default',
+        uploadHeaders: null,
         uploadUrl: null,
         uploadAsync: true,
         uploadExtraData: {},
