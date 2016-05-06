@@ -570,6 +570,7 @@
             if (!self.isPreviewable) {
                 self.showPreview = false;
             }
+            self.uploadUrl = !self.showUpload && !self.uploadUrl ? 'foo' : self.uploadUrl;
             self.uploadFileAttr = !isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
             self.reader = null;
             self.formdata = {};
@@ -1204,6 +1205,7 @@
                     return self._initXhr(xhrobj, previewId, self.getFileStack().length);
                 },
                 url: self.uploadUrl,
+                headers: self.uploadHeaders,
                 type: 'POST',
                 dataType: 'json',
                 data: self.formdata,
@@ -2192,7 +2194,7 @@
             var self = this, config = self.fileActionSettings, footer, out, template = self._getLayoutTemplate(
                 'footer');
             if (self.isUploadable) {
-                footer = template.replace(/\{actions}/g, self._renderFileActions(true, true, false, false, false));
+                footer = template.replace(/\{actions}/g, self._renderFileActions(self.showUpload, true, false, false, false));
                 out = footer.replace(/\{caption}/g, caption)
                     .replace(/\{width}/g, width)
                     .replace(/\{progress}/g, self._renderThumbProgress())
@@ -2671,6 +2673,7 @@
         cancelClass: 'btn btn-default',
         uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
         uploadClass: 'btn btn-default',
+        uploadHeaders: null,
         uploadUrl: null,
         uploadAsync: true,
         uploadExtraData: {},
