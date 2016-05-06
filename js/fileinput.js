@@ -570,7 +570,7 @@
             if (!self.isPreviewable) {
                 self.showPreview = false;
             }
-            if (!self.showUpload && !self.uploadUrl) self.uploadUrl = 'foo';
+            self.uploadUrl = !self.showUpload && !self.uploadUrl ? 'foo' : self.uploadUrl;
             self.uploadFileAttr = !isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
             self.reader = null;
             self.formdata = {};
