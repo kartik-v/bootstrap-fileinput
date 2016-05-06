@@ -2194,7 +2194,7 @@
             var self = this, config = self.fileActionSettings, footer, out, template = self._getLayoutTemplate(
                 'footer');
             if (self.isUploadable) {
-                footer = template.replace(/\{actions}/g, self._renderFileActions(true, true, false, false, false));
+                footer = template.replace(/\{actions}/g, self._renderFileActions(self.showUpload, true, false, false, false));
                 out = footer.replace(/\{caption}/g, caption)
                     .replace(/\{width}/g, width)
                     .replace(/\{progress}/g, self._renderThumbProgress())
