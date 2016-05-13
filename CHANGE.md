@@ -3,12 +3,15 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.2 (under development)
 
-**Date:** 06-Apr-2016
+**Date:** 14-May-2016
 
 1. (bug #595): Correct initialization of `allowedPreviewTypes`.
 2. (enh #600): Synchronize latest package on NuGet.
 3. (enh #604): Fixed unset method in deleting previewCache index.
 4. (enh #605): Fixed previewCache tags reset.
+5. (enh #615): Correct Finnish Localizations.
+6. (enh #618): Update German Translations.
+7. (enh #632): Find correct filename in IE9.
 
 ## version 4.3.1
 

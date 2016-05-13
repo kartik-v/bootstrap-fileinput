@@ -39,7 +39,8 @@
         tMain2, tPreview, tIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse, tModal, tProgress, tFooter,
         tActions, tActionDelete, tActionUpload, tZoom, tGeneric, tHtml, tImage, tText, tVideo, tAudio, tFlash, tObject,
         tOther, defaultLayoutTemplates, defaultPreviewTemplates, defaultPreviewTypes, defaultPreviewSettings, FileInput,
-        defaultFileTypeSettings, isEmpty, isArray, isSet, getElement, uniqId, htmlEncode, replaceTags, cleanMemory;
+        defaultFileTypeSettings, isEmpty, isArray, isSet, getElement, uniqId, htmlEncode, replaceTags, cleanMemory,
+        findFileName;
 
     NAMESPACE = '.fileinput';
     //noinspection JSUnresolvedVariable
@@ -528,6 +529,13 @@
         var data = $thumb.is('img') ? $thumb.attr('src') : $thumb.find('source').attr('src');
         /** @namespace objUrl.revokeObjectURL */
         objUrl.revokeObjectURL(data);
+    };
+    findFileName = function (filePath) {
+        var sepIndex = filePath.lastIndexOf('/');
+        if (sepIndex === -1) {
+            sepIndex = filePath.lastIndexOf('\\');
+        }
+        return filePath.split(filePath.substring(sepIndex, sepIndex + 1)).pop();
     };
     FileInput = function (element, options) {
         var self = this;
@@ -1854,16 +1862,10 @@
             readFile(0);
             self._updateFileDetails(numFiles, false);
         },
-        _findFileName: function (filePath) {
-            var sepIndex = filePath.lastIndexOf('/');
-            if (sepIndex == -1) {
-                sepIndex = filePath.lastIndexOf('\\');
-            }
-            return filePath.split(filePath.substring(sepIndex, sepIndex + 1)).pop();
-        },
         _updateFileDetails: function (numFiles) {
             var self = this, $el = self.$element, fileStack = self.getFileStack(),
-                name = (isIE(9) && self._findFileName($el.val())) || ($el[0].files[0] && $el[0].files[0].name) || (fileStack.length && fileStack[0].name) || '',
+                name = (isIE(9) && findFileName($el.val())) ||
+                    ($el[0].files[0] && $el[0].files[0].name) || (fileStack.length && fileStack[0].name) || '',
                 label = self.slug(name), n = self.isUploadable ? fileStack.length : numFiles,
                 nFiles = previewCache.count(self.id) + n, log = n > 1 ? self._getMsgSelected(nFiles) : label;
             if (self.isError) {
