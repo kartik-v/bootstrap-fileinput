@@ -12,6 +12,7 @@ Change Log: `bootstrap-fileinput`
 5. (enh #615): Correct Finnish Localizations.
 6. (enh #618): Update German Translations.
 7. (enh #632): Find correct filename in IE9.
+8. (enh #633): New property `maxFilePreviewSize` to control preview of large size files.
 
 ## version 4.3.1
 
