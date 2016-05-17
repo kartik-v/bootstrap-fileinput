@@ -7,7 +7,7 @@
     ],
     "description": "An enhanced HTML 5 file input for Bootstrap 3.x with file preview, multiple selection, ajax uploads, and more features.",
     "repository" : {
-        "type": "git", 
+        "type": "git",
         "url": "https://github.com/kartik-v/bootstrap-fileinput.git"
     },
     "bugs": {
@@ -26,6 +26,7 @@
         "progress",
         "gallery"
     ],
+    "main": "./js/fileinput.js",
     "peerDependencies": {
         "jquery": ">= 1.9.0",
         "bootstrap": "~3"
