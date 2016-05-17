@@ -1736,7 +1736,7 @@
                     if (self.isUploadable) {
                         self.addToStack(undefined);
                     }
-                    setTimeout(readFile(index + 1), 100);
+                    setTimeout(function(){readFile(index + 1);}, 100);
                     self._initFileActions();
                     if (self.removeFromPreviewOnError) {
                         $('#' + previewId).remove();
@@ -1808,7 +1808,7 @@
                 }
                 if (!self.showPreview) {
                     self.addToStack(file);
-                    setTimeout(readFile(i + 1), 100);
+                    setTimeout(function(){readFile(i + 1);}, 100);
                     self._raise('fileloaded', [file, previewId, i, reader]);
                     return;
                 }
