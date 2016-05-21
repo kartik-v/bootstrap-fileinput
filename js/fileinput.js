@@ -1040,7 +1040,6 @@
                     self.initialPreviewConfig = moveArray(self.initialPreviewConfig, oldIndex, newIndex);
                     previewCache.init(self);
                     self._raise('filesorted', {
-                        isInit: true,
                         previewId: $(e.item).attr('id'),
                         'oldIndex': oldIndex,
                         'newIndex': newIndex,
