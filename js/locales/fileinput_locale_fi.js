@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinputLocales.fi = {
+    $.fn.fileinputLocales['fi'] = {
         fileSingle: 'tiedosto',
         filePlural: 'tiedostot',
         browseLabel: 'Selaa &hellip;',
