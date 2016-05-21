@@ -1,13 +1,12 @@
 /*!
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @package bootstrap-fileinput
- * @version 4.3.2
+ * bootstrap-fileinput v4.3.2
+ * http://plugins.krajee.com/file-input
  *
- * File input styling for Bootstrap 3.0
- * Built for Yii Framework 2.0
  * Author: Kartik Visweswaran
- * Year: 2015
- * For more Yii related demos visit http://demos.krajee.com
+ * Copyright: 2014 - 2016, Kartik Visweswaran, Krajee.com
+ *
+ * Licensed under the BSD 3-Clause
+ * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
 .file-loading {
     top: 0;
@@ -55,7 +54,7 @@
     height: 25px;
 }
 
-.file-preview-detail-modal {
+.file-zoom-dialog {
     text-align: left;
 }
 
@@ -92,6 +91,7 @@
 }
 
 .file-preview-frame {
+    position: relative;
     display: table;
     margin: 8px;
     height: 160px;
@@ -108,25 +108,33 @@
 }
 
 .file-preview-image {
-    height: 160px;
     vertical-align: middle;
 }
 
 .file-preview-text {
-    text-align: left;
-    width: 160px;
-    margin-bottom: 2px;
+    display: block;
     color: #428bca;
-    background: #fff;
-    overflow-x: hidden;
+    border: 1px solid #ddd;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    outline: none;
+    padding: 8px;
+    resize: none;
+}
+
+.file-preview-html {
+    border: 1px solid #ddd;
+    padding: 8px;
+    overflow: auto;
+}
+
+.file-zoom-dialog .file-preview-text {
+    font-size: 1.2em;
 }
 
 .file-preview-other {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    width: 160px;
-    height: 160px;
     border: 2px solid #999;
     border-radius: 30px;
 }
@@ -170,7 +178,7 @@
 }
 
 .file-upload-indicator {
-    padding-top: 2px;
+    display: inline;
     cursor: default;
     opacity: 0.8;
     width: 60%;
@@ -229,6 +237,10 @@
     opacity: 0.65;
 }
 
+.file-thumb-progress {
+    height: 10px;
+}
+
 .file-thumb-progress .progress, .file-thumb-progress .progress-bar {
     height: 10px;
     font-size: 9px;
@@ -246,8 +258,109 @@
     right: 0;
 }
 
+.file-zoom-fullscreen.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.file-zoom-fullscreen .modal-dialog {
+    position: fixed;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.file-zoom-fullscreen .modal-content {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.file-zoom-fullscreen .modal-body {
+    overflow-y: auto;
+}
+
+.file-zoom-dialog .modal-body {
+    position: relative !important;
+}
+
+.file-zoom-dialog .btn-navigate {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    text-decoration: none;
+    outline: none;
+    opacity: 0.7;
+    top: 45%;
+    font-size: 4em;
+    color: #1c94c4;
+}
+
+.file-zoom-dialog .floating-buttons {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.floating-buttons, .floating-buttons .btn {
+    z-index: 3000;
+}
+
+.file-zoom-dialog .kv-zoom-actions .btn,
+.floating-buttons .btn {
+    margin-left: 3px;
+}
+
+.file-zoom-dialog .btn-navigate:not([disabled]):hover,
+.file-zoom-dialog .btn-navigate:not([disabled]):focus {
+    outline: none;
+    box-shadow: none;
+    opacity: 0.5;
+}
+
+.file-zoom-dialog .btn-navigate[disabled] {
+    opacity: 0.3;
+}
+
+.file-zoom-dialog .btn-prev {
+    left: 1px;
+}
+
+.file-zoom-dialog .btn-next {
+    right: 1px;
+}
+
+.file-drag-handle {
+    display: inline;
+    margin-right: 2px;
+    font-size: 16px;
+    cursor: move;
+    cursor: -webkit-grabbing;
+}
+
+.file-drag-handle:hover {
+    opacity: 0.7;
+}
+
+.file-zoom-content {
+    height: 480px;
+    text-align: center;
+}
+
+.file-preview-initial.sortable-chosen {
+    background-color: #d9edf7;
+}
+
+.file-preview-frame.sortable-ghost {
+    background-color: #eee;
+}
+
 /* IE 10 fix */
 .btn-file ::-ms-browse {
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 }

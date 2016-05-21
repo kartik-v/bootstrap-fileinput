@@ -60,18 +60,34 @@ Step 1: Load the following assets in your header.
 <!-- canvas-to-blob.min.js is only needed if you wish to resize images before upload.
      This must be loaded before fileinput.min.js -->
 <script src="path/to/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
+<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+     This must be loaded before fileinput.min.js -->
+<script src="path/to/js/plugins/sortable.min.js" type="text/javascript"></script>
+<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.
+     This must be loaded before fileinput.min.js -->
+<script src="path/to/js/plugins/purify.min.js" type="text/javascript"></script>
+<!-- the main fileinput plugin file -->
 <script src="path/to/js/fileinput.min.js"></script>
 <!-- bootstrap.js below is only needed if you wish to the feature of viewing details
      of text file preview via modal dialog -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- optionally if you need a theme like font awesome theme you can include 
+    it as mentioned below -->
+<script src="path/to/js/fileinput_theme_fa.js"></script>
 <!-- optionally if you need translation for your language then include 
     locale file as mentioned below -->
 <script src="path/to/js/fileinput_locale_<lang>.js"></script>
 ```
 
-If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`. The locale file `fileinput_locale_<lang>.js` can be optionally included for translating for your language if needed.
+If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`. The theme file `fileinput_locale_fa.js` can be optionally included for the font awesome icons styling. The locale file `fileinput_locale_<lang>.js` can be optionally included for translating for your language if needed.
 
-NOTE: The `canvas-to-blob.min.js` file is the source for the [JavaScript-Canvas-to-Blob plugin by blueimp](https://github.com/blueimp/JavaScript-Canvas-to-Blob). It is required to be loaded before `fileinput.js` if you wish to use the image resize feature of the **bootstrap-fileinput** plugin. For ease of access, the plugin source for JavaScript-Canvas-to-Blob is included in the `js/plugins` folder of this project repository.
+OTHER PLUGINS: 
+-------------
+- The `canvas-to-blob.min.js` file is the source for the [JavaScript-Canvas-to-Blob plugin by blueimp](https://github.com/blueimp/JavaScript-Canvas-to-Blob). It is required to be loaded before `fileinput.min.js` if you wish to use the image resize feature of the **bootstrap-fileinput** plugin. 
+- The `sortable.min.js` file is the source for the [Sortable plugin by rubaxa](https://github.com/rubaxa/Sortable). It is required to be loaded before `fileinput.min.js` if you wish to sort the thumbnails in the initial preview.
+- The `purify.min.js` file is the source for the [DomPurify plugin by cure53](https://github.com/cure53/DOMPurify). It is required to be loaded before `fileinput.min.js` if you wish to purify your HTML for HTML content preview.
+
+For ease of access, the sources for the above plugins are included in the `js/plugins` folder of this project repository.
 
 Step 2: Initialize the plugin on your page. For example,
 

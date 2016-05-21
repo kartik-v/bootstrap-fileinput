@@ -1,9 +1,9 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.3.2 (under development)
+## version 4.3.2
 
-**Date:** 14-May-2016
+**Date:** 22-May-2016
 
 1. (bug #595): Correct initialization of `allowedPreviewTypes`.
 2. (enh #600): Synchronize latest package on NuGet.
@@ -13,6 +13,56 @@ Change Log: `bootstrap-fileinput`
 6. (enh #618): Update German Translations.
 7. (enh #632): Find correct filename in IE9.
 8. (enh #633): New property `maxFilePreviewSize` to control preview of large size files.
+9. (enh #634): Enhance ability for PDF and HTML preview.
+    - Enhanced PDF support as PDF embedding is now possible for `initialPreview`. In addition a new template for PDF is available within `previewTemplates`.
+    - HTML Preview is enhanced with a better template. The plugin also now includes support for `DOMPurify` plugin (and available in plugins folder). This processes and cleans the HTML from XSS before previewing. This behavior can be controlled via `purifyHtml` property that defaults to `true`.
+10. (enh #635): Various preview enhancements. Previews will be revamped with various functionality:
+    - Add ability to zoom every thumbnail to a modal preview. So all types of files (images, videos, pdf, text etc) can be previewed in a larger zoom dialog window.
+    - Automatic slideshow like interface for zoom preview modal. One can navigate left or right to view previous or next content in the preview. In addition to button navigation, keyboard navigation (via left/right arrow keys) is also available.
+    - Borderless maximized mode and Full Screen mode available for preview.
+    - Auto disable the previous or next button when the first or last file/image is reached.
+    - Now `initialPreview` can be setup MORE easier without writing or returning entire markup. Thus the new functionality will enable to use built in `previewTemplates`.  
+    - A new boolean property `initialPreviewAsData` is available to control the above. If set to `true`, it will allow developers to now pass just the data within `initialPreview` (instead of complete markup) and the markup will be auto generated using `previewTemplates`.
+    - New property `initialPreviewFileType` to set the default file type for initial preview. Defaults to `image`. Must be on of the keys in `fileTypeSettings`.
+    - All the other settings can be controlled via `initialPreviewConfig`. The new properties available within `initialPreviewConfig` are:
+       - `type`: Override `initialPreviewFileType` at global level and set a separate type for each file in the initial preview.
+       - `previewAsData`: boolean property to override the `initialPreviewAsData` setting at global level
+    - New zoom preview control buttons:
+       - `prev`
+       - `next`
+       - `fullscreen`
+       - `borderless`
+       - `toggleheader`
+       - `close`
+    - The other new settings to control zoomed preview:
+        - `previewZoomSettings`: Will allow to set the CSS style (e.g. width, height and other CSS style settings) for each zoomed content type (i.e. `image`, `pdf`, `video` etc.).
+        - `previewZoomButtonIcons`: Ability to set the labels for previous, next, fullscreen, borderless, and close buttons.
+        - `previewZoomButtonTitles`: Ability to set the titles for previous, next,  fullscreen, borderless, and close buttons.
+        - `previewZoomButtonClasses`:  Ability to set the CSS classes for previous, next,  fullscreen, borderless, and close buttons.
+    - Modifications to all language locales JS for accomodating new translations
+11. (enh #636): File action enhancements.
+    - Zoom and Drag buttons will be shown as an additional file action buttons in addition to `upload` and `remove`
+    - New boolean properties `showZoom`, `showDrag`, `showRemove`, `showUpload` are now added to `fileActionSettings` to control display of these buttons
+    - New properties `zoomIcon`, `zoomClass`, `zoomTitle` are available within `fileActionSettings` for controlling the zoom button styles and display.
+    - New properties `dragIcon`, `dragClass`, `dragTitle` are available within `fileActionSettings` for controlling the drag indicator styles and display.
+    - New properties `actionZoom` and `actionDrag` are available within `layoutTemplates` to configure the markup of the zoom and drag buttons.
+12. (enh #639): Add ability to just require package in nodejs
+13. (enh #640): Ability to theme and provide font awesome theme. New property `theme` added.
+14. (enh #641): Wrap readFile(index + 1) in a function to prevent 'unsafe-eval' blocking with CSP.
+15. (enh #642): Reorganize JS code into proper folders. Following folders will be added/maintained
+    - `locales`: all translation JS files will be located here
+    - `themes`: all theme JS files will be located here
+    - `plugins`: third party JS plugins that will be used to work with bootstrap-fileinput
+16. (enh #643):Implement rearranging / sorting functionality for initial preview. 
+    - Add ability to rearrange and sort thumbnails by drag & drop. This feature will use the [Sortable plugin](https://github.com/RubaXa/Sortable) which will be included in the `js/plugins` folder.
+    - This feature will be available only for **initial preview thumbnails** for both ajax and form uploads.
+    - New property for drag indicator and drag behavior configurations will be included in `fileActionSettings`:
+        - `showDrag`
+        - `dragIcon`
+        - `dragClass`
+        - `dragTitle`
+        - `dragSettings`
+    - New template `actionDrag` will be available within `layoutTemplates` to configure your drag indicator markup.
 
 ## version 4.3.1
 
