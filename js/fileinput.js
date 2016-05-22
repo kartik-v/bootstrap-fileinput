@@ -139,7 +139,7 @@
             if (asData) {
                 cat = data.previewAsData ? ifSet('type', config, data.previewFileType || 'generic') : 'generic';
                 cap = ifSet('caption', config);
-                ftr = previewCache.footer(id, i, isDisabled, config.size || null);
+                ftr = previewCache.footer(id, i, isDisabled, (config && config.size || null));
                 ftype = ifSet('filetype', config, cat);
                 out = data.parseTemplate(cat, content, cap, ftype, previewId, ftr, ind, null);
             } else {
@@ -147,7 +147,7 @@
                     .replace(/\{previewId}/g, previewId).replace(/\{frameClass}/g, frameClass)
                     .replace(/\{fileindex}/g, ind).replace(/\{content}/g, data.content[i])
                     .replace(/\{template}/g, ifSet('type', config, data.previewFileType))
-                    .replace(/\{footer}/g, previewCache.footer(id, i, isDisabled, config.size || null));
+                    .replace(/\{footer}/g, previewCache.footer(id, i, isDisabled, (config && config.size || null)));
             }
             if (data.tags.length && data.tags[i]) {
                 out = replaceTags(out, data.tags[i]);
