@@ -68,8 +68,8 @@ Step 1: Load the following assets in your header.
 <script src="path/to/js/plugins/purify.min.js" type="text/javascript"></script>
 <!-- the main fileinput plugin file -->
 <script src="path/to/js/fileinput.min.js"></script>
-<!-- bootstrap.js below is only needed if you wish to the feature of viewing details
-     of text file preview via modal dialog -->
+<!-- bootstrap.js below is needed if you wish to zoom and view file content 
+     in a larger detailed modal dialog -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- optionally if you need a theme like font awesome theme you can include 
     it as mentioned below -->
