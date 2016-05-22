@@ -2028,13 +2028,13 @@
             if (bytes === null || isNaN(size)) {
                 return '';
             }
-            var self = this, i = Math.floor(Math.log(size) / Math.log(1024)), tmplt = self._getLayoutTemplate('size'),
-                func = self.fileSizeGetter, sizes, out;
+            var self = this, i, tmplt = self._getLayoutTemplate('size'), func = self.fileSizeGetter, sizes, out;
             if (typeof func === 'function') {
                 out = func(bytes);
             } else {
+                i = Math.floor(Math.log(size) / Math.log(1024));
                 sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-                    out = (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                out = (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i];
             }
             return tmplt.replace('{sizeText}', out);
         },
