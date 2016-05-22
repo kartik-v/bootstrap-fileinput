@@ -199,7 +199,7 @@
     padding-top: 4px;
     font-size: 11px;
     color: #777;
-    margin: 5px auto 10px auto;
+    margin: 5px auto;
 }
 
 .file-preview-error {
@@ -253,7 +253,7 @@
 
 .file-thumb-progress {
     position: absolute;
-    top: 22px;
+    top: 35px;
     left: 0;
     right: 0;
 }

@@ -31,7 +31,7 @@
 
     var NAMESPACE, MODAL_ID, STYLE_SETTING, OBJECT_PARAMS, DEFAULT_PREVIEW, objUrl, compare, isIE, isEdge, handler,
         previewCache, getNum, hasFileAPISupport, hasDragDropSupport, hasFileUploadSupport, addCss, tMain1, tMain2,
-        tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse, tModalMain, tModal, tProgress,
+        tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse, tModalMain, tModal, tProgress, tSize,
         tFooter, tActions, tActionDelete, tActionUpload, tActionZoom, tActionDrag, tTagBef, tTagBef1, tTagBef2, tTagAft,
         tGeneric, tHtml, tImage, tText, tVideo, tAudio, tFlash, tObject, tPdf, tOther, defaultFileActionSettings,
         defaultLayoutTemplates, defaultPreviewTemplates, defaultPreviewZoomSettings, defaultPreviewTypes, getElement,
@@ -94,9 +94,12 @@
                 template: obj.previewGenericTemplate,
                 showZoom: obj.fileActionSettings.showZoom,
                 showDrag: obj.fileActionSettings.showDrag,
-                parseTemplate: function (cat, data, fname, ftype, pId, footer, ind) {
-                    var frameClass = ' file-preview-initial';
-                    return obj._generatePreviewTemplate(cat, data, fname, ftype, pId, false, frameClass, footer, ind);
+                getSize: function(size) {
+                    return obj._getSize(size);
+                },
+                parseTemplate: function (cat, data, fname, ftype, pId, ftr, ind, size) {
+                    var fc = ' file-preview-initial';
+                    return obj._generatePreviewTemplate(cat, data, fname, ftype, pId, false, null, fc, ftr, ind);
                 },
                 msg: function (n) {
                     return obj._getMsgSelected(n);
@@ -136,17 +139,15 @@
             if (asData) {
                 cat = data.previewAsData ? ifSet('type', config, data.previewFileType || 'generic') : 'generic';
                 cap = ifSet('caption', config);
-                ftr = previewCache.footer(id, i, isDisabled);
+                ftr = previewCache.footer(id, i, isDisabled, (config && config.size || null));
                 ftype = ifSet('filetype', config, cat);
-                out = data.parseTemplate(cat, content, cap, ftype, previewId, ftr, ind);
+                out = data.parseTemplate(cat, content, cap, ftype, previewId, ftr, ind, null);
             } else {
                 out = data.template
-                    .replace(/\{previewId}/g, previewId)
-                    .replace(/\{frameClass}/g, frameClass)
-                    .replace(/\{fileindex}/g, ind)
-                    .replace(/\{content}/g, data.content[i])
+                    .replace(/\{previewId}/g, previewId).replace(/\{frameClass}/g, frameClass)
+                    .replace(/\{fileindex}/g, ind).replace(/\{content}/g, data.content[i])
                     .replace(/\{template}/g, ifSet('type', config, data.previewFileType))
-                    .replace(/\{footer}/g, previewCache.footer(id, i, isDisabled));
+                    .replace(/\{footer}/g, previewCache.footer(id, i, isDisabled, (config && config.size || null)));
             }
             if (data.tags.length && data.tags[i]) {
                 out = replaceTags(out, data.tags[i]);
@@ -249,7 +250,7 @@
             caption = data.msg(previewCache.count(id));
             return {content: '<div class="file-initial-thumbs">' + html + '</div>', caption: caption};
         },
-        footer: function (id, i, isDisabled) {
+        footer: function (id, i, isDisabled, size) {
             var data = previewCache.data[id];
             isDisabled = isDisabled === undefined ? true : isDisabled;
             if (data.config.length === 0 || isEmpty(data.config[i])) {
@@ -261,10 +262,8 @@
                 showDrag = ifSet('showDrag', config, data.showDrag), disabled = (url === false) && isDisabled,
                 actions = data.isDelete ? data.actions(false, showDel, showZoom, showDrag, disabled, url, key) : '',
                 footer = data.footer.replace(/\{actions}/g, actions);
-            return footer.replace(/\{caption}/g, caption)
-                .replace(/\{width}/g, width)
-                .replace(/\{indicator}/g, '')
-                .replace(/\{indicatorTitle}/g, '');
+            return footer.replace(/\{caption}/g, caption).replace(/\{size}/g, data.getSize(size))
+                .replace(/\{width}/g, width).replace(/\{indicator}/g, '').replace(/\{indicatorTitle}/g, '');
         }
     };
     getNum = function (num, def) {
@@ -372,8 +371,9 @@
         '        {percent}%\n' +
         '     </div>\n' +
         '</div>';
+    tSize = ' <br><samp>({sizeText})</samp>';
     tFooter = '<div class="file-thumbnail-footer">\n' +
-        '    <div class="file-footer-caption" title="{caption}">{caption}</div>\n' +
+        '    <div class="file-footer-caption" title="{caption}">{caption}{size}</div>\n' +
         '    {progress} {actions}\n' +
         '</div>';
     tActions = '<div class="file-actions">\n' +
@@ -421,6 +421,7 @@
         modalMain: tModalMain,
         modal: tModal,
         progress: tProgress,
+        size: tSize,
         footer: tFooter,
         actions: tActions,
         actionDelete: tActionDelete,
@@ -2022,10 +2023,25 @@
         _showFileIcon: function () {
             this.$captionContainer.find('.kv-caption-icon').show();
         },
-        _generatePreviewTemplate: function (cat, data, fname, ftype, previewId, isError, frameClass, foot, ind) {
+        _getSize: function (bytes) {
+            var size = parseFloat(bytes);
+            if (bytes === null || isNaN(size)) {
+                return '';
+            }
+            var self = this, i, tmplt = self._getLayoutTemplate('size'), func = self.fileSizeGetter, sizes, out;
+            if (typeof func === 'function') {
+                out = func(bytes);
+            } else {
+                i = Math.floor(Math.log(size) / Math.log(1024));
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+                out = (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i];
+            }
+            return tmplt.replace('{sizeText}', out);
+        },
+        _generatePreviewTemplate: function (cat, data, fname, ftype, previewId, isError, size, frameClass, foot, ind) {
             var self = this, tmplt = self._getPreviewTemplate(cat), content, sText, css = frameClass || '',
                 config = ifSet(cat, self.previewSettings, defaultPreviewSettings[cat]),
-                caption = self.slug(fname), footer = foot || self._renderFileFooter(caption, config.width);
+                caption = self.slug(fname), footer = foot || self._renderFileFooter(caption, size, config.width);
             ind = ind || previewId.slice(previewId.lastIndexOf('-') + 1);
             tmplt = self._parseFilePreviewIcon(tmplt, fname.split('.').pop());
             if (isError) {
@@ -2055,7 +2071,7 @@
             var fname = file ? file.name : '', ftype = file ? file.type : '', content,
                 isError = isDisabled === true && !self.isUploadable, data = objUrl.createObjectURL(file);
             self._clearDefaultPreview();
-            content = self._generatePreviewTemplate('other', data, fname, ftype, previewId, isError);
+            content = self._generatePreviewTemplate('other', data, fname, ftype, previewId, isError, file.size);
             if (!$previewLive.length) {
                 $previewLive = $(document.createElement('div')).addClass('file-live-thumbs').appendTo($preview);
             }
@@ -2081,7 +2097,7 @@
                 iData = window.DOMPurify.sanitize(iData);
             }
             if (chkTypes || chkMimes) {
-                content = self._generatePreviewTemplate(cat, iData, fname, file.type, previewId);
+                content = self._generatePreviewTemplate(cat, iData, fname, file.type, previewId, false, file.size);
                 self._clearDefaultPreview();
                 $previewLive.append("\n" + content);
                 self._validateImage(i, previewId, caption, file.type);
@@ -2583,29 +2599,26 @@
                 label = ' <span class="' + self.buttonLabelClass + '">' + label + '</span>';
             }
             return tmplt.replace('{type}', btnType).replace('{css}', css).replace('{title}', title)
-                .replace('{status}', status).replace( '{icon}', icon).replace( '{label}', label);
+                .replace('{status}', status).replace('{icon}', icon).replace('{label}', label);
         },
         _renderThumbProgress: function () {
             return '<div class="file-thumb-progress hide">' + this.progressTemplate.replace(/\{percent}/g,
                     '0') + '</div>';
         },
-        _renderFileFooter: function (caption, width) {
+        _renderFileFooter: function (caption, size, width) {
             var self = this, config = self.fileActionSettings, footer, rem = config.showRemove, drg = config.showDrag,
                 upl = config.showUpload, zoom = config.showZoom, out, template = self._getLayoutTemplate('footer');
+            size = self._getSize(size);
             if (self.isUploadable) {
                 out = template.replace(/\{actions}/g, self._renderFileActions(rem, upl, zoom, drg, false, false, false))
-                    .replace(/\{caption}/g, caption)
-                    .replace(/\{width}/g, width)
-                    .replace(/\{progress}/g, self._renderThumbProgress())
-                    .replace(/\{indicator}/g, config.indicatorNew)
+                    .replace(/\{caption}/g, caption).replace(/\{size}/g, size).replace(/\{width}/g, width)
+                    .replace(/\{progress}/g, self._renderThumbProgress()).replace(/\{indicator}/g, config.indicatorNew)
                     .replace(/\{indicatorTitle}/g, config.indicatorNewTitle);
             } else {
                 out = template.replace(/\{actions}/g,
                     self._renderFileActions(false, false, zoom, drg, false, false, false))
-                    .replace(/\{caption}/g, caption)
-                    .replace(/\{progress}/g, '')
-                    .replace(/\{width}/g, width)
-                    .replace(/\{indicator}/g, config.indicatorNew)
+                    .replace(/\{caption}/g, caption).replace(/\{size}/g, size).replace(/\{width}/g, width)
+                    .replace(/\{progress}/g, '').replace(/\{indicator}/g, config.indicatorNew)
                     .replace(/\{indicatorTitle}/g, config.indicatorNewTitle);
             }
             out = replaceTags(out, self.previewThumbTags);
@@ -3056,6 +3069,7 @@
         mainClass: '',
         mainTemplate: null,
         purifyHtml: true,
+        fileSizeGetter: null,
         initialCaption: '',
         initialPreview: [],
         initialPreviewDelimiter: '*$$*',
