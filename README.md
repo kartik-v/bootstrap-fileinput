@@ -54,7 +54,7 @@ You can also manually install the plugin easily to your project. Just download t
 Step 1: Load the following assets in your header. 
 
 ```html
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <link href="path/to/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <!-- canvas-to-blob.min.js is only needed if you wish to resize images before upload.
@@ -68,9 +68,9 @@ Step 1: Load the following assets in your header.
 <script src="path/to/js/plugins/purify.min.js" type="text/javascript"></script>
 <!-- the main fileinput plugin file -->
 <script src="path/to/js/fileinput.min.js"></script>
-<!-- bootstrap.js below is only needed if you wish to the feature of viewing details
-     of text file preview via modal dialog -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- bootstrap.js below is needed if you wish to zoom and view file content 
+     in a larger detailed modal dialog -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- optionally if you need a theme like font awesome theme you can include 
     it as mentioned below -->
 <script src="path/to/js/themes/fa.js"></script>
