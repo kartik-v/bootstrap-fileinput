@@ -26,6 +26,7 @@
         "progress",
         "gallery"
     ],
+    "main": "./js/fileinput.js",
     "peerDependencies": {
         "jquery": ">= 1.9.0",
         "bootstrap-sass": "~3"
