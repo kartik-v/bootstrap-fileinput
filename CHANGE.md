@@ -63,6 +63,7 @@ Change Log: `bootstrap-fileinput`
         - `dragTitle`
         - `dragSettings`
     - New template `actionDrag` will be available within `layoutTemplates` to configure your drag indicator markup.
+17. Simpler naming for files in locales and themes folders.
 
 ## version 4.3.1
 
@@ -298,7 +299,7 @@ Change Log: `bootstrap-fileinput`
 17. (enh #202): Ability to add Translations / Locales.
     - Identify and group all messages that need to be translated configurable via `$.fn.fileinput.locales['<lang-code>']`
     - Set default english messages configuration `$.fn.fileinput.locales['en']` within the plugin core code
-    - Individual locale files need to be created as separate js files e.g. `fileinput_locale_<lang>.js`
+    - Individual locale files need to be created as separate js files e.g. `<lang>.js`
 18. (enh #203): Enhancements and revamp of all error events.
     - fileerror
     - fileuploaderror
