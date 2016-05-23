@@ -132,12 +132,25 @@
 }
 
 .file-preview-other {
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+/*
+.file-preview-other {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
     border: 2px solid #999;
     border-radius: 30px;
 }
+*/
 
 .file-preview-other:hover {
     opacity: 0.8;
@@ -147,16 +160,13 @@
     text-align: left;
 }
 
-.file-icon-lg {
-    font-size: 1.2em;
-}
-
-.file-icon-2x {
-    font-size: 2.4em;
-}
-
-.file-icon-4x {
+.file-other-icon {
     font-size: 4.8em;
+}
+
+.file-zoom-dialog .file-other-icon {
+    font-size: 8em;
+    font-size: 55vmin;
 }
 
 .file-input-new .file-preview, .file-input-new .close, .file-input-new .glyphicon-file,

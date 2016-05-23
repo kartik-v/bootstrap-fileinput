@@ -852,6 +852,7 @@
                     $.each(self.previewFileExtSettings, function (key, func) {
                         if (self.previewFileIconSettings[key] && func(ext)) {
                             icn = self.previewFileIconSettings[key];
+                            return;
                         }
                     });
                 }
@@ -2043,7 +2044,7 @@
                 config = ifSet(cat, self.previewSettings, defaultPreviewSettings[cat]),
                 caption = self.slug(fname), footer = foot || self._renderFileFooter(caption, size, config.width);
             ind = ind || previewId.slice(previewId.lastIndexOf('-') + 1);
-            tmplt = self._parseFilePreviewIcon(tmplt, fname.split('.').pop());
+            tmplt = self._parseFilePreviewIcon(tmplt, fname);
             if (isError) {
                 footer += '<div class="file-other-error" title="' + self.fileActionSettings.indicatorErrorTitle +
                     '">' + self.fileActionSettings.indicatorError + '</div>';
@@ -3112,7 +3113,7 @@
         previewSettings: defaultPreviewSettings,
         fileTypeSettings: defaultFileTypeSettings,
         previewFileIcon: '<i class="glyphicon glyphicon-file"></i>',
-        previewFileIconClass: 'file-icon-4x',
+        previewFileIconClass: 'file-other-icon',
         previewFileIconSettings: {},
         previewFileExtSettings: {},
         buttonLabelClass: 'hidden-xs',
