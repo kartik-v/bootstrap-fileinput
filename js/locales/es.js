@@ -51,19 +51,19 @@
             removeTitle: 'Eliminar archivo',
             uploadTitle: 'Subir archivo',
             zoomTitle: 'Ver detalles',
-            dragTitle: 'Move / Rearrange',
+            dragTitle: 'Mover / Arreglar de nuevo',
             indicatorNewTitle: 'No subido todavía',
             indicatorSuccessTitle: 'Subido',
             indicatorErrorTitle: 'Subir Error',
             indicatorLoadingTitle: 'Subiendo ...'
         },
         previewZoomButtonTitles: {
-            prev: 'View previous file',
-            next: 'View next file',
-            toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
+            prev: 'Ver archivo anterior',
+            next: 'Ver archivo siguiente',
+            toggleheader: 'Activar encabezado',
+            fullscreen: 'Activar pantalla completa',
+            borderless: 'Activar el modo sin bordes',
+            close: 'Cerrar vista detallada'
         }
     };
 })(window.jQuery);
