@@ -65,6 +65,7 @@ Change Log: `bootstrap-fileinput`
     - New template `actionDrag` will be available within `layoutTemplates` to configure your drag indicator markup.
 17. Simpler naming for files in locales and themes folders.
 18. (enh #647): Display file size in previews and templates.
+19. Enhancements to file preview icons (`other` template).
 
 ## version 4.3.1
 
