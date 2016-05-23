@@ -2745,7 +2745,7 @@
                     self._resetPreviewThumbs(isAjaxUpload);
                 }
             } else {
-                if (!isAjaxUpload || flagSingle) {
+                if ((!isAjaxUpload && self.clearPreviewOnChange) || flagSingle) {
                     self._resetPreviewThumbs(false);
                     if (flagSingle) {
                         self.clearStack();
@@ -3065,6 +3065,7 @@
         showClose: true,
         showUploadedThumbs: true,
         autoReplace: false,
+        clearPreviewOnChange: true,
         previewClass: '',
         captionClass: '',
         mainClass: '',
