@@ -2035,20 +2035,16 @@
             } else {
                 i = Math.floor(Math.log(size) / Math.log(1024));
                 sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-                out = (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                    out = (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i];
             }
             return tmplt.replace('{sizeText}', out);
         },
         _generatePreviewTemplate: function (cat, data, fname, ftype, previewId, isError, size, frameClass, foot, ind) {
             var self = this, tmplt = self._getPreviewTemplate(cat), content, sText, css = frameClass || '',
-                config = ifSet(cat, self.previewSettings, defaultPreviewSettings[cat]),
-                caption = self.slug(fname), footer = foot || self._renderFileFooter(caption, size, config.width);
+                config = ifSet(cat, self.previewSettings, defaultPreviewSettings[cat]), caption = self.slug(fname),
+                footer = foot || self._renderFileFooter(caption, size, config.width, isError);
             ind = ind || previewId.slice(previewId.lastIndexOf('-') + 1);
             tmplt = self._parseFilePreviewIcon(tmplt, fname);
-            if (isError) {
-                footer += '<div class="file-other-error" title="' + self.fileActionSettings.indicatorErrorTitle +
-                    '">' + self.fileActionSettings.indicatorError + '</div>';
-            }
             if (cat === 'text' || cat === 'html') {
                 sText = cat === 'text' ? htmlEncode(data) : data;
                 content = tmplt.replace(/\{previewId}/g, previewId).replace(/\{caption}/g, caption)
@@ -2606,21 +2602,23 @@
             return '<div class="file-thumb-progress hide">' + this.progressTemplate.replace(/\{percent}/g,
                     '0') + '</div>';
         },
-        _renderFileFooter: function (caption, size, width) {
+        _renderFileFooter: function (caption, size, width, isError) {
             var self = this, config = self.fileActionSettings, footer, rem = config.showRemove, drg = config.showDrag,
-                upl = config.showUpload, zoom = config.showZoom, out, template = self._getLayoutTemplate('footer');
+                upl = config.showUpload, zoom = config.showZoom, out, template = self._getLayoutTemplate('footer'),
+                indicator = isError ? config.indicatorError : config.indicatorNew,
+                title = isError ? config.indicatorErrorTitle : config.indicatorNewTitle;
             size = self._getSize(size);
             if (self.isUploadable) {
                 out = template.replace(/\{actions}/g, self._renderFileActions(rem, upl, zoom, drg, false, false, false))
                     .replace(/\{caption}/g, caption).replace(/\{size}/g, size).replace(/\{width}/g, width)
-                    .replace(/\{progress}/g, self._renderThumbProgress()).replace(/\{indicator}/g, config.indicatorNew)
-                    .replace(/\{indicatorTitle}/g, config.indicatorNewTitle);
+                    .replace(/\{progress}/g, self._renderThumbProgress()).replace(/\{indicator}/g, indicator)
+                    .replace(/\{indicatorTitle}/g, title);
             } else {
                 out = template.replace(/\{actions}/g,
                     self._renderFileActions(false, false, zoom, drg, false, false, false))
                     .replace(/\{caption}/g, caption).replace(/\{size}/g, size).replace(/\{width}/g, width)
-                    .replace(/\{progress}/g, '').replace(/\{indicator}/g, config.indicatorNew)
-                    .replace(/\{indicatorTitle}/g, config.indicatorNewTitle);
+                    .replace(/\{progress}/g, '').replace(/\{indicator}/g, indicator)
+                    .replace(/\{indicatorTitle}/g, title);
             }
             out = replaceTags(out, self.previewThumbTags);
             return out;
