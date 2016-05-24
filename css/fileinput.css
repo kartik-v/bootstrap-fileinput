@@ -132,25 +132,15 @@
 }
 
 .file-preview-other {
-    left:0;
-    top:0;
-    right:0;
-    bottom:0;
-    margin:auto;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
     text-align: center;
     vertical-align: middle;
     padding: 10px;
 }
-
-/*
-.file-preview-other {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-    border: 2px solid #999;
-    border-radius: 30px;
-}
-*/
 
 .file-preview-other:hover {
     opacity: 0.8;
@@ -164,6 +154,7 @@
     font-size: 4.8em;
 }
 
+/* noinspection CssOverwrittenProperties */
 .file-zoom-dialog .file-other-icon {
     font-size: 8em;
     font-size: 55vmin;

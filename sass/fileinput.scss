@@ -8,7 +8,6 @@
  * Licensed under the BSD 3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
-
 $image-path: "'../img" !default;
 $preview-size: 160px !default;
 
@@ -146,16 +145,6 @@ $preview-size: 160px !default;
   }
 }
 
-/*
-.file-preview-other {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-    border: 2px solid #999;
-    border-radius: 30px;
-}
-*/
-
 .file-actions, .file-other-error {
   text-align: left;
 }
@@ -164,6 +153,7 @@ $preview-size: 160px !default;
   font-size: 4.8em;
 }
 
+/* noinspection CssOverwrittenProperties */
 .file-zoom-dialog .file-other-icon {
   font-size: 8em;
   font-size: 55vmin;

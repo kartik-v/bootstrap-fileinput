@@ -67,6 +67,7 @@ Change Log: `bootstrap-fileinput`
 18. (enh #647): Display file size in previews and templates.
 19. Enhancements to file preview icons (`other` template).
 20. (enh #654): Update Spanish Translations.
+21. (enh #655): Include sass styling configuration.
 
 ## version 4.3.1
 
