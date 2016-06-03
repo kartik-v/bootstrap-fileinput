@@ -94,10 +94,10 @@
                 template: obj.previewGenericTemplate,
                 showZoom: obj.fileActionSettings.showZoom,
                 showDrag: obj.fileActionSettings.showDrag,
-                getSize: function(size) {
+                getSize: function (size) {
                     return obj._getSize(size);
                 },
-                parseTemplate: function (cat, data, fname, ftype, pId, ftr, ind, size) {
+                parseTemplate: function (cat, data, fname, ftype, pId, ftr, ind) {
                     var fc = ' file-preview-initial';
                     return obj._generatePreviewTemplate(cat, data, fname, ftype, pId, false, null, fc, ftr, ind);
                 },
@@ -842,7 +842,7 @@
             return 'other';
         },
         _parseFilePreviewIcon: function (content, fname) {
-            var self = this, ext, icn = self.previewFileIcon;
+            var self = this, proceed, ext, icn = self.previewFileIcon;
             if (fname && fname.indexOf('.') > -1) {
                 ext = fname.split('.').pop();
                 if (self.previewFileIconSettings && self.previewFileIconSettings[ext]) {
@@ -854,6 +854,7 @@
                             icn = self.previewFileIconSettings[key];
                             return;
                         }
+                        proceed = true;
                     });
                 }
             }
@@ -1036,6 +1037,7 @@
             settings = {
                 handle: '.drag-handle-init',
                 dataIdAttr: 'data-preview-id',
+                draggable: '.file-preview-initial',
                 onSort: function (e) {
                     var oldIndex = e.oldIndex, newIndex = e.newIndex;
                     self.initialPreview = moveArray(self.initialPreview, oldIndex, newIndex);
@@ -1990,10 +1992,10 @@
                                 }
                             });
                         }
-                        var filestack = self.getFileStack(true), len = filestack.length, chk = previewCache.count(
-                            self.id),
-                            hasThumb = self.showPreview && self.$preview.find('.file-preview-frame').length;
                         self._clearFileInput();
+                        var filestack = self.getFileStack(true), chk = previewCache.count(self.id),
+                            len = filestack.length,
+                            hasThumb = self.showPreview && self.$preview.find('.file-preview-frame').length;
                         if (len === 0 && chk === 0 && !hasThumb) {
                             self.reset();
                         } else {
@@ -2029,26 +2031,22 @@
             if (bytes === null || isNaN(size)) {
                 return '';
             }
-            var self = this, i, tmplt = self._getLayoutTemplate('size'), func = self.fileSizeGetter, sizes, out;
+            var self = this, i, func = self.fileSizeGetter, sizes, out;
             if (typeof func === 'function') {
                 out = func(bytes);
             } else {
                 i = Math.floor(Math.log(size) / Math.log(1024));
-                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
                 out = (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i];
             }
-            return tmplt.replace('{sizeText}', out);
+            return self._getLayoutTemplate('size').replace('{sizeText}', out);
         },
         _generatePreviewTemplate: function (cat, data, fname, ftype, previewId, isError, size, frameClass, foot, ind) {
             var self = this, tmplt = self._getPreviewTemplate(cat), content, sText, css = frameClass || '',
-                config = ifSet(cat, self.previewSettings, defaultPreviewSettings[cat]),
-                caption = self.slug(fname), footer = foot || self._renderFileFooter(caption, size, config.width);
+                config = ifSet(cat, self.previewSettings, defaultPreviewSettings[cat]), caption = self.slug(fname),
+                footer = foot || self._renderFileFooter(caption, size, config.width, isError);
             ind = ind || previewId.slice(previewId.lastIndexOf('-') + 1);
             tmplt = self._parseFilePreviewIcon(tmplt, fname);
-            if (isError) {
-                footer += '<div class="file-other-error" title="' + self.fileActionSettings.indicatorErrorTitle +
-                    '">' + self.fileActionSettings.indicatorError + '</div>';
-            }
             if (cat === 'text' || cat === 'html') {
                 sText = cat === 'text' ? htmlEncode(data) : data;
                 content = tmplt.replace(/\{previewId}/g, previewId).replace(/\{caption}/g, caption)
@@ -2606,21 +2604,23 @@
             return '<div class="file-thumb-progress hide">' + this.progressTemplate.replace(/\{percent}/g,
                     '0') + '</div>';
         },
-        _renderFileFooter: function (caption, size, width) {
+        _renderFileFooter: function (caption, size, width, isError) {
             var self = this, config = self.fileActionSettings, footer, rem = config.showRemove, drg = config.showDrag,
-                upl = config.showUpload, zoom = config.showZoom, out, template = self._getLayoutTemplate('footer');
+                upl = config.showUpload, zoom = config.showZoom, out, template = self._getLayoutTemplate('footer'),
+                indicator = isError ? config.indicatorError : config.indicatorNew,
+                title = isError ? config.indicatorErrorTitle : config.indicatorNewTitle;
             size = self._getSize(size);
             if (self.isUploadable) {
                 out = template.replace(/\{actions}/g, self._renderFileActions(rem, upl, zoom, drg, false, false, false))
                     .replace(/\{caption}/g, caption).replace(/\{size}/g, size).replace(/\{width}/g, width)
-                    .replace(/\{progress}/g, self._renderThumbProgress()).replace(/\{indicator}/g, config.indicatorNew)
-                    .replace(/\{indicatorTitle}/g, config.indicatorNewTitle);
+                    .replace(/\{progress}/g, self._renderThumbProgress()).replace(/\{indicator}/g, indicator)
+                    .replace(/\{indicatorTitle}/g, title);
             } else {
                 out = template.replace(/\{actions}/g,
                     self._renderFileActions(false, false, zoom, drg, false, false, false))
                     .replace(/\{caption}/g, caption).replace(/\{size}/g, size).replace(/\{width}/g, width)
-                    .replace(/\{progress}/g, '').replace(/\{indicator}/g, config.indicatorNew)
-                    .replace(/\{indicatorTitle}/g, config.indicatorNewTitle);
+                    .replace(/\{progress}/g, '').replace(/\{indicator}/g, indicator)
+                    .replace(/\{indicatorTitle}/g, title);
             }
             out = replaceTags(out, self.previewThumbTags);
             return out;

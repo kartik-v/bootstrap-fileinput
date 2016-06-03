@@ -66,6 +66,10 @@ Change Log: `bootstrap-fileinput`
 17. Simpler naming for files in locales and themes folders.
 18. (enh #647): Display file size in previews and templates.
 19. Enhancements to file preview icons (`other` template).
+20. (enh #654): Update Spanish Translations.
+21. (enh #655): Include sass styling configuration.
+22. (enh #666): Update sortable draggable selector.
+23. (enh #674): Organize all themes in a separate `themes` folder.
 
 ## version 4.3.1
 
