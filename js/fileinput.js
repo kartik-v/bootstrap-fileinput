@@ -1029,11 +1029,11 @@
             self._validateDefaultPreview();
         },
         _initSortable: function () {
-            var self = this, $preview = self.$preview, $el, settings;
+            var self = this, $el, settings;
             if (!window.Sortable) {
                 return;
             }
-            $el = $preview.find('.file-initial-thumbs');
+            $el = self.$previewContainer.find('.file-initial-thumbs');
             settings = {
                 handle: '.drag-handle-init',
                 dataIdAttr: 'data-preview-id',
