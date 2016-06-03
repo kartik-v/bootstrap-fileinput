@@ -68,6 +68,8 @@ Change Log: `bootstrap-fileinput`
 19. Enhancements to file preview icons (`other` template).
 20. (enh #654): Update Spanish Translations.
 21. (enh #655): Include sass styling configuration.
+22. (enh #666): Update sortable draggable selector.
+23. (enh #674): Organize all themes in a separate `themes` folder.
 
 ## version 4.3.1
 

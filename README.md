@@ -73,7 +73,7 @@ Step 1: Load the following assets in your header.
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- optionally if you need a theme like font awesome theme you can include 
     it as mentioned below -->
-<script src="path/to/js/themes/fa.js"></script>
+<script src="path/to/themes/fa/fa.js"></script>
 <!-- optionally if you need translation for your language then include 
     locale file as mentioned below -->
 <script src="path/to/js/locales/<lang>.js"></script>
