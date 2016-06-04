@@ -49,6 +49,7 @@
         msgImageResizeError: '無法獲取的圖像尺寸調整。',
         msgImageResizeException: '錯誤而調整圖像大小。<pre>{errors}</pre>',
         dropZoneTitle: '拖曳檔案至此 &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: '刪除檔案',
             uploadTitle: '上傳檔案',

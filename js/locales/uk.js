@@ -48,6 +48,7 @@
         msgImageResizeError: 'Не вдалося розміри зображення, щоб змінити розмір.',
         msgImageResizeException: 'Помилка при зміні розміру зображення.<pre>{errors}</pre>',
         dropZoneTitle: 'Перетягніть файли сюди &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Видалити файл',
             uploadTitle: 'Загрузити файл',

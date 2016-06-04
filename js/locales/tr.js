@@ -47,6 +47,7 @@
         msgImageResizeError: 'Görüntü boyutlarını yeniden boyutlandırmak için alınamadı.',
         msgImageResizeException: 'Görsel boyutlandırma sırasında hata.<pre>{errors}</pre>',
         dropZoneTitle: 'Dosyaları buraya sürükleyip bırakın &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Dosyayı kaldır',
             uploadTitle: 'Dosyayı yükle',

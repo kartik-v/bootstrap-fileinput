@@ -48,6 +48,7 @@
         msgImageResizeError: '无法获取的图像尺寸调整。',
         msgImageResizeException: '错误而调整图像大小。<pre>{errors}</pre>',
         dropZoneTitle: '拖拽文件到这里 &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: '删除文件',
             uploadTitle: '上传文件',

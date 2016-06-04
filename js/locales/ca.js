@@ -47,6 +47,7 @@
         msgImageResizeError: 'No s\'ha pogut obtenir les dimensions d\'imatge per canviar la mida.',
         msgImageResizeException: 'Error en canviar la mida de la imatge.<pre>{errors}</pre>',
         dropZoneTitle: 'Arrossegueu i deixeu anar aquí els arxius &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Eliminar arxiu',
             uploadTitle: 'Pujar arxiu',

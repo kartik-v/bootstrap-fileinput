@@ -48,6 +48,7 @@
         msgImageResizeError: 'Tak dapat menentukan dimensi gambar untuk mengubah ukuran.',
         msgImageResizeException: 'Kesalahan saat mengubah ukuran gambar.<pre>{errors}</pre>',
         dropZoneTitle: 'Tarik dan lepaskan berkas disini &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Hapus berkas',
             uploadTitle: 'Unggah berkas',

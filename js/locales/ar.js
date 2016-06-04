@@ -48,6 +48,7 @@
         msgImageResizeError: 'لم يتمكن من معرفة أبعاد الصورة لتغييرها.',
         msgImageResizeException: 'حدث خطأ أثناء تغيير أبعاد الصورة.<pre>{errors}</pre>',
         dropZoneTitle: 'اسحب وأفلت الملفات هنا &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'إزالة الملف',
             uploadTitle: 'رفع الملف',

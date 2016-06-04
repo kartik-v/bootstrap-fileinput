@@ -47,6 +47,7 @@
         msgImageResizeError: 'Δεν θα μπορούσε να πάρει τις διαστάσεις της εικόνας για να αλλάξετε το μέγεθος.',
         msgImageResizeException: 'Σφάλμα κατά την αλλαγή μεγέθους της εικόνας.<pre>{errors}</pre>',
         dropZoneTitle: 'Σύρετε τα αρχεία εδώ &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Αφαιρέστε το αρχείο',
             uploadTitle: 'Ανεβάστε το αρχείο',

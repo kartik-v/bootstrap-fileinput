@@ -37,6 +37,7 @@
         msgSelected: '{n} tiedostoa valittu',
         msgFoldersNotAllowed: 'Raahaa ja pudota ainoastaan tiedostoja! Ohitettu {n} raahattua kansiota.',
         dropZoneTitle: 'Raahaa ja pudota tiedostot t&auml;h&auml;n &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Remove file',
             uploadTitle: 'Upload file',

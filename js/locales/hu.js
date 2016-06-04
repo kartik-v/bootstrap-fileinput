@@ -47,6 +47,7 @@
         msgImageResizeError: 'Nem lehet megszerezni a kép méretei átméretezni.',
         msgImageResizeException: 'Hiba történt a méretezés.<pre>{errors}</pre>',
         dropZoneTitle: 'Fájlok húzása ide &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'A fájl eltávolítása',
             uploadTitle: 'fájl feltöltése',
