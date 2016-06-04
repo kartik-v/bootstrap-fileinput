@@ -74,7 +74,7 @@ Change Log: `bootstrap-fileinput`
     - New boolean property `showBrowse` that allows you to control the display of the browse button
     - New boolean property `browseOnZoneClick` that allows you to select a file:
          - **for ajax uploads** - by clicking on the preview drag/drop zone 
-         - **for form based/non-ajax uploads** - by setting `initialPreviewContent` and that will be clickable to browse files
+         - **for form based/non-ajax uploads** - by setting `defaultPreviewContent` and that will be clickable to browse files
     - New string message property `dropZoneClickTitle` that will be appended to the `dragZoneTitle` for ajax uploads when `browseOnZoneClick` is `true`.
 
 
