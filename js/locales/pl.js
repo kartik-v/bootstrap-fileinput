@@ -47,6 +47,7 @@
         msgImageResizeError: 'Nie udało się uzyskać wymiary obrazu, aby zmienić rozmiar.',
         msgImageResizeException: 'Błąd podczas zmiany rozmiaru obrazu.<pre>{errors}</pre>',
         dropZoneTitle: 'Przeciągnij i upuść pliki tu &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Usuń plik',
             uploadTitle: 'przesyłanie pliku',

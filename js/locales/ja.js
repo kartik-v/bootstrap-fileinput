@@ -54,6 +54,7 @@
         msgImageResizeError: 'リサイズ時に画像サイズが取得できませんでした',
         msgImageResizeException: '画像のリサイズ時にエラーが発生しました。<pre>{errors}</pre>',
         dropZoneTitle: 'ファイルをドラッグ&ドロップ&hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         slugCallback: function(text) {
             return text ? text.split(/(\\|\/)/g).pop().replace(/[^\w\u4e00-\u9fa5\u3040-\u309f\u30a0-\u30ff\u31f0-\u31ff\u3200-\u32ff\uff00-\uffef\-.\\\/ ]+/g, '') : '';
         },

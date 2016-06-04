@@ -48,6 +48,7 @@
         msgImageResizeError: 'یافت نشد ابعاد تصویر را برای تغییر اندازه.',
         msgImageResizeException: 'خطا در هنگام تغییر اندازه تصویر.<pre>{errors}</pre>',
         dropZoneTitle: 'فایل‌ها را بکشید و در اینجا رها کنید &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'حذف فایل',
             uploadTitle: 'آپلود فایل',

@@ -47,6 +47,7 @@
         msgImageResizeError: 'Nelze získat rozměry obrázku změnit velikost.',
         msgImageResizeException: 'Chyba při změně velikosti obrázku.<pre>{errors}</pre>',
         dropZoneTitle: 'Táhni a pusť soubory sem &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Odstranit soubor',
             uploadTitle: 'nahrát soubor',

@@ -47,6 +47,7 @@
         msgImageResizeError: 'Kon de foto afmetingen niet lezen om te verkleinen.',
         msgImageResizeException: 'Fout bij het verkleinen van de foto.<pre>{errors}</pre>',
         dropZoneTitle: 'Drag & drop bestanden hier &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Verwijder bestand',
             uploadTitle: 'bestand uploaden',

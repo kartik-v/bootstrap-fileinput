@@ -48,6 +48,7 @@
         msgImageResizeError: 'Nije mogao dobiti dimenzije slike na veličinu.',
         msgImageResizeException: 'Greška prilikom promjene veličine slike.<pre>{errors}</pre>',
         dropZoneTitle: 'Prevucite datoteke ovde &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Uklonite datoteku',
             uploadTitle: 'Postavi datoteku',

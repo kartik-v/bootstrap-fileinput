@@ -47,6 +47,7 @@
         msgImageResizeError: 'Не може да размерите на изображението, за да промените размера.',
         msgImageResizeException: 'Грешка при промяна на размера на изображението.<pre>{errors}</pre>',
         dropZoneTitle: 'Пуснете файловете тук &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Махни файл',
             uploadTitle: 'Качване на файл',

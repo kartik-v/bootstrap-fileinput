@@ -47,6 +47,7 @@
         msgImageResizeError: 'ไม่สามารถรับขนาดภาพเพื่อปรับขนาด',
         msgImageResizeException: 'ข้อผิดพลาดขณะปรับขนาดภาพ<pre>{errors}</pre>',
         dropZoneTitle: 'Drag & drop ไฟล์ตรงนี้ &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'ลบไฟล์',
             uploadTitle: 'อัปโหลดไฟล์',

@@ -49,6 +49,7 @@
         msgImageResizeError: "Impossibile ottenere le dimensioni dell'immagine per ridimensionare.",
         msgImageResizeException: "Errore durante il ridimensionamento dell'immagine.<pre>{errors}</pre>",
         dropZoneTitle: 'Trascina i file qui&hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Rimuovere il file',
             uploadTitle: 'Caricare un file',

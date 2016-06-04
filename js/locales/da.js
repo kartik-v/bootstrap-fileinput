@@ -47,6 +47,7 @@
         msgImageResizeError: 'Kunne ikke få billedets dimensioner for at ændre størrelsen.',
         msgImageResizeException: 'Fejl ved at ændre størrelsen på billedet.<pre>{errors}</pre>',
         dropZoneTitle: 'Drag & drop filer her &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Fjern fil',
             uploadTitle: 'Upload fil',

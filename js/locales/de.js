@@ -45,6 +45,7 @@
         msgImageResizeError: 'Konnte nicht die Bildabmessungen zu ändern.',
         msgImageResizeException: 'Fehler beim Ändern der Größe des Bildes.<pre>{errors}</pre>',
         dropZoneTitle: 'Dateien hierher ziehen &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Datei entfernen',
             uploadTitle: 'Datei hochladen',

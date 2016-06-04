@@ -48,6 +48,7 @@
         msgImageResizeError: 'Nu a putut obține dimensiunile imaginii pentru a redimensiona.',
         msgImageResizeException: 'Eroare la redimensionarea imaginii.<pre>{errors}</pre>',
         dropZoneTitle: 'Trage fișierele aici &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
             removeTitle: 'Scoateți fișier',
             uploadTitle: 'Incarca fisier',

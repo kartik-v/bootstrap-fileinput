@@ -444,7 +444,7 @@
         pdf: tTagBef2 + tPdf + tTagAft,
         other: tTagBef2 + tOther + tTagAft
     };
-    defaultPreviewTypes = ['image', 'html', 'text', 'video', 'audio', 'flash', 'object'];
+    defaultPreviewTypes = ['image', 'html', 'text', 'video', 'audio', 'flash', 'pdf', 'object'];
     defaultPreviewSettings = {
         image: {width: "auto", height: "160px"},
         html: {width: "213px", height: "160px"},
@@ -463,7 +463,7 @@
         video: {width: "auto", height: "100%", 'max-width': "100%"},
         audio: {width: "100%", height: "30px"},
         flash: {width: "auto", height: "480px"},
-        object: {width: "auto", height: "480px"},
+        object: {width: "auto", height: "100%", 'min-height': "480px"},
         pdf: {width: "100%", height: "100%", 'min-height': "480px"},
         other: {width: "auto", height: "100%", 'min-height': "480px"}
     };
@@ -475,7 +475,7 @@
             return compare(vType, 'text/html') || compare(vName, /\.(htm|html)$/i);
         },
         text: function (vType, vName) {
-            return compare(vType, 'text.*') || compare(vType, /\.(xml|javascript)$/i) ||
+            return compare(vType, 'text.*') || compare(vName, /\.(xml|javascript)$/i) ||
                 compare(vName, /\.(txt|md|csv|nfo|ini|json|php|js|css)$/i);
         },
         video: function (vType, vName) {
@@ -483,7 +483,7 @@
                 compare(vName, /\.(og?|mp4|webm|mp?g|3gp)$/i));
         },
         audio: function (vType, vName) {
-            return compare(vType, 'audio.*') && (compare(vType, /(ogg|mp3|mp?g|wav)$/i) ||
+            return compare(vType, 'audio.*') && (compare(vName, /(ogg|mp3|mp?g|wav)$/i) ||
                 compare(vName, /\.(og?|mp3|mp?g|wav)$/i));
         },
         flash: function (vType, vName) {
@@ -655,6 +655,8 @@
             self.dropZoneEnabled = hasDragDropSupport() && self.dropZoneEnabled;
             self.isDisabled = self.$element.attr('disabled') || self.$element.attr('readonly');
             self.isUploadable = hasFileUploadSupport() && !isEmpty(self.uploadUrl);
+            self.isClickable = self.browseOnZoneClick && self.showPreview &&
+                (self.isUploadable && self.dropZoneEnabled || !isEmpty(self.defaultPreviewContent));
             self.slug = typeof options.slugCallback === "function" ? options.slugCallback : self._slugDefault;
             self.mainTemplate = self.showCaption ? self._getLayoutTemplate('main1') : self._getLayoutTemplate('main2');
             self.captionTemplate = self._getLayoutTemplate('caption');
@@ -930,7 +932,9 @@
         _listen: function () {
             var self = this, $el = self.$element, $form = $el.closest('form'), $cont = self.$container;
             handler($el, 'change', $.proxy(self._change, self));
-            handler(self.$btnFile, 'click', $.proxy(self._browse, self));
+            if (self.showBrowse) {
+                handler(self.$btnFile, 'click', $.proxy(self._browse, self));
+            }
             handler($form, 'reset', $.proxy(self.reset, self));
             handler($cont.find('.fileinput-remove:not([disabled])'), 'click', $.proxy(self.clear, self));
             handler($cont.find('.fileinput-cancel'), 'click', $.proxy(self.cancel, self));
@@ -946,7 +950,24 @@
                 function () {
                     self._listenFullScreen(checkFullScreen());
                 });
-
+            self._initClickable();
+        },
+        _initClickable: function () {
+            var self = this, $zone;
+            if (!self.isClickable) {
+                return;
+            }
+            $zone = self.isUploadable ? self.$dropZone : self.$preview.find('.file-default-preview');
+            addCss($zone, 'clickable');
+            $zone.attr('tabindex', -1);
+            handler($zone, 'click', function (e) {
+                var $target = $(e.target);
+                if (!$target.parents('.file-preview-thumbnails').length || $target.parents(
+                        '.file-default-preview').length) {
+                    self.$element.trigger('click');
+                    $zone.blur();
+                }
+            });
         },
         _initDragDrop: function () {
             var self = this, $zone = self.$dropZone;
@@ -1498,6 +1519,7 @@
             }
             self.$preview.html('<div class="file-default-preview">' + self.defaultPreviewContent + '</div>');
             self.$container.removeClass('file-input-new');
+            self._initClickable();
         },
         _resetPreviewThumbs: function (isAjax) {
             var self = this, out;
@@ -2326,13 +2348,17 @@
             }
         },
         _setFileDropZoneTitle: function () {
-            var self = this, $zone = self.$container.find('.file-drop-zone');
+            var self = this, $zone = self.$container.find('.file-drop-zone'), title = self.dropZoneTitle, strFiles;
+            if (self.isClickable) {
+                strFiles = isEmpty(self.$element.attr('multiple')) ? self.fileSingle : self.filePlural;
+                title += self.dropZoneClickTitle.replace('{files}', strFiles);
+            }
             $zone.find('.' + self.dropZoneTitleClass).remove();
             if (!self.isUploadable || !self.showPreview || $zone.length === 0 || self.getFileStack().length > 0 || !self.dropZoneEnabled) {
                 return;
             }
             if ($zone.find('.file-preview-frame').length === 0 && isEmpty(self.defaultPreviewContent)) {
-                $zone.prepend('<div class="' + self.dropZoneTitleClass + '">' + self.dropZoneTitle + '</div>');
+                $zone.prepend('<div class="' + self.dropZoneTitleClass + '">' + title + '</div>');
             }
             self.$container.removeClass('file-input-new');
             addCss(self.$container, 'file-input-ajax-new');
@@ -2489,8 +2515,12 @@
         },
         _initBrowse: function ($container) {
             var self = this;
-            self.$btnFile = $container.find('.btn-file');
-            self.$btnFile.append(self.$element);
+            if (self.showBrowse) {
+                self.$btnFile = $container.find('.btn-file');
+                self.$btnFile.append(self.$element);
+            } else {
+                self.$element.hide();
+            }
         },
         _initCaption: function () {
             var self = this, cap = self.initialCaption || '';
@@ -2552,7 +2582,8 @@
                     .replace(/\{dropClass}/g, dropCss),
                 css = self.isDisabled ? self.captionClass + ' file-caption-disabled' : self.captionClass,
                 caption = self.captionTemplate.replace(/\{class}/g, css + ' kv-fileinput-caption');
-            return self.mainTemplate.replace(/\{class}/g, self.mainClass)
+            return self.mainTemplate.replace(/\{class}/g, self.mainClass +
+                (!self.showBrowse && self.showCaption ? ' no-browse' : ''))
                 .replace(/\{preview}/g, preview)
                 .replace(/\{close}/g, close)
                 .replace(/\{caption}/g, caption)
@@ -2588,11 +2619,15 @@
                     }
                     break;
                 case 'browse':
+                    if (!self.showBrowse) {
+                        return '';
+                    }
                     tmplt = self._getLayoutTemplate('btnBrowse');
                     break;
                 default:
                     return '';
             }
+
             css += type === 'browse' ? ' btn-file' : ' fileinput-' + type + ' fileinput-' + type + '-button';
             if (!isEmpty(label)) {
                 label = ' <span class="' + self.buttonLabelClass + '">' + label + '</span>';
@@ -3058,16 +3093,18 @@
     $.fn.fileinput.defaults = {
         language: 'en',
         showCaption: true,
+        showBrowse: true,
         showPreview: true,
         showRemove: true,
         showUpload: true,
         showCancel: true,
         showClose: true,
         showUploadedThumbs: true,
+        browseOnZoneClick: false,
         autoReplace: false,
         previewClass: '',
         captionClass: '',
-        mainClass: '',
+        mainClass: 'file-caption-main',
         mainTemplate: null,
         purifyHtml: true,
         fileSizeGetter: null,
@@ -3204,6 +3241,7 @@
         msgImageResizeError: 'Could not get the image dimensions to resize.',
         msgImageResizeException: 'Error while resizing the image.<pre>{errors}</pre>',
         dropZoneTitle: 'Drag & drop files here &hellip;',
+        dropZoneClickTitle: '<br>(or click to select {files})',
         previewZoomButtonTitles: {
             prev: 'View previous file',
             next: 'View next file',
