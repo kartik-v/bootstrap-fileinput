@@ -13,23 +13,23 @@ mkdir content\Scripts
 REM create sub folders for css and img files
 mkdir content\Content
 mkdir content\Content\bootstrap-fileinput
-mkdir content\Content\bootstrap-fileinput\css
-mkdir content\Content\bootstrap-fileinput\img
 
 REM delete the previous package versions
-del bootstrap-fileinput.*
+REM del bootstrap-fileinput.*
 
 REM copy the content to the destination folders
-copy ..\js\*.js content\Scripts
-copy ..\css\*.css content\Content\bootstrap-fileinput\css
-copy ..\img\*.* content\Content\bootstrap-fileinput\img
+xcopy ..\js content\Scripts /D /E /C /R /I /K /Y 
+xcopy ..\css content\Content\bootstrap-fileinput\css /D /E /C /R /I /K /Y 
+xcopy ..\img content\Content\bootstrap-fileinput\img /D /E /C /R /I /K /Y 
+xcopy ..\themes content\Content\bootstrap-fileinput\themes /D /E /C /R /I /K /Y 
+xcopy ..\sass content\Content\bootstrap-fileinput\sass /D /E /C /R /I /K /Y 
 
 REM create a new package
 NuGet Pack Package.nuspec -Exclude NuGet.exe;build.bat
 
 REM Upload the new package
-for %%f in (bootstrap-fileinput.*) do (
-NuGet Push %%f
-rmdir /s /q content
-del %%f
-)
+REM for %%f in (content\Content\bootstrap-fileinput.*) do (
+REM NuGet Push %%f
+REM rmdir /s /q content
+REM del %%f
+REM )
