@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.2
 
-**Date:** 22-May-2016
+**Date:** 11-Jun-2016
 
 1. (bug #595): Correct initialization of `allowedPreviewTypes`.
 2. (enh #600): Synchronize latest package on NuGet.
@@ -76,7 +76,6 @@ Change Log: `bootstrap-fileinput`
          - **for ajax uploads** - by clicking on the preview drag/drop zone 
          - **for form based/non-ajax uploads** - by setting `defaultPreviewContent` and that will be clickable to browse files
     - New string message property `dropZoneClickTitle` that will be appended to the `dragZoneTitle` for ajax uploads when `browseOnZoneClick` is `true`.
-
 
 ## version 4.3.1
 
