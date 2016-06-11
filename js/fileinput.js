@@ -457,7 +457,7 @@
         other: {width: "160px", height: "160px"}
     };
     defaultPreviewZoomSettings = {
-        image: {width: "auto", height: "100%"},
+        image: {width: "100%", height: "100%"},
         html: {width: "100%", height: "100%", 'min-height': "480px"},
         text: {width: "100%", height: "100%", 'min-height': "480px"},
         video: {width: "auto", height: "100%", 'max-width': "100%"},
