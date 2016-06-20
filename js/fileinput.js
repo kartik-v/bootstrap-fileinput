@@ -2646,7 +2646,7 @@
                 title = isError ? config.indicatorErrorTitle : config.indicatorNewTitle;
             size = self._getSize(size);
             if (self.isUploadable) {
-                out = template.replace(/\{actions}/g, self._renderFileActions(rem, upl, zoom, drg, false, false, false))
+                out = template.replace(/\{actions}/g, self._renderFileActions(upl, rem, zoom, drg, false, false, false))
                     .replace(/\{caption}/g, caption).replace(/\{size}/g, size).replace(/\{width}/g, width)
                     .replace(/\{progress}/g, self._renderThumbProgress()).replace(/\{indicator}/g, indicator)
                     .replace(/\{indicatorTitle}/g, title);
