@@ -1,6 +1,13 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.3.3
+
+**Date:** 29-Jun-2016
+
+1. (enh #695): Update Spanish Translations.
+2. (enh #698): Re-enable drag and drop support for IE Edge.
+
 ## version 4.3.2
 
 **Date:** 11-Jun-2016
