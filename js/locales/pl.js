@@ -22,6 +22,7 @@
         uploadLabel: 'Wgraj',
         uploadTitle: 'Wgraj zaznaczone pliki',
         msgNo: 'Nie',
+        msgNoFilesSelected: 'Brak zaznaczonych plików',
         msgCancelled: 'Odwołany',
         msgZoomModalHeading: 'Szczegółowe Podgląd',
         msgSizeTooLarge: 'Plik o nazwie "{name}" (<b>{size} KB</b>) przekroczył maksymalną dopuszczalną wielkość pliku wynoszącą <b>{maxSize} KB</b>.',

@@ -23,6 +23,7 @@
         uploadLabel: 'Unggah',
         uploadTitle: 'Unggah berkas terpilih',
         msgNo: 'Tidak',
+        msgNoFilesSelected: '',
         msgCancelled: 'Dibatalkan',
         msgZoomModalHeading: 'Pratinjau terperinci',
         msgSizeTooLarge: 'Berkas "{name}" (<b>{size} KB</b>) melebihi ukuran upload maksimal yaitu <b>{maxSize} KB</b>.',

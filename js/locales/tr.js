@@ -22,6 +22,7 @@
         uploadLabel: 'Yükle',
         uploadTitle: 'Seçilen dosyaları yükle',
         msgNo: 'Hayır',
+        msgNoFilesSelected: '',
         msgCancelled: 'Iptal edildi',
         msgZoomModalHeading: 'Detaylı Önizleme',
         msgSizeTooLarge: '"{name}" dosyasının boyutu (<b>{size} KB</b>) izin verilen azami dosya boyutu olan <b>{maxSize} KB</b>\'tan büyük.',

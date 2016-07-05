@@ -23,6 +23,7 @@
         uploadLabel: 'Загрузити',
         uploadTitle: 'Загрузити вибрані файли',
         msgNo: 'Немає',
+        msgNoFilesSelected: '',
         msgCancelled: 'Cкасовано',
         msgZoomModalHeading: 'Детальний превью',
         msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) перевищує максимальний розмір <b>{maxSize} KB</b>.',

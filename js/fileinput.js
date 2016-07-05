@@ -1567,7 +1567,7 @@
         },
         _getMsgSelected: function (n) {
             var self = this, strFiles = n === 1 ? self.fileSingle : self.filePlural;
-            return self.msgSelected.replace('{n}', n).replace('{files}', strFiles);
+            return n>0?self.msgSelected.replace('{n}', n).replace('{files}', strFiles):self.msgNoFilesSelected;
         },
         _getThumbs: function (css) {
             css = css || '';
@@ -3213,6 +3213,7 @@
         uploadLabel: 'Upload',
         uploadTitle: 'Upload selected files',
         msgNo: 'No',
+        msgNoFilesSelected: 'No files selected',
         msgCancelled: 'Cancelled',
         msgZoomModalHeading: 'Detailed Preview',
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>.',

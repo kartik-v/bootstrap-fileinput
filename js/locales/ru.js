@@ -23,6 +23,7 @@
         uploadLabel: 'Загрузить',
         uploadTitle: 'Загрузить выбранные файлы',
         msgNo: 'нет',
+        msgNoFilesSelected: '',
         msgCancelled: 'Отменено',
         msgZoomModalHeading: 'Подробное превью',
         msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) превышает максимальный размер <b>{maxSize} KB</b>.',

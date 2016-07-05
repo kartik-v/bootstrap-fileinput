@@ -23,6 +23,7 @@
         uploadLabel: 'رفع',
         uploadTitle: 'رفع الملفات المختارة',
         msgNo: 'لا',
+        msgNoFilesSelected: '',
         msgCancelled: 'ألغيت',
         msgZoomModalHeading: 'معاينة تفصيلية',
         msgSizeTooLarge: 'الملف "{name}" (<b>{size} ك.ب</b>) تعدى الحد الأقصى المسموح للرفع <b>{maxSize} ك.ب</b>.',

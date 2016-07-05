@@ -22,6 +22,7 @@
         uploadLabel: 'Μεταφόρτωση',
         uploadTitle: 'Μεταφόρτωση επιλεγμένων αρχείων',
         msgNo: 'Όχι',
+        msgNoFilesSelected: '',
         msgCancelled: 'Ακυρώθηκε',
         msgZoomModalHeading: 'λεπτομερής Προεπισκόπηση',
         msgSizeTooLarge: 'Το αρχείο "{name}" (<b>{size} KB</b>) υπερβαίνει το μέγιστο επιτρεπόμενο μέγεθος μεταφόρτωσης <b>{maxSize} KB</b>.',

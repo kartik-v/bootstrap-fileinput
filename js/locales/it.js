@@ -24,6 +24,7 @@
         uploadLabel: 'Carica',
         uploadTitle: 'Carica i file selezionati',
         msgNo: 'No',
+        msgNoFilesSelected: '',
         msgCancelled: 'Annullato',
         msgZoomModalHeading: 'Anteprima dettagliata',
         msgSizeTooLarge: 'Il file "{name}" (<b>{size} KB</b>) eccede la dimensione massima di caricamento di <b>{maxSize} KB</b>.',

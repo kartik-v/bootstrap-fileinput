@@ -20,6 +20,7 @@
         uploadLabel: 'Hochladen',
         uploadTitle: 'Hochladen der ausgewählten Dateien',
         msgNo: 'Keine',
+        msgNoFilesSelected: '',
         msgCancelled: 'Abgebrochen',
         msgZoomModalHeading: 'ausführliche Vorschau',
         msgSizeTooLarge: 'Datei "{name}" (<b>{size} KB</b>) überschreitet maximal zulässige Upload-Größe von <b>{maxSize} KB</b>.',

@@ -23,6 +23,7 @@
         uploadLabel: '上传',
         uploadTitle: '上传选中文件',
         msgNo: '没有',
+        msgNoFilesSelected: '',
         msgCancelled: '取消',
         msgZoomModalHeading: '详细预览',
         msgSizeTooLarge: '文件 "{name}" (<b>{size} KB</b>) 超过了允许大小 <b>{maxSize} KB</b>.',

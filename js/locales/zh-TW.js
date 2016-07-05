@@ -23,6 +23,7 @@
         uploadLabel: '上傳',
         uploadTitle: '上傳選取檔案',
         msgNo: '沒有',
+        msgNoFilesSelected: '',
         msgCancelled: '取消',
         zoomTitle: '詳細資料',
         msgZoomModalHeading: '內容預覽',

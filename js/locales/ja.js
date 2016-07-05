@@ -29,6 +29,7 @@
         uploadLabel: 'アップロード',
         uploadTitle: '選択したファイルをアップロード',
         msgNo: 'いいえ',
+        msgNoFilesSelected: '',
         msgCancelled: 'キャンセル',
         msgZoomModalHeading: 'ファイル詳細',
         msgSizeTooLarge: 'ファイル"{name}" (<b>{size} KB</b>)はアップロード可能な上限容量<b>{maxSize} KB</b>を超えています',

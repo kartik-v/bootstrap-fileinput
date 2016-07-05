@@ -22,6 +22,7 @@
         uploadLabel: 'Transférer',
         uploadTitle: 'Transférer les fichiers sélectionnés',
         msgNo: 'Non',
+        msgNoFilesSelected: '',
         msgCancelled: 'Annulé',
         msgZoomModalHeading: 'Aperçu détaillé',
         msgSizeTooLarge: 'Le fichier "{name}" (<b>{size} Ko</b>) dépasse la taille maximale autorisée qui est de <b>{maxSize} Ko</b>.',

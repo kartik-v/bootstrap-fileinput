@@ -22,6 +22,7 @@
         uploadLabel: 'Качи',
         uploadTitle: 'Качи избраните файлове',
         msgNo: 'Не',
+        msgNoFilesSelected: '',
         msgCancelled: 'Отменен',
         msgZoomModalHeading: 'Детайлен преглед',
         msgSizeTooLarge: 'Файла "{name}" (<b>{size} KB</b>) надвишава максималните разрешени <b>{maxSize} KB</b>.',

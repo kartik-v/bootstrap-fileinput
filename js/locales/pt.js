@@ -22,6 +22,7 @@
         uploadLabel: 'Carregar',
         uploadTitle: 'Carregar ficheiros seleccionados',
         msgNo: 'Não',
+        msgNoFilesSelected: '',
         msgCancelled: 'Cancelado',
         msgZoomModalHeading: 'Pré-visualização detalhada',
         msgSizeTooLarge: 'Ficheiro "{name}" (<b>{size} KB</b>) excede o tamanho máximo permido de <b>{maxSize} KB</b>.',

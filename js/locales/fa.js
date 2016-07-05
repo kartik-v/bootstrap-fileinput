@@ -23,6 +23,7 @@
         uploadLabel: 'بارگذاری',
         uploadTitle: 'بارگذاری فایل‌های انتخاب شده',
         msgNo: 'No',
+        msgNoFilesSelected: '',
         msgCancelled: 'Cancelled',
         msgZoomModalHeading: 'Detailed Preview',
         msgSizeTooLarge: 'فایل "{name}" (<b>{size} کیلوبایت</b>) از حداکثر مجاز <b>{maxSize} کیلوبایت</b>.',
