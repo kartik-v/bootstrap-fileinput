@@ -22,6 +22,7 @@
         uploadLabel: 'Upload',
         uploadTitle: 'Upload valgte filer',
         msgNo: 'Ingen',
+        msgNoFilesSelected: '',
         msgCancelled: 'aflyst',
         msgZoomModalHeading: 'Detaljeret visning',
         msgSizeTooLarge: 'Fil "{name}" (<b>{size} KB</b>) er st&oslash;rre end de tilladte <b>{maxSize} KB</b>.',

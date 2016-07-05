@@ -22,6 +22,7 @@
         uploadLabel: 'Enviar',
         uploadTitle: 'Enviar arquivos selecionados',
         msgNo: 'Não',
+        msgNoFilesSelected: '',
         msgCancelled: 'Cancelado',
         msgZoomModalHeading: 'Pré-visualização detalhada',
         msgSizeTooLarge: 'O arquivo "{name}" (<b>{size} KB</b>) excede o tamanho máximo permitido de <b>{maxSize} KB</b>.',

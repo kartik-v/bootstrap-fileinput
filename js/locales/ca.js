@@ -22,6 +22,7 @@
         uploadLabel: 'Pujar arxiu',
         uploadTitle: 'Pujar arxius seleccionats',
         msgNo: 'No',
+        msgNoFilesSelected: '',
         msgCancelled: 'cancel·lat',
         msgZoomModalHeading: 'Vista prèvia detallada',
         msgSizeTooLarge: 'Arxiu "{name}" (<b>{size} KB</b>) excedeix la mida màxima permès de <b>{maxSize} KB</b>.',

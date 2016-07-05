@@ -22,6 +22,7 @@
         uploadLabel: 'อัพโหลด',
         uploadTitle: 'อัพโหลดไฟล์ที่เลือก',
         msgNo: 'ไม่',
+        msgNoFilesSelected: '',
         msgCancelled: 'ยกเลิก',
         msgZoomModalHeading: 'ตัวอย่างละเอียด',
         msgSizeTooLarge: 'ไฟล์ "{name}" (<b>{size} KB</b>) มีขนาดเกินที่ระบบอนุญาตที่ <b>{maxSize} KB</b>, กรุณาลองใหม่อีกครั้ง!',

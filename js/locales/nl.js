@@ -22,6 +22,7 @@
         uploadLabel: 'Upload',
         uploadTitle: 'Upload geselecteerde bestanden',
         msgNo: 'Nee',
+        msgNoFilesSelected: '',
         msgCancelled: 'Geannuleerd',
         msgZoomModalHeading: 'Gedetailleerd voorbeeld',
         msgSizeTooLarge: 'Bestand "{name}" (<b>{size} KB</b>) is groter dan de toegestane <b>{maxSize} KB</b>.',

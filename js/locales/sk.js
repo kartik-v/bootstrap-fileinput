@@ -22,6 +22,7 @@
         uploadLabel: 'Nahrať',
         uploadTitle: 'Nahrať vybraté súbory',
         msgNo: 'Nie',
+        msgNoFilesSelected: '',
         msgCancelled: 'Zrušené',
         msgZoomModalHeading: 'Detailný náhľad',
         msgSizeTooLarge: 'Súbor "{name}" (<b>{size} KB</b>): prekročenie - maximálna povolená veľkosť <b>{maxSize} KB</b>.',

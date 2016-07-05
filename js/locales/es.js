@@ -22,6 +22,7 @@
         uploadLabel: 'Subir archivo',
         uploadTitle: 'Subir archivos seleccionados',
         msgNo: 'No',
+        msgNoFilesSelected: '',
         msgCancelled: 'Cancelado',
         msgZoomModalHeading: 'Vista previa detallada',
         msgSizeTooLarge: 'Archivo "{name}" (<b>{size} KB</b>) excede el tamaño máximo permitido de <b>{maxSize} KB</b>.',

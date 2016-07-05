@@ -23,6 +23,7 @@
         uploadLabel: 'Otpremi',
         uploadTitle: 'Otpremi označene datoteke',
         msgNo: 'Ne',
+        msgNoFilesSelected: '',
         msgCancelled: 'Otkazan',
         msgZoomModalHeading: 'Detaljni pregled',
         msgSizeTooLarge: 'Datoteka "{name}" (<b>{size} KB</b>) prekoračuje maksimalnu dozvoljenu veličinu datoteke od <b>{maxSize} KB</b>.',

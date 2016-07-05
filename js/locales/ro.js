@@ -23,6 +23,7 @@
         uploadLabel: 'Încarcă',
         uploadTitle: 'Încarcă fișierele selectate',
         msgNo: 'Nu',
+        msgNoFilesSelected: '',
         msgCancelled: 'Anulat',
         msgZoomModalHeading: 'Previzualizare detaliată',
         msgSizeTooLarge: 'Fișierul "{name}" (<b>{size} KB</b>) depășește limita maximă de încărcare de <b>{maxSize} KB</b>.',

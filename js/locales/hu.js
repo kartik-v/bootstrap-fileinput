@@ -22,6 +22,7 @@
         uploadLabel: 'Feltöltés',
         uploadTitle: 'Kijelölt fájlok feltöltése',
         msgNo: 'No',
+        msgNoFilesSelected: '',
         msgCancelled: 'Cancelled',
         msgZoomModalHeading: 'Részletes Preview',
         msgSizeTooLarge: '"{name}" fájl (<b>{size} KB</b>) mérete nagyobb a megengedettnél <b>{maxSize} KB</b>.',
