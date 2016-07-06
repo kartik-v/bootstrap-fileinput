@@ -73,13 +73,13 @@ Step 1: Load the following assets in your header.
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- optionally if you need a theme like font awesome theme you can include 
     it as mentioned below -->
-<script src="path/to/themes/fa/fa.js"></script>
+<script src="path/to/themes/fa/theme.js"></script>
 <!-- optionally if you need translation for your language then include 
     locale file as mentioned below -->
 <script src="path/to/js/locales/<lang>.js"></script>
 ```
 
-If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`. The theme file `fa.js` can be optionally included for the font awesome icons styling. The locale file `<lang>.js` can be optionally included for translating for your language if needed.
+If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`. The theme file `themes/fa/theme.js` can be optionally included for the font awesome icons styling. The locale file `<lang>.js` can be optionally included for translating for your language if needed.
 
 **Optional Dependent Plugins**
 

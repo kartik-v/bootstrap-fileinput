@@ -623,9 +623,6 @@
                         break;
                 }
             });
-            if (isEmpty(self.allowedPreviewTypes)) {
-                self.allowedPreviewTypes = defaultPreviewTypes;
-            }
             self.fileInputCleared = false;
             self.fileBatchCompleted = true;
             if (!self.isPreviewable) {
@@ -1567,7 +1564,7 @@
         },
         _getMsgSelected: function (n) {
             var self = this, strFiles = n === 1 ? self.fileSingle : self.filePlural;
-            return n>0?self.msgSelected.replace('{n}', n).replace('{files}', strFiles):self.msgNoFilesSelected;
+            return n > 0 ? self.msgSelected.replace('{n}', n).replace('{files}', strFiles) : self.msgNoFilesSelected;
         },
         _getThumbs: function (css) {
             css = css || '';
@@ -1867,7 +1864,7 @@
             };
             fnSuccess = function (data, textStatus, jqXHR) {
                 /** @namespace data.errorkeys */
-                var outData = self._getOutData(jqXHR, data), $thumbs = self._getThumbs(), key = 0,
+                var outData = self._getOutData(jqXHR, data), $thumbs = self._getThumbs(':not(.file-preview-error)'), key = 0,
                     keys = isEmpty(data) || isEmpty(data.errorkeys) ? [] : data.errorkeys;
                 if (isEmpty(data) || isEmpty(data.error)) {
                     self._raise('filebatchuploadsuccess', [outData]);
@@ -2223,6 +2220,7 @@
                     return;
                 }
                 if (!canPreview && fileSize > maxPreviewSize) {
+                    self.addToStack(file);
                     $container.addClass('file-thumb-loading');
                     self._previewDefault(file, previewId);
                     self._initFileActions();
@@ -2398,7 +2396,7 @@
         },
         _setPreviewError: function ($thumb, i, val) {
             var self = this;
-            if (i) {
+            if (i !== undefined) {
                 self.updateStack(i, val);
             }
             if (self.removeFromPreviewOnError) {
@@ -3137,7 +3135,7 @@
             borderless: 'btn btn-default',
             close: 'btn btn-default'
         },
-        allowedPreviewTypes: null,
+        allowedPreviewTypes: defaultPreviewTypes,
         allowedPreviewMimeTypes: null,
         allowedFileTypes: null,
         allowedFileExtensions: null,
