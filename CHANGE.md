@@ -3,14 +3,15 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.3
 
-**Date:** 07-Jul-2016
+**Date:** 09-Jul-2016
 
 1. (enh #680): Populate filestack for files greater than maxFilePreviewSize.
 2. (enh #695): Update Spanish Translations.
 3. (enh #698): Re-enable drag and drop support for IE Edge.
 4. (bug #700): Fix custom preview icons to be displayed and validated correctly.
-5. (enh #704): Add grammatically correct "No files selected" message.
-6. (enh #706): Remove invalid files from filestack correctly for validation errors.
+5. (enh #702): Add files to stack correctly for max & min preview size validation.
+6. (enh #704): Add grammatically correct "No files selected" message.
+7. (enh #706): Remove invalid files from filestack correctly for validation errors.
 
 ## version 4.3.2
 
