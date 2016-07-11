@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.3.3
+ * bootstrap-fileinput v4.3.4
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -504,7 +504,7 @@
     };
     ifSet = function (needle, haystack, def) {
         def = def || '';
-        return (typeof haystack === 'object' && needle in haystack) ? haystack[needle] : def;
+        return (haystack && typeof haystack === 'object' && needle in haystack) ? haystack[needle] : def;
     };
     getElement = function (options, param, value) {
         return (isEmpty(options) || isEmpty(options[param])) ? value : $(options[param]);
