@@ -29,9 +29,9 @@
         uploadLabel: 'アップロード',
         uploadTitle: '選択したファイルをアップロード',
         msgNo: 'いいえ',
-        msgNoFilesSelected: '',
+        msgNoFilesSelected: 'ファイルが選択されていません',
         msgCancelled: 'キャンセル',
-        msgZoomModalHeading: 'ファイル詳細',
+        msgZoomModalHeading: 'プレビュー',
         msgSizeTooLarge: 'ファイル"{name}" (<b>{size} KB</b>)はアップロード可能な上限容量<b>{maxSize} KB</b>を超えています',
         msgFilesTooLess: '最低<b>{n}</b>個の{files}を選択してください',
         msgFilesTooMany: '選択したファイルの数<b>({n}個)</b>はアップロード可能な上限数<b>({m}個)</b>を超えています',
@@ -55,7 +55,7 @@
         msgImageResizeError: 'リサイズ時に画像サイズが取得できませんでした',
         msgImageResizeException: '画像のリサイズ時にエラーが発生しました。<pre>{errors}</pre>',
         dropZoneTitle: 'ファイルをドラッグ&ドロップ&hellip;',
-        dropZoneClickTitle: '<br>(or click to select {files})',
+        dropZoneClickTitle: '<br>(または クリックして{files}を選択 )',
         slugCallback: function(text) {
             return text ? text.split(/(\\|\/)/g).pop().replace(/[^\w\u4e00-\u9fa5\u3040-\u309f\u30a0-\u30ff\u31f0-\u31ff\u3200-\u32ff\uff00-\uffef\-.\\\/ ]+/g, '') : '';
         },
@@ -63,19 +63,19 @@
             removeTitle: 'ファイルを削除',
             uploadTitle: 'ファイルをアップロード',
             zoomTitle: 'プレビュー',
-            dragTitle: 'Move / Rearrange',
+            dragTitle: '移動 / 再配置',
             indicatorNewTitle: 'まだアップロードされていません',
             indicatorSuccessTitle: 'アップロード済み',
             indicatorErrorTitle: 'アップロード失敗',
             indicatorLoadingTitle: 'アップロード中...'
         },
         previewZoomButtonTitles: {
-            prev: 'View previous file',
-            next: 'View next file',
-            toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
+            prev: '前のファイルを表示',
+            next: '次のファイルを表示',
+            toggleheader: 'ファイル情報の表示/非表示',
+            fullscreen: 'フルスクリーン表示の開始/終了',
+            borderless: 'フルウィンドウ表示の開始/終了',
+            close: 'プレビューを閉じる'
         }
     };
 })(window.jQuery);
