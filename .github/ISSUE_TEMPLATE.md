@@ -42,7 +42,7 @@ Libraries
 
 ## Isolating the problem
 
-- [ ] This bug happens [on the plugin demos page](https://plugins.krajee.com/file-input/demo)
+- [ ] This bug happens [on the plugin demos page](http://plugins.krajee.com/file-input/demo)
 - [ ] The bug happens consistently across all tested browsers
 - [ ] This bug happens when using bootstrap-fileinput without other plugins
 - [ ] I can reproduce this bug in [a jsbin](https://jsbin.com/)
