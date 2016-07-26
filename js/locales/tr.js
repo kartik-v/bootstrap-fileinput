@@ -48,24 +48,24 @@
         msgImageResizeError: 'Görüntü boyutlarını yeniden boyutlandırmak için alınamadı.',
         msgImageResizeException: 'Görsel boyutlandırma sırasında hata.<pre>{errors}</pre>',
         dropZoneTitle: 'Dosyaları buraya sürükleyip bırakın &hellip;',
-        dropZoneClickTitle: '<br>(or click to select {files})',
+        dropZoneClickTitle: '<br>(ya da {files} seçmek için tıklayınız)',
         fileActionSettings: {
             removeTitle: 'Dosyayı kaldır',
             uploadTitle: 'Dosyayı yükle',
             zoomTitle: 'Ayrıntıları görüntüle',
-            dragTitle: 'Move / Rearrange',
+            dragTitle: 'Taşı / Yeniden düzenle',
             indicatorNewTitle: 'Henüz yüklenemedi',
             indicatorSuccessTitle: 'Yüklendi',
             indicatorErrorTitle: 'Yükleme Hatası',
             indicatorLoadingTitle: 'Yükleniyor ...'
         },
         previewZoomButtonTitles: {
-            prev: 'View previous file',
-            next: 'View next file',
-            toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
+            prev: 'Önceki dosyayı görüntüle',
+            next: 'Sonraki dosyayı görüntüle',
+            toggleheader: 'Başlık geçiş',
+            fullscreen: 'Tam ekran geçiş',
+            borderless: 'Çerçevesiz moda geçiş',
+            close: 'Detaylı önizlemeyi kapat'
         }
     };
 })(window.jQuery);
