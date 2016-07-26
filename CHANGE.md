@@ -7,6 +7,9 @@ Change Log: `bootstrap-fileinput`
 
 1. (bug #710): Fix bug for `ifSet` validation.
 2. Add contribution templates.
+3. (enh #718): Update Japanese Translations.
+4. (enh #721): Update Turkish Translations.
+5. (bug #722): Correctly concat ajax output in initial preview.
 
 ## version 4.3.3
 

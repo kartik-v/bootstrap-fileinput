@@ -1619,7 +1619,15 @@
             self.ajaxRequests.push($.ajax(settings));
         },
         _initUploadSuccess: function (out, $thumb, allFiles) {
-            var self = this, append, data, index, $newThumb, content, config, tags, i;
+            var self = this, append, data, index, $newThumb, content, config, tags, i,
+                mergeArray = function(prop, content) {
+                    if (!(self[prop] instanceof Array)) {
+                        self[prop] = [];
+                    }
+                    if (content && content.length) {
+                        self[prop] = self[prop].concat(content);
+                    }
+                };
             if (!self.showPreview || typeof out !== 'object' || $.isEmptyObject(out)) {
                 return;
             }
@@ -1633,9 +1641,9 @@
                     content = content.split(self.initialPreviewDelimiter);
                 }
                 self.overwriteInitial = false;
-                self.initialPreview.concat(content);
-                self.initialPreviewThumbTags.concat(tags);
-                self.initialPreviewConfig.concat(config);
+                mergeArray('initialPreview', content);
+                mergeArray('initialPreviewConfig', config);
+                mergeArray('initialPreviewThumbTags', tags);
                 if ($thumb !== undefined) {
                     if (!allFiles) {
                         index = previewCache.add(self.id, content, config[0], tags[0], append);
@@ -1650,8 +1658,8 @@
                     } else {
                         i = $thumb.attr('data-fileindex');
                         self.uploadCache.content[i] = content[0];
-                        self.uploadCache.config[i] = config[0];
-                        self.uploadCache.tags[i] = tags[0];
+                        self.uploadCache.config[i] = config[0] || [];
+                        self.uploadCache.tags[i] = tags[0] || [];
                         self.uploadCache.append = append;
                     }
                 } else {

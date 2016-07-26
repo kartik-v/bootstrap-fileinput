@@ -27,6 +27,7 @@
         "gallery"
     ],
     "main": "./js/fileinput.js",
+    "style": "./css/fileinput.css",
     "peerDependencies": {
         "jquery": ">= 1.9.0",
         "bootstrap": "~3"
