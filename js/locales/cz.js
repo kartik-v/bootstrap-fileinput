@@ -36,6 +36,7 @@
         msgInvalidFileType: 'Neplatný typ souboru "{name}". Pouze "{types}" souborů jsou podporovány.',
         msgInvalidFileExtension: 'Neplatná extenze souboru "{name}". Pouze "{extensions}" souborů jsou podporovány.',
         msgUploadAborted: 'Soubor nahrávání byl přerušen',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Chyba ověření',
         msgLoading: 'Nahrávání souboru {index} z {files} &hellip;',
         msgProgress: 'Nahrávání souboru {index} z {files} - {name} - {percent}% dokončeno.',

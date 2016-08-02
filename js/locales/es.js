@@ -36,6 +36,7 @@
         msgInvalidFileType: 'Tipo de archivo no válido para "{name}". Sólo archivos "{types}" son permitidos.',
         msgInvalidFileExtension: 'Extensión de archivo no válido para "{name}". Sólo archivos "{extensions}" son permitidos.',
         msgUploadAborted: 'La carga de archivos se ha cancelado',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Error de validacion',
         msgLoading: 'Subiendo archivo {index} de {files} &hellip;',
         msgProgress: 'Subiendo archivo {index} de {files} - {name} - {percent}% completado.',

@@ -43,6 +43,7 @@
         msgInvalidFileType: '"{name}"は無効なファイル形式です。"{types}"形式のファイルのみサポートしています',
         msgInvalidFileExtension: '"{name}"は無効なファイル拡張子です。拡張子が"{extensions}"のファイルのみサポートしています',
         msgUploadAborted: 'ファイルのアップロードが中止されました',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: '検証エラー',
         msgLoading: '{files}個中{index}個目のファイルを読み込み中&hellip;',
         msgProgress: '{files}個中{index}個のファイルを読み込み中 - {name} - {percent}% 完了',

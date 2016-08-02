@@ -1581,7 +1581,7 @@
             var self = this;
             if (xhrobj.upload) {
                 xhrobj.upload.addEventListener('progress', function (event) {
-                    var pct = 0, position = event.loaded || event.position, total = event.total;
+                    var pct = 0, total = event.total, position = event.loaded || event.position;
                     /** @namespace event.lengthComputable */
                     if (event.lengthComputable) {
                         pct = Math.ceil(position / total * 100);
@@ -2341,10 +2341,15 @@
         },
         _setProgress: function (p, $el, error) {
             var self = this, pct = Math.min(p, 100), template = pct < 100 ? self.progressTemplate :
-                (error ? self.progressErrorTemplate : self.progressCompleteTemplate);
+                (error ? self.progressErrorTemplate : self.progressCompleteTemplate),
+                pctLimit = self.progressUploadThreshold;
             $el = $el || self.$progress;
             if (!isEmpty(template)) {
-                $el.html(template.replace(/\{percent}/g, pct));
+                if (pctLimit && pct > pctLimit) {
+                    $el.html(template.replace('{percent}%', self.msgUploadThreshold).replace(/\{percent}/g, pctLimit));
+                } else {
+                    $el.html(template.replace(/\{percent}/g, pct));
+                }
                 if (error) {
                     $el.find('[role="progressbar"]').html(error);
                 }
@@ -3189,6 +3194,7 @@
         progressClass: "progress-bar progress-bar-success progress-bar-striped active",
         progressCompleteClass: "progress-bar progress-bar-success",
         progressErrorClass: "progress-bar progress-bar-danger",
+        progressUploadThreshold: 95,
         previewFileType: 'image',
         elCaptionContainer: null,
         elCaptionText: null,
@@ -3233,6 +3239,7 @@
         msgInvalidFileType: 'Invalid type for file "{name}". Only "{types}" files are supported.',
         msgInvalidFileExtension: 'Invalid extension for file "{name}". Only "{extensions}" files are supported.',
         msgUploadAborted: 'The file upload was aborted',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Validation Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',

@@ -36,6 +36,7 @@
         msgInvalidFileType: 'Neplatný typ súboru "{name}". Iba "{types}" súborov sú podporované.',
         msgInvalidFileExtension: 'Neplatná extenzia súboru "{name}". Iba "{extensions}" súborov sú podporované.',
         msgUploadAborted: 'Súbor nahrávania bol prerušený',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Chyba overenia',
         msgLoading: 'Nahrávanie súboru {index} z {files} &hellip;',
         msgProgress: 'Nahrávanie súboru {index} z {files} - {name} - {percent}% dokončené.',

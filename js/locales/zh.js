@@ -37,6 +37,7 @@
         msgInvalidFileType: '不正确的类型 "{name}". 只支持 "{types}" 类型的文件.',
         msgInvalidFileExtension: '不正确的文件扩展名 "{name}". 只支持 "{extensions}" 的文件扩展名.',
         msgUploadAborted: '该文件上传被中止',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: '验证错误',
         msgLoading: '加载第 {index} 文件 共 {files} &hellip;',
         msgProgress: '加载第 {index} 文件 共 {files} - {name} - {percent}% 完成.',

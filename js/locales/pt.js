@@ -36,6 +36,7 @@
         msgInvalidFileType: 'Tipo inválido para o ficheiro "{name}". Apenas ficheiros "{types}" são suportados.',
         msgInvalidFileExtension: 'Extensão inválida para o ficheiro "{name}". Apenas ficheiros "{extensions}" são suportados.',
         msgUploadAborted: 'O upload do arquivo foi abortada',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Erro de validação',
         msgLoading: 'A carregar ficheiro {index} de {files} &hellip;',
         msgProgress: 'A carregar ficheiro {index} de {files} - {name} - {percent}% completo.',

@@ -36,6 +36,7 @@
         msgInvalidFileType: 'Ukendt type for filen "{name}". Kun "{types}" kan bruges.',
         msgInvalidFileExtension: 'Ukendt filtype for filen "{name}". Kun "{extensions}" filer kan bruges.',
         msgUploadAborted: 'Filupload annulleret',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Validering Fejl',
         msgLoading: 'Henter fil {index} af {files} &hellip;',
         msgProgress: 'Henter fil {index} af {files} - {name} - {percent}% f&aelig;rdiggjort.',

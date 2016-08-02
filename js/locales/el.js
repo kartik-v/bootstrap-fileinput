@@ -36,6 +36,7 @@
         msgInvalidFileType: 'Μη έγκυρος τύπος αρχείου "{name}". Οι τύποι αρχείων που υποστηρίζονται είναι : "{types}".',
         msgInvalidFileExtension: 'Μη έγκυρη επέκταση αρχείου "{name}". Οι επεκτάσεις που υποστηρίζονται είναι:  "{extensions}" .',
         msgUploadAborted: 'Το ανέβασμα των αρχείων ματαιώθηκε',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Σπικύρωση σφάλματος',
         msgLoading: 'Φόρτωση αρχείου {index} από {files} &hellip;',
         msgProgress: 'Φόρτωση αρχείου {index} απο {files} - {name} - {percent}% ολοκληρώθηκε.',

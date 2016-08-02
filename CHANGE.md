@@ -11,7 +11,8 @@ Change Log: `bootstrap-fileinput`
 4. (enh #721): Update Turkish Translations.
 5. (bug #722): Correctly concat ajax output in initial preview.
 6. (enh #728): Change sortable plugin name to avoid conflict with JUI Sortable.
-7. (enh #730): Correct Romanian Translations.
+7. (enh #729): Implement `progressUploadThreshold` to show processing when waiting for server response.
+8. (enh #730): Correct Romanian Translations.
 
 ## version 4.3.3
 

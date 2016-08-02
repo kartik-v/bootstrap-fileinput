@@ -32,6 +32,7 @@
         msgFilePreviewError: 'Virhe on tapahtunut luettaessa tiedostoa "{name}".',
         msgInvalidFileType: 'Tiedosto "{name}" on v&auml;&auml;r&auml;n tyyppinen. Ainoastaan tiedostot tyyppi&auml; "{types}" ovat tuettuja.',
         msgInvalidFileExtension: 'Tiedoston "{name}" tarkenne on ep&auml;kelpo. Ainoastaan tarkenteet "{extensions}" ovat tuettuja.',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Tiedoston latausvirhe',
         msgLoading: 'Ladataan tiedostoa {index} / {files} &hellip;',
         msgProgress: 'Ladataan tiedostoa {index} / {files} - {name} - {percent}% valmistunut.',

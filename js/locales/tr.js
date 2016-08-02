@@ -36,6 +36,7 @@
         msgInvalidFileType: '"{name}" dosyasının türü geçerli değil. Yalnızca "{types}" türünde dosyalara izin veriliyor.',
         msgInvalidFileExtension: '"{name}" dosyasının uzantısı geçersiz. Yalnızca "{extensions}" uzantılı dosyalara izin veriliyor.',
         msgUploadAborted: 'Dosya yükleme iptal edildi',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Doğrulama Hatası',
         msgLoading: 'Dosya yükleniyor {index} / {files} &hellip;',
         msgProgress: 'Dosya yükleniyor {index} / {files} - {name} - %{percent} tamamlandı.',

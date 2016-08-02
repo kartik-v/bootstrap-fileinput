@@ -36,6 +36,7 @@
         msgInvalidFileType: 'Geen geldig bestand "{name}". Alleen "{types}" zijn toegestaan.',
         msgInvalidFileExtension: 'Geen geldige extensie "{name}". Alleen "{extensions}" zijn toegestaan.',
         msgUploadAborted: 'Het uploaden van bestanden is afgebroken',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Bevestiging fout',
         msgLoading: 'Bestanden laden {index} van de {files} &hellip;',
         msgProgress: 'Bestanden laden {index} van de {files} - {name} - {percent}% compleet.',

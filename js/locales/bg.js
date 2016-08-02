@@ -36,6 +36,7 @@
         msgInvalidFileType: 'Невалиден тип на файла "{name}". Разрешени са само "{types}".',
         msgInvalidFileExtension: 'Невалидно разрешение на "{name}". Разрешени са само "{extensions}".',
         msgUploadAborted: 'Качите файла, бе прекратена',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'утвърждаване грешка',
         msgLoading: 'Зареждане на файл {index} от общо {files} &hellip;',
         msgProgress: 'Зареждане на файл {index} от общо {files} - {name} - {percent}% завършени.',

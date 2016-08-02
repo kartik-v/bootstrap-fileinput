@@ -34,6 +34,7 @@
         msgInvalidFileType: 'Ungültiger Typ für Datei "{name}". Nur Dateien der Typen "{types}" werden unterstützt.',
         msgInvalidFileExtension: 'Ungültige Erweiterung für Datei "{name}". Nur Dateien mit der Endung "{extensions}" werden unterstützt.',
         msgUploadAborted: 'Der Datei-Upload wurde abgebrochen',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Validierungs fehler',
         msgLoading: 'Lade Datei {index} von {files} hoch&hellip;',
         msgProgress: 'Datei {index} von {files} - {name} - zu {percent}% fertiggestellt.',
