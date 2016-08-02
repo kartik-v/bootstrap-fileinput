@@ -1,7 +1,10 @@
 /**!
- * Sortable
+ * KvSortable
  * @author	RubaXa   <trash@rubaxa.org>
  * @license MIT
+ *
+ * Changed kvsortable plugin naming to prevent conflict with JQuery UI KvSortable
+ * @author Kartik Visweswaran
  */
 (function (factory) {
 	"use strict";
@@ -13,18 +16,18 @@
 		module.exports = factory();
 	}
 	else if (typeof Package !== "undefined") {
-		Sortable = factory();  // export for Meteor.js
+		KvSortable = factory();  // export for Meteor.js
 	}
 	else {
 		/* jshint sub:true */
-		window["Sortable"] = factory();
+		window["KvSortable"] = factory();
 	}
 })(function () {
 	"use strict";
 	
 	if (typeof window === "undefined" || typeof window.document == "undefined") {
 		return function() {
-			throw new Error( "Sortable.js requires a window with a document" );
+			throw new Error( "sortable.js requires a window with a document" );
 		}
 	}
 
@@ -56,7 +59,7 @@
 		/** @const */
 		RSPACE = /\s+/g,
 
-		expando = 'Sortable' + (new Date).getTime(),
+		expando = 'KvSortable' + (new Date).getTime(),
 
 		win = window,
 		document = win.document,
@@ -171,13 +174,13 @@
 
 
 	/**
-	 * @class  Sortable
+	 * @class  KvSortable
 	 * @param  {HTMLElement}  el
 	 * @param  {Object}       [options]
 	 */
-	function Sortable(el, options) {
+	function KvSortable(el, options) {
 		if (!(el && el.nodeType && el.nodeType === 1)) {
-			throw 'Sortable: `el` must be HTMLElement, and not ' + {}.toString.call(el);
+			throw 'KvSortable: `el` must be HTMLElement, and not ' + {}.toString.call(el);
 		}
 
 		this.el = el; // root element
@@ -199,8 +202,8 @@
 			scrollSensitivity: 30,
 			scrollSpeed: 10,
 			draggable: /[uo]l/i.test(el.nodeName) ? 'li' : '>*',
-			ghostClass: 'sortable-ghost',
-			chosenClass: 'sortable-chosen',
+			ghostClass: 'kvsortable-ghost',
+			chosenClass: 'kvsortable-chosen',
 			ignore: 'a, img',
 			filter: null,
 			animation: 0,
@@ -212,7 +215,7 @@
 			dataIdAttr: 'data-id',
 			delay: 0,
 			forceFallback: false,
-			fallbackClass: 'sortable-fallback',
+			fallbackClass: 'kvsortable-fallback',
 			fallbackOnBody: false
 		};
 
@@ -250,8 +253,8 @@
 	}
 
 
-	Sortable.prototype = /** @lends Sortable.prototype */ {
-		constructor: Sortable,
+	KvSortable.prototype = /** @lends KvSortable.prototype */ {
+		constructor: KvSortable,
 
 		_onTapStart: function (/** Event|TouchEvent */evt) {
 			var _this = this,
@@ -413,7 +416,7 @@
 				// Apply effect
 				_toggleClass(dragEl, this.options.ghostClass, true);
 
-				Sortable.active = this;
+				KvSortable.active = this;
 
 				// Drag start event
 				_dispatchEvent(this, rootEl, 'start', dragEl, rootEl, oldIndex);
@@ -469,7 +472,7 @@
 		_onTouchMove: function (/**TouchEvent*/evt) {
 			if (tapEvt) {
 				// only set the status to dragging, when we are actually dragging
-				if (!Sortable.active) {
+				if (!KvSortable.active) {
 					this._dragStarted();
 				}
 
@@ -800,7 +803,7 @@
 						}
 					}
 
-					if (Sortable.active) {
+					if (KvSortable.active) {
 						if (newIndex === null || newIndex === -1) {
 							newIndex = oldIndex;
 						}
@@ -838,7 +841,7 @@
 			lastCSS =
 
 			activeGroup =
-			Sortable.active = null;
+			KvSortable.active = null;
 		},
 
 		handleEvent: function (/**Event*/evt) {
@@ -1076,9 +1079,9 @@
 
 
 
-	function _dispatchEvent(sortable, rootEl, name, targetEl, fromEl, startIndex, newIndex) {
+	function _dispatchEvent(kvsortable, rootEl, name, targetEl, fromEl, startIndex, newIndex) {
 		var evt = document.createEvent('Event'),
-			options = (sortable || rootEl[expando]).options,
+			options = (kvsortable || rootEl[expando]).options,
 			onName = 'on' + name.charAt(0).toUpperCase() + name.substr(1);
 
 		evt.initEvent(name, true, true);
@@ -1094,15 +1097,15 @@
 		rootEl.dispatchEvent(evt);
 
 		if (options[onName]) {
-			options[onName].call(sortable, evt);
+			options[onName].call(kvsortable, evt);
 		}
 	}
 
 
 	function _onMove(fromEl, toEl, dragEl, dragRect, targetEl, targetRect) {
 		var evt,
-			sortable = fromEl[expando],
-			onMoveFn = sortable.options.onMove,
+			kvsortable = fromEl[expando],
+			onMoveFn = kvsortable.options.onMove,
 			retVal;
 
 		evt = document.createEvent('Event');
@@ -1118,7 +1121,7 @@
 		fromEl.dispatchEvent(evt);
 
 		if (onMoveFn) {
-			retVal = onMoveFn.call(sortable, evt);
+			retVal = onMoveFn.call(kvsortable, evt);
 		}
 
 		return retVal;
@@ -1237,7 +1240,7 @@
 
 
 	// Export utils
-	Sortable.utils = {
+	KvSortable.utils = {
 		on: _on,
 		off: _off,
 		css: _css,
@@ -1254,21 +1257,21 @@
 
 
 	/**
-	 * Create sortable instance
+	 * Create kvsortable instance
 	 * @param {HTMLElement}  el
 	 * @param {Object}      [options]
 	 */
-	Sortable.create = function (el, options) {
-		return new Sortable(el, options);
+	KvSortable.create = function (el, options) {
+		return new KvSortable(el, options);
 	};
 
 
 	// Export
-	Sortable.version = '1.4.2';
-	return Sortable;
+	KvSortable.version = '1.4.2';
+	return KvSortable;
 });
 /**
- * jQuery plugin for Sortable
+ * jQuery plugin for KvSortable
  * @author	RubaXa   <trash@rubaxa.org>
  * @license MIT
  */
@@ -1290,37 +1293,37 @@
 
 
 	/**
-	 * jQuery plugin for Sortable
+	 * jQuery plugin for KvSortable
 	 * @param   {Object|String} options
 	 * @param   {..*}           [args]
 	 * @returns {jQuery|*}
 	 */
-	$.fn.sortable = function (options) {
+	$.fn.kvsortable = function (options) {
 		var retVal,
 			args = arguments;
 
 		this.each(function () {
 			var $el = $(this),
-				sortable = $el.data('sortable');
+				kvsortable = $el.data('kvsortable');
 
-			if (!sortable && (options instanceof Object || !options)) {
-				sortable = new Sortable(this, options);
-				$el.data('sortable', sortable);
+			if (!kvsortable && (options instanceof Object || !options)) {
+				kvsortable = new KvSortable(this, options);
+				$el.data('kvsortable', kvsortable);
 			}
 
-			if (sortable) {
+			if (kvsortable) {
 				if (options === 'widget') {
-					return sortable;
+					return kvsortable;
 				}
 				else if (options === 'destroy') {
-					sortable.destroy();
-					$el.removeData('sortable');
+					kvsortable.destroy();
+					$el.removeData('kvsortable');
 				}
-				else if (typeof sortable[options] === 'function') {
-					retVal = sortable[options].apply(sortable, [].slice.call(args, 1));
+				else if (typeof kvsortable[options] === 'function') {
+					retVal = kvsortable[options].apply(kvsortable, [].slice.call(args, 1));
 				}
-				else if (options in sortable.options) {
-					retVal = sortable.option.apply(sortable, args);
+				else if (options in kvsortable.options) {
+					retVal = kvsortable.option.apply(kvsortable, args);
 				}
 			}
 		});

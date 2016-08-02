@@ -1045,7 +1045,7 @@
         },
         _initSortable: function () {
             var self = this, $preview = self.$preview, $el, settings;
-            if (!window.Sortable) {
+            if (!window.KvSortable) {
                 return;
             }
             $el = $preview.find('.file-initial-thumbs');
@@ -1066,11 +1066,11 @@
                     });
                 }
             };
-            if ($el.data('sortable')) {
-                $el.sortable('destroy');
+            if ($el.data('kvsortable')) {
+                $el.kvsortable('destroy');
             }
             $.extend(true, settings, self.fileActionSettings.dragSettings);
-            $el.sortable(settings);
+            $el.kvsortable(settings);
         },
         _initPreview: function (isInit) {
             var self = this, cap = self.initialCaption || '', out;

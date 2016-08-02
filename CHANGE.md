@@ -3,13 +3,15 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.4 (under development)
 
-**Date:** 24-Jul-2016
+**Date:** 02-Aug-2016
 
 1. (bug #710): Fix bug for `ifSet` validation.
 2. Add contribution templates.
 3. (enh #718): Update Japanese Translations.
 4. (enh #721): Update Turkish Translations.
 5. (bug #722): Correctly concat ajax output in initial preview.
+6. (enh #728): Change sortable plugin name to avoid conflict with JUI Sortable.
+7. (enh #730): Correct Romanian Translations.
 
 ## version 4.3.3
 
