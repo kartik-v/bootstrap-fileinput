@@ -2947,7 +2947,7 @@
                 }
                 self.$preview.html('');
                 cap = (!self.overwriteInitial && self.initialCaption.length > 0) ? self.initialCaption : '';
-                self._setCaption(cap);
+                self.$caption.html(cap);
                 self.$caption.attr('title', '');
                 addCss(self.$container, 'file-input-new');
                 self._validateDefaultPreview();
