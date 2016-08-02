@@ -1788,7 +1788,7 @@
                             $btnUpload.hide();
                             self._initUploadSuccess(data, $thumb, allFiles);
                         }
-                        self._raise('fileuploaded', [outData, previewId, i]);
+                        self._raise('fileuploaded', [outData, $thumb.attr('id'), i]);
                         if (!allFiles) {
                             self.updateStack(i, undefined);
                         } else {

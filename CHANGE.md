@@ -8,11 +8,12 @@ Change Log: `bootstrap-fileinput`
 1. (bug #710): Fix bug for `ifSet` validation.
 2. Add contribution templates.
 3. (enh #718): Update Japanese Translations.
-4. (enh #721): Update Turkish Translations.
-5. (bug #722): Correctly concat ajax output in initial preview.
-6. (enh #728): Change sortable plugin name to avoid conflict with JUI Sortable.
-7. (enh #729): Implement `progressUploadThreshold` to show processing when waiting for server response.
-8. (enh #730): Correct Romanian Translations.
+4. (enh #719): Pass right `previewId` to `fileuploaded` event.
+5. (enh #721): Update Turkish Translations.
+6. (bug #722): Correctly concat ajax output in initial preview.
+7. (enh #728): Change sortable plugin name to avoid conflict with JUI Sortable.
+8. (enh #729): Implement `progressUploadThreshold` to show processing when waiting for server response.
+9. (enh #730): Correct Romanian Translations.
 
 ## version 4.3.3
 
