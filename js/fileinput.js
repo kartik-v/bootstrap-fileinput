@@ -1584,12 +1584,12 @@
                     var pct = 0, total = event.total, position = event.loaded || event.position;
                     /** @namespace event.lengthComputable */
                     if (event.lengthComputable) {
-                        pct = Math.ceil(position / total * 100);
+                        pct = Math.floor(position / total * 100);
                     }
                     if (previewId) {
                         self._setAsyncUploadStatus(previewId, pct, fileCount);
                     } else {
-                        self._setProgress(Math.ceil(pct));
+                        self._setProgress(pct);
                     }
                 }, false);
             }
@@ -1754,7 +1754,7 @@
                     self.uploadCount = 0;
                     self.uploadStatus = {};
                     self.uploadLog = [];
-                    self._setProgress(100);
+                    self._setProgress(101);
                 }, 100);
             };
             fnBefore = function (jqXHR) {
@@ -1809,6 +1809,7 @@
                         $btnUpload.removeAttr('disabled');
                         $btnDelete.removeAttr('disabled');
                         $thumb.removeClass('file-uploading');
+                        self._setProgress(101, $('#' + previewId).find('.file-thumb-progress'));
                     }
                     if (!allFiles) {
                         self.unlock(false);
@@ -1916,7 +1917,7 @@
                 }
             };
             fnComplete = function () {
-                self._setProgress(100);
+                self._setProgress(101);
                 self.unlock();
                 self._initSuccessThumbs();
                 self._clearFileInput();
@@ -1976,7 +1977,7 @@
                 }
             };
             fnComplete = function () {
-                self._setProgress(100);
+                self._setProgress(101);
                 self.unlock();
                 self._clearFileInput();
                 self._raise('filebatchuploadcomplete', [self.filestack, self._getExtraData()]);
@@ -2337,16 +2338,17 @@
         },
         _setProgressCancelled: function () {
             var self = this;
-            self._setProgress(100, self.$progress, self.msgCancelled);
+            self._setProgress(101, self.$progress, self.msgCancelled);
         },
         _setProgress: function (p, $el, error) {
             var self = this, pct = Math.min(p, 100), template = pct < 100 ? self.progressTemplate :
-                (error ? self.progressErrorTemplate : self.progressCompleteTemplate),
+                (error ? self.progressErrorTemplate : (p <= 100 ? self.progressTemplate : self.progressCompleteTemplate)),
                 pctLimit = self.progressUploadThreshold;
             $el = $el || self.$progress;
             if (!isEmpty(template)) {
-                if (pctLimit && pct > pctLimit) {
-                    $el.html(template.replace('{percent}%', self.msgUploadThreshold).replace(/\{percent}/g, pctLimit));
+                if (pctLimit && pct > pctLimit && p <= 100) {
+                    var out = template.replace('{percent}', pctLimit).replace('{percent}', pctLimit).replace('{percent}%', self.msgUploadThreshold);
+                    $el.html(out);
                 } else {
                     $el.html(template.replace(/\{percent}/g, pct));
                 }
@@ -2378,7 +2380,7 @@
             $.each(self.uploadStatus, function (key, value) {
                 sum += value;
             });
-            self._setProgress(Math.ceil(sum / total));
+            self._setProgress(Math.floor(sum / total));
 
         },
         _validateMinCount: function () {
@@ -2813,7 +2815,7 @@
                 data.abortData = self.ajaxAborted.data || {};
                 data.abortMessage = self.ajaxAborted.message;
                 self.cancel();
-                self._setProgress(100, self.$progress, self.msgCancelled);
+                self._setProgress(101, self.$progress, self.msgCancelled);
                 self._showUploadError(self.ajaxAborted.message, data, 'filecustomerror');
                 return true;
             }
@@ -3194,7 +3196,7 @@
         progressClass: "progress-bar progress-bar-success progress-bar-striped active",
         progressCompleteClass: "progress-bar progress-bar-success",
         progressErrorClass: "progress-bar progress-bar-danger",
-        progressUploadThreshold: 95,
+        progressUploadThreshold: 99,
         previewFileType: 'image',
         elCaptionContainer: null,
         elCaptionText: null,
