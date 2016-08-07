@@ -1,9 +1,9 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.3.4 (under development)
+## version 4.3.4
 
-**Date:** 02-Aug-2016
+**Date:** 07-Aug-2016
 
 1. (bug #710): Fix bug for `ifSet` validation.
 2. Add contribution templates.
