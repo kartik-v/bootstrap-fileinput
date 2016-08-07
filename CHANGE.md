@@ -15,6 +15,7 @@ Change Log: `bootstrap-fileinput`
 8. (enh #728): Change sortable plugin name to avoid conflict with JUI Sortable.
 9. (enh #729): Implement `progressUploadThreshold` to show processing when waiting for server response.
 10. (enh #730): Correct Romanian Translations.
+11. (enh #731): New method `getFilesCount` for returning upl + non-upl files count.
 
 ## version 4.3.3
 

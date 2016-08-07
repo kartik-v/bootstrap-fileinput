@@ -346,7 +346,9 @@
         '</div>\n';
     //noinspection HtmlUnknownAttribute
     tBtnDefault = '<button type="{type}" tabindex="500" title="{title}" class="{css}" {status}>{icon} {label}</button>';
+    //noinspection HtmlUnknownAttribute
     tBtnLink = '<a href="{href}" tabindex="500" title="{title}" class="{css}" {status}>{icon} {label}</a>';
+    //noinspection HtmlUnknownAttribute
     tBtnBrowse = '<div tabindex="500" class="{css}" {status}>{icon} {label}</div>';
     tModalMain = '<div id="' + MODAL_ID + '" class="file-zoom-dialog modal fade" tabindex="-1" aria-labelledby="' +
         MODAL_ID + 'Label"></div>';
@@ -381,8 +383,8 @@
         '    <div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
         '    <div class="clearfix"></div>\n' +
         '</div>';
-    tActionDelete = '<button type="button" class="kv-file-remove {removeClass}" ' +
-        'title="{removeTitle}" {dataUrl}{dataKey}>{removeIcon}</button>\n';
+    //noinspection HtmlUnknownAttribute
+    tActionDelete = '<button type="button" class="kv-file-remove {removeClass}" ' + 'title="{removeTitle}" {dataUrl}{dataKey}>{removeIcon}</button>\n';
     tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
         '{uploadIcon}</button>';
     tActionZoom = '<button type="button" class="kv-file-zoom {zoomClass}" title="{zoomTitle}">{zoomIcon}</button>';
@@ -1049,6 +1051,7 @@
                 return;
             }
             $el = $preview.find('.file-initial-thumbs');
+            //noinspection JSUnusedGlobalSymbols
             settings = {
                 handle: '.drag-handle-init',
                 dataIdAttr: 'data-preview-id',
@@ -1556,6 +1559,7 @@
                 form: self.formdata,
                 files: filesData,
                 filenames: self.filenames,
+                filescount: self.getFilesCount(),
                 extra: self._getExtraData(),
                 response: responseData,
                 reader: self.reader,
@@ -1620,7 +1624,7 @@
         },
         _initUploadSuccess: function (out, $thumb, allFiles) {
             var self = this, append, data, index, $newThumb, content, config, tags, i,
-                mergeArray = function(prop, content) {
+                mergeArray = function (prop, content) {
                     if (!(self[prop] instanceof Array)) {
                         self[prop] = [];
                     }
@@ -2342,7 +2346,7 @@
         },
         _setProgress: function (p, $el, error) {
             var self = this, pct = Math.min(p, 100), template = pct < 100 ? self.progressTemplate :
-                (error ? self.progressErrorTemplate : (p <= 100 ? self.progressTemplate : self.progressCompleteTemplate)),
+                    (error ? self.progressErrorTemplate : (p <= 100 ? self.progressTemplate : self.progressCompleteTemplate)),
                 pctLimit = self.progressUploadThreshold;
             $el = $el || self.$progress;
             if (!isEmpty(template)) {
@@ -2385,8 +2389,7 @@
         },
         _validateMinCount: function () {
             var self = this, len = self.isUploadable ? self.getFileStack().length : self.$element.get(0).files.length;
-            if (self.validateInitialCount && self.minFileCount > 0 && self._getFileCount(
-                    len - 1) < self.minFileCount) {
+            if (self.validateInitialCount && self.minFileCount > 0 && self._getFileCount(len - 1) < self.minFileCount) {
                 self._noFilesError({});
                 return false;
             }
@@ -2870,6 +2873,10 @@
             return self.filestack.filter(function (n) {
                 return (skipNull ? n !== undefined : n !== undefined && n !== null);
             });
+        },
+        getFilesCount: function () {
+            var self = this, len = self.isUploadable ? self.getFileStack().length : self.$element.get(0).files.length;
+            return self._getFileCount(len);
         },
         lock: function () {
             var self = this;
