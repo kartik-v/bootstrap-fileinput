@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.3.5 (under development)
+
+**Date:** 09-Aug-2016
+
+1. (bug #734): Correct right parsing of `fileuploaded` event params.
+
 ## version 4.3.4
 
 **Date:** 07-Aug-2016

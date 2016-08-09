@@ -1783,6 +1783,7 @@
                 }
             };
             fnSuccess = function (data, textStatus, jqXHR) {
+                var pid = self.showPreview && $thumb.attr('id') ? $thumb.attr('id') : previewId;
                 outData = self._getOutData(jqXHR, data);
                 $.extend(true, params, outData);
                 setTimeout(function () {
@@ -1792,17 +1793,17 @@
                             $btnUpload.hide();
                             self._initUploadSuccess(data, $thumb, allFiles);
                         }
-                        self._raise('fileuploaded', [outData, $thumb.attr('id'), i]);
+                        self._raise('fileuploaded', [outData, pid, i]);
                         if (!allFiles) {
                             self.updateStack(i, undefined);
                         } else {
-                            updateUploadLog(i, previewId);
+                            updateUploadLog(i, pid);
                         }
                     } else {
                         self._showUploadError(data.error, params);
                         self._setPreviewError($thumb, i);
                         if (allFiles) {
-                            updateUploadLog(i, previewId);
+                            updateUploadLog(i, pid);
                         }
                     }
                 }, 100);
