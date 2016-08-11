@@ -292,12 +292,16 @@
     };
     defaultFileActionSettings = {
         showRemove: true,
+        showReplace: true,
         showUpload: true,
         showZoom: true,
         showDrag: true,
         removeIcon: '<i class="glyphicon glyphicon-trash text-danger"></i>',
         removeClass: 'btn btn-xs btn-default',
         removeTitle: 'Remove file',
+        replaceIcon: '<i class="glyphicon glyphicons-retweet text-danger"></i>',
+        replaceClass: 'btn btn-xs btn-default',
+        replaceTitle: 'Replace file'
         uploadIcon: '<i class="glyphicon glyphicon-upload text-info"></i>',
         uploadClass: 'btn btn-xs btn-default',
         uploadTitle: 'Upload file',
@@ -377,7 +381,7 @@
         '</div>';
     tActions = '<div class="file-actions">\n' +
         '    <div class="file-footer-buttons">\n' +
-        '        {upload} {delete} {zoom} {other}' +
+        '        {upload} {replace} {delete} {zoom} {other}' +
         '    </div>\n' +
         '    {drag}\n' +
         '    <div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
@@ -385,6 +389,7 @@
         '</div>';
     //noinspection HtmlUnknownAttribute
     tActionDelete = '<button type="button" class="kv-file-remove {removeClass}" ' + 'title="{removeTitle}" {dataUrl}{dataKey}>{removeIcon}</button>\n';
+    tActionReplace = '<button type="button" class="kv-file-replace {replaceClass}" ' + 'title="{replaceTitle}" {dataKey}>{replaceIcon}</button>\n';
     tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
         '{uploadIcon}</button>';
     tActionZoom = '<button type="button" class="kv-file-zoom {zoomClass}" title="{zoomTitle}">{zoomIcon}</button>';
