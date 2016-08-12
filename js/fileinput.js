@@ -299,7 +299,7 @@
         removeIcon: '<i class="glyphicon glyphicon-trash text-danger"></i>',
         removeClass: 'btn btn-xs btn-default',
         removeTitle: 'Remove file',
-        replaceIcon: '<i class="glyphicon glyphicons-retweet text-danger"></i>',
+        replaceIcon: '<i class="glyphicon glyphicon-retweet text-danger"></i>',
         replaceClass: 'btn btn-xs btn-default',
         replaceTitle: 'Replace file',
         uploadIcon: '<i class="glyphicon glyphicon-upload text-info"></i>',
@@ -430,6 +430,7 @@
         actions: tActions,
         actionDelete: tActionDelete,
         actionUpload: tActionUpload,
+        actionReplace: tActionReplace,
         actionZoom: tActionZoom,
         actionDrag: tActionDrag,
         btnDefault: tBtnDefault,
@@ -2607,6 +2608,7 @@
                 .replace(/\{close}/g, close)
                 .replace(/\{caption}/g, caption)
                 .replace(/\{upload}/g, self._renderButton('upload'))
+                .replace(/\{replace}/g, self._renderButton('replace'))
                 .replace(/\{remove}/g, self._renderButton('remove'))
                 .replace(/\{cancel}/g, self._renderButton('cancel'))
                 .replace(/\{browse}/g, self._renderButton('browse'));
@@ -2724,6 +2726,7 @@
             }
             return template.replace(/\{delete}/g, btnDelete)
                 .replace(/\{upload}/g, btnUpload)
+                .replace(/\{replace}/g, btnReplace)
                 .replace(/\{zoom}/g, btnZoom)
                 .replace(/\{drag}/g, btnDrag)
                 .replace(/\{other}/g, otherButtons);
