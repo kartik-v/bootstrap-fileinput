@@ -107,7 +107,7 @@
                 isDelete: obj.initialPreviewShowDelete,
                 caption: obj.initialCaption,
                 actions: function (showUpload, showDelete, showZoom, showDrag, disabled, url, key) {
-                    return obj._renderFileActions(showUpload, showDelete, showZoom, showDrag, disabled, url, key, true);
+                    return obj._renderFileActions(showUpload, showReplace, showDelete, showZoom, showDrag, disabled, url, key, true);
                 }
             };
         },
@@ -2679,14 +2679,14 @@
             out = replaceTags(out, self.previewThumbTags);
             return out;
         },
-        _renderFileActions: function (showUpload, showDelete, showZoom, showDrag, disabled, url, key, isInit) {
+        _renderFileActions: function (showUpload, showReplace, showDelete, showZoom, showDrag, disabled, url, key, isInit) {
             if (!showUpload && !showDelete && !showZoom && !showDrag) {
                 return '';
             }
             var self = this,
                 vUrl = url === false ? '' : ' data-url="' + url + '"',
                 vKey = key === false ? '' : ' data-key="' + key + '"',
-                btnDelete = '', btnUpload = '', btnZoom = '', btnDrag = '', css,
+                btnDelete = '', btnUpload = '', btnReplace = '', btnZoom = '', btnDrag = '', css,
                 template = self._getLayoutTemplate('actions'), config = self.fileActionSettings,
                 otherButtons = self.otherActionButtons.replace(/\{dataKey}/g, vKey),
                 removeClass = disabled ? config.removeClass + ' disabled' : config.removeClass;
@@ -2703,6 +2703,12 @@
                     .replace(/\{uploadClass}/g, config.uploadClass)
                     .replace(/\{uploadIcon}/g, config.uploadIcon)
                     .replace(/\{uploadTitle}/g, config.uploadTitle);
+            }
+            if (showReplace) {
+                btnReplace = self._getLayoutTemplate('actionReplace')
+                    .replace(/\{replaceClass}/g, config.replaceClass)
+                    .replace(/\{replaceIcon}/g, config.replaceIcon)
+                    .replace(/\{replaceTitle}/g, config.replaceTitle);
             }
             if (showZoom) {
                 btnZoom = self._getLayoutTemplate('actionZoom')
