@@ -33,7 +33,7 @@
     var NAMESPACE, MODAL_ID, STYLE_SETTING, OBJECT_PARAMS, DEFAULT_PREVIEW, objUrl, compare, isIE, handler,
         previewCache, getNum, hasFileAPISupport, hasDragDropSupport, hasFileUploadSupport, addCss, tMain1, tMain2,
         tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse, tModalMain, tModal, tProgress, tSize,
-        tFooter, tActions, tActionDelete, tActionUpload, tActionZoom, tActionDrag, tTagBef, tTagBef1, tTagBef2, tTagAft,
+        tFooter, tActions, tActionDelete, tActionUpload, tActionReplace, tActionZoom, tActionDrag, tTagBef, tTagBef1, tTagBef2, tTagAft,
         tGeneric, tHtml, tImage, tText, tVideo, tAudio, tFlash, tObject, tPdf, tOther, defaultFileActionSettings,
         defaultLayoutTemplates, defaultPreviewTemplates, defaultPreviewZoomSettings, defaultPreviewTypes, getElement,
         defaultPreviewSettings, defaultFileTypeSettings, isEmpty, isArray, ifSet, uniqId, htmlEncode, replaceTags,
@@ -301,7 +301,7 @@
         removeTitle: 'Remove file',
         replaceIcon: '<i class="glyphicon glyphicons-retweet text-danger"></i>',
         replaceClass: 'btn btn-xs btn-default',
-        replaceTitle: 'Replace file'
+        replaceTitle: 'Replace file',
         uploadIcon: '<i class="glyphicon glyphicon-upload text-info"></i>',
         uploadClass: 'btn btn-xs btn-default',
         uploadTitle: 'Upload file',
