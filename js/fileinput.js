@@ -1439,6 +1439,7 @@
         },
         _clearFileInput: function () {
             var self = this, $el = self.$element, $srcFrm, $tmpFrm, $tmpEl;
+            self.fileInputCleared = true;
             if (isEmpty($el.val())) {
                 return;
             }
@@ -1460,7 +1461,6 @@
             } else { // normal input clear behavior for other sane browsers
                 $el.val('');
             }
-            self.fileInputCleared = true;
         },
         _resetUpload: function () {
             var self = this;
