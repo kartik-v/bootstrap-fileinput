@@ -3,13 +3,14 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.5 (under development)
 
-**Date:** 09-Sep-2016
+**Date:** 16-Sep-2016
 
 1. (bug #734): Correct right parsing of `fileuploaded` event params.
 2. (enh #736): Update Portugese Brazilian Translations.
 3. (enh #741): Update Vietnamese Translations.
 4. (enh #745): Update Russian Translations.
 5. (bug #753): Correct IE11 file clear bug when using without ajax.
+6. (bug #758): Correct file slug name parsing for an invalid file extension.
 
 ## version 4.3.4
 
