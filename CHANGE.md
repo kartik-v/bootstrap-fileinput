@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.5
 
-**Date:** 16-Sep-2016
+**Date:** 20-Sep-2016
 
 1. (bug #734): Correct right parsing of `fileuploaded` event params.
 2. (enh #736): Update Portugese Brazilian Translations.
