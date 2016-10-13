@@ -14,7 +14,7 @@
 
     $.fn.fileinputLocales['zh'] = {
         fileSingle: '文件',
-        filePlural: '多个文件',
+        filePlural: '个文件',
         browseLabel: '选择 &hellip;',
         removeLabel: '移除',
         removeTitle: '清除选中文件',
@@ -49,25 +49,25 @@
         msgImageHeightLarge: '图像文件"{name}"的高度不能超过{size}像素.',
         msgImageResizeError: '无法获取的图像尺寸调整。',
         msgImageResizeException: '错误而调整图像大小。<pre>{errors}</pre>',
-        dropZoneTitle: '拖拽文件到这里 &hellip;',
-        dropZoneClickTitle: '<br>(or click to select {files})',
+        dropZoneTitle: '拖拽文件到这里 &hellip;<br>支持多文件同时上传',
+        dropZoneClickTitle: '<br>(或点击{files}按钮选择文件)',
         fileActionSettings: {
             removeTitle: '删除文件',
             uploadTitle: '上传文件',
             zoomTitle: '查看详情',
-            dragTitle: 'Move / Rearrange',
+            dragTitle: '移动 / 重置',
             indicatorNewTitle: '没有上传',
             indicatorSuccessTitle: '上传',
             indicatorErrorTitle: '上传错误',
             indicatorLoadingTitle: '上传 ...'
         },
         previewZoomButtonTitles: {
-            prev: 'View previous file',
-            next: 'View next file',
-            toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
+            prev: '预览上一个文件',
+            next: '预览下一个文件',
+            toggleheader: '缩放',
+            fullscreen: '全屏',
+            borderless: '无边界模式',
+            close: '关闭当前预览'
         }
     };
 })(window.jQuery);
