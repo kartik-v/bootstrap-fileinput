@@ -2072,11 +2072,11 @@
             this.$captionContainer.find('.kv-caption-icon').show();
         },
         _getSize: function (bytes) {
-            var size = parseFloat(bytes);
-            if (bytes === null || isNaN(size)) {
-                return '';
+            var self = this, size = parseFloat(bytes);
+            if (!bytes || !size || isNaN(bytes) || isNaN(size)) {
+                return self._getLayoutTemplate('size').replace('{sizeText}', '0.00 KB');
             }
-            var self = this, i, func = self.fileSizeGetter, sizes, out;
+            var  i, func = self.fileSizeGetter, sizes, out;
             if (typeof func === 'function') {
                 out = func(bytes);
             } else {
