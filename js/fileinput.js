@@ -2477,6 +2477,7 @@
                 return;
             }
             errFunc = self.isUploadable ? self._showUploadError : self._showError;
+            var counter = {val: 0};
             for (i = 0; i < self.loadedImages.length; i++) {
                 config = self.loadedImages[i];
                 $img = config.img;
@@ -2484,22 +2485,30 @@
                 pid = config.pid;
                 ind = config.ind;
                 params = {id: pid, 'index': ind};
-                if (!self._getResizedImage($img[0], config.typ, pid, ind)) {
+                if (!self._getResizedImage($img[0], config.typ, pid, ind, counter, self.loadedImages.length)) {
                     errFunc(self.msgImageResizeError, params, 'fileimageresizeerror');
                     self._setPreviewError($thumb, ind);
                 }
             }
-            self._raise('fileimagesresized');
         },
-        _getResizedImage: function (image, type, pid, ind) {
+        _getResizedImage: function (image, type, pid, ind, counter, num_imgs) {
             var self = this, width = image.naturalWidth, height = image.naturalHeight, ratio = 1,
                 maxWidth = self.maxImageWidth || width, maxHeight = self.maxImageHeight || height,
                 isValidImage = (width && height), chkWidth, chkHeight,
                 canvas = self.imageCanvas, context = self.imageCanvasContext;
             if (!isValidImage) {
+                counter.val++;
+                if (counter.val === num_imgs) {
+                    self._raise('fileimagesresized');
+                }
                 return false;
             }
             if (width === maxWidth && height === maxHeight) {
+                self._raise('fileimageresized', [pid, ind]);
+                counter.val++;
+                if (counter.val === num_imgs) {
+                    self._raise('fileimagesresized');
+                }
                 return true;
             }
             type = type || self.resizeDefaultImageType;
@@ -2518,12 +2527,20 @@
             try {
                 context.drawImage(image, 0, 0, width, height);
                 canvas.toBlob(function (blob) {
-                    self._raise('fileimageresized', [pid, ind]);
                     self.filestack[ind] = blob;
+                    self._raise('fileimageresized', [pid, ind]);
+                    counter.val++;
+                    if (counter.val === num_imgs) {
+                        self._raise('fileimagesresized');
+                    }
                 }, type, self.resizeQuality);
                 return true;
             }
             catch (err) {
+                counter.val++;
+                if (counter.val === num_imgs) {
+                    self._raise('fileimagesresized');
+                }
                 return false;
             }
         },
