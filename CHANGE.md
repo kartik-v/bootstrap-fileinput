@@ -1,6 +1,24 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.3.6
+
+**Date:** 31-Oct-2016
+
+1. (enh #696): Better default preview zoom settings.
+2. (enh #764): Update Russian Translations.
+3. (enh #771): Update Chinese Translations.
+4. (enh #769, #785, #786, #787): Better image resized event handling.
+5. (enh #779, #789): More correct thumbnail identification post rearrange.
+6. (enh #782): New validation for invalid slug file name (caption):
+   - if slug callback returns an empty string, then an error will be thrown using `msgInvalidFileName`.
+   - if slug callback returns `false` then the next file will be read and current file skipped.
+7. (enh #788): New validation for minimum file size:
+   - new property `minFileSize` which validates the minimum file size in KB for upload, else throws
+     a validation error using `msgSizeTooSmall`. This defaults to `0`.
+   - if `minFileSize` is set to `null`, then above validation is skipped and no minimum file size 
+     check is performed.
+
 ## version 4.3.5
 
 **Date:** 20-Sep-2016
