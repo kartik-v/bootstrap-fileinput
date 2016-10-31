@@ -222,20 +222,24 @@
             }
             previewCache.data[id] = data;
         },
-        unset: function (id, index) {
-            var chk = previewCache.count(id);
+        unset: function (obj, index) {
+            var chk = previewCache.count(obj.id);
             if (!chk) {
                 return;
             }
             if (chk === 1) {
-                previewCache.data[id].content = [];
-                previewCache.data[id].config = [];
-                previewCache.data[id].tags = [];
+                previewCache.data[obj.id].content = [];
+                previewCache.data[obj.id].config = [];
+                previewCache.data[obj.id].tags = [];
+                obj.initialPreview = [];
+                obj.initialPreviewConfig = [];
+                obj.initialPreviewThumbTags = [];
                 return;
             }
-            previewCache.data[id].content[index] = null;
-            previewCache.data[id].config[index] = null;
-            previewCache.data[id].tags[index] = null;
+
+            previewCache.data[obj.id].content[index] = null;
+            previewCache.data[obj.id].config[index] = null;
+            previewCache.data[obj.id].tags[index] = null;
         },
         out: function (id) {
             var html = '', data = previewCache.data[id], caption, len = previewCache.count(id, true);
@@ -1386,7 +1390,8 @@
                     success: function (data, textStatus, jqXHR) {
                         var n, cap;
                         if (isEmpty(data) || isEmpty(data.error)) {
-                            previewCache.unset(self.id, index);
+                            previewCache.init(self);
+                            previewCache.unset(self, index);
                             n = previewCache.count(self.id);
                             cap = n > 0 ? self._getMsgSelected(n) : '';
                             self._raise('filedeleted', [vKey, jqXHR, extraData]);
