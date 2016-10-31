@@ -1065,6 +1065,15 @@
                     self.initialPreview = moveArray(self.initialPreview, oldIndex, newIndex);
                     self.initialPreviewConfig = moveArray(self.initialPreviewConfig, oldIndex, newIndex);
                     previewCache.init(self);
+                    for(var i = 0; i < self.initialPreviewConfig.length; i++) {
+                        if(self.initialPreviewConfig[i] !== null) {
+                            var key = self.initialPreviewConfig[i].key;
+                            var $frame = $(".kv-file-remove[data-key='" + key + "']");
+                            $frame = $frame.closest('.file-preview-frame');
+                            $frame.attr('data-fileindex', 'init_'+i);
+                            $frame.data('fileindex', 'init_'+i);
+                        }
+                    }
                     self._raise('filesorted', {
                         previewId: $(e.item).attr('id'),
                         'oldIndex': oldIndex,
@@ -1391,6 +1400,7 @@
                         var n, cap;
                         if (isEmpty(data) || isEmpty(data.error)) {
                             previewCache.init(self);
+                            index = parseInt(($frame.data('fileindex')).replace('init_', ''));
                             previewCache.unset(self, index);
                             n = previewCache.count(self.id);
                             cap = n > 0 ? self._getMsgSelected(n) : '';
