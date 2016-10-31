@@ -18,6 +18,7 @@ Change Log: `bootstrap-fileinput`
      a validation error using `msgSizeTooSmall`. This defaults to `0`.
    - if `minFileSize` is set to `null`, then above validation is skipped and no minimum file size 
      check is performed.
+8. (enh #791): Auto orientation of images based on EXIF data.
 
 ## version 4.3.5
 
