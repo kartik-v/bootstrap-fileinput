@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.6
 
-**Date:** 31-Oct-2016
+**Date:** 15-Nov-2016
 
 1. (enh #696): Better default preview zoom settings.
 2. (enh #764): Update Russian Translations.
@@ -19,6 +19,8 @@ Change Log: `bootstrap-fileinput`
    - if `minFileSize` is set to `null`, then above validation is skipped and no minimum file size 
      check is performed.
 8. (enh #791): Auto orientation of images based on EXIF data.
+9. (enh #799): Fix IE memory issue on image load.
+10. (enh #800): Update Spanish Translations.
 
 ## version 4.3.5
 

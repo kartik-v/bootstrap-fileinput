@@ -2493,7 +2493,6 @@
                 self._raise('fileimageloaded', [previewId]);
                 self.loadedImages.push({ind: i, img: $img, thumb: $thumb, pid: previewId, typ: ftype});
                 self._validateAllImages();
-                objUrl.revokeObjectURL($img.attr('src'));
             });
         },
         _validateAllImages: function () {
