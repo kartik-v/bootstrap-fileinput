@@ -21,6 +21,9 @@ Change Log: `bootstrap-fileinput`
 8. (enh #791): Auto orientation of images based on EXIF data.
 9. (enh #799): Fix IE memory issue on image load.
 10. (enh #800): Update Spanish Translations.
+11. (enh #802): Allow MOV files preview for supported devices and browsers.
+12. (enh #803): Update Hungarian Translations.
+13. (enh #804): Add Slovenian Translations.
 
 ## version 4.3.5
 
