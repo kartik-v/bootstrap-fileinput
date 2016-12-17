@@ -22,8 +22,10 @@
         uploadLabel: 'Yükle',
         uploadTitle: 'Seçilen dosyaları yükle',
         msgNo: 'Hayır',
+        msgNoFilesSelected: '',
         msgCancelled: 'Iptal edildi',
         msgZoomModalHeading: 'Detaylı Önizleme',
+        msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: '"{name}" dosyasının boyutu (<b>{size} KB</b>) izin verilen azami dosya boyutu olan <b>{maxSize} KB</b>\'tan büyük.',
         msgFilesTooLess: 'Yüklemek için en az <b>{n}</b> {files} dosya seçmelisiniz.',
         msgFilesTooMany: 'Yüklemek için seçtiğiniz dosya sayısı <b>({n})</b> azami limitin <b>({m})</b> altında olmalıdır.',
@@ -32,9 +34,11 @@
         msgFileNotReadable: '"{name}" dosyası okunabilir değil.',
         msgFilePreviewAborted: '"{name}" dosyası için önizleme iptal edildi.',
         msgFilePreviewError: '"{name}" dosyası okunurken bir hata oluştu.',
+        msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
         msgInvalidFileType: '"{name}" dosyasının türü geçerli değil. Yalnızca "{types}" türünde dosyalara izin veriliyor.',
         msgInvalidFileExtension: '"{name}" dosyasının uzantısı geçersiz. Yalnızca "{extensions}" uzantılı dosyalara izin veriliyor.',
         msgUploadAborted: 'Dosya yükleme iptal edildi',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: 'Doğrulama Hatası',
         msgLoading: 'Dosya yükleniyor {index} / {files} &hellip;',
         msgProgress: 'Dosya yükleniyor {index} / {files} - {name} - %{percent} tamamlandı.',
@@ -47,24 +51,24 @@
         msgImageResizeError: 'Görüntü boyutlarını yeniden boyutlandırmak için alınamadı.',
         msgImageResizeException: 'Görsel boyutlandırma sırasında hata.<pre>{errors}</pre>',
         dropZoneTitle: 'Dosyaları buraya sürükleyip bırakın &hellip;',
-        dropZoneClickTitle: '<br>(or click to select {files})',
+        dropZoneClickTitle: '<br>(ya da {files} seçmek için tıklayınız)',
         fileActionSettings: {
             removeTitle: 'Dosyayı kaldır',
             uploadTitle: 'Dosyayı yükle',
             zoomTitle: 'Ayrıntıları görüntüle',
-            dragTitle: 'Move / Rearrange',
+            dragTitle: 'Taşı / Yeniden düzenle',
             indicatorNewTitle: 'Henüz yüklenemedi',
             indicatorSuccessTitle: 'Yüklendi',
             indicatorErrorTitle: 'Yükleme Hatası',
             indicatorLoadingTitle: 'Yükleniyor ...'
         },
         previewZoomButtonTitles: {
-            prev: 'View previous file',
-            next: 'View next file',
-            toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
+            prev: 'Önceki dosyayı görüntüle',
+            next: 'Sonraki dosyayı görüntüle',
+            toggleheader: 'Başlık geçiş',
+            fullscreen: 'Tam ekran geçiş',
+            borderless: 'Çerçevesiz moda geçiş',
+            close: 'Detaylı önizlemeyi kapat'
         }
     };
 })(window.jQuery);

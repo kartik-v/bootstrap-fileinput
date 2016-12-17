@@ -29,8 +29,10 @@
         uploadLabel: 'アップロード',
         uploadTitle: '選択したファイルをアップロード',
         msgNo: 'いいえ',
+        msgNoFilesSelected: 'ファイルが選択されていません',
         msgCancelled: 'キャンセル',
-        msgZoomModalHeading: 'ファイル詳細',
+        msgZoomModalHeading: 'プレビュー',
+        msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'ファイル"{name}" (<b>{size} KB</b>)はアップロード可能な上限容量<b>{maxSize} KB</b>を超えています',
         msgFilesTooLess: '最低<b>{n}</b>個の{files}を選択してください',
         msgFilesTooMany: '選択したファイルの数<b>({n}個)</b>はアップロード可能な上限数<b>({m}個)</b>を超えています',
@@ -39,9 +41,11 @@
         msgFileNotReadable: 'ファイル"{name}"は読み込めません',
         msgFilePreviewAborted: 'ファイル"{name}"のプレビューを中止しました',
         msgFilePreviewError: 'ファイル"{name}"の読み込み中にエラーが発生しました',
+        msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
         msgInvalidFileType: '"{name}"は無効なファイル形式です。"{types}"形式のファイルのみサポートしています',
         msgInvalidFileExtension: '"{name}"は無効なファイル拡張子です。拡張子が"{extensions}"のファイルのみサポートしています',
         msgUploadAborted: 'ファイルのアップロードが中止されました',
+        msgUploadThreshold: 'Processing...',
         msgValidationError: '検証エラー',
         msgLoading: '{files}個中{index}個目のファイルを読み込み中&hellip;',
         msgProgress: '{files}個中{index}個のファイルを読み込み中 - {name} - {percent}% 完了',
@@ -54,7 +58,7 @@
         msgImageResizeError: 'リサイズ時に画像サイズが取得できませんでした',
         msgImageResizeException: '画像のリサイズ時にエラーが発生しました。<pre>{errors}</pre>',
         dropZoneTitle: 'ファイルをドラッグ&ドロップ&hellip;',
-        dropZoneClickTitle: '<br>(or click to select {files})',
+        dropZoneClickTitle: '<br>(または クリックして{files}を選択 )',
         slugCallback: function(text) {
             return text ? text.split(/(\\|\/)/g).pop().replace(/[^\w\u4e00-\u9fa5\u3040-\u309f\u30a0-\u30ff\u31f0-\u31ff\u3200-\u32ff\uff00-\uffef\-.\\\/ ]+/g, '') : '';
         },
@@ -62,19 +66,19 @@
             removeTitle: 'ファイルを削除',
             uploadTitle: 'ファイルをアップロード',
             zoomTitle: 'プレビュー',
-            dragTitle: 'Move / Rearrange',
+            dragTitle: '移動 / 再配置',
             indicatorNewTitle: 'まだアップロードされていません',
             indicatorSuccessTitle: 'アップロード済み',
             indicatorErrorTitle: 'アップロード失敗',
             indicatorLoadingTitle: 'アップロード中...'
         },
         previewZoomButtonTitles: {
-            prev: 'View previous file',
-            next: 'View next file',
-            toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
+            prev: '前のファイルを表示',
+            next: '次のファイルを表示',
+            toggleheader: 'ファイル情報の表示/非表示',
+            fullscreen: 'フルスクリーン表示の開始/終了',
+            borderless: 'フルウィンドウ表示の開始/終了',
+            close: 'プレビューを閉じる'
         }
     };
 })(window.jQuery);
