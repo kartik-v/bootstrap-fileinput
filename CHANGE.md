@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.6
 
-**Date:** 15-Nov-2016
+**Date:** 17-Dec-2016
 
 1. (enh #696): Better default preview zoom settings.
 2. (enh #764): Update Russian Translations.
@@ -24,6 +24,11 @@ Change Log: `bootstrap-fileinput`
 11. (enh #802): Allow MOV files preview for supported devices and browsers.
 12. (enh #803): Update Hungarian Translations.
 13. (enh #804): Add Slovenian Translations.
+14. (enh #809): Various enhancements for preview control and iconic thumbnails.
+    - add ability to control and render different previews for file thumbnails and zoomed preview content
+    - new property `preferIconicPreview` will try to parse the `previewFileIconSettings` and `previewFileExtSettings` to automatically force iconic previews for file thumbnails.
+    - new property `preferIconicZoomPreview` will try to parse the `previewFileIconSettings` and `previewFileExtSettings` to automatically force iconic previews in the zoomed content.
+    - the above properties will be applied and parsed for `initialPreview` content as well.
 
 ## version 4.3.5
 
