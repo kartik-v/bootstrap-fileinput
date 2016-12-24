@@ -2531,7 +2531,7 @@
                 }
                 return false;
             }
-            if (width === maxWidth && height === maxHeight) {
+            if (width <= maxWidth && height <= maxHeight) {
                 self._raise('fileimageresized', [pid, ind]);
                 counter.val++;
                 if (counter.val === num_imgs) {
