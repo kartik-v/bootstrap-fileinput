@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.3.7
+
+**Date:** 24-Dec-2016
+
+- (enh #816): New property `msgFileTypes` to control descriptions/localizations of file types displayed.
+
 ## version 4.3.6
 
 **Date:** 17-Dec-2016

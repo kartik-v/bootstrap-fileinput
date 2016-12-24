@@ -37,6 +37,16 @@
         msgInvalidFileName: 'Hibás vagy nem támogatott karakterek a fájl nevében "{name}".',
         msgInvalidFileType: 'Nem megengedett fájl "{name}". Csak a "{types}" fájl típusok támogatottak.',
         msgInvalidFileExtension: 'Nem megengedett kiterjesztés / fájltípus "{name}". Csak a "{extensions}" kiterjesztés(ek) / fájltípus(ok) támogatottak.',
+        msgFileTypes: {
+            'image': 'image',
+            'html': 'HTML',
+            'text': 'text',
+            'video': 'video',
+            'audio': 'audio',
+            'flash': 'flash',
+            'pdf': 'PDF',
+            'object': 'object'
+        },
         msgUploadAborted: 'A fájl feltöltés megszakítva',
         msgUploadThreshold: 'Folyamatban...',
         msgValidationError: 'Érvényesítés hiba',

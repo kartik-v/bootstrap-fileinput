@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.3.6
+ * bootstrap-fileinput v4.3.7
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -2220,9 +2220,15 @@
                 var node = ctr + i, previewId = previewInitId + "-" + node, isText, isImage, file = files[i], fSizeKB,
                     caption = file.name ? self.slug(file.name) : '', fileSize = (file.size || 0) / 1000, checkFile,
                     fileExtExpr = '', previewData = objUrl.createObjectURL(file), fileCount = 0, j, msg, typ, chk,
-                    fileTypes = self.allowedFileTypes, strTypes = isEmpty(fileTypes) ? '' : fileTypes.join(', '),
+                    fileTypes = self.allowedFileTypes, typ1, typ2, strTypes = '', typLen = fileTypes ? fileTypes.length : 0,
                     fileExt = self.allowedFileExtensions, strExt = isEmpty(fileExt) ? '' : fileExt.join(', ');
-
+                if (typLen > 0) {
+                    for (j = 0; j < typLen; j++) {
+                        typ1 = fileTypes[j];
+                        typ2 = self.msgFileTypes[typ1] || typ1;
+                        strTypes += j === 0 ? typ2 : ', ' + typ2;
+                    }
+                }
                 if (caption === false) {
                     readFile(i + 1);
                     return;
@@ -3314,6 +3320,16 @@
         msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
         msgInvalidFileType: 'Invalid type for file "{name}". Only "{types}" files are supported.',
         msgInvalidFileExtension: 'Invalid extension for file "{name}". Only "{extensions}" files are supported.',
+        msgFileTypes: {
+            'image': 'image',
+            'html': 'HTML',
+            'text': 'text',
+            'video': 'video', 
+            'audio': 'audio', 
+            'flash': 'flash', 
+            'pdf': 'PDF', 
+            'object': 'object'
+        },
         msgUploadAborted: 'The file upload was aborted',
         msgUploadThreshold: 'Processing...',
         msgValidationError: 'Validation Error',

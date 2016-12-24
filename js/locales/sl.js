@@ -36,6 +36,16 @@
         msgFilePreviewError: 'Pri branju datoteke "{name}" je prišlo do napake.',
         msgInvalidFileType: 'Napačen tip datoteke "{name}". Samo "{types}" datoteke so podprte.',
         msgInvalidFileExtension: 'Napačna končnica datoteke "{name}". Samo "{extensions}" datoteke so podprte.',
+        msgFileTypes: {
+            'image': 'image',
+            'html': 'HTML',
+            'text': 'text',
+            'video': 'video',
+            'audio': 'audio',
+            'flash': 'flash',
+            'pdf': 'PDF',
+            'object': 'object'
+        },
         msgUploadAborted: 'Nalaganje datoteke je bilo preklicano',
         msgUploadThreshold: 'Procesiram...',
         msgValidationError: 'Napaki pri validiranju',
