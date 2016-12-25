@@ -553,6 +553,11 @@
     toggleFullScreen = function (maximize) {
         var doc = document, de = doc.documentElement;
         if (de && maximize && !checkFullScreen()) {
+            /** @namespace document.requestFullscreen */
+            /** @namespace document.msRequestFullscreen */
+            /** @namespace document.mozRequestFullScreen */
+            /** @namespace document.webkitRequestFullscreen */
+            /** @namespace Element.ALLOW_KEYBOARD_INPUT */
             if (de.requestFullscreen) {
                 de.requestFullscreen();
             } else if (de.msRequestFullscreen) {
@@ -1642,7 +1647,7 @@
             self.ajaxRequests.push($.ajax(settings));
         },
         _initUploadSuccess: function (out, $thumb, allFiles) {
-            var self = this, append, data, index, $newThumb, content, config, tags, i,
+            var self = this, append, data, index, $div, $newCache, content, config, tags, i,
                 mergeArray = function (prop, content) {
                     if (!(self[prop] instanceof Array)) {
                         self[prop] = [];
@@ -1671,12 +1676,24 @@
                     if (!allFiles) {
                         index = previewCache.add(self.id, content, config[0], tags[0], append);
                         data = previewCache.get(self.id, index, false);
-                        $newThumb = $(data).hide();
-                        $thumb.after($newThumb).fadeOut('slow', function () {
-                            $newThumb.fadeIn('slow').css('display:inline-block');
+                        $div = $(document.createElement('div')).html(data).hide().insertAfter($thumb);
+                        $newCache = $div.find('.kv-zoom-cache');
+                        if ($newCache && $newCache.length) {
+                            $newCache.insertAfter($thumb);
+                        }
+                        $thumb.fadeOut('slow', function () {
+                            var $newThumb = $div.find('.file-preview-frame'),
+                                $cache = self.$preview.find('#zoom-' + $thumb.attr('id')).closest('.kv-zoom-cache');
+                            if ($newThumb && $newThumb.length) {
+                                $newThumb.insertBefore($thumb).fadeIn('slow').css('display:inline-block');
+                            }
                             self._initPreviewActions();
                             self._clearFileInput();
+                            if ($cache && $cache.length) {
+                                $cache.remove();
+                            }
                             $thumb.remove();
+                            $div.remove();
                         });
                     } else {
                         i = $thumb.attr('data-fileindex');
@@ -2518,7 +2535,7 @@
             });
         },
         _validateAllImages: function () {
-            var self = this, i, config, $img, $thumb, pid, ind, params = {}, errFunc;
+            var self = this, i, config, $img, pid, ind, errFunc;
             if (self.loadedImages.length !== self.totalImagesCount) {
                 return;
             }
@@ -2527,17 +2544,14 @@
                 return;
             }
             errFunc = self.isUploadable ? self._showUploadError : self._showError;
-            var counter = {val: 0};
             for (i = 0; i < self.loadedImages.length; i++) {
                 config = self.loadedImages[i];
                 $img = config.img;
-                $thumb = config.thumb;
                 pid = config.pid;
                 ind = config.ind;
-                params = {id: pid, 'index': ind};
-                if (!self._getResizedImage($img[0], config.typ, pid, ind, counter, self.loadedImages.length)) {
-                    errFunc(self.msgImageResizeError, params, 'fileimageresizeerror');
-                    self._setPreviewError($thumb, ind);
+                if (!self._getResizedImage($img[0], config.typ, pid, ind, {val: 0}, self.loadedImages.length)) {
+                    errFunc(self.msgImageResizeError, {id: pid, 'index': ind}, 'fileimageresizeerror');
+                    self._setPreviewError(config.thumb, ind);
                 }
             }
         },
@@ -3324,10 +3338,10 @@
             'image': 'image',
             'html': 'HTML',
             'text': 'text',
-            'video': 'video', 
-            'audio': 'audio', 
-            'flash': 'flash', 
-            'pdf': 'PDF', 
+            'video': 'video',
+            'audio': 'audio',
+            'flash': 'flash',
+            'pdf': 'PDF',
             'object': 'object'
         },
         msgUploadAborted: 'The file upload was aborted',
