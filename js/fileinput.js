@@ -2177,7 +2177,7 @@
                 content = self._generatePreviewTemplate(cat, iData, fname, file.type, previewId, false, file.size);
                 self._clearDefaultPreview();
                 $previewLive.append("\n" + content);
-                self._validateImage(i, previewId, caption, file.type);
+                self._validateImage(previewId, caption, file.type);
             } else {
                 self._previewDefault(file, previewId);
             }
@@ -2508,9 +2508,9 @@
             self._showUploadError(msg, params);
             self._setPreviewError($thumb, i, null);
         },
-        _validateImage: function (i, previewId, fname, ftype) {
-            var self = this, $preview = self.$preview, params, w1, w2,
-                $thumb = $preview.find("#" + previewId), $img = $thumb.find('img');
+        _validateImage: function (previewId, fname, ftype) {
+            var self = this, $preview = self.$preview, params, w1, w2, $thumb = $preview.find("#" + previewId),
+                i = $thumb.attr('data-fileindex'), $img = $thumb.find('img');
             fname = fname || 'Untitled';
             if (!$img.length) {
                 return;
@@ -3093,7 +3093,7 @@
             return self.$element;
         },
         upload: function () {
-            var self = this, totLen = self.getFileStack().length, params = {}, 
+            var self = this, totLen = self.getFileStack().length, params = {},
                 i, outData, len, hasExtraData = !$.isEmptyObject(self._getExtraData());
             if (!self.isUploadable || self.isDisabled) {
                 return;
