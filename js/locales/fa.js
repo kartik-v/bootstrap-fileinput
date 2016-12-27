@@ -50,6 +50,7 @@
         },
         msgUploadAborted: 'The file upload was aborted',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'خطای اعتبار سنجی',
         msgLoading: 'بارگیری فایل {index} از {files} &hellip;',
         msgProgress: 'بارگیری فایل {index} از {files} - {name} - {percent}% تمام شد.',

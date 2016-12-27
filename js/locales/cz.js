@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'Soubor nahrávání byl přerušen',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Chyba ověření',
         msgLoading: 'Nahrávání souboru {index} z {files} &hellip;',
         msgProgress: 'Nahrávání souboru {index} z {files} - {name} - {percent}% dokončeno.',

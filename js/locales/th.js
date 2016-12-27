@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'อัปโหลดไฟล์ถูกยกเลิก',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'ข้อผิดพลาดในการตรวจสอบ',
         msgLoading: 'กำลังโหลดไฟล์ {index} จาก {files} &hellip;',
         msgProgress: 'กำลังโหลดไฟล์ {index} จาก {files} - {name} - {percent}%',

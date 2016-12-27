@@ -50,6 +50,7 @@
         },
         msgUploadAborted: 'Вивантаження файлу перервана',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Помилка перевірки',
         msgLoading: 'Загрузка файла {index} із {files} &hellip;',
         msgProgress: 'Загрузка файла {index} із {files} - {name} - {percent}% завершено.',

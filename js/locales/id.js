@@ -50,6 +50,7 @@
         },
         msgUploadAborted: 'Pengunggahan berkas dibatalkan',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Kesalahan validasi',
         msgLoading: 'Memuat {index} dari {files} berkas &hellip;',
         msgProgress: 'Memuat {index} dari {files} berkas - {name} - {percent}% selesai.',

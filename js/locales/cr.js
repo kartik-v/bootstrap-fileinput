@@ -50,6 +50,7 @@
         },
         msgUploadAborted: 'Prijenos datoteka je prekinut',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Provjera pogrešaka',
         msgLoading: 'Učitavanje datoteke {index} od {files} &hellip;',
         msgProgress: 'Učitavanje datoteke {index} od {files} - {name} - {percent}% završeno.',

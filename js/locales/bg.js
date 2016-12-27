@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'Качите файла, бе прекратена',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'утвърждаване грешка',
         msgLoading: 'Зареждане на файл {index} от общо {files} &hellip;',
         msgProgress: 'Зареждане на файл {index} от общо {files} - {name} - {percent}% завършени.',

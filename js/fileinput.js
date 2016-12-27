@@ -2575,6 +2575,9 @@
                 }
                 return true;
             }
+            if (!self.filestack[ind]) {
+                return true;
+            }
             type = type || self.resizeDefaultImageType;
             chkWidth = width > maxWidth;
             chkHeight = height > maxHeight;
@@ -3090,13 +3093,18 @@
             return self.$element;
         },
         upload: function () {
-            var self = this, totLen = self.getFileStack().length, params = {},
+            var self = this, totLen = self.getFileStack().length, params = {}, 
                 i, outData, len, hasExtraData = !$.isEmptyObject(self._getExtraData());
+            if (!self.isUploadable || self.isDisabled) {
+                return;
+            }
             if (self.minFileCount > 0 && self._getFileCount(totLen) < self.minFileCount) {
                 self._noFilesError(params);
                 return;
             }
-            if (!self.isUploadable || self.isDisabled || (totLen === 0 && !hasExtraData)) {
+            if (totLen === 0 && !hasExtraData) {
+                self._resetUpload();
+                self._showUploadError(self.msgUploadEmpty);
                 return;
             }
             self._resetUpload();
@@ -3346,6 +3354,7 @@
         },
         msgUploadAborted: 'The file upload was aborted',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Validation Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',

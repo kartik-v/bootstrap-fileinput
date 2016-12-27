@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'Filupload annulleret',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Validering Fejl',
         msgLoading: 'Henter fil {index} af {files} &hellip;',
         msgProgress: 'Henter fil {index} af {files} - {name} - {percent}% f&aelig;rdiggjort.',

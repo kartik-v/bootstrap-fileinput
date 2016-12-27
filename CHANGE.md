@@ -3,10 +3,11 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.7
 
-**Date:** 24-Dec-2016
+**Date:** 27-Dec-2016
 
 - (enh #816): New property `msgFileTypes` to control descriptions/localizations of file types displayed.
 - (bug #819): Correct init preview auto replace post `uploadSingle` action in thumbnails.
+- (enh #822): Enhancement for preventing upload when data is empty. New property `msgUploadEmpty` has been incorporated.
 
 ## version 4.3.6
 

@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'Dosya yükleme iptal edildi',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Doğrulama Hatası',
         msgLoading: 'Dosya yükleniyor {index} / {files} &hellip;',
         msgProgress: 'Dosya yükleniyor {index} / {files} - {name} - %{percent} tamamlandı.',

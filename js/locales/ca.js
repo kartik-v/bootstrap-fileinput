@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'La càrrega d\'arxius s\'ha cancel·lat',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Error de validació',
         msgLoading: 'Pujant fitxer {index} de {files} &hellip;',
         msgProgress: 'Pujant fitxer {index} de {files} - {name} - {percent}% completat.',

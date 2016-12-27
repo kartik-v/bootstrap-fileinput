@@ -51,6 +51,7 @@
         },
         msgUploadAborted: '該文件上傳被中止',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: '驗證錯誤',
         msgLoading: '載入第 {index} 個檔案，共 {files} &hellip;',
         msgProgress: '載入第 {index} 個檔案，共 {files} - {name} - {percent}% 成功.',

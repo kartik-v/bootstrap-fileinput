@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'Plik przesyłanie zostało przerwane',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Błąd walidacji',
         msgLoading: 'Wczytywanie pliku {index} z {files} &hellip;',
         msgProgress: 'Wczytywanie pliku {index} z {files} - {name} - {percent}% zakończone.',

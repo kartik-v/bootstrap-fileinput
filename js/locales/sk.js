@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'Súbor nahrávania bol prerušený',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Chyba overenia',
         msgLoading: 'Nahrávanie súboru {index} z {files} &hellip;',
         msgProgress: 'Nahrávanie súboru {index} z {files} - {name} - {percent}% dokončené.',

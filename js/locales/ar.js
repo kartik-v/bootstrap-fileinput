@@ -50,6 +50,7 @@
         },
         msgUploadAborted: 'تم إلغاء رفع الملف',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'خطأ التحقق من صحة',
         msgLoading: 'تحميل ملف {index} من {files} &hellip;',
         msgProgress: 'تحميل ملف {index} من {files} - {name} - {percent}% منتهي.',

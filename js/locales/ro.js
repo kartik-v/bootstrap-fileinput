@@ -50,6 +50,7 @@
         },
         msgUploadAborted: 'Fișierul Încărcarea a fost întrerupt',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Eroare de validare',
         msgLoading: 'Se încarcă fișierul {index} din {files} &hellip;',
         msgProgress: 'Se încarcă fișierul {index} din {files} - {name} - {percent}% încărcat.',

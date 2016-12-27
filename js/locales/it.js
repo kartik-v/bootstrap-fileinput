@@ -51,6 +51,7 @@
         },
         msgUploadAborted: 'Il caricamento del file è stata interrotta',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Errore di convalida',
         msgLoading: 'Caricamento file {index} di {files}&hellip;',
         msgProgress: 'Caricamento file {index} di {files} - {name} - {percent}% completato.',

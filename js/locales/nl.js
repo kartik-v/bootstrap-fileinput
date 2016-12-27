@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'Het uploaden van bestanden is afgebroken',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Bevestiging fout',
         msgLoading: 'Bestanden laden {index} van de {files} &hellip;',
         msgProgress: 'Bestanden laden {index} van de {files} - {name} - {percent}% compleet.',

@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'Le téléchargement du fichier a été interrompu',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Erreur de validation',
         msgLoading: 'Transmission du fichier {index} sur {files}&hellip;',
         msgProgress: 'Transmission du fichier {index} sur {files} - {name} - {percent}% faits.',

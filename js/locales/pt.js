@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'O upload do arquivo foi abortada',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Erro de validação',
         msgLoading: 'A carregar ficheiro {index} de {files} &hellip;',
         msgProgress: 'A carregar ficheiro {index} de {files} - {name} - {percent}% completo.',
