@@ -3169,7 +3169,7 @@
         this.each(function () {
             var self = $(this), data = self.data('fileinput'), options = typeof option === 'object' && option,
                 theme = options.theme || self.data('theme'), l = {}, t = {},
-                lang = options.language || self.data('language') || 'en', opts;
+                lang = options.language || self.data('language') || $.fn.fileinput.defaults.language  || 'en', opts;
             if (!data) {
                 if (theme) {
                     t = $.fn.fileinputThemes[theme] || {};
