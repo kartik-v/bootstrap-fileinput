@@ -2535,7 +2535,7 @@
             });
         },
         _validateAllImages: function () {
-            var self = this, i, config, $img, pid, ind, errFunc;
+            var self = this, i, config, $img, pid, ind, errFunc, ctr = {val: 0};
             if (self.loadedImages.length !== self.totalImagesCount) {
                 return;
             }
@@ -2549,7 +2549,7 @@
                 $img = config.img;
                 pid = config.pid;
                 ind = config.ind;
-                if (!self._getResizedImage($img[0], config.typ, pid, ind, {val: 0}, self.loadedImages.length)) {
+                if (!self._getResizedImage($img[0], config.typ, pid, ind, ctr, self.loadedImages.length)) {
                     errFunc(self.msgImageResizeError, {id: pid, 'index': ind}, 'fileimageresizeerror');
                     self._setPreviewError(config.thumb, ind);
                 }

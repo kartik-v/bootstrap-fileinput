@@ -11,6 +11,7 @@ Change Log: `bootstrap-fileinput`
 4. (enh #822): Enhancement for preventing upload when data is empty. New property `msgUploadEmpty` has been incorporated.
 5. (enh #823): Correct file indices assignment during validation of images.
 6. (enh #824): Add Korean Translations.
+7. (bug #825): Correct `fileimagesresized` event triggering.
 
 ## version 4.3.6
 
