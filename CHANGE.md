@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.7
 
-**Date:** 28-Dec-2016
+**Date:** 30-Dec-2016
 
 1. (enh #812): Update Greek Translations.
 2. (enh #816): New property `msgFileTypes` to control descriptions/localizations of file types displayed.
@@ -12,6 +12,7 @@ Change Log: `bootstrap-fileinput`
 5. (enh #823): Correct file indices assignment during validation of images.
 6. (enh #824): Add Korean Translations.
 7. (bug #825): Correct `fileimagesresized` event triggering.
+8. (bug #826): Extend language configuration to consider defaults.
 
 ## version 4.3.6
 
