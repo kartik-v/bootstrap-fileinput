@@ -2576,6 +2576,7 @@
                 return true;
             }
             if (!self.filestack[ind]) {
+                counter.val++;
                 return true;
             }
             type = type || self.resizeDefaultImageType;
