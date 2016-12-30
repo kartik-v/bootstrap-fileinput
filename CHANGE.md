@@ -13,6 +13,7 @@ Change Log: `bootstrap-fileinput`
 6. (enh #824): Add Korean Translations.
 7. (bug #825): Correct `fileimagesresized` event triggering.
 8. (bug #826): Extend language configuration to consider defaults.
+9. (enh #828): Allow drag sort of single uploaded thumbnails with `initialPreview` config set (post upload).
 
 ## version 4.3.6
 

@@ -967,9 +967,8 @@
             addCss($zone, 'clickable');
             $zone.attr('tabindex', -1);
             handler($zone, 'click', function (e) {
-                var $target = $(e.target);
-                if (!$target.parents('.file-preview-thumbnails').length || $target.parents(
-                        '.file-default-preview').length) {
+                var $tar = $(e.target);
+                if (!$tar.parents('.file-preview-thumbnails').length || $tar.parents('.file-default-preview').length) {
                     self.$element.trigger('click');
                     $zone.blur();
                 }
@@ -1243,8 +1242,8 @@
                 $modal = self.$modal, $prev = $modal.find('.btn-prev'), $next = $modal.find('.btn-next'), $tmp,
                 $btnFull = $modal.find('.btn-fullscreen'), $btnBord = $modal.find('.btn-borderless'),
                 $btnTogh = $modal.find('.btn-toggleheader'),
-                $zoomPreview = $preview.parent().find('.kv-zoom-cache #zoom-' + previewId);
-            tmplt = $zoomPreview.data('template') || 'generic';
+                $zoomPreview = self.$preview.find('#zoom-' + previewId);
+            tmplt = $zoomPreview.attr('data-template') || 'generic';
             $content = $zoomPreview.find('.kv-file-content');
             body = $content.length ? $content.html() : '';
             title = $zoomPreview.find('.file-footer-caption').text() || '';
@@ -1363,16 +1362,16 @@
             });
         },
         _initPreviewActions: function () {
-            var self = this, deleteExtraData = self.deleteExtraData || {},
+            var self = this, $preview = self.$preview, deleteExtraData = self.deleteExtraData || {},
                 resetProgress = function () {
                     var hasFiles = self.isUploadable ? previewCache.count(self.id) : self.$element.get(0).files.length;
-                    if (self.$preview.find('.kv-file-remove:visible').length === 0 && !hasFiles) {
+                    if ($preview.find('.kv-file-remove:visible').length === 0 && !hasFiles) {
                         self.reset();
                         self.initialCaption = '';
                     }
                 };
             self._initZoomButton();
-            self.$preview.find('.kv-file-remove:visible').each(function () {
+            $preview.find('.kv-file-remove:visible').each(function () {
                 var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key');
                 if (isEmpty(vUrl) || vKey === undefined) {
                     return;
@@ -1422,9 +1421,9 @@
                         }
                         $frame.removeClass('file-uploading').addClass('file-deleted');
                         $frame.fadeOut('slow', function () {
-                            var $cache = $frame.parent().find('.kv-zoom-cache #zoom-' + $frame.attr('id'));
-                            if ($cache.length) {
-                                $cache.parent().remove();
+                            var $zoom = $preview.find('#zoom-' + $frame.attr('id'));
+                            if ($zoom.length) {
+                                $zoom.closest('.kv-zoom-cache').remove();
                             }
                             self._clearObjects($frame);
                             $frame.remove();
@@ -1647,7 +1646,7 @@
             self.ajaxRequests.push($.ajax(settings));
         },
         _initUploadSuccess: function (out, $thumb, allFiles) {
-            var self = this, append, data, index, $div, $newCache, content, config, tags, i,
+            var self = this, append, data, index, $div, $newCache, content, config, tags, i, $live,
                 mergeArray = function (prop, content) {
                     if (!(self[prop] instanceof Array)) {
                         self[prop] = [];
@@ -1681,6 +1680,10 @@
                         if ($newCache && $newCache.length) {
                             $newCache.insertAfter($thumb);
                         }
+                        $live = self.$preview.find('.file-live-thumbs');
+                        if ($live.length) {
+                            addCss($live, 'file-initial-thumbs');
+                        }
                         $thumb.fadeOut('slow', function () {
                             var $newThumb = $div.find('.file-preview-frame'),
                                 $cache = self.$preview.find('#zoom-' + $thumb.attr('id')).closest('.kv-zoom-cache');
@@ -1694,6 +1697,7 @@
                             }
                             $thumb.remove();
                             $div.remove();
+                            self._initSortable();
                         });
                     } else {
                         i = $thumb.attr('data-fileindex');
@@ -1715,7 +1719,7 @@
                 return;
             }
             self._getThumbs('.file-preview-success:visible').each(function () {
-                var $thumb = $(this), $remove = $thumb.find('.kv-file-remove');
+                var $thumb = $(this), $preview = self.$preview, $remove = $thumb.find('.kv-file-remove');
                 $remove.removeAttr('disabled');
                 handler($remove, 'click', function () {
                     var id = $thumb.attr('id'), out = self._raise('filesuccessremove', [id, $thumb.data('fileindex')]);
@@ -1724,12 +1728,12 @@
                         return;
                     }
                     $thumb.fadeOut('slow', function () {
-                        var $cache = $thumb.parent().find('.kv-zoom-cache #zoom-' + id);
-                        if ($cache.length) {
-                            $cache.parent().remove();
+                        var $zoom = $preview.find('#zoom-' + id);
+                        if ($zoom.length) {
+                            $zoom.closest('.kv-zoom-cache').remove();
                         }
                         $thumb.remove();
-                        if (!self.$preview.find(FRAMES).length) {
+                        if (!$preview.find(FRAMES).length) {
                             self.reset();
                         }
                     });
@@ -2035,12 +2039,12 @@
             self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError);
         },
         _initFileActions: function () {
-            var self = this;
+            var self = this, $preview = self.$preview;
             if (!self.showPreview) {
                 return;
             }
             self._initZoomButton();
-            self.$preview.find('.kv-file-remove:visible').each(function () {
+            $preview.find('.kv-file-remove:visible').each(function () {
                 var $el = $(this), $frame = $el.closest(FRAMES), hasError, id = $frame.attr('id'),
                     ind = $frame.attr('data-fileindex'), n, cap, status;
                 handler($el, 'click', function () {
@@ -2051,9 +2055,9 @@
                     hasError = $frame.hasClass('file-preview-error');
                     cleanMemory($frame);
                     $frame.fadeOut('slow', function () {
-                        var $cache = $frame.parent().find('.kv-zoom-cache #zoom-' + id);
-                        if ($cache.length) {
-                            $cache.parent().remove();
+                        var $zoom = $preview.find('#zoom-' + id);
+                        if ($zoom.length) {
+                            $zoom.closest('.kv-zoom-cache').remove();
                         }
                         self.updateStack(ind, undefined);
                         self._clearObjects($frame);
@@ -2069,7 +2073,7 @@
                         self._clearFileInput();
                         var filestack = self.getFileStack(true), chk = previewCache.count(self.id),
                             len = filestack.length,
-                            hasThumb = self.showPreview && self.$preview.find(FRAMES).length;
+                            hasThumb = self.showPreview && $preview.find(FRAMES).length;
                         if (len === 0 && chk === 0 && !hasThumb) {
                             self.reset();
                         } else {
@@ -2558,26 +2562,17 @@
         _getResizedImage: function (image, type, pid, ind, counter, num_imgs) {
             var self = this, width = image.naturalWidth, height = image.naturalHeight, ratio = 1,
                 maxWidth = self.maxImageWidth || width, maxHeight = self.maxImageHeight || height,
-                isValidImage = (width && height), chkWidth, chkHeight,
-                canvas = self.imageCanvas, context = self.imageCanvasContext;
-            if (!isValidImage) {
+                isValidImage = !!(width && height), chkWidth, chkHeight, canvas = self.imageCanvas,
+                context = self.imageCanvasContext;
+            if ((width === maxWidth && height === maxHeight) || !self.filestack[ind] || !isValidImage) {
+                if (isValidImage && self.filestack[ind]) {
+                    self._raise('fileimageresized', [pid, ind]);
+                }
                 counter.val++;
                 if (counter.val === num_imgs) {
                     self._raise('fileimagesresized');
                 }
-                return false;
-            }
-            if (width === maxWidth && height === maxHeight) {
-                self._raise('fileimageresized', [pid, ind]);
-                counter.val++;
-                if (counter.val === num_imgs) {
-                    self._raise('fileimagesresized');
-                }
-                return true;
-            }
-            if (!self.filestack[ind]) {
-                counter.val++;
-                return true;
+                return isValidImage;
             }
             type = type || self.resizeDefaultImageType;
             chkWidth = width > maxWidth;
@@ -3170,7 +3165,7 @@
         this.each(function () {
             var self = $(this), data = self.data('fileinput'), options = typeof option === 'object' && option,
                 theme = options.theme || self.data('theme'), l = {}, t = {},
-                lang = options.language || self.data('language') || $.fn.fileinput.defaults.language  || 'en', opts;
+                lang = options.language || self.data('language') || $.fn.fileinput.defaults.language || 'en', opts;
             if (!data) {
                 if (theme) {
                     t = $.fn.fileinputThemes[theme] || {};
