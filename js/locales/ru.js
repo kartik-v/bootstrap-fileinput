@@ -38,6 +38,16 @@
         msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
         msgInvalidFileType: 'Запрещенный тип файла для "{name}". Только "{types}" разрешены.',
         msgInvalidFileExtension: 'Запрещенное расширение для файла "{name}". Только "{extensions}" разрешены.',
+        msgFileTypes: {
+            'image': 'image',
+            'html': 'HTML',
+            'text': 'text',
+            'video': 'video',
+            'audio': 'audio',
+            'flash': 'flash',
+            'pdf': 'PDF',
+            'object': 'object'
+        },
         msgUploadAborted: 'Выгрузка файла прервана',
         msgUploadThreshold: 'Обработка...',
         msgValidationError: 'Ошибка проверки',

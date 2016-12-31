@@ -37,6 +37,16 @@
         msgInvalidFileName: 'Caracteres no válidos o no soportados en el nombre de archivo "{name}".',
         msgInvalidFileType: 'Tipo de archivo no válido para "{name}". Sólo se permiten archivos de tipo "{types}".',
         msgInvalidFileExtension: 'Extensión de archivo no válido para "{name}". Sólo se permiten archivos "{extensions}".',
+        msgFileTypes: {
+            'image': 'image',
+            'html': 'HTML',
+            'text': 'text',
+            'video': 'video',
+            'audio': 'audio',
+            'flash': 'flash',
+            'pdf': 'PDF',
+            'object': 'object'
+        },
         msgUploadAborted: 'La carga de archivos se ha cancelado',
         msgUploadThreshold: 'Procesando...',
         msgValidationError: 'Error de validación',

@@ -37,6 +37,16 @@
         msgInvalidFileName: 'Μη έγκυροι χαρακτήρες στο όνομα του αρχείου "{name}".',
         msgInvalidFileType: 'Μη έγκυρος ο τύπος του αρχείου "{name}". Οι τύποι αρχείων που υποστηρίζονται είναι : "{types}".',
         msgInvalidFileExtension: 'Μη έγκυρη η επέκταση του αρχείου "{name}". Οι επεκτάσεις που υποστηρίζονται είναι : "{extensions}".',
+        msgFileTypes: {
+            'image': 'image',
+            'html': 'HTML',
+            'text': 'text',
+            'video': 'video',
+            'audio': 'audio',
+            'flash': 'flash',
+            'pdf': 'PDF',
+            'object': 'object'
+        },
         msgUploadAborted: 'Η μεταφόρτωση του αρχείου ματαιώθηκε',
         msgUploadThreshold: 'Μεταφόρτωση ...',
         msgValidationError: 'Σφάλμα Επικύρωσης',

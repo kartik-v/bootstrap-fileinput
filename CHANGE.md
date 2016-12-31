@@ -1,6 +1,20 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.3.7
+
+**Date:** 30-Dec-2016
+
+1. (enh #812): Update Greek Translations.
+2. (enh #816): New property `msgFileTypes` to control descriptions/localizations of file types displayed.
+3. (bug #819): Correct init preview auto replace post `uploadSingle` action in thumbnails.
+4. (enh #822): Enhancement for preventing upload when data is empty. New property `msgUploadEmpty` has been incorporated.
+5. (enh #823): Correct file indices assignment during validation of images.
+6. (enh #824): Add Korean Translations.
+7. (bug #825): Correct `fileimagesresized` event triggering.
+8. (bug #826): Extend language configuration to consider defaults.
+9. (enh #828): Allow drag sort of single uploaded thumbnails with `initialPreview` config set (post upload).
+
 ## version 4.3.6
 
 **Date:** 17-Dec-2016
