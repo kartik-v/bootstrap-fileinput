@@ -34,32 +34,42 @@
         msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
         msgInvalidFileType: 'Tiedosto "{name}" on v&auml;&auml;r&auml;n tyyppinen. Ainoastaan tiedostot tyyppi&auml; "{types}" ovat tuettuja.',
         msgInvalidFileExtension: 'Tiedoston "{name}" tarkenne on ep&auml;kelpo. Ainoastaan tarkenteet "{extensions}" ovat tuettuja.',
-        msgUploadThreshold: 'Processing...',
-        msgUploadEmpty: 'No valid data available for upload.',
+        msgFileTypes: {
+            'image': 'Kuva',
+            'html': 'HTML',
+            'text': 'Teksti',
+            'video': 'Video',
+            'audio': 'Ääni',
+            'flash': 'Flash',
+            'pdf': 'PDF',
+            'object': 'Olio'
+        },
+        msgUploadThreshold: 'Käsitellään...',
+        msgUploadEmpty: 'Ei ladattavaa dataa.',
         msgValidationError: 'Tiedoston latausvirhe',
         msgLoading: 'Ladataan tiedostoa {index} / {files} &hellip;',
         msgProgress: 'Ladataan tiedostoa {index} / {files} - {name} - {percent}% valmistunut.',
         msgSelected: '{n} tiedostoa valittu',
         msgFoldersNotAllowed: 'Raahaa ja pudota ainoastaan tiedostoja! Ohitettu {n} raahattua kansiota.',
         dropZoneTitle: 'Raahaa ja pudota tiedostot t&auml;h&auml;n &hellip;',
-        dropZoneClickTitle: '<br>(or click to select {files})',
+        dropZoneClickTitle: '<br>(tai valitse hiirellä {files})',
         fileActionSettings: {
-            removeTitle: 'Remove file',
+            removeTitle: 'Poista tiedosto',
             uploadTitle: 'Upload file',
-            zoomTitle: 'View Details',
-            dragTitle: 'Move / Rearrange',
-            indicatorNewTitle: 'Not uploaded yet',
-            indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            zoomTitle: 'Yksityiskohdat',
+            dragTitle: 'Siirrä / Järjestele',
+            indicatorNewTitle: 'Ei ladattu',
+            indicatorSuccessTitle: 'Ladattu',
+            indicatorErrorTitle: 'Lataus epäonnistui',
+            indicatorLoadingTitle: 'Ladataan ...'
         },
         previewZoomButtonTitles: {
-            prev: 'View previous file',
-            next: 'View next file',
-            toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
+            prev: 'Seuraava tiedosto',
+            next: 'Edellinen tiedosto',
+            toggleheader: 'Näytä otsikko',
+            fullscreen: 'Kokonäytön tila',
+            borderless: 'Rajaton tila',
+            close: 'Sulje esikatselu'
         }
     };
 
