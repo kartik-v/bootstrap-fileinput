@@ -630,6 +630,9 @@
             if (!self.isPreviewable) {
                 self.showPreview = false;
             }
+            if (self.allowedPreviewTypes === undefined) {
+                self.allowedPreviewTypes = defaultPreviewTypes;
+            }
             self.uploadFileAttr = !isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
             self.reader = null;
             self.formdata = {};
@@ -3268,7 +3271,7 @@
         },
         preferIconicPreview: false,
         preferIconicZoomPreview: false,
-        allowedPreviewTypes: defaultPreviewTypes,
+        allowedPreviewTypes: undefined,
         allowedPreviewMimeTypes: null,
         allowedFileTypes: null,
         allowedFileExtensions: null,
