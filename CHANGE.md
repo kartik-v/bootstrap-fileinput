@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.7
 
-**Date:** 30-Dec-2016
+**Date:** 15-Jan-2017
 
 1. (enh #812): Update Greek Translations.
 2. (enh #816): New property `msgFileTypes` to control descriptions/localizations of file types displayed.
@@ -14,6 +14,9 @@ Change Log: `bootstrap-fileinput`
 7. (bug #825): Correct `fileimagesresized` event triggering.
 8. (bug #826): Extend language configuration to consider defaults.
 9. (enh #828): Allow drag sort of single uploaded thumbnails with `initialPreview` config set (post upload).
+10. (enh #831): Update Finnish Translations.
+11. (enh #837): Update Czech Translations.
+12. (bug #839): Correct `initialPreview` generation and sortable behavior for async uploads.
 
 ## version 4.3.6
 

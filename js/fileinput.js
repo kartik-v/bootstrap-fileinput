@@ -97,7 +97,7 @@
                     return obj._getSize(size);
                 },
                 parseTemplate: function (cat, data, fname, ftype, pId, ftr, ind, tmpl) {
-                    var fc = ' file-preview-initial';
+                    var fc = ' file-preview-initial file-sortable';
                     return obj._generatePreviewTemplate(cat, data, fname, ftype, pId, false, null, fc, ftr, ind, tmpl);
                 },
                 msg: function (n) {
@@ -245,7 +245,7 @@
                 html += previewCache.get(id, i);
             }
             caption = data.msg(previewCache.count(id));
-            return {content: '<div class="file-initial-thumbs">' + html + '</div>', caption: caption};
+            return {content: html, caption: caption};
         },
         footer: function (id, i, isDisabled, size) {
             var data = previewCache.data[id];
@@ -1055,16 +1055,15 @@
             self._validateDefaultPreview();
         },
         _initSortable: function () {
-            var self = this, $preview = self.$preview, $el, settings;
-            if (!window.KvSortable) {
+            var self = this, $el = self.$preview, settings;
+            if (!window.KvSortable || $el.find('.file-sortable').length === 0) {
                 return;
             }
-            $el = $preview.find('.file-initial-thumbs');
             //noinspection JSUnusedGlobalSymbols
             settings = {
                 handle: '.drag-handle-init',
                 dataIdAttr: 'data-preview-id',
-                draggable: '.file-preview-initial',
+                draggable: '.file-sortable',
                 onSort: function (e) {
                     var oldIndex = e.oldIndex, newIndex = e.newIndex, key, $frame;
                     self.initialPreview = moveArray(self.initialPreview, oldIndex, newIndex);
@@ -1501,6 +1500,7 @@
             self.ajaxAborted = false;
             self.ajaxRequests = [];
             self._resetCanvas();
+            self.cacheInitialPreview = {};
         },
         _resetCanvas: function () {
             var self = this;
@@ -1646,7 +1646,7 @@
             self.ajaxRequests.push($.ajax(settings));
         },
         _initUploadSuccess: function (out, $thumb, allFiles) {
-            var self = this, append, data, index, $div, $newCache, content, config, tags, i, $live,
+            var self = this, append, data, index, $div, $newCache, content, config, tags, i,
                 mergeArray = function (prop, content) {
                     if (!(self[prop] instanceof Array)) {
                         self[prop] = [];
@@ -1679,10 +1679,6 @@
                         $newCache = $div.find('.kv-zoom-cache');
                         if ($newCache && $newCache.length) {
                             $newCache.insertAfter($thumb);
-                        }
-                        $live = self.$preview.find('.file-live-thumbs');
-                        if ($live.length) {
-                            addCss($live, 'file-initial-thumbs');
                         }
                         $thumb.fadeOut('slow', function () {
                             var $newThumb = $div.find('.file-preview-frame'),
@@ -1784,13 +1780,34 @@
                 }
             };
             chkComplete = function () {
-                var u = self.uploadCache;
+                var u = self.uploadCache, $initThumbs, i, j, len, data = self.cacheInitialPreview;
                 if (!self.fileBatchCompleted) {
                     return;
                 }
                 setTimeout(function () {
                     if (self.showPreview) {
                         previewCache.set(self.id, u.content, u.config, u.tags, u.append);
+                        len = data && data.content ? data.content.length : 0;
+                        if (len) {
+                            for (i = 0; i < u.content.length; i++) {
+                                j = i + len;
+                                data.content[j] = u.content[i];
+                                if (data.config.length) {
+                                    data.config[j] = u.config[i];
+                                }
+                                if (data.tags.length) {
+                                    data.tags[j] = u.tags[i];
+                                }
+                            }
+                            self.initialPreview = data.content;
+                            self.initialPreviewConfig = data.config;
+                            self.initialPreviewThumbTags = data.tags;
+                        } else {
+                            self.initialPreview = u.content;
+                            self.initialPreviewConfig = u.config;
+                            self.initialPreviewThumbTags = u.tags;
+                        }
+                        self.cacheInitialPreview = {};
                         if (self.hasInitData) {
                             self._initPreview();
                             self._initPreviewActions();
@@ -1798,6 +1815,11 @@
                     }
                     self.unlock();
                     self._clearFileInput();
+                    $initThumbs = self.$preview.find('.file-preview-initial');
+                    if (self.uploadAsync && $initThumbs.length) {
+                        addCss($initThumbs, 'file-sortable');
+                        self._initSortable();
+                    }
                     self._raise('filebatchuploadcomplete', [self.filestack, self._getExtraData()]);
                     self.uploadCount = 0;
                     self.uploadStatus = {};
@@ -2145,7 +2167,7 @@
             return prevContent + zoomContent;
         },
         _previewDefault: function (file, previewId, isDisabled) {
-            var self = this, $preview = self.$preview, $previewLive = $preview.find('.file-live-thumbs');
+            var self = this, $preview = self.$preview;
             if (!self.showPreview) {
                 return;
             }
@@ -2153,10 +2175,7 @@
                 isError = isDisabled === true && !self.isUploadable, data = objUrl.createObjectURL(file);
             self._clearDefaultPreview();
             content = self._generatePreviewTemplate('other', data, fname, ftype, previewId, isError, file.size);
-            if (!$previewLive.length) {
-                $previewLive = $(document.createElement('div')).addClass('file-live-thumbs').appendTo($preview);
-            }
-            $previewLive.append("\n" + content);
+            $preview.append("\n" + content);
             if (isDisabled === true && self.isUploadable) {
                 self._setThumbStatus($('#' + previewId), 'Error');
             }
@@ -2167,12 +2186,9 @@
             }
             var self = this, cat = self._parseFileType(file), fname = file ? file.name : '', caption = self.slug(fname),
                 types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes, $preview = self.$preview,
-                chkTypes = types && types.indexOf(cat) >= 0, $previewLive = $preview.find('.file-live-thumbs'),
+                chkTypes = types && types.indexOf(cat) >= 0,
                 iData = (cat === 'text' || cat === 'html' || cat === 'image') ? theFile.target.result : data, content,
                 chkMimes = mimes && mimes.indexOf(file.type) !== -1;
-            if (!$previewLive.length) {
-                $previewLive = $(document.createElement('div')).addClass('file-live-thumbs').appendTo($preview);
-            }
             /** @namespace window.DOMPurify */
             if (cat === 'html' && self.purifyHtml && window.DOMPurify) {
                 iData = window.DOMPurify.sanitize(iData);
@@ -2180,7 +2196,7 @@
             if (chkTypes || chkMimes) {
                 content = self._generatePreviewTemplate(cat, iData, fname, file.type, previewId, false, file.size);
                 self._clearDefaultPreview();
-                $previewLive.append("\n" + content);
+                $preview.append("\n" + content);
                 self._validateImage(previewId, caption, file.type);
             } else {
                 self._previewDefault(file, previewId);
@@ -3089,8 +3105,8 @@
             return self.$element;
         },
         upload: function () {
-            var self = this, totLen = self.getFileStack().length, params = {},
-                i, outData, len, hasExtraData = !$.isEmptyObject(self._getExtraData());
+            var self = this, totLen = self.getFileStack().length, params = {}, i, outData, len,
+                hasExtraData = !$.isEmptyObject(self._getExtraData());
             if (!self.isUploadable || self.isDisabled) {
                 return;
             }
@@ -3127,6 +3143,13 @@
                     self.uploadCache.config[i] = null;
                     self.uploadCache.tags[i] = null;
                 }
+                self.$preview.find('.file-preview-initial').removeClass('file-sortable');
+                self._initSortable();
+                self.cacheInitialPreview = {
+                    content: self.initialPreview,
+                    config: self.initialPreviewConfig,
+                    tags: self.initialPreviewThumbTags
+                };
                 for (i = 0; i < len; i++) {
                     if (self.filestack[i] !== undefined) {
                         self._uploadSingle(i, self.filestack, true);

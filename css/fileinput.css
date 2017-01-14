@@ -373,11 +373,17 @@
     display: inline;
     margin-right: 2px;
     font-size: 16px;
-    cursor: move;
-    cursor: -webkit-grabbing;
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-.file-drag-handle:hover {
+.file-sortable .file-drag-handle {
+    cursor: move;
+    cursor: -webkit-grabbing;
+    opacity: 1;
+}
+
+.file-sortable .file-drag-handle:hover {
     opacity: 0.7;
 }
 
