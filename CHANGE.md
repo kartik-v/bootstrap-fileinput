@@ -19,9 +19,10 @@ Change Log: `bootstrap-fileinput`
 11. (enh #828): Allow drag sort of single uploaded thumbnails with `initialPreview` config set (post upload).
 12. (enh #831): Update Finnish Translations.
 13. (bug #833): Correct validation and defaults init for `allowedPreviewTypes`.
-14. (enh #835): Update Polish Translations.
-15. (enh #837): Update Czech Translations.
-16. (bug #839): Correct `initialPreview` generation and sortable behavior for async uploads.
+14. (bug #834): Correct clearing of file preview including zoom cache.
+15. (enh #835): Update Polish Translations.
+16. (enh #837): Update Czech Translations.
+17. (bug #839): Correct `initialPreview` generation and sortable behavior for async uploads.
 
 ## version 4.3.6
 

@@ -1052,9 +1052,13 @@
             return !self._abort({});
         },
         _clearPreview: function () {
-            var self = this, $thumbs = !self.showUploadedThumbs ? self.$preview.find(FRAMES) :
-                self.$preview.find(FRAMES + ':not(.file-preview-success)');
-            $thumbs.remove();
+            var self = this, $p = self.$preview,
+                $thumbs = self.showUploadedThumbs ? $p.find(FRAMES + ':not(.file-preview-success)') : $p.find(FRAMES);
+            $thumbs.each(function() {
+                var $thumb = $(this), $cache = $p.find('#zoom-' + $thumb.attr('id')).closest('.kv-zoom-cache');
+                $thumb.remove();
+                $cache.remove();
+            });
             if (!self.$preview.find(FRAMES).length || !self.showPreview) {
                 self._resetUpload();
             }
