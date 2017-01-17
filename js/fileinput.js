@@ -1054,7 +1054,7 @@
         _clearPreview: function () {
             var self = this, $p = self.$preview,
                 $thumbs = self.showUploadedThumbs ? $p.find(FRAMES + ':not(.file-preview-success)') : $p.find(FRAMES);
-            $thumbs.each(function() {
+            $thumbs.each(function () {
                 var $thumb = $(this), $cache = $p.find('#zoom-' + $thumb.attr('id')).closest('.kv-zoom-cache');
                 $thumb.remove();
                 $cache.remove();
@@ -1181,10 +1181,17 @@
             self._listenModalEvent('loaded');
         },
         _initZoomButtons: function () {
-            var self = this, previewId = self.$modal.data('previewId') || '', $first, $last,
-                thumbs = self.$preview.find(FRAMES).toArray(), len = thumbs.length,
+            var self = this, previewId = self.$modal.data('previewId') || '', $first, $last, $preview = self.$preview,
+                thumbs = $preview.find(FRAMES).toArray(), len = thumbs.length,
                 $prev = self.$modal.find('.btn-prev'), $next = self.$modal.find('.btn-next');
-
+            if (thumbs.length < 2) {
+                $prev.hide();
+                $next.hide();
+                return;
+            } else {
+                $prev.show();
+                $next.show();
+            }
             if (!len) {
                 return;
             }
@@ -1246,18 +1253,18 @@
             }
             $modal.focus();
         },
-        _setZoomContent: function ($preview, animate) {
-            var self = this, $content, tmplt, body, title, $body, $dataEl, config, previewId = $preview.attr('id'),
+        _setZoomContent: function ($frame, animate) {
+            var self = this, $content, tmplt, body, title, $body, $dataEl, config, pid = $frame.attr('id'),
                 $modal = self.$modal, $prev = $modal.find('.btn-prev'), $next = $modal.find('.btn-next'), $tmp,
                 $btnFull = $modal.find('.btn-fullscreen'), $btnBord = $modal.find('.btn-borderless'),
-                $btnTogh = $modal.find('.btn-toggleheader'),
-                $zoomPreview = self.$preview.find('#zoom-' + previewId);
+                $btnTogh = $modal.find('.btn-toggleheader'),$zoomPreview = self.$preview.find('#zoom-' + pid);
             tmplt = $zoomPreview.attr('data-template') || 'generic';
             $content = $zoomPreview.find('.kv-file-content');
             body = $content.length ? $content.html() : '';
             title = $zoomPreview.find('.file-footer-caption').text() || '';
             $modal.find('.kv-zoom-title').html(title);
             $body = $modal.find('.kv-zoom-body');
+            $modal.removeClass('kv-single-content');
             if (animate) {
                 $tmp = $body.clone().insertAfter($body);
                 $body.html(body).hide();
@@ -1279,12 +1286,12 @@
                     }
                 });
             }
-            $modal.data('previewId', previewId);
+            $modal.data('previewId', pid);
             handler($prev, 'click', function () {
-                self._zoomSlideShow('prev', previewId);
+                self._zoomSlideShow('prev', pid);
             });
             handler($next, 'click', function () {
-                self._zoomSlideShow('next', previewId);
+                self._zoomSlideShow('next', pid);
             });
             handler($btnFull, 'click', function () {
                 self._resizeZoomDialog(true);
@@ -1321,21 +1328,21 @@
             handler($modal, 'keydown', function (e) {
                 var key = e.which || e.keyCode;
                 if (key === 37 && !$prev.attr('disabled')) {
-                    self._zoomSlideShow('prev', previewId);
+                    self._zoomSlideShow('prev', pid);
                 }
                 if (key === 39 && !$next.attr('disabled')) {
-                    self._zoomSlideShow('next', previewId);
+                    self._zoomSlideShow('next', pid);
                 }
             });
         },
         _zoomPreview: function ($btn) {
-            var self = this, $preview;
+            var self = this, $frame;
             if (!$btn.length) {
                 throw 'Cannot zoom to detailed preview!';
             }
             self.$modal.html(self._getModalContent());
-            $preview = $btn.closest(FRAMES);
-            self._setZoomContent($preview);
+            $frame = $btn.closest(FRAMES);
+            self._setZoomContent($frame);
             self.$modal.modal('show');
             self._initZoomButtons();
         },
