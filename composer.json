@@ -23,23 +23,23 @@
 		"components/jquery" : ">=1.7.1"
 	},
 	"extra" : {
-		"component" : {
-			"scripts" : [
-				"js/fileinput.js"
-			],
-			"styles" : [
-				"css/fileinput.css"
-			],
-			"files" : [
-				"js/locales/*.js",
+        "component" : {
+            "scripts" : [
+                "js/fileinput.js"
+            ],
+            "styles" : [
+                "css/fileinput.css"
+            ],
+            "files" : [
+                "js/locales/*.js",
                 "js/plugins/*.js",
                 "js/fileinput.min.js",
                 "css/fileinput.min.css",
                 "img/*.gif"
-			]
-		},
+            ]
+        },
         "branch-alias": {
             "dev-master": "4.3.x-dev"
         }
-	}
+    }
 }
