@@ -1,5 +1,6 @@
 {
     "name": "kartik-v/bootstrap-fileinput",
+    "type" : "component",
     "description": "An enhanced HTML 5 file input for Bootstrap 3.x with features for file preview for many file types, multiple selection, ajax uploads, and more.",
     "keywords": ["bootstrap", "jquery", "file", "input", "preview", "upload", "image", "multiple", "ajax", "delete", "progress"],
     "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
@@ -16,9 +17,29 @@
             "kartik\\plugins\\fileinput\\": ""
         }
     },
-    "extra": {
+    "require" : {
+		"robloach/component-installer" : "*",
+		"components/bootstrap" : ">=3.0, <4.0",
+		"components/jquery" : ">=1.7.1"
+	},
+	"extra" : {
+		"component" : {
+			"scripts" : [
+				"js/fileinput.js"
+			],
+			"styles" : [
+				"css/fileinput.css"
+			],
+			"files" : [
+				"js/locales/*.js",
+                "js/plugins/*.js",
+                "js/fileinput.min.js",
+                "css/fileinput.min.css",
+                "img/*.gif"
+			]
+		},
         "branch-alias": {
             "dev-master": "4.3.x-dev"
         }
-    }
+	}
 }
