@@ -18,11 +18,11 @@
         }
     },
     "require" : {
-		"robloach/component-installer" : "*",
-		"components/bootstrap" : ">=3.0, <4.0",
-		"components/jquery" : ">=1.7.1"
-	},
-	"extra" : {
+        "robloach/component-installer" : "*",
+        "components/bootstrap" : ">=3.0, <4.0",
+        "components/jquery" : ">=1.7.1"
+    },
+    "extra" : {
         "component" : {
             "scripts" : [
                 "js/fileinput.js"
