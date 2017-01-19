@@ -20,7 +20,7 @@
         uploadLabel: 'Hochladen',
         uploadTitle: 'Hochladen der ausgewählten Dateien',
         msgNo: 'Keine',
-        msgNoFilesSelected: '',
+        msgNoFilesSelected: 'Keine Dateien ausgewählt',
         msgCancelled: 'Abgebrochen',
         msgZoomModalHeading: 'ausführliche Vorschau',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
