@@ -99,8 +99,8 @@
                 getSize: function (size) {
                     return obj._getSize(size);
                 },
-                parseTemplate: function (cat, data, fname, ftype, pId, ftr, ind, tmpl) {
-                    var fc = ' file-preview-initial ' + SORT_CSS;
+                parseTemplate: function (cat, data, fname, ftype, pId, ftr, ind, fc, tmpl) {
+                    fc = ' file-preview-initial ' + SORT_CSS + (fc ? ' ' + fc : '');
                     return obj._generatePreviewTemplate(cat, data, fname, ftype, pId, false, null, fc, ftr, ind, tmpl);
                 },
                 msg: function (n) {
@@ -126,12 +126,9 @@
         },
         get: function (id, i, isDisabled) {
             var ind = 'init_' + i, data = previewCache.data[id], config = data.config[i], content = data.content[i],
-                previewId = data.initId + '-' + ind, out, $tmp, cat, ftr, fname, ftype,
+                previewId = data.initId + '-' + ind, out, $tmp, cat, ftr, fname, ftype, frameClass,
                 asData = ifSet('previewAsData', config, data.previewAsData);
             isDisabled = isDisabled === undefined ? true : isDisabled;
-            /** @namespace config.frameAttr */
-            /** @namespace config.frameClass */
-            /** @namespace config.filetype */
             if (!content) {
                 return '';
             }
@@ -139,15 +136,17 @@
             fname = ifSet('filename', config, ifSet('caption', config));
             ftype = ifSet('filetype', config, cat);
             ftr = previewCache.footer(id, i, isDisabled, (config && config.size || null));
+            frameClass = ifSet('frameClass', config);
             if (asData) {
-                out = data.parseTemplate(cat, content, fname, ftype, previewId, ftr, ind);
+                out = data.parseTemplate(cat, content, fname, ftype, previewId, ftr, ind, frameClass);
             } else {
-                out = data.parseTemplate('generic', content, fname, ftype, previewId, ftr, ind, cat)
+                out = data.parseTemplate('generic', content, fname, ftype, previewId, ftr, ind, frameClass, cat)
                     .replace(/\{content}/g, data.content[i]);
             }
             if (data.tags.length && data.tags[i]) {
                 out = replaceTags(out, data.tags[i]);
             }
+            /** @namespace config.frameAttr */
             if (!isEmpty(config) && !isEmpty(config.frameAttr)) {
                 $tmp = $(document.createElement('div')).html(out);
                 $tmp.find('.file-preview-initial').attr(config.frameAttr);
@@ -372,9 +371,9 @@
         '        {percent}%\n' +
         '     </div>\n' +
         '</div>';
-    tSize = ' <br><samp>({sizeText})</samp>';
+    tSize = ' <samp>({sizeText})</samp>';
     tFooter = '<div class="file-thumbnail-footer">\n' +
-        '    <div class="file-footer-caption" title="{caption}">{caption}{size}</div>\n' +
+        '    <div class="file-footer-caption" title="{caption}">{caption}<br>{size}</div>\n' +
         '    {progress} {actions}\n' +
         '</div>';
     tActions = '<div class="file-actions">\n' +
@@ -1114,6 +1113,7 @@
             out = previewCache.out(self.id);
             cap = isInit && self.initialCaption ? self.initialCaption : out.caption;
             self.$preview.html(out.content);
+            self._setInitThumbAttr();
             self._setCaption(cap);
             self._initSortable();
             if (!isEmpty(out.content)) {
@@ -1256,12 +1256,14 @@
         _setZoomContent: function ($frame, animate) {
             var self = this, $content, tmplt, body, title, $body, $dataEl, config, pid = $frame.attr('id'),
                 $modal = self.$modal, $prev = $modal.find('.btn-prev'), $next = $modal.find('.btn-next'), $tmp,
-                $btnFull = $modal.find('.btn-fullscreen'), $btnBord = $modal.find('.btn-borderless'),
-                $btnTogh = $modal.find('.btn-toggleheader'),$zoomPreview = self.$preview.find('#zoom-' + pid);
+                $btnFull = $modal.find('.btn-fullscreen'), $btnBord = $modal.find('.btn-borderless'), cap, size,
+                $btnTogh = $modal.find('.btn-toggleheader'), $zoomPreview = self.$preview.find('#zoom-' + pid);
             tmplt = $zoomPreview.attr('data-template') || 'generic';
             $content = $zoomPreview.find('.kv-file-content');
             body = $content.length ? $content.html() : '';
-            title = $zoomPreview.find('.file-footer-caption').text() || '';
+            cap = $frame.data('caption') || '';
+            size = $frame.data('size') || '';
+            title = cap + ' ' + size;
             $modal.find('.kv-zoom-title').html(title);
             $body = $modal.find('.kv-zoom-body');
             $modal.removeClass('kv-single-content');
@@ -1336,14 +1338,17 @@
             });
         },
         _zoomPreview: function ($btn) {
-            var self = this, $frame;
+            var self = this, $frame, $body = $('body'), $modal = self.$modal;
             if (!$btn.length) {
                 throw 'Cannot zoom to detailed preview!';
             }
-            self.$modal.html(self._getModalContent());
+            if ($body.length) {
+                $modal.appendTo($body);
+            }
+            $modal.html(self._getModalContent());
             $frame = $btn.closest(FRAMES);
             self._setZoomContent($frame);
-            self.$modal.modal('show');
+            $modal.modal('show');
             self._initZoomButtons();
         },
         _zoomSlideShow: function (dir, previewId) {
@@ -1535,6 +1540,7 @@
             if (previewCache.count(self.id)) {
                 out = previewCache.out(self.id);
                 self.$preview.html(out.content);
+                self._setInitThumbAttr();
                 cap = self.initialCaption ? self.initialCaption : out.caption;
                 self._setCaption(cap);
             } else {
@@ -1569,6 +1575,7 @@
             if (self._hasInitialPreview()) {
                 out = previewCache.out(self.id);
                 self.$preview.html(out.content);
+                self._setInitThumbAttr();
                 self._setCaption(out.caption);
                 self._initPreviewActions();
             } else {
@@ -2193,11 +2200,13 @@
             if (!self.showPreview) {
                 return;
             }
-            var fname = file ? file.name : '', ftype = file ? file.type : '', content,
-                isError = isDisabled === true && !self.isUploadable, data = objUrl.createObjectURL(file);
+            var fname = file ? file.name : '', ftype = file ? file.type : '', content, size = file.size,
+                caption = self.slug(fname), isError = isDisabled === true && !self.isUploadable,
+                data = objUrl.createObjectURL(file);
             self._clearDefaultPreview();
-            content = self._generatePreviewTemplate('other', data, fname, ftype, previewId, isError, file.size);
+            content = self._generatePreviewTemplate('other', data, fname, ftype, previewId, isError, size);
             $preview.append("\n" + content);
+            self._setFrameAttr(previewId, caption, size);
             if (isDisabled === true && self.isUploadable) {
                 self._setThumbStatus($('#' + previewId), 'Error');
             }
@@ -2208,7 +2217,7 @@
             }
             var self = this, cat = self._parseFileType(file), fname = file ? file.name : '', caption = self.slug(fname),
                 types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes, $preview = self.$preview,
-                chkTypes = types && types.indexOf(cat) >= 0,
+                chkTypes = types && types.indexOf(cat) >= 0, size = file.size,
                 iData = (cat === 'text' || cat === 'html' || cat === 'image') ? theFile.target.result : data, content,
                 chkMimes = mimes && mimes.indexOf(file.type) !== -1;
             /** @namespace window.DOMPurify */
@@ -2216,14 +2225,36 @@
                 iData = window.DOMPurify.sanitize(iData);
             }
             if (chkTypes || chkMimes) {
-                content = self._generatePreviewTemplate(cat, iData, fname, file.type, previewId, false, file.size);
+                content = self._generatePreviewTemplate(cat, iData, fname, file.type, previewId, false, size);
                 self._clearDefaultPreview();
                 $preview.append("\n" + content);
                 self._validateImage(previewId, caption, file.type);
             } else {
                 self._previewDefault(file, previewId);
             }
+            self._setThumbAttr(previewId, caption, size);
             self._initSortable();
+        },
+        _setThumbAttr: function (id, caption, size) {
+            var self = this, $frame = $('#' + id);
+            if ($frame.length) {
+                size = size && size > 0 ? self._getSize(size) : '';
+                $frame.data({'caption': caption, 'size': size});
+            }
+        },
+        _setInitThumbAttr: function () {
+            var self = this, id = self.id, data = previewCache.data[id], len = previewCache.count(id, true), config,
+                caption, size, previewId;
+            if (len === 0) {
+                return;
+            }
+            for (var i = 0; i < len; i++) {
+                config = data.config[i];
+                previewId = data.initId + '-' + 'init_' + i;
+                caption = ifSet('caption', config, ifSet('filename', config));
+                size = ifSet('size', config);
+                self._setThumbAttr(previewId, caption, size);
+            }
         },
         _slugDefault: function (text) {
             return isEmpty(text) ? '' : String(text).replace(/[\-\[\]\/\{}:;#%=\(\)\*\+\?\\\^\$\|<>&"']/g, '_');
