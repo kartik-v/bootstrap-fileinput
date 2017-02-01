@@ -28,6 +28,7 @@ Change Log: `bootstrap-fileinput`
 20. (enh #847): Update German Translations. 
 21. (enh #851): Create Kazakh Translations. 
 22. (bug #852): Ensure `frameClass` setting in `initialPreviewConfig` is considered. 
+23. (enh #854): Better file size calculation and display.
 
 ## version 4.3.6
 

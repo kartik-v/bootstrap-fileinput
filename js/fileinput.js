@@ -2151,13 +2151,12 @@
             this.$captionContainer.find('.kv-caption-icon').show();
         },
         _getSize: function (bytes) {
-            var self = this, size = parseFloat(bytes);
-            if (!bytes || !size || isNaN(bytes) || isNaN(size)) {
-                return self._getLayoutTemplate('size').replace('{sizeText}', '0.00 KB');
+            var self = this, size = parseFloat(bytes), i, func = self.fileSizeGetter, sizes, out;
+            if (!$.isNumeric(bytes) || !$.isNumeric(size)) {
+                return '';
             }
-            var i, func = self.fileSizeGetter, sizes, out;
             if (typeof func === 'function') {
-                out = func(bytes);
+                out = func(size);
             } else {
                 i = Math.floor(Math.log(size) / Math.log(1024));
                 sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
