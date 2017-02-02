@@ -2205,7 +2205,7 @@
             self._clearDefaultPreview();
             content = self._generatePreviewTemplate('other', data, fname, ftype, previewId, isError, size);
             $preview.append("\n" + content);
-            self._setFrameAttr(previewId, caption, size);
+            self._setThumbAttr(previewId, caption, size);
             if (isDisabled === true && self.isUploadable) {
                 self._setThumbStatus($('#' + previewId), 'Error');
             }
