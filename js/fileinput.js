@@ -33,7 +33,7 @@
     var NAMESPACE, MODAL_ID, FRAMES, SORT_CSS, STYLE_SETTING, OBJECT_PARAMS, DEFAULT_PREVIEW, objUrl, compare, handler,
         isIE, previewCache, getNum, hasFileAPISupport, hasDragDropSupport, hasFileUploadSupport, addCss, tMain1, tMain2,
         tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse, tModalMain, tModal, tProgress, tSize,
-        tFooter, tActions, tActionDelete, tActionUpload, tActionZoom, tActionDrag, tTagBef, tTagBef1, tTagBef2, tTagAft,
+        tFooter, tActions, tActionDelete, tActionUpload, tActionReplace, tActionZoom, tActionDrag, tTagBef, tTagBef1, tTagBef2, tTagAft,
         tGeneric, tHtml, tImage, tText, tVideo, tAudio, tFlash, tObject, tPdf, tOther, defaultFileActionSettings,
         defaultLayoutTemplates, defaultPreviewTemplates, defaultPreviewZoomSettings, defaultPreviewTypes, getElement,
         defaultPreviewSettings, defaultFileTypeSettings, isEmpty, isArray, ifSet, uniqId, htmlEncode, replaceTags,
@@ -111,7 +111,7 @@
                 isDelete: obj.initialPreviewShowDelete,
                 caption: obj.initialCaption,
                 actions: function (showUpload, showDelete, showZoom, showDrag, disabled, url, key) {
-                    return obj._renderFileActions(showUpload, showDelete, showZoom, showDrag, disabled, url, key, true);
+                    return obj._renderFileActions(showUpload, showReplace, showDelete, showZoom, showDrag, disabled, url, key, true);
                 }
             };
         },
@@ -293,12 +293,16 @@
     };
     defaultFileActionSettings = {
         showRemove: true,
+        showReplace: true,
         showUpload: true,
         showZoom: true,
         showDrag: true,
         removeIcon: '<i class="glyphicon glyphicon-trash text-danger"></i>',
         removeClass: 'btn btn-xs btn-default',
         removeTitle: 'Remove file',
+        replaceIcon: '<i class="glyphicon glyphicon-retweet text-danger"></i>',
+        replaceClass: 'btn btn-xs btn-default',
+        replaceTitle: 'Replace file',
         uploadIcon: '<i class="glyphicon glyphicon-upload text-info"></i>',
         uploadClass: 'btn btn-xs btn-default',
         uploadTitle: 'Upload file',
@@ -378,7 +382,7 @@
         '</div>';
     tActions = '<div class="file-actions">\n' +
         '    <div class="file-footer-buttons">\n' +
-        '        {upload} {delete} {zoom} {other}' +
+        '        {upload} {replace} {delete} {zoom} {other}' +
         '    </div>\n' +
         '    {drag}\n' +
         '    <div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
@@ -386,6 +390,7 @@
         '</div>';
     //noinspection HtmlUnknownAttribute
     tActionDelete = '<button type="button" class="kv-file-remove {removeClass}" ' + 'title="{removeTitle}" {dataUrl}{dataKey}>{removeIcon}</button>\n';
+    tActionReplace = '<button type="button" class="kv-file-replace {replaceClass}" ' + 'title="{replaceTitle}" {dataKey}>{replaceIcon}</button>\n';
     tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
         '{uploadIcon}</button>';
     tActionZoom = '<button type="button" class="kv-file-zoom {zoomClass}" title="{zoomTitle}">{zoomIcon}</button>';
@@ -426,6 +431,7 @@
         actions: tActions,
         actionDelete: tActionDelete,
         actionUpload: tActionUpload,
+        actionReplace: tActionReplace,
         actionZoom: tActionZoom,
         actionDrag: tActionDrag,
         btnDefault: tBtnDefault,
@@ -2750,6 +2756,7 @@
                 .replace(/\{close}/g, close)
                 .replace(/\{caption}/g, caption)
                 .replace(/\{upload}/g, self._renderButton('upload'))
+                .replace(/\{replace}/g, self._renderButton('replace'))
                 .replace(/\{remove}/g, self._renderButton('remove'))
                 .replace(/\{cancel}/g, self._renderButton('cancel'))
                 .replace(/\{browse}/g, self._renderButton('browse'));
@@ -2822,14 +2829,14 @@
             out = replaceTags(out, self.previewThumbTags);
             return out;
         },
-        _renderFileActions: function (showUpload, showDelete, showZoom, showDrag, disabled, url, key, isInit) {
+        _renderFileActions: function (showUpload, showReplace, showDelete, showZoom, showDrag, disabled, url, key, isInit) {
             if (!showUpload && !showDelete && !showZoom && !showDrag) {
                 return '';
             }
             var self = this,
                 vUrl = url === false ? '' : ' data-url="' + url + '"',
                 vKey = key === false ? '' : ' data-key="' + key + '"',
-                btnDelete = '', btnUpload = '', btnZoom = '', btnDrag = '', css,
+                btnDelete = '', btnUpload = '', btnReplace = '', btnZoom = '', btnDrag = '', css,
                 template = self._getLayoutTemplate('actions'), config = self.fileActionSettings,
                 otherButtons = self.otherActionButtons.replace(/\{dataKey}/g, vKey),
                 removeClass = disabled ? config.removeClass + ' disabled' : config.removeClass;
@@ -2847,6 +2854,12 @@
                     .replace(/\{uploadIcon}/g, config.uploadIcon)
                     .replace(/\{uploadTitle}/g, config.uploadTitle);
             }
+            if (showReplace) {
+                btnReplace = self._getLayoutTemplate('actionReplace')
+                    .replace(/\{replaceClass}/g, config.replaceClass)
+                    .replace(/\{replaceIcon}/g, config.replaceIcon)
+                    .replace(/\{replaceTitle}/g, config.replaceTitle);
+            }
             if (showZoom) {
                 btnZoom = self._getLayoutTemplate('actionZoom')
                     .replace(/\{zoomClass}/g, config.zoomClass)
@@ -2861,6 +2874,7 @@
             }
             return template.replace(/\{delete}/g, btnDelete)
                 .replace(/\{upload}/g, btnUpload)
+                .replace(/\{replace}/g, btnReplace)
                 .replace(/\{zoom}/g, btnZoom)
                 .replace(/\{drag}/g, btnDrag)
                 .replace(/\{other}/g, otherButtons);
