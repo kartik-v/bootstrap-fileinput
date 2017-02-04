@@ -61,6 +61,13 @@
         msgImageHeightLarge: 'L\'alçada de la imatge "{name}" no pot excedir de {size} px.',
         msgImageResizeError: 'No s\'ha pogut obtenir les dimensions d\'imatge per canviar la mida.',
         msgImageResizeException: 'Error en canviar la mida de la imatge.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Arrossegueu i deixeu anar aquí els arxius &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {

@@ -61,6 +61,13 @@
         msgImageHeightLarge: '이미지 파일 "{name}"의 세로는 최대 {size} px를 넘을수 없습니다.',
         msgImageResizeError: '이미지의 사이즈를 재조정을 위한 이미지 사이즈를 가져올 수 없습니다.',
         msgImageResizeException: '이미지 사이즈 재조정이 다음 이유로 실패했습니다.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: '파일을 여기에 드래그인 드랍을 하십시요 &hellip;',
         dropZoneClickTitle: '<br>(또는 {files} 선택을 위해 클릭하십시요)',
         fileActionSettings: {

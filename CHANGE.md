@@ -1,9 +1,9 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.3.7
+## version 4.3.7 (_under development_)
 
-**Date:** 01-Feb-2017
+**Date:** 05-Feb-2017
 
 1. (enh #812): Update Greek Translations.
 2. (enh #815): Enhance parsing of thumbnails that are visible in preview (will allow plugin to be 
@@ -29,6 +29,12 @@ Change Log: `bootstrap-fileinput`
 21. (enh #851): Create Kazakh Translations. 
 22. (bug #852): Ensure `frameClass` setting in `initialPreviewConfig` is considered. 
 23. (enh #854): Better file size calculation and display.
+24. (enh #857): Default error handling for unknown ajax errors.
+25. (enh #858): Thumb Frame CSS class as configurable property.
+26. (enh #859): Enhance and revamp preview caching.
+27. (enh #860): Initialize template defaults in a better manner.
+28. (enh #861): New properties within `layoutTemplates`.
+29. (enh #862): Launch a brand new Krajee theme: `explorer`.
 
 ## version 4.3.6
 

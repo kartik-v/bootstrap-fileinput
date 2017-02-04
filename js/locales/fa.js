@@ -62,6 +62,13 @@
         msgImageHeightLarge: 'ارتفاع فایل تصویر "{name}" نمی‌تواند از {size} پیکسل بیشتر باشد.',
         msgImageResizeError: 'یافت نشد ابعاد تصویر را برای تغییر اندازه.',
         msgImageResizeException: 'خطا در هنگام تغییر اندازه تصویر.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'فایل‌ها را بکشید و در اینجا رها کنید &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {

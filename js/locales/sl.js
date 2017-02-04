@@ -59,6 +59,13 @@
         msgImageHeightLarge: 'Višina slike "{name}" ne sme preseči {size} px.',
         msgImageResizeError: 'Nisem mogel pridobiti dimenzij slike za spreminjanje velikosti.',
         msgImageResizeException: 'Napaka pri spreminjanju velikosti slike.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Povlecite in spustite datoteke sem &hellip;',
         dropZoneClickTitle: '<br>(ali kliknite sem za izbiro {files})',
         fileActionSettings: {

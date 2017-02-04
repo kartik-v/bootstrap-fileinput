@@ -61,6 +61,13 @@
         msgImageHeightLarge: 'Hoogte van het foto bestand "{name}" kan niet hoger zijn dan {size} px.',
         msgImageResizeError: 'Kon de foto afmetingen niet lezen om te verkleinen.',
         msgImageResizeException: 'Fout bij het verkleinen van de foto.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Drag & drop bestanden hier &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {

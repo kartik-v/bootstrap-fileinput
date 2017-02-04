@@ -2,6 +2,8 @@
  * bootstrap-fileinput v4.3.7
  * http://plugins.krajee.com/file-input
  *
+ * Krajee default styling for bootstrap-fileinput.
+ *
  * Author: Kartik Visweswaran
  * Copyright: 2014 - 2017, Kartik Visweswaran, Krajee.com
  *
@@ -90,7 +92,7 @@
     margin-bottom: 5px;
 }
 
-.file-preview-frame {
+.krajee-default.file-preview-frame {
     position: relative;
     display: table;
     margin: 8px;
@@ -103,16 +105,16 @@
     vertical-align: middle;
 }
 
-.file-preview-frame:not(.file-preview-error):hover {
+.krajee-default.file-preview-frame:not(.file-preview-error):hover {
     box-shadow: 3px 3px 5px 0 #333;
 }
 
-.file-preview-image {
+.krajee-default .file-preview-image {
     vertical-align: middle;
     image-orientation: from-image;
 }
 
-.file-preview-text {
+.krajee-default .file-preview-text {
     display: block;
     color: #428bca;
     border: 1px solid #ddd;
@@ -122,17 +124,17 @@
     resize: none;
 }
 
-.file-preview-html {
+.krajee-default .file-preview-html {
     border: 1px solid #ddd;
     padding: 8px;
     overflow: auto;
 }
 
-.file-zoom-dialog .file-preview-text {
+.krajee-default .file-zoom-dialog .file-preview-text {
     font-size: 1.2em;
 }
 
-.file-preview-other {
+.krajee-default .file-preview-other {
     left: 0;
     top: 0;
     right: 0;
@@ -143,16 +145,113 @@
     padding: 10px;
 }
 
-.file-preview-other:hover {
+.krajee-default .file-preview-other:hover {
     opacity: 0.8;
 }
 
-.file-actions, .file-other-error {
+.krajee-default .file-actions, .krajee-default .file-other-error {
     text-align: left;
 }
 
-.file-other-icon {
+.krajee-default .file-other-icon {
     font-size: 4.8em;
+}
+
+.krajee-default .file-actions {
+    margin-top: 15px;
+}
+
+.krajee-default .file-footer-buttons {
+    float: right;
+}
+
+.krajee-default .file-footer-caption {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 160px;
+    text-align: center;
+    padding-top: 4px;
+    font-size: 11px;
+    color: #777;
+    margin: 5px auto;
+}
+
+.krajee-default .file-preview-error {
+    opacity: 0.65;
+    box-shadow: none;
+}
+
+.krajee-default .file-preview-frame:not(.file-preview-error) .file-footer-caption:hover {
+    color: #000;
+}
+
+.krajee-default .file-drag-handle, .krajee-default .file-upload-indicator {
+    position: absolute;
+    text-align: center;
+    bottom: -6px;
+    left: -6px;
+    padding: 8px 8px 1px 3px;
+    border-left: none;
+    border-bottom: none;
+    border-right: 1px solid #8a6d3b;
+    border-top: 1px solid #8a6d3b;
+    border-top-right-radius: 24px;
+    font-size: 12px;
+}
+
+.krajee-default .file-drag-handle {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.krajee-default .file-upload-indicator {
+    font-size: 13px;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    padding-bottom: 0;
+}
+
+.krajee-default.file-preview-error .file-upload-indicator {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.krajee-default.file-preview-success .file-upload-indicator {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.krajee-default.file-preview-loading .file-upload-indicator {
+    background-color: #e5e5e5;
+    border-color: #777;
+}
+
+.krajee-default .file-thumb-progress {
+    height: 10px;
+}
+
+.krajee-default .file-thumb-progress .progress, .krajee-default .file-thumb-progress .progress-bar {
+    height: 10px;
+    font-size: 9px;
+    line-height: 10px;
+}
+
+.krajee-default .file-thumbnail-footer {
+    position: relative;
+}
+
+.krajee-default .file-thumb-progress {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    right: 0;
+}
+
+.krajee-default.kvsortable-ghost {
+    background: #e1edf7;
+    border: 2px solid #a1abff;
 }
 
 /* noinspection CssOverwrittenProperties */
@@ -186,46 +285,14 @@
     background: transparent url('../img/loading.gif') no-repeat scroll center center content-box !important;
 }
 
-.file-actions {
-    margin-top: 15px;
-}
-
-.file-footer-buttons {
-    float: right;
-}
-
-.file-upload-indicator {
-    display: inline;
-    cursor: default;
-    opacity: 0.8;
-    width: 60%;
-}
-
-.file-upload-indicator:hover {
-    font-weight: bold;
+.file-sortable .file-drag-handle {
+    cursor: move;
+    cursor: -webkit-grabbing;
     opacity: 1;
 }
 
-.file-footer-caption {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 160px;
-    text-align: center;
-    padding-top: 4px;
-    font-size: 11px;
-    color: #777;
-    margin: 5px auto;
-}
-
-.file-preview-error {
-    opacity: 0.65;
-    box-shadow: none;
-}
-
-.file-preview-frame:not(.file-preview-error) .file-footer-caption:hover {
-    color: #000;
+.file-sortable .file-drag-handle:hover {
+    opacity: 0.7;
 }
 
 .file-drop-zone {
@@ -270,27 +337,6 @@
 .file-uploading {
     background: url('../img/loading-sm.gif') no-repeat center bottom 10px;
     opacity: 0.65;
-}
-
-.file-thumb-progress {
-    height: 10px;
-}
-
-.file-thumb-progress .progress, .file-thumb-progress .progress-bar {
-    height: 10px;
-    font-size: 9px;
-    line-height: 10px;
-}
-
-.file-thumbnail-footer {
-    position: relative;
-}
-
-.file-thumb-progress {
-    position: absolute;
-    top: 35px;
-    left: 0;
-    right: 0;
 }
 
 .file-zoom-fullscreen.modal {
@@ -369,24 +415,6 @@
     right: 1px;
 }
 
-.file-drag-handle {
-    display: inline;
-    margin-right: 2px;
-    font-size: 16px;
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.file-sortable .file-drag-handle {
-    cursor: move;
-    cursor: -webkit-grabbing;
-    opacity: 1;
-}
-
-.file-sortable .file-drag-handle:hover {
-    opacity: 0.7;
-}
-
 .file-zoom-content {
     height: 480px;
     text-align: center;
@@ -394,10 +422,6 @@
 
 .file-preview-initial.sortable-chosen {
     background-color: #d9edf7;
-}
-
-.file-preview-frame.sortable-ghost {
-    background-color: #eee;
 }
 
 /* IE 10 fix */

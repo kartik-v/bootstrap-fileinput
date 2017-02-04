@@ -61,6 +61,13 @@
         msgImageHeightLarge: 'Височината на изображението "{name}" нее може да е по-голяма от {size} px.',
         msgImageResizeError: 'Не може да размерите на изображението, за да промените размера.',
         msgImageResizeException: 'Грешка при промяна на размера на изображението.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Пуснете файловете тук &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {

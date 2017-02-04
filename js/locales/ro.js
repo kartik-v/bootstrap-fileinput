@@ -62,6 +62,13 @@
         msgImageHeightLarge: 'Înălțimea fișier imagine "{name}" nu poate depăși {size} px.',
         msgImageResizeError: 'Nu a putut obține dimensiunile imaginii pentru a redimensiona.',
         msgImageResizeException: 'Eroare la redimensionarea imaginii.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Trage fișierele aici &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {

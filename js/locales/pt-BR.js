@@ -60,6 +60,13 @@
         msgImageHeightLarge: 'Altura do arquivo de imagem "{name}" não pode exceder {size} px.',
         msgImageResizeError: 'Não foi possível obter as dimensões da imagem para redimensionar.',
         msgImageResizeException: 'Erro ao redimensionar a imagem.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Arraste e solte os arquivos aqui&hellip;',
         dropZoneClickTitle: '<br>(ou clique para selecionar o(s) arquivo(s))',
         fileActionSettings: {

@@ -49,6 +49,13 @@
         msgImageHeightLarge: '"{name}" суреттің биіктігі {size} px. аспау керек',
         msgImageResizeError: 'Суреттің өлшемін өзгерту үшін, мөлшері алынбады',
         msgImageResizeException: 'Суреттің мөлшерлерін өзгерткен кезде қателік пайда болды.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Файлдарды осында сүйреу &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {

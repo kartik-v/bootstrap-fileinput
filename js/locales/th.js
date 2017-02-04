@@ -61,6 +61,13 @@
         msgImageHeightLarge: 'ความสูงของไฟล์ภาพ "{name}" ไม่เกิน {size} พิกเซล.',
         msgImageResizeError: 'ไม่สามารถรับขนาดภาพเพื่อปรับขนาด',
         msgImageResizeException: 'ข้อผิดพลาดขณะปรับขนาดภาพ<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Drag & drop ไฟล์ตรงนี้ &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {

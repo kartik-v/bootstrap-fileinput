@@ -50,6 +50,13 @@
         msgImageHeightLarge: 'Výška obrázku "{name}" nesmí být větší než {size} px.',
         msgImageResizeError: 'Nelze získat rozměry obrázku pro změnu velikosti.',
         msgImageResizeException: 'Chyba při změně velikosti obrázku.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Přetáhni soubory sem &hellip;',
         dropZoneClickTitle: '<br>(nebo klikni sem a vyber je)',
         fileActionSettings: {

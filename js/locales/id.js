@@ -62,6 +62,13 @@
         msgImageHeightLarge: 'Tinggi dari gambar "{name}" tak boleh melebihi {size} px.',
         msgImageResizeError: 'Tak dapat menentukan dimensi gambar untuk mengubah ukuran.',
         msgImageResizeException: 'Kesalahan saat mengubah ukuran gambar.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Tarik dan lepaskan berkas disini &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {

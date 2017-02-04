@@ -61,6 +61,13 @@
         msgImageHeightLarge: 'H&oslash;jden af billedet "{name}" m&aring; ikke v&aelig;re over {size} px.',
         msgImageResizeError: 'Kunne ikke få billedets dimensioner for at ændre størrelsen.',
         msgImageResizeException: 'Fejl ved at ændre størrelsen på billedet.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Drag & drop filer her &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {

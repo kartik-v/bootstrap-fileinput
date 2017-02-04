@@ -63,6 +63,13 @@
         msgImageHeightLarge: '圖檔高度"{name}"不能超過{size}像素(px).',
         msgImageResizeError: '無法獲取的圖像尺寸調整。',
         msgImageResizeException: '錯誤而調整圖像大小。<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: '拖曳檔案至此 &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {

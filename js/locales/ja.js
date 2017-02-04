@@ -68,6 +68,13 @@
         msgImageHeightLarge: '画像ファイル"{name}"の高さがアップロード可能な画像サイズ({size}px)を超えています',
         msgImageResizeError: 'リサイズ時に画像サイズが取得できませんでした',
         msgImageResizeException: '画像のリサイズ時にエラーが発生しました。<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'ファイルをドラッグ&ドロップ&hellip;',
         dropZoneClickTitle: '<br>(または クリックして{files}を選択 )',
         slugCallback: function(text) {

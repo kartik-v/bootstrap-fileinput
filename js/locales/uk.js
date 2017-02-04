@@ -62,6 +62,13 @@
         msgImageHeightLarge: 'Висота зображення "{name}" не може перевищувати {size} px.',
         msgImageResizeError: 'Не вдалося розміри зображення, щоб змінити розмір.',
         msgImageResizeException: 'Помилка при зміні розміру зображення.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Перетягніть файли сюди &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {

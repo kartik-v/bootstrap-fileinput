@@ -60,6 +60,13 @@
         msgImageHeightLarge: 'A kép magassága "{name}" nem haladhatja meg a {size} pixelt.',
         msgImageResizeError: 'Nem lehet megállapítani a kép méreteit az átméretezéshez.',
         msgImageResizeException: 'Hiba történt a méretezés közben.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Fájlok húzása ide &hellip;',
         dropZoneClickTitle: '<br>(vagy kattintson ide a {files} tallózásához...)',
         fileActionSettings: {

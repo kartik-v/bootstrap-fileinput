@@ -61,6 +61,13 @@
         msgImageHeightLarge: '"{name}" adlı görüntü dosyasının yüksekliği {size} pikseli geçemez.',
         msgImageResizeError: 'Görüntü boyutlarını yeniden boyutlandırmak için alınamadı.',
         msgImageResizeException: 'Görsel boyutlandırma sırasında hata.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Dosyaları buraya sürükleyip bırakın &hellip;',
         dropZoneClickTitle: '<br>(ya da {files} seçmek için tıklayınız)',
         fileActionSettings: {

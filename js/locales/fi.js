@@ -51,6 +51,13 @@
         msgProgress: 'Ladataan tiedostoa {index} / {files} - {name} - {percent}% valmistunut.',
         msgSelected: '{n} tiedostoa valittu',
         msgFoldersNotAllowed: 'Raahaa ja pudota ainoastaan tiedostoja! Ohitettu {n} raahattua kansiota.',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Raahaa ja pudota tiedostot t&auml;h&auml;n &hellip;',
         dropZoneClickTitle: '<br>(tai valitse hiirellä {files})',
         fileActionSettings: {
