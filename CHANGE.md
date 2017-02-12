@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.7
 
-**Date:** 05-Feb-2017
+**Date:** 11-Feb-2017
 
 1. (enh #812): Update Greek Translations.
 2. (enh #815): Enhance parsing of thumbnails that are visible in preview (will allow plugin to be 
