@@ -11,7 +11,7 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for various fi
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NEW: Preview the new theme **Krajee Explorer** for `bootstrap-fileinput` released in v4.3.7. Refer the [Krajee Explorer Demo](http://plugins.krajee.com/file-krajee-explorer-demo) on configuring this theme.
+> NEW: Preview the alternative new [Krajee Explorer Theme](http://plugins.krajee.com/file-krajee-explorer-demo) for `bootstrap-fileinput` (available since release v4.3.7).
 
 ## Documentation and Demo
 
