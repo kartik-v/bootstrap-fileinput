@@ -51,6 +51,7 @@
         msgImageResizeError: 'Nelze získat rozměry obrázku pro změnu velikosti.',
         msgImageResizeException: 'Chyba při změně velikosti obrázku.<pre>{errors}</pre>',
         msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
             uploadThumb: 'single file upload',

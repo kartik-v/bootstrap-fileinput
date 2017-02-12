@@ -62,6 +62,7 @@
         msgImageResizeError: 'Không lấy được kích thước của hình ảnh để resize.',
         msgImageResizeException: 'Resize hình ảnh bị lỗi.<pre>{errors}</pre>',
         msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
             uploadThumb: 'single file upload',

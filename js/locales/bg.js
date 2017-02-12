@@ -62,6 +62,7 @@
         msgImageResizeError: 'Не може да размерите на изображението, за да промените размера.',
         msgImageResizeException: 'Грешка при промяна на размера на изображението.<pre>{errors}</pre>',
         msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
             uploadThumb: 'single file upload',

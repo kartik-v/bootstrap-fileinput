@@ -62,6 +62,7 @@
         msgImageResizeError: 'Kon de foto afmetingen niet lezen om te verkleinen.',
         msgImageResizeException: 'Fout bij het verkleinen van de foto.<pre>{errors}</pre>',
         msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
             uploadThumb: 'single file upload',

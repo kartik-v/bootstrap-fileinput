@@ -61,6 +61,7 @@
         msgImageResizeError: 'Não foi possível obter as dimensões da imagem para redimensionar.',
         msgImageResizeException: 'Erro ao redimensionar a imagem.<pre>{errors}</pre>',
         msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
             uploadThumb: 'single file upload',

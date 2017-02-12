@@ -47,9 +47,9 @@
             image: {height: "60px"},
             html: {width: "100px", height: "60px"},
             text: {width: "100px", height: "60px"},
-            video: {width: "auto"},
-            audio: {width: "auto"},
-            flash: {width: "100px", height: "60px"},
+            video: {width: "auto", height: "60px"},
+            audio: {width: "auto", height: "60px"},
+            flash: {width: "100%", height: "60px"},
             object: {width: "100%", height: "60px"},
             pdf: {width: "100px", height: "60px"},
             other: {width: "100%", height: "60px"}

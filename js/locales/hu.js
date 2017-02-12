@@ -61,6 +61,7 @@
         msgImageResizeError: 'Nem lehet megállapítani a kép méreteit az átméretezéshez.',
         msgImageResizeException: 'Hiba történt a méretezés közben.<pre>{errors}</pre>',
         msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
             uploadThumb: 'single file upload',

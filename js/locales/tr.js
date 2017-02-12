@@ -62,6 +62,7 @@
         msgImageResizeError: 'Görüntü boyutlarını yeniden boyutlandırmak için alınamadı.',
         msgImageResizeException: 'Görsel boyutlandırma sırasında hata.<pre>{errors}</pre>',
         msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
             uploadThumb: 'single file upload',
