@@ -61,6 +61,14 @@
         msgImageHeightLarge: 'Chiều cao của hình ảnh "{name}" không được quá {size} px.',
         msgImageResizeError: 'Không lấy được kích thước của hình ảnh để resize.',
         msgImageResizeException: 'Resize hình ảnh bị lỗi.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        msgAjaxProgressError: '{operation} failed',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Kéo thả tập tin vào đây &hellip;',
         dropZoneClickTitle: '<br>(hoặc click để chọn {files})',
         fileActionSettings: {

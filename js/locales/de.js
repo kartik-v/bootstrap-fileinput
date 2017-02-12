@@ -20,7 +20,7 @@
         uploadLabel: 'Hochladen',
         uploadTitle: 'Hochladen der ausgewählten Dateien',
         msgNo: 'Keine',
-        msgNoFilesSelected: '',
+        msgNoFilesSelected: 'Keine Dateien ausgewählt',
         msgCancelled: 'Abgebrochen',
         msgZoomModalHeading: 'ausführliche Vorschau',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
@@ -59,6 +59,14 @@
         msgImageHeightLarge: 'Höhe der Bilddatei "{name}" nicht überschreiten {size} px.',
         msgImageResizeError: 'Konnte nicht die Bildabmessungen zu ändern.',
         msgImageResizeException: 'Fehler beim Ändern der Größe des Bildes.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        msgAjaxProgressError: '{operation} failed',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
         dropZoneTitle: 'Dateien hierher ziehen &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
