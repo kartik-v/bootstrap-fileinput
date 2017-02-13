@@ -544,7 +544,7 @@
                     }
                     return;
                 }
-                self[key] = $.extend(true, setting, self[key]);
+                self[key] = $.extend(true, {}, setting, self[key]);
             });
             self._initPreviewTemplates();
         },
@@ -2193,8 +2193,8 @@
         },
         _generatePreviewTemplate: function (cat, data, fname, ftype, previewId, isError, size, frameClass, foot, ind, templ) {
             var self = this, caption = self.slug(fname), prevContent, zoomContent = '',
-                config = self.previewSettings[cat], w = config && config.width ? config.width : '',
-                h = config && config.height ? config.height : '',
+                config = self.previewSettings[cat] || self.defaults.previewSettings[cat],
+                w = config && config.width ? config.width : '', h = config && config.height ? config.height : '',
                 footer = foot || self._renderFileFooter(caption, size, ($h.isEmpty(w) ? 'auto' : w), isError),
                 hasIconSetting = self._getPreviewIcon(fname),
                 forcePrevIcon = hasIconSetting && self.preferIconicPreview,
