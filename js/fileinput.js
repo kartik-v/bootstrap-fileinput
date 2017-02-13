@@ -2195,7 +2195,7 @@
             var self = this, caption = self.slug(fname), prevContent, zoomContent = '',
                 config = self.previewSettings[cat], w = config && config.width ? config.width : '',
                 h = config && config.height ? config.height : '',
-                footer = foot || self._renderFileFooter(caption, size, config.width, isError),
+                footer = foot || self._renderFileFooter(caption, size, ($h.isEmpty(w) ? 'auto' : w), isError),
                 hasIconSetting = self._getPreviewIcon(fname),
                 forcePrevIcon = hasIconSetting && self.preferIconicPreview,
                 forceZoomIcon = hasIconSetting && self.preferIconicZoomPreview,

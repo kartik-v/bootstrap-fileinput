@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.3.8
+
+**Date:** 13-Feb-2017
+
+1. (bug #870): Correct config.width parsing.
+
 ## version 4.3.7
 
 **Date:** 11-Feb-2017
