@@ -22,7 +22,7 @@
         uploadLabel: 'Subir archivo',
         uploadTitle: 'Subir archivos seleccionados',
         msgNo: 'No',
-        msgNoFilesSelected: '',
+        msgNoFilesSelected: 'No hay archivos seleccionados',
         msgCancelled: 'Cancelado',
         msgZoomModalHeading: 'Vista previa detallada',
         msgSizeTooSmall: 'El archivo "{name}" (<b>{size} KB</b>) es demasiado pequeño y debe ser mayor de <b>{minSize} KB</b>.',
