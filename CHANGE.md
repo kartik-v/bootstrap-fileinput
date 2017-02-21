@@ -3,12 +3,13 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.8 (_under development_)
 
-**Date:** 16-Feb-2017
+**Date:** 21-Feb-2017
 
 1. (bug #870): Correct config.width parsing.
 2. (bug #872): Correct typo in `bootstrap.min.css`.
 3. (enh #874): Enhance/Standardize CSS Styles for Krajee Default Theme.
 4. (enh #876): Update Spanish Translations
+5. (enh #879): Update Russian Translations
 
 ## version 4.3.7
 

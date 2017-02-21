@@ -39,6 +39,7 @@
         msgInvalidFileExtension: 'Złe rozszerzenie dla pliku "{name}". Tylko następujące rozszerzenia plików są obsługiwane: "{extensions}".',
         msgUploadAborted: 'Przesyłanie pliku zostało przerwane',
         msgUploadThreshold: 'Przetwarzanie...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Błąd walidacji',
         msgLoading: 'Wczytywanie pliku {index} z {files} &hellip;',
         msgProgress: 'Wczytywanie pliku {index} z {files} - {name} - {percent}% zakończone.',

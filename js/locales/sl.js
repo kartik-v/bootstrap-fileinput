@@ -48,6 +48,7 @@
         },
         msgUploadAborted: 'Nalaganje datoteke je bilo preklicano',
         msgUploadThreshold: 'Procesiram...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Napaki pri validiranju',
         msgLoading: 'Nalaganje datoteke {index} od {files} &hellip;',
         msgProgress: 'Nalaganje datoteke {index} od {files} - {name} - {percent}% dokončano.',

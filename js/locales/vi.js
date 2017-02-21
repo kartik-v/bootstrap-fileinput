@@ -50,6 +50,7 @@
         },
         msgUploadAborted: 'Đã dừng upload',
         msgUploadThreshold: 'Đang xử lý...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Lỗi xác nhận',
         msgLoading: 'Đang nạp {index} tập tin trong số {files} &hellip;',
         msgProgress: 'Đang nạp {index} tập tin trong số {files} - {name} - {percent}% hoàn thành.',

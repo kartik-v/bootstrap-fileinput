@@ -39,6 +39,7 @@
         msgInvalidFileExtension: 'Neplatná extenze souboru "{name}". Pouze "{extensions}" souborů jsou podporovány.',
         msgUploadAborted: 'Nahrávání souboru bylo přerušeno',
         msgUploadThreshold: 'Zpracovávám...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Chyba ověření',
         msgLoading: 'Nahrávání souboru {index} z {files} &hellip;',
         msgProgress: 'Nahrávání souboru {index} z {files} - {name} - {percent}% dokončeno.',

@@ -49,6 +49,7 @@
         },
         msgUploadAborted: 'A fájl feltöltés megszakítva',
         msgUploadThreshold: 'Folyamatban...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Érvényesítés hiba',
         msgLoading: '{index} / {files} töltése &hellip;',
         msgProgress: 'Feltöltés: {index} / {files} - {name} - {percent}% kész.',

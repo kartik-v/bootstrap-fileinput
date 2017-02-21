@@ -51,7 +51,7 @@
         msgUploadAborted: 'Выгрузка файла прервана',
         msgUploadThreshold: 'Обработка...',
         msgUploadEmpty: 'Недопустимые данные для загрузки',
-	msgValidationError: 'Ошибка проверки',
+        msgValidationError: 'Ошибка проверки',
         msgLoading: 'Загрузка файла {index} из {files} &hellip;',
         msgProgress: 'Загрузка файла {index} из {files} - {name} - {percent}% завершено.',
         msgSelected: 'Выбрано файлов: {n}',
