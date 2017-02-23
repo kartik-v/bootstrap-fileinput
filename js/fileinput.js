@@ -2651,14 +2651,17 @@
             }
         },
         _getResizedImage: function (config, counter, numImgs) {
-            var self = this, img = config.img, width = img.naturalWidth, height = img.naturalHeight, ratio = 1,
-                maxWidth = self.maxImageWidth || width, maxHeight = self.maxImageHeight || height,
+            var self = this, img = $(config.img)[0], width = img.naturalWidth, height = img.naturalHeight,
+                ratio = 1, maxWidth = self.maxImageWidth || width, maxHeight = self.maxImageHeight || height,
                 isValidImage = !!(width && height), chkWidth, chkHeight, canvas = self.imageCanvas,
                 context = self.imageCanvasContext, type = config.typ, pid = config.pid, ind = config.ind,
-                thumb = config.thumb, errFunc, throwError, msg;
-            errFunc = self.isUploadable ? self._showUploadError : self._showError;
+                thumb = config.thumb, throwError, msg;
             throwError = function (msg, params, ev) {
-                errFunc(msg, params, ev);
+                if (self.isUploadable) {
+                    self._showUploadError(msg, params, ev);
+                } else {
+                    self._showError(msg, params, ev);
+                }
                 self._setPreviewError(thumb, ind);
             };
             if (!self.filestack[ind] || !isValidImage || (width <= maxWidth && height <= maxHeight)) {
