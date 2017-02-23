@@ -1,6 +1,13 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.3.9
+
+**Date:** 23-Feb-2017 (_under development_)
+
+1. (enh #881): Update Spanish Translations.
+2. (bug #882): Correct image resize validation.
+
 ## version 4.3.8
 
 **Date:** 21-Feb-2017
