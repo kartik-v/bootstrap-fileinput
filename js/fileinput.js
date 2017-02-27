@@ -1444,7 +1444,7 @@
                 params = {id: $el.attr('id'), key: vKey, extra: extraData};
                 settings = $.extend(true, {}, {
                     url: vUrl,
-                    type: 'POST',
+                    type: self.deleteUrlMethod,
                     dataType: 'json',
                     data: $.extend(true, {}, {key: vKey}, extraData),
                     beforeSend: function (jqXHR) {
@@ -3336,6 +3336,7 @@
         removeFromPreviewOnError: false,
         deleteUrl: '',
         deleteExtraData: {},
+        deleteUrlMethod: 'POST',
         overwriteInitial: true,
         previewZoomButtonIcons: {
             prev: '<i class="glyphicon glyphicon-triangle-left"></i>',
