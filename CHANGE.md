@@ -3,10 +3,14 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.9
 
-**Date:** 23-Feb-2017 (_under development_)
+**Date:** 01-Mar-2017 (_under development_)
 
 1. (enh #881): Update Spanish Translations.
 2. (bug #882): Correct image resize validation.
+3. (enh #875): Reset form based events more correctly to allow multiple bootstrap file inputs within forms.
+4. (bug #885): Correct validation for `allowedFileTypes`. 
+5. (enh #886): Append zoom modal dialog to `body` element if available to avoid multiple BS modals conflict. 
+6. Enhance events like `fileclear` and `filepreajax` to be aborted via `event.preventDefault()`.
 
 ## version 4.3.8
 
