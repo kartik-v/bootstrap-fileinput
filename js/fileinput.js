@@ -290,6 +290,7 @@
             if ($h.isEmpty($el.attr('id'))) {
                 $el.attr('id', $h.uniqId());
             }
+            self.namespace = '.kvFile' + $el.attr('id').replace(/-/g, '');
             if (self.$container === undefined) {
                 self.$container = self._createContainer();
             } else {
@@ -986,7 +987,7 @@
             }
         },
         _listen: function () {
-            var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, n = '.' + $el.attr('id');
+            var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, ns = self.namespace;
             $h.handler($el, 'change', $.proxy(self._change, self));
             if (self.showBrowse) {
                 $h.handler(self.$btnFile, 'click', $.proxy(self._browse, self));
@@ -994,18 +995,18 @@
             $h.handler($cont.find('.fileinput-remove:not([disabled])'), 'click', $.proxy(self.clear, self));
             $h.handler($cont.find('.fileinput-cancel'), 'click', $.proxy(self.cancel, self));
             self._initDragDrop();
-            $h.handler($form, 'reset', $.proxy(self.reset, self), n);
+            $h.handler($form, 'reset', $.proxy(self.reset, self), ns);
             if (!self.isUploadable) {
-                $h.handler($form, 'submit', $.proxy(self._submitForm, self), n);
+                $h.handler($form, 'submit', $.proxy(self._submitForm, self), ns);
             }
             $h.handler(self.$container.find('.fileinput-upload'), 'click', $.proxy(self._uploadClick, self));
             $h.handler($(window), 'resize', function () {
                 self._listenFullScreen(screen.width === window.innerWidth && screen.height === window.innerHeight);
-            }, true);
+            }, ns);
             $h.handler($(document), 'webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange',
                 function () {
                     self._listenFullScreen($h.checkFullScreen());
-                }, true);
+                }, ns);
             self._initClickable();
         },
         _initClickable: function () {
@@ -3264,9 +3265,11 @@
             return self.$element;
         },
         destroy: function () {
-            var self = this, $form = self.$form, $cont = self.$container, $el = self.$element;
+            var self = this, $form = self.$form, $cont = self.$container, $el = self.$element, ns = self.namespace;
+            $(document).off(ns);
+            $(window).off(ns);
             if ($form && $form.length) {
-                $form.off('.' + self.$element.attr('id'));
+                $form.off(ns);
             }
             $el.insertBefore($cont).off($h.NAMESPACE).removeData();
             $cont.off().remove();
