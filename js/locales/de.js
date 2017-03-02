@@ -47,6 +47,8 @@
         },
         msgUploadAborted: 'Der Datei-Upload wurde abgebrochen',
         msgUploadThreshold: 'Processing...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Validierungs fehler',
         msgLoading: 'Lade Datei {index} von {files} hoch&hellip;',

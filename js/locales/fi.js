@@ -45,6 +45,8 @@
             'object': 'Olio'
         },
         msgUploadThreshold: 'Käsitellään...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: 'Ei ladattavaa dataa.',
         msgValidationError: 'Tiedoston latausvirhe',
         msgLoading: 'Ladataan tiedostoa {index} / {files} &hellip;',

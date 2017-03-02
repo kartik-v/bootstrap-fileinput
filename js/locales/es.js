@@ -49,6 +49,8 @@
         },
         msgUploadAborted: 'La carga de archivos se ha cancelado',
         msgUploadThreshold: 'Procesando...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: 'No existen datos válidos para el envío.',
         msgValidationError: 'Error de validación',
         msgLoading: 'Subiendo archivo {index} de {files} &hellip;',

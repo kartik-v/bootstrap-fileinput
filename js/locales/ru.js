@@ -50,6 +50,8 @@
         },
         msgUploadAborted: 'Выгрузка файла прервана',
         msgUploadThreshold: 'Обработка...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: 'Недопустимые данные для загрузки',
         msgValidationError: 'Ошибка проверки',
         msgLoading: 'Загрузка файла {index} из {files} &hellip;',

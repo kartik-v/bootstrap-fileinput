@@ -69,11 +69,11 @@
             div.parentNode.removeChild(div);
             return status;
         },
-        handler: function ($el, event, callback, skipReset, skipNS) {
+        handler: function ($el, event, callback, namespace, skipReset, skipNS) {
             if (!$el || !$el.length) {
                 return;
             }
-            var ev = skipNS ? event : event.split(' ').join($h.NAMESPACE + ' ') + $h.NAMESPACE;
+            var ns = namespace || $h.NAMESPACE, ev = skipNS ? event : event.split(' ').join(ns + ' ') + ns;
             if (!skipReset) {
                 $el.off(ev);
             }
@@ -376,7 +376,7 @@
             tProgress = '<div class="progress">\n' +
                 '    <div class="{class}" role="progressbar"' +
                 ' aria-valuenow="{percent}" aria-valuemin="0" aria-valuemax="100" style="width:{percent}%;">\n' +
-                '        {percent}%\n' +
+                '        {status}\n' +
                 '     </div>\n' +
                 '</div>';
             tSize = ' <samp>({sizeText})</samp>';
@@ -986,7 +986,7 @@
             }
         },
         _listen: function () {
-            var self = this, $el = self.$element, $form = self.$form, $cont = self.$container;
+            var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, n = '.' + $el.attr('id');
             $h.handler($el, 'change', $.proxy(self._change, self));
             if (self.showBrowse) {
                 $h.handler(self.$btnFile, 'click', $.proxy(self._browse, self));
@@ -994,9 +994,9 @@
             $h.handler($cont.find('.fileinput-remove:not([disabled])'), 'click', $.proxy(self.clear, self));
             $h.handler($cont.find('.fileinput-cancel'), 'click', $.proxy(self.cancel, self));
             self._initDragDrop();
-            $h.handler($form, 'reset', $.proxy(self.reset, self), true);
+            $h.handler($form, 'reset', $.proxy(self.reset, self), n);
             if (!self.isUploadable) {
-                $h.handler($form, 'submit', $.proxy(self._submitForm, self), true);
+                $h.handler($form, 'submit', $.proxy(self._submitForm, self), n);
             }
             $h.handler(self.$container.find('.fileinput-upload'), 'click', $.proxy(self._uploadClick, self));
             $h.handler($(window), 'resize', function () {
@@ -2530,17 +2530,18 @@
             self._setProgress(101, self.$progress, self.msgCancelled);
         },
         _setProgress: function (p, $el, error) {
-            var self = this, pct = Math.min(p, 100), template = pct < 100 ? self.progressTemplate :
-                    (error ? self.progressErrorTemplate : (p <= 100 ? self.progressTemplate : self.progressCompleteTemplate)),
-                pctLimit = self.progressUploadThreshold;
+            var self = this, pct = Math.min(p, 100), out, status, pctLimit = self.progressUploadThreshold,
+                t = p <= 100 ? self.progressTemplate : self.progressCompleteTemplate,
+                template = pct < 100 ? self.progressTemplate : (error ? self.progressErrorTemplate : t);
             $el = $el || self.$progress;
             if (!$h.isEmpty(template)) {
                 if (pctLimit && pct > pctLimit && p <= 100) {
-                    var out = template.replace('{percent}', pctLimit).replace('{percent}', pctLimit).replace('{percent}%', self.msgUploadThreshold);
-                    $el.html(out);
+                    out = template.replace(/\{percent}/g, pctLimit).replace(/\{status}/g, self.msgUploadThreshold);
                 } else {
-                    $el.html(template.replace(/\{percent}/g, pct));
+                    status = p > 100 ? self.msgUploadEnd : pct + '%';
+                    out = template.replace(/\{percent}/g, pct).replace(/\{status}/g, status);
                 }
+                $el.html(out);
                 if (error) {
                     $el.find('[role="progressbar"]').html(error);
                 }
@@ -2849,8 +2850,9 @@
                 .replace('{status}', status).replace('{icon}', icon).replace('{label}', label);
         },
         _renderThumbProgress: function () {
-            return '<div class="file-thumb-progress hide">' + this.progressTemplate.replace(/\{percent}/g,
-                    '0') + '</div>';
+            var self = this;
+            return '<div class="file-thumb-progress hide">' + self.progressTemplate.replace(/\{percent}/g, '0')
+                .replace(/\{status}/g, self.msgUploadBegin) + '</div>';
         },
         _renderFileFooter: function (caption, size, width, isError) {
             var self = this, config = self.fileActionSettings, rem = config.showRemove, drg = config.showDrag,
@@ -3035,16 +3037,10 @@
                 if (file !== undefined) {
                     newstack[i] = file;
                     newnames[i] = self._getFileName(file);
-                    $thumb.attr({
-                        'id': self.previewInitId + '-' + i,
-                        'data-fileindex': i
-                    });
+                    $thumb.attr({ 'id': self.previewInitId + '-' + i, 'data-fileindex': i});
                     i++;
                 } else {
-                    $thumb.attr({
-                        'id': 'uploaded-' + $h.uniqId(),
-                        'data-fileindex': '-1'
-                    });
+                    $thumb.attr({'data-fileindex': '-1'});
                 }
             });
             self.filestack = newstack;
@@ -3270,7 +3266,7 @@
         destroy: function () {
             var self = this, $form = self.$form, $cont = self.$container, $el = self.$element;
             if ($form && $form.length) {
-                $form.off($h.NAMESPACE);
+                $form.off('.' + self.$element.attr('id'));
             }
             $el.insertBefore($cont).off($h.NAMESPACE).removeData();
             $cont.off().remove();
@@ -3285,6 +3281,18 @@
                 $el.trigger('change.fileinput');
             }
             return $el;
+        },
+        zoom: function (frameId) {
+            var self = this, $frame = $('#' + frameId), $modal = self.$modal;
+            if (!$frame.length) {
+                self._log('Cannot zoom to detailed preview! Invalid frame with id: "' + frameId + '".');
+                return;
+            }
+            $h.initModal($modal);
+            $modal.html(self._getModalContent());
+            self._setZoomContent($frame);
+            $modal.modal('show');
+            self._initZoomButtons();
         }
     };
 
@@ -3477,6 +3485,8 @@
         },
         msgUploadAborted: 'The file upload was aborted',
         msgUploadThreshold: 'Processing...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Validation Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',

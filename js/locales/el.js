@@ -49,6 +49,8 @@
         },
         msgUploadAborted: 'Η μεταφόρτωση του αρχείου ματαιώθηκε',
         msgUploadThreshold: 'Μεταφόρτωση ...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Σφάλμα Επικύρωσης',
         msgLoading: 'Φόρτωση αρχείου {index} από {files} &hellip;',

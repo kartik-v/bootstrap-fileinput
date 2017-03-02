@@ -49,6 +49,8 @@
         },
         msgUploadAborted: 'O envio do arquivo foi abortado',
         msgUploadThreshold: 'Processando...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Erro de validação',
         msgLoading: 'Enviando arquivo {index} de {files}&hellip;',
