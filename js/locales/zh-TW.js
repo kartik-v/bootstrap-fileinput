@@ -69,7 +69,7 @@
         msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
-            uploadThumb: 'single file upload',
+            uploadThumb: 'file upload',
             uploadBatch: 'batch file upload',
             uploadExtra: 'form data upload'
         },
