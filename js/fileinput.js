@@ -35,7 +35,6 @@
     // fileinput helper object for all global variables and internal helper methods
     //noinspection JSUnresolvedVariable
     $h = {
-        NAMESPACE: '.fileinput',
         FRAMES: '.kv-preview-thumb',
         SORT_CSS: 'file-sortable',
         STYLE_SETTING: 'style="width:{width};height:{height};"',
@@ -68,17 +67,6 @@
             document.body.appendChild(div);
             div.parentNode.removeChild(div);
             return status;
-        },
-        handler: function ($el, event, callback, namespace, skipReset, skipNS) {
-            if (!$el || !$el.length) {
-                return;
-            }
-            var ns = namespace || $h.NAMESPACE, ev = skipNS ? event : event.split(' ').join(ns + ' ') + ns;
-            if (!skipReset) {
-                $el.off(ev);
-            }
-            $el.on(ev, callback);
-
         },
         initModal: function ($modal) {
             var $body = $('body');
@@ -235,7 +223,7 @@
     FileInput.prototype = {
         constructor: FileInput,
         _init: function (options) {
-            var self = this, $el = self.$element, t;
+            var self = this, $el = self.$element, $cont, t;
             self.options = options;
             $.each(options, function (key, value) {
                 switch (key) {
@@ -290,20 +278,21 @@
             if ($h.isEmpty($el.attr('id'))) {
                 $el.attr('id', $h.uniqId());
             }
-            self.namespace = '.kvFile' + $el.attr('id').replace(/-/g, '');
+            self.namespace = '.fileinput_' + $el.attr('id').replace(/-/g, '_');
             if (self.$container === undefined) {
                 self.$container = self._createContainer();
             } else {
                 self._refreshContainer();
             }
-            self.$dropZone = self.$container.find('.file-drop-zone');
-            self.$progress = self.$container.find('.kv-upload-progress');
-            self.$btnUpload = self.$container.find('.fileinput-upload');
-            self.$captionContainer = $h.getElement(options, 'elCaptionContainer', self.$container.find('.file-caption'));
-            self.$caption = $h.getElement(options, 'elCaptionText', self.$container.find('.file-caption-name'));
-            self.$previewContainer = $h.getElement(options, 'elPreviewContainer', self.$container.find('.file-preview'));
-            self.$preview = $h.getElement(options, 'elPreviewImage', self.$container.find('.file-preview-thumbnails'));
-            self.$previewStatus = $h.getElement(options, 'elPreviewStatus', self.$container.find('.file-preview-status'));
+            $cont = self.$container;
+            self.$dropZone = $cont.find('.file-drop-zone');
+            self.$progress = $cont.find('.kv-upload-progress');
+            self.$btnUpload = $cont.find('.fileinput-upload');
+            self.$captionContainer = $h.getElement(options, 'elCaptionContainer', $cont.find('.file-caption'));
+            self.$caption = $h.getElement(options, 'elCaptionText', $cont.find('.file-caption-name'));
+            self.$previewContainer = $h.getElement(options, 'elPreviewContainer', $cont.find('.file-preview'));
+            self.$preview = $h.getElement(options, 'elPreviewImage', $cont.find('.file-preview-thumbnails'));
+            self.$previewStatus = $h.getElement(options, 'elPreviewStatus', $cont.find('.file-preview-status'));
             self.$errorContainer = $h.getElement(options, 'elErrorContainer',
                 self.$previewContainer.find('.kv-fileinput-error'));
             if (!$h.isEmpty(self.msgErrorClass)) {
@@ -749,6 +738,13 @@
             };
             self.previewCache.init();
         },
+        _handler: function ($el, event, callback) {
+            var self = this, ns = self.namespace, ev = event.split(' ').join(ns + ' ') + ns;
+            if (!$el || !$el.length) {
+                return;
+            }
+            $el.off(ev).on(ev, callback);
+        },
         _log: function (msg) {
             var self = this, id = self.$element.attr('id');
             if (id) {
@@ -798,7 +794,7 @@
             var self = this, $error = self.$errorContainer;
             if (msg && $error.length) {
                 $error.html(self.errorCloseButton + msg);
-                $h.handler($error.find('.kv-error-close'), 'click', function () {
+                self._handler($error.find('.kv-error-close'), 'click', function () {
                     $error.fadeOut('slow');
                 });
             }
@@ -987,26 +983,26 @@
             }
         },
         _listen: function () {
-            var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, ns = self.namespace;
-            $h.handler($el, 'change', $.proxy(self._change, self));
+            var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, fullScreenEvents;
+            self._handler($el, 'change', $.proxy(self._change, self));
             if (self.showBrowse) {
-                $h.handler(self.$btnFile, 'click', $.proxy(self._browse, self));
+                self._handler(self.$btnFile, 'click', $.proxy(self._browse, self));
             }
-            $h.handler($cont.find('.fileinput-remove:not([disabled])'), 'click', $.proxy(self.clear, self));
-            $h.handler($cont.find('.fileinput-cancel'), 'click', $.proxy(self.cancel, self));
+            self._handler($cont.find('.fileinput-remove:not([disabled])'), 'click', $.proxy(self.clear, self));
+            self._handler($cont.find('.fileinput-cancel'), 'click', $.proxy(self.cancel, self));
             self._initDragDrop();
-            $h.handler($form, 'reset', $.proxy(self.reset, self), ns);
+            self._handler($form, 'reset', $.proxy(self.reset, self));
             if (!self.isUploadable) {
-                $h.handler($form, 'submit', $.proxy(self._submitForm, self), ns);
+                self._handler($form, 'submit', $.proxy(self._submitForm, self));
             }
-            $h.handler(self.$container.find('.fileinput-upload'), 'click', $.proxy(self._uploadClick, self));
-            $h.handler($(window), 'resize', function () {
+            self._handler(self.$container.find('.fileinput-upload'), 'click', $.proxy(self._uploadClick, self));
+            self._handler($(window), 'resize', function () {
                 self._listenFullScreen(screen.width === window.innerWidth && screen.height === window.innerHeight);
-            }, ns);
-            $h.handler($(document), 'webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange',
-                function () {
-                    self._listenFullScreen($h.checkFullScreen());
-                }, ns);
+            });
+            fullScreenEvents = 'webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange';
+            self._handler($(document), fullScreenEvents, function () {
+                self._listenFullScreen($h.checkFullScreen());
+            });
             self._initClickable();
         },
         _initClickable: function () {
@@ -1017,7 +1013,7 @@
             $zone = self.isUploadable ? self.$dropZone : self.$preview.find('.file-default-preview');
             $h.addCss($zone, 'clickable');
             $zone.attr('tabindex', -1);
-            $h.handler($zone, 'click', function (e) {
+            self._handler($zone, 'click', function (e) {
                 var $tar = $(e.target);
                 if (!$tar.parents('.file-preview-thumbnails').length || $tar.parents('.file-default-preview').length) {
                     self.$element.trigger('click');
@@ -1028,10 +1024,10 @@
         _initDragDrop: function () {
             var self = this, $zone = self.$dropZone;
             if (self.isUploadable && self.dropZoneEnabled && self.showPreview) {
-                $h.handler($zone, 'dragenter dragover', $.proxy(self._zoneDragEnter, self));
-                $h.handler($zone, 'dragleave', $.proxy(self._zoneDragLeave, self));
-                $h.handler($zone, 'drop', $.proxy(self._zoneDrop, self));
-                $h.handler($(document), 'dragenter dragover drop', self._zoneDragDropInit);
+                self._handler($zone, 'dragenter dragover', $.proxy(self._zoneDragEnter, self));
+                self._handler($zone, 'dragleave', $.proxy(self._zoneDragLeave, self));
+                self._handler($zone, 'drop', $.proxy(self._zoneDrop, self));
+                self._handler($(document), 'dragenter dragover drop', self._zoneDragDropInit);
             }
         },
         _zoneDragDropInit: function (e) {
@@ -1337,19 +1333,19 @@
                 });
             }
             $modal.data('previewId', pid);
-            $h.handler($prev, 'click', function () {
+            self._handler($prev, 'click', function () {
                 self._zoomSlideShow('prev', pid);
             });
-            $h.handler($next, 'click', function () {
+            self._handler($next, 'click', function () {
                 self._zoomSlideShow('next', pid);
             });
-            $h.handler($btnFull, 'click', function () {
+            self._handler($btnFull, 'click', function () {
                 self._resizeZoomDialog(true);
             });
-            $h.handler($btnBord, 'click', function () {
+            self._handler($btnBord, 'click', function () {
                 self._resizeZoomDialog(false);
             });
-            $h.handler($btnTogh, 'click', function () {
+            self._handler($btnTogh, 'click', function () {
                 var $header = $modal.find('.modal-header'), $floatBar = $modal.find('.modal-body .floating-buttons'),
                     ht, $actions = $header.find('.kv-zoom-actions'), resize = function (height) {
                         var $body = self.$modal.find('.kv-zoom-body'), h = self.zoomModalHeight;
@@ -1375,7 +1371,7 @@
                 }
                 $modal.focus();
             });
-            $h.handler($modal, 'keydown', function (e) {
+            self._handler($modal, 'keydown', function (e) {
                 var key = e.which || e.keyCode;
                 if (key === 37 && !$prev.attr('disabled')) {
                     self._zoomSlideShow('prev', pid);
@@ -1423,7 +1419,7 @@
             var self = this;
             self.$preview.find('.kv-file-zoom').each(function () {
                 var $el = $(this);
-                $h.handler($el, 'click', function () {
+                self._handler($el, 'click', function () {
                     self._zoomPreview($el);
                 });
             });
@@ -1508,7 +1504,7 @@
                         resetProgress();
                     }
                 }, self.ajaxDeleteSettings);
-                $h.handler($el, 'click', function () {
+                self._handler($el, 'click', function () {
                     if (!self._validateMinCount()) {
                         return false;
                     }
@@ -1782,7 +1778,7 @@
             self._getThumbs($h.FRAMES + ' .file-preview-success').each(function () {
                 var $thumb = $(this), $preview = self.$preview, $remove = $thumb.find('.kv-file-remove');
                 $remove.removeAttr('disabled');
-                $h.handler($remove, 'click', function () {
+                self._handler($remove, 'click', function () {
                     var id = $thumb.attr('id'), out = self._raise('filesuccessremove', [id, $thumb.data('fileindex')]);
                     $h.cleanMemory($thumb);
                     if (out === false) {
@@ -2138,7 +2134,7 @@
             $preview.find($h.FRAMES + ' .kv-file-remove').each(function () {
                 var $el = $(this), $frame = $el.closest($h.FRAMES), hasError, id = $frame.attr('id'),
                     ind = $frame.attr('data-fileindex'), n, cap, status;
-                $h.handler($el, 'click', function () {
+                self._handler($el, 'click', function () {
                     status = self._raise('filepreremove', [id, ind]);
                     if (status === false || !self._validateMinCount()) {
                         return false;
@@ -2175,7 +2171,7 @@
             });
             self.$preview.find($h.FRAMES + ' .kv-file-upload').each(function () {
                 var $el = $(this);
-                $h.handler($el, 'click', function () {
+                self._handler($el, 'click', function () {
                     var $frame = $el.closest($h.FRAMES), ind = $frame.attr('data-fileindex');
                     if (!$frame.hasClass('file-preview-error')) {
                         self._uploadSingle(ind, self.filestack, false);
@@ -2633,7 +2629,7 @@
             if (!$img.length) {
                 return;
             }
-            $h.handler($img, 'load', function () {
+            self._handler($img, 'load', function () {
                 w1 = $thumb.width();
                 w2 = $preview.width();
                 if (w1 > w2) {
@@ -2853,7 +2849,7 @@
         _renderThumbProgress: function () {
             var self = this;
             return '<div class="file-thumb-progress hide">' + self.progressTemplate.replace(/\{percent}/g, '0')
-                .replace(/\{status}/g, self.msgUploadBegin) + '</div>';
+                    .replace(/\{status}/g, self.msgUploadBegin) + '</div>';
         },
         _renderFileFooter: function (caption, size, width, isError) {
             var self = this, config = self.fileActionSettings, rem = config.showRemove, drg = config.showDrag,
@@ -3038,7 +3034,7 @@
                 if (file !== undefined) {
                     newstack[i] = file;
                     newnames[i] = self._getFileName(file);
-                    $thumb.attr({ 'id': self.previewInitId + '-' + i, 'data-fileindex': i});
+                    $thumb.attr({'id': self.previewInitId + '-' + i, 'data-fileindex': i});
                     i++;
                 } else {
                     $thumb.attr({'data-fileindex': '-1'});
@@ -3271,7 +3267,7 @@
             if ($form && $form.length) {
                 $form.off(ns);
             }
-            $el.insertBefore($cont).off($h.NAMESPACE).removeData();
+            $el.insertBefore($cont).off(ns).removeData();
             $cont.off().remove();
             return $el;
         },
