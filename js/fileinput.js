@@ -1775,7 +1775,7 @@
             if (!self.showPreview) {
                 return;
             }
-            self._getThumbs($h.FRAMES + ' .file-preview-success').each(function () {
+            self._getThumbs($h.FRAMES + '.file-preview-success').each(function () {
                 var $thumb = $(this), $preview = self.$preview, $remove = $thumb.find('.kv-file-remove');
                 $remove.removeAttr('disabled');
                 self._handler($remove, 'click', function () {
