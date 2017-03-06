@@ -2194,6 +2194,8 @@
             }
             if (typeof func === 'function') {
                 out = func(size);
+            } else if (size === 0) {
+                out = '0.00 B';
             } else {
                 i = Math.floor(Math.log(size) / Math.log(1024));
                 sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
