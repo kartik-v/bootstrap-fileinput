@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.9
 
-**Date:** 02-Mar-2017 (_under development_)
+**Date:** 06-Mar-2017 (_under development_)
 
 1. (enh #863): New plugin method `zoom` with parameter `frameId` to allow custom triggering of zoomed preview for each thumbnail frame.
 2. (enh #881): Update Spanish Translations.
@@ -14,6 +14,9 @@ Change Log: `bootstrap-fileinput`
 7. Enhance events like `fileclear` and `filepreajax` to be aborted via `event.preventDefault()`.
 8. (enh #887): New properties `msgUploadBegin` and `msgUploadEnd` to display a better progress status. The `layoutTemplates.progress` will support a new token `{status}`.
 9. Enhance uploaded thumb frames to not reset or change the frame identifier after successful upload.
+10. (bug #890): Fix doubling of images for async bulk uploads when initial preview is returned via ajax response.
+11. (bug #893): Correct `file-success-remove` event handling.
+12. (enh #894, #895): Correct file size validation for empty files.
 
 ## version 4.3.8
 

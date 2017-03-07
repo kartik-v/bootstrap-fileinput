@@ -1,0 +1,110 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Users\\Kartik\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'publish' ]
+2 info using npm@3.3.10
+3 info using node@v4.2.1
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: 'C:\\UniServerZ\\www\\github\\bootstrap-fileinput',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory C:\Users\Kartik\AppData\Roaming\npm-cache\bootstrap-fileinput\4.3.8\package.tgz not in flight; packing
+9 info lifecycle bootstrap-fileinput@4.3.8~prepublish: bootstrap-fileinput@4.3.8
+10 silly lifecycle bootstrap-fileinput@4.3.8~prepublish: no script for prepublish, continuing
+11 verbose tar pack [ 'C:\\Users\\Kartik\\AppData\\Roaming\\npm-cache\\bootstrap-fileinput\\4.3.8\\package.tgz',
+11 verbose tar pack   'C:\\UniServerZ\\www\\github\\bootstrap-fileinput' ]
+12 verbose tarball C:\Users\Kartik\AppData\Roaming\npm-cache\bootstrap-fileinput\4.3.8\package.tgz
+13 verbose folder C:\UniServerZ\www\github\bootstrap-fileinput
+14 verbose addLocalTarball adding from inside cache C:\Users\Kartik\AppData\Roaming\npm-cache\bootstrap-fileinput\4.3.8\package.tgz
+15 silly cache afterAdd bootstrap-fileinput@4.3.8
+16 verbose afterAdd C:\Users\Kartik\AppData\Roaming\npm-cache\bootstrap-fileinput\4.3.8\package\package.json not in flight; writing
+17 verbose afterAdd C:\Users\Kartik\AppData\Roaming\npm-cache\bootstrap-fileinput\4.3.8\package\package.json written
+18 silly publish { name: 'bootstrap-fileinput',
+18 silly publish   version: '4.3.8',
+18 silly publish   homepage: 'https://github.com/kartik-v/bootstrap-fileinput',
+18 silly publish   authors: [ 'Kartik Visweswaran <kartikv2@gmail.com>' ],
+18 silly publish   description: 'An enhanced HTML 5 file input for Bootstrap 3.x with file preview, multiple selection, ajax uploads, and more features.',
+18 silly publish   repository:
+18 silly publish    { type: 'git',
+18 silly publish      url: 'git+https://github.com/kartik-v/bootstrap-fileinput.git' },
+18 silly publish   bugs: { url: 'https://github.com/kartik-v/bootstrap-fileinput/issues' },
+18 silly publish   keywords:
+18 silly publish    [ 'bootstrap',
+18 silly publish      'file',
+18 silly publish      'input',
+18 silly publish      'preview',
+18 silly publish      'image',
+18 silly publish      'upload',
+18 silly publish      'ajax',
+18 silly publish      'multiple',
+18 silly publish      'delete',
+18 silly publish      'progress',
+18 silly publish      'gallery' ],
+18 silly publish   main: './js/fileinput.js',
+18 silly publish   style: './css/fileinput.css',
+18 silly publish   peerDependencies: { jquery: '>= 1.9.0', bootstrap: '~3' },
+18 silly publish   license: 'BSD-3-Clause',
+18 silly publish   readme: 'bootstrap-fileinput\r\n===================\r\n\r\n[![Bower version](https://badge.fury.io/bo/bootstrap-fileinput.svg)](http://badge.fury.io/bo/bootstrap-fileinput)\r\n[![Latest Stable Version](https://poser.pugx.org/kartik-v/bootstrap-fileinput/v/stable)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)\r\n[![License](https://poser.pugx.org/kartik-v/bootstrap-fileinput/license)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)\r\n[![Packagist Downloads](https://poser.pugx.org/kartik-v/bootstrap-fileinput/downloads)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)\r\n[![Monthly Downloads](https://poser.pugx.org/kartik-v/bootstrap-fileinput/d/monthly)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)\r\n\r\nAn enhanced HTML 5 file input for Bootstrap 3.x with file preview for various files, offers multiple selection, and more. The plugin allows you a simple way to setup an advanced file picker/upload control built to work specially with Bootstrap CSS3 styles. It enhances the file input functionality further, by offering support to preview a wide variety of files i.e. images, text, html, video, audio, flash, and objects. In addition, it includes AJAX based uploads, dragging &amp; dropping files, viewing upload progress, and selectively previewing, adding, or deleting files.\r\n\r\n![Krajee Default Theme](https://lh3.googleusercontent.com/-e_E3qNVdEMg/WKvYxZ3W-CI/AAAAAAAAAWs/KJIdNxDpLR8pkqiflpmMAS3KMFkQIab3QCJoC/w530-h430-p-rw/BootstrapFileInput-01.jpg)\r\n\r\n> NOTE: An alternative new [Krajee Explorer Theme](http://plugins.krajee.com/file-krajee-explorer-demo) (preview shown below) for `bootstrap-fileinput` has been released and available since v4.3.7. For more theming options and suggestions refer the [theming demos](http://plugins.krajee.com/file-theme-demo).\r\n\r\n![Krajee Explorer Theme](https://lh3.googleusercontent.com/-cQpItvVFhjY/WKvb0ARaI-I/AAAAAAAAAXA/moGMDgujK8EnYEyDnBReRgt_xw-V4JQ8wCJoC/w530-h318-p-rw/BootstrapFileInput-02.jpg)\r\n\r\n## Documentation and Demo\r\n\r\nView the [plugin documentation](http://plugins.krajee.com/file-input) and [plugin demos](http://plugins.krajee.com/file-input/demo) at Krajee JQuery plugins. \r\n\r\n## Pre-requisites  \r\n\r\n1. [Bootstrap 3.x](http://getbootstrap.com/)\r\n2. Latest [JQuery](http://jquery.com/)\r\n3. Most modern browsers supporting HTML5 (inputs and FileReader API) including CSS3 & JQuery. For Internet Explorer, one must use IE versions 10 and above. IE9 and below will work as a normal file input, and will not support multiple file selection or the HTML 5 FileReader API.\r\n4. With release 4.0, AJAX uploads are supported. AJAX uploads require that the browser support HTML5 FormData and XHR2 (XMLHttpRequest 2). Most modern browsers support FormData and XHR2. The plugin will automatically degrade to normal form based submission for browsers not supporting AJAX uploads\r\n\r\n> NOTE: \r\n> - The latest version of the plugin is v4.3.8. Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. \r\n> - You can use the [sass branch](https://github.com/kartik-v/bootstrap-fileinput/tree/sass) for installation using `bootstrap-sass` dependency.\r\nThe [master branch](https://github.com/kartik-v/bootstrap-fileinput/tree/master) can be used for installation using plain `bootstrap` dependency.\r\n\r\n## Installation\r\n\r\n### Using Bower\r\nYou can use the `bower` package manager to install. Run:\r\n\r\n    bower install bootstrap-fileinput\r\n\r\n### Using Composer\r\nYou can use the `composer` package manager to install. Either run:\r\n\r\n    $ php composer.phar require kartik-v/bootstrap-fileinput "@dev"\r\n\r\nor add:\r\n\r\n    "kartik-v/bootstrap-fileinput": "@dev"\r\n\r\nto your composer.json file\r\n\r\n### Manual Install\r\n\r\nYou can also manually install the plugin easily to your project. Just download the source [ZIP](https://github.com/kartik-v/bootstrap-fileinput/zipball/master) or [TAR ball](https://github.com/kartik-v/bootstrap-fileinput/tarball/master) and extract the plugin assets (css and js folders) into your project.\r\n\r\n## Usage\r\n\r\nStep 1: Load the following assets in your header. \r\n\r\n```html\r\n<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">\r\n<link href="path/to/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />\r\n<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>\r\n<!-- canvas-to-blob.min.js is only needed if you wish to resize images before upload.\r\n     This must be loaded before fileinput.min.js -->\r\n<script src="path/to/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>\r\n<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.\r\n     This must be loaded before fileinput.min.js -->\r\n<script src="path/to/js/plugins/sortable.min.js" type="text/javascript"></script>\r\n<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.\r\n     This must be loaded before fileinput.min.js -->\r\n<script src="path/to/js/plugins/purify.min.js" type="text/javascript"></script>\r\n<!-- the main fileinput plugin file -->\r\n<script src="path/to/js/fileinput.min.js"></script>\r\n<!-- bootstrap.js below is needed if you wish to zoom and view file content \r\n     in a larger detailed modal dialog -->\r\n<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>\r\n<!-- optionally if you need a theme like font awesome theme you can include \r\n    it as mentioned below -->\r\n<script src="path/to/themes/fa/theme.js"></script>\r\n<!-- optionally if you need translation for your language then include \r\n    locale file as mentioned below -->\r\n<script src="path/to/js/locales/<lang>.js"></script>\r\n```\r\n\r\nIf you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`. The theme file `themes/fa/theme.js` can be optionally included for the font awesome icons styling. The locale file `<lang>.js` can be optionally included for translating for your language if needed.\r\n\r\n**Optional Dependent Plugins**\r\n\r\n- The `canvas-to-blob.min.js` file is the source for the [JavaScript-Canvas-to-Blob plugin by blueimp](https://github.com/blueimp/JavaScript-Canvas-to-Blob). It is required to be loaded before `fileinput.min.js` if you wish to use the image resize feature of the **bootstrap-fileinput** plugin. \r\n- The `sortable.min.js` file is the source for the [Sortable plugin by rubaxa](https://github.com/rubaxa/Sortable). It is required to be loaded before `fileinput.min.js` if you wish to sort the thumbnails in the initial preview.\r\n- The `purify.min.js` file is the source for the [DomPurify plugin by cure53](https://github.com/cure53/DOMPurify). It is required to be loaded before `fileinput.min.js` if you wish to purify your HTML for HTML content preview.\r\n\r\nFor ease of access, the sources for the above plugins are included in the `js/plugins` folder of this project repository.\r\n\r\nStep 2: Initialize the plugin on your page. For example,\r\n\r\n```js\r\n// initialize with defaults\r\n$("#input-id").fileinput();\r\n\r\n// with plugin options\r\n$("#input-id").fileinput({\'showUpload\':false, \'previewFileType\':\'any\'});\r\n```\r\n\r\nThe `#input-id` is the identifier for the input (e.g. `type = file`) on your page, which is hidden automatically by the plugin. \r\n\r\nAlternatively, you can directly call the plugin options by setting data attributes to your input field.\r\n\r\n```html\r\n<input id="input-id" type="file" class="file" data-preview-file-type="text" >\r\n```\r\n\r\n## License\r\n\r\n**bootstrap-fileinput** is released under the BSD 3-Clause License. See the bundled `LICENSE.md` for details.\r\n',
+18 silly publish   readmeFilename: 'README.md',
+18 silly publish   gitHead: '219447a8c21b1c82e534dc2e6a73386933fc9c5e',
+18 silly publish   _id: 'bootstrap-fileinput@4.3.8',
+18 silly publish   scripts: {},
+18 silly publish   _shasum: '0b990f7c4f7c89cfcc5e4b72ad6c3a703fd63261',
+18 silly publish   _from: '.' }
+19 verbose getPublishConfig undefined
+20 silly mapToRegistry name bootstrap-fileinput
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/bootstrap-fileinput
+24 verbose publish registryBase https://registry.npmjs.org/
+25 silly publish uploading C:\Users\Kartik\AppData\Roaming\npm-cache\bootstrap-fileinput\4.3.8\package.tgz
+26 verbose request uri https://registry.npmjs.org/bootstrap-fileinput
+27 verbose request sending authorization for write operation
+28 info attempt registry request try #1 at 12:26:21 PM
+29 verbose request using bearer token for auth
+30 verbose request id dd77e12d1bbe07bd
+31 http request PUT https://registry.npmjs.org/bootstrap-fileinput
+32 http 403 https://registry.npmjs.org/bootstrap-fileinput
+33 verbose headers { 'content-type': 'application/json',
+33 verbose headers   'cache-control': 'max-age=300',
+33 verbose headers   'content-length': '95',
+33 verbose headers   'accept-ranges': 'bytes',
+33 verbose headers   date: 'Tue, 21 Feb 2017 06:56:26 GMT',
+33 verbose headers   via: '1.1 varnish',
+33 verbose headers   connection: 'keep-alive',
+33 verbose headers   'x-served-by': 'cache-sin6926-SIN',
+33 verbose headers   'x-cache': 'MISS',
+33 verbose headers   'x-cache-hits': '0',
+33 verbose headers   'x-timer': 'S1487660182.524193,VS0,VE3515',
+33 verbose headers   vary: 'Accept-Encoding' }
+34 verbose request invalidating C:\Users\Kartik\AppData\Roaming\npm-cache\registry.npmjs.org\bootstrap-fileinput on PUT
+35 error publish Failed PUT 403
+36 verbose stack Error: "You cannot publish over the previously published version 4.3.8." : bootstrap-fileinput
+36 verbose stack     at makeError (C:\Users\Kartik\AppData\Roaming\npm\node_modules\npm\node_modules\npm-registry-client\lib\request.js:264:12)
+36 verbose stack     at CachingRegistryClient.<anonymous> (C:\Users\Kartik\AppData\Roaming\npm\node_modules\npm\node_modules\npm-registry-client\lib\request.js:252:14)
+36 verbose stack     at Request._callback (C:\Users\Kartik\AppData\Roaming\npm\node_modules\npm\node_modules\npm-registry-client\lib\request.js:172:14)
+36 verbose stack     at Request.self.callback (C:\Users\Kartik\AppData\Roaming\npm\node_modules\npm\node_modules\request\request.js:198:22)
+36 verbose stack     at emitTwo (events.js:87:13)
+36 verbose stack     at Request.emit (events.js:172:7)
+36 verbose stack     at Request.<anonymous> (C:\Users\Kartik\AppData\Roaming\npm\node_modules\npm\node_modules\request\request.js:1082:10)
+36 verbose stack     at emitOne (events.js:82:20)
+36 verbose stack     at Request.emit (events.js:169:7)
+36 verbose stack     at IncomingMessage.<anonymous> (C:\Users\Kartik\AppData\Roaming\npm\node_modules\npm\node_modules\request\request.js:1009:12)
+37 verbose statusCode 403
+38 verbose pkgid bootstrap-fileinput
+39 verbose cwd C:\UniServerZ\www\github\bootstrap-fileinput
+40 error Windows_NT 10.0.14393
+41 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\Kartik\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "publish"
+42 error node v4.2.1
+43 error npm  v3.3.10
+44 error code E403
+45 error "You cannot publish over the previously published version 4.3.8." : bootstrap-fileinput
+46 error If you need help, you may report this error at:
+46 error     <https://github.com/npm/npm/issues>
+47 verbose exit [ 1, true ]
