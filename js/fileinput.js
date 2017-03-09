@@ -1496,6 +1496,16 @@
             self.ajaxRequests = [];
             self._resetCanvas();
             self.cacheInitialPreview = {};
+            if (self.overwriteInitial) {
+                self.initialPreview = [];
+                self.initialPreviewConfig = [];
+                self.initialPreviewThumbTags = [];
+                self.previewCache.data = {
+                    content: [],
+                    config: [],
+                    tags: []
+                };
+            }
         },
         _resetCanvas: function () {
             var self = this;
@@ -1660,7 +1670,6 @@
                 if (content.length > 0 && !$h.isArray(content)) {
                     content = content.split(self.initialPreviewDelimiter);
                 }
-                self.overwriteInitial = false;
                 self._mergeArray('initialPreview', content);
                 self._mergeArray('initialPreviewConfig', config);
                 self._mergeArray('initialPreviewThumbTags', tags);
@@ -3260,12 +3269,11 @@
                 self._noFilesError(params);
                 return;
             }
+            self._resetUpload();
             if (totLen === 0 && !hasExtraData) {
-                self._resetUpload();
                 self._showUploadError(self.msgUploadEmpty);
                 return;
             }
-            self._resetUpload();
             self.$progress.removeClass('hide');
             self.uploadCount = 0;
             self.uploadStatus = {};
@@ -3292,6 +3300,7 @@
                 self.$preview.find('.file-preview-initial').removeClass($h.SORT_CSS);
                 self._initSortable();
                 self.cacheInitialPreview = self.getPreview();
+                
                 for (i = 0; i < len; i++) {
                     if (self.filestack[i] !== undefined) {
                         self._uploadSingle(i, self.filestack, true);

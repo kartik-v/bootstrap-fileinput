@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.3.9
 
-**Date:** 07-Mar-2017 (_under development_)
+**Date:** 09-Mar-2017 (_under development_)
 
 1. (enh #863): New plugin method `zoom` with parameter `frameId` to allow custom triggering of zoomed preview for each thumbnail frame.
 2. (enh #881): Update Spanish Translations.
@@ -18,6 +18,7 @@ Change Log: `bootstrap-fileinput`
 11. (bug #893): Correct `file-success-remove` event handling.
 12. (enh #894, #895): Correct file size validation for empty files.
 13. (enh #898): New plugin method to get files in preview and config.
+14. (bug #900): Correct `overwriteInitial` validation for async batch uploads returning dynamic initial preview post upload.
 
 ## version 4.3.8
 
