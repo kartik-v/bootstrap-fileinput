@@ -1241,7 +1241,7 @@
             }
             $h.initModal(self.$modal);
             self.$modal.html(self._getModalContent());
-            $.each($h.MODAL_EVENTS, function (event) {
+            $.each($h.MODAL_EVENTS, function (key, event) {
                 self._listenModalEvent(event);
             });
         },
