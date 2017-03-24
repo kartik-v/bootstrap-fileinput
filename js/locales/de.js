@@ -15,7 +15,7 @@
         browseLabel: 'Auswählen &hellip;',
         removeLabel: 'Löschen',
         removeTitle: 'Ausgewählte löschen',
-        cancelLabel: 'Laden',
+        cancelLabel: 'Abbrechen',
         cancelTitle: 'Hochladen abbrechen',
         uploadLabel: 'Hochladen',
         uploadTitle: 'Hochladen der ausgewählten Dateien',
