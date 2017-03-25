@@ -48,6 +48,8 @@
         },
         msgUploadAborted: 'Nalaganje datoteke je bilo preklicano',
         msgUploadThreshold: 'Procesiram...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Napaki pri validiranju',
         msgLoading: 'Nalaganje datoteke {index} od {files} &hellip;',
@@ -64,7 +66,7 @@
         msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
-            uploadThumb: 'single file upload',
+            uploadThumb: 'file upload',
             uploadBatch: 'batch file upload',
             uploadExtra: 'form data upload'
         },

@@ -1,6 +1,29 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.3.9
+
+**Date:** 25-Mar-2017 (_under development_)
+
+1. (enh #863): New plugin method `zoom` with parameter `frameId` to allow custom triggering of zoomed preview for each thumbnail frame.
+2. (enh #881): Update Spanish Translations.
+3. (bug #882): Correct image resize validation.
+4. (enh #875): Reset form based events more correctly to allow multiple bootstrap file inputs within forms.
+5. (bug #885): Correct validation for `allowedFileTypes`. 
+6. (enh #886): Append zoom modal dialog to `body` element if available to avoid multiple BS modals conflict. 
+7. Enhance events like `fileclear` and `filepreajax` to be aborted via `event.preventDefault()`.
+8. (enh #887): New properties `msgUploadBegin` and `msgUploadEnd` to display a better progress status. The `layoutTemplates.progress` will support a new token `{status}`.
+9. Enhance uploaded thumb frames to not reset or change the frame identifier after successful upload.
+10. (bug #890): Fix doubling of images for async bulk uploads when initial preview is returned via ajax response.
+11. (bug #893): Correct `file-success-remove` event handling.
+12. (enh #894, #895): Correct file size validation for empty files.
+13. (enh #898): New plugin method to get files in preview and config.
+14. (bug #900): Correct `overwriteInitial` validation for async batch uploads returning dynamic initial preview post upload.
+15. (enh #902): Enhance zoom preview styling for large height images.
+16. (enh #905): Prevent duplicate files to be dragged and dropped.
+17. (enh #906): Add Swedish Translations.
+18. (enh #909): Update German Translations.
+
 ## version 4.3.8
 
 **Date:** 21-Feb-2017

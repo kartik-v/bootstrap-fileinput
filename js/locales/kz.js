@@ -38,6 +38,8 @@
         msgInvalidFileExtension: '"{name}" тыйым салынған файл кеңейтімі. Тек "{extensions}" рұқсат.',
         msgUploadAborted: 'Файлды жүктеу доғарылды',
         msgUploadThreshold: 'Өңдеу...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Тексеру қатесі',
         msgLoading: '{index} файлды {files} &hellip; жүктеу',
@@ -54,7 +56,7 @@
         msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
-            uploadThumb: 'single file upload',
+            uploadThumb: 'file upload',
             uploadBatch: 'batch file upload',
             uploadExtra: 'form data upload'
         },

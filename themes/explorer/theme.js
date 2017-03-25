@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.3.8
+ * bootstrap-fileinput v4.3.9
  * http://plugins.krajee.com/file-input
  *
  * Krajee Explorer theme configuration for bootstrap-fileinput. Load this theme file after loading `fileinput.js`.

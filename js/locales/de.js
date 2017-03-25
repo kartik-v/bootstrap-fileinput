@@ -15,7 +15,7 @@
         browseLabel: 'Auswählen &hellip;',
         removeLabel: 'Löschen',
         removeTitle: 'Ausgewählte löschen',
-        cancelLabel: 'Laden',
+        cancelLabel: 'Abbrechen',
         cancelTitle: 'Hochladen abbrechen',
         uploadLabel: 'Hochladen',
         uploadTitle: 'Hochladen der ausgewählten Dateien',
@@ -47,6 +47,8 @@
         },
         msgUploadAborted: 'Der Datei-Upload wurde abgebrochen',
         msgUploadThreshold: 'Processing...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Validierungs fehler',
         msgLoading: 'Lade Datei {index} von {files} hoch&hellip;',
@@ -63,7 +65,7 @@
         msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
-            uploadThumb: 'single file upload',
+            uploadThumb: 'file upload',
             uploadBatch: 'batch file upload',
             uploadExtra: 'form data upload'
         },

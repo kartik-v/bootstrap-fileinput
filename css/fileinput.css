@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.3.8
+ * bootstrap-fileinput v4.3.9
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -436,6 +436,11 @@
 .file-zoom-content {
     height: 480px;
     text-align: center;
+}
+
+.file-zoom-content .file-preview-image, .file-preview-
+.file-zoom-content .file-preview-video {
+    max-height: 100%
 }
 
 .file-preview-initial.sortable-chosen {

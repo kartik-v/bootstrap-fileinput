@@ -49,6 +49,8 @@
         },
         msgUploadAborted: '파일 업로드가 중단되었습니다.',
         msgUploadThreshold: '업로드 중...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: '업로드 가능 데이터가 존재하지 않습니다.',
         msgValidationError: '유효성 오류',
         msgLoading: '파일 {files} 중 {index}번째를 로딩하고 있습니다. &hellip;',
@@ -65,7 +67,7 @@
         msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
-            uploadThumb: 'single file upload',
+            uploadThumb: 'file upload',
             uploadBatch: 'batch file upload',
             uploadExtra: 'form data upload'
         },

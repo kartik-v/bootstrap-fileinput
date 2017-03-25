@@ -56,6 +56,8 @@
         },
         msgUploadAborted: 'ファイルのアップロードが中止されました',
         msgUploadThreshold: 'Processing...',
+        msgUploadBegin: 'Initializing...',
+        msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: '検証エラー',
         msgLoading: '{files}個中{index}個目のファイルを読み込み中&hellip;',
@@ -72,7 +74,7 @@
         msgAjaxProgressError: '{operation} failed',
         ajaxOperations: {
             deleteThumb: 'file delete',
-            uploadThumb: 'single file upload',
+            uploadThumb: 'file upload',
             uploadBatch: 'batch file upload',
             uploadExtra: 'form data upload'
         },

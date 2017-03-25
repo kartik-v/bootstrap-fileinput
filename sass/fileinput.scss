@@ -1,6 +1,8 @@
 /*!
- * bootstrap-fileinput v4.3.8
+ * bootstrap-fileinput v4.3.9
  * http://plugins.krajee.com/file-input
+ *
+ * Krajee default styling for bootstrap-fileinput.
  *
  * Author: Kartik Visweswaran
  * Copyright: 2014 - 2017, Kartik Visweswaran, Krajee.com
@@ -29,6 +31,7 @@
 .btn-file {
   position: relative;
   overflow: hidden;
+
   input[type=file] {
     position: absolute;
     top: 0;
@@ -65,10 +68,12 @@
   border: 1px solid #ebccd1;
   border-radius: 4px;
   padding: 15px;
+
   pre, ul {
     margin: 0;
     text-align: left;
   }
+
   pre {
     margin: 5px 0;
   }
@@ -88,74 +93,193 @@
   margin-bottom: 5px;
 }
 
-.file-preview-frame {
-  position: relative;
-  display: table;
-  margin: 8px;
-  height: 160px;
-  border: 1px solid #ddd;
-  box-shadow: 1px 1px 5px 0 #a2958a;
-  padding: 6px;
-  float: left;
-  text-align: center;
-  vertical-align: middle;
-  &:not(.file-preview-error):hover {
-    box-shadow: 3px 3px 5px 0 #333;
+.krajee-default {
+  &.file-preview-frame {
+    position: relative;
+    display: table;
+    margin: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 5px 0 #a2958a;
+    padding: 6px;
+    float: left;
+    text-align: center;
+
+    &:not(.file-preview-error):hover {
+      box-shadow: 3px 3px 5px 0 #333;
+    }
+
+    .kv-file-content {
+      height: 170px;
+    }
+
+    .file-thumbnail-footer {
+      height: 70px;
+    }
   }
-}
 
-.file-preview-image {
-  vertical-align: middle;
-  image-orientation: from-image;
-}
-
-.file-preview-text {
-  display: block;
-  color: #428bca;
-  border: 1px solid #ddd;
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  outline: none;
-  padding: 8px;
-  resize: none;
-}
-
-.file-preview-html {
-  border: 1px solid #ddd;
-  padding: 8px;
-  overflow: auto;
-}
-
-.file-zoom-dialog .file-preview-text {
-  font-size: 1.2em;
-}
-
-.file-preview-other {
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  text-align: center;
-  vertical-align: middle;
-  padding: 10px;
-  &:hover {
-    opacity: 0.8;
+  .file-preview-image {
+    vertical-align: middle;
+    image-orientation: from-image;
   }
-}
 
-.file-actions, .file-other-error {
-  text-align: left;
-}
+  .file-preview-text {
+    display: block;
+    color: #428bca;
+    border: 1px solid #ddd;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    outline: none;
+    padding: 8px;
+    resize: none;
+  }
 
-.file-other-icon {
-  font-size: 4.8em;
+  .file-preview-html {
+    border: 1px solid #ddd;
+    padding: 8px;
+    overflow: auto;
+  }
+
+  &[data-template="audio"] .file-preview-audio {
+    display: table-cell;
+    vertical-align: middle;
+    height: 170px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .file-preview-audio audio {
+    vertical-align: middle;
+  }
+
+  .file-zoom-dialog .file-preview-text {
+    font-size: 1.2em;
+  }
+
+  .file-preview-other {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .file-actions, .file-other-error {
+    text-align: left;
+  }
+
+  .file-other-icon {
+    font-size: 8em;
+  }
+
+  .file-actions {
+    margin-top: 15px;
+  }
+
+  .file-footer-buttons {
+    float: right;
+  }
+
+  .file-footer-caption {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 160px;
+    text-align: center;
+    padding-top: 4px;
+    font-size: 11px;
+    color: #777;
+    margin: 5px auto;
+  }
+
+  .file-preview-error {
+    opacity: 0.65;
+    box-shadow: none;
+  }
+
+  .file-preview-frame:not(.file-preview-error) .file-footer-caption:hover {
+    color: #000;
+  }
+
+  .file-drag-handle, .file-upload-indicator {
+    position: absolute;
+    text-align: center;
+    bottom: -6px;
+    left: -6px;
+    padding: 8px 8px 1px 3px;
+    border-left: none;
+    border-bottom: none;
+    border-right: 1px solid #8a6d3b;
+    border-top: 1px solid #8a6d3b;
+    border-top-right-radius: 24px;
+    font-size: 12px;
+  }
+
+  .file-drag-handle {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+  }
+
+  .file-upload-indicator {
+    font-size: 13px;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    padding-bottom: 0;
+  }
+
+  &.file-preview-error .file-upload-indicator {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }
+
+  &.file-preview-success .file-upload-indicator {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+
+  &.file-preview-loading .file-upload-indicator {
+    background-color: #e5e5e5;
+    border-color: #777;
+  }
+
+  .file-thumb-progress {
+    height: 10px;
+
+    .progress, .progress-bar {
+      height: 10px;
+      font-size: 9px;
+      line-height: 10px;
+    }
+  }
+
+  .file-thumbnail-footer {
+    position: relative;
+  }
+
+  .file-thumb-progress {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    right: 0;
+  }
+
+  &.kvsortable-ghost {
+    background: #e1edf7;
+    border: 2px solid #a1abff;
+  }
 }
 
 /* noinspection CssOverwrittenProperties */
 
 .file-zoom-dialog .file-other-icon {
   font-size: 8em;
-  font-size: 55vmin;
+  font-size: 65vmin;
 }
 
 .file-input-new {
@@ -187,45 +311,14 @@
   background: transparent url('../img/loading.gif') no-repeat scroll center center content-box !important;
 }
 
-.file-actions {
-  margin-top: 15px;
-}
+.file-sortable .file-drag-handle {
+  cursor: move;
+  cursor: -webkit-grabbing;
+  opacity: 1;
 
-.file-footer-buttons {
-  float: right;
-}
-
-.file-upload-indicator {
-  display: inline;
-  cursor: default;
-  opacity: 0.8;
-  width: 60%;
   &:hover {
-    font-weight: bold;
-    opacity: 1;
+    opacity: 0.7;
   }
-}
-
-.file-footer-caption {
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 160px;
-  text-align: center;
-  padding-top: 4px;
-  font-size: 11px;
-  color: #777;
-  margin: 5px auto;
-}
-
-.file-preview-error {
-  opacity: 0.65;
-  box-shadow: none;
-}
-
-.file-preview-frame:not(.file-preview-error) .file-footer-caption:hover {
-  color: #000;
 }
 
 .file-drop-zone {
@@ -254,10 +347,12 @@
     &:hover {
       border: 2px dashed #999;
     }
+
     &:focus {
       border: 2px solid #5acde2;
     }
   }
+
   .file-preview-thumbnails {
     cursor: default;
   }
@@ -273,26 +368,6 @@
   opacity: 0.65;
 }
 
-.file-thumb-progress {
-  height: 10px;
-  .progress, .progress-bar {
-    height: 10px;
-    font-size: 9px;
-    line-height: 10px;
-  }
-}
-
-.file-thumbnail-footer {
-  position: relative;
-}
-
-.file-thumb-progress {
-  position: absolute;
-  top: 35px;
-  left: 0;
-  right: 0;
-}
-
 .file-zoom-fullscreen {
   &.modal {
     position: fixed;
@@ -301,6 +376,7 @@
     bottom: 0;
     left: 0;
   }
+
   .modal-dialog {
     position: fixed;
     margin: 0;
@@ -308,10 +384,12 @@
     height: 100%;
     padding: 0;
   }
+
   .modal-content {
     border-radius: 0;
     box-shadow: none;
   }
+
   .modal-body {
     overflow-y: auto;
   }
@@ -321,6 +399,7 @@
   .modal-body {
     position: relative !important;
   }
+
   .btn-navigate {
     position: absolute;
     padding: 0;
@@ -333,6 +412,7 @@
     font-size: 4em;
     color: #1c94c4;
   }
+
   .floating-buttons {
     position: absolute;
     top: 5px;
@@ -342,6 +422,7 @@
 
 .floating-buttons {
   z-index: 3000;
+
   .btn {
     z-index: 3000;
   }
@@ -360,46 +441,36 @@
         opacity: 0.5;
       }
     }
+
     &[disabled] {
       opacity: 0.3;
     }
   }
+
   .btn-prev {
     left: 1px;
   }
+
   .btn-next {
     right: 1px;
-  }
-}
-
-.file-drag-handle {
-  display: inline;
-  margin-right: 2px;
-  font-size: 16px;
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.file-sortable .file-drag-handle {
-  cursor: move;
-  cursor: -webkit-grabbing;
-  opacity: 1;
-  &:hover {
-    opacity: 0.7;
   }
 }
 
 .file-zoom-content {
   height: 480px;
   text-align: center;
+
+  .file-preview-image {
+    max-height: 100%;
+  }
+}
+
+.file-preview- .file-zoom-content .file-preview-video {
+  max-height: 100%;
 }
 
 .file-preview-initial.sortable-chosen {
   background-color: #d9edf7;
-}
-
-.file-preview-frame.sortable-ghost {
-  background-color: #eee;
 }
 
 /* IE 10 fix */
