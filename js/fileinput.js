@@ -381,7 +381,7 @@
                 '    </div>\n' +
                 '    <div class="modal-body">\n' +
                 '      <div class="floating-buttons"></div>\n' +
-                '      <div class="kv-zoom-body file-zoom-content"></div>\n' + '{prev} {next}\n' +
+                '      <div class="kv-zoom-body file-zoom-content {zoomFrameClass}"></div>\n' + '{prev} {next}\n' +
                 '    </div>\n' +
                 '  </div>\n' +
                 '</div>\n';
@@ -1196,6 +1196,7 @@
         _getModalContent: function () {
             var self = this;
             return self._getLayoutTemplate('modal')
+                .replace(/\{zoomFrameClass}/g, self.frameClass)
                 .replace(/\{heading}/g, self.msgZoomModalHeading)
                 .replace(/\{prev}/g, self._getZoomButton('prev'))
                 .replace(/\{next}/g, self._getZoomButton('next'))
@@ -1237,7 +1238,7 @@
             self.$modal = $(modalId);
             if (!self.$modal || !self.$modal.length) {
                 $dialog = $(document.createElement('div')).html(modalMain).insertAfter(self.$container);
-                self.$modal = $('#' + $h.MODAL_ID).insertBefore($dialog);
+                self.$modal = $(modalId).insertBefore($dialog);
                 $dialog.remove();
             }
             $h.initModal(self.$modal);
@@ -2994,6 +2995,12 @@
         },
         _browse: function (e) {
             var self = this;
+            if (self.isDisabled) {
+                if (e) {
+                    e.preventDefault();
+                }
+                return;
+            }
             self._raise('filebrowse');
             if (e && e.isDefaultPrevented()) {
                 return;
@@ -3044,10 +3051,10 @@
                     }
                 });
             } else {
-                if (e.target.files === undefined) {
-                    files = e.target && e.target.value ? [{name: e.target.value.replace(/^.+\\/, '')}] : [];
+                if (e.target && e.target.files === undefined) {
+                    files = e.target.value ? [{name: e.target.value.replace(/^.+\\/, '')}] : [];
                 } else {
-                    files = e.target.files;
+                    files = e.target.files || {};
                 }
                 $.each(files, function (i, f) {
                     self._filterDuplicate(f, tfiles, fileIds);
