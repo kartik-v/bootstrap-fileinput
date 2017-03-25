@@ -438,6 +438,11 @@
     text-align: center;
 }
 
+.file-zoom-content .file-preview-image, .file-preview-
+.file-zoom-content .file-preview-video {
+    max-height: 100%
+}
+
 .file-preview-initial.sortable-chosen {
     background-color: #d9edf7;
 }

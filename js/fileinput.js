@@ -123,7 +123,8 @@
             /** @namespace div.draggable */
             /** @namespace div.ondragstart */
             /** @namespace div.ondrop */
-            return !$h.isIE(9) && (div.draggable !== undefined || (div.ondragstart !== undefined && div.ondrop !== undefined));
+            return !$h.isIE(9) &&
+                (div.draggable !== undefined || (div.ondragstart !== undefined && div.ondrop !== undefined));
         },
         hasFileUploadSupport: function () {
             return $h.hasFileAPISupport() && window.FormData;
@@ -2641,8 +2642,29 @@
             }
             return fileCount;
         },
+        _getFileId: function (file) {
+            var self = this, custom = self.generateFileId, relativePath;
+            if (typeof custom === 'function') {
+                return custom(file, event);
+            }
+            if (!file) {
+                return null;
+            }
+            /** @namespace file.webkitRelativePath */
+            relativePath = file.webkitRelativePath || file.fileName || file.name || null;
+            if (!relativePath) {
+                return null;
+            }
+            return (file.size + '-' + relativePath.replace(/[^0-9a-zA-Z_-]/img, ''));
+        },
         _getFileName: function (file) {
             return file && file.name ? this.slug(file.name) : undefined;
+        },
+        _getFileIds: function (skipNull) {
+            var self = this;
+            return self.fileids.filter(function (n) {
+                return (skipNull ? n !== undefined : n !== undefined && n !== null);
+            });
         },
         _getFileNames: function (skipNull) {
             var self = this;
@@ -2981,6 +3003,17 @@
             }
             self.$captionContainer.focus();
         },
+        _filterDuplicate: function (file, files, fileIds) {
+            var self = this, fileId = self._getFileId(file);
+            if (fileId && fileIds && fileIds.indexOf(fileId) > -1) {
+                return;
+            }
+            if (!fileIds) {
+                fileIds = [];
+            }
+            files.push(file);
+            fileIds.push(fileId);
+        },
         _change: function (e) {
             var self = this, $el = self.$element;
             if (!self.isUploadable && $h.isEmpty($el.val()) && self.fileInputCleared) { // IE 11 fix
@@ -2988,10 +3021,10 @@
                 return;
             }
             self.fileInputCleared = false;
-            var tfiles, msg, total, isDragDrop = arguments.length > 1, isAjaxUpload = self.isUploadable, i = 0, f, n, len,
+            var tfiles = [], msg, total, isDragDrop = arguments.length > 1, isAjaxUpload = self.isUploadable, n, len,
                 files = isDragDrop ? e.originalEvent.dataTransfer.files : $el.get(0).files, ctr = self.filestack.length,
-                isSingleUpload = $h.isEmpty($el.attr('multiple')), flagSingle = (isSingleUpload && ctr > 0), folders = 0,
-                throwError = function (mesg, file, previewId, index) {
+                isSingleUpload = $h.isEmpty($el.attr('multiple')), flagSingle = (isSingleUpload && ctr > 0),
+                folders = 0, fileIds = self._getFileIds(), throwError = function (mesg, file, previewId, index) {
                     var p1 = $.extend(true, {}, self._getOutData({}, {}, files), {id: previewId, index: index}),
                         p2 = {id: previewId, index: index, file: file, files: files};
                     return self.isUploadable ? self._showUploadError(mesg, p1) : self._showError(mesg, p2);
@@ -3003,24 +3036,22 @@
                 self.$container.find('.file-drop-zone .' + self.dropZoneTitleClass).remove();
             }
             if (isDragDrop) {
-                tfiles = [];
-                while (files[i]) {
-                    f = files[i];
-                    if (!f.type && f.size % 4096 === 0) {
+                $.each(files, function (i, f) {
+                    if (f && !f.type && f.size !== undefined && f.size % 4096 === 0) {
                         folders++;
                     } else {
-                        tfiles.push(f);
+                        self._filterDuplicate(f, tfiles, fileIds);
                     }
-                    i++;
-                }
+                });
             } else {
                 if (e.target.files === undefined) {
-                    tfiles = e.target && e.target.value ? [
-                        {name: e.target.value.replace(/^.+\\/, '')}
-                    ] : [];
+                    files = e.target && e.target.value ? [{name: e.target.value.replace(/^.+\\/, '')}] : [];
                 } else {
-                    tfiles = e.target.files;
+                    files = e.target.files;
                 }
+                $.each(files, function (i, f) {
+                    self._filterDuplicate(f, tfiles, fileIds);
+                });
             }
             if ($h.isEmpty(tfiles) || tfiles.length === 0) {
                 if (!isAjaxUpload) {
@@ -3079,16 +3110,16 @@
             return false;
         },
         _resetFileStack: function () {
-            var self = this, i = 0, newstack = [], newnames = [];
+            var self = this, i = 0, newstack = [], newnames = [], newids = [];
             self._getThumbs().each(function () {
-                var $thumb = $(this), ind = $thumb.attr('data-fileindex'),
-                    file = self.filestack[ind];
+                var $thumb = $(this), ind = $thumb.attr('data-fileindex'), file = self.filestack[ind];
                 if (ind === -1) {
                     return;
                 }
                 if (file !== undefined) {
                     newstack[i] = file;
                     newnames[i] = self._getFileName(file);
+                    newids[i] = self._getFileId(file);
                     $thumb.attr({'id': self.previewInitId + '-' + i, 'data-fileindex': i});
                     i++;
                 } else {
@@ -3097,23 +3128,27 @@
             });
             self.filestack = newstack;
             self.filenames = newnames;
+            self.fileids = newids;
         },
         clearStack: function () {
             var self = this;
             self.filestack = [];
             self.filenames = [];
+            self.fileids = [];
             return self.$element;
         },
         updateStack: function (i, file) {
             var self = this;
             self.filestack[i] = file;
             self.filenames[i] = self._getFileName(file);
+            self.fileids[i] = file && self._getFileId(file) || null;
             return self.$element;
         },
         addToStack: function (file) {
             var self = this;
             self.filestack.push(file);
             self.filenames.push(self._getFileName(file));
+            self.fileids.push(self._getFileId(file));
             return self.$element;
         },
         getFileStack: function (skipNull) {
@@ -3300,7 +3335,7 @@
                 self.$preview.find('.file-preview-initial').removeClass($h.SORT_CSS);
                 self._initSortable();
                 self.cacheInitialPreview = self.getPreview();
-                
+
                 for (i = 0; i < len; i++) {
                     if (self.filestack[i] !== undefined) {
                         self._uploadSingle(i, self.filestack, true);
@@ -3344,7 +3379,7 @@
             $modal.modal('show');
             self._initZoomButtons();
         },
-        getPreview: function() {
+        getPreview: function () {
             var self = this;
             return {
                 content: self.initialPreview,
@@ -3402,6 +3437,7 @@
         showUploadedThumbs: true,
         browseOnZoneClick: false,
         autoReplace: false,
+        generateFileId: null,
         previewClass: '',
         captionClass: '',
         frameClass: 'krajee-default',
