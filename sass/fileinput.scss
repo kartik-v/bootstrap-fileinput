@@ -392,6 +392,9 @@
 .file-zoom-content {
   height: 480px;
   text-align: center;
+  img {
+    max-height: 100%;
+  }
 }
 
 .file-preview-initial.sortable-chosen {
