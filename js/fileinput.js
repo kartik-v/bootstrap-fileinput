@@ -286,6 +286,9 @@
             self.progressErrorTemplate = t.replace('{class}', self.progressErrorClass);
             self.dropZoneEnabled = $h.hasDragDropSupport() && self.dropZoneEnabled;
             self.isDisabled = $el.attr('disabled') || $el.attr('readonly');
+            if (self.isDisabled) {
+                $el.attr('disabled', true);
+            }
             self.isUploadable = $h.hasFileUploadSupport() && !$h.isEmpty(self.uploadUrl);
             self.isClickable = self.browseOnZoneClick && self.showPreview &&
                 (self.isUploadable && self.dropZoneEnabled || !$h.isEmpty(self.defaultPreviewContent));
@@ -2995,12 +2998,6 @@
         },
         _browse: function (e) {
             var self = this;
-            if (self.isDisabled) {
-                if (e) {
-                    e.preventDefault();
-                }
-                return;
-            }
             self._raise('filebrowse');
             if (e && e.isDefaultPrevented()) {
                 return;
