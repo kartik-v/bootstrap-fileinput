@@ -909,7 +909,7 @@
             return fileName ? '<b>' + fileName + ': </b>' + errMsg : errMsg;
         },
         _parseFileType: function (file) {
-            var self = this, isValid, vType, cat, i, types = self.allowedPreviewTypes;
+            var self = this, isValid, vType, cat, i, types = self.allowedPreviewTypes || [];
             for (i = 0; i < types.length; i++) {
                 cat = types[i];
                 isValid = self.fileTypeSettings[cat];
