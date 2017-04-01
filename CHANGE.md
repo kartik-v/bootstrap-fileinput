@@ -25,6 +25,7 @@ Change Log: `bootstrap-fileinput`
 18. (enh #909): Update German Translations.
 19. More correct validation of `allowedFileTypes` to accept null values.
 20. Enhance zoom preview styling for Krajee Explorer theme.
+21. (enh #913): Better id parsing and resetting of uploaded file thumbnails.
 
 ## version 4.3.8
 
