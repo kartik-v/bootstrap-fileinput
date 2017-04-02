@@ -274,8 +274,8 @@
 
 /* noinspection CssOverwrittenProperties */
 .file-zoom-dialog .file-other-icon {
-    font-size: 8em;
-    font-size: 65vmin;
+    font-size: 22em;
+    font-size: 50vmin;
 }
 
 .file-input-new .file-preview, .file-input-new .close, .file-input-new .glyphicon-file,

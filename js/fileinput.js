@@ -909,7 +909,7 @@
             return fileName ? '<b>' + fileName + ': </b>' + errMsg : errMsg;
         },
         _parseFileType: function (file) {
-            var self = this, isValid, vType, cat, i, types = self.allowedPreviewTypes;
+            var self = this, isValid, vType, cat, i, types = self.allowedPreviewTypes || [];
             for (i = 0; i < types.length; i++) {
                 cat = types[i];
                 isValid = self.fileTypeSettings[cat];
@@ -3116,8 +3116,9 @@
         _resetFileStack: function () {
             var self = this, i = 0, newstack = [], newnames = [], newids = [];
             self._getThumbs().each(function () {
-                var $thumb = $(this), ind = $thumb.attr('data-fileindex'), file = self.filestack[ind];
-                if (ind === -1) {
+                var $thumb = $(this), ind = $thumb.attr('data-fileindex'), file = self.filestack[ind],
+                    pid = $thumb.attr('id'), newId;
+                if (ind === '-1' || ind === -1) {
                     return;
                 }
                 if (file !== undefined) {
@@ -3127,7 +3128,9 @@
                     $thumb.attr({'id': self.previewInitId + '-' + i, 'data-fileindex': i});
                     i++;
                 } else {
-                    $thumb.attr({'data-fileindex': '-1'});
+                    newId = 'uploaded-' + $h.uniqId();
+                    $thumb.attr({'id': newId, 'data-fileindex': '-1'});
+                    self.$preview.find('#zoom-' + pid).attr('id', 'zoom-' + newId);
                 }
             });
             self.filestack = newstack;
