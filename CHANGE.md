@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.4.0 (_under development_)
+
+**Date:** 02-Apr-2017
+
+1. (enh #915): Update default styling for zoom preview for object.
+
 ## version 4.3.9
 
 **Date:** 02-Apr-2017
