@@ -251,7 +251,18 @@
                 switch (key) {
                     case 'minFileCount':
                     case 'maxFileCount':
+                    case 'minFileSize':
                     case 'maxFileSize':
+                    case 'maxFilePreviewSize':
+                    case 'resizeImageQuality':
+                    case 'resizeIfSizeMoreThan':
+                    case 'progressUploadThreshold':
+                    case 'initialPreviewCount':
+                    case 'zoomModalHeight':
+                    case 'minImageHeight':
+                    case 'maxImageHeight':
+                    case 'minImageWidth':
+                    case 'maxImageWidth':
                         self[key] = $h.getNum(value);
                         break;
                     default:
