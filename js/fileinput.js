@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.3.9
+ * bootstrap-fileinput v4.4.0
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -339,7 +339,7 @@
             var self = this, tMain1, tMain2, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse,
                 tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionZoom,
                 tActionDrag, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage, tText, tVideo, tAudio,
-                tFlash, tObject, tPdf, tOther, tZoomCache;
+                tFlash, tObject, tPdf, tOther, tZoomCache, vDefaultDim;
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress hide"></div>\n' +
                 '<div class="input-group {class}">\n' +
@@ -442,6 +442,7 @@
                 'width="{width}" height="{height}" type="application/pdf">\n';
             tOther = '<div class="kv-preview-data file-preview-other-frame">\n' + $h.DEFAULT_PREVIEW + '\n</div>\n';
             tZoomCache = '<div class="kv-zoom-cache" style="display:none">{zoomContent}</div>';
+            vDefaultDim = {width: "100%", height: "100%", 'min-height': "480px"};
             self.defaults = {
                 layoutTemplates: {
                     main1: tMain1,
@@ -497,13 +498,13 @@
                 },
                 previewZoomSettings: {
                     image: {width: "auto", height: "auto", 'max-width': "100%", 'max-height': "100%"},
-                    html: {width: "100%", height: "100%", 'min-height': "480px"},
-                    text: {width: "100%", height: "100%", 'min-height': "480px"},
+                    html: vDefaultDim,
+                    text: vDefaultDim,
                     video: {width: "auto", height: "100%", 'max-width': "100%"},
                     audio: {width: "100%", height: "30px"},
                     flash: {width: "auto", height: "480px"},
-                    object: {width: "auto", height: "100%", 'min-height': "480px"},
-                    pdf: {width: "100%", height: "100%", 'min-height': "480px"},
+                    object: vDefaultDim,
+                    pdf: vDefaultDim,
                     other: {width: "auto", height: "100%", 'min-height': "480px"}
                 },
                 fileTypeSettings: {
@@ -2328,7 +2329,7 @@
                 content = self._generatePreviewTemplate(cat, iData, fname, file.type, previewId, false, size);
                 self._clearDefaultPreview();
                 $preview.append("\n" + content);
-                self._validateImage(previewId, caption, file.type);
+                self._validateImage(previewId, caption, file.type, file.size);
             } else {
                 self._previewDefault(file, previewId);
             }
@@ -2703,7 +2704,7 @@
             self._showUploadError(msg, params);
             self._setPreviewError($thumb, i, null);
         },
-        _validateImage: function (previewId, fname, ftype) {
+        _validateImage: function (previewId, fname, ftype, fsize) {
             var self = this, $preview = self.$preview, params, w1, w2, $thumb = $preview.find("#" + previewId),
                 i = $thumb.attr('data-fileindex'), $img = $thumb.find('img');
             fname = fname || 'Untitled';
@@ -2725,12 +2726,21 @@
                     self._checkDimensions(i, 'Large', $img, $thumb, fname, 'Height', params);
                 }
                 self._raise('fileimageloaded', [previewId]);
-                self.loadedImages.push({ind: i, img: $img, thumb: $thumb, pid: previewId, typ: ftype});
+                self.loadedImages.push({
+                    ind: i, 
+                    img: $img, 
+                    thumb: $thumb, 
+                    pid: previewId, 
+                    typ: ftype, 
+                    siz: fsize, 
+                    validated: false
+                });
                 self._validateAllImages();
             });
         },
         _validateAllImages: function () {
-            var self = this, i, counter = {val: 0}, numImgs = self.loadedImages.length;
+            var self = this, i, counter = {val: 0}, numImgs = self.loadedImages.length, config, 
+                fsize, minSize = self.resizeIfSizeMoreThan;
             if (numImgs !== self.totalImagesCount) {
                 return;
             }
@@ -2739,7 +2749,15 @@
                 return;
             }
             for (i = 0; i < self.loadedImages.length; i++) {
-                self._getResizedImage(self.loadedImages[i], counter, numImgs);
+                config = self.loadedImages[i];
+                if (config.validated) {
+                    continue;
+                }
+                fsize = config.siz;
+                if (fsize && minSize && fsize > minSize * 1000) {
+                    self._getResizedImage(config, counter, numImgs);
+                }
+                self.loadedImages[i].validated = true;
             }
         },
         _getResizedImage: function (config, counter, numImgs) {
@@ -2747,14 +2765,14 @@
                 ratio = 1, maxWidth = self.maxImageWidth || width, maxHeight = self.maxImageHeight || height,
                 isValidImage = !!(width && height), chkWidth, chkHeight, canvas = self.imageCanvas,
                 context = self.imageCanvasContext, type = config.typ, pid = config.pid, ind = config.ind,
-                thumb = config.thumb, throwError, msg;
+                $thumb = config.thumb, throwError, msg;
             throwError = function (msg, params, ev) {
                 if (self.isUploadable) {
                     self._showUploadError(msg, params, ev);
                 } else {
                     self._showError(msg, params, ev);
                 }
-                self._setPreviewError(thumb, ind);
+                self._setPreviewError($thumb, ind);
             };
             if (!self.filestack[ind] || !isValidImage || (width <= maxWidth && height <= maxHeight)) {
                 if (isValidImage && self.filestack[ind]) {
@@ -3515,6 +3533,7 @@
         resizePreference: 'width',
         resizeQuality: 0.92,
         resizeDefaultImageType: 'image/jpeg',
+        resizeIfSizeMoreThan: 0, // in KB
         minFileSize: 0,
         maxFileSize: 0,
         maxFilePreviewSize: 25600, // 25 MB
