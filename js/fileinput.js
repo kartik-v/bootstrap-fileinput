@@ -446,7 +446,7 @@
             tFlash = '<object class="kv-preview-data file-object" type="application/x-shockwave-flash" ' +
                 'width="{width}" height="{height}" data="{data}">\n' + $h.OBJECT_PARAMS + ' ' + $h.DEFAULT_PREVIEW +
                 '\n</object>\n';
-            tObject = '<object class="kv-preview-data file-object" data="{data}" type="{type}" ' +
+            tObject = '<object class="kv-preview-data file-object {typeCss}" data="{data}" type="{type}" ' +
                 'width="{width}" height="{height}">\n' + '<param name="movie" value="{caption}" />\n' +
                 $h.OBJECT_PARAMS + ' ' + $h.DEFAULT_PREVIEW + '\n</object>\n';
             tPdf = '<embed class="kv-preview-data" src="{data}" ' +
@@ -500,10 +500,10 @@
                     image: {width: "auto", height: "160px"},
                     html: {width: "213px", height: "160px"},
                     text: {width: "213px", height: "160px"},
-                    video: {width: "213px", height: "160px"},
-                    audio: {width: "213px", height: "80px"},
-                    flash: {width: "213px", height: "160px"},
-                    object: {width: "160px", height: "auto"},
+                    video: {width: "auto", height: "100%", 'max-width': "100%"},
+                    audio: {width: "100%", height: "30px"},
+                    flash: {width: "auto", height: "100%", 'max-width': "100%"},
+                    object: {height: "100%"},
                     pdf: {width: "160px", height: "160px"},
                     other: {width: "160px", height: "160px"}
                 },
@@ -2278,7 +2278,7 @@
                 config = self.previewSettings[cat] || self.defaults.previewSettings[cat],
                 w = config && config.width ? config.width : '', h = config && config.height ? config.height : '',
                 footer = foot || self._renderFileFooter(caption, size, ($h.isEmpty(w) ? 'auto' : w), isError),
-                hasIconSetting = self._getPreviewIcon(fname),
+                hasIconSetting = self._getPreviewIcon(fname), typeCss = 'type-default',
                 forcePrevIcon = hasIconSetting && self.preferIconicPreview,
                 forceZoomIcon = hasIconSetting && self.preferIconicZoomPreview,
                 getContent = function (c, d, zoom, frameCss) {
@@ -2294,9 +2294,19 @@
                     if (c === 'text') {
                         d = $h.htmlEncode(d);
                     }
+                    if (cat === 'object' && !ftype) {
+                        $.each(self.defaults.fileTypeSettings, function (key, func) {
+                            if (key === 'object' || key === 'other') {
+                                return;
+                            }
+                            if (func(fname, ftype)) {
+                                typeCss = 'type-' + key;
+                            }
+                        });
+                    }
                     return tmplt.replace(/\{previewId}/g, id).replace(/\{caption}/g, caption)
                         .replace(/\{frameClass}/g, css).replace(/\{type}/g, ftype).replace(/\{fileindex}/g, ind)
-                        .replace(/\{width}/g, w).replace(/\{height}/g, h)
+                        .replace(/\{width}/g, w).replace(/\{height}/g, h).replace(/\{typeCss}/g, typeCss)
                         .replace(/\{footer}/g, footer).replace(/\{data}/g, d).replace(/\{template}/g, templ || cat);
                 };
             ind = ind || previewId.slice(previewId.lastIndexOf('-') + 1);
@@ -2738,19 +2748,19 @@
                 }
                 self._raise('fileimageloaded', [previewId]);
                 self.loadedImages.push({
-                    ind: i, 
-                    img: $img, 
-                    thumb: $thumb, 
-                    pid: previewId, 
-                    typ: ftype, 
-                    siz: fsize, 
+                    ind: i,
+                    img: $img,
+                    thumb: $thumb,
+                    pid: previewId,
+                    typ: ftype,
+                    siz: fsize,
                     validated: false
                 });
                 self._validateAllImages();
             });
         },
         _validateAllImages: function () {
-            var self = this, i, counter = {val: 0}, numImgs = self.loadedImages.length, config, 
+            var self = this, i, counter = {val: 0}, numImgs = self.loadedImages.length, config,
                 fsize, minSize = self.resizeIfSizeMoreThan;
             if (numImgs !== self.totalImagesCount) {
                 return;
@@ -2765,7 +2775,7 @@
                     continue;
                 }
                 fsize = config.siz;
-                if (fsize && minSize && fsize > minSize * 1000) {
+                if (fsize && fsize > minSize * 1000) {
                     self._getResizedImage(config, counter, numImgs);
                 }
                 self.loadedImages[i].validated = true;

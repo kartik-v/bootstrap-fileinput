@@ -9,6 +9,8 @@ Change Log: `bootstrap-fileinput`
 2. (enh #915): Update default styling for zoom preview for object.
 3. Parse all numeric properties correctly.
 4. (enh #917): Better default styling for zoom preview for object (corrects #915).
+5. (bug #919): Fix resize validation.
+6. (enh #920): Cancel ajax abort action more correctly.
 
 ## version 4.3.9
 
