@@ -1350,10 +1350,12 @@
             $body = $modal.find('.kv-zoom-body');
             $modal.removeClass('kv-single-content');
             if (animate) {
-                $tmp = $body.clone().insertAfter($body);
+                $tmp = $body.addClass('file-thumb-loading').clone().insertAfter($body);
                 $body.html(body).hide();
                 $tmp.fadeOut('fast', function () {
-                    $body.fadeIn('fast');
+                    $body.fadeIn('fast', function() {
+                        $body.removeClass('file-thumb-loading');
+                    });
                     $tmp.remove();
                 });
             } else {

@@ -433,17 +433,17 @@
     right: 1px;
 }
 
-.file-zoom-content.krajee-default {
+.file-zoom-content {
     height: 480px;
     text-align: center;
 }
 
-.file-zoom-content.krajee-default .file-preview-image,
-.file-zoom-content.krajee-default .file-preview-video {
+.file-zoom-content .file-preview-image,
+.file-zoom-content .file-preview-video {
     max-height: 100%
 }
 
-.file-zoom-content.krajee-default > .file-object.type-image {
+.file-zoom-content > .file-object.type-image {
     width: auto;
     height: auto;
     min-height: inherit;
@@ -451,23 +451,23 @@
     max-height: 100%;
 }
 
-.file-zoom-content.krajee-default > .file-object.type-video,
-.file-zoom-content.krajee-default > .file-object.type-flash {
+.file-zoom-content > .file-object.type-video,
+.file-zoom-content > .file-object.type-flash {
     width: auto;
     height: 100%;
     max-width: 100%;
     max-height: 100%;
 }
 
-.file-zoom-content.krajee-default > .file-object.type-audio {
+.file-zoom-content > .file-object.type-audio {
     width: auto;
     height: 30px;
 }
 
-.file-zoom-content.krajee-default > .file-object.type-pdf,
-.file-zoom-content.krajee-default > .file-object.type-html,
-.file-zoom-content.krajee-default > .file-object.type-text,
-.file-zoom-content.krajee-default > .file-object.type-default {
+.file-zoom-content > .file-object.type-pdf,
+.file-zoom-content > .file-object.type-html,
+.file-zoom-content > .file-object.type-text,
+.file-zoom-content > .file-object.type-default {
     width: 100%;
 }
 
