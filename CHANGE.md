@@ -3,11 +3,12 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.0 (_under development_)
 
-**Date:** 04-Apr-2017
+**Date:** 05-Apr-2017
 
 1. (enh #910): New property `resizeIfMoreThan` to control image resize conditionally.
 2. (enh #915): Update default styling for zoom preview for object.
 3. Parse all numeric properties correctly.
+4. (enh #917): Better default styling for zoom preview for object (corrects #915).
 
 ## version 4.3.9
 

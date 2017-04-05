@@ -514,7 +514,7 @@
                     video: {width: "auto", height: "100%", 'max-width': "100%"},
                     audio: {width: "100%", height: "30px"},
                     flash: {width: "auto", height: "480px"},
-                    object: vDefaultDim,
+                    object: {width: "auto", height: "100%", 'max-width': "100%", 'min-height': "480px"},
                     pdf: vDefaultDim,
                     other: {width: "auto", height: "100%", 'min-height': "480px"}
                 },
