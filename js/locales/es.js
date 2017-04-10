@@ -49,8 +49,8 @@
         },
         msgUploadAborted: 'La carga de archivos se ha cancelado',
         msgUploadThreshold: 'Procesando...',
-        msgUploadBegin: 'Initializing...',
-        msgUploadEnd: 'Done',
+        msgUploadBegin: 'Inicializando...',
+        msgUploadEnd: 'Hecho',
         msgUploadEmpty: 'No existen datos válidos para el envío.',
         msgValidationError: 'Error de validación',
         msgLoading: 'Subiendo archivo {index} de {files} &hellip;',
@@ -66,10 +66,10 @@
         msgAjaxError: 'Algo ha ido mal con la operación {operation}. Por favor, inténtelo de nuevo mas tarde.',
         msgAjaxProgressError: 'La operación {operation} ha fallado',
         ajaxOperations: {
-            deleteThumb: 'file delete',
-            uploadThumb: 'file upload',
-            uploadBatch: 'batch file upload',
-            uploadExtra: 'form data upload'
+            deleteThumb: 'Archivo borrado',
+            uploadThumb: 'Archivo subido',
+            uploadBatch: 'Datos subidos en lote',
+            uploadExtra: 'Datos do formulario subidos '
         },
         dropZoneTitle: 'Arrastre y suelte aquí los archivos &hellip;',
         dropZoneClickTitle: '<br>(o haga clic para seleccionar {files})',
