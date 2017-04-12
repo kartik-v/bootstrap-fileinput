@@ -85,7 +85,7 @@
         },
         previewZoomButtonTitles: {
             prev: 'Vis forrige fil',
-            next: 'View neste fil',
+            next: 'Vis neste fil',
             toggleheader: 'Vis header',
             fullscreen: 'Åpne fullskjerm',
             borderless: 'Åpne uten kanter',
