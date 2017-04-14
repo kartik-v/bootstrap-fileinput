@@ -26,7 +26,7 @@
         msgNoFilesSelected: '',
         msgCancelled: 'Отменено',
         msgZoomModalHeading: 'Подробное превью',
-        msgSizeTooSmall: 'Файл "{name}" (<b>{size} KB</b>) имеет слишком маленький размер и должен быть меньше <b>{minSize} KB</b>.',
+        msgSizeTooSmall: 'Файл "{name}" (<b>{size} KB</b>) имеет слишком маленький размер и должен быть больше <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) превышает максимальный размер <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Вы должны выбрать как минимум <b>{n}</b> {files} для загрузки.',
         msgFilesTooMany: 'Количество выбранных файлов <b>({n})</b> превышает максимально допустимое количество <b>{m}</b>.',
@@ -35,7 +35,7 @@
         msgFileNotReadable: 'Файл "{name}" невозможно прочитать.',
         msgFilePreviewAborted: 'Предпросмотр отменен для файла "{name}".',
         msgFilePreviewError: 'Произошла ошибка при чтении файла "{name}".',
-        msgInvalidFileName: 'Неправильные или неподдерживаемые символы в названии файла "{name}".',
+        msgInvalidFileName: 'Неверные или неподдерживаемые символы в названии файла "{name}".',
         msgInvalidFileType: 'Запрещенный тип файла для "{name}". Только "{types}" разрешены.',
         msgInvalidFileExtension: 'Запрещенное расширение для файла "{name}". Только "{extensions}" разрешены.',
         msgFileTypes: {
