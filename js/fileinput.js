@@ -349,8 +349,8 @@
         _initTemplateDefaults: function () {
             var self = this, tMain1, tMain2, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse,
                 tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionZoom,
-                tActionDrag, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage, tText, tVideo, tAudio,
-                tFlash, tObject, tPdf, tOther, tZoomCache, vDefaultDim;
+                tActionDrag, tIndicator, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage, tText, tVideo,
+                tAudio, tFlash, tObject, tPdf, tOther, tZoomCache, vDefaultDim;
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress hide"></div>\n' +
                 '<div class="input-group {class}">\n' +
@@ -408,10 +408,9 @@
             tSize = ' <samp>({sizeText})</samp>';
             tFooter = '<div class="file-thumbnail-footer">\n' +
                 '    <div class="file-footer-caption" title="{caption}">{caption}<br>{size}</div>\n' +
-                '    {progress} {actions}\n' +
+                '    {progress} {indicator} {actions}\n' +
                 '</div>';
-            tActions = '<div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
-                '{drag}\n' +
+            tActions = '{drag}\n' +
                 '<div class="file-actions">\n' +
                 '    <div class="file-footer-buttons">\n' +
                 '        {upload} {delete} {zoom} {other}' +
@@ -426,6 +425,7 @@
             tActionZoom = '<button type="button" class="kv-file-zoom {zoomClass}" ' +
                 'title="{zoomTitle}">{zoomIcon}</button>';
             tActionDrag = '<span class="file-drag-handle {dragClass}" title="{dragTitle}">{dragIcon}</span>';
+            tIndicator = '<div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>';
             tTagBef = '<div class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
                 ' data-template="{template}"';
             tTagBef1 = tTagBef + '><div class="kv-file-content">\n';
@@ -467,6 +467,7 @@
                     progress: tProgress,
                     size: tSize,
                     footer: tFooter,
+                    indicator: tIndicator,
                     actions: tActions,
                     actionDelete: tActionDelete,
                     actionUpload: tActionUpload,
@@ -759,18 +760,19 @@
                         return '';
                     }
                     isDisabled = isDisabled === undefined ? true : isDisabled;
-                    var config = data.config[i], caption = $h.ifSet('caption', config), actions = '',
+                    var config = data.config[i], caption = $h.ifSet('caption', config), actions,
                         width = $h.ifSet('width', config, 'auto'), url = $h.ifSet('url', config, false),
                         key = $h.ifSet('key', config, null), fs = self.fileActionSettings,
-                        showDel = $h.ifSet('showDelete', config, true), showZoom = $h.ifSet('showZoom', config, fs.showZoom),
-                        showDrag = $h.ifSet('showDrag', config, fs.showDrag), disabled = (url === false) && isDisabled;
-                    if (self.initialPreviewShowDelete) {
-                        actions = self._renderFileActions(false, showDel, showZoom, showDrag, disabled, url, key, true);
-                    }
+                        initPreviewShowDel = self.initialPreviewShowDelete || false,
+                        showDel = $h.ifSet('showDelete', config, $h.ifSet('showDelete', fs, initPreviewShowDel)),
+                        showZoom = $h.ifSet('showZoom', config, $h.ifSet('showZoom', fs, true)),
+                        showDrag = $h.ifSet('showDrag', config, $h.ifSet('showDrag', fs, true)),
+                        disabled = (url === false) && isDisabled;
+                    actions = self._renderFileActions(false, showDel, showZoom, showDrag, disabled, url, key, true);
                     return self._getLayoutTemplate('footer').replace(/\{progress}/g, self._renderThumbProgress())
                         .replace(/\{actions}/g, actions).replace(/\{caption}/g, caption)
                         .replace(/\{size}/g, self._getSize(size)).replace(/\{width}/g, width)
-                        .replace(/\{indicator}/g, '').replace(/\{indicatorTitle}/g, '');
+                        .replace(/\{indicator}/g, '');
                 }
             };
             self.previewCache.init();
@@ -936,8 +938,8 @@
             var self = this, ext, out = null;
             if (fname && fname.indexOf('.') > -1) {
                 ext = fname.split('.').pop();
-                if (self.previewFileIconSettings && self.previewFileIconSettings[ext]) {
-                    out = self.previewFileIconSettings[ext];
+                if (self.previewFileIconSettings) {
+                    out = self.previewFileIconSettings[ext] || self.previewFileIconSettings[ext.toLowerCase()] || null;
                 }
                 if (self.previewFileExtSettings) {
                     $.each(self.previewFileExtSettings, function (key, func) {
@@ -987,7 +989,9 @@
                     break;
                 // receive data response via `filecustomerror` event`
                 default:
-                    self.ajaxAborted = e.result;
+                    if (!self.ajaxAborted) {
+                        self.ajaxAborted = e.result;
+                    }
                     break;
             }
             return true;
@@ -1151,6 +1155,7 @@
             settings = {
                 handle: '.drag-handle-init',
                 dataIdAttr: 'data-preview-id',
+                scroll: false,
                 draggable: selector,
                 onSort: function (e) {
                     var oldIndex = e.oldIndex, newIndex = e.newIndex, key, $frame;
@@ -1161,7 +1166,7 @@
                         if (self.initialPreviewConfig[i] !== null) {
                             key = self.initialPreviewConfig[i].key;
                             $frame = $(".kv-file-remove[data-key='" + key + "']").closest($h.FRAMES);
-                            $frame.attr('data-fileindex', 'init_' + i).data('fileindex', 'init_' + i);
+                            $frame.attr('data-fileindex', 'init_' + i).attr('data-fileindex', 'init_' + i);
                         }
                     }
                     self._raise('filesorted', {
@@ -1353,7 +1358,7 @@
                 $tmp = $body.addClass('file-thumb-loading').clone().insertAfter($body);
                 $body.html(body).hide();
                 $tmp.fadeOut('fast', function () {
-                    $body.fadeIn('fast', function() {
+                    $body.fadeIn('fast', function () {
                         $body.removeClass('file-thumb-loading');
                     });
                     $tmp.remove();
@@ -1736,7 +1741,7 @@
                 var $thumb = $(this), $preview = self.$preview, $remove = $thumb.find('.kv-file-remove');
                 $remove.removeAttr('disabled');
                 self._handler($remove, 'click', function () {
-                    var id = $thumb.attr('id'), out = self._raise('filesuccessremove', [id, $thumb.data('fileindex')]);
+                    var id = $thumb.attr('id'), out = self._raise('filesuccessremove', [id, $thumb.attr('data-fileindex')]);
                     $h.cleanMemory($thumb);
                     if (out === false) {
                         return;
@@ -2177,7 +2182,7 @@
                     return;
                 }
                 var $frame = $el.closest($h.FRAMES), cache = self.previewCache.data,
-                    settings, params, index = $frame.data('fileindex'), config, extraData;
+                    settings, params, index = $frame.attr('data-fileindex'), config, extraData;
                 index = parseInt(index.replace('init_', ''));
                 config = $h.isEmpty(cache.config) && $h.isEmpty(cache.config[index]) ? null : cache.config[index];
                 extraData = $h.isEmpty(config) || $h.isEmpty(config.extra) ? deleteExtraData : config.extra;
@@ -2204,7 +2209,7 @@
                         var n, cap;
                         if ($h.isEmpty(data) || $h.isEmpty(data.error)) {
                             self.previewCache.init();
-                            index = parseInt(($frame.data('fileindex')).replace('init_', ''));
+                            index = parseInt(($frame.attr('data-fileindex')).replace('init_', ''));
                             self.previewCache.unset(index);
                             n = self.previewCache.count();
                             cap = n > 0 ? self._getMsgSelected(n) : '';
@@ -2976,20 +2981,20 @@
         _renderFileFooter: function (caption, size, width, isError) {
             var self = this, config = self.fileActionSettings, rem = config.showRemove, drg = config.showDrag,
                 upl = config.showUpload, zoom = config.showZoom, out, template = self._getLayoutTemplate('footer'),
-                indicator = isError ? config.indicatorError : config.indicatorNew,
-                title = isError ? config.indicatorErrorTitle : config.indicatorNewTitle;
+                ind = isError ? config.indicatorError : config.indicatorNew,
+                tInd = self._getLayoutTemplate('indicator'),
+                title = isError ? config.indicatorErrorTitle : config.indicatorNewTitle,
+                indicator = tInd.replace(/\{indicator}/g, ind).replace(/\{indicatorTitle}/g, title);
             size = self._getSize(size);
             if (self.isUploadable) {
                 out = template.replace(/\{actions}/g, self._renderFileActions(upl, rem, zoom, drg, false, false, false))
                     .replace(/\{caption}/g, caption).replace(/\{size}/g, size).replace(/\{width}/g, width)
-                    .replace(/\{progress}/g, self._renderThumbProgress()).replace(/\{indicator}/g, indicator)
-                    .replace(/\{indicatorTitle}/g, title);
+                    .replace(/\{progress}/g, self._renderThumbProgress()).replace(/\{indicator}/g, indicator);
             } else {
                 out = template.replace(/\{actions}/g,
                     self._renderFileActions(false, false, zoom, drg, false, false, false))
                     .replace(/\{caption}/g, caption).replace(/\{size}/g, size).replace(/\{width}/g, width)
-                    .replace(/\{progress}/g, '').replace(/\{indicator}/g, indicator)
-                    .replace(/\{indicatorTitle}/g, title);
+                    .replace(/\{progress}/g, '').replace(/\{indicator}/g, indicator);
             }
             out = $h.replaceTags(out, self.previewThumbTags);
             return out;
@@ -2998,8 +3003,7 @@
             if (!showUpload && !showDelete && !showZoom && !showDrag) {
                 return '';
             }
-            var self = this,
-                vUrl = url === false ? '' : ' data-url="' + url + '"',
+            var self = this, vUrl = url === false ? '' : ' data-url="' + url + '"',
                 vKey = key === false ? '' : ' data-key="' + key + '"',
                 btnDelete = '', btnUpload = '', btnZoom = '', btnDrag = '', css,
                 template = self._getLayoutTemplate('actions'), config = self.fileActionSettings,
