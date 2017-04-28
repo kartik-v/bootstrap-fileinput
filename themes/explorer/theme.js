@@ -27,9 +27,8 @@
             '    </div>\n' +
             '</div>',
             footer: '<td class="file-details-cell"><div class="explorer-caption" title="{caption}">{caption}</div> ' +
-            '{size}{progress}</td><td class="file-actions-cell">{actions}</td>',
-            actions: '<div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
-            '{drag}\n' +
+            '{size}{progress}</td><td class="file-actions-cell">{indicator} {actions}</td>',
+            actions: '{drag}\n' +
             '<div class="file-actions">\n' +
             '    <div class="file-footer-buttons">\n' +
             '        {upload} {delete} {zoom} {other} ' +

@@ -8,7 +8,7 @@ Change Log: `bootstrap-fileinput`
 - Chronological ordering of issues for change log.
 - (enh #947): Correct `showDelete` validation in `fileActionSettings`.
 - (enh #946): Enhance iconic preview validation to ignore extension case if possible.
-- (enh #942): Enhance indicator and drag templates. New layout template `actionIndicator`.
+- (enh #942): Enhance indicator and drag templates. New layout template `indicator`.
 - (enh #941): Correct `data-fileindex` validation.
 - (bug #940): Correct validation of `initialPreviewShowDelete`.
 - (enh #936): Enhance custom validation when ajax abort is triggered via event manipulation.
