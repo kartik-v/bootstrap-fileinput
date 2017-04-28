@@ -101,24 +101,6 @@
     border: 2px solid #a1abff;
 }
 
-@media only screen and (max-device-width: 500px) {
-    .theme-explorer .file-upload-indicator, .theme-explorer .file-drag-handle {
-        border-radius: 0;
-        border: 1px solid #8a6d3b;
-        margin-bottom: 5px;
-    }
-
-    .theme-explorer .explorer-caption {
-        display: block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 160px;
-        text-align: left;
-        color: #777;
-    }
-}
-
 .theme-explorer .file-upload-indicator {
     font-size: 13px;
     padding-left: 6px;
@@ -145,4 +127,65 @@
 .theme-explorer .file-preview-loading .file-upload-indicator {
     background-color: #e5e5e5;
     border-color: #777;
+}
+
+/*
+ * mobile responsive styling
+ */
+@media only screen and (max-width: 500px) {
+    .theme-explorer .table, .theme-explorer .table tbody, .theme-explorer .table tr, .theme-explorer .table td {
+        display: block;
+        width: 100% !important;
+    }
+
+    .theme-explorer .explorer-frame td {
+        text-align: center;
+        font-size: 1.1em;
+    }
+
+    .theme-explorer .table .kv-file-content {
+        border-bottom: none;
+        padding: 4px;
+        margin: 0;
+    }
+
+    .theme-explorer .table .kv-file-content .file-preview-image {
+        max-width: 100%;
+    }
+
+    .theme-explorer .file-details-cell {
+        border-top: none;
+        border-bottom: none;
+        padding-top: 0;
+        margin: 0;
+    }
+
+    .theme-explorer .file-actions-cell {
+        border-top: none;
+        padding-bottom: 4px;
+    }
+
+    .theme-explorer .explorer-frame .explorer-caption {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    .theme-explorer .file-upload-indicator, .theme-explorer .file-drag-handle {
+        right: 0;
+        bottom: 0;
+        border-top-left-radius: 40px;
+        border-bottom-left-radius: 0;
+        padding: 12px 3px 0 6px;
+    }
+
+    .theme-explorer .file-actions-cell .btn-xs {
+        font-size: 0.9em;
+        padding: 2px 7px;
+        margin-right: 3px;
+        cursor: pointer;
+    }
 }

@@ -3,8 +3,10 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.0 (_under development_)
 
-**Date:** 27-Apr-2017
+**Date:** 29-Apr-2017
 
+- (enh #950, #930): Add responsive support for Krajee Explorer theme for mobile devices.
+- (enh #949): Sortable plugin enhancements and prevent scroll when dragging on mobile devices.
 - Chronological ordering of issues for change log.
 - (enh #947): Correct `showDelete` validation in `fileActionSettings`.
 - (enh #946): Enhance iconic preview validation to ignore extension case if possible.
