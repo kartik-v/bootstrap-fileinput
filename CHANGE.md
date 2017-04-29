@@ -10,6 +10,7 @@ Change Log: `bootstrap-fileinput`
 - Chronological ordering of issues for change log.
 - (enh #947): Correct `showDelete` validation in `fileActionSettings`.
 - (enh #946): Enhance iconic preview validation to ignore extension case if possible.
+- (enh #944): Publish v4.3.9 release to NPM.
 - (enh #942): Enhance indicator and drag templates. New layout template `indicator`.
 - (enh #941): Correct `data-fileindex` validation.
 - (bug #940): Correct validation of `initialPreviewShowDelete`.
@@ -836,14 +837,12 @@ through `maxFileSize` property) so that it does not affect the preview performan
 
 **Date:** 15-Jul-2014
 
-### Additions
 - (enh #9): Enhanced caption template and styling for captions to prevent overflow of long file names out of the caption container.
 
 ## version 1.7.0
 
 **Date:** 02-Jul-2014
 
-### Additions
 - The plugin now offers an additional `overwriteInitial` option. This is by default set to `true`, whereby, any `initialPreview`
    content set will be overwritten, when new file is uploaded or when files are cleared. Setting it to `false` will help displaying 
    a saved image or file from database always - useful especially when using the `multiple` file upload feature.
@@ -852,7 +851,6 @@ through `maxFileSize` property) so that it does not affect the preview performan
 
 **Date:** 03-Jun-2014
 
-### Additions
 - The plugin now offers an additional `refresh` method. This enables you to dynamically change element attributes or plugin options
    at runtime and refresh the widget.
 
@@ -860,19 +858,15 @@ through `maxFileSize` property) so that it does not affect the preview performan
 
 **Date:** 23-May-2014
 
-### Additions
 - The plugin now offers an option to display initial preview of images/text/other files. This is useful
    for record update scenarios. This can be a single image/file or an array of images/files.
 - Extending to the above feature, the plugin also allows you to set a preview caption for the initial preview field.
-
-### Changes
 - The following element identifiers need to be passed as a string like '#id' instead of a JQuery object:
-    
-- elCaptionContainer
-- elCaptionText
-- elPreviewContainer
-- elPreviewImage
-- elPreviewStatus
+    - elCaptionContainer
+    - elCaptionText
+    - elPreviewContainer
+    - elPreviewImage
+    - elPreviewStatus
 
 ## version 1.0.0
 
