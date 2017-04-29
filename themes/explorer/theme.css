@@ -129,6 +129,15 @@
     border-color: #777;
 }
 
+.theme-explorer .file-error-message ul {
+    padding-left: 15px;
+}
+
+.theme-explorer .file-error-message .close {
+    margin-top: -5px;
+    margin-right: -5px;
+}
+
 /*
  * mobile responsive styling
  */
@@ -138,7 +147,19 @@
         width: 100% !important;
     }
 
-    .theme-explorer .explorer-frame td {
+    .theme-explorer .table {
+        border: none;
+    }
+
+    .theme-explorer .table tr {
+        margin-top: 10px;
+    }
+
+    .theme-explorer .table tr:first-child {
+        margin-top: 0;
+    }
+
+    .theme-explorer .table td {
         text-align: center;
         font-size: 1.1em;
     }
