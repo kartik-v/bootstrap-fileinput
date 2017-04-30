@@ -224,6 +224,44 @@
                 $cache = $el.closest('.kv-zoom-cache');
             }
             $cache.remove();
+        },
+        setOrientation: function (buffer, callback) {
+            var scanner = new DataView(buffer), idx = 0, value = 1, // Non-rotated is the default
+                maxBytes, uInt16, exifLength;
+            if (scanner.getUint16(idx) !== 0xFFD8 || buffer.length < 2) {
+                return; // not a proper JPEG
+            }
+            idx += 2;
+            maxBytes = scanner.byteLength;
+            while (idx < maxBytes - 2) {
+                uInt16 = scanner.getUint16(idx);
+                idx += 2;
+                switch (uInt16) {
+                    case 0xFFE1: // Start of EXIF
+                        exifLength = scanner.getUint16(idx);
+                        maxBytes = exifLength - idx;
+                        idx += 2;
+                        break;
+                    case 0x0112: // Orientation tag
+                        value = scanner.getUint16(idx + 6, false);
+                        maxBytes = 0; // Stop scanning
+                        break;
+                }
+            }
+            if (callback) {
+                callback(value);
+            }
+        },
+        validateOrientation: function (file, callback) {
+            if (!window.FileReader || !window.DataView) {
+                return; // skip orientation if pre-requisite libraries not supported by browser
+            }
+            var reader = new FileReader(), buffer;
+            reader.onloadend = function () {
+                buffer = reader.result;
+                $h.setOrientation(buffer, callback);
+            };
+            reader.readAsArrayBuffer(file);
         }
     };
     FileInput = function (element, options) {
@@ -2346,22 +2384,35 @@
             }
             var self = this, cat = self._parseFileType(file), fname = file ? file.name : '', caption = self.slug(fname),
                 types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes, $preview = self.$preview,
-                chkTypes = types && types.indexOf(cat) >= 0, size = file.size || 0,
+                chkTypes = types && types.indexOf(cat) >= 0, fsize = file.size || 0, ftype = file.type,
                 iData = (cat === 'text' || cat === 'html' || cat === 'image') ? theFile.target.result : data, content,
-                chkMimes = mimes && mimes.indexOf(file.type) !== -1;
+                chkMimes = mimes && mimes.indexOf(ftype) !== -1;
             /** @namespace window.DOMPurify */
             if (cat === 'html' && self.purifyHtml && window.DOMPurify) {
                 iData = window.DOMPurify.sanitize(iData);
             }
             if (chkTypes || chkMimes) {
-                content = self._generatePreviewTemplate(cat, iData, fname, file.type, previewId, false, size);
+                content = self._generatePreviewTemplate(cat, iData, fname, ftype, previewId, false, fsize);
                 self._clearDefaultPreview();
                 $preview.append("\n" + content);
-                self._validateImage(previewId, caption, file.type, file.size);
+                var $img = $preview.find('#' + previewId + ' img');
+                if ($img.length && self.autoOrientImage) {
+                    $h.validateOrientation(file, function (value) {
+                        if (value) {
+                            var $zoomImg = $preview.find('#zoom-' + previewId + ' img'), css = 'rotate-' + value;
+                            $h.addCss($img, css);
+                            $h.addCss($zoomImg, css);
+                            self._raise('fileimageoriented', {'$img': $img, 'file': file});
+                        }
+                        self._validateImage(previewId, caption, ftype, fsize);
+                    });
+                } else {
+                    self._validateImage(previewId, caption, ftype, fsize);
+                }
             } else {
                 self._previewDefault(file, previewId);
             }
-            self._setThumbAttr(previewId, caption, size);
+            self._setThumbAttr(previewId, caption, fsize);
             self._initSortable();
         },
         _setThumbAttr: function (id, caption, size) {
@@ -3489,6 +3540,7 @@
         showUploadedThumbs: true,
         browseOnZoneClick: false,
         autoReplace: false,
+        autoOrientImage: true, // for JPEG images based on EXIF orientation tag
         generateFileId: null,
         previewClass: '',
         captionClass: '',

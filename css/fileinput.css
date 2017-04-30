@@ -117,7 +117,6 @@
 
 .krajee-default .file-preview-image {
     vertical-align: middle;
-    image-orientation: from-image;
 }
 
 .krajee-default .file-preview-text {
@@ -479,4 +478,33 @@
 .btn-file ::-ms-browse {
     width: 100%;
     height: 100%;
+}
+
+/* exif orientations */
+.rotate-2 {
+    transform: rotateY(180deg);
+}
+
+.rotate-3 {
+    transform: rotate(180deg);
+}
+
+.rotate-4 {
+    transform: rotate(180deg) rotateY(180deg);
+}
+
+.rotate-5 {
+    transform: rotate(270deg) rotateY(180deg);
+}
+
+.rotate-6 {
+    transform: rotate(90deg);
+}
+
+.rotate-7 {
+    transform: rotate(90deg) rotateY(180deg);
+}
+
+.rotate-8 {
+    transform: rotate(270deg);
 }

@@ -3,8 +3,9 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.0 (_under development_)
 
-**Date:** 29-Apr-2017
+**Date:** 30-Apr-2017
 
+- (enh #952): Auto orientation of image based on EXIF data (new property `autoOrientImage`).
 - (enh #950, #930): Add responsive support for Krajee Explorer theme for mobile devices.
 - (enh #949): Sortable plugin enhancements and prevent scroll when dragging on mobile devices.
 - Chronological ordering of issues for change log.
