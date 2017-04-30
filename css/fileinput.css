@@ -508,3 +508,7 @@
 .rotate-8 {
     transform: rotate(270deg);
 }
+
+.file-zoom-content .is-portrait-gt4 {
+    margin-top: 60px;
+}

@@ -262,6 +262,22 @@
                 $h.setOrientation(buffer, callback);
             };
             reader.readAsArrayBuffer(file);
+        },
+        adjustOrientedImage: function($img, isZoom) {
+            var offsetContTop, offsetTop, newTop;
+            if (!$img.hasClass('is-portrait-gt4')) {
+                return;
+            }
+            if (isZoom) {
+                $img.css({width: $img.parent().height()});
+                return;
+            } else {            
+                $img.css({height: 'auto', width: $img.height()});
+            }
+            offsetContTop = $img.parent().offset().top;
+            offsetTop = $img.offset().top;
+            newTop = offsetContTop - offsetTop;
+            $img.css('margin-top', newTop);
         }
     };
     FileInput = function (element, options) {
@@ -1416,6 +1432,10 @@
                 });
             }
             $modal.data('previewId', pid);
+            var $img = $body.find('img');
+            if ($img.length) {
+                $h.adjustOrientedImage($img, true);
+            }
             self._handler($prev, 'click', function () {
                 self._zoomSlideShow('prev', pid);
             });
@@ -2400,11 +2420,15 @@
                     $h.validateOrientation(file, function (value) {
                         if (value) {
                             var $zoomImg = $preview.find('#zoom-' + previewId + ' img'), css = 'rotate-' + value;
+                            if (value > 4) {
+                                css += ($img.width() > $img.height() ? ' is-portrait-gt4' : ' is-landscape-gt4');
+                            }
                             $h.addCss($img, css);
                             $h.addCss($zoomImg, css);
                             self._raise('fileimageoriented', {'$img': $img, 'file': file});
                         }
                         self._validateImage(previewId, caption, ftype, fsize);
+                        $h.adjustOrientedImage($img);
                     });
                 } else {
                     self._validateImage(previewId, caption, ftype, fsize);
