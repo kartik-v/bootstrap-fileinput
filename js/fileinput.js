@@ -3173,9 +3173,13 @@
                 } else {
                     files = e.target.files || {};
                 }
-                $.each(files, function (i, f) {
-                    self._filterDuplicate(f, tfiles, fileIds);
-                });
+                if (isAjaxUpload) {
+                    $.each(files, function (i, f) {
+                        self._filterDuplicate(f, tfiles, fileIds);
+                    });
+                } else {
+                    tfiles = files;
+                }
             }
             if ($h.isEmpty(tfiles) || tfiles.length === 0) {
                 if (!isAjaxUpload) {

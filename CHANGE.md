@@ -28,6 +28,7 @@ Change Log: `bootstrap-fileinput`
 - Parse all numeric properties correctly.
 - (enh #915): Update default styling for zoom preview for object.
 - (enh #910): New property `resizeIfMoreThan` to control image resize conditionally.
+- (bug #899): Fix multiple file selection for non-ajax scenario.
 
 ## version 4.3.9
 
