@@ -3,8 +3,10 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.0 (_under development_)
 
-**Date:** 30-Apr-2017
+**Date:** 02-May-2017
 
+- (bug #955): Remove unnecessary `sourceMappingUrl` in `purify.min.js`.
+- (enh #954): Add minified theme assets.
 - (enh #952): Auto orientation of image based on EXIF data (new property `autoOrientImage`).
 - (enh #950, #930): Add responsive support for Krajee Explorer theme for mobile devices.
 - (enh #949): Sortable plugin enhancements and prevent scroll when dragging on mobile devices.
