@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** 03-May-2017
 
+- (bug #958): Create `setTokens` string helper for easier replacement of tokens.
 - (bug #956): Correct initial preview file thumb deletions.
 - (bug #955): Remove unnecessary `sourceMappingUrl` in `purify.min.js`.
 - (enh #954): Add minified theme assets.
