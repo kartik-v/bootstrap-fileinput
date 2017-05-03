@@ -2266,7 +2266,6 @@
                     success: function (data, textStatus, jqXHR) {
                         var n, cap;
                         if ($h.isEmpty(data) || $h.isEmpty(data.error)) {
-                            self.previewCache.init();
                             index = parseInt(($frame.attr('data-fileindex')).replace('init_', ''));
                             self.previewCache.unset(index);
                             n = self.previewCache.count();

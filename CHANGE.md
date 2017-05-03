@@ -3,8 +3,9 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.0 (_under development_)
 
-**Date:** 02-May-2017
+**Date:** 03-May-2017
 
+- (bug #956): Correct initial preview file thumb deletions.
 - (bug #955): Remove unnecessary `sourceMappingUrl` in `purify.min.js`.
 - (enh #954): Add minified theme assets.
 - (enh #952): Auto orientation of image based on EXIF data (new property `autoOrientImage`).
