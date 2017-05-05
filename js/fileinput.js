@@ -309,6 +309,27 @@
     };
     FileInput.prototype = {
         constructor: FileInput,
+        _cleanup: function() {
+            var self = this;
+            self.reader = null;
+            self.formdata = {};
+            self.uploadCount = 0;
+            self.uploadStatus = {};
+            self.uploadLog = [];
+            self.uploadAsyncCount = 0;
+            self.loadedImages = [];
+            self.totalImagesCount = 0;
+            self.ajaxRequests = [];
+            self.clearStack();
+            self.fileInputCleared = false;
+            self.fileBatchCompleted = true;
+            if (!self.isPreviewable) {
+                self.showPreview = false;
+            }
+            self.isError = false;
+            self.ajaxAborted = false;
+            self.cancelling = false;
+        },
         _init: function (options) {
             var self = this, $el = self.$element, $cont, t;
             self.options = options;
@@ -335,27 +356,10 @@
                         break;
                 }
             });
+            self._cleanup();
             self.$form = $el.closest('form');
             self._initTemplateDefaults();
-            self.fileInputCleared = false;
-            self.fileBatchCompleted = true;
-            if (!self.isPreviewable) {
-                self.showPreview = false;
-            }
             self.uploadFileAttr = !$h.isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
-            self.reader = null;
-            self.formdata = {};
-            self.clearStack();
-            self.uploadCount = 0;
-            self.uploadStatus = {};
-            self.uploadLog = [];
-            self.uploadAsyncCount = 0;
-            self.loadedImages = [];
-            self.totalImagesCount = 0;
-            self.ajaxRequests = [];
-            self.isError = false;
-            self.ajaxAborted = false;
-            self.cancelling = false;
             t = self._getLayoutTemplate('progress');
             self.progressTemplate = t.replace('{class}', self.progressClass);
             self.progressCompleteTemplate = t.replace('{class}', self.progressCompleteClass);
@@ -3544,6 +3548,11 @@
             if ($form && $form.length) {
                 $form.off(ns);
             }
+            if (self.isUploadable) {
+                self._clearFileInput();
+            }
+            self._cleanup();
+            self._initPreviewCache();
             $el.insertBefore($cont).off(ns).removeData();
             $cont.off().remove();
             return $el;
@@ -3553,6 +3562,10 @@
             options = options ? $.extend(true, {}, self.options, options) : self.options;
             self.destroy();
             $el.fileinput(options);
+            self = $el.data('fileinput');
+            if (self.isUploadable) {
+                self._clearFileInput();
+            }
             if ($el.val()) {
                 $el.trigger('change.fileinput');
             }
