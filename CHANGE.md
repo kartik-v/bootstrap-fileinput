@@ -3,8 +3,13 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.0 (_under development_)
 
-**Date:** 29-Apr-2017
+**Date:** 03-May-2017
 
+- (bug #958): Create `setTokens` string helper for easier replacement of tokens.
+- (bug #956): Correct initial preview file thumb deletions.
+- (bug #955): Remove unnecessary `sourceMappingUrl` in `purify.min.js`.
+- (enh #954): Add minified theme assets.
+- (enh #952): Auto orientation of image based on EXIF data (new property `autoOrientImage`).
 - (enh #950, #930): Add responsive support for Krajee Explorer theme for mobile devices.
 - (enh #949): Sortable plugin enhancements and prevent scroll when dragging on mobile devices.
 - Chronological ordering of issues for change log.
@@ -25,6 +30,7 @@ Change Log: `bootstrap-fileinput`
 - Parse all numeric properties correctly.
 - (enh #915): Update default styling for zoom preview for object.
 - (enh #910): New property `resizeIfMoreThan` to control image resize conditionally.
+- (bug #899): Fix multiple file selection for non-ajax scenario.
 
 ## version 4.3.9
 

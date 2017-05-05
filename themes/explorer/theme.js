@@ -39,7 +39,7 @@
         },
         previewMarkupTags: {
             tagBefore1: teTagBef + '>' + teContent,
-            tagBefore2: teTagBef + ' title="{caption}" style="width:{width};height:{height};">' + teContent,
+            tagBefore2: teTagBef + ' title="{caption}">' + teContent,
             tagAfter: '</td>\n{footer}</tr>\n'
         },
         previewSettings: {
