@@ -26,6 +26,7 @@
         msgNoFilesSelected: 'هیچ فایلی انتخاب نشده است',
         msgCancelled: 'لغو شد',
         msgZoomModalHeading: 'نمایش با جزییات',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'فایل "{name}" (<b>{size} کیلوبایت</b>) خیلی کوچک است و باید از <b>{minSize} کیلوبایت بزرگتر باشد</b>.',
         msgSizeTooLarge: 'فایل "{name}" (<b>{size} کیلوبایت</b>) از حداکثر مجاز <b>{maxSize} کیلوبایت</b> بزرگتر است.',
         msgFilesTooLess: 'شما باید حداقل <b>{n}</b> {files} فایل برای بارگذاری انتخاب کنید.',

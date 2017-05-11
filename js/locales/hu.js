@@ -25,6 +25,7 @@
         msgNoFilesSelected: 'Nincs fájl kiválasztva',
         msgCancelled: 'Megszakítva',
         msgZoomModalHeading: 'Részletes Előnézet',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'A fájl: "{name}" (<b>{size} KB</b>) mérete túl kicsi, nagyobbnak kell lennie, mint <b>{minSize} KB</b>.',
         msgSizeTooLarge: '"{name}" fájl (<b>{size} KB</b>) mérete nagyobb a megengedettnél <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Legalább <b>{n}</b> {files} ki kell választania a feltöltéshez.',

@@ -25,6 +25,7 @@
         msgNoFilesSelected: 'Inga filer valda',
         msgCancelled: 'Avbruten',
         msgZoomModalHeading: 'detaljerad förhandsgranskning',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Filen "{name}" (<b>{size} KB</b>) är för liten och måste vara större än <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) överstiger högsta tillåtna uppladdningsstorlek <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Du måste välja minst <b>{n}</b> {files} för att ladda upp.',

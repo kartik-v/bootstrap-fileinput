@@ -25,6 +25,7 @@
         msgNoFilesSelected: 'Ingen filer er valgt',
         msgCancelled: 'Avbrutt',
         msgZoomModalHeading: 'Detaljert visning',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Filen "{name}" (<b>{size} KB</b>) er for liten og må være større enn <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'Filen "{name}" (<b>{size} KB</b>) er for stor, maksimal filstørrelse er <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Du må velge minst <b>{n}</b> {files} for opplastning.',

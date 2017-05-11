@@ -25,6 +25,7 @@
         msgNoFilesSelected: 'Nevybrány žádné soubory',
         msgCancelled: 'Zrušeno',
         msgZoomModalHeading: 'Detailní náhled',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Soubor "{name}" (<b>{size} KB</b>) je příliš malý, musí mít velikost nejméně <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'Soubor "{name}" (<b>{size} KB</b>): je příliš velký - maximální povolená velikost <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Musíte vybrat nejméně <b>{n}</b> {files} souborů.',

@@ -26,6 +26,7 @@
         msgNoFilesSelected: '',
         msgCancelled: '取消',
         msgZoomModalHeading: '详细预览',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: '文件 "{name}" (<b>{size} KB</b>) 超过了允许大小 <b>{maxSize} KB</b>.',
         msgFilesTooLess: '你必须选择最少 <b>{n}</b> {files} 来上传. ',

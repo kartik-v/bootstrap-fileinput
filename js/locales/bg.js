@@ -25,6 +25,7 @@
         msgNoFilesSelected: '',
         msgCancelled: 'Отменен',
         msgZoomModalHeading: 'Детайлен преглед',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'Файла "{name}" (<b>{size} KB</b>) надвишава максималните разрешени <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Трябва да изберете поне <b>{n}</b> {files} файла.',

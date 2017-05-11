@@ -32,6 +32,7 @@
         msgNoFilesSelected: 'ファイルが選択されていません',
         msgCancelled: 'キャンセル',
         msgZoomModalHeading: 'プレビュー',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'ファイル"{name}" (<b>{size} KB</b>)はアップロード可能な上限容量<b>{maxSize} KB</b>を超えています',
         msgFilesTooLess: '最低<b>{n}</b>個の{files}を選択してください',

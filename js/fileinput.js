@@ -937,7 +937,7 @@
         },
         _showUploadError: function (msg, params, event) {
             var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror', e = params && params.id ?
-                '<li data-file-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
+            '<li data-file-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
             if ($error.find('ul').length === 0) {
                 self._addError('<ul>' + e + '</ul>');
             } else {
@@ -1200,12 +1200,8 @@
             }
         },
         _submitForm: function () {
-            var self = this, $el = self.$element, files = $el.get(0).files;
-            if (files && self.minFileCount > 0 && self._getFileCount(files.length) < self.minFileCount) {
-                self._noFilesError({});
-                return false;
-            }
-            return !self._abort({});
+            var self = this;
+            return self._isFileSelectionValid() && !self._abort({});
         },
         _clearPreview: function () {
             var self = this, $p = self.$preview,
@@ -3325,6 +3321,20 @@
             self.filenames = newnames;
             self.fileids = newids;
         },
+        _isFileSelectionValid: function(cnt) {
+            var self = this;
+            cnt = cnt || 0;
+            if (self.required && !self.getFilesCount()) {
+                self.$errorContainer.html('');
+                self._showUploadError(self.msgFileRequired);
+                return false;
+            }
+            if (self.minFileCount > 0 && self._getFileCount(cnt) < self.minFileCount) {
+                self._noFilesError({});
+                return false;
+            }
+            return true;
+        },
         clearStack: function () {
             var self = this;
             self.filestack = [];
@@ -3472,9 +3482,8 @@
             self._raise('filedisabled');
             self.$element.attr('disabled', 'disabled');
             self.$container.find(".kv-fileinput-caption").addClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button").attr(
-                "disabled",
-                true);
+            self.$container.find(".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button")
+                .attr("disabled", true);
             self._initDragDrop();
             return self.$element;
         },
@@ -3484,19 +3493,15 @@
             self._raise('fileenabled');
             self.$element.removeAttr('disabled');
             self.$container.find(".kv-fileinput-caption").removeClass("file-caption-disabled");
-            self.$container.find(
-                ".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button").removeAttr("disabled");
+            self.$container.find(".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button")
+                .removeAttr("disabled");
             self._initDragDrop();
             return self.$element;
         },
         upload: function () {
-            var self = this, totLen = self.getFileStack().length, params = {}, i, outData, len,
+            var self = this, totLen = self.getFileStack().length, i, outData, len,
                 hasExtraData = !$.isEmptyObject(self._getExtraData());
-            if (!self.isUploadable || self.isDisabled) {
-                return;
-            }
-            if (self.minFileCount > 0 && self._getFileCount(totLen) < self.minFileCount) {
-                self._noFilesError(params);
+            if (!self.isUploadable || self.isDisabled || !self._isFileSelectionValid(totLen)) {
                 return;
             }
             self._resetUpload();
@@ -3642,6 +3647,7 @@
         browseOnZoneClick: false,
         autoReplace: false,
         autoOrientImage: true, // for JPEG images based on EXIF orientation tag
+        required: false,
         generateFileId: null,
         previewClass: '',
         captionClass: '',
@@ -3761,6 +3767,7 @@
         msgNoFilesSelected: 'No files selected',
         msgCancelled: 'Cancelled',
         msgZoomModalHeading: 'Detailed Preview',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',

@@ -25,6 +25,7 @@
         msgNoFilesSelected: 'Δεν επιλέχθηκαν αρχεία',
         msgCancelled: 'Ακυρώθηκε',
         msgZoomModalHeading: 'Λεπτομερής Προεπισκόπηση',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Το "{name}" (<b>{size} KB</b>) είναι πολύ μικρό, πρέπει να είναι μεγαλύτερο από <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'Το αρχείο "{name}" (<b>{size} KB</b>) υπερβαίνει το μέγιστο επιτρεπόμενο μέγεθος μεταφόρτωσης <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Πρέπει να επιλέξετε τουλάχιστον <b>{n}</b> {files} για να ξεκινήσει η μεταφόρτωση.',
