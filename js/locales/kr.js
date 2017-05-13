@@ -25,6 +25,7 @@
         msgNoFilesSelected: '선택한 파일이 없습니다.',
         msgCancelled: '취소되었습니다.',
         msgZoomModalHeading: '자세한 미리보기',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: '파일 "{name}" (<b>{size} KB</b>)이 너무 작습니다. <b>{minSize} KB</b>보다 용량이 커야 합니다..',
         msgSizeTooLarge: '파일 "{name}" (<b>{size} KB</b>)이 너무 큽니다. 허용 파일 사이즈는 <b>{maxSize} KB</b>.입니다.',
         msgFilesTooLess: '업로드하기 위해 최소 <b>{n}</b> {files}개의 파일을 선택해야 합니다.',

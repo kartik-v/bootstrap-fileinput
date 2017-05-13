@@ -3,8 +3,10 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.0 (_under development_)
 
-**Date:** 03-May-2017
+**Date:** 13-May-2017
 
+- (enh #966): Add Estonian Translations.
+- (enh #965): New `required` and `msgFileRequired` properties.
 - (bug #958): Create `setTokens` string helper for easier replacement of tokens.
 - (bug #956): Correct initial preview file thumb deletions.
 - (bug #955): Remove unnecessary `sourceMappingUrl` in `purify.min.js`.
@@ -31,6 +33,7 @@ Change Log: `bootstrap-fileinput`
 - (enh #915): Update default styling for zoom preview for object.
 - (enh #910): New property `resizeIfMoreThan` to control image resize conditionally.
 - (bug #899): Fix multiple file selection for non-ajax scenario.
+- (enh #477): Enhance and correct IE10 fileinput click misbehavior.
 
 ## version 4.3.9
 

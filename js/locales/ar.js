@@ -26,6 +26,7 @@
         msgNoFilesSelected: '',
         msgCancelled: 'ألغيت',
         msgZoomModalHeading: 'معاينة تفصيلية',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'الملف "{name}" (<b>{size} ك.ب</b>) تعدى الحد الأقصى المسموح للرفع <b>{maxSize} ك.ب</b>.',
         msgFilesTooLess: 'يجب عليك اختيار <b>{n}</b> {files} على الأقل للرفع.',

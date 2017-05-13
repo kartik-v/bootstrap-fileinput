@@ -1,5 +1,5 @@
 /*!
- * FileInput <_LANG_> Translations
+ * FileInput Estonian Translations
  *
  * This file must be loaded after 'fileinput.js'. Patterns in braces '{}', or
  * any HTML markup tags in the messages must not be converted or translated.
@@ -11,23 +11,23 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinputLocales['_LANG_'] = {
-        fileSingle: 'file',
-        filePlural: 'files',
-        browseLabel: 'Browse &hellip;',
-        removeLabel: 'Remove',
+    $.fn.fileinputLocales['et'] = {
+        fileSingle: 'fail',
+        filePlural: 'failid',
+        browseLabel: 'Sirvi &hellip;',
+        removeLabel: 'Eemalda',
         removeTitle: 'Clear selected files',
-        cancelLabel: 'Cancel',
+        cancelLabel: 'Tühista',
         cancelTitle: 'Abort ongoing upload',
-        uploadLabel: 'Upload',
-        uploadTitle: 'Upload selected files',
+        uploadLabel: 'Salvesta',
+        uploadTitle: 'Salvesta valitud failid',
         msgNo: 'No',
         msgNoFilesSelected: 'No files selected',
         msgCancelled: 'Cancelled',
         msgZoomModalHeading: 'Detailed Preview',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
-        msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>.',
+        msgSizeTooLarge: 'Fail "{name}" (<b>{size} KB</b>) ületab lubatu suuruse <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',
         msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>.',
         msgFileNotFound: 'File "{name}" not found!',
@@ -36,7 +36,7 @@
         msgFilePreviewAborted: 'File preview aborted for "{name}".',
         msgFilePreviewError: 'An error occurred while reading the file "{name}".',
         msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
-        msgInvalidFileType: 'Invalid type for file "{name}". Only "{types}" files are supported.',
+        msgInvalidFileType: '"{name}" on vale tüüpi. Ainult "{types}" on lubatud.',
         msgInvalidFileExtension: 'Invalid extension for file "{name}". Only "{extensions}" files are supported.',
         msgFileTypes: {
             'image': 'image',
@@ -58,8 +58,8 @@
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
         msgSelected: '{n} {files} selected',
         msgFoldersNotAllowed: 'Drag & drop files only! Skipped {n} dropped folder(s).',
-        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
-        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
+        msgImageWidthSmall: 'Pildi laius peab olema vähemalt {size} px.',
+        msgImageHeightSmall: 'Pildi kõrgus peab olema vähemalt {size} px.',
         msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
         msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
         msgImageResizeError: 'Could not get the image dimensions to resize.',
@@ -72,17 +72,17 @@
             uploadBatch: 'batch file upload',
             uploadExtra: 'form data upload'
         },
-        dropZoneTitle: 'Drag & drop files here &hellip;',
+        dropZoneTitle: 'Lohista failid siia &hellip;',
         dropZoneClickTitle: '<br>(or click to select {files})',
         fileActionSettings: {
-            removeTitle: 'Remove file',
-            uploadTitle: 'Upload file',
-            zoomTitle: 'View details',
-            dragTitle: 'Move / Rearrange',
-            indicatorNewTitle: 'Not uploaded yet',
+            removeTitle: 'Eemalda fail',
+            uploadTitle: 'Salvesta fail',
+            zoomTitle: 'Vaata detaile',
+            dragTitle: 'Liiguta / Korralda',
+            indicatorNewTitle: 'Pole veel salvestatud',
             indicatorSuccessTitle: 'Uploaded',
-            indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            indicatorErrorTitle: 'Salvestamise viga',
+            indicatorLoadingTitle: 'Salvestan ...'
         },
         previewZoomButtonTitles: {
             prev: 'View previous file',

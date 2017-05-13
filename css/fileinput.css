@@ -476,6 +476,7 @@
 
 /* IE 10 fix */
 .btn-file ::-ms-browse {
+    font-size: 10000px;
     width: 100%;
     height: 100%;
 }

@@ -309,6 +309,27 @@
     };
     FileInput.prototype = {
         constructor: FileInput,
+        _cleanup: function() {
+            var self = this;
+            self.reader = null;
+            self.formdata = {};
+            self.uploadCount = 0;
+            self.uploadStatus = {};
+            self.uploadLog = [];
+            self.uploadAsyncCount = 0;
+            self.loadedImages = [];
+            self.totalImagesCount = 0;
+            self.ajaxRequests = [];
+            self.clearStack();
+            self.fileInputCleared = false;
+            self.fileBatchCompleted = true;
+            if (!self.isPreviewable) {
+                self.showPreview = false;
+            }
+            self.isError = false;
+            self.ajaxAborted = false;
+            self.cancelling = false;
+        },
         _init: function (options) {
             var self = this, $el = self.$element, $cont, t;
             self.options = options;
@@ -335,27 +356,10 @@
                         break;
                 }
             });
+            self._cleanup();
             self.$form = $el.closest('form');
             self._initTemplateDefaults();
-            self.fileInputCleared = false;
-            self.fileBatchCompleted = true;
-            if (!self.isPreviewable) {
-                self.showPreview = false;
-            }
             self.uploadFileAttr = !$h.isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
-            self.reader = null;
-            self.formdata = {};
-            self.clearStack();
-            self.uploadCount = 0;
-            self.uploadStatus = {};
-            self.uploadLog = [];
-            self.uploadAsyncCount = 0;
-            self.loadedImages = [];
-            self.totalImagesCount = 0;
-            self.ajaxRequests = [];
-            self.isError = false;
-            self.ajaxAborted = false;
-            self.cancelling = false;
             t = self._getLayoutTemplate('progress');
             self.progressTemplate = t.replace('{class}', self.progressClass);
             self.progressCompleteTemplate = t.replace('{class}', self.progressCompleteClass);
@@ -933,7 +937,7 @@
         },
         _showUploadError: function (msg, params, event) {
             var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror', e = params && params.id ?
-                '<li data-file-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
+            '<li data-file-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
             if ($error.find('ul').length === 0) {
                 self._addError('<ul>' + e + '</ul>');
             } else {
@@ -1196,12 +1200,8 @@
             }
         },
         _submitForm: function () {
-            var self = this, $el = self.$element, files = $el.get(0).files;
-            if (files && self.minFileCount > 0 && self._getFileCount(files.length) < self.minFileCount) {
-                self._noFilesError({});
-                return false;
-            }
-            return !self._abort({});
+            var self = this;
+            return self._isFileSelectionValid() && !self._abort({});
         },
         _clearPreview: function () {
             var self = this, $p = self.$preview,
@@ -3321,6 +3321,20 @@
             self.filenames = newnames;
             self.fileids = newids;
         },
+        _isFileSelectionValid: function(cnt) {
+            var self = this;
+            cnt = cnt || 0;
+            if (self.required && !self.getFilesCount()) {
+                self.$errorContainer.html('');
+                self._showUploadError(self.msgFileRequired);
+                return false;
+            }
+            if (self.minFileCount > 0 && self._getFileCount(cnt) < self.minFileCount) {
+                self._noFilesError({});
+                return false;
+            }
+            return true;
+        },
         clearStack: function () {
             var self = this;
             self.filestack = [];
@@ -3468,9 +3482,8 @@
             self._raise('filedisabled');
             self.$element.attr('disabled', 'disabled');
             self.$container.find(".kv-fileinput-caption").addClass("file-caption-disabled");
-            self.$container.find(".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button").attr(
-                "disabled",
-                true);
+            self.$container.find(".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button")
+                .attr("disabled", true);
             self._initDragDrop();
             return self.$element;
         },
@@ -3480,19 +3493,15 @@
             self._raise('fileenabled');
             self.$element.removeAttr('disabled');
             self.$container.find(".kv-fileinput-caption").removeClass("file-caption-disabled");
-            self.$container.find(
-                ".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button").removeAttr("disabled");
+            self.$container.find(".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button")
+                .removeAttr("disabled");
             self._initDragDrop();
             return self.$element;
         },
         upload: function () {
-            var self = this, totLen = self.getFileStack().length, params = {}, i, outData, len,
+            var self = this, totLen = self.getFileStack().length, i, outData, len,
                 hasExtraData = !$.isEmptyObject(self._getExtraData());
-            if (!self.isUploadable || self.isDisabled) {
-                return;
-            }
-            if (self.minFileCount > 0 && self._getFileCount(totLen) < self.minFileCount) {
-                self._noFilesError(params);
+            if (!self.isUploadable || self.isDisabled || !self._isFileSelectionValid(totLen)) {
                 return;
             }
             self._resetUpload();
@@ -3544,6 +3553,11 @@
             if ($form && $form.length) {
                 $form.off(ns);
             }
+            if (self.isUploadable) {
+                self._clearFileInput();
+            }
+            self._cleanup();
+            self._initPreviewCache();
             $el.insertBefore($cont).off(ns).removeData();
             $cont.off().remove();
             return $el;
@@ -3553,6 +3567,10 @@
             options = options ? $.extend(true, {}, self.options, options) : self.options;
             self.destroy();
             $el.fileinput(options);
+            self = $el.data('fileinput');
+            if (self.isUploadable) {
+                self._clearFileInput();
+            }
             if ($el.val()) {
                 $el.trigger('change.fileinput');
             }
@@ -3629,6 +3647,7 @@
         browseOnZoneClick: false,
         autoReplace: false,
         autoOrientImage: true, // for JPEG images based on EXIF orientation tag
+        required: false,
         generateFileId: null,
         previewClass: '',
         captionClass: '',
@@ -3748,6 +3767,7 @@
         msgNoFilesSelected: 'No files selected',
         msgCancelled: 'Cancelled',
         msgZoomModalHeading: 'Detailed Preview',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',

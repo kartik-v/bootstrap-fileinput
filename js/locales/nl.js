@@ -25,6 +25,7 @@
         msgNoFilesSelected: '',
         msgCancelled: 'Geannuleerd',
         msgZoomModalHeading: 'Gedetailleerd voorbeeld',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'Bestand "{name}" (<b>{size} KB</b>) is groter dan de toegestane <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'U moet minstens <b>{n}</b> {files} selecteren om te uploaden.',

@@ -27,6 +27,7 @@
         msgCancelled: '取消',
         zoomTitle: '詳細資料',
         msgZoomModalHeading: '內容預覽',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: '檔案 "{name}" (<b>{size} KB</b>) 大小超過上限 <b>{maxSize} KB</b>.',
         msgFilesTooLess: '最少必須選擇 <b>{n}</b> {files} 來上傳. ',

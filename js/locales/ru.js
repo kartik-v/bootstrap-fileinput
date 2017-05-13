@@ -26,6 +26,7 @@
         msgNoFilesSelected: '',
         msgCancelled: 'Отменено',
         msgZoomModalHeading: 'Подробное превью',
+        msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Файл "{name}" (<b>{size} KB</b>) имеет слишком маленький размер и должен быть больше <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) превышает максимальный размер <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Вы должны выбрать как минимум <b>{n}</b> {files} для загрузки.',
