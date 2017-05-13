@@ -3,8 +3,9 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.0 (_under development_)
 
-**Date:** 11-May-2017
+**Date:** 13-May-2017
 
+- (enh #966): Add Estonian Translations.
 - (enh #965): New `required` and `msgFileRequired` properties.
 - (bug #958): Create `setTokens` string helper for easier replacement of tokens.
 - (bug #956): Correct initial preview file thumb deletions.
