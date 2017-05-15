@@ -1,6 +1,13 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.4.1
+
+**Date:** 14-May-2017
+
+- (enh #968): Update Turkish Translations.
+- (enh #967): Correct file caption display for ajax upload mode when `showPreview` is `false`.
+
 ## version 4.4.0
 
 **Date:** 13-May-2017

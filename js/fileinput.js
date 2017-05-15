@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.4.0
+ * bootstrap-fileinput v4.4.1
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -2604,9 +2604,12 @@
                     }
                 }
                 if (!self.showPreview) {
-                    self.addToStack(file);
+                    if (self.isUploadable) {
+                        self.addToStack(file);
+                    }
                     setTimeout(function () {
                         readFile(i + 1);
+                        self._updateFileDetails(numFiles);
                     }, 100);
                     self._raise('fileloaded', [file, previewId, i, reader]);
                     return;
