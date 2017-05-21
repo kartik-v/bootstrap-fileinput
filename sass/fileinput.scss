@@ -10,6 +10,14 @@
  * Licensed under the BSD 3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
+ 
+// Default Variables
+// --------------------------
+
+$bootstrap-fileinput-img-path: "../img" !default;
+
+// COMMON STYLES
+// --------------------------
 
 .file-loading {
   top: 0;
@@ -19,7 +27,7 @@
   font-size: 999px;
   text-align: right;
   color: #fff;
-  background: transparent url('../img/loading.gif') top left no-repeat;
+  background: transparent url('#{$bootstrap-fileinput-img-path}/loading.gif') top left no-repeat;
   border: none;
 }
 
@@ -308,7 +316,7 @@
 }
 
 .file-thumb-loading {
-  background: transparent url('../img/loading.gif') no-repeat scroll center center content-box !important;
+  background: transparent url('#{$bootstrap-fileinput-img-path}/loading.gif') no-repeat scroll center center content-box !important;
 }
 
 .file-sortable .file-drag-handle {
@@ -364,7 +372,7 @@
 }
 
 .file-uploading {
-  background: url('../img/loading-sm.gif') no-repeat center bottom 10px;
+  background: url('#{$bootstrap-fileinput-img-path}/loading-sm.gif') no-repeat center bottom 10px;
   opacity: 0.65;
 }
 
