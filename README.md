@@ -61,9 +61,9 @@ Step 1: Load the following assets in your header.
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="path/to/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<!-- canvas-to-blob.min.js is only needed if you wish to resize images before upload.
+<!-- piexif.min.js is only needed if you wish to resize images before upload to restore exif data.
      This must be loaded before fileinput.min.js -->
-<script src="path/to/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
+<script src="path/to/js/plugins/piexif.min.js" type="text/javascript"></script>
 <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
      This must be loaded before fileinput.min.js -->
 <script src="path/to/js/plugins/sortable.min.js" type="text/javascript"></script>
@@ -87,7 +87,7 @@ If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in 
 
 **Optional Dependent Plugins**
 
-- The `canvas-to-blob.min.js` file is the source for the [JavaScript-Canvas-to-Blob plugin by blueimp](https://github.com/blueimp/JavaScript-Canvas-to-Blob). It is required to be loaded before `fileinput.min.js` if you wish to use the image resize feature of the **bootstrap-fileinput** plugin. 
+- The `piexif.min.js` file is the source for the [Piexifjs plugin by hMatoba](https://github.com/hMatoba/piexifjs). It is required to be loaded before `fileinput.min.js` if you wish to use the image resize feature of the **bootstrap-fileinput** plugin. 
 - The `sortable.min.js` file is the source for the [Sortable plugin by rubaxa](https://github.com/rubaxa/Sortable). It is required to be loaded before `fileinput.min.js` if you wish to sort the thumbnails in the initial preview.
 - The `purify.min.js` file is the source for the [DomPurify plugin by cure53](https://github.com/cure53/DOMPurify). It is required to be loaded before `fileinput.min.js` if you wish to purify your HTML for HTML content preview.
 
