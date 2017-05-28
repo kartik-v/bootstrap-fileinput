@@ -1,12 +1,14 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.4.2
+## version 4.4.2 (_under development_)
 
 **Date:** 28-May-2017
 
 - (enh #986): Image width parsing and styling enhancements.
 - (enh #981): Update Hungarian Translations.
+- (enh #977): Add RTL capability (new property `rtl` to be set) - includes new `fileinput-rtl.css` )to be loaded after `fileinput.css` for RTL styling).
+- (enh #973): Add SCSS image path variable and file-image alt style updates.
 
 ## version 4.4.1
 

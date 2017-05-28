@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.4.1
+ * bootstrap-fileinput v4.4.2
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -10,7 +10,7 @@
  * Licensed under the BSD 3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
- 
+
 // Default Variables
 // --------------------------
 
@@ -127,7 +127,8 @@ $bootstrap-fileinput-img-path: "../img" !default;
 
   .file-preview-image {
     vertical-align: middle;
-    image-orientation: from-image;
+    font: 40px Impact, Charcoal, sans-serif;
+    color: green;
   }
 
   .file-preview-text {
