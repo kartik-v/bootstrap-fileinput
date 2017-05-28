@@ -1,0 +1,12 @@
+/*!
+ * bootstrap-fileinput v4.4.1
+ * http://plugins.krajee.com/file-input
+ *
+ * Krajee default styling for bootstrap-fileinput.
+ *
+ * Author: Kartik Visweswaran
+ * Copyright: 2014 - 2017, Kartik Visweswaran, Krajee.com
+ *
+ * Licensed under the BSD 3-Clause
+ * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
+ */.btn-file input[type=file],.file-loading{right:auto;left:0;text-align:left}.btn-file input[type=file]{background:100% 0 none}.file-error-message pre,.file-error-message ul,.file-zoom-dialog,.krajee-default .file-actions,.krajee-default .file-other-error{text-align:right}.krajee-default.file-preview-frame{box-shadow:-1px 1px 5px 0 #a2958a;float:right}.krajee-default.file-preview-frame:not(.file-preview-error):hover{box-shadow:-3px 3px 5px 0 #333}.krajee-default .file-footer-buttons{float:left}.krajee-default .file-drag-handle,.krajee-default .file-upload-indicator{right:-6px;padding:8px 3px 1px 8px;border-right:none;border-left:1px solid #8a6d3b;border-top-left-radius:24px;left:auto}.file-input-ajax-new .no-browse .form-control,.file-input-new .no-browse .form-control{border-top-left-radius:4px;border-bottom-left-radius:4px}.file-drop-zone{margin:12px 12px 12px 15px}.file-zoom-dialog .floating-buttons{left:10px;right:auto}.file-zoom-dialog .kv-zoom-actions .btn,.floating-buttons .btn{margin-right:3px}.file-zoom-dialog .btn-prev{right:1px}.file-zoom-dialog .btn-next{left:1px}.rotate-3{transform:rotate(-180deg)}.rotate-4{transform:rotate(-180deg) rotateY(180deg)}.rotate-5{transform:rotate(-270deg) rotateY(180deg)}.rotate-6{transform:rotate(-90deg)}.rotate-7{transform:rotate(-90deg) rotateY(180deg)}.rotate-8{transform:rotate(-270deg)}
