@@ -2908,7 +2908,6 @@
                 w2 = $preview.width();
                 if (w1 > w2) {
                     $img.css('width', '100%');
-                    $thumb.css('width', '97%');
                 }
                 params = {ind: i, id: previewId};
                 self._checkDimensions(i, 'Small', $img, $thumb, fname, 'Width', params);

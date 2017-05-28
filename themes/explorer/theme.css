@@ -171,6 +171,7 @@
 
     .theme-explorer .table .kv-file-content .file-preview-image {
         max-width: 100%;
+        font-size: 20px;
     }
 
     .theme-explorer .file-details-cell {

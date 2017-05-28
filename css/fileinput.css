@@ -92,6 +92,11 @@
     margin-bottom: 5px;
 }
 
+.file-preview-image {
+    font: 40px Impact, Charcoal, sans-serif;
+    color: green;
+}
+
 .krajee-default.file-preview-frame {
     position: relative;
     display: table;

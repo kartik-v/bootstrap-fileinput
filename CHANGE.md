@@ -1,6 +1,13 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.4.2
+
+**Date:** 28-May-2017
+
+- (enh #986): Image width parsing and styling enhancements.
+- (enh #981): Update Hungarian Translations.
+
 ## version 4.4.1
 
 **Date:** 25-May-2017
