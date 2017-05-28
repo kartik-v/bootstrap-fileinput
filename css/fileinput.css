@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.4.1
+ * bootstrap-fileinput v4.4.2
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -90,6 +90,11 @@
     padding: 5px;
     width: 100%;
     margin-bottom: 5px;
+}
+
+.file-preview-image {
+    font: 40px Impact, Charcoal, sans-serif;
+    color: green;
 }
 
 .krajee-default.file-preview-frame {
