@@ -14,6 +14,10 @@
     direction: rtl;
 }
 
+.kv-rtl .close {
+    float: left;
+}
+
 .kv-rtl .input-group-btn:last-child >.btn {
    border-top-right-radius: 0 !important;
    border-bottom-right-radius: 0 !important;
@@ -83,44 +87,35 @@
     margin: 12px 12px 12px 15px;
 }
 
-.kv-rtl .file-zoom-dialog .floating-buttons {
+.kv-rtl .floating-buttons {
     left: 10px;
     right: auto;
 }
 
-.kv-rtl .file-zoom-dialog .kv-zoom-actions .btn,
+.kv-rtl .kv-zoom-actions .btn,
 .kv-rtl .floating-buttons .btn {
     margin-right: 3px;
 }
 
-.kv-rtl .file-zoom-dialog .btn-prev {
+.kv-rtl .btn-prev {
     right: 1px;
+    left: auto;
 }
 
-.kv-rtl .file-zoom-dialog .btn-next {
+.kv-rtl .btn-next {
     left: 1px;
+    right: auto;
 }
 
-.kv-rtl .rotate-3 {
-    transform: rotate(-180deg);
+.kv-rtl .pull-right {
+    float: left!important;
 }
 
-.kv-rtl .rotate-4 {
-    transform: rotate(-180deg) rotateY(180deg);
+.kv-rtl .pull-left {
+    float: right!important;
 }
 
-.kv-rtl .rotate-5 {
-    transform: rotate(-270deg) rotateY(180deg);
-}
-
-.kv-rtl .rotate-6 {
-    transform: rotate(-90deg);
-}
-
-.kv-rtl .rotate-7 {
-    transform: rotate(-90deg) rotateY(180deg);
-}
-
-.kv-rtl .rotate-8 {
-    transform: rotate(-270deg);
+.kv-rtl .modal-title {
+    float: right;
+    direction: ltr;
 }
