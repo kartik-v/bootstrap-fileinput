@@ -83,10 +83,14 @@
 
 .file-zoom-dialog .btn-prev {
     right: 1px;
+    left: auto;
+    transform: rotate(180deg);
 }
 
 .file-zoom-dialog .btn-next {
     left: 1px;
+    right: auto;
+    transform: rotate(180deg);
 }
 
 .rotate-3 {
