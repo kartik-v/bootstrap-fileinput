@@ -372,7 +372,7 @@
             self.cancelling = false;
         },
         _init: function (options) {
-            var self = this, $el = self.$element, $cont, t;
+            var self = this, $el = self.$element, $cont, t, tmp;
             self.options = options;
             $.each(options, function (key, value) {
                 switch (key) {
@@ -397,6 +397,11 @@
                         break;
                 }
             });
+            if (self.rtl) { // swap buttons for rtl
+                tmp = self.previewZoomButtonIcons.prev;
+                self.previewZoomButtonIcons.prev = self.previewZoomButtonIcons.next;
+                self.previewZoomButtonIcons.next = tmp;
+            }
             self._cleanup();
             self.$form = $el.closest('form');
             self._initTemplateDefaults();
