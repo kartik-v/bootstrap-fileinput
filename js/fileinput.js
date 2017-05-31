@@ -2020,8 +2020,10 @@
                             updateUploadLog(i, pid);
                         }
                     } else {
+                        uploadFailed = true;
                         self._showUploadError(data.error, params);
-                        self._setPreviewError($thumb, i);
+                        self._setPreviewError($thumb, i,
+                            multiUploadMode ? null : self.filestack[i]);
                         if (allFiles) {
                             updateUploadLog(i, pid);
                         }
