@@ -3,8 +3,9 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.2 (_under development_)
 
-**Date:** 30-May-2017
+**Date:** 06-Jun-2017
 
+- (bug #995): Correct and fix image load jquery event triggering for browser cache scenarios.
 - (enh #987): Zoom preview arrows orientation for RTL.
 - (enh #986): Image width parsing and styling enhancements.
 - (enh #981): Update Hungarian Translations.

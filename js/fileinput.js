@@ -2941,10 +2941,10 @@
                 self._raise('fileimageloaderror', [previewId]);
             }).each(function () {
                 if (this.complete) {
-                    $(this).load();
+                    $(this).trigger('load');
                 } else {
                     if (this.error) {
-                        $(this).error();
+                        $(this).trigger('error');
                     }
                 }
             });
