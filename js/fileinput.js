@@ -2400,6 +2400,8 @@
             }
             if (typeof func === 'function') {
                 out = func(size);
+            } else if (size === 0) {
+                out = '0.00 B';
             } else {
                 if (size === 0) {
                     out = '0.00 B';
