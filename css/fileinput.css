@@ -480,12 +480,7 @@
 }
 
 .hide-content .kv-file-content {
-    color: #fff;
-    border: none;
-    background: none;
-    width: 0.1pt;
-    height: 0.1pt;
-    overflow: hidden;
+    display: none;
 }
 
 /* IE 10 fix */
