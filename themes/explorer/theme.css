@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.4.1
+ * bootstrap-fileinput v4.4.2
  * http://plugins.krajee.com/file-input
  *
  * Krajee Explorer theme style for bootstrap-fileinput. Load this theme file after loading `fileinput.css`.
@@ -171,6 +171,7 @@
 
     .theme-explorer .table .kv-file-content .file-preview-image {
         max-width: 100%;
+        font-size: 20px;
     }
 
     .theme-explorer .file-details-cell {

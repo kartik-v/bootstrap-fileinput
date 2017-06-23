@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.4.1
+ * bootstrap-fileinput v4.4.2
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -372,7 +372,7 @@
             self.cancelling = false;
         },
         _init: function (options) {
-            var self = this, $el = self.$element, $cont, t;
+            var self = this, $el = self.$element, $cont, t, tmp;
             self.options = options;
             $.each(options, function (key, value) {
                 switch (key) {
@@ -397,6 +397,11 @@
                         break;
                 }
             });
+            if (self.rtl) { // swap buttons for rtl
+                tmp = self.previewZoomButtonIcons.prev;
+                self.previewZoomButtonIcons.prev = self.previewZoomButtonIcons.next;
+                self.previewZoomButtonIcons.next = tmp;
+            }
             self._cleanup();
             self.$form = $el.closest('form');
             self._initTemplateDefaults();
@@ -455,6 +460,9 @@
                 self.disable();
             }
             self._initZoom();
+            if (self.hideThumbnailContent) {
+                $h.addCss(self.$preview, 'hide-content');
+            }
         },
         _initTemplateDefaults: function () {
             var self = this, tMain1, tMain2, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse,
@@ -497,7 +505,7 @@
             tBtnBrowse = '<div tabindex="500" class="{css}" {status}>{icon} {label}</div>';
             tModalMain = '<div id="' + $h.MODAL_ID + '" class="file-zoom-dialog modal fade" ' +
                 'tabindex="-1" aria-labelledby="' + $h.MODAL_ID + 'Label"></div>';
-            tModal = '<div class="modal-dialog modal-lg" role="document">\n' +
+            tModal = '<div class="modal-dialog modal-lg{rtl}" role="document">\n' +
                 '  <div class="modal-content">\n' +
                 '    <div class="modal-header">\n' +
                 '      <div class="kv-zoom-actions pull-right">{toggleheader}{fullscreen}{borderless}{close}</div>\n' +
@@ -1327,6 +1335,7 @@
         _getModalContent: function () {
             var self = this;
             return self._getLayoutTemplate('modal').setTokens({
+                'rtl': self.rtl ? ' kv-rtl' : '',
                 'zoomFrameClass': self.frameClass,
                 'heading': self.msgZoomModalHeading,
                 'prev': self._getZoomButton('prev'),
@@ -2908,7 +2917,6 @@
                 w2 = $preview.width();
                 if (w1 > w2) {
                     $img.css('width', '100%');
-                    $thumb.css('width', '97%');
                 }
                 params = {ind: i, id: previewId};
                 self._checkDimensions(i, 'Small', $img, $thumb, fname, 'Width', params);
@@ -2936,10 +2944,10 @@
                 self._raise('fileimageloaderror', [previewId]);
             }).each(function () {
                 if (this.complete) {
-                    $(this).load();
+                    $(this).trigger('load');
                 } else {
                     if (this.error) {
-                        $(this).error();
+                        $(this).trigger('error');
                     }
                 }
             });
@@ -3078,9 +3086,8 @@
             self.$captionContainer.find('.file-caption-ellipsis').attr('title', title);
         },
         _createContainer: function () {
-            var self = this, $container = $(document.createElement("div"))
-                .attr({"class": 'file-input file-input-new'})
-                .html(self._renderMain());
+            var self = this, attribs = {"class": 'file-input file-input-new' + (self.rtl ? ' kv-rtl' : '')},
+                $container = $(document.createElement("div")).attr(attribs).html(self._renderMain());
             self.$element.before($container);
             self._initBrowse($container);
             if (self.theme) {
@@ -3723,6 +3730,8 @@
         autoReplace: false,
         autoOrientImage: true, // for JPEG images based on EXIF orientation tag
         required: false,
+        rtl: false,
+        hideThumbnailContent: false,
         generateFileId: null,
         previewClass: '',
         captionClass: '',
