@@ -12,6 +12,7 @@ Change Log: `bootstrap-fileinput`
 - (enh #989): Update Chinese Translations.
 - (enh #987): Zoom preview arrows orientation for RTL.
 - (enh #986): Image width parsing and styling enhancements.
+- (enh #985): Do not reset input when upload fails (single-upload mode).
 - (enh #981): Update Hungarian Translations.
 - (enh #977): Add RTL capability (new property `rtl` to be set) - includes new `fileinput-rtl.css` (to be loaded after `fileinput.css` for RTL styling).
 - (enh #973): Add SCSS image path variable and file-image alt style updates.

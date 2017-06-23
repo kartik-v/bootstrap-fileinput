@@ -1916,7 +1916,8 @@
                 previewId = self.previewInitId + "-" + i, $thumb, chkComplete, $btnUpload, $btnDelete,
                 hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
                 $prog = $('#' + previewId).find('.file-thumb-progress'),
-                fnBefore, fnSuccess, fnComplete, fnError, updateUploadLog, params = {id: previewId, index: i};
+                fnBefore, fnSuccess, fnComplete, fnError, updateUploadLog, params = {id: previewId, index: i},
+                uploadFailed, multiUploadMode = !$h.isEmpty(self.$element.attr('multiple'));
             self.formdata = formdata;
             if (self.showPreview) {
                 $thumb = $('#' + previewId + ':not(.file-preview-initial)');
@@ -1928,7 +1929,9 @@
                 return;
             }
             updateUploadLog = function (i, previewId) {
-                self.updateStack(i, undefined);
+                if (multiUploadMode || !uploadFailed) {
+                    self.updateStack(i, undefined);
+                }
                 self.uploadLog.push(previewId);
                 if (self._checkAsyncComplete()) {
                     self.fileBatchCompleted = true;
@@ -1943,6 +1946,7 @@
                     len = data.content.length;
                 }
                 setTimeout(function () {
+                    var triggerReset = multiUploadMode || !uploadFailed;
                     if (self.showPreview) {
                         self.previewCache.set(u.content, u.config, u.tags, u.append);
                         if (len) {
@@ -1971,8 +1975,10 @@
                             self._initPreviewActions();
                         }
                     }
-                    self.unlock();
-                    self._clearFileInput();
+                    self.unlock(triggerReset);
+                    if (triggerReset) {
+                        self._clearFileInput();
+                    }
                     $initThumbs = self.$preview.find('.file-preview-initial');
                     if (self.uploadAsync && $initThumbs.length) {
                         $h.addCss($initThumbs, $h.SORT_CSS);
@@ -2025,8 +2031,9 @@
                             updateUploadLog(i, pid);
                         }
                     } else {
+                        uploadFailed = true;
                         self._showUploadError(data.error, params);
-                        self._setPreviewError($thumb, i);
+                        self._setPreviewError($thumb, i, (multiUploadMode ? null : self.filestack[i]));
                         if (allFiles) {
                             updateUploadLog(i, pid);
                         }
@@ -2052,12 +2059,13 @@
             fnError = function (jqXHR, textStatus, errorThrown) {
                 var op = self.ajaxOperations.uploadThumb,
                     errMsg = self._parseError(op, jqXHR, errorThrown, (allFiles ? files[i].name : null));
+                uploadFailed = true;
                 setTimeout(function () {
                     if (allFiles) {
                         updateUploadLog(i, previewId);
                     }
                     self.uploadStatus[previewId] = 100;
-                    self._setPreviewError($thumb, i);
+                    self._setPreviewError($thumb, i, (multiUploadMode ? null : self.filestack[i]));
                     $.extend(true, params, self._getOutData(jqXHR));
                     self._setProgress(101, $prog, self.msgAjaxProgressError.replace('{operation}', op));
                     self._showUploadError(errMsg, params);
