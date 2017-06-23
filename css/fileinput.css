@@ -479,6 +479,15 @@
     background-color: #d9edf7;
 }
 
+.hide-content .kv-file-content {
+    color: #fff;
+    border: none;
+    background: none;
+    width: 0.1pt;
+    height: 0.1pt;
+    overflow: hidden;
+}
+
 /* IE 10 fix */
 .btn-file ::-ms-browse {
     font-size: 10000px;

@@ -460,6 +460,9 @@
                 self.disable();
             }
             self._initZoom();
+            if (self.hideThumbnailContent) {
+                $h.addCss(self.$preview, 'hide-content');
+            }
         },
         _initTemplateDefaults: function () {
             var self = this, tMain1, tMain2, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse,
@@ -3083,7 +3086,7 @@
             self.$captionContainer.find('.file-caption-ellipsis').attr('title', title);
         },
         _createContainer: function () {
-            var self = this, attribs = {"class": 'file-input file-input-new' + (self.rtl ? ' kv-rtl' : '')}, 
+            var self = this, attribs = {"class": 'file-input file-input-new' + (self.rtl ? ' kv-rtl' : '')},
                 $container = $(document.createElement("div")).attr(attribs).html(self._renderMain());
             self.$element.before($container);
             self._initBrowse($container);
@@ -3728,6 +3731,7 @@
         autoOrientImage: true, // for JPEG images based on EXIF orientation tag
         required: false,
         rtl: false,
+        hideThumbnailContent: false,
         generateFileId: null,
         previewClass: '',
         captionClass: '',
