@@ -3,8 +3,9 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.2 (_under development_)
 
-**Date:** 23-Jun-2017
+**Date:** 24-Jun-2017
 
+- (enh #1005): Update Dutch Translations.
 - (enh #1004): New Krajee Explorer Font Awesome Theme.
 - (bug #995): Correct and fix image load jquery event triggering for browser cache scenarios.
 - (enh #991): Add Azerbaijan Translations.
