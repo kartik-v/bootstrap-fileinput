@@ -1,7 +1,13 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.4.2 (_under development_)
+## version 4.4.3 (_under development_)
+
+**Date:** 28-Jun-2017
+
+- (enh #1006): Update Farsi Translations.
+
+## version 4.4.2
 
 **Date:** 24-Jun-2017
 
