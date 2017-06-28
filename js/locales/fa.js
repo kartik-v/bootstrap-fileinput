@@ -14,7 +14,7 @@
 
     $.fn.fileinputLocales['fa'] = {
         fileSingle: 'فایل',
-        filePlural: 'فایل',
+        filePlural: 'فایل‌ها',
         browseLabel: 'مرور &hellip;',
         removeLabel: 'حذف',
         removeTitle: 'پاکسازی فایل‌های انتخاب شده',
