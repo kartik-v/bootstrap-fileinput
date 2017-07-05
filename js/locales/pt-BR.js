@@ -22,7 +22,7 @@
         uploadLabel: 'Enviar',
         uploadTitle: 'Enviar arquivos selecionados',
         msgNo: 'Não',
-        msgNoFilesSelected: '',
+        msgNoFilesSelected: 'Nenhum arquivo selecionado',
         msgCancelled: 'Cancelado',
         msgZoomModalHeading: 'Pré-visualização detalhada',
         msgFileRequired: 'Você deve selecionar um arquivo para enviar.',
