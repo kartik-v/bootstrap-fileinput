@@ -465,11 +465,11 @@
             }
         },
         _initTemplateDefaults: function () {
-            var self = this, tMain1, tMain2, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse,
-                tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionZoom,
+            var self = this, tMain1, tMain2, tGalleryModal, tGalleryFile, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnGallery,
+                tBtnBrowse, tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionZoom,
                 tActionDrag, tIndicator, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage, tText, tVideo,
                 tAudio, tFlash, tObject, tPdf, tOther, tZoomCache, vDefaultDim;
-            tMain1 = '{preview}\n' +
+            tMain1 = '{gallerymodal}{galleryfile}{preview}\n' +
                 '<div class="kv-upload-progress hide"></div>\n' +
                 '<div class="input-group {class}">\n' +
                 '   {caption}\n' +
@@ -477,10 +477,26 @@
                 '       {remove}\n' +
                 '       {cancel}\n' +
                 '       {upload}\n' +
+                '       {gallery}\n' +
                 '       {browse}\n' +
                 '   </div>\n' +
                 '</div>';
-            tMain2 = '{preview}\n<div class="kv-upload-progress hide"></div>\n{remove}\n{cancel}\n{upload}\n{browse}\n';
+            tMain2 = '{gallerymodal}{galleryfile}{preview}\n<div class="kv-upload-progress hide"></div>\n{remove}\n{cancel}\n{upload}\n{browse}\n';
+            tGalleryModal = '<div class="modal fade" id="gallery-modal">\n' +
+                '<div class="modal-dialog">\n' +
+                '   <div class="modal-content">\n' +
+                '       <div class="modal-header">\n' +
+                '           <button type="button" class="close" data-dismiss="modal">&times;</button>\n' +
+                '           <h4 class="modal-title">{galleryTitle}</h4>\n' +
+                '       </div>\n' +
+                '       <div class="modal-body gallery-body">\n' +
+                '           <div id="content">\n' +
+                '           </div>\n' +
+                '       </div>\n' + 
+                '   </div>\n' +
+                '</div>\n' +
+                '</div>';
+            tGalleryFile = '<input type="hidden" id="{name}" name="{name}" />';
             tPreview = '<div class="file-preview {class}">\n' +
                 '    {close}' +
                 '    <div class="{dropClass}">\n' +
@@ -501,6 +517,8 @@
                 '{status}>{icon} {label}</button>';
             //noinspection HtmlUnknownAttribute
             tBtnLink = '<a href="{href}" tabindex="500" title="{title}" class="{css}" {status}>{icon} {label}</a>';
+            //noinspection HtmlUnknownAttribute
+            tBtnGallery = '<div tabindex="500" class="{css}" {status}>{icon} {label}</div>';
             //noinspection HtmlUnknownAttribute
             tBtnBrowse = '<div tabindex="500" class="{css}" {status}>{icon} {label}</div>';
             tModalMain = '<div id="' + $h.MODAL_ID + '" class="file-zoom-dialog modal fade" ' +
@@ -576,6 +594,8 @@
                 layoutTemplates: {
                     main1: tMain1,
                     main2: tMain2,
+                    gallerymodal: tGalleryModal,
+                    galleryfile: tGalleryFile,
                     preview: tPreview,
                     close: tClose,
                     fileIcon: tFileIcon,
@@ -593,6 +613,7 @@
                     actionDrag: tActionDrag,
                     btnDefault: tBtnDefault,
                     btnLink: tBtnLink,
+                    btnGallery: tBtnGallery,
                     btnBrowse: tBtnBrowse,
                     zoomCache: tZoomCache
                 },
@@ -1149,6 +1170,9 @@
         _listen: function () {
             var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, fullScreenEvents;
             self._handler($el, 'change', $.proxy(self._change, self));
+            if(self.showGallery){
+              self._handler(self.$btnGallery, 'click', $.proxy(self._loadGallery, self));
+            }
             if (self.showBrowse) {
                 self._handler(self.$btnFile, 'click', $.proxy(self._browse, self));
             }
@@ -3049,6 +3073,18 @@
                 throwError(msg, {id: pid, 'index': ind}, 'fileimageresizeexception');
             }
         },
+        _initGallery: function ($container) {
+          var self = this;
+          if (self.showGallery) {
+              self.$btnGallery = $container.find('.fileinput-gallery');
+              self.$galleryModal = $container.find("#gallery-modal");
+              if(self.hiddenInputName == null){
+                self.hiddenInputName = self.$element.attr("name") + '-gallery-file';
+              }
+          } else {
+              self.$element.hide();
+          }
+      },
         _initBrowse: function ($container) {
             var self = this;
             if (self.showBrowse) {
@@ -3097,6 +3133,7 @@
             var self = this, attribs = {"class": 'file-input file-input-new' + (self.rtl ? ' kv-rtl' : '')},
                 $container = $(document.createElement("div")).attr(attribs).html(self._renderMain());
             self.$element.before($container);
+            self._initGallery($container);
             self._initBrowse($container);
             if (self.theme) {
                 $container.addClass('theme-' + self.theme);
@@ -3113,18 +3150,23 @@
             var self = this,
                 dropCss = (self.isUploadable && self.dropZoneEnabled) ? ' file-drop-zone' : 'file-drop-disabled',
                 close = !self.showClose ? '' : self._getLayoutTemplate('close'),
+                gallerymodal = !self.showGallery ? '' : self._getLayoutTemplate('gallerymodal').setTokens({ 'galleryTitle': self.galleryTitleLabel}),
+                galleryfile = !self.showGallery ? '' : self._getLayoutTemplate('galleryfile').setTokens({ 'name' : self.hiddenInputName}),
                 preview = !self.showPreview ? '' : self._getLayoutTemplate('preview')
                     .setTokens({'class': self.previewClass, 'dropClass': dropCss}),
                 css = self.isDisabled ? self.captionClass + ' file-caption-disabled' : self.captionClass,
                 caption = self.captionTemplate.setTokens({'class': css + ' kv-fileinput-caption'});
             return self.mainTemplate.setTokens({
                 'class': self.mainClass + (!self.showBrowse && self.showCaption ? ' no-browse' : ''),
+                'gallerymodal': gallerymodal,
+                'galleryfile': galleryfile,
                 'preview': preview,
                 'close': close,
                 'caption': caption,
                 'upload': self._renderButton('upload'),
                 'remove': self._renderButton('remove'),
                 'cancel': self._renderButton('cancel'),
+                'gallery': self._renderButton('gallery'),
                 'browse': self._renderButton('browse')
             });
 
@@ -3154,6 +3196,12 @@
                     } else {
                         btnType = 'submit';
                     }
+                    break;
+                case 'gallery':
+                    if (!self.showGallery) {
+                      return '';
+                    }
+                    tmplt = self._getLayoutTemplate('btnGallery');
                     break;
                 case 'browse':
                     if (!self.showBrowse) {
@@ -3257,6 +3305,60 @@
                 'drag': btnDrag,
                 'other': otherButtons
             });
+        },
+        _loadGallery: function (e){
+          var self = this;
+          self.$galleryModal.on('show.bs.modal', function () {
+            jQuery(this).find('.modal-body').css(
+                {
+                   'max-height':'100%'
+                });
+            });
+          var settings = {
+            url: self.galleryUrl,
+            type: 'GET',
+            dataType: 'json',
+            context: self,
+            success: function (data, textStatus, jqXHR) {
+              self.$galleryModal.find("#content").html("");
+              if(self.fnRenderGallery != null && window[self.fnRenderGallery] != undefined && data.length > 0){
+                window[self.fnRenderGallery](data, self.$galleryModal, self);
+              } else if(data.length > 0){
+                for(var i=0; i < data.length;i++){
+                  var imageElement = data[i];
+                  // Creating HTML
+                  var html = '<div class="col-lg-3 col-md-4 col-xs-6 thumb">'
+                    + '<a class="thumbnail" href="#">'
+                    + '<img id="'+imageElement.id+'" class="img-responsive" src="'+imageElement[self.srcProperty]+'" alt=""></a></div>';
+                  self.$galleryModal.find("#content").append(html);
+                }
+              } else {
+                self.$galleryModal.find("#content").append(self.galleryEmptyLabel);
+              }
+              jQuery(".img-responsive", self.$galleryModal).on('click', $.proxy(self._setImageFromGallery, self));
+              self.$galleryModal.modal("show");
+            }
+          };
+          $.ajax(settings);
+        },
+        _setImageFromGallery: function(e) {
+          var self = this;
+          var image = e.target.src;
+          self.refresh({
+            initialPreview: [
+              image
+              ],
+            initialPreviewAsData: true,
+            overwriteInitial: true
+          });
+          jQuery("body").removeClass("modal-open");
+          jQuery(".modal-backdrop").remove();
+          var hiddenInput = jQuery("#" + self.hiddenInputName);
+          if(self.fnSetImageFromGallery != null && window[self.fnSetImageFromGallery] != undefined){
+            window[self.fnSetImageFromGallery](e.target, hiddenInput, self);
+          } else {
+            hiddenInput.val(image);
+          }
         },
         _browse: function (e) {
             var self = this;
@@ -3727,6 +3829,7 @@
     $.fn.fileinput.defaults = {
         language: 'en',
         showCaption: true,
+        showGallery: false,
         showBrowse: true,
         showPreview: true,
         showRemove: true,
@@ -3741,6 +3844,11 @@
         rtl: false,
         hideThumbnailContent: false,
         generateFileId: null,
+        galleryUrl: '',
+        fnRenderGallery: null,
+        fnSetImageFromGallery: null,
+        hiddenInputName: null, 
+        srcProperty: 'url',
         previewClass: '',
         captionClass: '',
         frameClass: 'krajee-default',
@@ -3791,6 +3899,8 @@
         previewFileIconSettings: {},
         previewFileExtSettings: {},
         buttonLabelClass: 'hidden-xs',
+        galleryIcon: '<i class="glyphicon glyphicon-picture"></i>&nbsp;',
+        galleryClass: 'btn btn-default',
         browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>&nbsp;',
         browseClass: 'btn btn-primary',
         removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
@@ -3848,6 +3958,9 @@
     $.fn.fileinputLocales.en = {
         fileSingle: 'file',
         filePlural: 'files',
+        galleryLabel: 'Gallery &hellip;',
+        galleryTitleLabel: 'Gallery',
+        galleryEmptyLabel: "Sorry. We've not found any image to be displayed",
         browseLabel: 'Browse &hellip;',
         removeLabel: 'Remove',
         removeTitle: 'Clear selected files',
@@ -3930,3 +4043,4 @@
         }
     });
 }));
+

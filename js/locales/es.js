@@ -14,6 +14,9 @@
     $.fn.fileinputLocales['es'] = {
         fileSingle: 'archivo',
         filePlural: 'archivos',
+        galleryLabel: 'Galería &hellip;',
+        galleryTitleLabel: 'Galería',
+        galleryEmptyLabel: "Lo sentimos. No se han encontrado imágenes.",
         browseLabel: 'Examinar &hellip;',
         removeLabel: 'Quitar',
         removeTitle: 'Quitar archivos seleccionados',

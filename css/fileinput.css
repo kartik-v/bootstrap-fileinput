@@ -483,6 +483,13 @@
     display: none;
 }
 
+.gallery-body{
+  position: relative; 
+  overflow-y: auto; 
+  max-height: 400px;
+  padding: 15px
+}
+
 /* IE 10 fix */
 .btn-file ::-ms-browse {
     font-size: 10000px;
