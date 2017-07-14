@@ -3335,7 +3335,7 @@
               } else {
                 self.$galleryModal.find("#content").append(self.galleryEmptyLabel);
               }
-              jQuery(".img-responsive", self.$galleryModal).on('click', $.proxy(self._setImageFromGallery, self));
+              jQuery("img", self.$galleryModal).on('click', $.proxy(self._setImageFromGallery, self));
               self.$galleryModal.modal("show");
             }
           };
