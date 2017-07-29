@@ -1030,7 +1030,7 @@
         },
         _parseError: function (operation, jqXHR, errorThrown, fileName) {
             /** @namespace jqXHR.responseJSON */
-            var self = this, errMsg = $.trim(errorThrown + ''), dot = errMsg.slice(-1) === '.' ? '' : '.',
+            var self = this, errMsg = $.trim(errorThrown + ''), textPre 
                 text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined ?
                     jqXHR.responseJSON.error : jqXHR.responseText;
             if (self.cancelling && self.msgUploadAborted) {
@@ -1038,12 +1038,10 @@
             }
             if (self.showAjaxErrorDetails && text) {
                 text = $.trim(text.replace(/\n\s*\n/g, '\n'));
-                text = text.length > 0 ? '<pre>' + text + '</pre>' : '';
-                errMsg += dot + text;
-            } else {
-                errMsg += dot;
-            }
-            if (errMsg === dot) {
+                textPre = text.length ? '<pre>' + text + '</pre>' : '';
+                errMsg += errMsg ? textPre : text;
+            } 
+            if (!errMsg) {
                 errMsg = self.msgAjaxError.replace('{operation}', operation);
             }
             self.cancelling = false;
