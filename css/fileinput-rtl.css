@@ -116,6 +116,6 @@
 }
 
 .kv-rtl .modal-title {
-    float: right;
+    text-align: right;
     direction: ltr;
 }

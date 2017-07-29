@@ -14,7 +14,6 @@
         "url": "https://github.com/kartik-v/bootstrap-fileinput/issues"
     },
     "keywords": [
-        "bootstrap",
         "file",
         "input",
         "preview",
@@ -26,6 +25,10 @@
         "progress",
         "gallery"
     ],
+    "dependencies": {
+        "jquery": ">= 1.9.0",
+        "bootstrap": ">= 3.0.0"
+    },
     "main": "./js/fileinput.js",
     "style": "./css/fileinput.css",
     "peerDependencies": {
