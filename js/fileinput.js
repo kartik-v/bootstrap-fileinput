@@ -279,8 +279,11 @@
         setOrientation: function (buffer, callback) {
             var scanner = new DataView(buffer), idx = 0, value = 1, // Non-rotated is the default
                 maxBytes, uInt16, exifLength;
-            if (scanner.getUint16(idx) !== 0xFFD8 || buffer.length < 2) {
-                return; // not a proper JPEG
+            if (scanner.getUint16(idx) !== 0xFFD8 || buffer.length < 2) { // not a proper JPEG                
+                if (callback) {
+                    callback();
+                }
+                return;
             }
             idx += 2;
             maxBytes = scanner.byteLength;
@@ -2511,15 +2514,17 @@
                 var $img = $preview.find('#' + previewId + ' img');
                 if ($img.length && self.autoOrientImage) {
                     $h.validateOrientation(file, function (value) {
-                        if (value) {
-                            var $zoomImg = $preview.find('#zoom-' + previewId + ' img'), css = 'rotate-' + value;
-                            if (value > 4) {
-                                css += ($img.width() > $img.height() ? ' is-portrait-gt4' : ' is-landscape-gt4');
-                            }
-                            $h.addCss($img, css);
-                            $h.addCss($zoomImg, css);
-                            self._raise('fileimageoriented', {'$img': $img, 'file': file});
+                        if (!value) {
+                            self._validateImage(previewId, caption, ftype, fsize, iData);
+                            return;
                         }
+                        var $zoomImg = $preview.find('#zoom-' + previewId + ' img'), css = 'rotate-' + value;
+                        if (value > 4) {
+                            css += ($img.width() > $img.height() ? ' is-portrait-gt4' : ' is-landscape-gt4');
+                        }
+                        $h.addCss($img, css);
+                        $h.addCss($zoomImg, css);
+                        self._raise('fileimageoriented', {'$img': $img, 'file': file});
                         self._validateImage(previewId, caption, ftype, fsize, iData);
                         $h.adjustOrientedImage($img);
                     });
