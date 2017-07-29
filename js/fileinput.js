@@ -1912,7 +1912,7 @@
                 self.formdata.append(key, value);
             });
         },
-        _uploadSingle: function (i, files, allFiles) {
+        _uploadSingle: function (i, allFiles) {
             var self = this, total = self.getFileStack().length, formdata = new FormData(), outData,
                 previewId = self.previewInitId + "-" + i, $thumb, chkComplete, $btnUpload, $btnDelete,
                 hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
@@ -2059,7 +2059,7 @@
             };
             fnError = function (jqXHR, textStatus, errorThrown) {
                 var op = self.ajaxOperations.uploadThumb,
-                    errMsg = self._parseError(op, jqXHR, errorThrown, (allFiles ? files[i].name : null));
+                    errMsg = self._parseError(op, jqXHR, errorThrown, (allFiles && self.filestack[i].name ? self.filestack[i].name : null));
                 uploadFailed = true;
                 setTimeout(function () {
                     if (allFiles) {
@@ -2072,7 +2072,7 @@
                     self._showUploadError(errMsg, params);
                 }, 100);
             };
-            formdata.append(self.uploadFileAttr, files[i], self.filenames[i]);
+            formdata.append(self.uploadFileAttr, self.filestack[i], self.filenames[i]);
             formdata.append('file_id', i);
             self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, previewId, i);
         },
@@ -2304,7 +2304,7 @@
                 self._handler($el, 'click', function () {
                     var $frame = $el.closest($h.FRAMES), ind = $frame.attr('data-fileindex');
                     if (!$frame.hasClass('file-preview-error')) {
-                        self._uploadSingle(ind, self.filestack, false);
+                        self._uploadSingle(ind, false);
                     }
                 });
             });
@@ -3622,8 +3622,8 @@
                 self.cacheInitialPreview = self.getPreview();
 
                 for (i = 0; i < len; i++) {
-                    if (self.filestack[i] !== undefined) {
-                        self._uploadSingle(i, self.filestack, true);
+                    if (self.filestack[i]) {
+                        self._uploadSingle(i, true);
                     }
                 }
                 return;

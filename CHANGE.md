@@ -7,6 +7,7 @@ Change Log: `bootstrap-fileinput`
 
 - (bug #1030): Correct image dimension validation to consider non JPEG images.
 - (enh #1015): Enhancement to RTL styling.
+- (enh #1014): Enhancements to file upload single.
 - (enh #1012): Better formatting of ajax errors display.
 - (enh #1006): Update Farsi Translations.
 
