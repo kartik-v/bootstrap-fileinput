@@ -1030,7 +1030,7 @@
         },
         _parseError: function (operation, jqXHR, errorThrown, fileName) {
             /** @namespace jqXHR.responseJSON */
-            var self = this, errMsg = $.trim(errorThrown + ''), textPre 
+            var self = this, errMsg = $.trim(errorThrown + ''), textPre, 
                 text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined ?
                     jqXHR.responseJSON.error : jqXHR.responseText;
             if (self.cancelling && self.msgUploadAborted) {
