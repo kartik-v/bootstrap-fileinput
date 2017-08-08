@@ -2342,7 +2342,8 @@
                     beforeSend: function (jqXHR) {
                         self.ajaxAborted = false;
                         self._raise('filepredelete', [vKey, jqXHR, extraData]);
-                        if (self.ajaxAborted) {
+
+                        if (self._abort()) {
                             jqXHR.abort();
                         } else {
                             $h.addCss($frame, 'file-uploading');
@@ -2393,7 +2394,17 @@
                     if (!self._validateMinCount()) {
                         return false;
                     }
-                    $.ajax(settings);
+                    self.ajaxAborted = false;
+                    self._raise('filepredelete-async', [vKey, extraData]);
+                    if(self.ajaxAborted instanceof Promise){
+                        self.ajaxAborted.then(function(res){
+                            if(res === false){
+                                $.ajax(settings);
+                            }
+                        });
+                    }else if (self.ajaxAborted === false){
+                        $.ajax(settings);
+                    }
                 });
             });
         },
