@@ -2342,7 +2342,7 @@
                     beforeSend: function (jqXHR) {
                         self.ajaxAborted = false;
                         self._raise('filepredelete', [vKey, jqXHR, extraData]);
-                        if (self.ajaxAborted) {
+                        if (self._abort()) {
                             jqXHR.abort();
                         } else {
                             $h.addCss($frame, 'file-uploading');
@@ -2393,7 +2393,19 @@
                     if (!self._validateMinCount()) {
                         return false;
                     }
-                    $.ajax(settings);
+                    self.ajaxAborted = false;
+                    self._raise('filebeforedelete', [vKey, extraData]);
+                    if (self.ajaxAborted instanceof Promise) {
+                        self.ajaxAborted.then(function(result) {
+                            if (result === false) {
+                                $.ajax(settings);
+                            }
+                        });
+                    } else {
+                        if (self.ajaxAborted === false) {
+                            $.ajax(settings);
+                        }
+                    }
                 });
             });
         },
@@ -3556,9 +3568,9 @@
             if (self.getFrames().length || self.isUploadable && self.dropZoneEnabled) {
                 self.$container.removeClass('file-input-new');
             }
-            self._setFileDropZoneTitle();
             self.clearStack();
             self.formdata = {};
+            self._setFileDropZoneTitle();
             return self.$element;
         },
         disable: function () {

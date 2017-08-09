@@ -3,8 +3,11 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.3 (_under development_)
 
-**Date:** 29-Jul-2017
+**Date:** 09-Aug-2017
 
+- (enh #1034): Add new event `filebeforedelete` and enhance delete abort logic.
+- (enh #1033): Correct reset of preview in `reset` method.
+- (enh #1031): Update French Translations.
 - (bug #1030): Correct image dimension validation to consider non JPEG images.
 - (enh #1015): Enhancement to RTL styling.
 - (enh #1014): Enhancements to file upload single.
