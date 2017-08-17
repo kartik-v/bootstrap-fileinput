@@ -2397,12 +2397,12 @@
                     self._raise('filebeforedelete', [vKey, extraData]);
                     if (self.ajaxAborted instanceof Promise) {
                         self.ajaxAborted.then(function(result) {
-                            if (result === false) {
+                            if (!result) {
                                 $.ajax(settings);
                             }
                         });
                     } else {
-                        if (self.ajaxAborted === false) {
+                        if (!self.ajaxAborted) {
                             $.ajax(settings);
                         }
                     }
