@@ -7,6 +7,7 @@ Change Log: `bootstrap-fileinput`
 
 - (enh #1044): Add Slovak Translations.
 - (enh #1043): Add Czech Translations.
+- (enh #1042, #830): Fixes to initial preview delete (related to #1034).
 - (enh #1038): Fix documentation for `{dataKey}`.
 - (enh #1034): Add new event `filebeforedelete` and enhance delete abort logic.
 - (enh #1033): Correct reset of preview in `reset` method.
@@ -16,7 +17,6 @@ Change Log: `bootstrap-fileinput`
 - (enh #1014): Enhancements to file upload single.
 - (enh #1012): Better formatting of ajax errors display.
 - (enh #1006): Update Farsi Translations.
-- (enh #830): Fixes to initial preview delete (related to #1034).
 
 ## version 4.4.2
 
