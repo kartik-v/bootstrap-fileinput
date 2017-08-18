@@ -53,7 +53,8 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
-        msgValidationError: 'Validering Fejl',
+        msgUploadError: 'Error',
+        msgValidationError: : 'Validering Fejl',
         msgLoading: 'Henter fil {index} af {files} &hellip;',
         msgProgress: 'Henter fil {index} af {files} - {name} - {percent}% f&aelig;rdiggjort.',
         msgSelected: '{n} {files} valgt',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Fjern fil',
             uploadTitle: 'Upload fil',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Se detaljer',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Ikke uploadet endnu',

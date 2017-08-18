@@ -60,7 +60,8 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
-        msgValidationError: '検証エラー',
+        msgUploadError: 'Error',
+        msgValidationError: : '検証エラー',
         msgLoading: '{files}個中{index}個目のファイルを読み込み中&hellip;',
         msgProgress: '{files}個中{index}個のファイルを読み込み中 - {name} - {percent}% 完了',
         msgSelected: '{n}個の{files}を選択',
@@ -87,6 +88,7 @@
         fileActionSettings: {
             removeTitle: 'ファイルを削除',
             uploadTitle: 'ファイルをアップロード',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'プレビュー',
             dragTitle: '移動 / 再配置',
             indicatorNewTitle: 'まだアップロードされていません',

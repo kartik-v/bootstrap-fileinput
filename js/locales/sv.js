@@ -53,7 +53,8 @@
         msgUploadBegin: 'Påbörjar...',
         msgUploadEnd: 'Färdig',
         msgUploadEmpty: 'Ingen giltig data tillgänglig för uppladdning.',
-        msgValidationError: 'Valideringsfel',
+        msgUploadError: 'Error',
+        msgValidationError: : 'Valideringsfel',
         msgLoading: 'Laddar fil {index} av {files} &hellip;',
         msgProgress: 'Laddar fil {index} av {files} - {name} - {percent}% färdig.',
         msgSelected: '{n} {files} valda',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Ta bort fil',
             uploadTitle: 'Ladda upp fil',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Visa detaljer',
             dragTitle: 'Flytta / Ändra ordning',
             indicatorNewTitle: 'Inte uppladdat ännu',

@@ -53,7 +53,8 @@
         msgUploadBegin: 'Inicializujem...',
         msgUploadEnd: 'Hotovo',
         msgUploadEmpty: 'Pro nahrávání nejsou k dispozici žádné platné údaje.',
-        msgValidationError: 'Chyba ověření',
+        msgUploadError: 'Error',
+        msgValidationError: : 'Chyba ověření',
         msgLoading: 'Nahrávání souboru {index} z {files} &hellip;',
         msgProgress: 'Nahrávání souboru {index} z {files} - {name} - {percent}% dokončeno.',
         msgSelected: '{n} {files} vybráno',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Odstranit soubor',
             uploadTitle: 'Nahrát soubor',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Zobrazit podrobnosti',
             dragTitle: 'Posunout / Přeskládat',
             indicatorNewTitle: 'Ještě nenahrál',

@@ -54,7 +54,8 @@
         msgUploadBegin: 'Инициализация...',
         msgUploadEnd: 'Готово',
         msgUploadEmpty: 'Недопустимые данные для загрузки',
-        msgValidationError: 'Ошибка проверки',
+        msgUploadError: 'Error',
+        msgValidationError: : 'Ошибка проверки',
         msgLoading: 'Загрузка файла {index} из {files} &hellip;',
         msgProgress: 'Загрузка файла {index} из {files} - {name} - {percent}% завершено.',
         msgSelected: 'Выбрано файлов: {n}',
@@ -78,6 +79,7 @@
         fileActionSettings: {
             removeTitle: 'Удалить файл',
             uploadTitle: 'Загрузить файл',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'посмотреть детали',
             dragTitle: 'Переместить / Изменить порядок',
             indicatorNewTitle: 'Еще не загружен',

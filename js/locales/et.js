@@ -53,7 +53,8 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
-        msgValidationError: 'Validation Error',
+        msgUploadError: 'Error',
+        msgValidationError: : 'Validation Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
         msgSelected: '{n} {files} selected',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Eemalda fail',
             uploadTitle: 'Salvesta fail',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Vaata detaile',
             dragTitle: 'Liiguta / Korralda',
             indicatorNewTitle: 'Pole veel salvestatud',

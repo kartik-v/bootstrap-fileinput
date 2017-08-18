@@ -3,8 +3,18 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.3 (_under development_)
 
-**Date:** 17-Aug-2017
+**Date:** 18-Aug-2017
 
+- (enh #1049): New property `uploadUrlThumb`.
+- (enh #1048): Add ability to retry errored file uploads.
+    - New plugin properties added:
+        - `retryErrorUploads`: _boolean_, will determine if errored out thumbnails can be retried for upload and submitted again.
+        - `fileActionSettings.uploadRetryIcon`: Will change the icon of the upload button to retry icon specified here.
+        - `fileActionSettings.uploadRetryTitle`: Will change the title of the upload button to retry title specified here.
+        - `msgUploadError`: will be displayed within the progress bar on the errored out thumbnails.
+    - Other enhancements include:
+        - resetting progress bar correctly
+        - enhancing upload validation behavior so that if `retryErrorUploads` is `false`, then no upload button is shown on the errored out thumbnails.
 - (enh #1044): Add Slovak Translations.
 - (enh #1043): Add Czech Translations.
 - (enh #1042, #830): Fixes to initial preview delete (related to #1034).

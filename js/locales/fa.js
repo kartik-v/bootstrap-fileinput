@@ -54,7 +54,8 @@
         msgUploadBegin: 'در حال شروع...',
         msgUploadEnd: 'انجام شد',
         msgUploadEmpty: 'هیچ داده معتبری برای بارگذاری موجود نیست.',
-        msgValidationError: 'خطای اعتبار سنجی',
+        msgUploadError: 'Error',
+        msgValidationError: : 'خطای اعتبار سنجی',
         msgLoading: 'بارگیری فایل {index} از {files} &hellip;',
         msgProgress: 'بارگیری فایل {index} از {files} - {name} - {percent}% تمام شد.',
         msgSelected: '{n} {files} انتخاب شده',
@@ -78,6 +79,7 @@
         fileActionSettings: {
             removeTitle: 'حذف فایل',
             uploadTitle: 'آپلود فایل',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'دیدن جزئیات',
             dragTitle: 'جابجایی / چیدمان',
             indicatorNewTitle: 'آپلود نشده است',

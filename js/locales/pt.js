@@ -53,7 +53,8 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
-        msgValidationError: 'Erro de validação',
+        msgUploadError: 'Error',
+        msgValidationError: : 'Erro de validação',
         msgLoading: 'A carregar ficheiro {index} de {files} &hellip;',
         msgProgress: 'A carregar ficheiro {index} de {files} - {name} - {percent}% completo.',
         msgSelected: '{n} {files} seleccionados',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Remover arquivo',
             uploadTitle: 'Carregar arquivo',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Ver detalhes',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Ainda não carregou',

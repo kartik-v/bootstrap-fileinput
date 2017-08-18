@@ -41,7 +41,8 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
-        msgValidationError: 'Тексеру қатесі',
+        msgUploadError: 'Error',
+        msgValidationError: : 'Тексеру қатесі',
         msgLoading: '{index} файлды {files} &hellip; жүктеу',
         msgProgress: '{index} файлды {files} - {name} - {percent}% жүктеу аяқталды.',
         msgSelected: 'Таңдалған файлдар саны: {n}',
@@ -65,6 +66,7 @@
         fileActionSettings: {
             removeTitle: 'Файлды өшіру',
             uploadTitle: 'Файлды жүктеу',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'мәліметтерді көру',
             dragTitle: 'Орнын ауыстыру',
             indicatorNewTitle: 'Жүктелген жоқ',

@@ -53,7 +53,8 @@
         msgUploadBegin: 'Başlıyor...',
         msgUploadEnd: 'Başarılı',
         msgUploadEmpty: 'Yüklemek için geçerli veri mevcut değil.',
-        msgValidationError: 'Doğrulama Hatası',
+        msgUploadError: 'Error',
+        msgValidationError: : 'Doğrulama Hatası',
         msgLoading: 'Dosya yükleniyor {index} / {files} &hellip;',
         msgProgress: 'Dosya yükleniyor {index} / {files} - {name} - %{percent} tamamlandı.',
         msgSelected: '{n} {files} seçildi',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Dosyayı kaldır',
             uploadTitle: 'Dosyayı yükle',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Ayrıntıları görüntüle',
             dragTitle: 'Taşı / Yeniden düzenle',
             indicatorNewTitle: 'Henüz yüklenmedi',

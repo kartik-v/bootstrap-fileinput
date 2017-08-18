@@ -54,7 +54,8 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
-        msgValidationError: 'Помилка перевірки',
+        msgUploadError: 'Error',
+        msgValidationError: : 'Помилка перевірки',
         msgLoading: 'Загрузка файла {index} із {files} &hellip;',
         msgProgress: 'Загрузка файла {index} із {files} - {name} - {percent}% завершено.',
         msgSelected: '{n} {files} вибрано',
@@ -78,6 +79,7 @@
         fileActionSettings: {
             removeTitle: 'Видалити файл',
             uploadTitle: 'Загрузити файл',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Подивитися деталі',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Ще не загружено',
