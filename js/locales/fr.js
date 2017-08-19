@@ -54,7 +54,7 @@
         msgUploadEnd: 'Terminé',
         msgUploadEmpty: 'Aucune donnée valide disponible pour transmission.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Erreur de validation',
+        msgValidationError: 'Erreur de validation',
         msgLoading: 'Transmission du fichier {index} sur {files}&hellip;',
         msgProgress: 'Transmission du fichier {index} sur {files} - {name} - {percent}% faits.',
         msgSelected: '{n} {files} sélectionné(s)',

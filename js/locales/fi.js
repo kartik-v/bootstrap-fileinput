@@ -50,7 +50,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'Ei ladattavaa dataa.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Tiedoston latausvirhe',
+        msgValidationError: 'Tiedoston latausvirhe',
         msgLoading: 'Ladataan tiedostoa {index} / {files} &hellip;',
         msgProgress: 'Ladataan tiedostoa {index} / {files} - {name} - {percent}% valmistunut.',
         msgSelected: '{n} tiedostoa valittu',

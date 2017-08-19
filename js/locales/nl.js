@@ -54,7 +54,7 @@
         msgUploadEnd: 'Gedaan',
         msgUploadEmpty: 'Geen geldige data beschikbaar voor upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Bevestiging fout',
+        msgValidationError: 'Bevestiging fout',
         msgLoading: 'Bestanden laden {index} van de {files} &hellip;',
         msgProgress: 'Bestanden laden {index} van de {files} - {name} - {percent}% compleet.',
         msgSelected: '{n} {files} geselecteerd',

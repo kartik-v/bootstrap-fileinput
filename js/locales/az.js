@@ -55,7 +55,7 @@
         msgUploadEnd: 'Fayl(lar) yükləndi',
         msgUploadEmpty: 'Yükləmə üçün verilmiş məlumatlar yanlışdır',
         msgUploadError: 'Error',
-        msgValidationError: : 'Yoxlama nəticəsi səhvir',
+        msgValidationError: 'Yoxlama nəticəsi səhvir',
         msgLoading: '{files} fayldan {index} yüklənir &hellip;',
         msgProgress: '{files} fayldan {index} - {name} - {percent}% yükləndi.',
         msgSelected: 'Faylların sayı: {n}',

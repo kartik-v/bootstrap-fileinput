@@ -54,7 +54,7 @@
         msgUploadEnd: 'Hotovo',
         msgUploadEmpty: 'Pro nahrávání nejsou k dispozici žádné platné údaje.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Chyba ověření',
+        msgValidationError: 'Chyba ověření',
         msgLoading: 'Nahrávání souboru {index} z {files} &hellip;',
         msgProgress: 'Nahrávání souboru {index} z {files} - {name} - {percent}% dokončeno.',
         msgSelected: '{n} {files} vybráno',

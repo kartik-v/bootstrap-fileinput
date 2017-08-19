@@ -56,7 +56,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Errore di convalida',
+        msgValidationError: 'Errore di convalida',
         msgLoading: 'Caricamento file {index} di {files}&hellip;',
         msgProgress: 'Caricamento file {index} di {files} - {name} - {percent}% completato.',
         msgSelected: '{n} {files} selezionati',

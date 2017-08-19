@@ -55,7 +55,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Eroare de validare',
+        msgValidationError: 'Eroare de validare',
         msgLoading: 'Se încarcă fișierul {index} din {files} &hellip;',
         msgProgress: 'Se încarcă fișierul {index} din {files} - {name} - {percent}% încărcat.',
         msgSelected: '{n} {files} încărcate',

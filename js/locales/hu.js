@@ -54,7 +54,7 @@
         msgUploadEnd: 'Kész',
         msgUploadEmpty: 'Nincs érvényes adat a feltöltéshez.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Érvényesítés hiba',
+        msgValidationError: 'Érvényesítés hiba',
         msgLoading: '{index} / {files} töltése &hellip;',
         msgProgress: 'Feltöltés: {index} / {files} - {name} - {percent}% kész.',
         msgSelected: '{n} {files} kiválasztva.',

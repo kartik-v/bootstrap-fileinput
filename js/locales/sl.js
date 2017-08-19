@@ -52,7 +52,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Napaki pri validiranju',
+        msgValidationError: 'Napaki pri validiranju',
         msgLoading: 'Nalaganje datoteke {index} od {files} &hellip;',
         msgProgress: 'Nalaganje datoteke {index} od {files} - {name} - {percent}% dokončano.',
         msgSelected: '{n} {files} izbrano',

@@ -55,7 +55,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Provjera pogrešaka',
+        msgValidationError: 'Provjera pogrešaka',
         msgLoading: 'Učitavanje datoteke {index} od {files} &hellip;',
         msgProgress: 'Učitavanje datoteke {index} od {files} - {name} - {percent}% završeno.',
         msgSelected: '{n} {files} je označeno',

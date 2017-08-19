@@ -54,7 +54,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'ข้อผิดพลาดในการตรวจสอบ',
+        msgValidationError: 'ข้อผิดพลาดในการตรวจสอบ',
         msgLoading: 'กำลังโหลดไฟล์ {index} จาก {files} &hellip;',
         msgProgress: 'กำลังโหลดไฟล์ {index} จาก {files} - {name} - {percent}%',
         msgSelected: '{n} {files} ถูกเลือก',

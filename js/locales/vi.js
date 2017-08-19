@@ -55,7 +55,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Lỗi xác nhận',
+        msgValidationError: 'Lỗi xác nhận',
         msgLoading: 'Đang nạp {index} tập tin trong số {files} &hellip;',
         msgProgress: 'Đang nạp {index} tập tin trong số {files} - {name} - {percent}% hoàn thành.',
         msgSelected: '{n} {files} được chọn',

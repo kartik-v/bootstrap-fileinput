@@ -54,7 +54,7 @@
         msgUploadEnd: 'Başarılı',
         msgUploadEmpty: 'Yüklemek için geçerli veri mevcut değil.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Doğrulama Hatası',
+        msgValidationError: 'Doğrulama Hatası',
         msgLoading: 'Dosya yükleniyor {index} / {files} &hellip;',
         msgProgress: 'Dosya yükleniyor {index} / {files} - {name} - %{percent} tamamlandı.',
         msgSelected: '{n} {files} seçildi',
