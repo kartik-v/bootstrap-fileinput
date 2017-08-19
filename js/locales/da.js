@@ -54,7 +54,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Validering Fejl',
+        msgValidationError: 'Validering Fejl',
         msgLoading: 'Henter fil {index} af {files} &hellip;',
         msgProgress: 'Henter fil {index} af {files} - {name} - {percent}% f&aelig;rdiggjort.',
         msgSelected: '{n} {files} valgt',

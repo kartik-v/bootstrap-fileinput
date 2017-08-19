@@ -54,7 +54,7 @@
         msgUploadEnd: 'Ferdig',
         msgUploadEmpty: 'Ingen gyldige data tilgjengelig for opplastning.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Valideringsfeil',
+        msgValidationError: 'Valideringsfeil',
         msgLoading: 'Laster fil {index} av {files} &hellip;',
         msgProgress: 'Laster fil {index} av {files} - {name} - {percent}% fullført.',
         msgSelected: '{n} {files} valgt',

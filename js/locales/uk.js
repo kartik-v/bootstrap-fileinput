@@ -55,7 +55,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Помилка перевірки',
+        msgValidationError: 'Помилка перевірки',
         msgLoading: 'Загрузка файла {index} із {files} &hellip;',
         msgProgress: 'Загрузка файла {index} із {files} - {name} - {percent}% завершено.',
         msgSelected: '{n} {files} вибрано',

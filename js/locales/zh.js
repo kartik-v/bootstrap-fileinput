@@ -55,7 +55,7 @@
         msgUploadEnd: '完成',
         msgUploadEmpty: '无效的文件上传.',
         msgUploadError: 'Error',
-        msgValidationError: : '验证错误',
+        msgValidationError: '验证错误',
         msgLoading: '加载第 {index} 文件 共 {files} &hellip;',
         msgProgress: '加载第 {index} 文件 共 {files} - {name} - {percent}% 完成.',
         msgSelected: '{n} {files} 选中',

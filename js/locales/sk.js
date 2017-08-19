@@ -54,7 +54,7 @@
         msgUploadEnd: 'Hotovo',
         msgUploadEmpty: 'Na nahrávanie nie sú k dispozícii žiadne platné údaje.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Chyba overenia',
+        msgValidationError: 'Chyba overenia',
         msgLoading: 'Nahrávanie súboru {index} z {files} &hellip;',
         msgProgress: 'Nahrávanie súboru {index} z {files} - {name} - {percent}% dokončené.',
         msgSelected: '{n} {files} vybraté',

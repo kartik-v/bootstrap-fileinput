@@ -55,7 +55,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Kesalahan validasi',
+        msgValidationError: 'Kesalahan validasi',
         msgLoading: 'Memuat {index} dari {files} berkas &hellip;',
         msgProgress: 'Memuat {index} dari {files} berkas - {name} - {percent}% selesai.',
         msgSelected: '{n} {files} dipilih',

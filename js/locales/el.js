@@ -54,7 +54,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Σφάλμα Επικύρωσης',
+        msgValidationError: 'Σφάλμα Επικύρωσης',
         msgLoading: 'Φόρτωση αρχείου {index} από {files} &hellip;',
         msgProgress: 'Φόρτωση αρχείου {index} απο {files} - {name} - {percent}% ολοκληρώθηκε.',
         msgSelected: '{n} {files} επιλέχθηκαν',

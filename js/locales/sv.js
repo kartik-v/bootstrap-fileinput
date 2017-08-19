@@ -54,7 +54,7 @@
         msgUploadEnd: 'Färdig',
         msgUploadEmpty: 'Ingen giltig data tillgänglig för uppladdning.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Valideringsfel',
+        msgValidationError: 'Valideringsfel',
         msgLoading: 'Laddar fil {index} av {files} &hellip;',
         msgProgress: 'Laddar fil {index} av {files} - {name} - {percent}% färdig.',
         msgSelected: '{n} {files} valda',

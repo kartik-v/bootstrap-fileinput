@@ -56,7 +56,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : '驗證錯誤',
+        msgValidationError: '驗證錯誤',
         msgLoading: '載入第 {index} 個檔案，共 {files} &hellip;',
         msgProgress: '載入第 {index} 個檔案，共 {files} - {name} - {percent}% 成功.',
         msgSelected: '{n} {files} 選取',

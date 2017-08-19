@@ -54,7 +54,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Validation Error',
+        msgValidationError: 'Validation Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
         msgSelected: '{n} {files} selected',

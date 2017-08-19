@@ -55,7 +55,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'خطأ التحقق من صحة',
+        msgValidationError: 'خطأ التحقق من صحة',
         msgLoading: 'تحميل ملف {index} من {files} &hellip;',
         msgProgress: 'تحميل ملف {index} من {files} - {name} - {percent}% منتهي.',
         msgSelected: '{n} {files} مختار(ة)',

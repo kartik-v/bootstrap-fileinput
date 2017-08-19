@@ -44,7 +44,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Błąd walidacji',
+        msgValidationError: 'Błąd walidacji',
         msgLoading: 'Wczytywanie pliku {index} z {files} &hellip;',
         msgProgress: 'Wczytywanie pliku {index} z {files} - {name} - {percent}% zakończone.',
         msgSelected: '{n} Plików zaznaczonych',

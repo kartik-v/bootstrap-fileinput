@@ -55,7 +55,7 @@
         msgUploadEnd: 'انجام شد',
         msgUploadEmpty: 'هیچ داده معتبری برای بارگذاری موجود نیست.',
         msgUploadError: 'Error',
-        msgValidationError: : 'خطای اعتبار سنجی',
+        msgValidationError: 'خطای اعتبار سنجی',
         msgLoading: 'بارگیری فایل {index} از {files} &hellip;',
         msgProgress: 'بارگیری فایل {index} از {files} - {name} - {percent}% تمام شد.',
         msgSelected: '{n} {files} انتخاب شده',

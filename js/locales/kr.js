@@ -54,7 +54,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: '업로드 가능 데이터가 존재하지 않습니다.',
         msgUploadError: 'Error',
-        msgValidationError: : '유효성 오류',
+        msgValidationError: '유효성 오류',
         msgLoading: '파일 {files} 중 {index}번째를 로딩하고 있습니다. &hellip;',
         msgProgress: '파일 {files}의 {name}이 {percent}% 로딩되었습니다. ',
         msgSelected: '{n} {files}이 선택 되었습니다.',

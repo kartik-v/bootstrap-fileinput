@@ -42,7 +42,7 @@
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Error',
-        msgValidationError: : 'Тексеру қатесі',
+        msgValidationError: 'Тексеру қатесі',
         msgLoading: '{index} файлды {files} &hellip; жүктеу',
         msgProgress: '{index} файлды {files} - {name} - {percent}% жүктеу аяқталды.',
         msgSelected: 'Таңдалған файлдар саны: {n}',

@@ -55,7 +55,7 @@
         msgUploadEnd: 'Готово',
         msgUploadEmpty: 'Недопустимые данные для загрузки',
         msgUploadError: 'Error',
-        msgValidationError: : 'Ошибка проверки',
+        msgValidationError: 'Ошибка проверки',
         msgLoading: 'Загрузка файла {index} из {files} &hellip;',
         msgProgress: 'Загрузка файла {index} из {files} - {name} - {percent}% завершено.',
         msgSelected: 'Выбрано файлов: {n}',
