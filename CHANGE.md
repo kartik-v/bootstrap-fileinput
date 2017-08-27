@@ -3,8 +3,11 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.3 (_under development_)
 
-**Date:** 18-Aug-2017
+**Date:** 27-Aug-2017
 
+- (enh #1059): Better form reset behavior and update of `reset` method in docs.
+- (enh #1056): Add Lithuanian Translations.
+- (enh #1050): Update Japanese Translations & Locales.
 - (enh #1049): New property `uploadUrlThumb`.
 - (enh #1048): Add ability to retry errored file uploads.
     - New plugin properties added:
