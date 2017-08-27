@@ -54,6 +54,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'Kesalahan validasi',
         msgLoading: 'Memuat {index} dari {files} berkas &hellip;',
         msgProgress: 'Memuat {index} dari {files} berkas - {name} - {percent}% selesai.',
@@ -78,6 +79,7 @@
         fileActionSettings: {
             removeTitle: 'Hapus berkas',
             uploadTitle: 'Unggah berkas',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Tampilkan Rincian',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Belum diunggah',

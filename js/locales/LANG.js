@@ -53,6 +53,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'Validation Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Remove file',
             uploadTitle: 'Upload file',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'View details',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Not uploaded yet',

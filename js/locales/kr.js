@@ -53,6 +53,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: '업로드 가능 데이터가 존재하지 않습니다.',
+        msgUploadError: 'Error',
         msgValidationError: '유효성 오류',
         msgLoading: '파일 {files} 중 {index}번째를 로딩하고 있습니다. &hellip;',
         msgProgress: '파일 {files}의 {name}이 {percent}% 로딩되었습니다. ',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: '파일 지우기',
             uploadTitle: '파일 업로드 하기',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: '세부 정보 보기',
             dragTitle: '옭기기 / 재배열하기',
             indicatorNewTitle: '아직 업로드가 안되었습니다.',

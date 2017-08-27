@@ -1,12 +1,33 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.4.3 (_under development_)
+## version 4.4.3
 
-**Date:** 29-Jul-2017
+**Date:** 27-Aug-2017
 
+- (enh #1059): Better form reset behavior and update of `reset` method in docs.
+- (enh #1056): Add Lithuanian Translations.
+- (enh #1050): Update Japanese Translations & Locales.
+- (enh #1049): New property `uploadUrlThumb`.
+- (enh #1048): Add ability to retry errored file uploads.
+    - New plugin properties added:
+        - `retryErrorUploads`: _boolean_, will determine if errored out thumbnails can be retried for upload and submitted again.
+        - `fileActionSettings.uploadRetryIcon`: Will change the icon of the upload button to retry icon specified here.
+        - `fileActionSettings.uploadRetryTitle`: Will change the title of the upload button to retry title specified here.
+        - `msgUploadError`: will be displayed within the progress bar on the errored out thumbnails.
+    - Other enhancements include:
+        - resetting progress bar correctly
+        - enhancing upload validation behavior so that if `retryErrorUploads` is `false`, then no upload button is shown on the errored out thumbnails.
+- (enh #1044): Add Slovak Translations.
+- (enh #1043): Add Czech Translations.
+- (enh #1042, #830): Fixes to initial preview delete (related to #1034).
+- (enh #1038): Fix documentation for `{dataKey}`.
+- (enh #1034): Add new event `filebeforedelete` and enhance delete abort logic.
+- (enh #1033): Correct reset of preview in `reset` method.
+- (enh #1031): Update French Translations.
 - (bug #1030): Correct image dimension validation to consider non JPEG images.
 - (enh #1015): Enhancement to RTL styling.
+- (enh #1014): Enhancements to file upload single.
 - (enh #1012): Better formatting of ajax errors display.
 - (enh #1006): Update Farsi Translations.
 

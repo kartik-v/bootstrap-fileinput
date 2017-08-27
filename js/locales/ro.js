@@ -54,6 +54,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'Eroare de validare',
         msgLoading: 'Se încarcă fișierul {index} din {files} &hellip;',
         msgProgress: 'Se încarcă fișierul {index} din {files} - {name} - {percent}% încărcat.',
@@ -78,6 +79,7 @@
         fileActionSettings: {
             removeTitle: 'Scoateți fișier',
             uploadTitle: 'Incarca fisier',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Vezi detalii',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Nu a încărcat încă',

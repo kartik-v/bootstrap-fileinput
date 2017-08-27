@@ -54,6 +54,7 @@
         msgUploadBegin: '正在初始化...',
         msgUploadEnd: '完成',
         msgUploadEmpty: '无效的文件上传.',
+        msgUploadError: 'Error',
         msgValidationError: '验证错误',
         msgLoading: '加载第 {index} 文件 共 {files} &hellip;',
         msgProgress: '加载第 {index} 文件 共 {files} - {name} - {percent}% 完成.',
@@ -78,6 +79,7 @@
         fileActionSettings: {
             removeTitle: '删除文件',
             uploadTitle: '上传文件',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: '查看详情',
             dragTitle: '移动 / 重置',
             indicatorNewTitle: '没有上传',

@@ -54,6 +54,7 @@
         msgUploadBegin: 'Yoxlama...',
         msgUploadEnd: 'Fayl(lar) yükləndi',
         msgUploadEmpty: 'Yükləmə üçün verilmiş məlumatlar yanlışdır',
+        msgUploadError: 'Error',
         msgValidationError: 'Yoxlama nəticəsi səhvir',
         msgLoading: '{files} fayldan {index} yüklənir &hellip;',
         msgProgress: '{files} fayldan {index} - {name} - {percent}% yükləndi.',
@@ -78,6 +79,7 @@
         fileActionSettings: {
             removeTitle: 'Faylı sil',
             uploadTitle: 'Faylı yüklə',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'məlumatlara bax',
             dragTitle: 'Yerini dəyiş və ya sırala',
             indicatorNewTitle: 'Davam edir',

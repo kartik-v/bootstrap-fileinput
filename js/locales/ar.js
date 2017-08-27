@@ -54,6 +54,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'خطأ التحقق من صحة',
         msgLoading: 'تحميل ملف {index} من {files} &hellip;',
         msgProgress: 'تحميل ملف {index} من {files} - {name} - {percent}% منتهي.',
@@ -78,6 +79,7 @@
         fileActionSettings: {
             removeTitle: 'إزالة الملف',
             uploadTitle: 'رفع الملف',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'مشاهدة التفاصيل',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'لم يتم الرفع بعد',

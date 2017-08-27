@@ -53,6 +53,7 @@
         msgUploadBegin: 'Initialiserer...',
         msgUploadEnd: 'Ferdig',
         msgUploadEmpty: 'Ingen gyldige data tilgjengelig for opplastning.',
+        msgUploadError: 'Error',
         msgValidationError: 'Valideringsfeil',
         msgLoading: 'Laster fil {index} av {files} &hellip;',
         msgProgress: 'Laster fil {index} av {files} - {name} - {percent}% fullført.',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Fjern fil',
             uploadTitle: 'Last opp fil',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Vis detaljer',
             dragTitle: 'Flytt / endre rekkefølge',
             indicatorNewTitle: 'Opplastning ikke fullført',

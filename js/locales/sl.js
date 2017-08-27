@@ -51,6 +51,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'Napaki pri validiranju',
         msgLoading: 'Nalaganje datoteke {index} od {files} &hellip;',
         msgProgress: 'Nalaganje datoteke {index} od {files} - {name} - {percent}% dokončano.',
@@ -75,6 +76,7 @@
         fileActionSettings: {
             removeTitle: 'Odstrani datoteko',
             uploadTitle: 'Naloži datoteko',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Poglej podrobnosti',
             dragTitle: 'Premaki / Razporedi',
             indicatorNewTitle: 'Še ni naloženo',

@@ -49,6 +49,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'Ei ladattavaa dataa.',
+        msgUploadError: 'Error',
         msgValidationError: 'Tiedoston latausvirhe',
         msgLoading: 'Ladataan tiedostoa {index} / {files} &hellip;',
         msgProgress: 'Ladataan tiedostoa {index} / {files} - {name} - {percent}% valmistunut.',
@@ -67,6 +68,7 @@
         fileActionSettings: {
             removeTitle: 'Poista tiedosto',
             uploadTitle: 'Upload file',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Yksityiskohdat',
             dragTitle: 'Siirrä / Järjestele',
             indicatorNewTitle: 'Ei ladattu',

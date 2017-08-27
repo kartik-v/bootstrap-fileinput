@@ -53,6 +53,7 @@
         msgUploadBegin: 'Inicializando...',
         msgUploadEnd: 'Concluído',
         msgUploadEmpty: 'Nanhuma informação válida para upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'Erro de validação',
         msgLoading: 'Enviando arquivo {index} de {files}&hellip;',
         msgProgress: 'Enviando arquivo {index} de {files} - {name} - {percent}% completo.',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Remover arquivo',
             uploadTitle: 'Enviar arquivo',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Ver detalhes',
             dragTitle: 'Mover / Reordenar',
             indicatorNewTitle: 'Ainda não enviado',

@@ -53,6 +53,7 @@
         msgUploadBegin: 'Initialiseren...',
         msgUploadEnd: 'Gedaan',
         msgUploadEmpty: 'Geen geldige data beschikbaar voor upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'Bevestiging fout',
         msgLoading: 'Bestanden laden {index} van de {files} &hellip;',
         msgProgress: 'Bestanden laden {index} van de {files} - {name} - {percent}% compleet.',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Verwijder bestand',
             uploadTitle: 'bestand uploaden',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Bekijk details',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Nog niet geupload',

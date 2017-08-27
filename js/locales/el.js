@@ -53,6 +53,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'Σφάλμα Επικύρωσης',
         msgLoading: 'Φόρτωση αρχείου {index} από {files} &hellip;',
         msgProgress: 'Φόρτωση αρχείου {index} απο {files} - {name} - {percent}% ολοκληρώθηκε.',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Αφαιρέστε το αρχείο',
             uploadTitle: 'Μεταφορτώστε το αρχείο',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Δείτε λεπτομέρειες',
             dragTitle: 'Μετακίνηση/Προσπαρμογή',
             indicatorNewTitle: 'Δεν μεταφορτώθηκε ακόμα',

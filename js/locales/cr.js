@@ -54,6 +54,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'Provjera pogrešaka',
         msgLoading: 'Učitavanje datoteke {index} od {files} &hellip;',
         msgProgress: 'Učitavanje datoteke {index} od {files} - {name} - {percent}% završeno.',
@@ -78,6 +79,7 @@
         fileActionSettings: {
             removeTitle: 'Uklonite datoteku',
             uploadTitle: 'Postavi datoteku',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Pregledavati pojedinosti',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Još nije učitao',

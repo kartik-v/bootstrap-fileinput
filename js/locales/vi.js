@@ -54,6 +54,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'Lỗi xác nhận',
         msgLoading: 'Đang nạp {index} tập tin trong số {files} &hellip;',
         msgProgress: 'Đang nạp {index} tập tin trong số {files} - {name} - {percent}% hoàn thành.',
@@ -78,6 +79,7 @@
         fileActionSettings: {
             removeTitle: 'Gỡ bỏ',
             uploadTitle: 'Upload tập tin',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Phóng lớn',
             dragTitle: 'Di chuyển / Sắp xếp lại',
             indicatorNewTitle: 'Chưa được upload',

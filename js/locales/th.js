@@ -53,6 +53,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'ข้อผิดพลาดในการตรวจสอบ',
         msgLoading: 'กำลังโหลดไฟล์ {index} จาก {files} &hellip;',
         msgProgress: 'กำลังโหลดไฟล์ {index} จาก {files} - {name} - {percent}%',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'ลบไฟล์',
             uploadTitle: 'อัปโหลดไฟล์',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'ดูรายละเอียด',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'ยังไม่ได้อัปโหลด',

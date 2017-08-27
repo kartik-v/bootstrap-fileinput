@@ -55,6 +55,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
+        msgUploadError: 'Error',
         msgValidationError: '驗證錯誤',
         msgLoading: '載入第 {index} 個檔案，共 {files} &hellip;',
         msgProgress: '載入第 {index} 個檔案，共 {files} - {name} - {percent}% 成功.',
@@ -79,6 +80,7 @@
         fileActionSettings: {
             removeTitle: '刪除檔案',
             uploadTitle: '上傳檔案',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: '詳細資料',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: '尚未上傳',

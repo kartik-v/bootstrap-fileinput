@@ -53,6 +53,7 @@
         msgUploadBegin: 'Initializing...',
         msgUploadEnd: 'Done',
         msgUploadEmpty: 'No valid data available for upload.',
+        msgUploadError: 'Error',
         msgValidationError: 'утвърждаване грешка',
         msgLoading: 'Зареждане на файл {index} от общо {files} &hellip;',
         msgProgress: 'Зареждане на файл {index} от общо {files} - {name} - {percent}% завършени.',
@@ -77,6 +78,7 @@
         fileActionSettings: {
             removeTitle: 'Махни файл',
             uploadTitle: 'Качване на файл',
+            uploadRetryTitle: 'Retry upload',
             zoomTitle: 'Вижте детайли',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Все още не е качил',
