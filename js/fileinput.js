@@ -3725,6 +3725,10 @@
                 config: self.initialPreviewConfig,
                 tags: self.initialPreviewThumbTags
             };
+        },
+        setUploadUrl: function(uploadUrl) {
+            var self = this;
+            self.uploadUrl = uploadUrl;
         }
     };
 
