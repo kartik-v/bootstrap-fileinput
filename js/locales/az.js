@@ -80,6 +80,7 @@
             removeTitle: 'Faylı sil',
             uploadTitle: 'Faylı yüklə',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'məlumatlara bax',
             dragTitle: 'Yerini dəyiş və ya sırala',
             indicatorNewTitle: 'Davam edir',

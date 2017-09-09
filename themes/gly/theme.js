@@ -15,14 +15,14 @@
 
     $.fn.fileinputThemes.gly = {
         fileActionSettings: {
-            removeIcon: '<i class="glyphicon glyphicon-trash text-danger"></i>',
-            uploadIcon: '<i class="glyphicon glyphicon-upload text-info"></i>',
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
             zoomIcon: '<i class="glyphicon glyphicon-zoom-in"></i>',
-            dragIcon: '<i class="glyphicon glyphicon-menu-hamburger"></i>',
-            indicatorNew: '<i class="glyphicon glyphicon-hand-down text-warning"></i>',
+            dragIcon: '<i class="glyphicon glyphicon-move"></i>',
+            indicatorNew: '<i class="glyphicon glyphicon-plus-sign text-warning"></i>',
             indicatorSuccess: '<i class="glyphicon glyphicon-ok-sign text-success"></i>',
             indicatorError: '<i class="glyphicon glyphicon-exclamation-sign text-danger"></i>',
-            indicatorLoading: '<i class="glyphicon glyphicon-hand-up text-muted"></i>'
+            indicatorLoading: '<i class="glyphicon glyphicon-hourglass text-muted"></i>'
         },
         layoutTemplates: {
             fileIcon: '<i class="glyphicon glyphicon-file kv-caption-icon"></i>'

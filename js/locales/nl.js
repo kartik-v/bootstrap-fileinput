@@ -79,6 +79,7 @@
             removeTitle: 'Verwijder bestand',
             uploadTitle: 'bestand uploaden',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Bekijk details',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Nog niet geupload',

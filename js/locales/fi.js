@@ -69,6 +69,7 @@
             removeTitle: 'Poista tiedosto',
             uploadTitle: 'Upload file',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Yksityiskohdat',
             dragTitle: 'Siirrä / Järjestele',
             indicatorNewTitle: 'Ei ladattu',

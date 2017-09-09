@@ -79,6 +79,7 @@
             removeTitle: 'Fjern fil',
             uploadTitle: 'Upload fil',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Se detaljer',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Ikke uploadet endnu',

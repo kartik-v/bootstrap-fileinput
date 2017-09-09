@@ -79,6 +79,7 @@
             removeTitle: 'Odstranit soubor',
             uploadTitle: 'Nahrát soubor',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Zobrazit podrobnosti',
             dragTitle: 'Posunout / Přeskládat',
             indicatorNewTitle: 'Ještě nenahrál',

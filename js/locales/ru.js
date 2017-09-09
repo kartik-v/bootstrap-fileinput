@@ -80,6 +80,7 @@
             removeTitle: 'Удалить файл',
             uploadTitle: 'Загрузить файл',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'посмотреть детали',
             dragTitle: 'Переместить / Изменить порядок',
             indicatorNewTitle: 'Еще не загружен',

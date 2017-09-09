@@ -81,6 +81,7 @@
             removeTitle: '刪除檔案',
             uploadTitle: '上傳檔案',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: '詳細資料',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: '尚未上傳',

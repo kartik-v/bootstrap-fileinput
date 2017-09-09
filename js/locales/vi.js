@@ -80,6 +80,7 @@
             removeTitle: 'Gỡ bỏ',
             uploadTitle: 'Upload tập tin',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Phóng lớn',
             dragTitle: 'Di chuyển / Sắp xếp lại',
             indicatorNewTitle: 'Chưa được upload',

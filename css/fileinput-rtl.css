@@ -19,25 +19,11 @@
 }
 
 .kv-rtl .input-group-btn:last-child >.btn {
-   border-top-right-radius: 0 !important;
-   border-bottom-right-radius: 0 !important;
-   border-top-left-radius: 4px !important;
-   border-bottom-left-radius: 4px !important;
-
+    border-radius: 4px 0 0 4px;
 }
 
 .kv-rtl .input-group .form-control:first-child {
-    border-top-right-radius: 4px !important;
-    border-bottom-right-radius: 4px !important;
-    border-top-left-radius: 0px !important;
-    border-bottom-left-radius: 0px !important;
-
- }
- 
-.kv-rtl .file-loading {
-    right: auto;
-    left: 0;
-    text-align: left;
+    border-radius: 0 4px 4px 0;
 }
 
 .kv-rtl .btn-file input[type=file] {
@@ -54,33 +40,6 @@
 .kv-rtl .file-error-message pre,
 .kv-rtl .file-error-message ul {
     text-align: right;
-}
-
-.kv-rtl .krajee-default.file-preview-frame {
-    box-shadow: -1px 1px 5px 0 #a2958a;
-    float: right;
-}
-
-.kv-rtl .krajee-default.file-preview-frame:not(.file-preview-error):hover {
-    box-shadow: -3px 3px 5px 0 #333;
-}
-
-.kv-rtl .krajee-default .file-actions,
-.kv-rtl .krajee-default .file-other-error {
-    text-align: right;
-}
-
-.kv-rtl .krajee-default .file-footer-buttons {
-    float: left;
-}
-
-.kv-rtl .krajee-default .file-drag-handle,
-.kv-rtl .krajee-default .file-upload-indicator {
-    left: auto;
-    right: -6px;
-    padding: 8px 3px 1px 8px;
-    border-top-left-radius: 24px;
-    border-top-right-radius: 0;
 }
 
 .kv-rtl .file-drop-zone {
@@ -115,7 +74,32 @@
     float: right!important;
 }
 
-.kv-rtl .modal-title {
-    text-align: right;
+.kv-rtl .float-right {
+    float: left!important;
+}
+
+.kv-rtl .float-left {
+    float: right!important;
+}
+
+.kv-rtl .kv-zoom-title {
     direction: ltr;
+}
+
+.kv-rtl .krajee-default.file-preview-frame {
+    box-shadow: -1px 1px 5px 0 #a2958a;
+    float: right;
+}
+
+.kv-rtl .krajee-default.file-preview-frame:not(.file-preview-error):hover {
+    box-shadow: -3px 3px 5px 0 #333;
+}
+
+.kv-rtl .krajee-default .file-actions,
+.kv-rtl .krajee-default .file-other-error {
+    float: left;
+}
+
+.kv-rtl .krajee-default .file-drag-handle, .kv-rtl .krajee-default .file-upload-indicator {
+    float: right;
 }

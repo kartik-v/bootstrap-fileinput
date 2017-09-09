@@ -80,6 +80,7 @@
             removeTitle: 'Uklonite datoteku',
             uploadTitle: 'Postavi datoteku',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Pregledavati pojedinosti',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Još nije učitao',

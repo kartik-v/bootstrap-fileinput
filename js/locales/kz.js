@@ -67,6 +67,7 @@
             removeTitle: 'Файлды өшіру',
             uploadTitle: 'Файлды жүктеу',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'мәліметтерді көру',
             dragTitle: 'Орнын ауыстыру',
             indicatorNewTitle: 'Жүктелген жоқ',

@@ -69,6 +69,7 @@
             removeTitle: 'Usuń plik',
             uploadTitle: 'Przesyłanie pliku',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Pokaż szczegóły',
             dragTitle: 'Przenies / Ponownie zaaranżuj',
             indicatorNewTitle: 'Jeszcze nie przesłanych',
