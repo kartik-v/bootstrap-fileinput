@@ -31,7 +31,7 @@
             actions: '{drag}\n' +
             '<div class="file-actions">\n' +
             '    <div class="file-footer-buttons">\n' +
-            '        {upload} {delete} {zoom} {other} ' +
+            '        {upload} {download} {delete} {zoom} {other} ' +
             '    </div>\n' +
             '</div>',
             zoomCache: '<tr style="display:none" class="kv-zoom-cache-theme"><td>' +
