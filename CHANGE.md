@@ -7,6 +7,7 @@ Change Log: `bootstrap-fileinput`
 
 **_This release adds Bootstrap v4.x support._**
 
+- (bug #1079): Correct initial preview rendering when no `initialPreviewConfig` supplied.
 - (enh #1078): Correct markup during file validation errors (non-ajax mode).
 - (enh #1075): Enhance initial preview delete behavior (ensure `previewCache` splices deleted initial preview content items).
 - (enh #1073): Enhance `refresh` method to overwrite options.

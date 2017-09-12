@@ -899,9 +899,12 @@
                     return {content: html, caption: caption};
                 },
                 footer: function (i, isDisabled, size) {
-                    var data = self.previewCache.data;
-                    if (!data || !data.config || data.config.length === 0 || $h.isEmpty(data.config[i])) {
+                    var data = self.previewCache.data || {};
+                    if ($h.isEmpty(data.content)) {
                         return '';
+                    }
+                    if ($h.isEmpty(data.config) || $h.isEmpty(data.config[i])) {
+                        data.config[i] = {};
                     }
                     isDisabled = isDisabled === undefined ? true : isDisabled;
                     var config = data.config[i], caption = $h.ifSet('caption', config), a,
