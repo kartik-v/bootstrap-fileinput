@@ -3,10 +3,11 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.4
 
-**Date:** 09-Sep-2017
+**Date:** 12-Sep-2017
 
 **_This release adds Bootstrap v4.x support._**
 
+- (enh #1078): Correct markup during file validation errors (non-ajax mode).
 - (enh #1075): Enhance initial preview delete behavior (ensure `previewCache` splices deleted initial preview content items).
 - (enh #1073): Enhance `refresh` method to overwrite options.
 - (enh #1072): Enhance preview thumb templates to allow setting CSS styles (BC Breaking).
