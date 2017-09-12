@@ -58,7 +58,6 @@ You can also manually install the plugin easily to your project. Just download t
 Step 1: Load the following assets in your header. 
 
 ```html
-<!-- !-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
 <!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 <link href="path/to/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
