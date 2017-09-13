@@ -3,10 +3,11 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.4
 
-**Date:** 12-Sep-2017
+**Date:** 13-Sep-2017
 
 **_This release adds Bootstrap v4.x support._**
 
+- (enh #1080): Enhance styling of zoom modal header and buttons.
 - (bug #1079): Correct initial preview rendering when no `initialPreviewConfig` supplied.
 - (enh #1078): Correct markup during file validation errors (non-ajax mode).
 - (enh #1075): Enhance initial preview delete behavior (ensure `previewCache` splices deleted initial preview content items).

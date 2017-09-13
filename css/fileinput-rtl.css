@@ -51,11 +51,6 @@
     right: auto;
 }
 
-.kv-rtl .kv-zoom-actions .btn,
-.kv-rtl .floating-buttons .btn {
-    margin-right: 3px;
-}
-
 .kv-rtl .btn-prev {
     right: 1px;
     left: auto;

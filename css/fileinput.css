@@ -443,13 +443,19 @@ input[type=file].file-loading, .file-loading input[type=file] {
     right: 10px;
 }
 
-.floating-buttons, .floating-buttons .btn {
-    z-index: 3000;
+.btn-kv {
+    display: inline-block;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    font-size: 0.875rem;
+    border-radius: 0.2rem;
 }
 
-.file-zoom-dialog .kv-zoom-actions .btn,
-.floating-buttons .btn {
-    margin-left: 3px;
+.floating-buttons, .floating-buttons .btn-kv {
+    z-index: 3000;
 }
 
 .file-zoom-dialog .btn-navigate:not([disabled]):hover {
@@ -530,6 +536,10 @@ input[type=file].file-loading, .file-loading input[type=file] {
 .file-zoom-dialog .kv-zoom-title {
     font-weight: 300;
     color: #999;
+    max-width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 767px) {

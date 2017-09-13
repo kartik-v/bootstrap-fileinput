@@ -519,7 +519,7 @@
                 '    <div class="modal-header">\n' +
                 '      <h5 class="modal-title">{heading}</h5>\n' +
                 '      <span class="kv-zoom-title"></span>\n' +
-                '      <div class="kv-zoom-actions">{toggleheader}{fullscreen}{borderless}{close}</div>\n' +
+                '      <div class="kv-zoom-actions">{toggleheader} {fullscreen} {borderless} {close}</div>\n' +
                 '    </div>\n' +
                 '    <div class="modal-body">\n' +
                 '      <div class="floating-buttons"></div>\n' +
@@ -700,19 +700,19 @@
                     showZoom: true,
                     showDrag: true,
                     removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
-                    removeClass: 'btn btn-sm btn-default btn-outline-secondary',
-                    removeErrorClass: 'btn btn-sm btn-danger',
+                    removeClass: 'btn btn-kv btn-default btn-outline-secondary',
+                    removeErrorClass: 'btn btn-kv btn-danger',
                     removeTitle: 'Remove file',
                     uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
-                    uploadClass: 'btn btn-sm btn-default btn-outline-secondary',
+                    uploadClass: 'btn btn-kv btn-default btn-outline-secondary',
                     uploadTitle: 'Upload file',
                     uploadRetryIcon: '<i class="glyphicon glyphicon-repeat"></i>',
                     uploadRetryTitle: 'Retry upload',
                     downloadIcon: '<i class="glyphicon glyphicon-download"></i>',
-                    downloadClass: 'btn btn-sm btn-default btn-outline-secondary',
+                    downloadClass: 'btn btn-kv btn-default btn-outline-secondary',
                     downloadTitle: 'Download file',
                     zoomIcon: '<i class="glyphicon glyphicon-zoom-in"></i>',
-                    zoomClass: 'btn btn-sm btn-default btn-outline-secondary',
+                    zoomClass: 'btn btn-kv btn-default btn-outline-secondary',
                     zoomTitle: 'View Details',
                     dragIcon: '<i class="glyphicon glyphicon-move"></i>',
                     dragClass: 'text-info',
@@ -1519,7 +1519,7 @@
             cap = $frame.data('caption') || '';
             size = $frame.data('size') || '';
             title = cap + ' ' + size;
-            $modal.find('.kv-zoom-title').html(title);
+            $modal.find('.kv-zoom-title').attr('title', $('<div/>').html(title).text()).html(title);
             $body = $modal.find('.kv-zoom-body');
             $modal.removeClass('kv-single-content');
             if (animate) {
@@ -3911,10 +3911,10 @@
         previewZoomButtonClasses: {
             prev: 'btn btn-navigate',
             next: 'btn btn-navigate',
-            toggleheader: 'btn btn-default btn-secondary btn-header-toggle',
-            fullscreen: 'btn btn-default btn-secondary',
-            borderless: 'btn btn-default btn-secondary',
-            close: 'btn btn-default btn-secondary'
+            toggleheader: 'btn btn-kv btn-default btn-outline-secondary',
+            fullscreen: 'btn btn-kv btn-default btn-outline-secondary',
+            borderless: 'btn btn-kv btn-default btn-outline-secondary',
+            close: 'btn btn-kv btn-default btn-outline-secondary'
         },
         preferIconicPreview: false,
         preferIconicZoomPreview: false,
