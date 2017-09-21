@@ -7,6 +7,7 @@ Change Log: `bootstrap-fileinput`
 
 **_This release adds Bootstrap v4.x support._**
 
+- (enh #1082, #1083): Better handling of errors when `showPreview` is `false`.
 - (enh #1080): Enhance styling of zoom modal header and buttons.
 - (bug #1079): Correct initial preview rendering when no `initialPreviewConfig` supplied.
 - (enh #1078): Correct markup during file validation errors (non-ajax mode).

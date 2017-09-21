@@ -3005,6 +3005,9 @@
             if (i !== undefined) {
                 self.updateStack(i, val);
             }
+            if (!self.showPreview) {
+                return;
+            }
             if (self.removeFromPreviewOnError && !repeat) {
                 $thumb.remove();
                 return;
