@@ -14,6 +14,11 @@
     direction: rtl;
 }
 
+.kv-rtl .kv-zoom-actions .btn-kv, .kv-rtl .floating-buttons .btn-kv {
+    margin-left: 0;
+    margin-right: 3px;
+}
+
 .kv-rtl .close {
     float: left;
 }

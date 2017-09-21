@@ -519,7 +519,7 @@
                 '    <div class="modal-header">\n' +
                 '      <h5 class="modal-title">{heading}</h5>\n' +
                 '      <span class="kv-zoom-title"></span>\n' +
-                '      <div class="kv-zoom-actions">{toggleheader} {fullscreen} {borderless} {close}</div>\n' +
+                '      <div class="kv-zoom-actions">{toggleheader}{fullscreen}{borderless}{close}</div>\n' +
                 '    </div>\n' +
                 '    <div class="modal-body">\n' +
                 '      <div class="floating-buttons"></div>\n' +
@@ -2409,7 +2409,7 @@
             self._initZoomButton();
             $preview.find(btnRemove).each(function () {
                 var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'),
-                    fnBefore, fnSuccess, fnError, $thumb = $el.closest('.file-preview-frame');
+                    fnBefore, fnSuccess, fnError;
                 if ($h.isEmpty(vUrl) || vKey === undefined) {
                     return;
                 }
@@ -2483,7 +2483,7 @@
                     }
                     self.ajaxAborted = false;
                     self._raise('filebeforedelete', [vKey, extraData]);
-                    if (self.ajaxAborted instanceof Promise) {
+                    if (self.ajaxAborted instanceof Promise) { // jshint ignore:line
                         self.ajaxAborted.then(function (result) {
                             if (!result) {
                                 $.ajax(settings);
@@ -2676,7 +2676,7 @@
                 canPreview = $preview.length && (!maxPreviewSize || isNaN(maxPreviewSize)),
                 throwError = function (msg, file, previewId, index) {
                     var p1 = $.extend(true, {}, self._getOutData({}, {}, files), {id: previewId, index: index}),
-                        p2 = {id: previewId, index: index, file: file, files: files}, $thumb, out;
+                        p2 = {id: previewId, index: index, file: file, files: files}, $thumb;
                     self._previewDefault(file, previewId, true);
                     if (self.isAjaxUpload) {
                         self.addToStack(undefined);
@@ -2691,8 +2691,8 @@
                     $thumb.find('.kv-file-upload').hide();
                     if (self.removeFromPreviewOnError) {
                         $thumb.remove();
-                    }                  
-                    self.isError = self.isAjaxUpload ? self._showUploadError(msg, p1) : self._showError(msg, p2);  
+                    }
+                    self.isError = self.isAjaxUpload ? self._showUploadError(msg, p1) : self._showError(msg, p2);
                     self._updateFileDetails(numFiles);
                 };
 
@@ -3024,7 +3024,7 @@
             }
             if (repeat) {
                 icon = cfg.uploadRetryIcon;
-                title = cfg.uploadRetryTitle
+                title = cfg.uploadRetryTitle;
             }
             $btn.attr('title', title).html(icon);
         },

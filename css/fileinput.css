@@ -454,6 +454,10 @@ input[type=file].file-loading, .file-loading input[type=file] {
     border-radius: 0.2rem;
 }
 
+.kv-zoom-actions .btn-kv, .floating-buttons .btn-kv {
+    margin-left: 3px;
+}
+
 .floating-buttons, .floating-buttons .btn-kv {
     z-index: 3000;
 }
