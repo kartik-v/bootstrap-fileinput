@@ -79,6 +79,7 @@
             removeTitle: 'A fájl eltávolítása',
             uploadTitle: 'fájl feltöltése',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Részletek megtekintése',
             dragTitle: 'Mozgatás / Átrendezés',
             indicatorNewTitle: 'Nem feltöltött',

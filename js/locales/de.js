@@ -77,6 +77,7 @@
             removeTitle: 'Datei entfernen',
             uploadTitle: 'Datei hochladen',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Details anzeigen',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Noch nicht hochgeladen',

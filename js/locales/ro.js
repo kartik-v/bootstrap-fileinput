@@ -80,6 +80,7 @@
             removeTitle: 'Scoateți fișier',
             uploadTitle: 'Incarca fisier',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Vezi detalii',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Nu a încărcat încă',

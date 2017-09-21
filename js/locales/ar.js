@@ -80,6 +80,7 @@
             removeTitle: 'إزالة الملف',
             uploadTitle: 'رفع الملف',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'مشاهدة التفاصيل',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'لم يتم الرفع بعد',

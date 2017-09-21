@@ -80,6 +80,7 @@
             removeTitle: 'Hapus berkas',
             uploadTitle: 'Unggah berkas',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Tampilkan Rincian',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Belum diunggah',

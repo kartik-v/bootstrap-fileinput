@@ -79,6 +79,7 @@
             removeTitle: '파일 지우기',
             uploadTitle: '파일 업로드 하기',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: '세부 정보 보기',
             dragTitle: '옭기기 / 재배열하기',
             indicatorNewTitle: '아직 업로드가 안되었습니다.',

@@ -79,6 +79,7 @@
             removeTitle: 'ลบไฟล์',
             uploadTitle: 'อัปโหลดไฟล์',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'ดูรายละเอียด',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'ยังไม่ได้อัปโหลด',

@@ -79,6 +79,7 @@
             removeTitle: 'Αφαιρέστε το αρχείο',
             uploadTitle: 'Μεταφορτώστε το αρχείο',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Δείτε λεπτομέρειες',
             dragTitle: 'Μετακίνηση/Προσπαρμογή',
             indicatorNewTitle: 'Δεν μεταφορτώθηκε ακόμα',

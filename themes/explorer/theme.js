@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.4.3
+ * bootstrap-fileinput v4.4.4
  * http://plugins.krajee.com/file-input
  *
  * Krajee Explorer theme configuration for bootstrap-fileinput. Load this theme file after loading `fileinput.js`.
@@ -31,7 +31,7 @@
             actions: '{drag}\n' +
             '<div class="file-actions">\n' +
             '    <div class="file-footer-buttons">\n' +
-            '        {upload} {delete} {zoom} {other} ' +
+            '        {upload} {download} {delete} {zoom} {other} ' +
             '    </div>\n' +
             '</div>',
             zoomCache: '<tr style="display:none" class="kv-zoom-cache-theme"><td>' +

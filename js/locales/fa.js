@@ -80,6 +80,7 @@
             removeTitle: 'حذف فایل',
             uploadTitle: 'آپلود فایل',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'دیدن جزئیات',
             dragTitle: 'جابجایی / چیدمان',
             indicatorNewTitle: 'آپلود نشده است',

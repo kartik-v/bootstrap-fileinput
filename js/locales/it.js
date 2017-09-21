@@ -81,6 +81,7 @@
             removeTitle: 'Rimuovere il file',
             uploadTitle: 'Caricare un file',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Guarda i dettagli',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Non ancora caricato',

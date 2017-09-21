@@ -77,6 +77,7 @@
             removeTitle: 'Odstrani datoteko',
             uploadTitle: 'Naloži datoteko',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Poglej podrobnosti',
             dragTitle: 'Premaki / Razporedi',
             indicatorNewTitle: 'Še ni naloženo',

@@ -79,6 +79,7 @@
             removeTitle: 'Махни файл',
             uploadTitle: 'Качване на файл',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Вижте детайли',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Все още не е качил',

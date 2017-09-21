@@ -79,6 +79,7 @@
             removeTitle: 'Eliminar archivo',
             uploadTitle: 'Subir archivo',
             uploadRetryTitle: 'Retry upload',
+            downloadTitle: 'Download file',
             zoomTitle: 'Ver detalles',
             dragTitle: 'Mover / Reordenar',
             indicatorNewTitle: 'No subido todavía',
