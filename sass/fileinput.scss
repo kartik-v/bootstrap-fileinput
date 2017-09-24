@@ -10,12 +10,12 @@
  * Licensed under the BSD 3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
+
 .kv-hidden {
   display: none;
 }
 
-/* exif orientations */
-
+// exif orientations
 .rotate-2 {
   transform: rotateY(180deg);
 }
@@ -44,8 +44,7 @@
   transform: rotate(270deg);
 }
 
-/* other styles */
-
+// other styles
 input[type=file].file-loading {
   width: 0;
   height: 0;
@@ -98,32 +97,30 @@ input[type=file].file-loading {
 
 .file-caption {
   position: relative;
+  .file-caption-name {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    background: none;
+    outline: none;
+  }
 }
 
 .file-caption-icon {
   display: none;
   position: absolute;
-  top: 24%;
-  left: 10px;
-  z-index: 10;
-  margin-right: 10px;
-}
-
-.file-caption.icon-visible .file-caption-icon {
-  display: inline-block;
-}
-
-.file-caption-icon.icon-lg {
-  font-size: 1.2em;
-  margin-right: 12px;
+  line-height: 1;
+  left: 8px;
 }
 
 .file-caption.icon-visible {
-  .file-caption-name {
-    padding-left: 30px;
+  .file-caption-icon {
+    display: inline-block;
   }
-  .input-group-lg .file-caption-name {
-    padding-left: 34px;
+  .file-caption-name {
+    padding-left: 15px;
   }
 }
 
@@ -531,8 +528,7 @@ input[type=file].file-loading {
   display: none;
 }
 
-/* IE 10 fix */
-
+// IE 10 fix
 .btn-file ::-ms-browse {
   font-size: 10000px;
   width: 100%;

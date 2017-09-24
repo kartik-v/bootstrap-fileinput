@@ -450,11 +450,6 @@
                 self.$caption.attr('placeholder', self.msgPlaceholder.replace('{files}', f));
             }
             self.$captionIcon = self.$captionContainer.find('.file-caption-icon');
-            if (self.mainClass.indexOf('input-group-lg') > -1) {
-                $h.addCss(self.$captionIcon, 'icon-lg');
-            } else {
-                self.$captionIcon.removeClass('icon-lg');
-            }
             self.$previewContainer = $h.getElement(options, 'elPreviewContainer', $cont.find('.file-preview'));
             self.$preview = $h.getElement(options, 'elPreviewImage', $cont.find('.file-preview-thumbnails'));
             self.$previewStatus = $h.getElement(options, 'elPreviewStatus', $cont.find('.file-preview-status'));

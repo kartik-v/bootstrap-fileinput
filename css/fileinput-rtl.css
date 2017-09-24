@@ -21,17 +21,12 @@
 
 .kv-rtl .file-caption-icon {
     left: auto;
-    right: 10px;
-    margin: 0 0 0 10px;
+    right: 8px;
 }
 
 .kv-rtl .file-caption.icon-visible .file-caption-name {
     padding-left: 0;
-    padding-right: 30px;
-}
-
-.kv-rtl .file-caption.icon-visible .input-group-lg .file-caption-name {
-    padding-right: 34px;
+    padding-right: 15px;
 }
 
 .kv-rtl .close {

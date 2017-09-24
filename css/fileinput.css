@@ -107,10 +107,8 @@ input[type=file].file-loading, .file-loading input[type=file] {
 .file-caption-icon {
     display: none;
     position: absolute;
-    top: 24%;
+    line-height: 1;
     left: 8px;
-    vertical-align: middle;
-    margin-right: 5px;
 }
 
 .file-caption.icon-visible .file-caption-icon {
@@ -143,10 +141,6 @@ input[type=file].file-loading, .file-loading input[type=file] {
     background-color: #eeeeee;
     cursor: not-allowed;
     opacity: 1;
-}
-
-.icon-lg.file-caption-icon {
-    margin-top: -2px;
 }
 
 .file-preview {
