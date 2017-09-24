@@ -33,7 +33,7 @@
     "style": "./css/fileinput.css",
     "peerDependencies": {
         "jquery": ">= 1.9.0",
-        "bootstrap": "~3"
+        "bootstrap": ">= 3.0.0"
     },
     "license": "BSD-3-Clause"
 }
