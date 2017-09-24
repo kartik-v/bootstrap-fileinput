@@ -24,6 +24,7 @@
         msgNo: 'Nem',
         msgNoFilesSelected: 'Nincs fájl kiválasztva',
         msgCancelled: 'Megszakítva',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'Részletes Előnézet',
         msgFileRequired: 'Kötelező fájlt kiválasztani a feltöltéshez.',
         msgSizeTooSmall: 'A fájl: "{name}" (<b>{size} KB</b>) mérete túl kicsi, nagyobbnak kell lennie, mint <b>{minSize} KB</b>.',

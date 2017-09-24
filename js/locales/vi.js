@@ -25,6 +25,7 @@
         msgNo: 'Không',
         msgNoFilesSelected: 'Không tập tin nào được chọn',
         msgCancelled: 'Đã hủy',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'Chi tiết xem trước',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',

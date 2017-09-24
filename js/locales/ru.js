@@ -25,6 +25,7 @@
         msgNo: 'нет',
         msgNoFilesSelected: '',
         msgCancelled: 'Отменено',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'Подробное превью',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Файл "{name}" (<b>{size} KB</b>) имеет слишком маленький размер и должен быть больше <b>{minSize} KB</b>.',

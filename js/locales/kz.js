@@ -25,6 +25,7 @@
         msgNo: 'жоқ',
         msgNoFilesSelected: 'Файл таңдалмады',
         msgCancelled: 'Күші жойылған',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'Алдын ала толық көру',
         msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) ең үлкен <b>{maxSize} KB</b> өлшемінен асады.',
         msgFilesTooLess: 'Жүктеу үшіy кемінде <b>{n}</b> {files} таңдау керек.',
