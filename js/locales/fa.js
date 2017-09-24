@@ -25,6 +25,7 @@
         msgNo: 'نه',
         msgNoFilesSelected: 'هیچ فایلی انتخاب نشده است',
         msgCancelled: 'لغو شد',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'نمایش با جزییات',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'فایل "{name}" (<b>{size} کیلوبایت</b>) خیلی کوچک است و باید از <b>{minSize} کیلوبایت بزرگتر باشد</b>.',
