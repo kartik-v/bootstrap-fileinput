@@ -94,30 +94,31 @@ input[type=file].file-loading, .file-loading input[type=file] {
     position: relative;
 }
 
+.file-caption .file-caption-name {
+    width: 100%;
+    margin:0;
+    padding:0;
+    box-shadow: none;
+    border: none;
+    background: none;
+    outline: none;
+}
+
 .file-caption-icon {
     display: none;
     position: absolute;
     top: 24%;
-    left: 10px;
-    z-index: 10;
-    margin-right: 10px;
+    left: 8px;
+    vertical-align: middle;
+    margin-right: 5px;
 }
 
 .file-caption.icon-visible .file-caption-icon {
     display: inline-block;
 }
 
-.file-caption-icon.icon-lg {
-    font-size: 1.2em;
-    margin-right: 12px;
-}
-
 .file-caption.icon-visible .file-caption-name {
-    padding-left: 30px;
-}
-
-.file-caption.icon-visible .input-group-lg .file-caption-name {
-    padding-left: 34px;
+    padding-left: 15px;
 }
 
 .file-error-message {
@@ -142,6 +143,10 @@ input[type=file].file-loading, .file-loading input[type=file] {
     background-color: #eeeeee;
     cursor: not-allowed;
     opacity: 1;
+}
+
+.icon-lg.file-caption-icon {
+    margin-top: -2px;
 }
 
 .file-preview {

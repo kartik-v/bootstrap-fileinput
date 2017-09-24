@@ -491,32 +491,32 @@
                 tText, tVideo, tAudio, tFlash, tObject, tPdf, tOther, tZoomCache, vDefaultDim;
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
-                '<div class="file-caption">\n' +
-                '  <span class="file-caption-icon"></span>\n' +
-                '  <div class="input-group {class}">\n' +
-                '    {caption}\n' +
-                '    <div class="input-group-btn">\n' +
-                '      {remove}\n' +
-                '      {cancel}\n' +
-                '      {upload}\n' +
-                '      {browse}\n' +
-                '    </div>\n' +
+                '<div class="input-group {class}">\n' +
+                '  {caption}\n' +
+                '  <div class="input-group-btn">\n' +
+                '    {remove}\n' +
+                '    {cancel}\n' +
+                '    {upload}\n' +
+                '    {browse}\n' +
                 '  </div>\n' +
                 '</div>';
             tMain2 = '{preview}\n<div class="kv-upload-progress kv-hidden"></div>\n<div class="clearfix"></div>\n{remove}\n{cancel}\n{upload}\n{browse}\n';
             tPreview = '<div class="file-preview {class}">\n' +
-                '    {close}' +
-                '    <div class="{dropClass}">\n' +
+                '  {close}' +
+                '  <div class="{dropClass}">\n' +
                 '    <div class="file-preview-thumbnails">\n' +
                 '    </div>\n' +
                 '    <div class="clearfix"></div>' +
                 '    <div class="file-preview-status text-center text-success"></div>\n' +
                 '    <div class="kv-fileinput-error"></div>\n' +
-                '    </div>\n' +
+                '  </div>\n' +
                 '</div>';
             tClose = '<button type="button" class="close fileinput-remove">&times;</button>\n';
             tFileIcon = '<i class="glyphicon glyphicon-file"></i>';
-            tCaption = '<input class="form-control file-caption-name {class}" onkeydown="return false;" onpaste="return false;">';
+            tCaption = '<div class="file-caption form-control {class}" tabindex="500">\n' +
+                '  <span class="file-caption-icon"></span>\n' +
+                '  <input class="file-caption-name" onkeydown="return false;" onpaste="return false;">\n' +
+                '</div>';
             //noinspection HtmlUnknownAttribute
             tBtnDefault = '<button type="{type}" tabindex="500" title="{title}" class="{css}" ' +
                 '{status}>{icon} {label}</button>';
@@ -1012,13 +1012,13 @@
             var self = this;
             css = (css ? css + ' ' : '') + 'has-error';
             self.$container.removeClass(css).addClass('has-error');
-            $h.addCss(self.$caption, 'is-invalid');
+            $h.addCss(self.$captionContainer, 'is-invalid');
         },
         _resetErrors: function (fade) {
             var self = this, $error = self.$errorContainer;
             self.isError = false;
             self.$container.removeClass('has-error');
-            self.$caption.removeClass('is-invalid');
+            self.$captionContainer.removeClass('is-invalid');
             $error.html('');
             if (fade) {
                 $error.fadeOut('slow');
@@ -3261,9 +3261,7 @@
         },
         _validateDisabled: function() {
             var self = this;
-            if (self.isDisabled && self.$caption && self.$caption.length) {
-                self.$caption.attr('readonly', true);
-            }
+            self.$caption.attr({readonly: self.isDisabled});
         },
         _renderMain: function () {
             var self = this,
