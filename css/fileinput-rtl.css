@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.4.4
+ * bootstrap-fileinput v4.4.5
  * http://plugins.krajee.com/file-input
  *
  * Krajee RTL (Right To Left) default styling for bootstrap-fileinput.
@@ -17,6 +17,16 @@
 .kv-rtl .kv-zoom-actions .btn-kv, .kv-rtl .floating-buttons .btn-kv {
     margin-left: 0;
     margin-right: 3px;
+}
+
+.kv-rtl .file-caption-icon {
+    left: auto;
+    right: 8px;
+}
+
+.kv-rtl .file-caption.icon-visible .file-caption-name {
+    padding-left: 0;
+    padding-right: 15px;
 }
 
 .kv-rtl .close {

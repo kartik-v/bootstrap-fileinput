@@ -24,6 +24,7 @@
         msgNo: 'Nei',
         msgNoFilesSelected: 'Ingen filer er valgt',
         msgCancelled: 'Avbrutt',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'Detaljert visning',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Filen "{name}" (<b>{size} KB</b>) er for liten og må være større enn <b>{minSize} KB</b>.',

@@ -24,6 +24,7 @@
         msgNo: 'Não',
         msgNoFilesSelected: '',
         msgCancelled: 'Cancelado',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'Pré-visualização detalhada',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',

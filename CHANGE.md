@@ -1,6 +1,15 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.4.5 (_under development_)
+
+**Date:** 24-Sep-2017
+
+- (enh #1087): Enhance SCSS/SASS styling configurations.
+- (enh #1086): New placeholder property and various caption rendering enhancements.
+- (enh #1085): Update Slovak Translations.
+- (enh #1084): Update Czech Translations.
+
 ## version 4.4.4
 
 **Date:** 21-Sep-2017

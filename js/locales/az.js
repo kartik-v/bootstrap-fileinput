@@ -25,6 +25,7 @@
         msgNo: 'xeyir',
         msgNoFilesSelected: 'Heç bir fayl seçilməmişdir',
         msgCancelled: 'İmtina edildi',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'İlkin baxış',
         msgFileRequired: 'Yükləmə üçün fayl seçməlisiniz.',
         msgSizeTooSmall: 'Seçdiyiniz "{name}" faylının həcmi (<b>{size} KB</b>)-dır,  minimum <b>{minSize} KB</b> olmalıdır.',

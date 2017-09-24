@@ -24,6 +24,7 @@
         msgNo: '아니요',
         msgNoFilesSelected: '선택한 파일이 없습니다.',
         msgCancelled: '취소되었습니다.',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: '자세한 미리보기',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: '파일 "{name}" (<b>{size} KB</b>)이 너무 작습니다. <b>{minSize} KB</b>보다 용량이 커야 합니다..',

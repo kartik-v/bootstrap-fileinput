@@ -25,6 +25,7 @@
         msgNo: 'Tidak',
         msgNoFilesSelected: '',
         msgCancelled: 'Dibatalkan',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'Pratinjau terperinci',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',

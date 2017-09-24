@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.4.4
+ * bootstrap-fileinput v4.4.5
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -374,7 +374,7 @@
             self.cancelling = false;
         },
         _init: function (options, refreshMode) {
-            var self = this, $el = self.$element, $cont, t, tmp;
+            var self = this, f, $el = self.$element, $cont, t, tmp;
             self.options = options;
             $.each(options, function (key, value) {
                 switch (key) {
@@ -445,11 +445,17 @@
             self.$btnUpload = $cont.find('.fileinput-upload');
             self.$captionContainer = $h.getElement(options, 'elCaptionContainer', $cont.find('.file-caption'));
             self.$caption = $h.getElement(options, 'elCaptionText', $cont.find('.file-caption-name'));
+            if (!$h.isEmpty(self.msgPlaceholder)) {
+                f = $el.attr('multiple') ? self.filePlural : self.fileSingle;
+                self.$caption.attr('placeholder', self.msgPlaceholder.replace('{files}', f));
+            }
+            self.$captionIcon = self.$captionContainer.find('.file-caption-icon');
             self.$previewContainer = $h.getElement(options, 'elPreviewContainer', $cont.find('.file-preview'));
             self.$preview = $h.getElement(options, 'elPreviewImage', $cont.find('.file-preview-thumbnails'));
             self.$previewStatus = $h.getElement(options, 'elPreviewStatus', $cont.find('.file-preview-status'));
             self.$errorContainer = $h.getElement(options, 'elErrorContainer',
                 self.$previewContainer.find('.kv-fileinput-error'));
+            self._validateDisabled();
             if (!$h.isEmpty(self.msgErrorClass)) {
                 $h.addCss(self.$errorContainer, self.msgErrorClass);
             }
@@ -481,30 +487,31 @@
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
                 '<div class="input-group {class}">\n' +
-                '   {caption}\n' +
-                '   <div class="input-group-btn">\n' +
-                '       {remove}\n' +
-                '       {cancel}\n' +
-                '       {upload}\n' +
-                '       {browse}\n' +
-                '   </div>\n' +
+                '  {caption}\n' +
+                '  <div class="input-group-btn">\n' +
+                '    {remove}\n' +
+                '    {cancel}\n' +
+                '    {upload}\n' +
+                '    {browse}\n' +
+                '  </div>\n' +
                 '</div>';
             tMain2 = '{preview}\n<div class="kv-upload-progress kv-hidden"></div>\n<div class="clearfix"></div>\n{remove}\n{cancel}\n{upload}\n{browse}\n';
             tPreview = '<div class="file-preview {class}">\n' +
-                '    {close}' +
-                '    <div class="{dropClass}">\n' +
+                '  {close}' +
+                '  <div class="{dropClass}">\n' +
                 '    <div class="file-preview-thumbnails">\n' +
                 '    </div>\n' +
                 '    <div class="clearfix"></div>' +
                 '    <div class="file-preview-status text-center text-success"></div>\n' +
                 '    <div class="kv-fileinput-error"></div>\n' +
-                '    </div>\n' +
+                '  </div>\n' +
                 '</div>';
             tClose = '<button type="button" class="close fileinput-remove">&times;</button>\n';
-            tFileIcon = '<i class="glyphicon glyphicon-file kv-caption-icon"></i>';
-            tCaption = '<div tabindex="500" class="form-control file-caption {class}">\n' +
-                '   <div class="file-caption-name"></div>\n' +
-                '</div>\n';
+            tFileIcon = '<i class="glyphicon glyphicon-file"></i>';
+            tCaption = '<div class="file-caption form-control {class}" tabindex="500">\n' +
+                '  <span class="file-caption-icon"></span>\n' +
+                '  <input class="file-caption-name" onkeydown="return false;" onpaste="return false;">\n' +
+                '</div>';
             //noinspection HtmlUnknownAttribute
             tBtnDefault = '<button type="{type}" tabindex="500" title="{title}" class="{css}" ' +
                 '{status}>{icon} {label}</button>';
@@ -996,10 +1003,17 @@
                 });
             }
         },
+        _setValidationError: function(css) {
+            var self = this;
+            css = (css ? css + ' ' : '') + 'has-error';
+            self.$container.removeClass(css).addClass('has-error');
+            $h.addCss(self.$captionContainer, 'is-invalid');
+        },
         _resetErrors: function (fade) {
             var self = this, $error = self.$errorContainer;
             self.isError = false;
             self.$container.removeClass('has-error');
+            self.$captionContainer.removeClass('is-invalid');
             $error.html('');
             if (fade) {
                 $error.fadeOut('slow');
@@ -1014,7 +1028,7 @@
             }
             msg = self.msgFoldersNotAllowed.replace('{n}', folders);
             self._addError(msg);
-            $h.addCss(self.$container, 'has-error');
+            self._setValidationError();
             $error.fadeIn(800);
             self._raise('filefoldererror', [folders, msg]);
         },
@@ -1028,8 +1042,7 @@
             }
             $error.fadeIn(800);
             self._raise(ev, [params, msg]);
-            self.$container.removeClass('file-input-new');
-            $h.addCss(self.$container, 'has-error');
+            self._setValidationError('file-input-new');
             return true;
         },
         _showError: function (msg, params, event) {
@@ -1042,8 +1055,7 @@
             if (!self.isAjaxUpload) {
                 self._clearFileInput();
             }
-            self.$container.removeClass('file-input-new');
-            $h.addCss(self.$container, 'has-error');
+            self._setValidationError('file-input-new');
             self.$btnUpload.attr('disabled', true);
             return true;
         },
@@ -1057,7 +1069,7 @@
             $error.fadeIn(800);
             self._raise('fileerror', [params, msg]);
             self._clearFileInput();
-            $h.addCss(self.$container, 'has-error');
+            self._setValidationError();
         },
         _parseError: function (operation, jqXHR, errorThrown, fileName) {
             /** @namespace jqXHR.responseJSON */
@@ -2498,12 +2510,14 @@
             });
         },
         _hideFileIcon: function () {
-            if (this.overwriteInitial) {
-                this.$captionContainer.find('.kv-caption-icon').hide();
+            var self = this;
+            if (self.overwriteInitial) {
+                self.$captionContainer.removeClass('icon-visible');
             }
         },
         _showFileIcon: function () {
-            this.$captionContainer.find('.kv-caption-icon').show();
+            var self = this;
+            $h.addCss(self.$captionContainer, 'icon-visible');
         },
         _getSize: function (bytes) {
             var self = this, size = parseFloat(bytes), i, func = self.fileSizeGetter, sizes, out;
@@ -2875,7 +2889,7 @@
             if (self.isError) {
                 self.$previewContainer.removeClass('file-thumb-loading');
                 self.$previewStatus.html('');
-                self.$captionContainer.find('.kv-caption-icon').hide();
+                self.$captionContainer.removeClass('icon-visible');
             } else {
                 self._showFileIcon();
             }
@@ -3189,17 +3203,18 @@
         _initCaption: function () {
             var self = this, cap = self.initialCaption || '';
             if (self.overwriteInitial || $h.isEmpty(cap)) {
-                self.$caption.html('');
+                self.$caption.val('');
                 return false;
             }
             self._setCaption(cap);
             return true;
         },
         _setCaption: function (content, isError) {
-            var self = this, title, out, n, cap, stack = self.getFileStack();
+            var self = this, title, out, icon, n, cap, stack = self.getFileStack();
             if (!self.$caption.length) {
                 return;
             }
+            self.$captionContainer.removeClass('icon-visible');
             if (isError) {
                 title = $('<div>' + self.msgValidationError + '</div>').text();
                 n = stack.length;
@@ -3208,18 +3223,19 @@
                 } else {
                     cap = self._getMsgSelected(self.msgNo);
                 }
-                out = '<span class="' + self.msgValidationErrorClass + '">' + self.msgValidationErrorIcon +
-                    ($h.isEmpty(content) ? cap : content) + '</span>';
+                out = $h.isEmpty(content) ? cap : content;
+                icon = '<span class="' + self.msgValidationErrorClass + '">' + self.msgValidationErrorIcon + '</span>';
             } else {
                 if ($h.isEmpty(content)) {
                     return;
                 }
                 title = $('<div>' + content + '</div>').text();
-                out = self._getLayoutTemplate('fileIcon') + title;
+                out = title;
+                icon = self._getLayoutTemplate('fileIcon');
             }
-            self.$caption.html(out);
-            self.$caption.attr('title', title);
-            self.$captionContainer.find('.file-caption-ellipsis').attr('title', title);
+            self.$captionContainer.addClass('icon-visible');
+            self.$caption.attr('title', title).val(out);
+            self.$captionIcon.html(icon);
         },
         _createContainer: function () {
             var self = this, attribs = {"class": 'file-input file-input-new' + (self.rtl ? ' kv-rtl' : '')},
@@ -3236,6 +3252,11 @@
             $container.before(self.$element);
             $container.html(self._renderMain());
             self._initBrowse($container);
+            self._validateDisabled();
+        },
+        _validateDisabled: function() {
+            var self = this;
+            self.$caption.attr({readonly: self.isDisabled});
         },
         _renderMain: function () {
             var self = this,
@@ -3478,7 +3499,7 @@
                     n = (self.autoReplace && len > self.maxFileCount) ? len : total;
                     msg = self.msgFilesTooMany.replace('{m}', self.maxFileCount).replace('{n}', n);
                     self.isError = throwError(msg, null, null, null);
-                    self.$captionContainer.find('.kv-caption-icon').hide();
+                    self.$captionContainer.removeClass('icon-visible');
                     self._setCaption('', true);
                     self.$container.removeClass('file-input-new file-input-ajax-new');
                     return;
@@ -3665,14 +3686,13 @@
                 }
                 self.$preview.html('');
                 cap = (!self.overwriteInitial && self.initialCaption.length > 0) ? self.initialCaption : '';
-                self.$caption.html(cap);
-                self.$caption.attr('title', '');
+                self.$caption.attr('title', '').val(cap);
                 $h.addCss(self.$container, 'file-input-new');
                 self._validateDefaultPreview();
             }
             if (self.$container.find($h.FRAMES).length === 0) {
                 if (!self._initCaption()) {
-                    self.$captionContainer.find('.kv-caption-icon').hide();
+                    self.$captionContainer.removeClass('icon-visible');
                 }
             }
             self._hideFileIcon();
@@ -4004,6 +4024,7 @@
         msgNo: 'No',
         msgNoFilesSelected: 'No files selected',
         msgCancelled: 'Cancelled',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'Detailed Preview',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',

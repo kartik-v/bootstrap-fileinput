@@ -1,0 +1,168 @@
+/*!
+ * bootstrap-fileinput v4.4.5
+ * http://plugins.krajee.com/file-input
+ *
+ * Krajee Explorer Font Awesome theme style for bootstrap-fileinput.
+ * Load this theme file after loading `fileinput.css`. Ensure that
+ * font awesome assets and CSS are loaded on the page as well.
+ *
+ * Author: Kartik Visweswaran
+ * Copyright: 2014 - 2017, Kartik Visweswaran, Krajee.com
+ *
+ * Licensed under the BSD 3-Clause
+ * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
+ */
+
+.theme-explorer-fa {
+  .file-preview .table {
+    margin: 0;
+  }
+  .explorer-frame td {
+    vertical-align: middle;
+    text-align: left;
+  }
+}
+
+.explorer-frame {
+  .file-preview-text {
+    display: inline-block;
+    color: #428bca;
+    border: 1px solid #ddd;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    outline: none;
+    padding: 8px;
+    resize: none;
+  }
+  .file-preview-html {
+    display: inline-block;
+    border: 1px solid #ddd;
+    padding: 8px;
+    overflow: auto;
+  }
+  .file-preview-other {
+    text-align: center;
+  }
+  .file-other-icon {
+    font-size: 2.6em;
+  }
+}
+
+/* noinspection CssOverwrittenProperties */
+
+.file-zoom-dialog .explorer-frame .file-other-icon {
+  font-size: 22em;
+  font-size: 50vmin;
+}
+
+.theme-explorer-fa {
+  .explorer-frame .kv-file-content {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+    text-align: center;
+  }
+  .file-actions-cell {
+    width: 120px;
+    padding: 0;
+  }
+  .file-thumb-progress {
+    .progress {
+      display: block;
+      margin-top: 5px;
+      height: 13px;
+      font-size: 11px;
+      line-height: 13px;
+    }
+    .progress-bar {
+      height: 13px;
+      font-size: 11px;
+      line-height: 13px;
+    }
+  }
+  .file-actions-cell {
+    position: relative;
+  }
+  .file-upload-indicator, .file-drag-handle {
+    position: absolute;
+    display: inline-block;
+    text-align: center;
+    top: 0;
+    right: 3px;
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+  }
+  .explorer-caption {
+    display: block;
+    color: #777;
+  }
+  .file-actions {
+    text-align: center;
+  }
+  .kvsortable-ghost {
+    opacity: 0.6;
+    background: #e1edf7;
+    border: 2px solid #a1abff;
+  }
+  .file-error-message ul {
+    padding: 5px 0 0 20px;
+  }
+}
+
+/*
+ * mobile responsive styling
+ */
+@media only screen and (max-width: 767px) {
+  .theme-explorer-fa {
+    .table {
+      display: block;
+      width: 100% !important;
+      tbody, tr, td {
+        display: block;
+        width: 100% !important;
+      }
+      border: none;
+      tr {
+        margin-top: 5px;
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+      td {
+        text-align: center;
+      }
+      .kv-file-content {
+        border-bottom: none;
+        padding: 4px;
+        margin: 0;
+        .file-preview-image {
+          max-width: 100%;
+          font-size: 20px;
+        }
+      }
+    }
+    .file-details-cell {
+      border-top: none;
+      border-bottom: none;
+      padding-top: 0;
+      margin: 0;
+    }
+    .file-actions-cell {
+      border-top: none;
+      padding-bottom: 4px;
+    }
+    .explorer-frame .explorer-caption {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+    .file-upload-indicator, .file-drag-handle {
+      right: 3px;
+      bottom: 10px;
+      top: auto;
+    }
+  }
+}

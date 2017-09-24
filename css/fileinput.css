@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.4.4
+ * bootstrap-fileinput v4.4.5
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -90,15 +90,33 @@ input[type=file].file-loading, .file-loading input[type=file] {
     display: block;
 }
 
-.file-caption-name {
-    display: inline-block;
-    overflow: hidden;
-    height: 20px;
-    word-break: break-all;
+.file-caption {
+    position: relative;
 }
 
-.input-group-lg .file-caption-name {
-    height: 25px;
+.file-caption .file-caption-name {
+    width: 100%;
+    margin:0;
+    padding:0;
+    box-shadow: none;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.file-caption-icon {
+    display: none;
+    position: absolute;
+    line-height: 1;
+    left: 8px;
+}
+
+.file-caption.icon-visible .file-caption-icon {
+    display: inline-block;
+}
+
+.file-caption.icon-visible .file-caption-name {
+    padding-left: 15px;
 }
 
 .file-error-message {
@@ -545,6 +563,7 @@ input[type=file].file-loading, .file-loading input[type=file] {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
 
 @media screen and (max-width: 767px) {
     .file-preview-thumbnails {

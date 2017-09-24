@@ -1,0 +1,102 @@
+/*!
+ * bootstrap-fileinput v4.4.5
+ * http://plugins.krajee.com/file-input
+ *
+ * Krajee RTL (Right To Left) default styling for bootstrap-fileinput.
+ *
+ * Author: Kartik Visweswaran
+ * Copyright: 2014 - 2017, Kartik Visweswaran, Krajee.com
+ *
+ * Licensed under the BSD 3-Clause
+ * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
+ */
+
+.kv-rtl {
+  direction: rtl;
+  .kv-zoom-actions .btn-kv, .floating-buttons .btn-kv {
+    margin-left: 0;
+    margin-right: 3px;
+  }
+  .file-caption-icon {
+    left: auto;
+    right: 10px;
+    margin: 0 0 0 10px;
+  }
+  .file-caption.icon-visible {
+    .file-caption-name {
+      padding-left: 0;
+      padding-right: 30px;
+    }
+    .input-group-lg .file-caption-name {
+      padding-right: 34px;
+    }
+  }
+  .close {
+    float: left;
+  }
+  .input-group-btn:last-child > .btn {
+    border-radius: 4px 0 0 4px;
+  }
+  .input-group .form-control:first-child {
+    border-radius: 0 4px 4px 0;
+  }
+  .btn-file input[type=file] {
+    right: auto;
+    left: 0;
+    text-align: left;
+    background: none repeat scroll 100% 0 transparent;
+  }
+  .file-zoom-dialog {
+    text-align: right;
+  }
+  .file-error-message {
+    pre, ul {
+      text-align: right;
+    }
+  }
+  .file-drop-zone {
+    margin: 12px 12px 12px 15px;
+  }
+  .floating-buttons {
+    left: 10px;
+    right: auto;
+  }
+  .btn-prev {
+    right: 1px;
+    left: auto;
+  }
+  .btn-next {
+    left: 1px;
+    right: auto;
+  }
+  .pull-right {
+    float: left !important;
+  }
+  .pull-left {
+    float: right !important;
+  }
+  .float-right {
+    float: left !important;
+  }
+  .float-left {
+    float: right !important;
+  }
+  .kv-zoom-title {
+    direction: ltr;
+  }
+  .krajee-default {
+    &.file-preview-frame {
+      box-shadow: -1px 1px 5px 0 #a2958a;
+      float: right;
+      &:not(.file-preview-error):hover {
+        box-shadow: -3px 3px 5px 0 #333;
+      }
+    }
+    .file-actions, .file-other-error {
+      float: left;
+    }
+    .file-drag-handle, .file-upload-indicator {
+      float: right;
+    }
+  }
+}

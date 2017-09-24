@@ -24,6 +24,7 @@
         msgNo: 'Hayır',
         msgNoFilesSelected: '',
         msgCancelled: 'İptal edildi',
+        msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'Detaylı Önizleme',
         msgFileRequired: 'Yüklemek için bir dosya seçmelisiniz.',
         msgSizeTooSmall: '"{name}"(<b>{size} KB</b>) dosyası çok küçük  ve <b>{minSize} KB</b> boyutundan büyük olmalıdır.',
