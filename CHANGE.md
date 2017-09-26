@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** 24-Sep-2017
 
+- (enh #1090): Auto detect intelligently the preview type based on file content.
 - (enh #1087): Enhance SCSS/SASS styling configurations.
 - (enh #1086): New placeholder property and various caption rendering enhancements.
 - (enh #1085): Update Slovak Translations.

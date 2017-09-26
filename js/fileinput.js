@@ -179,6 +179,124 @@
             bb.append(arrayBuffer);
             return bb.getBlob(mimeStr);
         },
+        arrayBuffer2String: function (buffer) {
+            //noinspection JSUnresolvedVariable
+            if (window.TextDecoder) {
+                return new TextDecoder("utf-8").decode(buffer);
+            }
+            var array = Array.prototype.slice.apply(new Uint8Array(buffer)), out = '', i = 0, len, c, char2, char3;
+            len = array.length;
+            while (i < len) {
+                c = array[i++];
+                switch (c >> 4) { // jshint ignore:line
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                        // 0xxxxxxx
+                        out += String.fromCharCode(c);
+                        break;
+                    case 12:
+                    case 13:
+                        // 110x xxxx   10xx xxxx
+                        char2 = array[i++];
+                        out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F)); // jshint ignore:line
+                        break;
+                    case 14:
+                        // 1110 xxxx  10xx xxxx  10xx xxxx
+                        char2 = array[i++];
+                        char3 = array[i++];
+                        out += String.fromCharCode(((c & 0x0F) << 12) | // jshint ignore:line
+                            ((char2 & 0x3F) << 6) |  // jshint ignore:line
+                            ((char3 & 0x3F) << 0)); // jshint ignore:line
+                        break;
+                }
+            }
+            return out;
+        },
+        isHtml: function (str) {
+            var a = document.createElement('div');
+            a.innerHTML = str;
+            for (var c = a.childNodes, i = c.length; i--;) {
+                if (c[i].nodeType === 1) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        isSvg: function (str) {
+            return str.match(/^\s*<\?xml/i) && (str.match(/<!DOCTYPE svg/i) || str.match(/<svg/i));
+        },
+        getMimeType: function (signature, contents, type) {
+            switch (signature) {
+                case "ffd8ffe0":
+                case "ffd8ffe1":
+                case "ffd8ffe2":
+                    return 'image/jpeg';
+                case '89504E47':
+                    return 'image/png';
+                case '47494638':
+                    return 'image/gif';
+                case '49492a00':
+                    return 'image/tiff';
+                case '52494646':
+                    return 'image/webp';
+                case '66747970':
+                    return 'video/3gp';
+                case '4f676753':
+                    return 'video/ogg';
+                case '1a45dfa3':
+                    return 'video/mkv';
+                case '000001ba':
+                case '000001b3':
+                    return 'video/mpeg';
+                case '3026b275':
+                    return 'video/wmv';
+                case '25504446':
+                    return 'application/pdf';
+                case '25215053':
+                    return 'application/ps';
+                case '504b0304':
+                case '504b0506':
+                case '504b0508':
+                    return 'application/zip';
+                case '377abcaf':
+                    return 'application/7z';
+                case '75737461':
+                    return 'application/tar';
+                case '7801730d':
+                    return 'application/dmg';
+                default:
+                    switch (signature.substring(0, 6)) {
+                        case '435753':
+                            return 'application/x-shockwave-flash';
+                        case '494433':
+                            return 'audio/mp3';
+                        case '425a68':
+                            return 'application/bzip';
+                        default:
+                            switch (signature.substring(0, 4)) {
+                                case '424d':
+                                    return 'image/bmp';
+                                case 'fffb':
+                                    return 'audio/mp3';
+                                case '4d5a':
+                                    return 'application/exe';
+                                case '1f9d':
+                                case '1fa0':
+                                    return 'application/zip';
+                                case '1f8b':
+                                    return 'application/gzip';
+                                default:
+                                    return contents && !contents.match(/[^\u0000-\u007f]/) ? 'application/text-plain' : type;
+                            }
+                    }
+            }
+        },
         addCss: function ($el, css) {
             $el.removeClass(css).addClass(css);
         },
@@ -450,6 +568,11 @@
                 self.$caption.attr('placeholder', self.msgPlaceholder.replace('{files}', f));
             }
             self.$captionIcon = self.$captionContainer.find('.file-caption-icon');
+            if (self.mainClass.indexOf('input-group-lg') > -1) {
+                $h.addCss(self.$captionIcon, 'icon-lg');
+            } else {
+                self.$captionIcon.removeClass('icon-lg');
+            }
             self.$previewContainer = $h.getElement(options, 'elPreviewContainer', $cont.find('.file-preview'));
             self.$preview = $h.getElement(options, 'elPreviewImage', $cont.find('.file-preview-thumbnails'));
             self.$previewStatus = $h.getElement(options, 'elPreviewStatus', $cont.find('.file-preview-status'));
@@ -488,23 +611,23 @@
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
                 '<div class="input-group {class}">\n' +
                 '  {caption}\n' +
-                '  <div class="input-group-btn">\n' +
-                '    {remove}\n' +
-                '    {cancel}\n' +
-                '    {upload}\n' +
-                '    {browse}\n' +
-                '  </div>\n' +
+                '<div class="input-group-btn">\n' +
+                '      {remove}\n' +
+                '      {cancel}\n' +
+                '      {upload}\n' +
+                '      {browse}\n' +
+                '    </div>\n' +
                 '</div>';
             tMain2 = '{preview}\n<div class="kv-upload-progress kv-hidden"></div>\n<div class="clearfix"></div>\n{remove}\n{cancel}\n{upload}\n{browse}\n';
             tPreview = '<div class="file-preview {class}">\n' +
-                '  {close}' +
-                '  <div class="{dropClass}">\n' +
+                '    {close}' +
+                '    <div class="{dropClass}">\n' +
                 '    <div class="file-preview-thumbnails">\n' +
                 '    </div>\n' +
                 '    <div class="clearfix"></div>' +
                 '    <div class="file-preview-status text-center text-success"></div>\n' +
                 '    <div class="kv-fileinput-error"></div>\n' +
-                '  </div>\n' +
+                '    </div>\n' +
                 '</div>';
             tClose = '<button type="button" class="close fileinput-remove">&times;</button>\n';
             tFileIcon = '<i class="glyphicon glyphicon-file"></i>';
@@ -576,18 +699,16 @@
             tImage = '<img src="{data}" class="file-preview-image kv-preview-data" title="{caption}" ' +
                 'alt="{caption}" {style}>\n';
             tText = '<textarea class="kv-preview-data file-preview-text" title="{caption}" readonly {style}>' +
-                '{data}</textarea {style}>\n';
+                '{data}</textarea>\n';
             tVideo = '<video class="kv-preview-data file-preview-video" controls {style}>\n' +
                 '<source src="{data}" type="{type}">\n' + $h.DEFAULT_PREVIEW + '\n</video>\n';
             tAudio = '<audio class="kv-preview-data file-preview-audio" controls {style}>\n<source src="{data}" ' +
                 'type="{type}">\n' + $h.DEFAULT_PREVIEW + '\n</audio>\n';
-            tFlash = '<object class="kv-preview-data file-preview-flash file-object" type="application/x-shockwave-flash" ' +
-                'data="{data}" {style}>\n' + $h.OBJECT_PARAMS + ' ' + $h.DEFAULT_PREVIEW +
-                '\n</object>\n';
+            tFlash = '<embed class="kv-preview-data file-preview-flash" src="{data}" type="application/x-shockwave-flash" {style}>\n';
+            tPdf = '<embed class="kv-preview-data file-preview-pdf" src="{data}" type="application/pdf" {style}>\n';
             tObject = '<object class="kv-preview-data file-preview-object file-object {typeCss}" ' +
                 'data="{data}" type="{type}" {style}>\n' + '<param name="movie" value="{caption}" />\n' +
                 $h.OBJECT_PARAMS + ' ' + $h.DEFAULT_PREVIEW + '\n</object>\n';
-            tPdf = '<embed class="kv-preview-data file-preview-pdf" src="{data}" type="application/pdf" {style}>\n';
             tOther = '<div class="kv-preview-data file-preview-other-frame" {style}>\n' + $h.DEFAULT_PREVIEW + '\n</div>\n';
             tZoomCache = '<div class="kv-zoom-cache" style="display:none">{zoomContent}</div>';
             vDefaultDim = {width: "100%", height: "100%", 'min-height': "480px"};
@@ -1003,7 +1124,7 @@
                 });
             }
         },
-        _setValidationError: function(css) {
+        _setValidationError: function (css) {
             var self = this;
             css = (css ? css + ' ' : '') + 'has-error';
             self.$container.removeClass(css).addClass('has-error');
@@ -1090,12 +1211,15 @@
             self.cancelling = false;
             return fileName ? '<b>' + fileName + ': </b>' + errMsg : errMsg;
         },
-        _parseFileType: function (file) {
+        _parseFileType: function (type, name) {
             var self = this, isValid, vType, cat, i, types = self.allowedPreviewTypes || [];
+            if (type === 'application/text-plain') {
+                return 'text';
+            }
             for (i = 0; i < types.length; i++) {
                 cat = types[i];
                 isValid = self.fileTypeSettings[cat];
-                vType = isValid(file.type, file.name) ? cat : '';
+                vType = isValid(type, name) ? cat : '';
                 if (!$h.isEmpty(vType)) {
                     return vType;
                 }
@@ -2611,15 +2735,15 @@
                 self._setThumbStatus($('#' + previewId), 'Error');
             }
         },
-        _previewFile: function (i, file, theFile, previewId, data) {
+        _previewFile: function (i, file, theFile, previewId, data, fileInfo) {
             if (!this.showPreview) {
                 return;
             }
-            var self = this, cat = self._parseFileType(file), fname = file ? file.name : '', caption = self.slug(fname),
-                types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes, $preview = self.$preview,
-                chkTypes = types && types.indexOf(cat) >= 0, fsize = file.size || 0, ftype = file.type,
-                iData = (cat === 'text' || cat === 'html' || cat === 'image') ? theFile.target.result : data, content,
-                chkMimes = mimes && mimes.indexOf(ftype) !== -1;
+            var self = this, fname = file ? file.name : '', ftype = fileInfo.type, caption = fileInfo.name,
+                cat = self._parseFileType(ftype, fname), types = self.allowedPreviewTypes, content,
+                mimes = self.allowedPreviewMimeTypes, $preview = self.$preview, fsize = file.size || 0,
+                chkTypes = types && types.indexOf(cat) >= 0, chkMimes = mimes && mimes.indexOf(ftype) !== -1,
+                iData = (cat === 'text' || cat === 'html' || cat === 'image') ? theFile.target.result : data;
             /** @namespace window.DOMPurify */
             if (cat === 'html' && self.purifyHtml && window.DOMPurify) {
                 iData = window.DOMPurify.sanitize(iData);
@@ -2733,10 +2857,24 @@
                     $status.html('');
                     return;
                 }
-                var node = ctr + i, previewId = previewInitId + "-" + node, isText, isImage, file = files[i], fSizeKB,
-                    caption = file.name ? self.slug(file.name) : '', fileSize = (file.size || 0) / 1000, j, msg,
-                    fileExtExpr = '', previewData = $h.objUrl.createObjectURL(file), typ, chk, typ1, typ2,
-                    fileCount = 0, strTypes = '', func;
+                var node = ctr + i, previewId = previewInitId + "-" + node, file = files[i], fSizeKB, j, msg,
+                    fnText = settings.text, fnImage = settings.image, fnHtml = settings.html, typ, chk, typ1, typ2,
+                    caption = file.name ? self.slug(file.name) : '', fileSize = (file.size || 0) / 1000,
+                    fileExtExpr = '', previewData = $h.objUrl.createObjectURL(file), fileCount = 0, strTypes = '',
+                    func, knownTypes = 0, isText, isHtml, isImage, txtFlag, processFileLoaded = function () {
+                        var msg = msgProgress.setTokens({
+                            'index': i + 1,
+                            'files': numFiles,
+                            'percent': 50,
+                            'name': caption
+                        });
+                        setTimeout(function () {
+                            $status.html(msg);
+                            self._updateFileDetails(numFiles);
+                            readFile(i + 1);
+                        }, 100);
+                        self._raise('fileloaded', [file, previewId, i, reader]);
+                    };
                 if (typLen > 0) {
                     for (j = 0; j < typLen; j++) {
                         typ1 = fileTypes[j];
@@ -2817,28 +2955,62 @@
                     return;
                 }
                 if ($preview.length && FileReader !== undefined) {
+                    isText = fnText(file.type, caption);
+                    isHtml = fnHtml(file.type, caption);
+                    isImage = fnImage(file.type, caption);
                     $status.html(msgLoading.replace('{index}', i + 1).replace('{files}', numFiles));
                     $container.addClass('file-thumb-loading');
                     reader.onerror = function (evt) {
                         self._errorHandler(evt, caption);
                     };
                     reader.onload = function (theFile) {
-                        self._previewFile(i, file, theFile, previewId, previewData);
-                        self._initFileActions();
-                    };
-                    reader.onloadend = function () {
-                        msg = msgProgress.setTokens({
-                            'index': i + 1,
-                            'files': numFiles,
-                            'percent': 50,
-                            'name': caption
+                        var uint, hex, fileInfo, bytes = [], contents, mime, readTextImage = function (textFlag) {
+                            var newReader = new FileReader();
+                            newReader.onerror = function (theFileNew) {
+                                self._errorHandler(theFileNew, caption);
+                            };
+                            newReader.onload = function (theFileNew) {
+                                self._previewFile(i, file, theFileNew, previewId, previewData, fileInfo);
+                                self._initFileActions();
+                                processFileLoaded();
+                            };
+                            if (textFlag) {
+                                newReader.readAsText(file, self.textEncoding);
+                            } else {
+                                newReader.readAsDataURL(file);
+                            }
+                        };
+                        fileInfo = {'name': caption, 'type': file.type};
+                        $.each(settings, function (key, func) {
+                            if (key !== 'object' && key !== 'other' && func(file.type, caption)) {
+                                knownTypes++;
+                            }
                         });
-                        setTimeout(function () {
-                            $status.html(msg);
-                            self._updateFileDetails(numFiles);
-                            readFile(i + 1);
-                        }, 100);
-                        self._raise('fileloaded', [file, previewId, i, reader]);
+                        if (knownTypes === 0) {// auto detect mime types from content if no known file types detected
+                            uint = new Uint8Array(theFile.target.result);
+                            uint.forEach(function (byte) {
+                                bytes.push(byte.toString(16));
+                            });
+                            hex = bytes.join('').toLowerCase().substring(0, 8);
+                            mime = $h.getMimeType(hex, '', '');
+
+                            if ($h.isEmpty(mime)) { // look for ascii text content
+                                contents = $h.arrayBuffer2String(reader.result);
+                                mime = $h.isSvg(contents) ? 'image/svg+xml' : $h.getMimeType(hex, contents, file.type);
+                            }
+                            fileInfo = {'name': caption, 'type': mime};
+                            isText = fnText(mime, '');
+                            isHtml = fnHtml(mime, '');
+                            isImage = fnImage(mime, '');
+                            txtFlag = isText || isHtml;
+                            if (txtFlag || isImage) {
+                                readTextImage(txtFlag);
+                                return;
+                            }
+                        }
+                        self._previewFile(i, file, theFile, previewId, previewData, fileInfo);
+                        self._initFileActions();
+                        processFileLoaded();
                     };
                     reader.onprogress = function (data) {
                         if (data.lengthComputable) {
@@ -2854,13 +3026,11 @@
                             }, 100);
                         }
                     };
-                    isText = settings.text;
-                    isImage = settings.image;
 
-                    if (isText(file.type, caption)) {
+                    if (isText || isHtml) {
                         reader.readAsText(file, self.textEncoding);
                     } else {
-                        if (isImage(file.type, caption)) {
+                        if (isImage) {
                             reader.readAsDataURL(file);
                         } else {
                             reader.readAsArrayBuffer(file);
@@ -3254,7 +3424,7 @@
             self._initBrowse($container);
             self._validateDisabled();
         },
-        _validateDisabled: function() {
+        _validateDisabled: function () {
             var self = this;
             self.$caption.attr({readonly: self.isDisabled});
         },
