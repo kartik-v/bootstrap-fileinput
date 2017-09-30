@@ -11,43 +11,43 @@
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
 //colors
-$mountain_mist: #999;
-$apple_blossom: #a94442;
-$vanilla_ice: #f2dede;
-$oyster_pink: #ebccd1;
-$gallery: #eee;
-$alto: #ddd;
-$green: #008000;
-$zorba: #a2958a;
-$mine_shaft: #333;
-$boston_blue: #428bca;
-$tapa: #777;
-$black: #000;
-$mystic: #e1edf7;
-$perano: #a1abff;
-$silver_chalice: #aaa;
-$viking: #5acde2;
-$curious_blue: #1c94c4;
-$link_water: #d9edf7;
+$mountain-mist: #999 !default;
+$apple-blossom: #a94442 !default;
+$vanilla-ice: #f2dede !default;
+$oyster-pink: #ebccd1 !default;
+$gallery: #eee !default;
+$alto: #ddd !default;
+$green: #008000 !default;
+$zorba: #a2958a !default;
+$mine-shaft: #333 !default;
+$boston-blue: #428bca !default;
+$tapa: #777 !default;
+$black: #000 !default;
+$mystic: #e1edf7 !default;
+$perano: #a1abff !default;
+$silver-chalice: #aaa !default;
+$viking: #5acde2 !default;
+$curious-blue: #1c94c4 !default;
+$link-water: #d9edf7 !default;
 
 //fonts
-$font_0: Impact;
-$font_1: Charcoal;
-$font_2: sans-serif;
-$font_3: Menlo;
-$font_4: Monaco;
-$font_5: Consolas;
-$font_6: "Courier New";
-$font_7: monospace;
+$font-0: Impact !default;
+$font-1: Charcoal !default;
+$font-2: sans-serif !default;
+$font-3: Menlo !default;
+$font-4: Monaco !default;
+$font-5: Consolas !default;
+$font-6: "Courier New" !default;
+$font-7: monospace !default;
 
 //urls
-$url_0: url(../img/loading.gif);
-$url_1: url(../img/loading-sm.gif);
+$url-0: url(../img/loading.gif) !default;
+$url-1: url(../img/loading-sm.gif) !default;
 
 //standard measures
-$radius: 4px;
-$pad: 5px;
-$border: 1px;
+$radius: 4px !default;
+$pad: 5px !default;
+$border: 1px !default;
 
 //operations
 @function multiply($pixels, $multiplier) {
@@ -55,45 +55,45 @@ $border: 1px;
 }
 
 //@extend-elements
-%set_invisible {
+%set-invisible {
     width: 0;
     height: 0;
 }
 
-%set_hidden {
+%set-hidden {
     display: none;
 }
 
-%set_absolute {
+%set-absolute {
     position: absolute;
 }
 
-%set_relative {
+%set-relative {
     position: relative;
 }
 
-%set_text_left {
+%set-text-left {
     text-align: left;
 }
 
-%set_error {
-    @extend %set_text_left;
+%set-error {
+    @extend %set-text-left;
     margin: 0;
 }
 
-%set_indicator {
+%set-indicator {
     margin: $pad 0 (-$pad);
     width: multiply($pad, 3.2);
     height: multiply($pad, 3.2);
 }
 
-%set_progress {
+%set-progress {
     height: multiply($pad, 2.2);
     font-size: multiply($pad, 1.8);
     line-height: multiply($pad, 2);
 }
 
-%set_caption {
+%set-caption {
     display: block;
     white-space: nowrap;
     overflow: hidden;
@@ -103,23 +103,23 @@ $border: 1px;
     margin: auto;
 }
 
-%set_object {
+%set-object {
     max-width: 100%;
     max-height: 100%;
     width: auto;
 }
 
-%set_object_video {
-    @extend %set_object;
+%set-object-video {
+    @extend %set-object;
     height: 100%;
 }
 
-%set_object_default {
+%set-object-default {
     width: 100%;
 }
 
 .kv-hidden {
-    @extend %set_hidden;
+    @extend %set-hidden;
 }
 
 .rotate-2 {
@@ -152,18 +152,18 @@ $border: 1px;
 
 .file-loading {
     input[type=file] {
-        @extend %set_invisible;
+        @extend %set-invisible;
     }
     &:before {
-        @extend %set_relative;
+        @extend %set-relative;
         content: " Loading...";
         display: inline-block;
         padding-left: multiply($pad, 4);
         line-height: multiply($pad, 3.2);
         font-size: multiply($pad, 2.6);
         font-variant: small-caps;
-        color: $mountain_mist;
-        background: transparent $url_0 top left no-repeat;
+        color: $mountain-mist;
+        background: transparent $url-0 top left no-repeat;
     }
 }
 
@@ -173,10 +173,10 @@ $border: 1px;
 }
 
 .btn-file {
-    @extend %set_relative;
+    @extend %set-relative;
     overflow: hidden;
     input[type=file] {
-        @extend %set_absolute;
+        @extend %set-absolute;
         top: 0;
         right: 0;
         min-width: 100%;
@@ -195,7 +195,7 @@ $border: 1px;
 }
 
 .file-caption {
-    @extend %set_relative;
+    @extend %set-relative;
     .file-caption-name {
         width: 100%;
         margin: 0;
@@ -216,25 +216,25 @@ $border: 1px;
 }
 
 .file-caption-icon {
-    @extend %set_hidden;
-    @extend %set_absolute;
+    @extend %set-hidden;
+    @extend %set-absolute;
     line-height: 1;
     left: multiply($pad, 1.6);
 }
 
 .file-error-message {
-    color: $apple_blossom;
-    background-color: $vanilla_ice;
+    color: $apple-blossom;
+    background-color: $vanilla-ice;
     margin: $pad;
-    border: $border solid $oyster_pink;
+    border: $border solid $oyster-pink;
     border-radius: $radius;
     padding: multiply($pad, 3);
     pre {
-        @extend %set_error;
+        @extend %set-error;
         margin: $pad 0;
     }
     ul {
-        @extend %set_error;
+        @extend %set-error;
     }
 }
 
@@ -245,7 +245,7 @@ $border: 1px;
 }
 
 .file-preview {
-    @extend %set_relative;
+    @extend %set-relative;
     border-radius: multiply($radius, 1.25);
     border: $border solid $alto;
     padding: multiply($pad, 1.6);
@@ -258,7 +258,7 @@ $border: 1px;
         border-radius: multiply($radius, 0.75);
     }
     .fileinput-remove {
-        @extend %set_absolute;
+        @extend %set-absolute;
         top: multiply($pad, 0.2);
         right: multiply($pad, 0.2);
         line-height: multiply($pad, 2);
@@ -269,13 +269,13 @@ $border: 1px;
 }
 
 .file-preview-image {
-    font: multiply($pad, 8) $font_0, $font_1, $font_2;
+    font: multiply($pad, 8) $font-0, $font-1, $font-2;
     color: $green;
 }
 
 .krajee-default {
     &.file-preview-frame {
-        @extend %set_relative;
+        @extend %set-relative;
         margin: multiply($pad, 1.6);
         border: $border solid $alto;
         box-shadow: $border $border $pad 0 $zorba;
@@ -290,14 +290,14 @@ $border: 1px;
             height: multiply($pad, 14);
         }
         &:not(.file-preview-error):hover {
-            box-shadow: multiply($pad, 0.6) multiply($pad, 0.6) $pad 0 $mine_shaft;
+            box-shadow: multiply($pad, 0.6) multiply($pad, 0.6) $pad 0 $mine-shaft;
         }
     }
     .file-preview-text {
         display: block;
-        color: $boston_blue;
+        color: $boston-blue;
         border: $border solid $alto;
-        font-family: $font_3, $font_4, $font_5, $font_6, $font_7;
+        font-family: $font-3, $font-4, $font-5, $font-6, $font-7;
         outline: none;
         padding: multiply($pad, 1.6);
         resize: none;
@@ -308,10 +308,10 @@ $border: 1px;
         overflow: auto;
     }
     .file-actions {
-        @extend %set_text_left;
+        @extend %set-text-left;
     }
     .file-other-error {
-        @extend %set_text_left;
+        @extend %set-text-left;
     }
     .file-other-icon {
         font-size: 6em;
@@ -332,32 +332,32 @@ $border: 1px;
         box-shadow: none;
     }
     .file-drag-handle {
-        @extend %set_indicator;
+        @extend %set-indicator;
     }
     .file-upload-indicator {
-        @extend %set_indicator;
+        @extend %set-indicator;
     }
     .file-thumb-progress {
-        @extend %set_absolute;
+        @extend %set-absolute;
         height: multiply($pad, 2.2);
         top: multiply($pad, 7.4);
         left: 0;
         right: 0;
         .progress {
-            @extend %set_progress;
+            @extend %set-progress;
         }
         .progress-bar {
-            @extend %set_progress;
+            @extend %set-progress;
         }
     }
     .file-thumbnail-footer {
-        @extend %set_relative;
+        @extend %set-relative;
     }
     .file-caption-info {
-        @extend %set_caption;
+        @extend %set-caption;
     }
     .file-size-info {
-        @extend %set_caption;
+        @extend %set-caption;
     }
     &.kvsortable-ghost {
         background: $mystic;
@@ -392,7 +392,7 @@ $border: 1px;
         font-size: 50vmin;
     }
     .modal-dialog {
-        @extend %set_relative;
+        @extend %set-relative;
         width: auto;
     }
     .modal-header {
@@ -400,14 +400,14 @@ $border: 1px;
         align-items: center;
         justify-content: space-between;
         &:before {
-            @extend %set_hidden;
+            @extend %set-hidden;
         }
         &:after {
-            @extend %set_hidden;
+            @extend %set-hidden;
         }
     }
     .btn-navigate {
-        @extend %set_absolute;
+        @extend %set-absolute;
         padding: 0;
         margin: 0;
         background: transparent;
@@ -416,7 +416,7 @@ $border: 1px;
         opacity: 0.7;
         top: 45%;
         font-size: 4em;
-        color: $curious_blue;
+        color: $curious-blue;
         &:not([disabled]):hover {
             outline: none;
             box-shadow: none;
@@ -424,7 +424,7 @@ $border: 1px;
         }
     }
     .floating-buttons {
-        @extend %set_absolute;
+        @extend %set-absolute;
         top: $pad;
         right: multiply($pad, 2);
     }
@@ -439,7 +439,7 @@ $border: 1px;
     }
     .kv-zoom-title {
         font-weight: 300;
-        color: $mountain_mist;
+        color: $mountain-mist;
         max-width: 50%;
         overflow: hidden;
         white-space: nowrap;
@@ -449,23 +449,23 @@ $border: 1px;
 
 .file-input-new {
     .file-preview {
-        @extend %set_hidden;
+        @extend %set-hidden;
     }
     .close {
-        @extend %set_hidden;
+        @extend %set-hidden;
     }
     .glyphicon-file {
-        @extend %set_hidden;
+        @extend %set-hidden;
     }
     .fileinput-remove-button {
-        @extend %set_hidden;
+        @extend %set-hidden;
     }
     .fileinput-upload-button {
-        @extend %set_hidden;
+        @extend %set-hidden;
     }
     .no-browse {
         .input-group-btn {
-            @extend %set_hidden;
+            @extend %set-hidden;
         }
         .form-control {
             border-top-right-radius: $radius;
@@ -476,14 +476,14 @@ $border: 1px;
 
 .file-input-ajax-new {
     .fileinput-remove-button {
-        @extend %set_hidden;
+        @extend %set-hidden;
     }
     .fileinput-upload-button {
-        @extend %set_hidden;
+        @extend %set-hidden;
     }
     .no-browse {
         .input-group-btn {
-            @extend %set_hidden;
+            @extend %set-hidden;
         }
         .form-control {
             border-top-right-radius: $radius;
@@ -497,11 +497,11 @@ $border: 1px;
 }
 
 .file-thumb-loading {
-    background: transparent $url_0 no-repeat scroll center center content-box !important;
+    background: transparent $url-0 no-repeat scroll center center content-box !important;
 }
 
 .file-drop-zone {
-    border: $border dashed $silver_chalice;
+    border: $border dashed $silver-chalice;
     border-radius: $radius;
     height: 100%;
     text-align: center;
@@ -510,7 +510,7 @@ $border: 1px;
     padding: $pad;
     &.clickable {
         &:hover {
-            border: multiply($border, 2) dashed $mountain_mist;
+            border: multiply($border, 2) dashed $mountain-mist;
         }
         &:focus {
             border: multiply($border, 2) solid $viking;
@@ -522,19 +522,19 @@ $border: 1px;
 }
 
 .file-drop-zone-title {
-    color: $silver_chalice;
+    color: $silver-chalice;
     font-size: 1.6em;
     padding: multiply($pad, 17) multiply($pad, 2);
     cursor: default;
 }
 
 .file-highlighted {
-    border: multiply($border, 2) dashed $mountain_mist !important;
+    border: multiply($border, 2) dashed $mountain-mist !important;
     background-color: $gallery;
 }
 
 .file-uploading {
-    background: $url_1 no-repeat center bottom multiply($pad, 2);
+    background: $url-1 no-repeat center bottom multiply($pad, 2);
     opacity: 0.65;
 }
 
@@ -609,31 +609,31 @@ $border: 1px;
     }
     > .file-object {
         &.type-image {
-            @extend %set_object;
+            @extend %set-object;
             height: auto;
             min-height: inherit;
         }
         &.type-video {
-            @extend %set_object_video;
+            @extend %set-object-video;
         }
         &.type-flash {
-            @extend %set_object_video;
+            @extend %set-object-video;
         }
         &.type-audio {
             width: auto;
             height: multiply($pad, 6);
         }
         &.type-pdf {
-            @extend %set_object_default;
+            @extend %set-object-default;
         }
         &.type-html {
-            @extend %set_object_default;
+            @extend %set-object-default;
         }
         &.type-text {
-            @extend %set_object_default;
+            @extend %set-object-default;
         }
         &.type-default {
-            @extend %set_object_default;
+            @extend %set-object-default;
         }
     }
 }
@@ -657,11 +657,11 @@ $border: 1px;
 }
 
 input[type=file].file-loading {
-    @extend %set_invisible;
+    @extend %set-invisible;
 }
 
 .file-loading[dir=rtl]:before {
-    background: transparent $url_0 top right no-repeat;
+    background: transparent $url-0 top right no-repeat;
     padding-left: 0;
     padding-right: multiply($pad, 4);
 }
@@ -683,9 +683,9 @@ input[type=file].file-loading {
 }
 
 .file-preview-initial.sortable-chosen {
-    background-color: $link_water;
+    background-color: $link-water;
 }
 
 .hide-content .kv-file-content {
-    @extend %set_hidden;
+    @extend %set-hidden;
 }

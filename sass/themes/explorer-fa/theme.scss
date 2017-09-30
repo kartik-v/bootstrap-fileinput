@@ -11,23 +11,23 @@
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
 //colors
-$boston_blue: #428bca;
-$alto: #ddd;
-$tapa: #777;
-$mystic: #e1edf7;
-$perano: #a1abff;
+$boston-blue: #428bca !default;
+$alto: #ddd !default;
+$tapa: #777 !default;
+$mystic: #e1edf7 !default;
+$perano: #a1abff !default;
 
 //fonts
-$font_0: Menlo;
-$font_1: Monaco;
-$font_2: Consolas;
-$font_3: "Courier New";
-$font_4: monospace;
+$font-0: Menlo !default;
+$font-1: Monaco !default;
+$font-2: Consolas !default;
+$font-3: "Courier New" !default;
+$font-4: monospace !default;
 
 //standard measures
-$pad: 5px;
-$border: 1px;
-$tablet: 767px;
+$pad: 5px !default;
+$border: 1px !default;
+$tablet: 767px !default;
 
 //operations
 @function multiply($pixels, $multiplier) {
@@ -117,9 +117,9 @@ $tablet: 767px;
 .explorer-frame {
     .file-preview-text {
         display: inline-block;
-        color: $boston_blue;
+        color: $boston-blue;
         border: $border solid $alto;
-        font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+        font-family: $font-0, $font-1, $font-2, $font-3, $font-4;
         outline: none;
         padding: multiply($pad, 1.6);
         resize: none;
@@ -160,7 +160,7 @@ $tablet: 767px;
             }
             td {
                 @extend %set_block_full;
-                @extend %set_text_center;
+                text-align: center;
             }
             .kv-file-content {
                 border-bottom: none;

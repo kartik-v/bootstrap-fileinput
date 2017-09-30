@@ -12,13 +12,13 @@
  */
 
 //colors
-$zorba: #a2958a;
-$mine_shaft: #333;
+$zorba: #a2958a !default;
+$mine-shaft: #333 !default;
 
 //standard measures
-$radius: 4px;
-$pad: 5px;
-$border: 1px;
+$radius: 4px !default;
+$pad: 5px !default;
+$border: 1px !default;
 
 //operations
 @function multiply($pixels, $multiplier) {
@@ -97,7 +97,7 @@ $border: 1px;
             @extend %set_float_right;
             box-shadow: (-$border) $border multiply($border, 5) 0 $zorba;
             &:not(.file-preview-error):hover {
-                box-shadow: multiply($border, -3) multiply($border, 3) multiply($border, 5) 0 $mine_shaft;
+                box-shadow: multiply($border, -3) multiply($border, 3) multiply($border, 5) 0 $mine-shaft;
             }
         }
         .file-actions {
