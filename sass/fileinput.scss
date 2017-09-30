@@ -10,558 +10,682 @@
  * Licensed under the BSD 3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
+//colors
+$mountain_mist: #999;
+$apple_blossom: #a94442;
+$vanilla_ice: #f2dede;
+$oyster_pink: #ebccd1;
+$gallery: #eee;
+$alto: #ddd;
+$green: #008000;
+$zorba: #a2958a;
+$mine_shaft: #333;
+$boston_blue: #428bca;
+$tapa: #777;
+$black: #000;
+$mystic: #e1edf7;
+$perano: #a1abff;
+$silver_chalice: #aaa;
+$viking: #5acde2;
+$curious_blue: #1c94c4;
+$link_water: #d9edf7;
 
-.kv-hidden {
-  display: none;
+//fonts
+$font_0: Impact;
+$font_1: Charcoal;
+$font_2: sans-serif;
+$font_3: Menlo;
+$font_4: Monaco;
+$font_5: Consolas;
+$font_6: "Courier New";
+$font_7: monospace;
+
+//urls
+$url_0: url(../img/loading.gif);
+$url_1: url(../img/loading-sm.gif);
+
+//standard measures
+$radius: 4px;
+$pad: 5px;
+$border: 1px;
+
+//operations
+@function multiply($pixels, $multiplier) {
+    @return $pixels * $multiplier;
 }
 
-// exif orientations
-.rotate-2 {
-  transform: rotateY(180deg);
-}
-
-.rotate-3 {
-  transform: rotate(180deg);
-}
-
-.rotate-4 {
-  transform: rotate(180deg) rotateY(180deg);
-}
-
-.rotate-5 {
-  transform: rotate(270deg) rotateY(180deg);
-}
-
-.rotate-6 {
-  transform: rotate(90deg);
-}
-
-.rotate-7 {
-  transform: rotate(90deg) rotateY(180deg);
-}
-
-.rotate-8 {
-  transform: rotate(270deg);
-}
-
-// other styles
-input[type=file].file-loading {
-  width: 0;
-  height: 0;
-}
-
-.file-loading {
-  input[type=file] {
+//@extend-elements
+%set_invisible {
     width: 0;
     height: 0;
-  }
-  &:before {
-    content: " Loading...";
-    display: inline-block;
-    position: relative;
-    padding-left: 20px;
-    line-height: 16px;
-    font-size: 13px;
-    font-variant: small-caps;
-    color: #999;
-    background: transparent url('../img/loading.gif') top left no-repeat;
-  }
-  &[dir=rtl]:before {
-    background: transparent url('../img/loading.gif') top right no-repeat;
-    padding-left: 0;
-    padding-right: 20px;
-  }
 }
 
-.file-object {
-  margin: 0 0 -5px 0;
-  padding: 0;
+%set_hidden {
+    display: none;
 }
 
-.btn-file {
-  position: relative;
-  overflow: hidden;
-  input[type=file] {
+%set_absolute {
     position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    text-align: right;
-    opacity: 0;
-    background: none repeat scroll 0 0 transparent;
-    cursor: inherit;
-    display: block;
-  }
 }
 
-.file-caption {
-  position: relative;
-  .file-caption-name {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    box-shadow: none;
-    border: none;
-    background: none;
-    outline: none;
-  }
+%set_relative {
+    position: relative;
 }
 
-.file-caption-icon {
-  display: none;
-  position: absolute;
-  line-height: 1;
-  left: 8px;
-}
-
-.file-caption.icon-visible {
-  .file-caption-icon {
-    display: inline-block;
-  }
-  .file-caption-name {
-    padding-left: 15px;
-  }
-}
-
-.file-error-message {
-  color: #a94442;
-  background-color: #f2dede;
-  margin: 5px;
-  border: 1px solid #ebccd1;
-  border-radius: 4px;
-  padding: 15px;
-  pre, ul {
-    margin: 0;
+%set_text_left {
     text-align: left;
-  }
-  pre {
-    margin: 5px 0;
-  }
 }
 
-.file-caption-disabled {
-  background-color: #eeeeee;
-  cursor: not-allowed;
-  opacity: 1;
+%set_error {
+    @extend %set_text_left;
+    margin: 0;
 }
 
-.file-preview {
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  padding: 8px;
-  width: 100%;
-  margin-bottom: 5px;
-  position: relative;
-  .btn-xs {
-    padding: 1px 5px;
-    font-size: 12px;
-    line-height: 1.5;
-    border-radius: 3px;
-  }
-  .fileinput-remove {
-    position: absolute;
-    top: 1px;
-    right: 1px;
-    line-height: 10px;
-  }
+%set_indicator {
+    margin: $pad 0 (-$pad);
+    width: multiply($pad, 3.2);
+    height: multiply($pad, 3.2);
 }
 
-.file-preview-image {
-  font: 40px Impact, Charcoal, sans-serif;
-  color: green;
+%set_progress {
+    height: multiply($pad, 2.2);
+    font-size: multiply($pad, 1.8);
+    line-height: multiply($pad, 2);
 }
 
-.krajee-default {
-  &.file-preview-frame {
-    position: relative;
-    margin: 8px;
-    border: 1px solid #ddd;
-    box-shadow: 1px 1px 5px 0 #a2958a;
-    padding: 6px;
-    float: left;
-    text-align: center;
-    &:not(.file-preview-error):hover {
-      box-shadow: 3px 3px 5px 0 #333;
-    }
-    .kv-file-content {
-      width: 213px;
-      height: 160px;
-    }
-    .file-thumbnail-footer {
-      height: 70px;
-    }
-  }
-  .file-preview-text {
-    display: block;
-    color: #428bca;
-    border: 1px solid #ddd;
-    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    outline: none;
-    padding: 8px;
-    resize: none;
-  }
-  .file-preview-html {
-    border: 1px solid #ddd;
-    padding: 8px;
-    overflow: auto;
-  }
-  .file-preview-other:hover {
-    opacity: 0.8;
-  }
-  .file-actions, .file-other-error {
-    text-align: left;
-  }
-  .file-other-icon {
-    font-size: 6em;
-  }
-  .file-footer-buttons {
-    float: right;
-  }
-  .file-footer-caption {
-    display: block;
-    text-align: center;
-    padding-top: 4px;
-    font-size: 11px;
-    color: #777;
-    margin-bottom: 15px;
-  }
-  .file-preview-error {
-    opacity: 0.65;
-    box-shadow: none;
-  }
-  .file-preview-frame:not(.file-preview-error) .file-footer-caption:hover {
-    color: #000;
-  }
-  .file-drag-handle, .file-upload-indicator {
-    float: left;
-    margin: 5px 0 -5px 0;
-    width: 16px;
-    height: 16px;
-  }
-  .file-thumb-progress {
-    height: 11px;
-    .progress, .progress-bar {
-      height: 11px;
-      font-size: 9px;
-      line-height: 10px;
-    }
-  }
-  .file-thumbnail-footer {
-    position: relative;
-  }
-  .file-thumb-progress {
-    position: absolute;
-    top: 37px;
-    left: 0;
-    right: 0;
-  }
-  .file-caption-info, .file-size-info {
+%set_caption {
     display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 160px;
-    height: 15px;
+    width: multiply($pad, 32);
+    height: multiply($pad, 3);
     margin: auto;
-  }
-  &.kvsortable-ghost {
-    background: #e1edf7;
-    border: 2px solid #a1abff;
-  }
+}
+
+%set_object {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+}
+
+%set_object_video {
+    @extend %set_object;
+    height: 100%;
+}
+
+%set_object_default {
+    width: 100%;
+}
+
+.kv-hidden {
+    @extend %set_hidden;
+}
+
+.rotate-2 {
+    transform: rotateY(180deg);
+}
+
+.rotate-3 {
+    transform: rotate(180deg);
+}
+
+.rotate-4 {
+    transform: rotate(180deg) rotateY(180deg);
+}
+
+.rotate-5 {
+    transform: rotate(270deg) rotateY(180deg);
+}
+
+.rotate-6 {
+    transform: rotate(90deg);
+}
+
+.rotate-7 {
+    transform: rotate(90deg) rotateY(180deg);
+}
+
+.rotate-8 {
+    transform: rotate(270deg);
+}
+
+.file-loading {
+    input[type=file] {
+        @extend %set_invisible;
+    }
+    &:before {
+        @extend %set_relative;
+        content: " Loading...";
+        display: inline-block;
+        padding-left: multiply($pad, 4);
+        line-height: multiply($pad, 3.2);
+        font-size: multiply($pad, 2.6);
+        font-variant: small-caps;
+        color: $mountain_mist;
+        background: transparent $url_0 top left no-repeat;
+    }
+}
+
+.file-object {
+    margin: 0 0 (-$pad) 0;
+    padding: 0;
+}
+
+.btn-file {
+    @extend %set_relative;
+    overflow: hidden;
+    input[type=file] {
+        @extend %set_absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        text-align: right;
+        opacity: 0;
+        background: none repeat scroll 0 0 transparent;
+        cursor: inherit;
+        display: block;
+    }
+    ::-ms-browse {
+        font-size: multiply($pad, 2000);
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.file-caption {
+    @extend %set_relative;
+    .file-caption-name {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        border: none;
+        background: none;
+        outline: none;
+    }
+    &.icon-visible {
+        .file-caption-icon {
+            display: inline-block;
+        }
+        .file-caption-name {
+            padding-left: multiply($pad, 3);
+        }
+    }
+}
+
+.file-caption-icon {
+    @extend %set_hidden;
+    @extend %set_absolute;
+    line-height: 1;
+    left: multiply($pad, 1.6);
+}
+
+.file-error-message {
+    color: $apple_blossom;
+    background-color: $vanilla_ice;
+    margin: $pad;
+    border: $border solid $oyster_pink;
+    border-radius: $radius;
+    padding: multiply($pad, 3);
+    pre {
+        @extend %set_error;
+        margin: $pad 0;
+    }
+    ul {
+        @extend %set_error;
+    }
+}
+
+.file-caption-disabled {
+    background-color: $gallery;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+.file-preview {
+    @extend %set_relative;
+    border-radius: multiply($radius, 1.25);
+    border: $border solid $alto;
+    padding: multiply($pad, 1.6);
+    width: 100%;
+    margin-bottom: $pad;
+    .btn-xs {
+        padding: multiply($pad, 0.2) $pad;
+        font-size: multiply($pad, 2.4);
+        line-height: 1.5;
+        border-radius: multiply($radius, 0.75);
+    }
+    .fileinput-remove {
+        @extend %set_absolute;
+        top: multiply($pad, 0.2);
+        right: multiply($pad, 0.2);
+        line-height: multiply($pad, 2);
+    }
+    .clickable {
+        cursor: pointer;
+    }
+}
+
+.file-preview-image {
+    font: multiply($pad, 8) $font_0, $font_1, $font_2;
+    color: $green;
+}
+
+.krajee-default {
+    &.file-preview-frame {
+        @extend %set_relative;
+        margin: multiply($pad, 1.6);
+        border: $border solid $alto;
+        box-shadow: $border $border $pad 0 $zorba;
+        padding: multiply($pad, 1.2);
+        float: left;
+        text-align: center;
+        .kv-file-content {
+            width: multiply($pad, 42.6);
+            height: multiply($pad, 32);
+        }
+        .file-thumbnail-footer {
+            height: multiply($pad, 14);
+        }
+        &:not(.file-preview-error):hover {
+            box-shadow: multiply($pad, 0.6) multiply($pad, 0.6) $pad 0 $mine_shaft;
+        }
+    }
+    .file-preview-text {
+        display: block;
+        color: $boston_blue;
+        border: $border solid $alto;
+        font-family: $font_3, $font_4, $font_5, $font_6, $font_7;
+        outline: none;
+        padding: multiply($pad, 1.6);
+        resize: none;
+    }
+    .file-preview-html {
+        border: $border solid $alto;
+        padding: multiply($pad, 1.6);
+        overflow: auto;
+    }
+    .file-actions {
+        @extend %set_text_left;
+    }
+    .file-other-error {
+        @extend %set_text_left;
+    }
+    .file-other-icon {
+        font-size: 6em;
+    }
+    .file-footer-buttons {
+        float: right;
+    }
+    .file-footer-caption {
+        display: block;
+        text-align: center;
+        padding-top: multiply($pad, 0.8);
+        font-size: multiply($pad, 2.2);
+        color: $tapa;
+        margin-bottom: multiply($pad, 3);
+    }
+    .file-preview-error {
+        opacity: 0.65;
+        box-shadow: none;
+    }
+    .file-drag-handle {
+        @extend %set_indicator;
+    }
+    .file-upload-indicator {
+        @extend %set_indicator;
+    }
+    .file-thumb-progress {
+        @extend %set_absolute;
+        height: multiply($pad, 2.2);
+        top: multiply($pad, 7.4);
+        left: 0;
+        right: 0;
+        .progress {
+            @extend %set_progress;
+        }
+        .progress-bar {
+            @extend %set_progress;
+        }
+    }
+    .file-thumbnail-footer {
+        @extend %set_relative;
+    }
+    .file-caption-info {
+        @extend %set_caption;
+    }
+    .file-size-info {
+        @extend %set_caption;
+    }
+    &.kvsortable-ghost {
+        background: $mystic;
+        border: multiply($border, 2) solid $perano;
+    }
+    .file-preview-other:hover {
+        opacity: 0.8;
+    }
+    .file-preview-frame:not(.file-preview-error) .file-footer-caption:hover {
+        color: $black;
+    }
 }
 
 .kv-upload-progress {
-  .progress, .progress-bar {
-    height: 20px;
-    line-height: 20px;
-  }
-  .progress {
-    margin: 10px 0;
-    overflow: hidden;
-  }
+    .progress {
+        height: multiply($pad, 4);
+        line-height: multiply($pad, 4);
+        margin: multiply($pad, 2) 0;
+        overflow: hidden;
+    }
+    .progress-bar {
+        height: multiply($pad, 4);
+        line-height: multiply($pad, 4);
+    }
 }
 
-.file-zoom-dialog .file-other-icon {
-  //noinspection CssOverwrittenProperties
-  font-size: 22em;
-  //noinspection CssOverwrittenProperties
-  font-size: 50vmin;
+.file-zoom-dialog {
+    .file-other-icon {
+        //noinspection CssOverwrittenProperties
+        font-size: 22em;
+        //noinspection CssOverwrittenProperties
+        font-size: 50vmin;
+    }
+    .modal-dialog {
+        @extend %set_relative;
+        width: auto;
+    }
+    .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &:before {
+            @extend %set_hidden;
+        }
+        &:after {
+            @extend %set_hidden;
+        }
+    }
+    .btn-navigate {
+        @extend %set_absolute;
+        padding: 0;
+        margin: 0;
+        background: transparent;
+        text-decoration: none;
+        outline: none;
+        opacity: 0.7;
+        top: 45%;
+        font-size: 4em;
+        color: $curious_blue;
+        &:not([disabled]):hover {
+            outline: none;
+            box-shadow: none;
+            opacity: 0.6;
+        }
+    }
+    .floating-buttons {
+        @extend %set_absolute;
+        top: $pad;
+        right: multiply($pad, 2);
+    }
+    .btn-navigate[disabled] {
+        opacity: 0.3;
+    }
+    .btn-prev {
+        left: multiply($pad, 0.2);
+    }
+    .btn-next {
+        right: multiply($pad, 0.2);
+    }
+    .kv-zoom-title {
+        font-weight: 300;
+        color: $mountain_mist;
+        max-width: 50%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 }
 
 .file-input-new {
-  .file-preview, .close, .glyphicon-file, .fileinput-remove-button, .fileinput-upload-button {
-    display: none;
-  }
+    .file-preview {
+        @extend %set_hidden;
+    }
+    .close {
+        @extend %set_hidden;
+    }
+    .glyphicon-file {
+        @extend %set_hidden;
+    }
+    .fileinput-remove-button {
+        @extend %set_hidden;
+    }
+    .fileinput-upload-button {
+        @extend %set_hidden;
+    }
+    .no-browse {
+        .input-group-btn {
+            @extend %set_hidden;
+        }
+        .form-control {
+            border-top-right-radius: $radius;
+            border-bottom-right-radius: $radius;
+        }
+    }
 }
 
 .file-input-ajax-new {
-  .fileinput-remove-button, .fileinput-upload-button {
-    display: none;
-  }
+    .fileinput-remove-button {
+        @extend %set_hidden;
+    }
+    .fileinput-upload-button {
+        @extend %set_hidden;
+    }
+    .no-browse {
+        .input-group-btn {
+            @extend %set_hidden;
+        }
+        .form-control {
+            border-top-right-radius: $radius;
+            border-bottom-right-radius: $radius;
+        }
+    }
 }
 
 .file-caption-main {
-  width: 100%;
-}
-
-.file-input-ajax-new .no-browse .input-group-btn, .file-input-new .no-browse .input-group-btn {
-  display: none;
-}
-
-.file-input-ajax-new .no-browse .form-control, .file-input-new .no-browse .form-control {
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+    width: 100%;
 }
 
 .file-thumb-loading {
-  background: transparent url('../img/loading.gif') no-repeat scroll center center content-box !important;
-}
-
-.file-sortable .file-drag-handle {
-  cursor: move;
-  cursor: -webkit-grabbing;
-  opacity: 1;
-  &:hover {
-    opacity: 0.7;
-  }
+    background: transparent $url_0 no-repeat scroll center center content-box !important;
 }
 
 .file-drop-zone {
-  border: 1px dashed #aaa;
-  border-radius: 4px;
-  height: 100%;
-  text-align: center;
-  vertical-align: middle;
-  margin: 12px 15px 12px 12px;
-  padding: 5px;
+    border: $border dashed $silver_chalice;
+    border-radius: $radius;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    margin: multiply($pad, 2.4) multiply($pad, 3) multiply($pad, 2.4) multiply($pad, 2.4);
+    padding: $pad;
+    &.clickable {
+        &:hover {
+            border: multiply($border, 2) dashed $mountain_mist;
+        }
+        &:focus {
+            border: multiply($border, 2) solid $viking;
+        }
+    }
+    .file-preview-thumbnails {
+        cursor: default;
+    }
 }
 
 .file-drop-zone-title {
-  color: #aaa;
-  font-size: 1.6em;
-  padding: 85px 10px;
-  cursor: default;
-}
-
-.file-preview .clickable, .clickable .file-drop-zone-title {
-  cursor: pointer;
-}
-
-.file-drop-zone {
-  &.clickable {
-    &:hover {
-      border: 2px dashed #999;
-    }
-    &:focus {
-      border: 2px solid #5acde2;
-    }
-  }
-  .file-preview-thumbnails {
+    color: $silver_chalice;
+    font-size: 1.6em;
+    padding: multiply($pad, 17) multiply($pad, 2);
     cursor: default;
-  }
 }
 
 .file-highlighted {
-  border: 2px dashed #999 !important;
-  background-color: #f0f0f0;
+    border: multiply($border, 2) dashed $mountain_mist !important;
+    background-color: $gallery;
 }
 
 .file-uploading {
-  background: url('../img/loading-sm.gif') no-repeat center bottom 10px;
-  opacity: 0.65;
+    background: $url_1 no-repeat center bottom multiply($pad, 2);
+    opacity: 0.65;
 }
 
-.file-zoom-dialog {
-  .modal-dialog {
-    position: relative;
-    width: auto;
-  }
-  .modal-header {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    &:before, &:after {
-      display: none;
+@media(min-width: 576px) {
+    .file-zoom-dialog .modal-dialog {
+        max-width: 500px;
     }
-  }
 }
 
-@media (min-width: 576px) {
-  .file-zoom-dialog .modal-dialog {
-    max-width: 500px;
-  }
-}
-
-@media (min-width: 992px) {
-  .file-zoom-dialog .modal-lg {
-    max-width: 800px;
-  }
+@media(min-width: 992px) {
+    .file-zoom-dialog .modal-lg {
+        max-width: 800px;
+    }
 }
 
 .file-zoom-fullscreen {
-  &.modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-  .modal-dialog {
-    position: fixed;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    padding: 0;
-  }
-  .modal-content {
-    border-radius: 0;
-    box-shadow: none;
-  }
-  .modal-body {
-    overflow-y: auto;
-  }
-}
-
-.file-zoom-dialog {
-  .btn-navigate {
-    position: absolute;
-    padding: 0;
-    margin: 0;
-    background: transparent;
-    text-decoration: none;
-    outline: none;
-    opacity: 0.7;
-    top: 45%;
-    font-size: 4em;
-    color: #1c94c4;
-  }
-  .floating-buttons {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-  }
+    &.modal {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    .modal-dialog {
+        position: fixed;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .modal-content {
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .modal-body {
+        overflow-y: auto;
+    }
 }
 
 .btn-kv {
-  display: inline-block;
-  text-align: center;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  padding: 0;
-  font-size: 0.875rem;
-  border-radius: 0.2rem;
-}
-
-.kv-zoom-actions .btn-kv {
-  margin-left: 3px;
+    display: inline-block;
+    text-align: center;
+    width: multiply($pad, 6);
+    height: multiply($pad, 6);
+    line-height: multiply($pad, 6);
+    padding: 0;
+    font-size: 0.875rem;
+    border-radius: 0.2rem;
 }
 
 .floating-buttons {
-  .btn-kv {
-    margin-left: 3px;
     z-index: 3000;
-  }
-  z-index: 3000;
-}
-
-.file-zoom-dialog {
-  .btn-navigate {
-    &:not([disabled]):hover {
-      outline: none;
-      box-shadow: none;
-      opacity: 0.6;
+    .btn-kv {
+        margin-left: multiply($pad, 0.6);
+        z-index: 3000;
     }
-    &[disabled] {
-      opacity: 0.3;
-    }
-  }
-  .btn-prev {
-    left: 1px;
-  }
-  .btn-next {
-    right: 1px;
-  }
 }
 
 .file-zoom-content {
-  height: 480px;
-  text-align: center;
-  .file-preview-image, .file-preview-video {
-    max-height: 100%;
-  }
-  > .file-object {
-    &.type-image {
-      width: auto;
-      height: auto;
-      min-height: inherit;
-      max-width: 100%;
-      max-height: 100%;
+    height: multiply($pad, 96);
+    text-align: center;
+    .file-preview-image {
+        max-height: 100%;
     }
-    &.type-video, &.type-flash {
-      width: auto;
-      height: 100%;
-      max-width: 100%;
-      max-height: 100%;
+    .file-preview-video {
+        max-height: 100%;
     }
-    &.type-audio {
-      width: auto;
-      height: 30px;
+    .is-portrait-gt4 {
+        margin-top: multiply($pad, 12);
     }
-    &.type-pdf, &.type-html, &.type-text, &.type-default {
-      width: 100%;
+    > .file-object {
+        &.type-image {
+            @extend %set_object;
+            height: auto;
+            min-height: inherit;
+        }
+        &.type-video {
+            @extend %set_object_video;
+        }
+        &.type-flash {
+            @extend %set_object_video;
+        }
+        &.type-audio {
+            width: auto;
+            height: multiply($pad, 6);
+        }
+        &.type-pdf {
+            @extend %set_object_default;
+        }
+        &.type-html {
+            @extend %set_object_default;
+        }
+        &.type-text {
+            @extend %set_object_default;
+        }
+        &.type-default {
+            @extend %set_object_default;
+        }
     }
-  }
+}
+
+@media screen and(max-width: 767px) {
+    .file-preview-thumbnails {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .file-zoom-dialog .modal-header {
+        flex-direction: column;
+    }
+}
+
+@media screen and(max-width: 350px) {
+    .krajee-default.file-preview-frame .kv-file-content {
+        width: multiply($pad, 32);
+    }
+}
+
+input[type=file].file-loading {
+    @extend %set_invisible;
+}
+
+.file-loading[dir=rtl]:before {
+    background: transparent $url_0 top right no-repeat;
+    padding-left: 0;
+    padding-right: multiply($pad, 4);
+}
+
+.file-sortable .file-drag-handle {
+    cursor: move;
+    opacity: 1;
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.clickable .file-drop-zone-title {
+    cursor: pointer;
+}
+
+.kv-zoom-actions .btn-kv {
+    margin-left: multiply($pad, 0.6);
 }
 
 .file-preview-initial.sortable-chosen {
-  background-color: #d9edf7;
+    background-color: $link_water;
 }
 
 .hide-content .kv-file-content {
-  display: none;
-}
-
-// IE 10 fix
-.btn-file ::-ms-browse {
-  font-size: 10000px;
-  width: 100%;
-  height: 100%;
-}
-
-.file-zoom-content .is-portrait-gt4 {
-  margin-top: 60px;
-}
-
-.file-zoom-dialog .kv-zoom-title {
-  font-weight: 300;
-  color: #999;
-  max-width: 50%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-@media screen and (max-width: 767px) {
-  .file-preview-thumbnails {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .file-zoom-dialog .modal-header {
-    flex-direction: column;
-  }
-}
-
-@media screen and (max-width: 350px) {
-  .krajee-default.file-preview-frame .kv-file-content {
-    width: 160px;
-  }
+    @extend %set_hidden;
 }

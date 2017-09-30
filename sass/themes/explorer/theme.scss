@@ -2,7 +2,7 @@
  * bootstrap-fileinput v4.4.5
  * http://plugins.krajee.com/file-input
  *
- * Krajee Explorer theme style for bootstrap-fileinput. Load this theme file after loading `fileinput.css`.
+ * Krajee Explorer Font Awesome theme style for bootstrap-fileinput. Load this theme file after loading `fileinput.css`.
  *
  * Author: Kartik Visweswaran
  * Copyright: 2014 - 2017, Kartik Visweswaran, Krajee.com
@@ -10,159 +10,192 @@
  * Licensed under the BSD 3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
+//colors
+$boston_blue: #428bca;
+$alto: #ddd;
+$tapa: #777;
+$mystic: #e1edf7;
+$perano: #a1abff;
+
+//fonts
+$font_0: Menlo;
+$font_1: Monaco;
+$font_2: Consolas;
+$font_3: "Courier New";
+$font_4: monospace;
+
+//standard measures
+$pad: 5px;
+$border: 1px;
+$tablet: 767px;
+
+//operations
+@function multiply($pixels, $multiplier) {
+    @return $pixels * $multiplier;
+}
+
+//@extend-elements
+%set_text_center {
+    text-align: center;
+}
+
+%set_progress {
+    height: multiply($pad, 2.6);
+    font-size: multiply($pad, 2.2);
+    line-height: multiply($pad, 2.6);
+}
+
+%set_indicator {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    right: multiply($pad, 0.6);
+    width: multiply($pad, 3.2);
+    height: multiply($pad, 3.2);
+    font-size: multiply($pad, 3.2);
+    @extend %set_text_center;
+}
+
+%set_block {
+    display: block;
+}
 
 .theme-explorer {
-  .file-preview .table {
-    margin: 0;
-  }
-  .explorer-frame td {
-    vertical-align: middle;
-    text-align: left;
-  }
+    .explorer-frame {
+        td {
+            vertical-align: middle;
+            text-align: left;
+        }
+        .kv-file-content {
+            width: multiply($pad, 16);
+            height: multiply($pad, 16);
+            padding: $pad;
+            @extend %set_text_center;
+        }
+    }
+    .file-actions-cell {
+        position: relative;
+        width: multiply($pad, 24);
+        padding: 0;
+    }
+    .file-thumb-progress {
+        .progress {
+            @extend %set_block;
+            @extend %set_progress;
+            margin-top: $pad;
+        }
+        .progress-bar {
+            @extend %set_progress;
+        }
+    }
+    .file-upload-indicator {
+        @extend %set_indicator;
+    }
+    .file-drag-handle {
+        @extend %set_indicator;
+    }
+    .explorer-caption {
+        @extend %set_block;
+        color: $tapa;
+    }
+    .file-actions {
+        @extend %set_text_center;
+    }
+    .kvsortable-ghost {
+        opacity: 0.6;
+        background: $mystic;
+        border: multiply($border, 2) solid $perano;
+    }
+    .file-preview .table {
+        margin: 0;
+    }
+    .file-error-message ul {
+        padding: $pad 0 0 multiply($pad, 4);
+    }
 }
 
 .explorer-frame {
-  .file-preview-text {
-    display: inline-block;
-    color: #428bca;
-    border: 1px solid #ddd;
-    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    outline: none;
-    padding: 8px;
-    resize: none;
-  }
-  .file-preview-html {
-    display: inline-block;
-    border: 1px solid #ddd;
-    padding: 8px;
-    overflow: auto;
-  }
-  .file-preview-other {
-    text-align: center;
-  }
-  .file-other-icon {
-    font-size: 2.6em;
-  }
-}
-
-/* noinspection CssOverwrittenProperties */
-
-.file-zoom-dialog .explorer-frame .file-other-icon {
-  font-size: 22em;
-  font-size: 50vmin;
-}
-
-.theme-explorer {
-  .explorer-frame .kv-file-content {
-    width: 80px;
-    height: 80px;
-    padding: 5px;
-    text-align: center;
-  }
-  .file-actions-cell {
-    width: 120px;
-    padding: 0;
-  }
-  .file-thumb-progress {
-    .progress {
-      display: block;
-      margin-top: 5px;
-      height: 13px;
-      font-size: 11px;
-      line-height: 13px;
+    .file-preview-text {
+        display: inline-block;
+        color: $boston_blue;
+        border: $border solid $alto;
+        font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+        outline: none;
+        padding: multiply($pad, 1.6);
+        resize: none;
     }
-    .progress-bar {
-      height: 13px;
-      font-size: 11px;
-      line-height: 13px;
+    .file-preview-html {
+        display: inline-block;
+        border: $border solid $alto;
+        padding: multiply($pad, 1.6);
+        overflow: auto;
     }
-  }
-  .file-actions-cell {
-    position: relative;
-  }
-  .file-upload-indicator, .file-drag-handle {
-    position: absolute;
-    display: inline-block;
-    text-align: center;
-    top: 0;
-    right: 3px;
-    width: 16px;
-    height: 16px;
-    font-size: 16px;
-  }
-  .explorer-caption {
-    display: block;
-    color: #777;
-  }
-  .file-actions {
-    text-align: center;
-  }
-  .kvsortable-ghost {
-    opacity: 0.6;
-    background: #e1edf7;
-    border: 2px solid #a1abff;
-  }
-  .file-error-message ul {
-    padding: 5px 0 0 20px;
-  }
+    .file-preview-other {
+        @extend %set_text_center;
+    }
+    .file-other-icon {
+        font-size: 2.6em;
+    }
 }
 
-/*
- * mobile responsive styling
- */
-@media only screen and (max-width: 767px) {
-  .theme-explorer {
-    .table {
-      display: block;
-      width: 100% !important;
-      tbody, tr, td {
+@media only screen and(max-width: $tablet) {
+    //@extend-elements
+    %set_block_full {
         display: block;
         width: 100% !important;
-      }
-      border: none;
-      tr {
-        margin-top: 5px;
-        &:first-child {
-          margin-top: 0;
+    }
+    .theme-explorer {
+        .table {
+            @extend %set_block_full;
+            border: none;
+            tbody {
+                @extend %set_block_full;
+            }
+            tr {
+                @extend %set_block_full;
+                margin-top: $pad;
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+            td {
+                @extend %set_block_full;
+                @extend %set_text_center;
+            }
+            .kv-file-content {
+                border-bottom: none;
+                padding: multiply($pad, 0.8);
+                margin: 0;
+                .file-preview-image {
+                    max-width: 100%;
+                    font-size: multiply($pad, 4);
+                }
+            }
         }
-      }
-      td {
-        text-align: center;
-      }
-      .kv-file-content {
-        border-bottom: none;
-        padding: 4px;
-        margin: 0;
-        .file-preview-image {
-          max-width: 100%;
-          font-size: 20px;
+        .file-details-cell {
+            border-top: none;
+            border-bottom: none;
+            padding-top: 0;
+            margin: 0;
         }
-      }
+        .file-actions-cell {
+            border-top: none;
+            padding-bottom: multiply($pad, 0.8);
+        }
+        .explorer-frame .explorer-caption {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
     }
-    .file-details-cell {
-      border-top: none;
-      border-bottom: none;
-      padding-top: 0;
-      margin: 0;
-    }
-    .file-actions-cell {
-      border-top: none;
-      padding-bottom: 4px;
-    }
-    .explorer-frame .explorer-caption {
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      left: 0;
-      right: 0;
-      margin: auto;
-    }
-  }
-  .theme-explorer-fa {
-    .file-upload-indicator, .file-drag-handle {
-      right: 3px;
-      bottom: 10px;
-      top: auto;
-    }
-  }
+}
+
+.file-zoom-dialog .explorer-frame .file-other-icon {
+    //noinspection CssOverwrittenProperties
+    font-size: 22em;
+    //noinspection CssOverwrittenProperties
+    font-size: 50vmin;
 }
