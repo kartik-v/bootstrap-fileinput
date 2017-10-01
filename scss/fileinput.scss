@@ -122,6 +122,10 @@ $border: 1px !default;
     @extend %set-hidden;
 }
 
+.hide-content .kv-file-content {
+    @extend %set-hidden;
+}
+
 .rotate-2 {
     transform: rotateY(180deg);
 }
@@ -165,6 +169,10 @@ $border: 1px !default;
         color: $mountain-mist;
         background: transparent $url-0 top left no-repeat;
     }
+}
+
+input[type=file].file-loading {
+    @extend %set-invisible;
 }
 
 .file-object {
@@ -656,10 +664,6 @@ $border: 1px !default;
     }
 }
 
-input[type=file].file-loading {
-    @extend %set-invisible;
-}
-
 .file-loading[dir=rtl]:before {
     background: transparent $url-0 top right no-repeat;
     padding-left: 0;
@@ -684,8 +688,4 @@ input[type=file].file-loading {
 
 .file-preview-initial.sortable-chosen {
     background-color: $link-water;
-}
-
-.hide-content .kv-file-content {
-    @extend %set-hidden;
 }
