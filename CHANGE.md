@@ -1,10 +1,11 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.4.5 (_under development_)
+## version 4.4.5
 
-**Date:** 30-Sep-2017
+**Date:** 01-Oct-2017
 
+- Update readme and example index to use plugin's CDN libraries.
 - (enh #1093): Revamp SCSS with better variables and extensions.
 - (enh #1091): Set default button type for close button markup template.
 - (enh #1090): Auto detect intelligently the preview type based on file content.
