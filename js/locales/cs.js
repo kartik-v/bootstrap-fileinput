@@ -11,7 +11,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinputLocales['cz'] = {
+    $.fn.fileinputLocales['cs'] = {
         fileSingle: 'soubor',
         filePlural: 'soubory',
         browseLabel: 'Vybrat &hellip;',

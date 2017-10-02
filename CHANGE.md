@@ -1,7 +1,15 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.4.5
+## version 4.4.6 (_under development_)
+
+**Date:** 02-Oct-2017
+
+- (enh #1096): Update Czech language folder and code to ISO code `cs`.
+- (bug #1095): Fix resize image when used with non JPEG images (silently ignoring `piexif` errors).
+- (enh #1094): Update French Translations.
+
+## version 4.4.6
 
 **Date:** 01-Oct-2017
 

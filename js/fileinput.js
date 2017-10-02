@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.4.5
+ * bootstrap-fileinput v4.4.6
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -2619,7 +2619,8 @@
                     }
                     self.ajaxAborted = false;
                     self._raise('filebeforedelete', [vKey, extraData]);
-                    if (self.ajaxAborted instanceof Promise) { // jshint ignore:line
+                    //noinspection JSUnresolvedVariable,JSHint
+                    if (self.ajaxAborted instanceof Promise) {
                         self.ajaxAborted.then(function (result) {
                             if (!result) {
                                 $.ajax(settings);
@@ -3246,7 +3247,11 @@
                     self._checkDimensions(i, 'Large', $img, $thumb, fname, 'Height', params);
                 }
                 self._raise('fileimageloaded', [previewId]);
-                exifObject = window.piexif ? window.piexif.load(iData) : null;
+                try {
+                    exifObject = window.piexif ? window.piexif.load(iData) : null;
+                } catch (err) {
+                    exifObject = null;
+                }
                 self.loadedImages.push({
                     ind: i,
                     img: $img,
