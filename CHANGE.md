@@ -5,11 +5,12 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** 02-Oct-2017
 
+- Update README to include updated cover images for bootstrap-fileinput themes (with Bootstrap 4.x support).
 - (enh #1096): Update Czech language folder and code to ISO code `cs`.
 - (bug #1095): Fix resize image when used with non JPEG images (silently ignoring `piexif` errors).
 - (enh #1094): Update French Translations.
 
-## version 4.4.6
+## version 4.4.5
 
 **Date:** 01-Oct-2017
 
