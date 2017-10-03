@@ -3,8 +3,11 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.6 (_under development_)
 
-**Date:** 02-Oct-2017
+**Date:** 03-Oct-2017
 
+- (enh #1097): Add support for previewing Office file formats (e.g. docx, xlsx, pptx). 
+    - Supports all common formats that google docs can view.
+    - Available only for initial preview content (where the document is accessible via a public web link).
 - Update README to include updated cover images for bootstrap-fileinput themes (with Bootstrap 4.x support).
 - (enh #1096): Update Czech language folder and code to ISO code `cs`.
 - (bug #1095): Fix resize image when used with non JPEG images (silently ignoring `piexif` errors).
