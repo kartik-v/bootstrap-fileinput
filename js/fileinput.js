@@ -2977,7 +2977,7 @@
                         self._errorHandler(evt, caption);
                     };
                     reader.onload = function (theFile) {
-                        var uint, hex, fileInfo, bytes = [], contents, mime, readTextImage = function (textFlag) {
+                        var hex, fileInfo, uint, byte, bytes = [], contents, mime, readTextImage = function (textFlag) {
                             var newReader = new FileReader();
                             newReader.onerror = function (theFileNew) {
                                 self._errorHandler(theFileNew, caption);
@@ -3001,12 +3001,12 @@
                         });
                         if (knownTypes === 0) {// auto detect mime types from content if no known file types detected
                             uint = new Uint8Array(theFile.target.result);
-                            uint.forEach(function (byte) {
-                                bytes.push(byte.toString(16));
-                            });
+                            for (j = 0; j < uint.length; j++) {
+                                byte = uint[j].toString(16);
+                                bytes.push(byte);
+                            }
                             hex = bytes.join('').toLowerCase().substring(0, 8);
                             mime = $h.getMimeType(hex, '', '');
-
                             if ($h.isEmpty(mime)) { // look for ascii text content
                                 contents = $h.arrayBuffer2String(reader.result);
                                 mime = $h.isSvg(contents) ? 'image/svg+xml' : $h.getMimeType(hex, contents, file.type);

@@ -3,8 +3,9 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.4.6 (_under development_)
 
-**Date:** 03-Oct-2017
+**Date:** 04-Oct-2017
 
+- (enh #1099): Enhance mime type parsing for IE 11. 
 - (enh #1097): Add support for previewing Office file formats (e.g. docx, xlsx, pptx). 
     - Supports all common formats that google docs can view.
     - Available only for initial preview content (where the document is accessible via a public web link).
