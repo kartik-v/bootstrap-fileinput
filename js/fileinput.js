@@ -1467,14 +1467,14 @@
                 scroll: false,
                 draggable: selector,
                 onSort: function (e) {
-                    var oldIndex = e.oldIndex, newIndex = e.newIndex, key, $frame;
+                    var oldIndex = e.oldIndex, newIndex = e.newIndex, $frame, $dragEl;
                     self.initialPreview = $h.moveArray(self.initialPreview, oldIndex, newIndex);
                     self.initialPreviewConfig = $h.moveArray(self.initialPreviewConfig, oldIndex, newIndex);
                     self.previewCache.init();
                     for (var i = 0; i < self.initialPreviewConfig.length; i++) {
                         if (self.initialPreviewConfig[i] !== null) {
-                            key = self.initialPreviewConfig[i].key;
-                            $frame = $(".kv-file-remove[data-key='" + key + "']").closest($h.FRAMES);
+                            $dragEl = $(e.item);
+                            $frame = $dragEl.closest($h.FRAMES);
                             $frame.attr('data-fileindex', 'init_' + i).attr('data-fileindex', 'init_' + i);
                         }
                     }
