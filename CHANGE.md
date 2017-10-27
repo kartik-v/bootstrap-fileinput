@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** Work in progress
 
+- (enh #1111): Enhance default file download action to use `button` markup.
 - (enh #1110): Add support for previewing TIFF, EPS, AI, WMF files.
 - (bug #1108): Correct sortable drag element parsing during sorting.
 - (enh #1106): Update Portuguese BR Translations.

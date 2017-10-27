@@ -156,7 +156,7 @@
         dataURI2Blob: function (dataURI) {
             //noinspection JSUnresolvedVariable
             var BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder ||
-                    window.MSBlobBuilder, canBlob = $h.hasBlobSupport(), byteStr, arrayBuffer, intArray, i, mimeStr, bb,
+                window.MSBlobBuilder, canBlob = $h.hasBlobSupport(), byteStr, arrayBuffer, intArray, i, mimeStr, bb,
                 canProceed = (canBlob || BlobBuilder) && window.atob && window.ArrayBuffer && window.Uint8Array;
             if (!canProceed) {
                 return null;
@@ -683,8 +683,8 @@
                 'title="{removeTitle}" {dataUrl}{dataKey}>{removeIcon}</button>\n';
             tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
                 '{uploadIcon}</button>';
-            tActionDownload = '<a href="{downloadUrl}" class="{downloadClass}" title="{downloadTitle}" ' +
-                'download="{caption}">{downloadIcon}</a>';
+            tActionDownload = '<button type="button" class="kv-file-download {downloadClass}" title="{downloadTitle}" ' +
+                'data-url="{downloadUrl}" data-caption="{caption}">{downloadIcon}</button>';
             tActionZoom = '<button type="button" class="kv-file-zoom {zoomClass}" ' +
                 'title="{zoomTitle}">{zoomIcon}</button>';
             tActionDrag = '<span class="file-drag-handle {dragClass}" title="{dragTitle}">{dragIcon}</span>';
@@ -1352,7 +1352,7 @@
         _autoFitContent: function () {
             var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
                 self = this, config = width < 400 ? (self.previewSettingsSmall || self.defaults.previewSettingsSmall) :
-                    (self.previewSettings || self.defaults.previewSettings), sel;
+                (self.previewSettings || self.defaults.previewSettings), sel;
             $.each(config, function (cat, settings) {
                 sel = '.file-preview-frame .file-preview-' + cat;
                 self.$preview.find(sel + '.kv-preview-data,' + sel + ' .kv-preview-data').css(settings);
@@ -2642,6 +2642,16 @@
                             $.ajax(settings);
                         }
                     }
+                });
+            });
+            self.getFrames(' .kv-file-download').each(function () {
+                var $el = $(this);
+                self._handler($el, 'click', function () {
+                    var a = document.createElement('a');
+                    a.href = $el.attr('data-url');
+                    a.download = $el.attr('data-caption');
+                    a.target = '_blank';
+                    a.click();
                 });
             });
         },
