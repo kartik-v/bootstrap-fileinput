@@ -797,20 +797,19 @@
                 },
                 fileTypeSettings: {
                     image: function (vType, vName) {
-                        return $h.compare(vType, 'image.*') || $h.compare(vName, /\.(gif|png|jpe?g)$/i);
+                        return ($h.compare(vType, 'image.*') && !$h.compare(vType, /(tiff?|wmf)$/i) ||
+                            $h.compare(vName, /\.(gif|png|jpe?g)$/i)) ;
                     },
                     html: function (vType, vName) {
                         return $h.compare(vType, 'text/html') || $h.compare(vName, /\.(htm|html)$/i);
                     },
+                    office: function (vType, vName) {
+                        return $h.compare(vType, /(word|excel|powerpoint|office|iwork-pages|tiff?)$/i) ||
+                            $h.compare(vName, /\.(rtf|docx?|xlsx?|pptx?|pps|potx?|ods|odt|pages|ai|dxf|ttf|tiff?|wmf|e?ps)$/i);
+                    },
                     text: function (vType, vName) {
                         return $h.compare(vType, 'text.*') || $h.compare(vName, /\.(xml|javascript)$/i) ||
                             $h.compare(vName, /\.(txt|md|csv|nfo|ini|json|php|js|css)$/i);
-                    },
-                    office: function (vType, vName) {
-                        return $h.compare(vType, 'msword') || $h.compare(vType, 'ms-excel') ||
-                            $h.compare(vType, 'ms-powerpoint') ||
-                            $h.compare(vType, 'vnd.openxmlformats-officedocument') ||
-                            $h.compare(vName, /\.(doc|docx|rtf|odt|xls|xlsx|ods|ppt|pptx|pps|pot|potx)$/i);
                     },
                     video: function (vType, vName) {
                         return $h.compare(vType, 'video.*') && ($h.compare(vType, /(ogg|mp4|mp?g|mov|webm|3gp)$/i) ||
