@@ -156,7 +156,7 @@
         dataURI2Blob: function (dataURI) {
             //noinspection JSUnresolvedVariable
             var BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder ||
-                    window.MSBlobBuilder, canBlob = $h.hasBlobSupport(), byteStr, arrayBuffer, intArray, i, mimeStr, bb,
+                window.MSBlobBuilder, canBlob = $h.hasBlobSupport(), byteStr, arrayBuffer, intArray, i, mimeStr, bb,
                 canProceed = (canBlob || BlobBuilder) && window.atob && window.ArrayBuffer && window.Uint8Array;
             if (!canProceed) {
                 return null;
@@ -606,7 +606,7 @@
             var self = this, tMain1, tMain2, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse,
                 tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionDownload,
                 tActionZoom, tActionDrag, tIndicator, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage,
-                tText, tVideo, tAudio, tFlash, tObject, tPdf, tOther, tZoomCache, vDefaultDim;
+                tText, tOffice, tVideo, tAudio, tFlash, tObject, tPdf, tOther, tZoomCache, vDefaultDim;
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
                 '<div class="input-group {class}">\n' +
@@ -683,8 +683,8 @@
                 'title="{removeTitle}" {dataUrl}{dataKey}>{removeIcon}</button>\n';
             tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
                 '{uploadIcon}</button>';
-            tActionDownload = '<a href="{downloadUrl}" class="{downloadClass}" title="{downloadTitle}" ' +
-                'download="{caption}">{downloadIcon}</a>';
+            tActionDownload = '<button type="button" class="kv-file-download {downloadClass}" title="{downloadTitle}" ' +
+                'data-url="{downloadUrl}" data-caption="{caption}">{downloadIcon}</button>';
             tActionZoom = '<button type="button" class="kv-file-zoom {zoomClass}" ' +
                 'title="{zoomTitle}">{zoomIcon}</button>';
             tActionDrag = '<span class="file-drag-handle {dragClass}" title="{dragTitle}">{dragIcon}</span>';
@@ -700,6 +700,8 @@
                 'alt="{caption}" {style}>\n';
             tText = '<textarea class="kv-preview-data file-preview-text" title="{caption}" readonly {style}>' +
                 '{data}</textarea>\n';
+            tOffice = '<iframe class="kv-preview-data file-preview-office" ' +
+                'src="https://docs.google.com/gview?url={data}&embedded=true" {style}></iframe>';
             tVideo = '<video class="kv-preview-data file-preview-video" controls {style}>\n' +
                 '<source src="{data}" type="{type}">\n' + $h.DEFAULT_PREVIEW + '\n</video>\n';
             tAudio = '<audio class="kv-preview-data file-preview-audio" controls {style}>\n<source src="{data}" ' +
@@ -747,6 +749,7 @@
                     html: tHtml,
                     image: tImage,
                     text: tText,
+                    office: tOffice,
                     video: tVideo,
                     audio: tAudio,
                     flash: tFlash,
@@ -760,6 +763,7 @@
                     image: {width: "auto", height: "auto", 'max-width': "100%", 'max-height': "100%"},
                     html: {width: "213px", height: "160px"},
                     text: {width: "213px", height: "160px"},
+                    office: {width: "213px", height: "160px"},
                     video: {width: "213px", height: "160px"},
                     audio: {width: "100%", height: "30px"},
                     flash: {width: "213px", height: "160px"},
@@ -771,6 +775,7 @@
                     image: {width: "auto", height: "auto", 'max-width': "100%", 'max-height': "100%"},
                     html: {width: "100%", height: "160px"},
                     text: {width: "100%", height: "160px"},
+                    office: {width: "100%", height: "160px"},
                     video: {width: "100%", height: "auto"},
                     audio: {width: "100%", height: "30px"},
                     flash: {width: "100%", height: "auto"},
@@ -782,6 +787,7 @@
                     image: {width: "auto", height: "auto", 'max-width': "100%", 'max-height': "100%"},
                     html: vDefaultDim,
                     text: vDefaultDim,
+                    office: {width: "100%", height: "100%", 'max-width': "100%", 'min-height': "480px"},
                     video: {width: "auto", height: "100%", 'max-width': "100%"},
                     audio: {width: "100%", height: "30px"},
                     flash: {width: "auto", height: "480px"},
@@ -791,10 +797,15 @@
                 },
                 fileTypeSettings: {
                     image: function (vType, vName) {
-                        return $h.compare(vType, 'image.*') || $h.compare(vName, /\.(gif|png|jpe?g)$/i);
+                        return ($h.compare(vType, 'image.*') && !$h.compare(vType, /(tiff?|wmf)$/i) ||
+                            $h.compare(vName, /\.(gif|png|jpe?g)$/i)) ;
                     },
                     html: function (vType, vName) {
                         return $h.compare(vType, 'text/html') || $h.compare(vName, /\.(htm|html)$/i);
+                    },
+                    office: function (vType, vName) {
+                        return $h.compare(vType, /(word|excel|powerpoint|office|iwork-pages|tiff?)$/i) ||
+                            $h.compare(vName, /\.(rtf|docx?|xlsx?|pptx?|pps|potx?|ods|odt|pages|ai|dxf|ttf|tiff?|wmf|e?ps)$/i);
                     },
                     text: function (vType, vName) {
                         return $h.compare(vType, 'text.*') || $h.compare(vName, /\.(xml|javascript)$/i) ||
@@ -1341,7 +1352,7 @@
         _autoFitContent: function () {
             var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
                 self = this, config = width < 400 ? (self.previewSettingsSmall || self.defaults.previewSettingsSmall) :
-                    (self.previewSettings || self.defaults.previewSettings), sel;
+                (self.previewSettings || self.defaults.previewSettings), sel;
             $.each(config, function (cat, settings) {
                 sel = '.file-preview-frame .file-preview-' + cat;
                 self.$preview.find(sel + '.kv-preview-data,' + sel + ' .kv-preview-data').css(settings);
@@ -1455,14 +1466,14 @@
                 scroll: false,
                 draggable: selector,
                 onSort: function (e) {
-                    var oldIndex = e.oldIndex, newIndex = e.newIndex, key, $frame;
+                    var oldIndex = e.oldIndex, newIndex = e.newIndex, $frame, $dragEl;
                     self.initialPreview = $h.moveArray(self.initialPreview, oldIndex, newIndex);
                     self.initialPreviewConfig = $h.moveArray(self.initialPreviewConfig, oldIndex, newIndex);
                     self.previewCache.init();
                     for (var i = 0; i < self.initialPreviewConfig.length; i++) {
                         if (self.initialPreviewConfig[i] !== null) {
-                            key = self.initialPreviewConfig[i].key;
-                            $frame = $(".kv-file-remove[data-key='" + key + "']").closest($h.FRAMES);
+                            $dragEl = $(e.item);
+                            $frame = $dragEl.closest($h.FRAMES);
                             $frame.attr('data-fileindex', 'init_' + i).attr('data-fileindex', 'init_' + i);
                         }
                     }
@@ -2633,6 +2644,16 @@
                     }
                 });
             });
+            self.getFrames(' .kv-file-download').each(function () {
+                var $el = $(this);
+                self._handler($el, 'click', function () {
+                    var a = document.createElement('a');
+                    a.href = $el.attr('data-url');
+                    a.download = $el.attr('data-caption');
+                    a.target = '_blank';
+                    a.click();
+                });
+            });
         },
         _hideFileIcon: function () {
             var self = this;
@@ -2801,7 +2822,7 @@
             }
         },
         _slugDefault: function (text) {
-            return $h.isEmpty(text) ? '' : String(text).replace(/[\-\[\]\/\{}:;#%=\(\)\*\+\?\\\^\$\|<>&"']/g, '_');
+            return $h.isEmpty(text) ? '' : String(text).replace(/[\[\]\/\{}:;#%=\(\)\*\+\?\\\^\$\|<>&"']/g, '_');
         },
         _readFiles: function (files) {
             this.reader = new FileReader();
@@ -2965,7 +2986,7 @@
                         self._errorHandler(evt, caption);
                     };
                     reader.onload = function (theFile) {
-                        var uint, hex, fileInfo, bytes = [], contents, mime, readTextImage = function (textFlag) {
+                        var hex, fileInfo, uint, byte, bytes = [], contents, mime, readTextImage = function (textFlag) {
                             var newReader = new FileReader();
                             newReader.onerror = function (theFileNew) {
                                 self._errorHandler(theFileNew, caption);
@@ -2989,12 +3010,12 @@
                         });
                         if (knownTypes === 0) {// auto detect mime types from content if no known file types detected
                             uint = new Uint8Array(theFile.target.result);
-                            uint.forEach(function (byte) {
-                                bytes.push(byte.toString(16));
-                            });
+                            for (j = 0; j < uint.length; j++) {
+                                byte = uint[j].toString(16);
+                                bytes.push(byte);
+                            }
                             hex = bytes.join('').toLowerCase().substring(0, 8);
                             mime = $h.getMimeType(hex, '', '');
-
                             if ($h.isEmpty(mime)) { // look for ascii text content
                                 contents = $h.arrayBuffer2String(reader.result);
                                 mime = $h.isSvg(contents) ? 'image/svg+xml' : $h.getMimeType(hex, contents, file.type);

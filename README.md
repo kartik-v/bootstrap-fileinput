@@ -9,11 +9,11 @@ bootstrap-fileinput
 
 An enhanced HTML 5 file input for Bootstrap 3.x and 4.x with file preview for various files, offers multiple selection, and more. The plugin allows you a simple way to setup an advanced file picker/upload control built to work specially with Bootstrap CSS3 styles. It enhances the file input functionality further, by offering support to preview a wide variety of files i.e. images, text, html, video, audio, flash, and objects. In addition, it includes AJAX based uploads, dragging &amp; dropping files, viewing upload progress, and selectively previewing, adding, or deleting files.
 
-![Krajee Default Theme](https://lh3.googleusercontent.com/-e_E3qNVdEMg/WKvYxZ3W-CI/AAAAAAAAAWs/KJIdNxDpLR8pkqiflpmMAS3KMFkQIab3QCJoC/w530-h430-p-rw/BootstrapFileInput-01.jpg)
+![Krajee Default Theme](https://lh3.googleusercontent.com/8m5BKa-o2_W63OuL-NJtAYOxelboHccfsDojxdqhmVCxY49LTiSVK8rOywzup2EDJlXcda_SsKkMVA=w1366-h768-rw-no)
 
 > NOTE: An alternative new [Krajee Explorer Theme](http://plugins.krajee.com/file-krajee-explorer-demo) (preview shown below) for `bootstrap-fileinput` has been released and available since v4.3.7. For more theming options and suggestions refer the [theming demos](http://plugins.krajee.com/file-theme-demo).
 
-![Krajee Explorer Theme](https://lh3.googleusercontent.com/-cQpItvVFhjY/WKvb0ARaI-I/AAAAAAAAAXA/moGMDgujK8EnYEyDnBReRgt_xw-V4JQ8wCJoC/w530-h318-p-rw/BootstrapFileInput-02.jpg)
+![Krajee Explorer Theme](https://lh3.googleusercontent.com/eKMw_la1h6Z0y1Vk0SU3fsWVpmUoqg_HS-ZEZ1U2-1e8s6fgFZqoGbXcRjIXbYLkLi6Ns17-nb2yOg=w1366-h768-rw-no)
 
 ## Documentation and Demo
 
