@@ -2140,6 +2140,7 @@
                 $prog = $('#' + previewId).find('.file-thumb-progress'), fnBefore, fnSuccess, fnComplete, fnError,
                 updateUploadLog, params = {id: previewId, index: i};
             self.formdata = formdata;
+            self._resetUpload();
             if (self.showPreview) {
                 $thumb = $('#' + previewId + ':not(.file-preview-initial)');
                 $btnUpload = $thumb.find('.kv-file-upload');
