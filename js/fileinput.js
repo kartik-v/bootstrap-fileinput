@@ -2133,7 +2133,7 @@
                 self.formdata.append(key, value);
             });
         },
-        _uploadSingle: function (i, allFiles) {
+        _uploadSingle: function (i, isBatch) {
             var self = this, total = self.getFileStack().length, formdata = new FormData(), outData,
                 previewId = self.previewInitId + "-" + i, $thumb, chkComplete, $btnUpload, $btnDelete,
                 hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData), uploadFailed,
@@ -2210,11 +2210,15 @@
                     self.uploadStatus = {};
                     self.uploadLog = [];
                     self._setProgress(101);
+                    self.ajaxAborted = false;
                 }, 100);
             };
             fnBefore = function (jqXHR) {
                 outData = self._getOutData(jqXHR);
                 self.fileBatchCompleted = false;
+                if (!isBatch) {
+                    self.ajaxAborted = false;
+                }
                 if (self.showPreview) {
                     if (!$thumb.hasClass('file-preview-success')) {
                         self._setThumbStatus($thumb, 'Loading');
@@ -2223,7 +2227,7 @@
                     $btnUpload.attr('disabled', true);
                     $btnDelete.attr('disabled', true);
                 }
-                if (!allFiles) {
+                if (!isBatch) {
                     self.lock();
                 }
                 self._raise('filepreupload', [outData, previewId, i]);
@@ -2242,11 +2246,11 @@
                         if (self.showPreview) {
                             self._setThumbStatus($thumb, 'Success');
                             $btnUpload.hide();
-                            self._initUploadSuccess(data, $thumb, allFiles);
+                            self._initUploadSuccess(data, $thumb, isBatch);
                             self._setProgress(101, $prog);
                         }
                         self._raise('fileuploaded', [outData, pid, i]);
-                        if (!allFiles) {
+                        if (!isBatch) {
                             self.updateStack(i, undefined);
                         } else {
                             updateUploadLog(i, pid);
@@ -2258,7 +2262,7 @@
                         if (!self.retryErrorUploads) {
                             $btnUpload.hide();
                         }
-                        if (allFiles) {
+                        if (isBatch) {
                             updateUploadLog(i, pid);
                         }
                         self._setProgress(101, $('#' + pid).find('.file-thumb-progress'), self.msgUploadError);
@@ -2272,7 +2276,7 @@
                         $btnDelete.removeAttr('disabled');
                         $thumb.removeClass('file-uploading');
                     }
-                    if (!allFiles) {
+                    if (!isBatch) {
                         self.unlock(false);
                         self._clearFileInput();
                     } else {
@@ -2283,10 +2287,10 @@
             };
             fnError = function (jqXHR, textStatus, errorThrown) {
                 var op = self.ajaxOperations.uploadThumb,
-                    errMsg = self._parseError(op, jqXHR, errorThrown, (allFiles && self.filestack[i].name ? self.filestack[i].name : null));
+                    errMsg = self._parseError(op, jqXHR, errorThrown, (isBatch && self.filestack[i].name ? self.filestack[i].name : null));
                 uploadFailed = true;
                 setTimeout(function () {
-                    if (allFiles) {
+                    if (isBatch) {
                         updateUploadLog(i, previewId);
                     }
                     self.uploadStatus[previewId] = 100;
@@ -2321,6 +2325,7 @@
             fnBefore = function (jqXHR) {
                 self.lock();
                 var outData = self._getOutData(jqXHR);
+                self.ajaxAborted = false;
                 if (self.showPreview) {
                     self._getThumbs().each(function () {
                         var $thumb = $(this), $btnUpload = $thumb.find('.kv-file-upload'),
