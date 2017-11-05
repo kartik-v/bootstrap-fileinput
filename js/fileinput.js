@@ -182,6 +182,7 @@
         arrayBuffer2String: function (buffer) {
             //noinspection JSUnresolvedVariable
             if (window.TextDecoder) {
+                // noinspection JSUnresolvedFunction
                 return new TextDecoder("utf-8").decode(buffer);
             }
             var array = Array.prototype.slice.apply(new Uint8Array(buffer)), out = '', i = 0, len, c, char2, char3;
@@ -449,6 +450,12 @@
             offsetTop = $img.offset().top;
             newTop = offsetContTop - offsetTop;
             $img.css('margin-top', newTop);
+        },
+        closeButton: function (css) {
+            css = css ? 'close ' + css : 'close';
+            return '<button type="button" class="' + css + '" aria-label="Close">\n' +
+                '  <span aria-hidden="true">&times;</span>\n' +
+                '</button>';
         }
     };
     FileInput = function (element, options) {
@@ -629,7 +636,7 @@
                 '    <div class="kv-fileinput-error"></div>\n' +
                 '    </div>\n' +
                 '</div>';
-            tClose = '<button type="button" class="close fileinput-remove">&times;</button>\n';
+            tClose = $h.closeButton('fileinput-remove');
             tFileIcon = '<i class="glyphicon glyphicon-file"></i>';
             tCaption = '<div class="file-caption form-control {class}" tabindex="500">\n' +
                 '  <span class="file-caption-icon"></span>\n' +
@@ -798,7 +805,7 @@
                 fileTypeSettings: {
                     image: function (vType, vName) {
                         return ($h.compare(vType, 'image.*') && !$h.compare(vType, /(tiff?|wmf)$/i) ||
-                            $h.compare(vName, /\.(gif|png|jpe?g)$/i)) ;
+                            $h.compare(vName, /\.(gif|png|jpe?g)$/i));
                     },
                     html: function (vType, vName) {
                         return $h.compare(vType, 'text/html') || $h.compare(vName, /\.(htm|html)$/i);
@@ -2234,6 +2241,13 @@
                 $.extend(true, params, outData);
                 if (self._abort(params)) {
                     jqXHR.abort();
+                    if (!isBatch) {
+                        self._setThumbStatus($thumb, 'New');
+                        $thumb.removeClass('file-uploading');
+                        $btnUpload.removeAttr('disabled');
+                        $btnDelete.removeAttr('disabled');
+                        self.unlock();
+                    }
                     self._setProgressCancelled();
                 }
             };
@@ -2341,6 +2355,16 @@
                 self._raise('filebatchpreupload', [outData]);
                 if (self._abort(outData)) {
                     jqXHR.abort();
+                    self._getThumbs().each(function () {
+                        var $thumb = $(this), $btnUpload = $thumb.find('.kv-file-upload'),
+                            $btnDelete = $thumb.find('.kv-file-remove');
+                        if ($thumb.hasClass('file-preview-loading')) {
+                            self._setThumbStatus($thumb, 'New');
+                            $thumb.removeClass('file-uploading');
+                        }
+                        $btnUpload.removeAttr('disabled');
+                        $btnDelete.removeAttr('disabled');
+                    });
                     self._setProgressCancelled();
                 }
             };
@@ -2577,10 +2601,10 @@
                 fnBefore = function (jqXHR) {
                     self.ajaxAborted = false;
                     self._raise('filepredelete', [vKey, jqXHR, extraData]);
-                    $el.removeClass(errClass);
                     if (self._abort()) {
                         jqXHR.abort();
                     } else {
+                        $el.removeClass(errClass);
                         $h.addCss($frame, 'file-uploading');
                         $h.addCss($el, 'disabled ' + origClass);
                     }
@@ -4197,7 +4221,7 @@
         elPreviewImage: null,
         elPreviewStatus: null,
         elErrorContainer: null,
-        errorCloseButton: '<button type="button" class="close kv-error-close">&times;</button>',
+        errorCloseButton: $h.closeButton('kv-error-close'),
         slugCallback: null,
         dropZoneEnabled: true,
         dropZoneTitleClass: 'file-drop-zone-title',

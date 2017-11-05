@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** Work in progress
 
+- (enh #1119): Enhance close button icon markup as per BS4 norms.
 - (enh #1118): Better file action button style.
 - (bug #1117): Reset `ajaxAborted` status more correctly before upload.
 - (enh #1113): Correct slug default callback to include hyphens in file name.
