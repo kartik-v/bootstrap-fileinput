@@ -3738,7 +3738,7 @@
                 self.cancel();
                 return true;
             }
-            return false;
+            return !!self.ajaxAborted;
         },
         _resetFileStack: function () {
             var self = this, i = 0, newstack = [], newnames = [], newids = [];
