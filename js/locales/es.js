@@ -24,21 +24,21 @@
         msgNo: 'No',
         msgNoFilesSelected: 'No hay archivos seleccionados',
         msgCancelled: 'Cancelado',
-        msgPlaceholder: 'Select {files}...',
+        msgPlaceholder: 'Seleccionar {files}...',
         msgZoomModalHeading: 'Vista previa detallada',
-        msgFileRequired: 'You must select a file to upload.',
+        msgFileRequired: 'Debes seleccionar un archivo para subir.',
         msgSizeTooSmall: 'El archivo "{name}" (<b>{size} KB</b>) es demasiado pequeño y debe ser mayor de <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'El archivo "{name}" (<b>{size} KB</b>) excede el tamaño máximo permitido de <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Debe seleccionar al menos <b>{n}</b> {files} a cargar.',
         msgFilesTooMany: 'El número de archivos seleccionados a cargar <b>({n})</b> excede el límite máximo permitido de <b>{m}</b>.',
         msgFileNotFound: 'Archivo "{name}" no encontrado.',
-        msgFileSecured: 'No es posible acceder al archivo "{name}" porque estará siendo usado por otra aplicación o no tengamos permisos de lectura.',
+        msgFileSecured: 'No es posible acceder al archivo "{name}" porque está siendo usado por otra aplicación o no tiene permisos de lectura.',
         msgFileNotReadable: 'No es posible acceder al archivo "{name}".',
         msgFilePreviewAborted: 'Previsualización del archivo "{name}" cancelada.',
         msgFilePreviewError: 'Ocurrió un error mientras se leía el archivo "{name}".',
-        msgInvalidFileName: 'Caracteres no válidos o no soportados en el nombre de archivo "{name}".',
+        msgInvalidFileName: 'Caracteres no válidos o no soportados en el nombre del archivo "{name}".',
         msgInvalidFileType: 'Tipo de archivo no válido para "{name}". Sólo se permiten archivos de tipo "{types}".',
-        msgInvalidFileExtension: 'Extensión de archivo no válido para "{name}". Sólo se permiten archivos "{extensions}".',
+        msgInvalidFileExtension: 'Extensión de archivo no válida para "{name}". Sólo se permiten archivos "{extensions}".',
         msgFileTypes: {
             'image': 'image',
             'html': 'HTML',
@@ -72,15 +72,15 @@
             deleteThumb: 'Archivo borrado',
             uploadThumb: 'Archivo subido',
             uploadBatch: 'Datos subidos en lote',
-            uploadExtra: 'Datos do formulario subidos '
+            uploadExtra: 'Datos del formulario subidos '
         },
         dropZoneTitle: 'Arrastre y suelte aquí los archivos &hellip;',
         dropZoneClickTitle: '<br>(o haga clic para seleccionar {files})',
         fileActionSettings: {
             removeTitle: 'Eliminar archivo',
             uploadTitle: 'Subir archivo',
-            uploadRetryTitle: 'Retry upload',
-            downloadTitle: 'Download file',
+            uploadRetryTitle: 'Reintentar subir',
+            downloadTitle: 'Descargar archivo',
             zoomTitle: 'Ver detalles',
             dragTitle: 'Mover / Reordenar',
             indicatorNewTitle: 'No subido todavía',
@@ -89,11 +89,11 @@
             indicatorLoadingTitle: 'Subiendo...'
         },
         previewZoomButtonTitles: {
-            prev: 'Ver archivo anterior',
-            next: 'Ver archivo siguiente',
+            prev: 'Anterior',
+            next: 'Siguiente',
             toggleheader: 'Mostrar encabezado',
-            fullscreen: 'Mostrar a pantalla completa',
-            borderless: 'Activar el modo sin bordes',
+            fullscreen: 'Pantalla completa',
+            borderless: 'Modo sin bordes',
             close: 'Cerrar vista detallada'
         }
     };
