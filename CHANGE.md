@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** Work in progress
 
+- (bug #1123): Correct error container close button click behavior for various scenarios.
+- (enh #1121): Update Spanish Translations.
 - (enh #1119): Enhance close button icon markup as per BS4 norms.
 - (enh #1118): Better file action button style.
 - (bug #1117): Reset `ajaxAborted` status more correctly before upload.
