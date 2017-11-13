@@ -1,9 +1,9 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.4.6 (_under development_)
+## version 4.4.6
 
-**Date:** Work in progress
+**Date:** 13-Nov-2017
 
 - (bug #1123): Correct error container close button click behavior for various scenarios.
 - (enh #1121): Update Spanish Translations.
