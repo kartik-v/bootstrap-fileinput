@@ -182,6 +182,7 @@
         arrayBuffer2String: function (buffer) {
             //noinspection JSUnresolvedVariable
             if (window.TextDecoder) {
+                // noinspection JSUnresolvedFunction
                 return new TextDecoder("utf-8").decode(buffer);
             }
             var array = Array.prototype.slice.apply(new Uint8Array(buffer)), out = '', i = 0, len, c, char2, char3;
@@ -449,6 +450,12 @@
             offsetTop = $img.offset().top;
             newTop = offsetContTop - offsetTop;
             $img.css('margin-top', newTop);
+        },
+        closeButton: function (css) {
+            css = css ? 'close ' + css : 'close';
+            return '<button type="button" class="' + css + '" aria-label="Close">\n' +
+                '  <span aria-hidden="true">&times;</span>\n' +
+                '</button>';
         }
     };
     FileInput = function (element, options) {
@@ -576,8 +583,7 @@
             self.$previewContainer = $h.getElement(options, 'elPreviewContainer', $cont.find('.file-preview'));
             self.$preview = $h.getElement(options, 'elPreviewImage', $cont.find('.file-preview-thumbnails'));
             self.$previewStatus = $h.getElement(options, 'elPreviewStatus', $cont.find('.file-preview-status'));
-            self.$errorContainer = $h.getElement(options, 'elErrorContainer',
-                self.$previewContainer.find('.kv-fileinput-error'));
+            self.$errorContainer = $h.getElement(options, 'elErrorContainer', self.$previewContainer.find('.kv-fileinput-error'));
             self._validateDisabled();
             if (!$h.isEmpty(self.msgErrorClass)) {
                 $h.addCss(self.$errorContainer, self.msgErrorClass);
@@ -629,7 +635,7 @@
                 '    <div class="kv-fileinput-error"></div>\n' +
                 '    </div>\n' +
                 '</div>';
-            tClose = '<button type="button" class="close fileinput-remove">&times;</button>\n';
+            tClose = $h.closeButton('fileinput-remove');
             tFileIcon = '<i class="glyphicon glyphicon-file"></i>';
             tCaption = '<div class="file-caption form-control {class}" tabindex="500">\n' +
                 '  <span class="file-caption-icon"></span>\n' +
@@ -798,7 +804,7 @@
                 fileTypeSettings: {
                     image: function (vType, vName) {
                         return ($h.compare(vType, 'image.*') && !$h.compare(vType, /(tiff?|wmf)$/i) ||
-                            $h.compare(vName, /\.(gif|png|jpe?g)$/i)) ;
+                            $h.compare(vName, /\.(gif|png|jpe?g)$/i));
                     },
                     html: function (vType, vName) {
                         return $h.compare(vType, 'text/html') || $h.compare(vName, /\.(htm|html)$/i);
@@ -1131,7 +1137,12 @@
             if (msg && $error.length) {
                 $error.html(self.errorCloseButton + msg);
                 self._handler($error.find('.kv-error-close'), 'click', function () {
-                    $error.fadeOut('slow');
+                    setTimeout(function() {
+                        if (self.showPreview && !self.getFrames().length) {
+                            self.clear();
+                        }
+                        $error.fadeOut('slow');                    
+                    }, 10);
                 });
             }
         },
@@ -1368,7 +1379,8 @@
             $zone.attr('tabindex', -1);
             self._handler($zone, 'click', function (e) {
                 var $tar = $(e.target);
-                if (!$tar.parents('.file-preview-thumbnails').length || $tar.parents('.file-default-preview').length) {
+                if (!$zone.find('.kv-fileinput-error:visible').length && 
+                    (!$tar.parents('.file-preview-thumbnails').length || $tar.parents('.file-default-preview').length)) {
                     self.$element.trigger('click');
                     $zone.blur();
                 }
@@ -2234,6 +2246,13 @@
                 $.extend(true, params, outData);
                 if (self._abort(params)) {
                     jqXHR.abort();
+                    if (!isBatch) {
+                        self._setThumbStatus($thumb, 'New');
+                        $thumb.removeClass('file-uploading');
+                        $btnUpload.removeAttr('disabled');
+                        $btnDelete.removeAttr('disabled');
+                        self.unlock();
+                    }
                     self._setProgressCancelled();
                 }
             };
@@ -2341,6 +2360,16 @@
                 self._raise('filebatchpreupload', [outData]);
                 if (self._abort(outData)) {
                     jqXHR.abort();
+                    self._getThumbs().each(function () {
+                        var $thumb = $(this), $btnUpload = $thumb.find('.kv-file-upload'),
+                            $btnDelete = $thumb.find('.kv-file-remove');
+                        if ($thumb.hasClass('file-preview-loading')) {
+                            self._setThumbStatus($thumb, 'New');
+                            $thumb.removeClass('file-uploading');
+                        }
+                        $btnUpload.removeAttr('disabled');
+                        $btnDelete.removeAttr('disabled');
+                    });
                     self._setProgressCancelled();
                 }
             };
@@ -2577,10 +2606,10 @@
                 fnBefore = function (jqXHR) {
                     self.ajaxAborted = false;
                     self._raise('filepredelete', [vKey, jqXHR, extraData]);
-                    $el.removeClass(errClass);
                     if (self._abort()) {
                         jqXHR.abort();
                     } else {
+                        $el.removeClass(errClass);
                         $h.addCss($frame, 'file-uploading');
                         $h.addCss($el, 'disabled ' + origClass);
                     }
@@ -4197,7 +4226,7 @@
         elPreviewImage: null,
         elPreviewStatus: null,
         elErrorContainer: null,
-        errorCloseButton: '<button type="button" class="close kv-error-close">&times;</button>',
+        errorCloseButton: $h.closeButton('kv-error-close'),
         slugCallback: null,
         dropZoneEnabled: true,
         dropZoneTitleClass: 'file-drop-zone-title',
