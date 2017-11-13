@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** 13-Nov-2017
 
+- (enh #1125): Create CODE_OF_CONDUCT.md.
 - (bug #1123): Correct error container close button click behavior for various scenarios.
 - (enh #1121): Update Spanish Translations.
 - (enh #1119): Enhance close button icon markup as per BS4 norms.
