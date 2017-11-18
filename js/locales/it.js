@@ -28,7 +28,7 @@
         msgCancelled: 'Annullato',
         msgPlaceholder: 'Select {files}...',
         msgZoomModalHeading: 'Anteprima dettagliata',
-        msgFileRequired: 'You must select a file to upload.',
+        msgFileRequired: 'Devi selezionare un file per continuare.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'Il file "{name}" (<b>{size} KB</b>) eccede la dimensione massima di caricamento di <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Devi selezionare almeno <b>{n}</b> {files} da caricare.',
@@ -52,11 +52,11 @@
             'object': 'object'
         },
         msgUploadAborted: 'Il caricamento del file è stata interrotta',
-        msgUploadThreshold: 'Processing...',
-        msgUploadBegin: 'Initializing...',
-        msgUploadEnd: 'Done',
-        msgUploadEmpty: 'No valid data available for upload.',
-        msgUploadError: 'Error',
+        msgUploadThreshold: 'Processo...',
+        msgUploadBegin: 'Inizializzazione...',
+        msgUploadEnd: 'Fatto',
+        msgUploadEmpty: 'Dati non disponibili',
+        msgUploadError: 'Errore',
         msgValidationError: 'Errore di convalida',
         msgLoading: 'Caricamento file {index} di {files}&hellip;',
         msgProgress: 'Caricamento file {index} di {files} - {name} - {percent}% completato.',
@@ -91,12 +91,12 @@
             indicatorLoadingTitle: 'Caricamento ...'
         },
         previewZoomButtonTitles: {
-            prev: 'View previous file',
-            next: 'View next file',
-            toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
+            prev: 'Vedi file precedente',
+            next: 'Vedi file seguente',
+            toggleheader: 'Aziona header',
+            fullscreen: 'Aziona full screen',
+            borderless: 'Abilita modalità senza bordi',
+            close: 'Chiudi'
         }
     };
 })(window.jQuery);
