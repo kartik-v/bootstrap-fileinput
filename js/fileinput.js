@@ -3592,9 +3592,6 @@
         },
         readFiles: function (files) {
             this.reader = new FileReader();
-            if (!(files instanceof Array)) {
-                files = [files];
-            }
             var self = this, $el = self.$element, $preview = self.$preview, reader = self.reader,
                 $container = self.$previewContainer, $status = self.$previewStatus, msgLoading = self.msgLoading,
                 msgProgress = self.msgProgress, previewInitId = self.previewInitId, numFiles = files.length,
