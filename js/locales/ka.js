@@ -26,7 +26,7 @@
         msgNoFilesSelected: 'ფაილები არ არის არჩეული',
         msgCancelled: 'გაუქმებულია',
         msgPlaceholder: 'აირჩიეთ {files}...',
-        msgZoomModalHeading: 'დეტალური პრევიუ',
+        msgZoomModalHeading: 'დეტალურად ნახვა',
         msgFileRequired: 'ატვირთვისთვის აუცილებელია ფაილის არჩევა.',
         msgSizeTooSmall: 'ფაილი "{name}" (<b>{size} KB</b>) არის ძალიან პატარა. მისი ზომა უნდა იყოს არანაკლებ <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'ფაილი "{name}" (<b>{size} KB</b>) აჭარბებს მაქსიმალურ დასაშვებ ზომას <b>{maxSize} KB</b>.',
@@ -82,7 +82,7 @@
             uploadTitle: 'ფაილის ატვირთვა',
             uploadRetryTitle: 'ატვირთვის გამეორება',
             downloadTitle: 'ფაილის ჩამოტვირთვა',
-            zoomTitle: 'დეტალების ნახვა',
+            zoomTitle: 'დეტალურად ნახვა',
             dragTitle: 'გადაადგილება / მიმდევრობის შეცვლა',
             indicatorNewTitle: 'ჯერ არ ატვირთულა',
             indicatorSuccessTitle: 'ატვირთულია',
@@ -92,10 +92,10 @@
         previewZoomButtonTitles: {
             prev: 'წინა ფაილის ნახვა',
             next: 'შემდეგი ფაილის ნახვა',
-            toggleheader: 'სათაურის გადართვა',
-            fullscreen: 'სრულ ეკრანულ რეჟიმზე გადართვა',
-            borderless: 'უსაზღვრებო რეჟიმზე გადართვა',
-            close: 'დეტალური პრევიუს დახურვა'
+            toggleheader: 'სათაურის დამალვა',
+            fullscreen: 'მთელ ეკრანზე გაშლა',
+            borderless: 'მთელ გვერდზე გაშლა',
+            close: 'დახურვა'
         }
     };
 })(window.jQuery);
