@@ -5,6 +5,11 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in progress_
 
+- (enh #1149): Enhance download button behavior to allow Firefox browser to download.
+- (enh #1143): Correct translation path in docs.
+- (enh #1142, #1141): Update Georgian translations.
+- (enh #1138, #1137): Update Italian translations.
+- (enh #1134): Update Polish translations.
 - (enh #1131): New public method `readFiles` to allow input & preview of file objects programmatically.
 - (enh #1128, #1129): Update rubaxa sortable plugin to fix Chrome support errors.
 - (enh #1127): Update Italian Translations.

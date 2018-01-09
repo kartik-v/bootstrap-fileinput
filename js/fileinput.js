@@ -689,8 +689,8 @@
                 'title="{removeTitle}" {dataUrl}{dataKey}>{removeIcon}</button>\n';
             tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
                 '{uploadIcon}</button>';
-            tActionDownload = '<button type="button" class="kv-file-download {downloadClass}" title="{downloadTitle}" ' +
-                'data-url="{downloadUrl}" data-caption="{caption}">{downloadIcon}</button>';
+            tActionDownload = '<a class="kv-file-download {downloadClass}" title="{downloadTitle}" ' +
+                'href="{downloadUrl}" download="{caption}" target="_blank">{downloadIcon}</a>';
             tActionZoom = '<button type="button" class="kv-file-zoom {zoomClass}" ' +
                 'title="{zoomTitle}">{zoomIcon}</button>';
             tActionDrag = '<span class="file-drag-handle {dragClass}" title="{dragTitle}">{dragIcon}</span>';
@@ -2676,16 +2676,6 @@
                             $.ajax(settings);
                         }
                     }
-                });
-            });
-            self.getFrames(' .kv-file-download').each(function () {
-                var $el = $(this);
-                self._handler($el, 'click', function () {
-                    var a = document.createElement('a');
-                    a.href = $el.attr('data-url');
-                    a.download = $el.attr('data-caption');
-                    a.target = '_blank';
-                    a.click();
                 });
             });
         },
