@@ -1478,17 +1478,14 @@
                 scroll: false,
                 draggable: selector,
                 onSort: function (e) {
-                    var oldIndex = e.oldIndex, newIndex = e.newIndex, $frame, $dragEl;
+                    var oldIndex = e.oldIndex, newIndex = e.newIndex, $frame, $dragEl, i = 0;
                     self.initialPreview = $h.moveArray(self.initialPreview, oldIndex, newIndex);
                     self.initialPreviewConfig = $h.moveArray(self.initialPreviewConfig, oldIndex, newIndex);
                     self.previewCache.init();
-                    for (var i = 0; i < self.initialPreviewConfig.length; i++) {
-                        if (self.initialPreviewConfig[i] !== null) {
-                            $dragEl = $(e.item);
-                            $frame = $dragEl.closest($h.FRAMES);
-                            $frame.attr('data-fileindex', 'init_' + i).attr('data-fileindex', 'init_' + i);
-                        }
-                    }
+                    self.getFrames('.file-preview-initial').each(function() {
+                        $(this).attr('data-fileindex', 'init_' + i);
+                        i++;
+                    });
                     self._raise('filesorted', {
                         previewId: $(e.item).attr('id'),
                         'oldIndex': oldIndex,
@@ -2629,9 +2626,9 @@
                     $frame.fadeOut('slow', function () {
                         index = parseInt(($frame.attr('data-fileindex')).replace('init_', ''));
                         self.previewCache.unset(index);
+                        self._deleteFileIndex($frame);
                         n = self.previewCache.count();
                         cap = n > 0 ? self._getMsgSelected(n) : '';
-                        self._deleteFileIndex($frame);
                         self._setCaption(cap);
                         self._raise('filedeleted', [vKey, jqXHR, extraData]);
                         $h.cleanZoomCache($preview.find('#zoom-' + $frame.attr('id')));

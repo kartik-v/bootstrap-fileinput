@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in progress_
 
+- (bug #1152): Correct preview thumbs stacking post sorting and/or ajax deletion.
 - (enh #1149): Enhance download button behavior to allow Firefox browser to download.
 - (enh #1143): Correct translation path in docs.
 - (enh #1142, #1141): Update Georgian translations.
