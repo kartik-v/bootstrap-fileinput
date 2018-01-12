@@ -1028,9 +1028,9 @@
                         self.initialPreviewThumbTags = [];
                         return;
                     }
-                    self.previewCache.data.content.splice(index, 1);
-                    self.previewCache.data.config.splice(index, 1);
-                    self.previewCache.data.tags.splice(index, 1);
+                    self.previewCache.data.content = $h.spliceArray(self.previewCache.data.content, index);
+                    self.previewCache.data.config = $h.spliceArray(self.previewCache.data.config, index);
+                    self.previewCache.data.tags = $h.spliceArray(self.previewCache.data.tags, index);
                 },
                 out: function () {
                     var html = '', caption, len = self.previewCache.count(), i;
