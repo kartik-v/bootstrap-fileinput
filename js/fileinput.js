@@ -575,11 +575,6 @@
                 self.$caption.attr('placeholder', self.msgPlaceholder.replace('{files}', f));
             }
             self.$captionIcon = self.$captionContainer.find('.file-caption-icon');
-            if (self.mainClass.indexOf('input-group-lg') > -1) {
-                $h.addCss(self.$captionIcon, 'icon-lg');
-            } else {
-                self.$captionIcon.removeClass('icon-lg');
-            }
             self.$previewContainer = $h.getElement(options, 'elPreviewContainer', $cont.find('.file-preview'));
             self.$preview = $h.getElement(options, 'elPreviewImage', $cont.find('.file-preview-thumbnails'));
             self.$previewStatus = $h.getElement(options, 'elPreviewStatus', $cont.find('.file-preview-status'));
@@ -617,7 +612,7 @@
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
                 '<div class="input-group {class}">\n' +
                 '  {caption}\n' +
-                '<div class="input-group-btn">\n' +
+                '<div class="input-group-btn input-group-append">\n' +
                 '      {remove}\n' +
                 '      {cancel}\n' +
                 '      {upload}\n' +
