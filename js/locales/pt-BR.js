@@ -54,7 +54,7 @@
         msgUploadBegin: 'Inicializando...',
         msgUploadEnd: 'Concluído',
         msgUploadEmpty: 'Nenhuma informação válida para upload.',
-        msgUploadError: 'Error',
+        msgUploadError: 'Erro de Upload',
         msgValidationError: 'Erro de validação',
         msgLoading: 'Enviando arquivo {index} de {files}&hellip;',
         msgProgress: 'Enviando arquivo {index} de {files} - {name} - {percent}% completo.',
