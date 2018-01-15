@@ -617,7 +617,7 @@
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
                 '<div class="input-group {class}">\n' +
                 '  {caption}\n' +
-                '<div class="input-group-btn">\n' +
+                '<div class="input-group-btn input-group-append">\n' +
                 '      {remove}\n' +
                 '      {cancel}\n' +
                 '      {upload}\n' +
