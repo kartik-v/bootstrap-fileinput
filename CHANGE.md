@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in progress_
 
+- (enh #1159): Update Portuguese Brazilian translations.
 - (enh #1157, #1158): Update input group styles for BS4 beta3.
 - (bug #1152): Correct preview thumbs stacking post sorting and/or ajax deletion.
 - (enh #1149): Enhance download button behavior to allow Firefox browser to download.
