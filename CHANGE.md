@@ -1,10 +1,11 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.4.7 (_under development_)
+## version 4.4.7
 
-**Date:** _work in progress_
+**Date:** 22-Jan-2018
 
+- Update copyright year to current.
 - (enh #1164): Update Slovak translations.
 - (enh #1163): Update Czech translations.
 - (enh #1159): Update Portuguese Brazilian translations.
