@@ -575,11 +575,6 @@
                 self.$caption.attr('placeholder', self.msgPlaceholder.replace('{files}', f));
             }
             self.$captionIcon = self.$captionContainer.find('.file-caption-icon');
-            if (self.mainClass.indexOf('input-group-lg') > -1) {
-                $h.addCss(self.$captionIcon, 'icon-lg');
-            } else {
-                self.$captionIcon.removeClass('icon-lg');
-            }
             self.$previewContainer = $h.getElement(options, 'elPreviewContainer', $cont.find('.file-preview'));
             self.$preview = $h.getElement(options, 'elPreviewImage', $cont.find('.file-preview-thumbnails'));
             self.$previewStatus = $h.getElement(options, 'elPreviewStatus', $cont.find('.file-preview-status'));
@@ -617,7 +612,7 @@
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
                 '<div class="input-group {class}">\n' +
                 '  {caption}\n' +
-                '<div class="input-group-btn">\n' +
+                '<div class="input-group-btn input-group-append">\n' +
                 '      {remove}\n' +
                 '      {cancel}\n' +
                 '      {upload}\n' +
@@ -689,8 +684,8 @@
                 'title="{removeTitle}" {dataUrl}{dataKey}>{removeIcon}</button>\n';
             tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
                 '{uploadIcon}</button>';
-            tActionDownload = '<button type="button" class="kv-file-download {downloadClass}" title="{downloadTitle}" ' +
-                'data-url="{downloadUrl}" data-caption="{caption}">{downloadIcon}</button>';
+            tActionDownload = '<a class="kv-file-download {downloadClass}" title="{downloadTitle}" ' +
+                'href="{downloadUrl}" download="{caption}" target="_blank">{downloadIcon}</a>';
             tActionZoom = '<button type="button" class="kv-file-zoom {zoomClass}" ' +
                 'title="{zoomTitle}">{zoomIcon}</button>';
             tActionDrag = '<span class="file-drag-handle {dragClass}" title="{dragTitle}">{dragIcon}</span>';
@@ -1028,9 +1023,9 @@
                         self.initialPreviewThumbTags = [];
                         return;
                     }
-                    self.previewCache.data.content.splice(index, 1);
-                    self.previewCache.data.config.splice(index, 1);
-                    self.previewCache.data.tags.splice(index, 1);
+                    self.previewCache.data.content = $h.spliceArray(self.previewCache.data.content, index);
+                    self.previewCache.data.config = $h.spliceArray(self.previewCache.data.config, index);
+                    self.previewCache.data.tags = $h.spliceArray(self.previewCache.data.tags, index);
                 },
                 out: function () {
                     var html = '', caption, len = self.previewCache.count(), i;
@@ -1478,17 +1473,14 @@
                 scroll: false,
                 draggable: selector,
                 onSort: function (e) {
-                    var oldIndex = e.oldIndex, newIndex = e.newIndex, $frame, $dragEl;
+                    var oldIndex = e.oldIndex, newIndex = e.newIndex, $frame, $dragEl, i = 0;
                     self.initialPreview = $h.moveArray(self.initialPreview, oldIndex, newIndex);
                     self.initialPreviewConfig = $h.moveArray(self.initialPreviewConfig, oldIndex, newIndex);
                     self.previewCache.init();
-                    for (var i = 0; i < self.initialPreviewConfig.length; i++) {
-                        if (self.initialPreviewConfig[i] !== null) {
-                            $dragEl = $(e.item);
-                            $frame = $dragEl.closest($h.FRAMES);
-                            $frame.attr('data-fileindex', 'init_' + i).attr('data-fileindex', 'init_' + i);
-                        }
-                    }
+                    self.getFrames('.file-preview-initial').each(function() {
+                        $(this).attr('data-fileindex', 'init_' + i);
+                        i++;
+                    });
                     self._raise('filesorted', {
                         previewId: $(e.item).attr('id'),
                         'oldIndex': oldIndex,
@@ -2629,9 +2621,9 @@
                     $frame.fadeOut('slow', function () {
                         index = parseInt(($frame.attr('data-fileindex')).replace('init_', ''));
                         self.previewCache.unset(index);
+                        self._deleteFileIndex($frame);
                         n = self.previewCache.count();
                         cap = n > 0 ? self._getMsgSelected(n) : '';
-                        self._deleteFileIndex($frame);
                         self._setCaption(cap);
                         self._raise('filedeleted', [vKey, jqXHR, extraData]);
                         $h.cleanZoomCache($preview.find('#zoom-' + $frame.attr('id')));
@@ -2676,16 +2668,6 @@
                             $.ajax(settings);
                         }
                     }
-                });
-            });
-            self.getFrames(' .kv-file-download').each(function () {
-                var $el = $(this);
-                self._handler($el, 'click', function () {
-                    var a = document.createElement('a');
-                    a.href = $el.attr('data-url');
-                    a.download = $el.attr('data-caption');
-                    a.target = '_blank';
-                    a.click();
                 });
             });
         },
@@ -3592,9 +3574,6 @@
         },
         readFiles: function (files) {
             this.reader = new FileReader();
-            if (!(files instanceof Array)) {
-                files = [files];
-            }
             var self = this, $el = self.$element, $preview = self.$preview, reader = self.reader,
                 $container = self.$previewContainer, $status = self.$previewStatus, msgLoading = self.msgLoading,
                 msgProgress = self.msgProgress, previewInitId = self.previewInitId, numFiles = files.length,
