@@ -1,6 +1,14 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.4.8 (_under development_)
+
+**Date:** _work in progress_
+
+- (bug #1173): Correct `showRemove` validation in `fileActionSettings`.
+- (enh #1168): Update Ukranian translations.
+- (enh #1166): Update Hungarian translations.
+
 ## version 4.4.7
 
 **Date:** 22-Jan-2018

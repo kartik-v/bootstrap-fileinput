@@ -156,7 +156,7 @@
         dataURI2Blob: function (dataURI) {
             //noinspection JSUnresolvedVariable
             var BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder ||
-                window.MSBlobBuilder, canBlob = $h.hasBlobSupport(), byteStr, arrayBuffer, intArray, i, mimeStr, bb,
+                    window.MSBlobBuilder, canBlob = $h.hasBlobSupport(), byteStr, arrayBuffer, intArray, i, mimeStr, bb,
                 canProceed = (canBlob || BlobBuilder) && window.atob && window.ArrayBuffer && window.Uint8Array;
             if (!canProceed) {
                 return null;
@@ -607,7 +607,7 @@
             var self = this, tMain1, tMain2, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse,
                 tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionDownload,
                 tActionZoom, tActionDrag, tIndicator, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage,
-                tText, tOffice, tVideo, tAudio, tFlash, tObject, tPdf, tOther, tZoomCache, vDefaultDim;
+                tText, tOffice, tVideo, tAudio, tFlash, tObject, tPdf, tOther, tStyle, tZoomCache, vDefaultDim;
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
                 '<div class="input-group {class}">\n' +
@@ -696,23 +696,24 @@
             tTagBef2 = tTagBef + ' title="{caption}"><div class="kv-file-content">\n';
             tTagAft = '</div>{footer}\n</div>\n';
             tGeneric = '{content}\n';
-            tHtml = '<div class="kv-preview-data file-preview-html" title="{caption}" {style}>{data}</div>\n';
+            tStyle = ' {style}';
+            tHtml = '<div class="kv-preview-data file-preview-html" title="{caption}"' + tStyle + '>{data}</div>\n';
             tImage = '<img src="{data}" class="file-preview-image kv-preview-data" title="{caption}" ' +
-                'alt="{caption}" {style}>\n';
-            tText = '<textarea class="kv-preview-data file-preview-text" title="{caption}" readonly {style}>' +
+                'alt="{caption}"' + tStyle + '>\n';
+            tText = '<textarea class="kv-preview-data file-preview-text" title="{caption}" readonly' + tStyle + '>' +
                 '{data}</textarea>\n';
             tOffice = '<iframe class="kv-preview-data file-preview-office" ' +
-                'src="https://docs.google.com/gview?url={data}&embedded=true" {style}></iframe>';
-            tVideo = '<video class="kv-preview-data file-preview-video" controls {style}>\n' +
+                'src="https://docs.google.com/gview?url={data}&embedded=true"' + tStyle + '></iframe>';
+            tVideo = '<video class="kv-preview-data file-preview-video" controls' + tStyle + '>\n' +
                 '<source src="{data}" type="{type}">\n' + $h.DEFAULT_PREVIEW + '\n</video>\n';
-            tAudio = '<audio class="kv-preview-data file-preview-audio" controls {style}>\n<source src="{data}" ' +
+            tAudio = '<!--suppress ALL --><audio class="kv-preview-data file-preview-audio" controls' + tStyle + '>\n<source src="{data}" ' +
                 'type="{type}">\n' + $h.DEFAULT_PREVIEW + '\n</audio>\n';
-            tFlash = '<embed class="kv-preview-data file-preview-flash" src="{data}" type="application/x-shockwave-flash" {style}>\n';
-            tPdf = '<embed class="kv-preview-data file-preview-pdf" src="{data}" type="application/pdf" {style}>\n';
+            tFlash = '<embed class="kv-preview-data file-preview-flash" src="{data}" type="application/x-shockwave-flash"' + tStyle + '>\n';
+            tPdf = '<embed class="kv-preview-data file-preview-pdf" src="{data}" type="application/pdf"' + tStyle + '>\n';
             tObject = '<object class="kv-preview-data file-preview-object file-object {typeCss}" ' +
-                'data="{data}" type="{type}" {style}>\n' + '<param name="movie" value="{caption}" />\n' +
+                'data="{data}" type="{type}"' + tStyle + '>\n' + '<param name="movie" value="{caption}" />\n' +
                 $h.OBJECT_PARAMS + ' ' + $h.DEFAULT_PREVIEW + '\n</object>\n';
-            tOther = '<div class="kv-preview-data file-preview-other-frame" {style}>\n' + $h.DEFAULT_PREVIEW + '\n</div>\n';
+            tOther = '<div class="kv-preview-data file-preview-other-frame"' + tStyle + '>\n' + $h.DEFAULT_PREVIEW + '\n</div>\n';
             tZoomCache = '<div class="kv-zoom-cache" style="display:none">{zoomContent}</div>';
             vDefaultDim = {width: "100%", height: "100%", 'min-height': "480px"};
             self.defaults = {
@@ -799,7 +800,7 @@
                 fileTypeSettings: {
                     image: function (vType, vName) {
                         return ($h.compare(vType, 'image.*') && !$h.compare(vType, /(tiff?|wmf)$/i) ||
-                            $h.compare(vName, /\.(gif|png|jpe?g)$/i));
+                        $h.compare(vName, /\.(gif|png|jpe?g)$/i));
                     },
                     html: function (vType, vName) {
                         return $h.compare(vType, 'text/html') || $h.compare(vName, /\.(htm|html)$/i);
@@ -1054,7 +1055,7 @@
                         dUrl = config.downloadUrl || self.initialPreviewDownloadUrl || '',
                         dFil = config.filename || config.caption || '',
                         initPreviewShowDwl = !!(dUrl),
-                        sDel = $h.ifSet('showDelete', config, $h.ifSet('showDelete', fs, initPreviewShowDel)),
+                        sDel = $h.ifSet('showRemove', config, $h.ifSet('showRemove', fs, initPreviewShowDel)),
                         sDwl = $h.ifSet('showDownload', config, $h.ifSet('showDownload', fs, initPreviewShowDwl)),
                         sZm = $h.ifSet('showZoom', config, $h.ifSet('showZoom', fs, true)),
                         sDrg = $h.ifSet('showDrag', config, $h.ifSet('showDrag', fs, true)),
@@ -1132,11 +1133,11 @@
             if (msg && $error.length) {
                 $error.html(self.errorCloseButton + msg);
                 self._handler($error.find('.kv-error-close'), 'click', function () {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         if (self.showPreview && !self.getFrames().length) {
                             self.clear();
                         }
-                        $error.fadeOut('slow');                    
+                        $error.fadeOut('slow');
                     }, 10);
                 });
             }
@@ -1358,7 +1359,7 @@
         _autoFitContent: function () {
             var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
                 self = this, config = width < 400 ? (self.previewSettingsSmall || self.defaults.previewSettingsSmall) :
-                (self.previewSettings || self.defaults.previewSettings), sel;
+                    (self.previewSettings || self.defaults.previewSettings), sel;
             $.each(config, function (cat, settings) {
                 sel = '.file-preview-frame .file-preview-' + cat;
                 self.$preview.find(sel + '.kv-preview-data,' + sel + ' .kv-preview-data').css(settings);
@@ -1374,7 +1375,7 @@
             $zone.attr('tabindex', -1);
             self._handler($zone, 'click', function (e) {
                 var $tar = $(e.target);
-                if (!$zone.find('.kv-fileinput-error:visible').length && 
+                if (!$zone.find('.kv-fileinput-error:visible').length &&
                     (!$tar.parents('.file-preview-thumbnails').length || $tar.parents('.file-default-preview').length)) {
                     self.$element.trigger('click');
                     $zone.blur();
@@ -1473,11 +1474,11 @@
                 scroll: false,
                 draggable: selector,
                 onSort: function (e) {
-                    var oldIndex = e.oldIndex, newIndex = e.newIndex, $frame, $dragEl, i = 0;
+                    var oldIndex = e.oldIndex, newIndex = e.newIndex, i = 0;
                     self.initialPreview = $h.moveArray(self.initialPreview, oldIndex, newIndex);
                     self.initialPreviewConfig = $h.moveArray(self.initialPreviewConfig, oldIndex, newIndex);
                     self.previewCache.init();
-                    self.getFrames('.file-preview-initial').each(function() {
+                    self.getFrames('.file-preview-initial').each(function () {
                         $(this).attr('data-fileindex', 'init_' + i);
                         i++;
                     });
