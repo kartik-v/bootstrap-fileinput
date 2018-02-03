@@ -8,6 +8,7 @@ Change Log: `bootstrap-fileinput`
 - (bug #1173): Correct `showRemove` validation in `fileActionSettings`.
 - (enh #1168): Update Ukranian translations.
 - (enh #1166): Update Hungarian translations.
+- (enh #1148): Update font awesome themes to include missing download icon.
 
 ## version 4.4.7
 
