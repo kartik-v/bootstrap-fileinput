@@ -458,17 +458,6 @@
     overflow-y: auto;
 }
 
-.btn-kv {
-    display: inline-block;
-    text-align: center;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    padding: 0;
-    font-size: 90%;
-    border-radius: 0.2rem;
-}
-
 .floating-buttons {
     z-index: 3000;
 }

@@ -584,17 +584,6 @@ input[type=file].file-loading {
     }
 }
 
-.btn-kv {
-    display: inline-block;
-    text-align: center;
-    width: multiply($pad, 6);
-    height: multiply($pad, 6);
-    line-height: multiply($pad, 6);
-    padding: 0;
-    font-size: 90%;
-    border-radius: 0.2rem;
-}
-
 .floating-buttons {
     z-index: 3000;
     .btn-kv {
