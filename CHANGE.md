@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in progress_
 
+- (bug #1201, #1200): Correct `elErrorContainer` validation for `browseOnZoneClick`.
+- (enh #1197): Add new Font Awesome 5 Theme.
 - (enh #1179): New property `reversePreviewOrder` to allow reversing files displayed in preview.
 - (enh #1178): Enhance BS button styling for default and FA themes.
 - (bug #1173): Correct `showRemove` validation in `fileActionSettings`.

@@ -1391,7 +1391,7 @@
             $zone.attr('tabindex', -1);
             self._handler($zone, 'click', function (e) {
                 var $tar = $(e.target);
-                if (!$zone.find('.kv-fileinput-error:visible').length &&
+                if (!$(self.elErrorContainer + ':visible').length &&
                     (!$tar.parents('.file-preview-thumbnails').length || $tar.parents('.file-default-preview').length)) {
                     self.$element.trigger('click');
                     $zone.blur();
