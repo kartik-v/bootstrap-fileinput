@@ -2000,10 +2000,15 @@
             }
             return xhrobj;
         },
+        _initAjaxSettings: function () {
+            var self = this;
+            self._ajaxSettings = $.extend({}, self.ajaxSettings);
+            self._ajaxDeleteSettings = $.extend({}, self.ajaxDeleteSettings);
+        },
         _mergeAjaxCallback: function (funcName, srcFunc, type) {
-            var self = this, settings = self.ajaxSettings, flag = self.mergeAjaxCallbacks, targFunc;
+            var self = this, settings = self._ajaxSettings, flag = self.mergeAjaxCallbacks, targFunc;
             if (type === 'delete') {
-                settings = self.ajaxDeleteSettings;
+                settings = self._ajaxDeleteSettings;
                 flag = self.mergeAjaxDeleteCallbacks;
             }
             targFunc = settings[funcName];
@@ -2022,11 +2027,6 @@
             } else {
                 settings[funcName] = srcFunc;
             }
-            if (type === 'delete') {
-                self.ajaxDeleteSettings = settings;
-            } else {
-                self.ajaxSettings = settings;
-            }
         },
         _ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError, previewId, index) {
             var self = this, settings;
@@ -2034,6 +2034,7 @@
                 return;
             }
             self._uploadExtra(previewId, index);
+            self._initAjaxSettings();
             self._mergeAjaxCallback('beforeSend', fnBefore);
             self._mergeAjaxCallback('success', fnSuccess);
             self._mergeAjaxCallback('complete', fnComplete);
@@ -2050,7 +2051,7 @@
                 cache: false,
                 processData: false,
                 contentType: false
-            }, self.ajaxSettings);
+            }, self._ajaxSettings);
             self.ajaxRequests.push($.ajax(settings));
         },
         _mergeArray: function (prop, content) {
@@ -2659,6 +2660,7 @@
                     $el.removeClass('disabled ' + origClass).addClass(errClass);
                     resetProgress();
                 };
+                self._initAjaxSettings();
                 self._mergeAjaxCallback('beforeSend', fnBefore, 'delete');
                 self._mergeAjaxCallback('success', fnSuccess, 'delete');
                 self._mergeAjaxCallback('error', fnError, 'delete');
@@ -2667,7 +2669,7 @@
                     type: 'POST',
                     dataType: 'json',
                     data: $.extend(true, {}, {key: vKey}, extraData)
-                }, self.ajaxDeleteSettings);
+                }, self._ajaxDeleteSettings);
                 self._handler($el, 'click', function () {
                     if (!self._validateMinCount()) {
                         return false;
