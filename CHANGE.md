@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in progress_
 
+- (enh #1210): Enhance support for Office Docs Preview and Google Docs Preview.
 - (bug #1201, #1200): Correct `elErrorContainer` validation for `browseOnZoneClick`.
 - (enh #1197): Add new Font Awesome 5 Theme.
 - (enh #1179): New property `reversePreviewOrder` to allow reversing files displayed in preview.

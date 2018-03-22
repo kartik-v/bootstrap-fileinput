@@ -621,7 +621,7 @@
             var self = this, tMain1, tMain2, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse,
                 tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionDownload,
                 tActionZoom, tActionDrag, tIndicator, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage,
-                tText, tOffice, tVideo, tAudio, tFlash, tObject, tPdf, tOther, tStyle, tZoomCache, vDefaultDim;
+                tText, tOffice, tGdocs, tVideo, tAudio, tFlash, tObject, tPdf, tOther, tStyle, tZoomCache, vDefaultDim;
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
                 '<div class="input-group {class}">\n' +
@@ -718,6 +718,8 @@
             tText = '<textarea class="kv-preview-data file-preview-text" title="{caption}" readonly' + tStyle + '>' +
                 '{data}</textarea>\n';
             tOffice = '<iframe class="kv-preview-data file-preview-office" ' +
+                'src="https://view.officeapps.live.com/op/embed.aspx?src={data}&embedded=true"' + tStyle + '></iframe>';
+            tGdocs = '<iframe class="kv-preview-data file-preview-gdocs" ' +
                 'src="https://docs.google.com/gview?url={data}&embedded=true"' + tStyle + '></iframe>';
             tVideo = '<video class="kv-preview-data file-preview-video" controls' + tStyle + '>\n' +
                 '<source src="{data}" type="{type}">\n' + $h.DEFAULT_PREVIEW + '\n</video>\n';
@@ -767,6 +769,7 @@
                     image: tImage,
                     text: tText,
                     office: tOffice,
+                    gdocs: tGdocs,
                     video: tVideo,
                     audio: tAudio,
                     flash: tFlash,
@@ -781,6 +784,7 @@
                     html: {width: "213px", height: "160px"},
                     text: {width: "213px", height: "160px"},
                     office: {width: "213px", height: "160px"},
+                    gdocs: {width: "213px", height: "160px"},
                     video: {width: "213px", height: "160px"},
                     audio: {width: "100%", height: "30px"},
                     flash: {width: "213px", height: "160px"},
@@ -793,6 +797,7 @@
                     html: {width: "100%", height: "160px"},
                     text: {width: "100%", height: "160px"},
                     office: {width: "100%", height: "160px"},
+                    gdocs: {width: "100%", height: "160px"},
                     video: {width: "100%", height: "auto"},
                     audio: {width: "100%", height: "30px"},
                     flash: {width: "100%", height: "auto"},
@@ -805,6 +810,7 @@
                     html: vDefaultDim,
                     text: vDefaultDim,
                     office: {width: "100%", height: "100%", 'max-width': "100%", 'min-height': "480px"},
+                    gdocs: {width: "100%", height: "100%", 'max-width': "100%", 'min-height': "480px"},
                     video: {width: "auto", height: "100%", 'max-width': "100%"},
                     audio: {width: "100%", height: "30px"},
                     flash: {width: "auto", height: "480px"},
@@ -821,8 +827,12 @@
                         return $h.compare(vType, 'text/html') || $h.compare(vName, /\.(htm|html)$/i);
                     },
                     office: function (vType, vName) {
+                        return $h.compare(vType, /(word|excel|powerpoint|office)$/i) ||
+                            $h.compare(vName, /\.(docx?|xlsx?|pptx?|pps|potx?)$/i);
+                    },
+                    gdocs: function (vType, vName) {
                         return $h.compare(vType, /(word|excel|powerpoint|office|iwork-pages|tiff?)$/i) ||
-                            $h.compare(vName, /\.(rtf|docx?|xlsx?|pptx?|pps|potx?|ods|odt|pages|ai|dxf|ttf|tiff?|wmf|e?ps)$/i);
+                            $h.compare(vName, /\.(docx?|xlsx?|pptx?|pps|potx?|rtf|ods|odt|pages|ai|dxf|ttf|tiff?|wmf|e?ps)$/i);
                     },
                     text: function (vType, vName) {
                         return $h.compare(vType, 'text.*') || $h.compare(vName, /\.(xml|javascript)$/i) ||
