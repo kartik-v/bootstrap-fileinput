@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in progress_
 
+- (bug #1215): Correct zoom preview for errored thumbnails.
 - (enh #1210): Enhance support for Office Docs Preview and Google Docs Preview.
 - (bug #1204): Correct merging of ajax callbacks.
 - (bug #1201, #1200): Correct `elErrorContainer` validation for `browseOnZoneClick`.

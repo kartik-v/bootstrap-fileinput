@@ -3542,7 +3542,7 @@
             var self = this, i = 0, newstack = [], newnames = [], newids = [];
             self._getThumbs().each(function () {
                 var $thumb = $(this), ind = $thumb.attr('data-fileindex'), file = self.filestack[ind],
-                    pid = $thumb.attr('id'), newId;
+                    pid = $thumb.attr('id');
                 if (ind === '-1' || ind === -1) {
                     return;
                 }
@@ -3553,10 +3553,12 @@
                     $thumb.attr({'id': self.previewInitId + '-' + i, 'data-fileindex': i});
                     i++;
                 } else {
-                    newId = 'uploaded-' + $h.uniqId();
-                    $thumb.attr({'id': newId, 'data-fileindex': '-1'});
-                    self.$preview.find('#zoom-' + pid).attr('id', 'zoom-' + newId);
+                    $thumb.attr({'id': 'uploaded-' + $h.uniqId(), 'data-fileindex': '-1'});
                 }
+                self.$preview.find('#zoom-' + pid).attr({
+                    'id': 'zoom-' + $thumb.attr('id'),
+                    'data-fileindex': $thumb.attr('data-fileindex')
+                });
             });
             self.filestack = newstack;
             self.filenames = newnames;
