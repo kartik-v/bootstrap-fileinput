@@ -78,6 +78,16 @@
             div.parentNode.removeChild(div);
             return status;
         },
+        canAssignFilesToInput: function() {
+            var input = document.createElement('input');
+            try {
+                input.type = "file";
+                input.files = null;
+                return true;
+            } catch(err) {
+                return false;
+            }
+        },
         initModal: function ($modal) {
             var $body = $('body');
             if ($body.length) {
@@ -552,7 +562,7 @@
             self.progressTemplate = t.replace('{class}', self.progressClass);
             self.progressCompleteTemplate = t.replace('{class}', self.progressCompleteClass);
             self.progressErrorTemplate = t.replace('{class}', self.progressErrorClass);
-            self.dropZoneEnabled = $h.hasDragDropSupport() && self.dropZoneEnabled;
+            self.dropZoneEnabled = $h.hasDragDropSupport() && self.dropZoneEnabled && $h.canAssignFilesToInput();
             self.isDisabled = $el.attr('disabled') || $el.attr('readonly');
             if (self.isDisabled) {
                 $el.attr('disabled', true);
@@ -1439,13 +1449,22 @@
             self.$dropZone.removeClass('file-highlighted');
         },
         _zoneDrop: function (e) {
-            var self = this;
-            e.preventDefault();
             /** @namespace e.originalEvent.dataTransfer */
-            if (self.isDisabled || $h.isEmpty(e.originalEvent.dataTransfer.files)) {
+            var self = this, $el = self.$element, files =  e.originalEvent.dataTransfer.files;
+            e.preventDefault();
+            if (self.isDisabled || $h.isEmpty(files)) {
                 return;
             }
-            self._change(e, 'dragdrop');
+            if (!self.isAjaxUpload) {
+                self.changeTriggered = true;
+                $el.get(0).files = files;
+                setTimeout(function() {
+                    self.changeTriggered = false;
+                    $el.trigger('change' + self.namespace);
+                }, 10);
+            } else {
+                self._change(e, files);
+            }
             self.$dropZone.removeClass('file-highlighted');
         },
         _uploadClick: function (e) {
@@ -3433,15 +3452,21 @@
             fileIds.push(fileId);
         },
         _change: function (e) {
-            var self = this, $el = self.$element, isDragDrop = arguments.length > 1, isAjaxUpload = self.isAjaxUpload,
-                tfiles = [], files = isDragDrop ? e.originalEvent.dataTransfer.files : $el.get(0).files, msg, total,
+            var self = this;
+            if (self.changeTriggered) {
+                return;
+            }
+            var $el = self.$element, isDragDrop = arguments.length > 1, isAjaxUpload = self.isAjaxUpload,
+                tfiles = [], files = isDragDrop ? arguments[1] : $el.get(0).files, total,
+                maxCount = !isAjaxUpload && $h.isEmpty($el.attr('multiple')) ? 1 : self.maxFileCount,
                 len, ctr = self.filestack.length, isSingleUpload = $h.isEmpty($el.attr('multiple')),
                 flagSingle = (isSingleUpload && ctr > 0), folders = 0, fileIds = self._getFileIds(),
                 throwError = function (mesg, file, previewId, index) {
                     var p1 = $.extend(true, {}, self._getOutData({}, {}, files), {id: previewId, index: index}),
                         p2 = {id: previewId, index: index, file: file, files: files};
                     return isAjaxUpload ? self._showUploadError(mesg, p1) : self._showError(mesg, p2);
-                }, maxCountCheck = function (n, m) {
+                },
+                maxCountCheck = function (n, m) {
                     var msg = self.msgFilesTooMany.replace('{m}', m).replace('{n}', n);
                     self.isError = throwError(msg, null, null, null);
                     self.$captionContainer.removeClass('icon-visible');
@@ -3454,25 +3479,14 @@
             if (self.dropZoneEnabled) {
                 self.$container.find('.file-drop-zone .' + self.dropZoneTitleClass).remove();
             }
-            if (isDragDrop) {
-                if (self.isAjaxUpload) {
-                    $.each(files, function (i, f) {
-                        if (f && !f.type && f.size !== undefined && f.size % 4096 === 0) {
-                            folders++;
-                        } else {
-                            self._filterDuplicate(f, tfiles, fileIds);
-                        }
-                    });
-                } else {
-                    tfiles = files;
-                    len = tfiles.length;
-                    if (isSingleUpload && len > 1) {
-                        maxCountCheck(len, 1);
-                        return;
+            if (isDragDrop && isAjaxUpload) {
+                $.each(files, function (i, f) {
+                    if (f && !f.type && f.size !== undefined && f.size % 4096 === 0) {
+                        folders++;
                     } else {
-                        $el.files = tfiles;
+                        self._filterDuplicate(f, tfiles, fileIds);
                     }
-                }
+                });
             } else {
                 if (e.target && e.target.files === undefined) {
                     files = e.target.value ? [{name: e.target.value.replace(/^.+\\/, '')}] : [];
@@ -3498,12 +3512,12 @@
             self._resetErrors();
             len = tfiles.length;
             total = self._getFileCount(isAjaxUpload ? (self.getFileStack().length + len) : len);
-            if (self.maxFileCount > 0 && total > self.maxFileCount) {
-                if (!self.autoReplace || len > self.maxFileCount) {
-                    maxCountCheck(self.autoReplace && len > self.maxFileCount ? len : total, self.maxFileCount);
+            if (maxCount > 0 && total > maxCount) {
+                if (!self.autoReplace || len > maxCount) {
+                    maxCountCheck((self.autoReplace && len > maxCount ? len : total), maxCount);
                     return;
                 }
-                if (total > self.maxFileCount) {
+                if (total > maxCount) {
                     self._resetPreviewThumbs(isAjaxUpload);
                 }
             } else {
