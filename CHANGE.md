@@ -6,6 +6,7 @@ Change Log: `bootstrap-fileinput`
 **Date:** _work in progress_
 
 - (bug #1217): Fix drag and drop to send files correctly for form submission.
+- (enh #1216): Add drag and drop support for folders for webkit browsers (only for ajax upload mode).
 - (bug #1215): Correct zoom preview for errored thumbnails.
 - (enh #1210): Enhance support for Office Docs Preview and Google Docs Preview.
 - (bug #1204): Correct merging of ajax callbacks.

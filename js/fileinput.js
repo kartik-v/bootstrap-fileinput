@@ -78,15 +78,27 @@
             div.parentNode.removeChild(div);
             return status;
         },
-        canAssignFilesToInput: function() {
+        canAssignFilesToInput: function () {
             var input = document.createElement('input');
             try {
                 input.type = "file";
                 input.files = null;
                 return true;
-            } catch(err) {
+            } catch (err) {
                 return false;
             }
+        },
+        getDragDropFolders: function (items) {
+            var i, item, len = items.length, folders = 0;
+            if (len > 0 && items[0].webkitGetAsEntry()) {
+                for (i = 0; i < len; i++) {
+                    item = items[i].webkitGetAsEntry();
+                    if (item && item.isDirectory) {
+                        folders++;
+                    }
+                }
+            }
+            return folders;
         },
         initModal: function ($modal) {
             var $body = $('body');
@@ -612,12 +624,16 @@
                 self._initPreviewCache();
                 self._initPreview(true);
                 self._initPreviewActions();
-                self._setFileDropZoneTitle();
                 if (self.$parent.hasClass('file-loading')) {
                     self.$container.insertBefore(self.$parent);
                     self.$parent.remove();
                 }
+            } else {
+                if (!self._errorsExist()) {
+                    self.$errorContainer.hide();
+                }
             }
+            self._setFileDropZoneTitle();
             if ($el.attr('disabled')) {
                 self.disable();
             }
@@ -1200,6 +1216,9 @@
             if (!folders) {
                 return;
             }
+            if (!self.isAjaxUpload) {
+                self._clearFileInput();
+            }
             msg = self.msgFoldersNotAllowed.replace('{n}', folders);
             self._addError(msg);
             self._setValidationError();
@@ -1417,6 +1436,36 @@
                 }
             });
         },
+        _scanDroppedItems: function (item, files, path) {
+            path = path || "";
+            var self = this, i, dirReader, readDir, errorHandler = function (e) {
+                self._log('Error scanning dropped files!');
+                self._log(e);
+            };
+            if (item.isFile) {
+                item.file(function (file) {
+                    files.push(file);
+                }, errorHandler);
+            } else {
+                if (item.isDirectory) {
+                    dirReader = item.createReader();
+                    readDir = function () {
+                        dirReader.readEntries(function (entries) {
+                            if (entries && entries.length > 0) {
+                                for (i = 0; i < entries.length; i++) {
+                                    self._scanDroppedItems(entries[i], files, path + item.name + "/");
+                                }
+                                // recursively call readDir() again, since browser can only handle first 100 entries.
+                                readDir();
+                            }
+                            return null;
+                        }, errorHandler);
+                    };
+                    readDir();
+                }
+            }
+
+        },
         _initDragDrop: function () {
             var self = this, $zone = self.$dropZone;
             if (self.dropZoneEnabled && self.showPreview) {
@@ -1450,22 +1499,43 @@
         },
         _zoneDrop: function (e) {
             /** @namespace e.originalEvent.dataTransfer */
-            var self = this, $el = self.$element, files =  e.originalEvent.dataTransfer.files;
+            var self = this, i, $el = self.$element, dataTransfer = e.originalEvent.dataTransfer,
+                files = dataTransfer.files, items = dataTransfer.items, folders = $h.getDragDropFolders(items),
+                processFiles = function () {
+                    if (!self.isAjaxUpload) {
+                        self.changeTriggered = true;
+                        $el.get(0).files = files;
+                        setTimeout(function () {
+                            self.changeTriggered = false;
+                            $el.trigger('change' + self.namespace);
+                        }, 10);
+                    } else {
+                        self._change(e, files);
+                    }
+                    self.$dropZone.removeClass('file-highlighted');
+                };
             e.preventDefault();
             if (self.isDisabled || $h.isEmpty(files)) {
                 return;
             }
-            if (!self.isAjaxUpload) {
-                self.changeTriggered = true;
-                $el.get(0).files = files;
-                setTimeout(function() {
-                    self.changeTriggered = false;
-                    $el.trigger('change' + self.namespace);
-                }, 10);
+            if (folders > 0) {
+                if (!self.isAjaxUpload) {
+                    self._showFolderError(folders);
+                    return;
+                }
+                files = [];
+                for (i = 0; i < items.length; i++) {
+                    var item = items[i].webkitGetAsEntry();
+                    if (item) {
+                        self._scanDroppedItems(item, files);
+                    }
+                }
+                setTimeout(function () {
+                    processFiles();
+                }, 500);
             } else {
-                self._change(e, files);
+                processFiles();
             }
-            self.$dropZone.removeClass('file-highlighted');
         },
         _uploadClick: function (e) {
             var self = this, $btn = self.$container.find('.fileinput-upload'), $form,
@@ -3442,6 +3512,7 @@
         },
         _filterDuplicate: function (file, files, fileIds) {
             var self = this, fileId = self._getFileId(file);
+
             if (fileId && fileIds && fileIds.indexOf(fileId) > -1) {
                 return;
             }
@@ -3460,7 +3531,7 @@
                 tfiles = [], files = isDragDrop ? arguments[1] : $el.get(0).files, total,
                 maxCount = !isAjaxUpload && $h.isEmpty($el.attr('multiple')) ? 1 : self.maxFileCount,
                 len, ctr = self.filestack.length, isSingleUpload = $h.isEmpty($el.attr('multiple')),
-                flagSingle = (isSingleUpload && ctr > 0), folders = 0, fileIds = self._getFileIds(),
+                flagSingle = (isSingleUpload && ctr > 0), fileIds = self._getFileIds(),
                 throwError = function (mesg, file, previewId, index) {
                     var p1 = $.extend(true, {}, self._getOutData({}, {}, files), {id: previewId, index: index}),
                         p2 = {id: previewId, index: index, file: file, files: files};
@@ -3479,13 +3550,9 @@
             if (self.dropZoneEnabled) {
                 self.$container.find('.file-drop-zone .' + self.dropZoneTitleClass).remove();
             }
-            if (isDragDrop && isAjaxUpload) {
-                $.each(files, function (i, f) {
-                    if (f && !f.type && f.size !== undefined && f.size % 4096 === 0) {
-                        folders++;
-                    } else {
-                        self._filterDuplicate(f, tfiles, fileIds);
-                    }
+            if (isAjaxUpload) {
+                $.each(files, function (vKey, vFile) {
+                    self._filterDuplicate(vFile, tfiles, fileIds);
                 });
             } else {
                 if (e.target && e.target.files === undefined) {
@@ -3493,19 +3560,12 @@
                 } else {
                     files = e.target.files || {};
                 }
-                if (isAjaxUpload) {
-                    $.each(files, function (i, f) {
-                        self._filterDuplicate(f, tfiles, fileIds);
-                    });
-                } else {
-                    tfiles = files;
-                }
+                tfiles = files;
             }
             if ($h.isEmpty(tfiles) || tfiles.length === 0) {
                 if (!isAjaxUpload) {
                     self.clear();
                 }
-                self._showFolderError(folders);
                 self._raise('fileselectnone');
                 return;
             }
@@ -3537,7 +3597,6 @@
             } else {
                 self._updateFileDetails(1);
             }
-            self._showFolderError(folders);
         },
         _abort: function (params) {
             var self = this, data;
