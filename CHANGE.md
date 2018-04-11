@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** 11-Apr-2018
 
+- (enh #1221): Update Indonesian Translations.
 - (enh #1220): Add Krajee Explorer Font Awesome 5 Theme (`explorer-fas`).
 - (enh #1219): Update Chinese translations.
 - (bug #1217): Fix drag and drop to send files correctly for form submission.
