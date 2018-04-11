@@ -2,8 +2,8 @@
  * bootstrap-fileinput v4.4.8
  * http://plugins.krajee.com/file-input
  *
- * Krajee Explorer Font Awesome 4.x theme style for bootstrap-fileinput. Load this theme file after loading
- * font awesome 4.x CSS and `fileinput.css`.
+ * Krajee Explorer Font Awesome 5.x theme style for bootstrap-fileinput. Load this theme file after loading
+ * font awesome 5.x CSS and `fileinput.css`.
  *
  * Author: Kartik Visweswaran
  * Copyright: 2014 - 2018, Kartik Visweswaran, Krajee.com
@@ -11,17 +11,17 @@
  * Licensed under the BSD 3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
-.theme-explorer-fa .file-upload-indicator, .theme-explorer-fa .file-drag-handle, .theme-explorer-fa .explorer-frame .kv-file-content, .theme-explorer-fa .file-actions, .explorer-frame .file-preview-other {
+.theme-explorer-fas .file-upload-indicator, .theme-explorer-fas .file-drag-handle, .theme-explorer-fas .explorer-frame .kv-file-content, .theme-explorer-fas .file-actions, .explorer-frame .file-preview-other {
     text-align: center;
 }
 
-.theme-explorer-fa .file-thumb-progress .progress, .theme-explorer-fa .file-thumb-progress .progress-bar {
+.theme-explorer-fas .file-thumb-progress .progress, .theme-explorer-fas .file-thumb-progress .progress-bar {
     height: 13px;
     font-size: 11px;
     line-height: 13px;
 }
 
-.theme-explorer-fa .file-upload-indicator, .theme-explorer-fa .file-drag-handle {
+.theme-explorer-fas .file-upload-indicator, .theme-explorer-fas .file-drag-handle {
     position: absolute;
     display: inline-block;
     top: 0;
@@ -31,46 +31,46 @@
     font-size: 16px;
 }
 
-.theme-explorer-fa .file-thumb-progress .progress, .theme-explorer-fa .explorer-caption {
+.theme-explorer-fas .file-thumb-progress .progress, .theme-explorer-fas .explorer-caption {
     display: block;
 }
 
-.theme-explorer-fa .explorer-frame td {
+.theme-explorer-fas .explorer-frame td {
     vertical-align: middle;
     text-align: left;
 }
 
-.theme-explorer-fa .explorer-frame .kv-file-content {
+.theme-explorer-fas .explorer-frame .kv-file-content {
     width: 80px;
     height: 80px;
     padding: 5px;
 }
 
-.theme-explorer-fa .file-actions-cell {
+.theme-explorer-fas .file-actions-cell {
     position: relative;
     width: 120px;
     padding: 0;
 }
 
-.theme-explorer-fa .file-thumb-progress .progress {
+.theme-explorer-fas .file-thumb-progress .progress {
     margin-top: 5px;
 }
 
-.theme-explorer-fa .explorer-caption {
+.theme-explorer-fas .explorer-caption {
     color: #777;
 }
 
-.theme-explorer-fa .kvsortable-ghost {
+.theme-explorer-fas .kvsortable-ghost {
     opacity: 0.6;
     background: #e1edf7;
     border: 2px solid #a1abff;
 }
 
-.theme-explorer-fa .file-preview .table {
+.theme-explorer-fas .file-preview .table {
     margin: 0;
 }
 
-.theme-explorer-fa .file-error-message ul {
+.theme-explorer-fas .file-error-message ul {
     padding: 5px 0 0 20px;
 }
 
@@ -96,51 +96,51 @@
 }
 
 @media only screen and (max-width: 767px) {
-    .theme-explorer-fa .table, .theme-explorer-fa .table tbody, .theme-explorer-fa .table tr, .theme-explorer-fa .table td {
+    .theme-explorer-fas .table, .theme-explorer-fas .table tbody, .theme-explorer-fas .table tr, .theme-explorer-fas .table td {
         display: block;
         width: 100% !important;
     }
 
-    .theme-explorer-fa .table {
+    .theme-explorer-fas .table {
         border: none;
     }
 
-    .theme-explorer-fa .table tr {
+    .theme-explorer-fas .table tr {
         margin-top: 5px;
     }
 
-    .theme-explorer-fa .table tr:first-child {
+    .theme-explorer-fas .table tr:first-child {
         margin-top: 0;
     }
 
-    .theme-explorer-fa .table td {
+    .theme-explorer-fas .table td {
         text-align: center;
     }
 
-    .theme-explorer-fa .table .kv-file-content {
+    .theme-explorer-fas .table .kv-file-content {
         border-bottom: none;
         padding: 4px;
         margin: 0;
     }
 
-    .theme-explorer-fa .table .kv-file-content .file-preview-image {
+    .theme-explorer-fas .table .kv-file-content .file-preview-image {
         max-width: 100%;
         font-size: 20px;
     }
 
-    .theme-explorer-fa .file-details-cell {
+    .theme-explorer-fas .file-details-cell {
         border-top: none;
         border-bottom: none;
         padding-top: 0;
         margin: 0;
     }
 
-    .theme-explorer-fa .file-actions-cell {
+    .theme-explorer-fas .file-actions-cell {
         border-top: none;
         padding-bottom: 4px;
     }
 
-    .theme-explorer-fa .explorer-frame .explorer-caption {
+    .theme-explorer-fas .explorer-frame .explorer-caption {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;

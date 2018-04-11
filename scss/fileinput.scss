@@ -226,7 +226,6 @@ input[type=file].file-loading {
 .file-caption-icon {
     @extend %set-hidden;
     @extend %set-absolute;
-    line-height: 1;
     left: multiply($pad, 1.6);
 }
 

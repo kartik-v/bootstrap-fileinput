@@ -1,10 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.4.8 (_under development_)
+## version 4.4.8
 
-**Date:** _work in progress_
+**Date:** 11-Apr-2018
 
+- (enh #1220): Add Krajee Explorer Font Awesome 5 Theme (`explorer-fas`).
+- (enh #1219): Update Chinese translations.
 - (bug #1217): Fix drag and drop to send files correctly for form submission.
 - (enh #1216): Add drag and drop support for folders for webkit browsers (only for ajax upload mode).
 - (bug #1215): Correct zoom preview for errored thumbnails.

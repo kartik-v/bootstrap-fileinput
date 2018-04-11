@@ -15,12 +15,12 @@
 
     $.fn.fileinputThemes.fas = {
         fileActionSettings: {
-            removeIcon: '<i class="fas fa-trash"></i>',
+            removeIcon: '<i class="fas fa-trash-alt"></i>',
             uploadIcon: '<i class="fas fa-upload"></i>',
             uploadRetryIcon: '<i class="fas fa-redo-alt"></i>',
             downloadIcon: '<i class="fas fa-download"></i>',
             zoomIcon: '<i class="fas fa-search-plus"></i>',
-            dragIcon: '<i class="fas fa-bars"></i>',
+            dragIcon: '<i class="fas fa-arrows"></i>',
             indicatorNew: '<i class="fas fa-plus-circle text-warning"></i>',
             indicatorSuccess: '<i class="fas fa-check-circle text-success"></i>',
             indicatorError: '<i class="fas fa-exclamation-circle text-danger"></i>',

@@ -20,7 +20,7 @@
             uploadRetryIcon: '<i class="fa fa-repeat"></i>',
             downloadIcon: '<i class="fa fa-download"></i>',
             zoomIcon: '<i class="fa fa-search-plus"></i>',
-            dragIcon: '<i class="fa fa-bars"></i>',
+            dragIcon: '<i class="fa fa-arrows"></i>',
             indicatorNew: '<i class="fa fa-plus-circle text-warning"></i>',
             indicatorSuccess: '<i class="fa fa-check-circle text-success"></i>',
             indicatorError: '<i class="fa fa-exclamation-circle text-danger"></i>',
