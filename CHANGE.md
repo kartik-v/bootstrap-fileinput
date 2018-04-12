@@ -1,10 +1,61 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.4.6 (_under development_)
+## version 4.4.9 (_under development_)
 
-**Date:** Work in progress
+**Date:** _work in process_
 
+- (enh #1223): Update Font Awesome 5.x theme icons.
+
+## version 4.4.8
+
+**Date:** 11-Apr-2018
+
+- (enh #1221): Update Indonesian Translations.
+- (enh #1220): Add Krajee Explorer Font Awesome 5 Theme (`explorer-fas`).
+- (enh #1219): Update Chinese translations.
+- (bug #1217): Fix drag and drop to send files correctly for form submission.
+- (enh #1216): Add drag and drop support for folders for webkit browsers (only for ajax upload mode).
+- (bug #1215): Correct zoom preview for errored thumbnails.
+- (enh #1210): Enhance support for Office Docs Preview and Google Docs Preview.
+- (bug #1204): Correct merging of ajax callbacks.
+- (bug #1201, #1200): Correct `elErrorContainer` validation for `browseOnZoneClick`.
+- (enh #1197): Add new Font Awesome 5 Theme.
+- (enh #1193): Add drag and drop functionality for form based submissions.
+- (enh #1179): New property `reversePreviewOrder` to allow reversing files displayed in preview.
+- (enh #1178): Enhance BS button styling for default and FA themes.
+- (bug #1173): Correct `showRemove` validation in `fileActionSettings`.
+- (enh #1168): Update Ukranian translations.
+- (enh #1166): Update Hungarian translations.
+- (enh #1148): Update font awesome themes to include missing download icon.
+
+## version 4.4.7
+
+**Date:** 22-Jan-2018
+
+- Update copyright year to current.
+- (enh #1164): Update Slovak translations.
+- (enh #1163): Update Czech translations.
+- (enh #1159): Update Portuguese Brazilian translations.
+- (enh #1157, #1158): Update input group styles for BS4 beta3.
+- (bug #1152): Correct preview thumbs stacking post sorting and/or ajax deletion.
+- (enh #1149): Enhance download button behavior to allow Firefox browser to download.
+- (enh #1143): Correct translation path in docs.
+- (enh #1142, #1141): Update Georgian translations.
+- (enh #1138, #1137): Update Italian translations.
+- (enh #1134): Update Polish translations.
+- (enh #1131): New public method `readFiles` to allow input & preview of file objects programmatically.
+- (enh #1128, #1129): Update rubaxa sortable plugin to fix Chrome support errors.
+- (enh #1127): Update Italian Translations.
+
+## version 4.4.6
+
+**Date:** 13-Nov-2017
+
+- (enh #1125): Create CODE_OF_CONDUCT.md.
+- (bug #1123): Correct error container close button click behavior for various scenarios.
+- (enh #1121): Update Spanish Translations.
+- (enh #1119): Enhance close button icon markup as per BS4 norms.
 - (enh #1118): Better file action button style.
 - (bug #1117): Reset `ajaxAborted` status more correctly before upload.
 - (enh #1113): Correct slug default callback to include hyphens in file name.

@@ -53,8 +53,8 @@
         msgUploadThreshold: 'Processando...',
         msgUploadBegin: 'Inicializando...',
         msgUploadEnd: 'Concluído',
-        msgUploadEmpty: 'Nanhuma informação válida para upload.',
-        msgUploadError: 'Error',
+        msgUploadEmpty: 'Nenhuma informação válida para upload.',
+        msgUploadError: 'Erro de Upload',
         msgValidationError: 'Erro de validação',
         msgLoading: 'Enviando arquivo {index} de {files}&hellip;',
         msgProgress: 'Enviando arquivo {index} de {files} - {name} - {percent}% completo.',
@@ -69,10 +69,10 @@
         msgAjaxError: 'Algo deu errado com a operação {operation}. Por favor tente novamente mais tarde!',
         msgAjaxProgressError: '{operation} falhou',
         ajaxOperations: {
-            deleteThumb: 'deleção de arquivo',
-            uploadThumb: 'envio de arquivo',
-            uploadBatch: 'envio de arquivos em lote',
-            uploadExtra: 'envio de dados do formulário'
+            deleteThumb: 'Exclusão de arquivo',
+            uploadThumb: 'Upload de arquivos',
+            uploadBatch: 'Carregamento de arquivos em lote',
+            uploadExtra: 'Carregamento de dados do formulário'
         },
         dropZoneTitle: 'Arraste e solte os arquivos aqui&hellip;',
         dropZoneClickTitle: '<br>(ou clique para selecionar o(s) arquivo(s))',

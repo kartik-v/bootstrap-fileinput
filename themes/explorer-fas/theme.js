@@ -16,7 +16,7 @@
     "use strict";
     var teTagBef = '<tr class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
         ' data-template="{template}"', teContent = '<td class="kv-file-content">\n';
-    $.fn.fileinputThemes['explorer-fa'] = {
+    $.fn.fileinputThemes['explorer-fas'] = {
         layoutTemplates: {
             preview: '<div class="file-preview {class}">\n' +
             '    {close}' +
@@ -38,7 +38,7 @@
             '</div>',
             zoomCache: '<tr style="display:none" class="kv-zoom-cache-theme"><td>' +
             '<table class="kv-zoom-cache">{zoomContent}</table></td></tr>',
-            fileIcon: '<i class="fa fa-file kv-caption-icon"></i> '
+            fileIcon: '<i class="fas fa-file kv-caption-icon"></i> '
         },
         previewMarkupTags: {
             tagBefore1: teTagBef + '>' + teContent,
@@ -58,30 +58,30 @@
         },
         frameClass: 'explorer-frame',
         fileActionSettings: {
-            removeIcon: '<i class="fa fa-trash"></i>',
-            uploadIcon: '<i class="fa fa-upload"></i>',
-            uploadRetryIcon: '<i class="fa fa-repeat"></i>',
-            downloadIcon: '<i class="fa fa-download"></i>',
-            zoomIcon: '<i class="fa fa-search-plus"></i>',
-            dragIcon: '<i class="fa fa-arrows"></i>',
-            indicatorNew: '<i class="fa fa-plus-circle text-warning"></i>',
-            indicatorSuccess: '<i class="fa fa-check-circle text-success"></i>',
-            indicatorError: '<i class="fa fa-exclamation-circle text-danger"></i>',
-            indicatorLoading: '<i class="fa fa-hourglass text-muted"></i>'
+            removeIcon: '<i class="fas fa-trash-alt"></i>',
+            uploadIcon: '<i class="fas fa-upload"></i>',
+            uploadRetryIcon: '<i class="fas fa-redo-alt"></i>',
+            downloadIcon: '<i class="fas fa-download"></i>',
+            zoomIcon: '<i class="fas fa-search-plus"></i>',
+            dragIcon: '<i class="fas fa-arrows-alt"></i>',
+            indicatorNew: '<i class="fas fa-plus-circle text-warning"></i>',
+            indicatorSuccess: '<i class="fas fa-check-circle text-success"></i>',
+            indicatorError: '<i class="fas fa-exclamation-circle text-danger"></i>',
+            indicatorLoading: '<i class="fas fa-hourglass text-muted"></i>'
         },
         previewZoomButtonIcons: {
-            prev: '<i class="fa fa-caret-left fa-lg"></i>',
-            next: '<i class="fa fa-caret-right fa-lg"></i>',
-            toggleheader: '<i class="fa fa-fw fa-arrows-v"></i>',
-            fullscreen: '<i class="fa fa-fw fa-arrows-alt"></i>',
-            borderless: '<i class="fa fa-fw fa-external-link"></i>',
-            close: '<i class="fa fa-fw fa-remove"></i>'
+            prev: '<i class="fas fa-caret-left fa-lg"></i>',
+            next: '<i class="fas fa-caret-right fa-lg"></i>',
+            toggleheader: '<i class="fas fa-fw fa-arrows-alt-v"></i>',
+            fullscreen: '<i class="fas fa-fw fa-arrows-alt"></i>',
+            borderless: '<i class="fas fa-fw fa-external-link-alt"></i>',
+            close: '<i class="fas fa-fw fa-times"></i>'
         },
-        previewFileIcon: '<i class="fa fa-file"></i>',
-        browseIcon: '<i class="fa fa-folder-open"></i>',
-        removeIcon: '<i class="fa fa-trash"></i>',
-        cancelIcon: '<i class="fa fa-ban"></i>',
-        uploadIcon: '<i class="fa fa-upload"></i>',
-        msgValidationErrorIcon: '<i class="fa fa-exclamation-circle"></i> '
+        previewFileIcon: '<i class="fas fa-file"></i>',
+        browseIcon: '<i class="fas fa-folder-open"></i>',
+        removeIcon: '<i class="fas fa-trash-alt"></i>',
+        cancelIcon: '<i class="fas fa-ban"></i>',
+        uploadIcon: '<i class="fas fa-upload"></i>',
+        msgValidationErrorIcon: '<i class="fas fa-exclamation-circle"></i> '
     };
 })(window.jQuery);

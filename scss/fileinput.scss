@@ -1,11 +1,11 @@
 /*!
- * bootstrap-fileinput v4.4.6
+ * bootstrap-fileinput v4.4.9
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2017, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2018, Kartik Visweswaran, Krajee.com
  *
  * Licensed under the BSD 3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
@@ -226,7 +226,6 @@ input[type=file].file-loading {
 .file-caption-icon {
     @extend %set-hidden;
     @extend %set-absolute;
-    line-height: 1;
     left: multiply($pad, 1.6);
 }
 
@@ -582,17 +581,6 @@ input[type=file].file-loading {
     .modal-body {
         overflow-y: auto;
     }
-}
-
-.btn-kv {
-    display: inline-block;
-    text-align: center;
-    width: multiply($pad, 6);
-    height: multiply($pad, 6);
-    line-height: multiply($pad, 6);
-    padding: 0;
-    font-size: 90%;
-    border-radius: 0.2rem;
 }
 
 .floating-buttons {
