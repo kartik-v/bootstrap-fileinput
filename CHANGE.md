@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.4.9 (_under development_)
+
+**Date:** _work in process_
+
+- (enh #1223): Update Font Awesome 5.x theme icons.
+
 ## version 4.4.8
 
 **Date:** 11-Apr-2018
