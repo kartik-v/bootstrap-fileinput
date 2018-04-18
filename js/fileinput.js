@@ -3273,9 +3273,13 @@
             }
         },
         _initBrowse: function ($container) {
-            var self = this;
+            var self = this, buttonId, buttonLabel;
             if (self.showBrowse) {
                 self.$btnFile = $container.find('.btn-file');
+                buttonLabel = $container.find('span[' + self._buttonLabelFlag + '=""]');
+                buttonLabel.removeAttr(self._buttonLabelFlag);
+                buttonId = self.$element.attr('id');
+                buttonLabel.attr('for', buttonId);
                 self.$btnFile.append(self.$element);
             } else {
                 self.$element.hide();
@@ -3362,7 +3366,7 @@
         _renderButton: function (type) {
             var self = this, tmplt = self._getLayoutTemplate('btnDefault'), css = self[type + 'Class'],
                 title = self[type + 'Title'], icon = self[type + 'Icon'], label = self[type + 'Label'],
-                status = self.isDisabled ? ' disabled' : '', btnType = 'button';
+                status = self.isDisabled ? ' disabled' : '', btnType = 'button', btnLabelFlag = '';
             switch (type) {
                 case 'remove':
                     if (!self.showRemove) {
@@ -3390,6 +3394,7 @@
                         return '';
                     }
                     tmplt = self._getLayoutTemplate('btnBrowse');
+                    btnLabelFlag = ' ' + self._buttonLabelFlag  + '=""';
                     break;
                 default:
                     return '';
@@ -3397,12 +3402,13 @@
 
             css += type === 'browse' ? ' btn-file' : ' fileinput-' + type + ' fileinput-' + type + '-button';
             if (!$h.isEmpty(label)) {
-                label = ' <span class="' + self.buttonLabelClass + '">' + label + '</span>';
+                label = ' <span class="' + self.buttonLabelClass + '"' + btnLabelFlag + '>' + label + '</span>';
             }
             return tmplt.setTokens({
                 'type': btnType, 'css': css, 'title': title, 'status': status, 'icon': icon, 'label': label
             });
         },
+        _buttonLabelFlag: 'data-buttonLabel',
         _renderThumbProgress: function () {
             var self = this;
             return '<div class="file-thumb-progress kv-hidden">' +
