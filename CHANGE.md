@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in process_
 
+- (bug #1226): Enhance native input display styling when `showBrowse` is `false`.
 - (enh #1223): Update Font Awesome 5.x theme icons.
 
 ## version 4.4.8

@@ -128,8 +128,8 @@ $border: 1px !default;
         border-radius: 0 $radius $radius 0;
     }
     .btn-file input[type=file] {
-        right: auto;
-        left: 0;
+        left: auto;
+        right: 0;
         text-align: left;
         background: none repeat scroll 100% 0 transparent;
     }

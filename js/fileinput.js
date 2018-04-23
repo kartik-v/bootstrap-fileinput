@@ -1388,6 +1388,15 @@
         },
         _listen: function () {
             var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, fullScreenEvents;
+            self._handler($el, 'click', function(e) {
+                if ($el.hasClass('file-no-browse')) {
+                    if ($el.data('zoneClicked')) {
+                        $el.data('zoneClicked', false);
+                    } else {
+                        e.preventDefault();
+                    }
+                }
+            });
             self._handler($el, 'change', $.proxy(self._change, self));
             if (self.showBrowse) {
                 self._handler(self.$btnFile, 'click', $.proxy(self._browse, self));
@@ -1417,23 +1426,6 @@
             $.each(config, function (cat, settings) {
                 sel = '.file-preview-frame .file-preview-' + cat;
                 self.$preview.find(sel + '.kv-preview-data,' + sel + ' .kv-preview-data').css(settings);
-            });
-        },
-        _initClickable: function () {
-            var self = this, $zone;
-            if (!self.isClickable) {
-                return;
-            }
-            $zone = self.isAjaxUpload ? self.$dropZone : self.$preview.find('.file-default-preview');
-            $h.addCss($zone, 'clickable');
-            $zone.attr('tabindex', -1);
-            self._handler($zone, 'click', function (e) {
-                var $tar = $(e.target);
-                if (!$(self.elErrorContainer + ':visible').length &&
-                    (!$tar.parents('.file-preview-thumbnails').length || $tar.parents('.file-default-preview').length)) {
-                    self.$element.trigger('click');
-                    $zone.blur();
-                }
             });
         },
         _scanDroppedItems: function (item, files, path) {
@@ -3273,13 +3265,31 @@
             }
         },
         _initBrowse: function ($container) {
-            var self = this;
+            var self = this, $el = self.$element;
+            $el.before($container);
             if (self.showBrowse) {
-                self.$btnFile = $container.find('.btn-file');
-                self.$btnFile.append(self.$element);
+                self.$btnFile = $container.find('.btn-file').append($el);
             } else {
-                self.$element.hide();
+                $el.appendTo($container).attr('tabindex', -1);
+                $h.addCss($el, 'file-no-browse');
             }
+        },
+        _initClickable: function () {
+            var self = this, $zone;
+            if (!self.isClickable) {
+                return;
+            }
+            $zone = self.isAjaxUpload ? self.$dropZone : self.$preview.find('.file-default-preview');
+            $h.addCss($zone, 'clickable');
+            $zone.attr('tabindex', -1);
+            self._handler($zone, 'click', function (e) {
+                var $tar = $(e.target), $el = self.$element;
+                if (!$(self.elErrorContainer + ':visible').length &&
+                    (!$tar.parents('.file-preview-thumbnails').length || $tar.parents('.file-default-preview').length)) {
+                    self.$element.data('zoneClicked', true).trigger('click');
+                    $zone.blur();
+                }
+            });
         },
         _initCaption: function () {
             var self = this, cap = self.initialCaption || '';
@@ -3321,7 +3331,6 @@
         _createContainer: function () {
             var self = this, attribs = {"class": 'file-input file-input-new' + (self.rtl ? ' kv-rtl' : '')},
                 $container = $(document.createElement("div")).attr(attribs).html(self._renderMain());
-            self.$element.before($container);
             self._initBrowse($container);
             if (self.theme) {
                 $container.addClass('theme-' + self.theme);
@@ -3330,7 +3339,6 @@
         },
         _refreshContainer: function () {
             var self = this, $container = self.$container;
-            $container.before(self.$element);
             $container.html(self._renderMain());
             self._initBrowse($container);
             self._validateDisabled();
