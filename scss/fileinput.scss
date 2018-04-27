@@ -154,6 +154,24 @@ $border: 1px !default;
     transform: rotate(270deg);
 }
 
+.file-input {
+    @extend %set-relative;
+}
+
+.file-no-browse {
+    @extend %set-absolute;
+    left: 50%;
+    bottom: 20%;
+    width: 1px;
+    height: 1px;
+    font-size: 0;
+    opacity: 0;
+    border: none;
+    background: none;
+    outline: none;
+    box-shadow: none;
+}
+
 .file-loading {
     input[type=file] {
         @extend %set-invisible;
@@ -186,7 +204,7 @@ input[type=file].file-loading {
     input[type=file] {
         @extend %set-absolute;
         top: 0;
-        right: 0;
+        left: 0;
         min-width: 100%;
         min-height: 100%;
         text-align: right;

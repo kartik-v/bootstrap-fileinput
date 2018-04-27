@@ -85,7 +85,7 @@
     padding-right: 15px;
 }
 
-.kv-rtl .input-group-btn:last-child > .btn {
+.kv-rtl .input-group-btn > .btn:last-child {
     border-radius: 4px 0 0 4px;
 }
 
@@ -94,8 +94,8 @@
 }
 
 .kv-rtl .btn-file input[type=file] {
-    right: auto;
-    left: 0;
+    left: auto;
+    right: 0;
     text-align: left;
     background: none repeat scroll 100% 0 transparent;
 }
