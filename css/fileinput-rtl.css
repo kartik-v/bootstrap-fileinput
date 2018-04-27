@@ -85,7 +85,7 @@
     padding-right: 15px;
 }
 
-.kv-rtl .input-group-btn:last-child > .btn {
+.kv-rtl .input-group-btn > .btn:last-child {
     border-radius: 4px 0 0 4px;
 }
 

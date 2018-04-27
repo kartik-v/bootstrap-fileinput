@@ -121,7 +121,7 @@ $border: 1px !default;
         padding-left: 0;
         padding-right: multiply($pad, 3);
     }
-    .input-group-btn:last-child > .btn {
+    .input-group-btn > .btn:last-child {
         border-radius: $radius 0 0 $radius;
     }
     .input-group .form-control:first-child {

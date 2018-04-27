@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in process_
 
+- (bug #1232): Correct RTL input group button styling.
 - (enh #1228): Enhance and correct preview refresh for various scenarios.
 - (bug #1226): Enhance native input display styling when `showBrowse` is `false`.
 - (enh #1223): Update Font Awesome 5.x theme icons.
