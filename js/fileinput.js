@@ -574,12 +574,15 @@
             self.progressTemplate = t.replace('{class}', self.progressClass);
             self.progressCompleteTemplate = t.replace('{class}', self.progressCompleteClass);
             self.progressErrorTemplate = t.replace('{class}', self.progressErrorClass);
-            self.dropZoneEnabled = $h.hasDragDropSupport() && self.dropZoneEnabled && $h.canAssignFilesToInput();
             self.isDisabled = $el.attr('disabled') || $el.attr('readonly');
             if (self.isDisabled) {
                 $el.attr('disabled', true);
             }
             self.isAjaxUpload = $h.hasFileUploadSupport() && !$h.isEmpty(self.uploadUrl);
+            self.dropZoneEnabled = $h.hasDragDropSupport() && self.dropZoneEnabled;
+            if (!self.isAjaxUpload) {
+                self.dropZoneEnabled = self.dropZoneEnabled && $h.canAssignFilesToInput();
+            }
             self.isClickable = self.browseOnZoneClick && self.showPreview &&
                 (self.dropZoneEnabled || !$h.isEmpty(self.defaultPreviewContent));
             self.slug = typeof options.slugCallback === "function" ? options.slugCallback : self._slugDefault;
