@@ -761,6 +761,9 @@
             tOther = '<div class="kv-preview-data file-preview-other-frame"' + tStyle + '>\n' + $h.DEFAULT_PREVIEW + '\n</div>\n';
             tZoomCache = '<div class="kv-zoom-cache" style="display:none">{zoomContent}</div>';
             vDefaultDim = {width: "100%", height: "100%", 'min-height': "480px"};
+            if (self._isPdfRendered()) {
+                tPdf = self.pdfRendererTemplate.replace('{renderer}', self.pdfRendererUrl);
+            }
             self.defaults = {
                 layoutTemplates: {
                     main1: tMain1,
@@ -817,7 +820,7 @@
                     audio: {width: "100%", height: "30px"},
                     flash: {width: "213px", height: "160px"},
                     object: {width: "213px", height: "160px"},
-                    pdf: {width: "213px", height: "160px"},
+                    pdf: {width: "100%", height: "160px"},
                     other: {width: "213px", height: "160px"}
                 },
                 previewSettingsSmall: {
@@ -940,6 +943,9 @@
                     tagBef = tags.tagBefore2;
                     if (key === 'generic' || key === 'image' || key === 'html' || key === 'text') {
                         tagBef = tags.tagBefore1;
+                    }
+                    if (self._isPdfRendered()) {
+                        tagBef = tagBef.replace('kv-file-content', 'kv-file-content kv-pdf-rendered');
                     }
                     self.previewTemplates[key] = tagBef + value + tagAft;
                 }
@@ -1127,6 +1133,11 @@
                 }
             };
             self.previewCache.init();
+        },
+        _isPdfRendered: function() {
+            var self = this, useLib = self.usePdfRenderer, 
+                flag = typeof useLib === "function" ? useLib() : !!useLib;
+            return flag && self.pdfRendererUrl;
         },
         _handler: function ($el, event, callback) {
             var self = this, ns = self.namespace, ev = event.split(' ').join(ns + ' ') + ns;
@@ -4446,7 +4457,12 @@
             fullscreen: 'Toggle full screen',
             borderless: 'Toggle borderless mode',
             close: 'Close detailed preview'
-        }
+        },
+        usePdfRenderer: function() {
+            return !!navigator.userAgent.match(/(iPod|iPhone|iPad)/);
+        },
+        pdfRendererUrl: '',
+        pdfRendererTemplate: '<iframe class="kv-preview-data file-preview-pdf" src="{renderer}?file={data}" {style}></iframe>'
     };
 
     $.fn.fileinput.Constructor = FileInput;
