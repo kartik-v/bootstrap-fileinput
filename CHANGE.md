@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in process_
 
+- Enhance progress bar text styling.
 - (enh #1254): Enhance PDF Preview on iOS devices via external PDF renderer (PDFJS).
 - (bug #1242): Correct drop zone enabling check for ajax uploads.
 - (bug #1232): Correct RTL input group button styling.
