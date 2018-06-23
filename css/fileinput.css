@@ -237,6 +237,10 @@
     height: 160px;
 }
 
+.krajee-default.file-preview-frame .kv-file-content.kv-pdf-rendered {
+    width: 400px;
+}
+
 .krajee-default.file-preview-frame .file-thumbnail-footer {
     height: 70px;
 }

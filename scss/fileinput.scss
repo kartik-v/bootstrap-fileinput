@@ -310,6 +310,9 @@ input[type=file].file-loading {
         .kv-file-content {
             width: multiply($pad, 42.6);
             height: multiply($pad, 32);
+            &.kv-pdf-rendered {
+                width: 400px;
+            }
         }
         .file-thumbnail-footer {
             height: multiply($pad, 14);
