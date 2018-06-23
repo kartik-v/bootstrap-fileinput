@@ -90,7 +90,6 @@ $border: 1px !default;
 %set-progress {
     height: multiply($pad, 2.2);
     font-size: multiply($pad, 1.8);
-    line-height: multiply($pad, 2);
 }
 
 %set-caption {
@@ -376,6 +375,7 @@ input[type=file].file-loading {
         }
         .progress-bar {
             @extend %set-progress;
+            font-family: Verdana, Helvetica, sans-serif;
         }
     }
     .file-thumbnail-footer {
@@ -408,7 +408,7 @@ input[type=file].file-loading {
     }
     .progress-bar {
         height: multiply($pad, 4);
-        line-height: multiply($pad, 4);
+        font-family: Verdana, Helvetica, sans-serif;
     }
 }
 

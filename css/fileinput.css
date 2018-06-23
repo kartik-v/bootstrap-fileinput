@@ -58,8 +58,8 @@
 
 .krajee-default .file-thumb-progress .progress, .krajee-default .file-thumb-progress .progress-bar {
     height: 11px;
+    font-family: Verdana, Helvetica, sans-serif;
     font-size: 9px;
-    line-height: 10px;
 }
 
 .krajee-default .file-caption-info, .krajee-default .file-size-info {
@@ -309,14 +309,13 @@
 
 .kv-upload-progress .progress {
     height: 20px;
-    line-height: 20px;
     margin: 10px 0;
     overflow: hidden;
 }
 
 .kv-upload-progress .progress-bar {
     height: 20px;
-    line-height: 20px;
+    font-family: Verdana, Helvetica, sans-serif;
 }
 
 /*noinspection CssOverwrittenProperties*/
