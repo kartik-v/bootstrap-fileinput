@@ -2943,6 +2943,10 @@
                             self._validateImage(previewId, caption, ftype, fsize, iData);
                             return;
                         }
+                        
+                        var exifObj = piexif.load($img[0].href);
+                        value = exifObj["0th"][piexif.ImageIFD.Orientation];
+                        
                         var $zoomImg = $preview.find('#zoom-' + previewId + ' img'), css = 'rotate-' + value;
                         if (value > 4) {
                             css += ($img.width() > $img.height() ? ' is-portrait-gt4' : ' is-landscape-gt4');
