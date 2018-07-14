@@ -125,34 +125,6 @@ $border: 1px !default;
     @extend %set-hidden;
 }
 
-.rotate-2 {
-    transform: rotateY(180deg);
-}
-
-.rotate-3 {
-    transform: rotate(180deg);
-}
-
-.rotate-4 {
-    transform: rotate(180deg) rotateY(180deg);
-}
-
-.rotate-5 {
-    transform: rotate(270deg) rotateY(180deg);
-}
-
-.rotate-6 {
-    transform: rotate(90deg);
-}
-
-.rotate-7 {
-    transform: rotate(90deg) rotateY(180deg);
-}
-
-.rotate-8 {
-    transform: rotate(270deg);
-}
-
 .file-input {
     @extend %set-relative;
 }
@@ -620,9 +592,6 @@ input[type=file].file-loading {
     }
     .file-preview-video {
         max-height: 100%;
-    }
-    .is-portrait-gt4 {
-        margin-top: multiply($pad, 12);
     }
     > .file-object {
         &.type-image {

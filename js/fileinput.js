@@ -430,68 +430,66 @@
             }
             $cache.remove();
         },
-        setOrientation: function (buffer, callback) {
-            var scanner = new DataView(buffer), idx = 0, value = 1, // Non-rotated is the default
-                maxBytes, uInt16, exifLength;
-            if (scanner.getUint16(idx) !== 0xFFD8 || buffer.length < 2) { // not a proper JPEG
-                if (callback) {
-                    callback();
-                }
-                return;
-            }
-            idx += 2;
-            maxBytes = scanner.byteLength;
-            while (idx < maxBytes - 2) {
-                uInt16 = scanner.getUint16(idx);
-                idx += 2;
-                switch (uInt16) {
-                    case 0xFFE1: // Start of EXIF
-                        exifLength = scanner.getUint16(idx);
-                        maxBytes = exifLength - idx;
-                        idx += 2;
-                        break;
-                    case 0x0112: // Orientation tag
-                        value = scanner.getUint16(idx + 6, false);
-                        maxBytes = 0; // Stop scanning
-                        break;
-                }
-            }
-            if (callback) {
-                callback(value);
-            }
-        },
-        validateOrientation: function (file, callback) {
-            if (!window.FileReader || !window.DataView) {
-                return; // skip orientation if pre-requisite libraries not supported by browser
-            }
-            var reader = new FileReader(), buffer;
-            reader.onloadend = function () {
-                buffer = reader.result;
-                $h.setOrientation(buffer, callback);
-            };
-            reader.readAsArrayBuffer(file);
-        },
-        adjustOrientedImage: function ($img, isZoom) {
-            var offsetContTop, offsetTop, newTop;
-            if (!$img.hasClass('is-portrait-gt4')) {
-                return;
-            }
-            if (isZoom) {
-                $img.css({width: $img.parent().height()});
-                return;
-            } else {
-                $img.css({height: 'auto', width: $img.height()});
-            }
-            offsetContTop = $img.parent().offset().top;
-            offsetTop = $img.offset().top;
-            newTop = offsetContTop - offsetTop;
-            $img.css('margin-top', newTop);
-        },
         closeButton: function (css) {
             css = css ? 'close ' + css : 'close';
             return '<button type="button" class="' + css + '" aria-label="Close">\n' +
                 '  <span aria-hidden="true">&times;</span>\n' +
                 '</button>';
+        },
+        getRotation: function(value) {
+            switch (value) {
+                case 2:
+                    return 'rotateY(180deg)';
+                case 3:
+                    return 'rotate(180deg)';
+                case 4:
+                    return 'rotate(180deg) rotateY(180deg)';
+                case 5:
+                    return 'rotate(270deg) rotateY(180deg)';
+                case 6:
+                    return 'rotate(90deg)';
+                case 7:
+                    return 'rotate(90deg) rotateY(180deg)';
+                case 8:
+                    return 'rotate(270deg)';
+                default:
+                    return '';
+            }
+        },
+        setTransform: function(el, val) {
+            if (!el) {
+                return;
+            }
+            el.style.transform = val;
+            el.style.webkitTransform = val;
+            el.style['-moz-transform'] = val;
+            el.style['-ms-transform'] = val;
+            el.style['-o-transform'] = val;
+        },
+        setImageOrientation: function ($img, $zoomImg, value) {
+            if (!$img || !$img.length) {
+                return;
+            }
+            var ev = 'load.fileinputimageorient';
+            $img.off(ev).on(ev, function() {
+                var img = $img.get(0), zoomImg = $zoomImg && $zoomImg.length ? $zoomImg.get(0) : null,
+                    h = img.offsetHeight, w = img.offsetWidth, r = $h.getRotation(value);
+                $img.data('orientation', value);
+                if (zoomImg) {
+                    $zoomImg.data('orientation', value);
+                }
+                if (value < 5) {
+                    $h.setTransform(img, r);
+                    $h.setTransform(zoomImg, r);
+                    return;
+                }
+                var offsetAngle = Math.atan(w / h), t = img.style.webkitTransform || img.style.transform || '',
+                    origFactor = Math.sqrt(Math.pow(h, 2) + Math.pow(w, 2)),
+                    scale = !origFactor ? 1 : (h / Math.cos(Math.PI / 2 + offsetAngle)) / origFactor,
+                    s = ' scale(' + Math.abs(scale) + ')';
+                $h.setTransform(img, r + s);
+                $h.setTransform(zoomImg, r + s);
+            });
         }
     };
     FileInput = function (element, options) {
@@ -1151,6 +1149,7 @@
             if (id) {
                 msg = '"' + id + '": ' + msg;
             }
+            msg = 'bootstrap-fileinput: ' +  msg;
             if (typeof window.console.log !== "undefined") {
                 window.console.log(msg);
             } else {
@@ -1821,9 +1820,6 @@
             }
             $modal.data('previewId', pid);
             var $img = $body.find('img');
-            if ($img.length) {
-                $h.adjustOrientedImage($img, true);
-            }
             self._handler($prev, 'click', function () {
                 self._zoomSlideShow('prev', pid);
             });
@@ -2937,25 +2933,7 @@
                 self._clearDefaultPreview();
                 self._addToPreview($preview, content);
                 var $img = $preview.find('#' + previewId + ' img');
-                if ($img.length && self.autoOrientImage) {
-                    $h.validateOrientation(file, function (value) {
-                        if (!value) {
-                            self._validateImage(previewId, caption, ftype, fsize, iData);
-                            return;
-                        }
-                        var $zoomImg = $preview.find('#zoom-' + previewId + ' img'), css = 'rotate-' + value;
-                        if (value > 4) {
-                            css += ($img.width() > $img.height() ? ' is-portrait-gt4' : ' is-landscape-gt4');
-                        }
-                        $h.addCss($img, css);
-                        $h.addCss($zoomImg, css);
-                        self._raise('fileimageoriented', {'$img': $img, 'file': file});
-                        self._validateImage(previewId, caption, ftype, fsize, iData);
-                        $h.adjustOrientedImage($img);
-                    });
-                } else {
-                    self._validateImage(previewId, caption, ftype, fsize, iData);
-                }
+                self._validateImageOrientation($img, file, previewId, caption, ftype, fsize, iData);
             } else {
                 self._previewDefault(file, previewId);
             }
@@ -3165,9 +3143,34 @@
             self._showUploadError(msg, params);
             self._setPreviewError($thumb, i, null);
         },
-        _validateImage: function (previewId, fname, ftype, fsize, iData) {
+        _getExifObj: function(iData) {
+            var self = this, exifObj = null;
+            try {
+                exifObj = window.piexif ? window.piexif.load(iData) : null;
+            } catch (err) {
+                exifObj = null;
+            }
+            if (!exifObj) {
+                self._log('Error loading the piexif.js library.');
+            }
+            return exifObj;
+        },
+        _validateImageOrientation: function($img, file, previewId, caption, ftype, fsize, iData) {
+            var self = this, css, exifObj = self._getExifObj(iData), value = null;
+            if ($img.length && self.autoOrientImage && exifObj) {
+                value = exifObj["0th"][piexif.ImageIFD.Orientation];
+            }
+            if (!value) {
+                self._validateImage(previewId, caption, ftype, fsize, iData, exifObj);
+                return;
+            }
+            $h.setImageOrientation($img, self.$preview.find('#zoom-' + previewId + ' img'), value);
+            self._raise('fileimageoriented', {'$img': $img, 'file': file});
+            self._validateImage(previewId, caption, ftype, fsize, iData, exifObj);
+        },
+        _validateImage: function (previewId, fname, ftype, fsize, iData, exifObj) {
             var self = this, $preview = self.$preview, params, w1, w2, $thumb = $preview.find("#" + previewId),
-                i = $thumb.attr('data-fileindex'), $img = $thumb.find('img'), exifObject;
+                i = $thumb.attr('data-fileindex'), $img = $thumb.find('img');
             fname = fname || 'Untitled';
             $img.one('load', function () {
                 w1 = $thumb.width();
@@ -3183,11 +3186,6 @@
                     self._checkDimensions(i, 'Large', $img, $thumb, fname, 'Height', params);
                 }
                 self._raise('fileimageloaded', [previewId]);
-                try {
-                    exifObject = window.piexif ? window.piexif.load(iData) : null;
-                } catch (err) {
-                    exifObject = null;
-                }
                 self.loadedImages.push({
                     ind: i,
                     img: $img,
@@ -3197,9 +3195,9 @@
                     siz: fsize,
                     validated: false,
                     imgData: iData,
-                    exifObj: exifObject
+                    exifObj: exifObj
                 });
-                $thumb.data('exif', exifObject);
+                $thumb.data('exif', exifObj);
                 self._validateAllImages();
             }).one('error', function () {
                 self._raise('fileimageloaderror', [previewId]);

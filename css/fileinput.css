@@ -86,34 +86,6 @@
     width: 100%;
 }
 
-.rotate-2 {
-    transform: rotateY(180deg);
-}
-
-.rotate-3 {
-    transform: rotate(180deg);
-}
-
-.rotate-4 {
-    transform: rotate(180deg) rotateY(180deg);
-}
-
-.rotate-5 {
-    transform: rotate(270deg) rotateY(180deg);
-}
-
-.rotate-6 {
-    transform: rotate(90deg);
-}
-
-.rotate-7 {
-    transform: rotate(90deg) rotateY(180deg);
-}
-
-.rotate-8 {
-    transform: rotate(270deg);
-}
-
 .file-loading:before {
     content: " Loading...";
     display: inline-block;
@@ -494,10 +466,6 @@
 
 .file-zoom-content .file-preview-video {
     max-height: 100%;
-}
-
-.file-zoom-content .is-portrait-gt4 {
-    margin-top: 60px;
 }
 
 .file-zoom-content > .file-object.type-image {

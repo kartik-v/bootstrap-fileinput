@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in process_
 
+- (enh #1269, #1270): Enhance auto orientation of images using piexif.js.
 - Enhance progress bar text styling.
 - (enh #1254): Enhance PDF Preview on iOS devices via external PDF renderer (PDFJS).
 - (bug #1242): Correct drop zone enabling check for ajax uploads.
