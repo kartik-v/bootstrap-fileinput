@@ -12,7 +12,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinputLocales['_LANG_'] = {
+    $.fn.fileinputLocales['he'] = {
         fileSingle: 'קובץ',
         filePlural: 'קבצים',
         browseLabel: 'העלאה &hellip;',
