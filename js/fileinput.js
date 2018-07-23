@@ -436,7 +436,7 @@
                 '  <span aria-hidden="true">&times;</span>\n' +
                 '</button>';
         },
-        getRotation: function(value) {
+        getRotation: function (value) {
             switch (value) {
                 case 2:
                     return 'rotateY(180deg)';
@@ -456,7 +456,7 @@
                     return '';
             }
         },
-        setTransform: function(el, val) {
+        setTransform: function (el, val) {
             if (!el) {
                 return;
             }
@@ -471,7 +471,7 @@
                 return;
             }
             var ev = 'load.fileinputimageorient';
-            $img.off(ev).on(ev, function() {
+            $img.off(ev).on(ev, function () {
                 var img = $img.get(0), zoomImg = $zoomImg && $zoomImg.length ? $zoomImg.get(0) : null,
                     h = img.offsetHeight, w = img.offsetWidth, r = $h.getRotation(value);
                 $img.data('orientation', value);
@@ -943,6 +943,9 @@
                     if (key === 'generic' || key === 'image' || key === 'html' || key === 'text') {
                         tagBef = tags.tagBefore1;
                     }
+                    if (self._isPdfRendered()) {
+                        tagBef = tagBef.replace('kv-file-content', 'kv-file-content kv-pdf-rendered');
+                    }
                     self.previewTemplates[key] = tagBef + value + tagAft;
                 }
             });
@@ -1130,8 +1133,8 @@
             };
             self.previewCache.init();
         },
-        _isPdfRendered: function() {
-            var self = this, useLib = self.usePdfRenderer, 
+        _isPdfRendered: function () {
+            var self = this, useLib = self.usePdfRenderer,
                 flag = typeof useLib === "function" ? useLib() : !!useLib;
             return flag && self.pdfRendererUrl;
         },
@@ -1147,7 +1150,7 @@
             if (id) {
                 msg = '"' + id + '": ' + msg;
             }
-            msg = 'bootstrap-fileinput: ' +  msg;
+            msg = 'bootstrap-fileinput: ' + msg;
             if (typeof window.console.log !== "undefined") {
                 window.console.log(msg);
             } else {
@@ -1399,7 +1402,7 @@
         },
         _listen: function () {
             var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, fullScreenEvents;
-            self._handler($el, 'click', function(e) {
+            self._handler($el, 'click', function (e) {
                 if ($el.hasClass('file-no-browse')) {
                     if ($el.data('zoneClicked')) {
                         $el.data('zoneClicked', false);
@@ -1909,10 +1912,10 @@
                 });
             });
         },
-        _inputFileCount: function() {
+        _inputFileCount: function () {
             return this.$element.get(0).files.length;
         },
-        _refreshPreview: function() {
+        _refreshPreview: function () {
             var self = this, files;
             if (!self._inputFileCount() || !self.showPreview || !self.isPreviewable) {
                 return;
@@ -3141,7 +3144,7 @@
             self._showUploadError(msg, params);
             self._setPreviewError($thumb, i, null);
         },
-        _getExifObj: function(iData) {
+        _getExifObj: function (iData) {
             var self = this, exifObj = null;
             try {
                 exifObj = window.piexif ? window.piexif.load(iData) : null;
@@ -3153,7 +3156,7 @@
             }
             return exifObj;
         },
-        _validateImageOrientation: function($img, file, previewId, caption, ftype, fsize, iData) {
+        _validateImageOrientation: function ($img, file, previewId, caption, ftype, fsize, iData) {
             var self = this, css, exifObj = self._getExifObj(iData), value = null;
             if ($img.length && self.autoOrientImage && exifObj) {
                 value = exifObj["0th"][piexif.ImageIFD.Orientation];
@@ -3783,7 +3786,8 @@
                 var node = ctr + i, previewId = previewInitId + "-" + node, file = files[i], fSizeKB, j, msg,
                     fnText = settings.text, fnImage = settings.image, fnHtml = settings.html, typ, chk, typ1, typ2,
                     caption = file && file.name ? self.slug(file.name) : '', fileSize = (file && file.size || 0) / 1000,
-                    fileExtExpr = '', previewData = file ? $h.objUrl.createObjectURL(file) : null, fileCount = 0, strTypes = '',
+                    fileExtExpr = '', previewData = file ? $h.objUrl.createObjectURL(file) : null, fileCount = 0,
+                    strTypes = '',
                     func, knownTypes = 0, isText, isHtml, isImage, txtFlag, processFileLoaded = function () {
                         var msg = msgProgress.setTokens({
                             'index': i + 1,
@@ -4181,7 +4185,7 @@
                 options = $.extend(true, {}, self.options, options);
             }
             self._init(options, true);
-            self._listen();        
+            self._listen();
             return $el;
         },
         zoom: function (frameId) {
@@ -4454,7 +4458,7 @@
             borderless: 'Toggle borderless mode',
             close: 'Close detailed preview'
         },
-        usePdfRenderer: function() {
+        usePdfRenderer: function () {
             return !!navigator.userAgent.match(/(iPod|iPhone|iPad)/);
         },
         pdfRendererUrl: '',
