@@ -936,14 +936,12 @@
         },
         _initPreviewTemplates: function () {
             var self = this, cfg = self.defaults, tags = self.previewMarkupTags, tagBef, tagAft = tags.tagAfter;
-            $.each(cfg.previewContentTemplates, function (key, value) {
+            var previewTemplates = $.extend(true, {}, cfg.previewContentTemplates, self.options.previewContentTemplates);
+            $.each(previewTemplates, function (key, value) {
                 if ($h.isEmpty(self.previewTemplates[key])) {
                     tagBef = tags.tagBefore2;
                     if (key === 'generic' || key === 'image' || key === 'html' || key === 'text') {
                         tagBef = tags.tagBefore1;
-                    }
-                    if (self._isPdfRendered()) {
-                        tagBef = tagBef.replace('kv-file-content', 'kv-file-content kv-pdf-rendered');
                     }
                     self.previewTemplates[key] = tagBef + value + tagAft;
                 }
