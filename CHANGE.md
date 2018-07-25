@@ -1,10 +1,13 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.4.9 (_under development_)
+## version 4.4.9
 
-**Date:** _work in process_
+**Date:** 25-Jul-2018
 
+- (bug #1276): More correct validation of `previewContentTemplates`.
+- (enh #1275): Update Farsi Translations.
+- (enh #1272, #1273): Add Hebrew Translations.
 - (enh #1269, #1270): Enhance auto orientation of images using piexif.js.
 - Enhance progress bar text styling.
 - (enh #1254): Enhance PDF Preview on iOS devices via external PDF renderer (PDFJS).
