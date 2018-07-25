@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.5.0 (_under development_)
+
+**Date:** _work in process_
+
+- Correct nuget batch file.
+
 ## version 4.4.9
 
 **Date:** 25-Jul-2018
