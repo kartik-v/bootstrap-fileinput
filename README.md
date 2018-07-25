@@ -64,7 +64,7 @@ Step 1: Load the following assets in your header.
 <!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
 <!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- piexif.min.js is only needed for restoring exif data in resized images and when you 
+<!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you 
     wish to resize images before upload. This must be loaded before fileinput.min.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/piexif.min.js" type="text/javascript"></script>
 <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
