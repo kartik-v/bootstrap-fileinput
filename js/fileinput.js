@@ -4461,7 +4461,7 @@
             close: 'Close detailed preview'
         },
         usePdfRenderer: function () {
-            return !!navigator.userAgent.match(/(iPod|iPhone|iPad)/);
+            return !!navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/i);
         },
         pdfRendererUrl: '',
         pdfRendererTemplate: '<iframe class="kv-preview-data file-preview-pdf" src="{renderer}?file={data}" {style}></iframe>'

@@ -407,18 +407,6 @@
     opacity: 0.65;
 }
 
-@media (min-width: 576px) {
-    .file-zoom-dialog .modal-dialog {
-        max-width: 500px;
-    }
-}
-
-@media (min-width: 992px) {
-    .file-zoom-dialog .modal-lg {
-        max-width: 800px;
-    }
-}
-
 .file-zoom-fullscreen.modal {
     position: fixed;
     top: 0;
@@ -478,7 +466,19 @@
     height: 30px;
 }
 
-@media screen and (max-width: 767px) {
+@media (min-width: 576px) {
+    .file-zoom-dialog .modal-dialog {
+        max-width: 500px;
+    }
+}
+
+@media (min-width: 992px) {
+    .file-zoom-dialog .modal-lg {
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 767px) {
     .file-preview-thumbnails {
         display: flex;
         justify-content: center;
@@ -491,9 +491,15 @@
     }
 }
 
-@media screen and (max-width: 350px) {
+@media (max-width: 350px) {
     .krajee-default.file-preview-frame .kv-file-content {
         width: 160px;
+    }
+}
+
+@media (max-width: 420px) {
+    .krajee-default.file-preview-frame .kv-file-content.kv-pdf-rendered {
+        width: 100%;
     }
 }
 
