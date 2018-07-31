@@ -8,7 +8,7 @@ Change Log: `bootstrap-fileinput`
 - (enh #1279): Enhance `usePdfRenderer` callback check to detect android phones.
 - Correct nuget batch file.
 
-## version 4.4.9
+## version 4.5.0
 
 **Date:** 25-Jul-2018
 
