@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.4.9
+ * bootstrap-fileinput v4.5.0
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -4461,7 +4461,7 @@
             close: 'Close detailed preview'
         },
         usePdfRenderer: function () {
-            return !!navigator.userAgent.match(/(iPod|iPhone|iPad)/);
+            return !!navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/i);
         },
         pdfRendererUrl: '',
         pdfRendererTemplate: '<iframe class="kv-preview-data file-preview-pdf" src="{renderer}?file={data}" {style}></iframe>'
