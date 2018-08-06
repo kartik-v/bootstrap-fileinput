@@ -1510,6 +1510,7 @@
                     if (!self.isAjaxUpload) {
                         self.changeTriggered = true;
                         $el.get(0).files = files;
+                        $el.trigger('change');
                         setTimeout(function () {
                             self.changeTriggered = false;
                             $el.trigger('change' + self.namespace);
