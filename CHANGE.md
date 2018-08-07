@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in process_
 
+- (bug #1282): Allow `filebrowse` event to be prevented.
 - (enh #1279): Enhance `usePdfRenderer` callback check to detect android phones.
 - Correct nuget batch file.
 

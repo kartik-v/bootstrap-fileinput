@@ -3546,8 +3546,7 @@
         },
         _browse: function (e) {
             var self = this;
-            self._raise('filebrowse');
-            if (e && e.isDefaultPrevented()) {
+            if (e && e.isDefaultPrevented() || !self._raise('filebrowse')) {
                 return;
             }
             if (self.isError && !self.isAjaxUpload) {
