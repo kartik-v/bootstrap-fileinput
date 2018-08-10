@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in process_
 
+- (enh #1287): Correct full screen modal styling.
+- (enh #1286): Default `autoOrientImage` to `false`.
 - (bug #1282): Allow `filebrowse` event to be prevented.
 - (enh #1279): Enhance `usePdfRenderer` callback check to detect android phones.
 - Correct nuget batch file.

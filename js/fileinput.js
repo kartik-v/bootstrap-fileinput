@@ -4268,7 +4268,7 @@
         showUploadedThumbs: true,
         browseOnZoneClick: false,
         autoReplace: false,
-        autoOrientImage: true, // for JPEG images based on EXIF orientation tag
+        autoOrientImage: false, // if `true` applicable for JPEG images only
         required: false,
         rtl: false,
         hideThumbnailContent: false,
