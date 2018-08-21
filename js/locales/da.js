@@ -10,7 +10,7 @@
  */
 (function ($) {
     "use strict";
-    
+
     $.fn.fileinputLocales['da'] = {
         fileSingle: 'fil',
         filePlural: 'filer',
@@ -24,19 +24,19 @@
         msgNo: 'Ingen',
         msgNoFilesSelected: '',
         msgCancelled: 'aflyst',
-        msgPlaceholder: 'Select {files}...',
+        msgPlaceholder: 'V&aelig;lg {files}...',
         msgZoomModalHeading: 'Detaljeret visning',
-        msgFileRequired: 'You must select a file to upload.',
-        msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
+        msgFileRequired: 'Du skal v&aelig;lge en fil at uploade.',
+        msgSizeTooSmall: 'Fil "{name}" (<b>{size} KB</b>) er for lille og skal v&aelig;re st&oslash;rre end <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'Fil "{name}" (<b>{size} KB</b>) er st&oslash;rre end de tilladte <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Du skal mindst v&aelig;lge <b>{n}</b> {files} til upload.',
         msgFilesTooMany: '<b>({n})</b> filer valgt til upload, men maks. <b>{m}</b> er tilladt.',
         msgFileNotFound: 'Filen "{name}" blev ikke fundet!',
         msgFileSecured: 'Sikkerhedsrestriktioner forhindrer l&aelig;sning af "{name}".',
         msgFileNotReadable: 'Filen "{name}" kan ikke indl&aelig;ses.',
-        msgFilePreviewAborted: 'Filpreview annulleret for "{name}".',
+        msgFilePreviewAborted: 'Filgennemsyn annulleret for "{name}".',
         msgFilePreviewError: 'Der skete en fejl under l&aelig;sningen af filen "{name}".',
-        msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
+        msgInvalidFileName: 'Ugyldige eller ikke-underst&oslash;ttede tegn i filnavn "{name}".',
         msgInvalidFileType: 'Ukendt type for filen "{name}". Kun "{types}" kan bruges.',
         msgInvalidFileExtension: 'Ukendt filtype for filen "{name}". Kun "{extensions}" filer kan bruges.',
         msgFileTypes: {
@@ -50,12 +50,12 @@
             'object': 'object'
         },
         msgUploadAborted: 'Filupload annulleret',
-        msgUploadThreshold: 'Processing...',
-        msgUploadBegin: 'Initializing...',
-        msgUploadEnd: 'Done',
-        msgUploadEmpty: 'No valid data available for upload.',
-        msgUploadError: 'Error',
-        msgValidationError: 'Validering Fejl',
+        msgUploadThreshold: 'Arbejder...',
+        msgUploadBegin: 'Initialiserer...',
+        msgUploadEnd: 'Udf&oslash;rt',
+        msgUploadEmpty: 'Ingen gyldig data tilg&aelig;ngelig til upload.',
+        msgUploadError: 'Fejl',
+        msgValidationError: 'Valideringsfejl',
         msgLoading: 'Henter fil {index} af {files} &hellip;',
         msgProgress: 'Henter fil {index} af {files} - {name} - {percent}% f&aelig;rdiggjort.',
         msgSelected: '{n} {files} valgt',
@@ -64,37 +64,37 @@
         msgImageHeightSmall: 'H&oslash;jden af billedet "{name}" skal v&aelig;re p&aring; mindst {size} px.',
         msgImageWidthLarge: 'Bredden af billedet "{name}" m&aring; ikke v&aelig;re over {size} px.',
         msgImageHeightLarge: 'H&oslash;jden af billedet "{name}" m&aring; ikke v&aelig;re over {size} px.',
-        msgImageResizeError: 'Kunne ikke få billedets dimensioner for at ændre størrelsen.',
-        msgImageResizeException: 'Fejl ved at ændre størrelsen på billedet.<pre>{errors}</pre>',
-        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
-        msgAjaxProgressError: '{operation} failed',
+        msgImageResizeError: 'Kunne ikke f&aring; billedets dimensioner for at &aelig;ndre st&oslash;rrelsen.',
+        msgImageResizeException: 'Fejl ved at &aelig;ndre st&oslash;rrelsen p&aring; billedet.<pre>{errors}</pre>',
+        msgAjaxError: 'Noget gik galt med {operation} operationen. Fors&oslash;g venligst senere!',
+        msgAjaxProgressError: '{operation} fejlede',
         ajaxOperations: {
-            deleteThumb: 'file delete',
-            uploadThumb: 'file upload',
-            uploadBatch: 'batch file upload',
+            deleteThumb: 'fil slet',
+            uploadThumb: 'fil upload',
+            uploadBatch: 'batchfil upload',
             uploadExtra: 'form data upload'
         },
         dropZoneTitle: 'Drag & drop filer her &hellip;',
-        dropZoneClickTitle: '<br>(or click to select {files})',
+        dropZoneClickTitle: '<br>(eller klik for at v&aelig;lge {files})',
         fileActionSettings: {
             removeTitle: 'Fjern fil',
             uploadTitle: 'Upload fil',
-            uploadRetryTitle: 'Retry upload',
-            downloadTitle: 'Download file',
+            uploadRetryTitle: 'Fors&aring;g upload igen',
+            downloadTitle: 'Download fil',
             zoomTitle: 'Se detaljer',
-            dragTitle: 'Move / Rearrange',
+            dragTitle: 'Flyt / Omarranger',
             indicatorNewTitle: 'Ikke uploadet endnu',
             indicatorSuccessTitle: 'Uploadet',
             indicatorErrorTitle: 'Upload fejl',
             indicatorLoadingTitle: 'Uploader ...'
         },
         previewZoomButtonTitles: {
-            prev: 'View previous file',
-            next: 'View next file',
-            toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
+            prev: 'Se forrige fil',
+            next: 'Se n&aelig;ste fil',
+            toggleheader: 'Skift header',
+            fullscreen: 'Skift fuld sk&aelig;rm',
+            borderless: 'Skift gr&aelig;nsel&oslash;s mode',
+            close: 'Luk detaljeret visning'
         }
     };
 })(window.jQuery);
