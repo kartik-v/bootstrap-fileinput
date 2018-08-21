@@ -336,7 +336,10 @@
         uniqId: function () {
             return Math.round(new Date().getTime()) + '_' + Math.round(Math.random() * 100);
         },
-        htmlEncode: function (str) {
+        htmlEncode: function (str, undefVal) {
+            if (str === undefined) {
+                return undefVal || null;
+            }
             return str.replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
@@ -3815,7 +3818,7 @@
                     return;
                 }
                 if (caption.length === 0) {
-                    msg = self.msgInvalidFileName.replace('{name}', $h.htmlEncode(file.name));
+                    msg = self.msgInvalidFileName.replace('{name}', $h.htmlEncode(file.name, '[unknown]'));
                     throwError(msg, file, previewId, i);
                     return;
                 }

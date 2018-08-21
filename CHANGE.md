@@ -5,8 +5,11 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in process_
 
+- (enh #1290): Enhance `htmlEncode` to parse undefined variables.
+- (enh #1288): Update Dutch Translations.
 - (enh #1287): Correct full screen modal styling.
 - (enh #1286): Default `autoOrientImage` to `false`.
+- (enh #1285): Update Danish Translations.
 - (bug #1282): Allow `filebrowse` event to be prevented.
 - (enh #1279): Enhance `usePdfRenderer` callback check to detect android phones.
 - Correct nuget batch file.
