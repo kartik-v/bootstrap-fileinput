@@ -79,10 +79,10 @@
         fileActionSettings: {
             removeTitle: 'Verwijder bestand',
             uploadTitle: 'bestand uploaden',
-            uploadRetryTitle: 'Retry upload',
+            uploadRetryTitle: 'Opnieuw uploaden',
             downloadTitle: 'Download file',
             zoomTitle: 'Bekijk details',
-            dragTitle: 'Move / Rearrange',
+            dragTitle: 'Verplaatsen / herindelen',
             indicatorNewTitle: 'Nog niet geupload',
             indicatorSuccessTitle: 'geupload',
             indicatorErrorTitle: 'fout uploaden',
@@ -92,9 +92,9 @@
             prev: 'Toon vorig bestand',
             next: 'Toon volgend bestand',
             toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
+            fullscreen: 'Toggle volledig scherm',
+            borderless: 'Toggle randloze modus',
+            close: 'Sluit gedetailleerde weergave'
         }
     };
 })(window.jQuery);
