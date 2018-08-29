@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _work in process_
 
+- (enh #1292): Update DOMPurify plugin to the latest release.
+- (enh #1291): Update Dutch Translations.
 - (enh #1290): Enhance `htmlEncode` to parse undefined variables.
 - (enh #1288): Update Dutch Translations.
 - (enh #1287): Correct full screen modal styling.
