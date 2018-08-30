@@ -3159,10 +3159,9 @@
             return exifObj;
         },
         _validateImageOrientation: function ($img, file, previewId, caption, ftype, fsize, iData) {
-            var self = this, exifObj = self._getExifObj(iData), value = null;
-            if ($img.length && self.autoOrientImage && exifObj) {
-                value = exifObj["0th"][piexif.ImageIFD.Orientation]; // jshint ignore:line
-            }
+            var self = this, exifObj, value;
+            exifObj = $img.length && self.autoOrientImage ? self._getExifObj(iData) : null;
+            value = exifObj ? exifObj["0th"][piexif.ImageIFD.Orientation] : null; // jshint ignore:line
             if (!value) {
                 self._validateImage(previewId, caption, ftype, fsize, iData, exifObj);
                 return;

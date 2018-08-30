@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.5.1
+
+**Date:** _under development_
+
+- (enh #1286): Correct piexif library load validation.
+
 ## version 4.5.0
 
 **Date:** 30-Aug-2018
