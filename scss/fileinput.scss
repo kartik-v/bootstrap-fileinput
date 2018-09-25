@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.5.0
+ * bootstrap-fileinput v4.5.1
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -18,11 +18,13 @@ $oyster-pink: #ebccd1 !default;
 $gallery: #eee !default;
 $alto: #ddd !default;
 $green: #008000 !default;
-$zorba: #a2958a !default;
 $mine-shaft: #333 !default;
 $boston-blue: #428bca !default;
 $tapa: #777 !default;
 $black: #000 !default;
+$black-20: rgba(0, 0, 0, 0.2);
+$black-30: rgba(0, 0, 0, 0.3);
+$black-40: rgba(0, 0, 0, 0.4);
 $mystic: #e1edf7 !default;
 $perano: #a1abff !default;
 $silver-chalice: #aaa !default;
@@ -273,8 +275,8 @@ input[type=file].file-loading {
     &.file-preview-frame {
         @extend %set-relative;
         margin: multiply($pad, 1.6);
-        border: $border solid $alto;
-        box-shadow: $border $border $pad 0 $zorba;
+        border: $border solid $black-20;
+        box-shadow: 0 0 multiply($pad, 2) 0 $black-20;
         padding: multiply($pad, 1.2);
         float: left;
         text-align: center;
@@ -289,7 +291,8 @@ input[type=file].file-loading {
             height: multiply($pad, 14);
         }
         &:not(.file-preview-error):hover {
-            box-shadow: multiply($pad, 0.6) multiply($pad, 0.6) $pad 0 $mine-shaft;
+            border: $border solid $black-30;
+            box-shadow: 0 0 multiply($pad, 2) 0 $black-40;
         }
     }
     .file-preview-text {

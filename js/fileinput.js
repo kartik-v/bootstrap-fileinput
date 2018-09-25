@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.5.0
+ * bootstrap-fileinput v4.5.1
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -578,13 +578,13 @@
             if (self.isDisabled) {
                 $el.attr('disabled', true);
             }
+            self.isClickable = self.browseOnZoneClick && self.showPreview &&
+                (self.dropZoneEnabled || !$h.isEmpty(self.defaultPreviewContent));
             self.isAjaxUpload = $h.hasFileUploadSupport() && !$h.isEmpty(self.uploadUrl);
             self.dropZoneEnabled = $h.hasDragDropSupport() && self.dropZoneEnabled;
             if (!self.isAjaxUpload) {
                 self.dropZoneEnabled = self.dropZoneEnabled && $h.canAssignFilesToInput();
             }
-            self.isClickable = self.browseOnZoneClick && self.showPreview &&
-                (self.dropZoneEnabled || !$h.isEmpty(self.defaultPreviewContent));
             self.slug = typeof options.slugCallback === "function" ? options.slugCallback : self._slugDefault;
             self.mainTemplate = self.showCaption ? self._getLayoutTemplate('main1') : self._getLayoutTemplate('main2');
             self.captionTemplate = self._getLayoutTemplate('caption');
@@ -3159,10 +3159,9 @@
             return exifObj;
         },
         _validateImageOrientation: function ($img, file, previewId, caption, ftype, fsize, iData) {
-            var self = this, exifObj = self._getExifObj(iData), value = null;
-            if ($img.length && self.autoOrientImage && exifObj) {
-                value = exifObj["0th"][piexif.ImageIFD.Orientation]; // jshint ignore:line
-            }
+            var self = this, exifObj, value;
+            exifObj = $img.length && self.autoOrientImage ? self._getExifObj(iData) : null;
+            value = exifObj ? exifObj["0th"][piexif.ImageIFD.Orientation] : null; // jshint ignore:line
             if (!value) {
                 self._validateImage(previewId, caption, ftype, fsize, iData, exifObj);
                 return;
@@ -3313,11 +3312,18 @@
             }
         },
         _initClickable: function () {
-            var self = this, $zone;
+            var self = this, $zone, $tmpZone;
             if (!self.isClickable) {
                 return;
             }
-            $zone = self.isAjaxUpload ? self.$dropZone : self.$preview.find('.file-default-preview');
+            $zone = self.$dropZone;
+            if (!self.isAjaxUpload) {
+                $tmpZone = self.$preview.find('.file-default-preview');
+                if ($tmpZone.length) {
+                    $zone = $tmpZone;
+                }
+            }
+
             $h.addCss($zone, 'clickable');
             $zone.attr('tabindex', -1);
             self._handler($zone, 'click', function (e) {

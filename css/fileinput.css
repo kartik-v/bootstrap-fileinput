@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.5.0
+ * bootstrap-fileinput v4.5.1
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -197,8 +197,8 @@
 
 .krajee-default.file-preview-frame {
     margin: 8px;
-    border: 1px solid #ddd;
-    box-shadow: 1px 1px 5px 0 #a2958a;
+    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
     padding: 6px;
     float: left;
     text-align: center;
@@ -218,7 +218,8 @@
 }
 
 .krajee-default.file-preview-frame:not(.file-preview-error):hover {
-    box-shadow: 3px 3px 5px 0 #333;
+    border: 1px solid rgba(0,0,0,0.3);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.4);
 }
 
 .krajee-default .file-preview-text {
