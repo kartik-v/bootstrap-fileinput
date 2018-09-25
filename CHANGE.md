@@ -3,8 +3,10 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.5.1
 
-**Date:** _under development_
+**Date:** 25-Sep-2018
 
+- (enh #1305): Correct `browseOnZoneClick` behavior.
+- (enh #1297): Update default thumbnail shadow style.
 - (enh #1286): Correct piexif library load validation.
 
 ## version 4.5.0

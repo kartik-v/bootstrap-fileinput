@@ -578,13 +578,13 @@
             if (self.isDisabled) {
                 $el.attr('disabled', true);
             }
+            self.isClickable = self.browseOnZoneClick && self.showPreview &&
+                (self.dropZoneEnabled || !$h.isEmpty(self.defaultPreviewContent));
             self.isAjaxUpload = $h.hasFileUploadSupport() && !$h.isEmpty(self.uploadUrl);
             self.dropZoneEnabled = $h.hasDragDropSupport() && self.dropZoneEnabled;
             if (!self.isAjaxUpload) {
                 self.dropZoneEnabled = self.dropZoneEnabled && $h.canAssignFilesToInput();
             }
-            self.isClickable = self.browseOnZoneClick && self.showPreview &&
-                (self.dropZoneEnabled || !$h.isEmpty(self.defaultPreviewContent));
             self.slug = typeof options.slugCallback === "function" ? options.slugCallback : self._slugDefault;
             self.mainTemplate = self.showCaption ? self._getLayoutTemplate('main1') : self._getLayoutTemplate('main2');
             self.captionTemplate = self._getLayoutTemplate('caption');
@@ -3312,11 +3312,18 @@
             }
         },
         _initClickable: function () {
-            var self = this, $zone;
+            var self = this, $zone, $tmpZone;
             if (!self.isClickable) {
                 return;
             }
-            $zone = self.isAjaxUpload ? self.$dropZone : self.$preview.find('.file-default-preview');
+            $zone = self.$dropZone;
+            if (!self.isAjaxUpload) {
+                $tmpZone = self.$preview.find('.file-default-preview');
+                if ($tmpZone.length) {
+                    $zone = $tmpZone;
+                }
+            }
+
             $h.addCss($zone, 'clickable');
             $zone.attr('tabindex', -1);
             self._handler($zone, 'click', function (e) {
