@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.5.2
+
+**Date:** _under development_
+
+- (enh #1308): Enhance audio file preview thumbnail styling.
+
 ## version 4.5.1
 
 **Date:** 25-Sep-2018
