@@ -213,6 +213,11 @@
     width: 400px;
 }
 
+.krajee-default.file-preview-frame[data-template="audio"] .kv-file-content {
+    width: 240px;
+    height: 55px;
+}
+
 .krajee-default.file-preview-frame .file-thumbnail-footer {
     height: 70px;
 }
@@ -481,7 +486,7 @@
 }
 
 @media (max-width: 350px) {
-    .krajee-default.file-preview-frame .kv-file-content {
+    .krajee-default.file-preview-frame:not([data-template="audio"]) .kv-file-content {
         width: 160px;
     }
 }
