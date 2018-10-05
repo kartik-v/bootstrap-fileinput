@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1311): Correct preview zoom modal keydown next and prev keyboard behavior.
 - (enh #1308): Enhance audio file preview thumbnail styling.
 
 ## version 4.5.1
