@@ -7,6 +7,7 @@ Change Log: `bootstrap-fileinput`
 
 - (enh #1311): Correct preview zoom modal keydown next and prev keyboard behavior.
 - (enh #1308): Enhance audio file preview thumbnail styling.
+- (enh #1298): New `encodeUrl` boolean option that encodes all URL passed by default.
 
 ## version 4.5.1
 

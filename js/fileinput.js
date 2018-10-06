@@ -762,7 +762,7 @@
             tZoomCache = '<div class="kv-zoom-cache" style="display:none">{zoomContent}</div>';
             vDefaultDim = {width: "100%", height: "100%", 'min-height': "480px"};
             if (self._isPdfRendered()) {
-                tPdf = self.pdfRendererTemplate.replace('{renderer}', self.pdfRendererUrl);
+                tPdf = self.pdfRendererTemplate.replace('{renderer}', self._encodeURI(self.pdfRendererUrl));
             }
             self.defaults = {
                 layoutTemplates: {
@@ -1145,6 +1145,10 @@
                 return;
             }
             $el.off(ev).on(ev, callback);
+        },
+        _encodeURI: function (vUrl) {
+            var self = this;
+            return self.encodeUrl ? encodeURI(vUrl) : vUrl;
         },
         _log: function (msg) {
             var self = this, id = self.$element.attr('id');
@@ -2149,7 +2153,7 @@
             }
         },
         _ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError, previewId, index) {
-            var self = this, settings;
+            var self = this, settings, vUrl;
             if (!self._raise('filepreajax', [previewId, index])) {
                 return;
             }
@@ -2159,12 +2163,13 @@
             self._mergeAjaxCallback('success', fnSuccess);
             self._mergeAjaxCallback('complete', fnComplete);
             self._mergeAjaxCallback('error', fnError);
+            vUrl = index && self.uploadUrlThumb ? self.uploadUrlThumb : self.uploadUrl;
             settings = $.extend(true, {}, {
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
                     return self._initXhr(xhrobj, previewId, self.getFileStack().length);
                 },
-                url: index && self.uploadUrlThumb ? self.uploadUrlThumb : self.uploadUrl,
+                url: self._encodeURI(vUrl),
                 type: 'POST',
                 dataType: 'json',
                 data: self.formdata,
@@ -2785,7 +2790,7 @@
                 self._mergeAjaxCallback('success', fnSuccess, 'delete');
                 self._mergeAjaxCallback('error', fnError, 'delete');
                 settings = $.extend(true, {}, {
-                    url: vUrl,
+                    url: self._encodeURI(vUrl),
                     type: 'POST',
                     dataType: 'json',
                     data: $.extend(true, {}, {key: vKey}, extraData)
@@ -4282,6 +4287,7 @@
         required: false,
         rtl: false,
         hideThumbnailContent: false,
+        encodeUrl: true,
         generateFileId: null,
         previewClass: '',
         captionClass: '',
