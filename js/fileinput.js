@@ -3925,7 +3925,7 @@
                         };
                         fileInfo = {'name': caption, 'type': file.type};
                         $.each(settings, function (key, func) {
-                            if (key !== 'object' && key !== 'other' && func(file.type, caption)) {
+                            if (typeof func === 'function' && key !== 'object' && key !== 'other' && func(file.type, caption)) {
                                 knownTypes++;
                             }
                         });
