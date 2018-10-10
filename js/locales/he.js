@@ -25,6 +25,7 @@
         msgNo: 'לא',
         msgNoFilesSelected: 'לא נבחרו קבצים',
         msgCancelled: 'מבוטל',
+        msgPlaceholder: 'בחר {files}...',
         msgZoomModalHeading: 'תצוגה מקדימה מפורטת',
         msgSizeTooSmall: 'קובץ "{name}" (<b>{size} KB</b>) קטן מדי וחייב להיות גדול מ <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'קובץ "{name}" (<b>{size} KB</b>) חורג מהגודל המרבי המותר להעלאה של <b>{maxSize} KB</b>.',
