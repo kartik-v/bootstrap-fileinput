@@ -6,6 +6,7 @@ Change Log: `bootstrap-fileinput`
 **Date:** _under development_
 
 - (enh #1318): Configure PDFjs viewer for IE11 pdf preview.
+- (enh #1314): Update Hebrew Translations.
 - (enh #1311): Correct preview zoom modal keydown next and prev keyboard behavior.
 - (enh #1308): Enhance audio file preview thumbnail styling.
 - (enh #1298): New `encodeUrl` boolean option that encodes all URL passed by default.
