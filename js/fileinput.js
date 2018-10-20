@@ -4476,7 +4476,8 @@
             close: 'Close detailed preview'
         },
         usePdfRenderer: function () {
-            return !!navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/i);
+            var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+            return !!navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/i) || isIE11;
         },
         pdfRendererUrl: '',
         pdfRendererTemplate: '<iframe class="kv-preview-data file-preview-pdf" src="{renderer}?file={data}" {style}></iframe>'
