@@ -5,8 +5,13 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1322): Add Uzbek Translations.
+- (enh #1320): New events for files dragged and dropped.
+- (enh #1319): Enhance mimeType parsing via `mimeTypeAliases`.
+   - allows quicktime `.mov` files to be previewed in non Apple browsers like Chrome/Firefox/IE.
 - (enh #1318): Configure PDFjs viewer for IE11 pdf preview.
 - (enh #1314): Update Hebrew Translations.
+- (enh #1313): Correct file type function validation.
 - (enh #1311): Correct preview zoom modal keydown next and prev keyboard behavior.
 - (enh #1308): Enhance audio file preview thumbnail styling.
 - (enh #1298): New `encodeUrl` boolean option that encodes all URL passed by default.

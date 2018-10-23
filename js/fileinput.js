@@ -661,7 +661,8 @@
                 '      {browse}\n' +
                 '    </div>\n' +
                 '</div>';
-            tMain2 = '{preview}\n<div class="kv-upload-progress kv-hidden"></div>\n<div class="clearfix"></div>\n{remove}\n{cancel}\n{upload}\n{browse}\n';
+            tMain2 = '{preview}\n<div class="kv-upload-progress kv-hidden"></div>\n<div class="clearfix"></div>\n' +
+                '{remove}\n{cancel}\n{upload}\n{browse}\n';
             tPreview = '<div class="file-preview {class}">\n' +
                 '    {close}' +
                 '    <div class="{dropClass}">\n' +
@@ -848,6 +849,9 @@
                     object: {width: "auto", height: "100%", 'max-width': "100%", 'min-height': "480px"},
                     pdf: vDefaultDim,
                     other: {width: "auto", height: "100%", 'min-height': "480px"}
+                },
+                mimeTypeAliases: {
+                    'video/quicktime': 'video/mp4'
                 },
                 fileTypeSettings: {
                     image: function (vType, vName) {
@@ -1492,14 +1496,17 @@
             e.preventDefault();
         },
         _zoneDragEnter: function (e) {
-            var self = this, hasFiles = $.inArray('Files', e.originalEvent.dataTransfer.types) > -1;
+            var self = this, dataTransfer = e.originalEvent.dataTransfer,
+                hasFiles = $.inArray('Files', dataTransfer.types) > -1;
             self._zoneDragDropInit(e);
             if (self.isDisabled || !hasFiles) {
                 e.originalEvent.dataTransfer.effectAllowed = 'none';
                 e.originalEvent.dataTransfer.dropEffect = 'none';
                 return;
             }
-            $h.addCss(self.$dropZone, 'file-highlighted');
+            if (self._raise('fileDragEnter', {'sourceEvent': e, 'files': dataTransfer.types.Files})) {
+                $h.addCss(self.$dropZone, 'file-highlighted');
+            }
         },
         _zoneDragLeave: function (e) {
             var self = this;
@@ -1507,7 +1514,10 @@
             if (self.isDisabled) {
                 return;
             }
-            self.$dropZone.removeClass('file-highlighted');
+            if (self._raise('fileDragLeave', {'sourceEvent': e})) {
+                self.$dropZone.removeClass('file-highlighted');
+            }
+
         },
         _zoneDrop: function (e) {
             /** @namespace e.originalEvent.dataTransfer */
@@ -1528,6 +1538,9 @@
                 };
             e.preventDefault();
             if (self.isDisabled || $h.isEmpty(files)) {
+                return;
+            }
+            if (!self._raise('fileDragDrop', {'sourceEvent': e, 'files': files})) {
                 return;
             }
             if (folders > 0) {
@@ -2844,6 +2857,10 @@
             }
             return self._getLayoutTemplate('size').replace('{sizeText}', out);
         },
+        _getFileType: function (ftype) {
+            var self = this;
+            return self.mimeTypeAliases[ftype] || ftype;
+        },
         _generatePreviewTemplate: function (cat, data, fname, ftype, previewId, isError, size, frameClass, foot, ind, templ) {
             var self = this, caption = self.slug(fname), prevContent, zoomContent = '', styleAttribs = '',
                 screenW = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
@@ -2885,7 +2902,7 @@
                     'previewId': id,
                     'caption': caption,
                     'frameClass': css,
-                    'type': ftype,
+                    'type': self._getFileType(ftype),
                     'fileindex': ind,
                     'typeCss': typeCss,
                     'footer': footer,
@@ -3924,8 +3941,8 @@
                             }
                         };
                         fileInfo = {'name': caption, 'type': file.type};
-                        $.each(settings, function (key, func) {
-                            if (key !== 'object' && key !== 'other' && func(file.type, caption)) {
+                        $.each(settings, function (k, f) {
+                            if (k !== 'object' && k !== 'other' && typeof f === 'function' && f(file.type, caption)) {
                                 knownTypes++;
                             }
                         });
