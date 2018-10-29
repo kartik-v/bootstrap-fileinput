@@ -33,6 +33,11 @@ The [master branch](https://github.com/kartik-v/bootstrap-fileinput/tree/master)
 
 ## Installation
 
+### Using NPM
+You can use the `npm` package manager to install. Run:
+
+    npm install bootstrap-fileinput
+
 ### Using Bower
 You can use the `bower` package manager to install. Run:
 
