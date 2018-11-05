@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1325): Update README for NPM install.
 - (enh #1322): Add Uzbek Translations.
 - (enh #1320): New events for files dragged and dropped.
 - (enh #1319): Enhance mimeType parsing via `mimeTypeAliases`.
