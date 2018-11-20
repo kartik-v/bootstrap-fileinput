@@ -80,6 +80,7 @@
         fileActionSettings: {
             removeTitle: '删除文件',
             uploadTitle: '上传文件',
+            downloadTitle: '下载文件',
             uploadRetryTitle: '重试',
             zoomTitle: '查看详情',
             dragTitle: '移动 / 重置',
