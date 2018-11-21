@@ -64,6 +64,7 @@
             return input !== undefined && (exact ? input === str : input.match(str));
         },
         isIE: function (ver) {
+            var div, status;
             // check for IE versions < 11
             if (navigator.appName !== 'Microsoft Internet Explorer') {
                 return false;
@@ -71,7 +72,7 @@
             if (ver === 10) {
                 return new RegExp('msie\\s' + ver, 'i').test(navigator.userAgent);
             }
-            var div = document.createElement("div"), status;
+            div = document.createElement("div");
             div.innerHTML = "<!--[if IE " + ver + "]> <i></i> <![endif]-->";
             status = div.getElementsByTagName("i").length;
             document.body.appendChild(div);
@@ -89,7 +90,7 @@
             }
         },
         getDragDropFolders: function (items) {
-            var i, item, len = items.length, folders = 0;
+            var i, item, len = items ? items.length : 0, folders = 0;
             if (len > 0 && items[0].webkitGetAsEntry()) {
                 for (i = 0; i < len; i++) {
                     item = items[i].webkitGetAsEntry();
