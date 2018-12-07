@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1339): Better validation of `createObjectURL` and `revokeObjectURL`.
 - Update examples\index.html to use latest jQuery, Bootstrap & Font Awesome libraries.
 - (enh #1332): Update Chinese Translations.
 - (enh #1325): Update README for NPM install.

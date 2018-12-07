@@ -60,6 +60,17 @@
         MODAL_ID: 'kvFileinputModal',
         MODAL_EVENTS: ['show', 'shown', 'hide', 'hidden', 'loaded'],
         objUrl: window.URL || window.webkitURL,
+        createObjectURL: function (data) {
+            if ($h.objUrl && $h.objUrl.createObjectURL && data) {
+                return $h.objUrl.createObjectURL(data);
+            }
+            return '';
+        },
+        revokeObjectURL: function (data) {
+            if ($h.objUrl && $h.objUrl.revokeObjectURL && data) {
+                $h.objUrl.revokeObjectURL(data);
+            }
+        },
         compare: function (input, str, exact) {
             return input !== undefined && (exact ? input === str : input.match(str));
         },
@@ -362,8 +373,7 @@
         },
         cleanMemory: function ($thumb) {
             var data = $thumb.is('img') ? $thumb.attr('src') : $thumb.find('source').attr('src');
-            /** @namespace $h.objUrl.revokeObjectURL */
-            $h.objUrl.revokeObjectURL(data);
+            $h.revokeObjectURL(data);
         },
         findFileName: function (filePath) {
             var sepIndex = filePath.lastIndexOf('/');
@@ -2931,7 +2941,7 @@
             }
             var fname = file ? file.name : '', ftype = file ? file.type : '', content, size = file.size || 0,
                 caption = self.slug(fname), isError = isDisabled === true && !self.isAjaxUpload,
-                data = $h.objUrl.createObjectURL(file);
+                data = $h.createObjectURL(file);
             self._clearDefaultPreview();
             content = self._generatePreviewTemplate('other', data, fname, ftype, previewId, isError, size);
             self._addToPreview($preview, content);
@@ -3817,7 +3827,7 @@
                 var node = ctr + i, previewId = previewInitId + "-" + node, file = files[i], fSizeKB, j, msg,
                     fnText = settings.text, fnImage = settings.image, fnHtml = settings.html, typ, chk, typ1, typ2,
                     caption = file && file.name ? self.slug(file.name) : '', fileSize = (file && file.size || 0) / 1000,
-                    fileExtExpr = '', previewData = file ? $h.objUrl.createObjectURL(file) : null, fileCount = 0,
+                    fileExtExpr = '', previewData = $h.createObjectURL(file), fileCount = 0,
                     strTypes = '',
                     func, knownTypes = 0, isText, isHtml, isImage, txtFlag, processFileLoaded = function () {
                         var msg = msgProgress.setTokens({
