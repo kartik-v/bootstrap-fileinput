@@ -1,5 +1,15 @@
-bootstrap-fileinput
-===================
+<h1 align="center">
+    <a href="http://plugins.krajee.com" title="Krajee Plugins" target="_blank">
+        <img src="http://kartik-v.github.io/bootstrap-fileinput-samples/samples/krajee-logo-b.png" alt="Krajee Logo"/>
+    </a>
+    <br>
+    bootstrap-fileinput
+    <hr>
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DTP3NZQ6G2AYU"
+       title="Donate via Paypal" target="_blank">
+        <img src="http://kartik-v.github.io/bootstrap-fileinput-samples/samples/donate.png" alt="Donate"/>
+    </a>
+</h1>
 
 [![Bower version](https://badge.fury.io/bo/bootstrap-fileinput.svg)](http://badge.fury.io/bo/bootstrap-fileinput)
 [![Latest Stable Version](https://poser.pugx.org/kartik-v/bootstrap-fileinput/v/stable)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)
@@ -34,12 +44,17 @@ The [master branch](https://github.com/kartik-v/bootstrap-fileinput/tree/master)
 ## Installation
 
 ### Using Bower
-You can use the `bower` package manager to install. Run:
+To install using the `bower` package manager run:
 
     bower install bootstrap-fileinput
 
+### Using NPM
+To install using the `npm` package manager run:
+
+    npm install bootstrap-fileinput
+
 ### Using Composer
-You can use the `composer` package manager to install. Either run:
+To install using the `composer` package manager run: 
 
     $ php composer.phar require kartik-v/bootstrap-fileinput "@dev"
 

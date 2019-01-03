@@ -3,9 +3,25 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.5.2
 
-**Date:** _under development_
+**Date:** 03-Jan-2019
 
+- (enh #1342): Update Turkish Translations.
+- (enh #1339): Better validation of `createObjectURL` and `revokeObjectURL`.
+- Update examples\index.html to use latest jQuery, Bootstrap & Font Awesome libraries.
+- (enh #1333): Update Galician Translations.
+- (enh #1332): Update Chinese Translations.
+- (enh #1325): Update README for NPM install.
+- (bug #1324): Error in IE11 Folder drag and drop.
+- (enh #1322): Add Uzbek Translations.
+- (enh #1320): New events for files dragged and dropped.
+- (enh #1319): Enhance mimeType parsing via `mimeTypeAliases`.
+   - allows quicktime `.mov` files to be previewed in non Apple browsers like Chrome/Firefox/IE.
+- (enh #1318): Configure PDFjs viewer for IE11 pdf preview.
+- (enh #1314): Update Hebrew Translations.
+- (enh #1313): Correct file type function validation.
+- (enh #1311): Correct preview zoom modal keydown next and prev keyboard behavior.
 - (enh #1308): Enhance audio file preview thumbnail styling.
+- (enh #1298): New `encodeUrl` boolean option that encodes all URL passed by default.
 
 ## version 4.5.1
 
