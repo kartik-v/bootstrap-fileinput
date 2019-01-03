@@ -3,10 +3,12 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.5.2
 
-**Date:** _under development_
+**Date:** 03-Jan-2019
 
+- (enh #1342): Update Turkish Translations.
 - (enh #1339): Better validation of `createObjectURL` and `revokeObjectURL`.
 - Update examples\index.html to use latest jQuery, Bootstrap & Font Awesome libraries.
+- (enh #1333): Update Galician Translations.
 - (enh #1332): Update Chinese Translations.
 - (enh #1325): Update README for NPM install.
 - (bug #1324): Error in IE11 Folder drag and drop.
