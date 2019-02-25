@@ -767,8 +767,8 @@
             tGeneric = '{content}\n';
             tStyle = ' {style}';
             tHtml = '<div class="kv-preview-data file-preview-html" title="{caption}"' + tStyle + '>{data}</div>\n';
-            tImage = '<img src="{data}" class="file-preview-image kv-preview-data" title="{caption}" ' +
-                'alt="{caption}"' + tStyle + '>\n';
+            tImage = '<img src="{data}" class="file-preview-image kv-preview-data" title="{title}" ' +
+                'alt="{alt}"' + tStyle + '>\n';
             tText = '<textarea class="kv-preview-data file-preview-text" title="{caption}" readonly' + tStyle + '>' +
                 '{data}</textarea>\n';
             tOffice = '<iframe class="kv-preview-data file-preview-office" ' +
@@ -1005,9 +1005,10 @@
                     var ind = 'init_' + i, data = self.previewCache.data, config = data.config[i],
                         content = data.content[i], previewId = self.previewInitId + '-' + ind, out, $tmp, cat, ftr,
                         fname, ftype, frameClass, asData = $h.ifSet('previewAsData', config, self.initialPreviewAsData),
+                        a = {title: config.title, alt: config.alt},
                         parseTemplate = function (cat, dat, fn, ft, id, ftr, ind, fc, t) {
                             fc = ' file-preview-initial ' + $h.SORT_CSS + (fc ? ' ' + fc : '');
-                            return self._generatePreviewTemplate(cat, dat, fn, ft, id, false, null, fc, ftr, ind, t);
+                            return self._generatePreviewTemplate(cat, dat, fn, ft, id, false, null, fc, ftr, ind, t, a);
                         };
                     if (!content) {
                         return '';
@@ -2906,12 +2907,13 @@
             frameClass,
             foot,
             ind,
-            templ
+            templ,
+            attrs
         ) {
             var self = this, caption = self.slug(fname), prevContent, zoomContent = '', styleAttribs = '',
                 screenW = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
                 config = screenW < 400 ? (self.previewSettingsSmall[cat] || self.defaults.previewSettingsSmall[cat]) :
-                    (self.previewSettings[cat] || self.defaults.previewSettings[cat]),
+                    (self.previewSettings[cat] || self.defaults.previewSettings[cat]), title = caption, alt = caption,
                 footer = foot || self._renderFileFooter(caption, size, 'auto', isError),
                 hasIconSetting = self._getPreviewIcon(fname), typeCss = 'type-default',
                 forcePrevIcon = hasIconSetting && self.preferIconicPreview,
@@ -2944,9 +2946,19 @@
                         }
                     });
                 }
+                if (!$h.isEmpty(attrs)) {
+                    if (attrs.title !== undefined && attrs.title !== null) {
+                        title = attrs.title;
+                    }
+                    if (attrs.alt !== undefined && attrs.alt !== null) {
+                        title = attrs.alt;
+                    }
+                }
                 return tmplt.setTokens({
                     'previewId': id,
                     'caption': caption,
+                    'title': title,
+                    'alt': alt,
                     'frameClass': css,
                     'type': self._getFileType(ftype),
                     'fileindex': ind,
