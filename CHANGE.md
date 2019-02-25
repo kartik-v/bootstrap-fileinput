@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 4.5.3
+
+**Date:** _under development_
+
+- (enh #1362, #1337, #1269): AutoOrientImage enhancement for mobile safari.
+
 ## version 4.5.2
 
 **Date:** 03-Jan-2019
