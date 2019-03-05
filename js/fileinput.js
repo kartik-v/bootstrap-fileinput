@@ -1005,7 +1005,7 @@
                     var ind = 'init_' + i, data = self.previewCache.data, config = data.config[i],
                         content = data.content[i], previewId = self.previewInitId + '-' + ind, out, $tmp, cat, ftr,
                         fname, ftype, frameClass, asData = $h.ifSet('previewAsData', config, self.initialPreviewAsData),
-                        a = {title: config.title, alt: config.alt},
+                        a = config ? {title: config.title || null, alt: config.alt || null} : {title: null, alt: null},
                         parseTemplate = function (cat, dat, fn, ft, id, ftr, ind, fc, t) {
                             fc = ' file-preview-initial ' + $h.SORT_CSS + (fc ? ' ' + fc : '');
                             return self._generatePreviewTemplate(cat, dat, fn, ft, id, false, null, fc, ftr, ind, t, a);
