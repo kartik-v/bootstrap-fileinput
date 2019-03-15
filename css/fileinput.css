@@ -7,7 +7,7 @@
  * Author: Kartik Visweswaran
  * Copyright: 2014 - 2019, Kartik Visweswaran, Krajee.com
  *
- * Licensed under the BSD 3-Clause
+ * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
 .file-loading input[type=file], input[type=file].file-loading {
@@ -377,7 +377,6 @@
 .file-drop-zone {
     border: 1px dashed #aaa;
     border-radius: 4px;
-    height: 100%;
     text-align: center;
     vertical-align: middle;
     margin: 12px 15px 12px 12px;

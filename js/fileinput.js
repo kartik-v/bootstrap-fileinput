@@ -5,7 +5,7 @@
  * Author: Kartik Visweswaran
  * Copyright: 2014 - 2019, Kartik Visweswaran, Krajee.com
  *
- * Licensed under the BSD 3-Clause
+ * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
 (function (factory) {
@@ -60,6 +60,17 @@
         MODAL_ID: 'kvFileinputModal',
         MODAL_EVENTS: ['show', 'shown', 'hide', 'hidden', 'loaded'],
         objUrl: window.URL || window.webkitURL,
+        now: function () {
+            return new Date();
+        },
+        stopEvent: function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        },
+        getFileName: function (file) {
+            /** @namespace file.fileName */
+            return file ? (file.fileName || file.name || '') : ''; // some confusion in different versions of Firefox
+        },
         createObjectURL: function (data) {
             if ($h.objUrl && $h.objUrl.createObjectURL && data) {
                 return $h.objUrl.createObjectURL(data);
@@ -760,7 +771,7 @@
             tActionDrag = '<span class="file-drag-handle {dragClass}" title="{dragTitle}">{dragIcon}</span>';
             tIndicator = '<div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>';
             tTagBef = '<div class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
-                ' data-template="{template}"';
+                ' data-fileid="{fileid}" data-template="{template}"';
             tTagBef1 = tTagBef + '><div class="kv-file-content">\n';
             tTagBef2 = tTagBef + ' title="{caption}"><div class="kv-file-content">\n';
             tTagAft = '</div>{footer}\n</div>\n';
@@ -1284,7 +1295,7 @@
         },
         _showUploadError: function (msg, params, event) {
             var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror', e = params && params.id ?
-                '<li data-file-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
+                '<li data-thumb-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
             if ($error.find('ul').length === 0) {
                 self._addError('<ul>' + e + '</ul>');
             } else {
@@ -2726,7 +2737,7 @@
                         self._clearObjects($frame);
                         $frame.remove();
                         if (id && hasError) {
-                            self.$errorContainer.find('li[data-file-id="' + id + '"]').fadeOut('fast', function () {
+                            self.$errorContainer.find('li[data-thumb-id="' + id + '"]').fadeOut('fast', function () {
                                 $(this).remove();
                                 if (!self._errorsExist()) {
                                     self._resetErrors();
@@ -2962,6 +2973,7 @@
                     'frameClass': css,
                     'type': self._getFileType(ftype),
                     'fileindex': ind,
+                    'fileid': self._getFileIds()[ind] || '',
                     'typeCss': typeCss,
                     'footer': footer,
                     'data': d,
@@ -2986,7 +2998,7 @@
             if (!self.showPreview) {
                 return;
             }
-            var fname = file ? file.name : '', ftype = file ? file.type : '', content, size = file.size || 0,
+            var fname = $h.getFileName(file), ftype = file ? file.type : '', content, size = file.size || 0,
                 caption = self.slug(fname), isError = isDisabled === true && !self.isAjaxUpload,
                 data = $h.createObjectURL(file);
             self._clearDefaultPreview();
@@ -3001,7 +3013,7 @@
             if (!this.showPreview) {
                 return;
             }
-            var self = this, fname = file ? file.name : '', ftype = fileInfo.type, caption = fileInfo.name,
+            var self = this, fname = $h.getFileName(file), ftype = fileInfo.type, caption = fileInfo.name,
                 cat = self._parseFileType(ftype, fname), types = self.allowedPreviewTypes, content,
                 mimes = self.allowedPreviewMimeTypes, $preview = self.$preview, fsize = file.size || 0,
                 chkTypes = types && types.indexOf(cat) >= 0, chkMimes = mimes && mimes.indexOf(ftype) !== -1,
@@ -3160,16 +3172,17 @@
             if (!file) {
                 return null;
             }
+            /** @namespace file.relativePath */
             /** @namespace file.webkitRelativePath */
-            /** @namespace file.fileName */
-            relativePath = String(file.webkitRelativePath || file.fileName || file.name || null);
+            relativePath = String(file.relativePath || file.webkitRelativePath || $h.getFileName(file) || null);
             if (!relativePath) {
                 return null;
             }
             return (file.size + '-' + relativePath.replace(/[^0-9a-zA-Z_-]/img, ''));
         },
-        _getFileName: function (file) {
-            return file && file.name ? this.slug(file.name) : undefined;
+        _getFileName: function (file, defaultValue) {
+            var self = this, fileName = $h.getFileName(file);
+            return fileName ? self.slug(fileName) : defaultValue;
         },
         _getFileIds: function (skipNull) {
             var self = this;
@@ -3227,12 +3240,18 @@
             self._showUploadError(msg, params);
             self._setPreviewError($thumb, i, null);
         },
-        _getExifObj: function (iData) {
+        _getExifObj: function (data) {
             var self = this, exifObj = null;
+            if (data.slice(0, 23) !== 'data:image/jpeg;base64,' && data.slice(0, 22) !== 'data:image/jpg;base64,') {
+                exifObj = null;
+                return;
+            }
             try {
-                exifObj = window.piexif ? window.piexif.load(iData) : null;
+                exifObj = window.piexif ? window.piexif.load(data) : null;
+
             } catch (err) {
                 exifObj = null;
+                self._log(err);
             }
             if (!exifObj) {
                 self._log('Error loading the piexif.js library.');
@@ -3889,7 +3908,7 @@
                 }
                 var node = ctr + i, previewId = previewInitId + '-' + node, file = files[i], fSizeKB, j, msg,
                     fnText = settings.text, fnImage = settings.image, fnHtml = settings.html, typ, chk, typ1, typ2,
-                    caption = file && file.name ? self.slug(file.name) : '', fileSize = (file && file.size || 0) / 1000,
+                    caption = self._getFileName(file, ''), fileSize = (file && file.size || 0) / 1000,
                     fileExtExpr = '', previewData = $h.createObjectURL(file), fileCount = 0,
                     strTypes = '',
                     func, knownTypes = 0, isText, isHtml, isImage, txtFlag, processFileLoaded = function () {
@@ -3921,7 +3940,7 @@
                     return;
                 }
                 if (caption.length === 0) {
-                    msg = self.msgInvalidFileName.replace('{name}', $h.htmlEncode(file.name, '[unknown]'));
+                    msg = self.msgInvalidFileName.replace('{name}', $h.htmlEncode($h.getFileName(file), '[unknown]'));
                     throwError(msg, file, previewId, i);
                     return;
                 }
@@ -3951,7 +3970,8 @@
                     for (j = 0; j < fileTypes.length; j += 1) {
                         typ = fileTypes[j];
                         func = settings[typ];
-                        fileCount += !func || (typeof func !== 'function') ? 0 : (func(file.type, file.name) ? 1 : 0);
+                        fileCount += !func || (typeof func !== 'function') ? 0 : (func(file.type,
+                            $h.getFileName(file)) ? 1 : 0);
                     }
                     if (fileCount === 0) {
                         msg = self.msgInvalidFileType.setTokens({'name': caption, 'types': strTypes});

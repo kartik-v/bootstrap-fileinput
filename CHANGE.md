@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1367, #1286): Better validation of piexif.js and other code enhancements.
 - (enh #1362, #1337, #1269): AutoOrientImage enhancement for mobile safari.
 - (enh #1336): Ability to configure `alt` and `title` attributes for images in `initialPreviewConfig`.
 
