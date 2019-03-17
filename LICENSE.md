@@ -1,4 +1,4 @@
-Copyright (c) 2014 - 2018, Kartik Visweswaran  
+Copyright (c) 2014 - 2019, Kartik Visweswaran  
 Krajee.com  
 All rights reserved.  
 
