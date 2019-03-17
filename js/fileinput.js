@@ -3254,7 +3254,8 @@
                 self._log(err);
             }
             if (!exifObj) {
-                self._log('Error loading the piexif.js library.');
+                self._log(
+                    'The piexif.js library was not detected. Either load piexif.js on your page OR set `autoOrientImage` to `false`.');
             }
             return exifObj;
         },

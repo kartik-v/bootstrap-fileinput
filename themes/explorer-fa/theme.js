@@ -15,7 +15,7 @@
 (function ($) {
     "use strict";
     var teTagBef = '<tr class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
-        ' data-template="{template}"', teContent = '<td class="kv-file-content">\n';
+        ' data-fileid="{fileid}" data-template="{template}"', teContent = '<td class="kv-file-content">\n';
     $.fn.fileinputThemes['explorer-fa'] = {
         layoutTemplates: {
             preview: '<div class="file-preview {class}">\n' +
