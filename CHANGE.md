@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 4.5.3
 
-**Date:** _under development_
+**Date:** 21-Mar-2019
 
 - (enh #1371): Capture file identifier in thumbnails
 - (enh #1367, #1286): Better validation of piexif.js and other code enhancements.
