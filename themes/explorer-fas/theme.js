@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.5.3
+ * bootstrap-fileinput v5.0.0
  * http://plugins.krajee.com/file-input
  *
  * Krajee Explorer Font Awesome theme configuration for bootstrap-fileinput. 
@@ -13,7 +13,7 @@
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
 (function ($) {
-    "use strict";
+    'use strict';
     var teTagBef = '<tr class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
         ' data-fileid="{fileid}" data-template="{template}"', teContent = '<td class="kv-file-content">\n';
     $.fn.fileinputThemes['explorer-fas'] = {
@@ -46,15 +46,15 @@
             tagAfter: '</td>\n{footer}</tr>\n'
         },
         previewSettings: {
-            image: {height: "60px"},
-            html: {width: "100px", height: "60px"},
-            text: {width: "100px", height: "60px"},
-            video: {width: "auto", height: "60px"},
-            audio: {width: "auto", height: "60px"},
-            flash: {width: "100%", height: "60px"},
-            object: {width: "100%", height: "60px"},
-            pdf: {width: "100px", height: "60px"},
-            other: {width: "100%", height: "60px"}
+            image: {height: '60px'},
+            html: {width: '100px', height: '60px'},
+            text: {width: '100px', height: '60px'},
+            video: {width: 'auto', height: '60px'},
+            audio: {width: 'auto', height: '60px'},
+            flash: {width: '100%', height: '60px'},
+            object: {width: '100%', height: '60px'},
+            pdf: {width: '100px', height: '60px'},
+            other: {width: '100%', height: '60px'}
         },
         frameClass: 'explorer-frame',
         fileActionSettings: {
@@ -81,6 +81,7 @@
         browseIcon: '<i class="fas fa-folder-open"></i>',
         removeIcon: '<i class="fas fa-trash-alt"></i>',
         cancelIcon: '<i class="fas fa-ban"></i>',
+        pauseIcon: '<i class="fas fa-pause"></i>',
         uploadIcon: '<i class="fas fa-upload"></i>',
         msgValidationErrorIcon: '<i class="fas fa-exclamation-circle"></i> '
     };

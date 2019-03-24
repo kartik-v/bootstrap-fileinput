@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.5.3
+ * bootstrap-fileinput v5.0.0
  * http://plugins.krajee.com/file-input
  *
  * Glyphicon (default) theme configuration for bootstrap-fileinput.
@@ -39,6 +39,7 @@
         browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>&nbsp;',
         removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
         cancelIcon: '<i class="glyphicon glyphicon-ban-circle"></i>',
+        pauseIcon: '<i class="glyphicon glyphicon-pause"></i>',
         uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
         msgValidationErrorIcon: '<i class="glyphicon glyphicon-exclamation-sign"></i> '
     };

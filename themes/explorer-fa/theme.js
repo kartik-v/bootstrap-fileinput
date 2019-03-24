@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v4.5.3
+ * bootstrap-fileinput v5.0.0
  * http://plugins.krajee.com/file-input
  *
  * Krajee Explorer Font Awesome theme configuration for bootstrap-fileinput. 
@@ -81,6 +81,7 @@
         browseIcon: '<i class="fa fa-folder-open"></i>',
         removeIcon: '<i class="fa fa-trash"></i>',
         cancelIcon: '<i class="fa fa-ban"></i>',
+        pauseIcon: '<i class="fa fa-pause"></i>',
         uploadIcon: '<i class="fa fa-upload"></i>',
         msgValidationErrorIcon: '<i class="fa fa-exclamation-circle"></i> '
     };

@@ -3,7 +3,7 @@
   <metadata>
     <id>bootstrap-fileinput</id>
 	<title>bootstrap-fileinput</title>
-    <version>4.5.3</version>
+    <version>5.0.0</version>
     <authors>Kartik Visweswaran</authors>
     <owners>Kartik Visweswaran</owners>
     <licenseUrl>https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md</licenseUrl>
@@ -15,7 +15,7 @@
     <copyright>Copyright 2014 - 2019</copyright>
     <tags>bootstrap bootstrap-fileinput</tags>
     <dependencies>
-      <dependency id="bootstrap" version="3.3.0" />
+      <dependency id="bootstrap" version="3.4.1" />
     </dependencies>
   </metadata>
 </package>

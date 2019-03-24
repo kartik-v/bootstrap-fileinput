@@ -1,6 +1,51 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.0.0 
+
+### MAJOR RELEASE
+
+**Date:** _under development_
+
+- (enh #1378): Allow throttling / delaying xhr progress updates.
+    - New property `uploadProgressDelay` in microseconds - will default to `100`  - this will control how frequent the xhr upload progress will be checked. If set to null or 0 - will do it every microsecond.
+    - New property `maxAjaxThreads` (will default to `5`) that will allow to spawn only this limit of ajax requests in parallel.
+    - The above is complemented by `resumableUploadOptions['maxThreads']` (defaults to 4) which is applicable for spawning number of ajax chunk requests for resumable uploads. The `resumableUploadOptions['maxThreads']` property must be less than or equal to `maxThreads` - else it will be over-ridden by `maxThreads` global setting.
+- (enh #1377): Display extended upload statistics like bitrate and pending time.
+    - add `layoutTemplates['stats']` for displaying stats
+    ```js
+    layoutTemplates.stats = '<div class="text-info file-upload-stats">' +
+        '<span class="pending-time">{pendingTime}</span> ' +
+        '<span class="upload-speed">{uploadSpeed}</span>' +
+        '</div>';
+    ```
+    - token `{stats}` will be replaced with above
+    - by default '{stats}' will be appended at the end of `layoutTemplates['progress']`
+    - display pending time remaining and upload speed within stats
+    - enhance xhr progress to support updating stats
+- (enh #1374): Allow exif data of images to be read from server.
+    - `initialPreviewConfig` sent from the server can contain the `exif` property as an object.
+    - allows auto orientation of JPEG image files based on exif orientation
+    - `autoOrientImageInitial` is a new boolean property that controls whether images need to be auto-oriented based on exif orientation.
+- (enh #1373): Selectively disable file selection and preview for certain file extensions.
+        - `allowedPreviewTypes` (existing)
+        - `allowedPreviewMimeTypes` (existing)
+        - `allowedPreviewExtensions` (new)
+        - `disabledPreviewTypes` (new)
+        - `disabledPreviewExtensions` (new) - defaults to `['msi', 'exe', 'com', 'zip', 'rar', 'app', 'vb', 'scr']`
+        - `disabledPreviewMimeTypes` (new) - defaults to `['application/octet-stream']`
+- (enh #1370): Add ability for pausing and resuming uploads
+- (enh #1368): Better enhanced file management and queuing. 
+    - New `fileManager` and `resumableManager` internal objects. 
+    - `filestack` property has been removed
+    - `addToFileStack` and `updateFileStack` methods have been removed
+- (enh #1321): Add ability to define separate thumbnail and zoom images / file data. 
+- (enh #1264, #1145): Allow configurable file actions as a callback. 
+    - The `showXXX` properties in `fileActionSettings` ca3n now be setup as a callback.
+    - Can read any property from the `initialPreviewConfig` for initial preview thumbnails
+- (enh #1249, #290): Add capability for resumable and chunk uploads.
+    - New properties `enableResumableUpload` and `resumableUploadOptions`
+
 ## version 4.5.3
 
 **Date:** 21-Mar-2019
