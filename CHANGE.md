@@ -5,7 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 ### MAJOR RELEASE
 
-**Date:** _under development_
+**Date:** 24-Mar-2019
 
 - (enh #1378): Allow throttling / delaying xhr progress updates.
     - New property `uploadProgressDelay` in microseconds - will default to `100`  - this will control how frequent the xhr upload progress will be checked. If set to null or 0 - will do it every microsecond.
