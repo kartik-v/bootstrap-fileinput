@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** 26-Mar-2019
 
+- (enh #1382):  Better defaults for `resumableUploadOptions.chunkSize` and `progressDelay`.
+    - Set defaults for `progressDelay` to `0` and `resumableUploadOptions.chunkSize` to `2048 KB` i.e. (`2 MB`)
 - (bug #1381): Fix `uploadExtraData` to be submitted correctly with ajax responses.
 - (enh #1379): Add ability to sanitize zoom cache. New property `sanitizeZoomCache` which is a function callback and defaults to:
     ```js
