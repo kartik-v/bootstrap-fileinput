@@ -1,7 +1,23 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 5.0.0 
+## version 5.0.1
+
+**Date:** 26-Mar-2019
+
+- (bug #1381): Fix `uploadExtraData` to be submitted correctly with ajax responses.
+- (enh #1379): Add ability to sanitize zoom cache. New property `sanitizeZoomCache` which is a function callback and defaults to:
+    ```js
+    function(content) {
+        var $container = $(document.createElement('div')).append(content);
+        $container.find('input,select,.file-thumbnail-footer').remove();
+        return $container.html();
+    }
+    ```
+- (enh #276): Add ability to change ajax submission URL dynamically e.g. `uploadUrl`, `deleteUrl`, `resumableUploadOptions.testUrl`. 
+  These can now be also setup as a function callback that will be executed at runtime.
+
+## version 5.0.0
 
 ### MAJOR RELEASE
 
