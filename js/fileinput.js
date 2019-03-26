@@ -5037,9 +5037,9 @@
                 }
             }
             self._hideFileIcon();
-            self._raise('filecleared');
             self.$captionContainer.focus();
             self._setFileDropZoneTitle();
+            self._raise('filecleared');
             return self.$element;
         },
         reset: function () {
@@ -5367,12 +5367,12 @@
         maxAjaxThreads: 5,
         processDelay: 100,
         queueDelay: 10, // must be lesser than process delay
-        progressDelay: 50, // must be lesser than process delay
+        progressDelay: 0, // must be lesser than process delay
         enableResumableUpload: false,
         resumableUploadOptions: {
             fallback: null,
             testUrl: null, // used for checking status of chunks/ files previously / partially uploaded
-            chunkSize: 10 * 1024, // in KB
+            chunkSize: 2 * 1024, // in KB
             maxThreads: 4,
             maxRetries: 3,
             showErrorLog: true
