@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.0.0
+ * bootstrap-fileinput v5.0.1
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -2959,18 +2959,21 @@
             formdata.append('initialPreview', JSON.stringify(self.initialPreview));
             formdata.append('initialPreviewConfig', JSON.stringify(self.initialPreviewConfig));
             formdata.append('initialPreviewThumbTags', JSON.stringify(self.initialPreviewThumbTags));
-            data = self._getExtraData(fileId, index);
-            if (data.length > 0) {
-                $.each(data, function (key, value) {
-                    formdata.append(key, value);
-                });
-            }
             self._initAjaxSettings();
             self._mergeAjaxCallback('beforeSend', fnBefore);
             self._mergeAjaxCallback('success', fnSuccess);
             self._mergeAjaxCallback('complete', fnComplete);
             self._mergeAjaxCallback('error', fnError);
             vUrl = vUrl || self.uploadUrlThumb || self.uploadUrl;
+            if (typeof vUrl === "function") {
+                vUrl = vUrl();
+            }
+            data = self._getExtraData(fileId, index) || {};
+            if (typeof data === "object") {
+                $.each(data, function (key, value) {
+                    formdata.append(key, value);
+                });
+            }
             defaults = {
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
@@ -3552,6 +3555,9 @@
                 if ($h.isEmpty(vUrl) || vKey === undefined) {
                     return;
                 }
+                if (typeof vUrl === "function") {
+                    vUrl = vUrl();
+                }
                 var $frame = $el.closest($h.FRAMES), cache = self.previewCache.data,
                     settings, params, index = $frame.attr('data-fileindex'), config, extraData;
                 index = parseInt(index.replace('init_', ''));
@@ -3755,6 +3761,9 @@
                     'kv-zoom-thumb');
             }
             zoomContent = '\n' + self._getLayoutTemplate('zoomCache').replace('{zoomContent}', zoomContent);
+            if (typeof self.sanitizeZoomCache === 'function') {
+                zoomContent = self.sanitizeZoomCache(zoomContent);
+            }
             prevContent = getContent((forcePrevIcon ? 'other' : cat), data, false, 'kv-preview-thumb');
             return prevContent + zoomContent;
         },
@@ -5289,6 +5298,11 @@
         deleteUrl: '',
         deleteExtraData: {},
         overwriteInitial: true,
+        sanitizeZoomCache: function(content) {
+            var $container = $(document.createElement('div')).append(content);
+            $container.find('input,select,.file-thumbnail-footer').remove();
+            return $container.html();
+        },
         previewZoomButtonIcons: {
             prev: '<i class="glyphicon glyphicon-triangle-left"></i>',
             next: '<i class="glyphicon glyphicon-triangle-right"></i>',
