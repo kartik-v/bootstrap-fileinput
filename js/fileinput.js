@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.0.1
+ * bootstrap-fileinput v5.0.2
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -1727,7 +1727,7 @@
                             /** @namespace config.zoomData */
                             fileId = config && config.fileId || 'file_' + id;
                             return self._generatePreviewTemplate(cat, dat, fn, ft, id, fileId, false, null, fc,
-                                ftr, ind, t, a, config.zoomData || dat);
+                                ftr, ind, t, a, config && config.zoomData || dat);
                         };
                     if (!content || !content.length) {
                         return '';
@@ -4174,7 +4174,7 @@
                 }
                 self._setPreviewError($thumb);
             };
-            file = self.getFile(id);
+            file = self.fileManager.getFile(id);
             params = {id: pid, 'index': ind, fileId: id};
             evParams = [id, pid, ind];
             if (!file || !isValidImage || (width <= maxWidth && height <= maxHeight)) {
