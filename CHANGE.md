@@ -5,7 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
-- (bug #1383):  Validate for undefined zoom data.
+- (bug #1385): Correct resize image error.
+- (bug #1383): Validate for undefined zoom data.
     
 ## version 5.0.1
 

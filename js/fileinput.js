@@ -4174,7 +4174,7 @@
                 }
                 self._setPreviewError($thumb);
             };
-            file = self.getFile(id);
+            file = self.fileManager.getFile(id);
             params = {id: pid, 'index': ind, fileId: id};
             evParams = [id, pid, ind];
             if (!file || !isValidImage || (width <= maxWidth && height <= maxHeight)) {
