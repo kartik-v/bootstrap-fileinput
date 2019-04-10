@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (bug #1390): Correct remove button display validation set via `fileActionSettings`.
 - (bug #1385): Correct resize image error.
 - (bug #1383): Validate for undefined zoom data.
     

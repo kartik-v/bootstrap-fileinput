@@ -4443,7 +4443,7 @@
                 showDwn = showDwn(cfg);
             }
             if (typeof showDel === 'function') {
-                showDwn = showDwn(cfg);
+                showDel = showDel(cfg);
             }
             if (typeof showZoom === 'function') {
                 showZoom = showZoom(cfg);
@@ -4451,7 +4451,7 @@
             if (typeof showDrag === 'function') {
                 showDrag = showDrag(cfg);
             }
-            if (!showUpl && !showDwn && !showDwn && !showZoom && !showDrag) {
+            if (!showUpl && !showDwn && !showDel && !showZoom && !showDrag) {
                 return '';
             }
             var self = this, vUrl = url === false ? '' : ' data-url="' + url + '"',
