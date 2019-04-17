@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- Better management of console log messages.
 - (bug #1391): Correct resumable upload progress update behavior when `showPreview` is `false`.
 - (bug #1390): Correct remove button display validation set via `fileActionSettings`.
 - (bug #1385): Correct resize image error.

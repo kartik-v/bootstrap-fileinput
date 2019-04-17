@@ -60,17 +60,17 @@
         MODAL_ID: 'kvFileinputModal',
         MODAL_EVENTS: ['show', 'shown', 'hide', 'hidden', 'loaded'],
         logMessages: {
+            ajaxError: '{status}: {error}. Error Details: {text}.',
+            badDroppedFiles: 'Error scanning dropped files!',
+            badExifParser: 'Error loading the piexif.js library. {details}',
+            badInputType: 'The input "type" must be set to "file" for initializing the "bootstrap-fileinput" plugin.',
+            exifWarning: 'To avoid this warning, either set `autoOrientImage` to `false` OR ensure you have loaded ' +
+            'the piexif.js library correctly on your page.',
+            invalidChunkSize: 'Invalid "uploadResumableSize" ({chunkSize}). Resumable uploads are disabled.',
+            invalidThumb: 'Invalid thumb frame with id: "{id}".',
             noResumableSupport: 'The browser does not support resumable or chunk uploads.',
             noUploadUrl: 'The "uploadUrl" is not set. Ajax uploads and resumable uploads have been disabled.',
-            invalidChunkSize: 'Invalid "uploadResumableSize" ({chunkSize}). Resumable uploads are disabled.',
-            ajaxError: '{status}: {error}. Error Details: {text}.',
             retryStatus: 'Retrying upload for chunk # {chunk} for {filename}... retry # {retry}.',
-            badInputType: 'The input "type" must be set to "file" for initializing the "bootstrap-fileinput" plugin.',
-            badDroppedFiles: 'Error scanning dropped files!',
-            invalidThumb: 'Invalid thumb frame with id: "{id}".',
-            badExifParser: 'Error loading the piexif.js library. {details}',
-            exifWarning: 'To avoid this warning, either set `autoOrientImage` to `false` OR ensure you have loaded ' +
-            'the piexif.js library correctly on your page.'
         },
         objUrl: window.URL || window.webkitURL,
         now: function () {
