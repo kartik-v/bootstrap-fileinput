@@ -59,6 +59,19 @@
         '</div>',
         MODAL_ID: 'kvFileinputModal',
         MODAL_EVENTS: ['show', 'shown', 'hide', 'hidden', 'loaded'],
+        logMessages: {
+            noResumableSupport: 'The browser does not support resumable or chunk uploads.',
+            noUploadUrl: 'The "uploadUrl" is not set. Ajax uploads and resumable uploads have been disabled.',
+            invalidChunkSize: 'Invalid "uploadResumableSize" ({chunkSize}). Resumable uploads are disabled.',
+            ajaxError: '{status}: {error}. Error Details: {text}.',
+            retryStatus: 'Retrying upload for chunk # {chunk} for {filename}... retry # {retry}.',
+            badInputType: 'The input "type" must be set to "file" for initializing the "bootstrap-fileinput" plugin.',
+            badDroppedFiles: 'Error scanning dropped files!',
+            invalidThumb: 'Invalid thumb frame with id: "{id}".',
+            badExifParser: 'Error loading the piexif.js library. {details}',
+            exifWarning: 'To avoid this warning, either set `autoOrientImage` to `false` OR ensure you have loaded ' +
+            'the piexif.js library correctly on your page.'
+        },
         objUrl: window.URL || window.webkitURL,
         now: function () {
             return new Date();
@@ -985,13 +998,13 @@
             });
         },
         _initResumableUpload: function () {
-            var self = this, opts = self.resumableUploadOptions;
+            var self = this, opts = self.resumableUploadOptions, logs = $h.logMessages;
             if (!self.enableResumableUpload) {
                 return;
             }
             if (opts.fallback !== false && typeof opts.fallback !== 'function') {
                 opts.fallback = function (s) {
-                    s._log('The browser does not support resumable or chunk uploads.');
+                    s._log(logs.noResumableSupport);
                     s.enableResumableUpload = false;
                 };
             }
@@ -1000,14 +1013,14 @@
                 return;
             }
             if (!self.uploadUrl && self.enableResumableUpload) {
-                self._log('The "uploadUrl" is not set. Ajax uploads and resumable uploads have been disabled.');
+                self._log(logs.noUploadUrl);
                 self.enableResumableUpload = false;
                 return;
 
             }
             opts.chunkSize = parseFloat(opts.chunkSize);
             if (opts.chunkSize <= 0 || isNaN(opts.chunkSize)) {
-                self._log('Invalid "uploadResumableSize" (' + opts.chunkSize + '). Resumable uploads are disabled.');
+                self._log(logs.invalidChunkSize, {chunkSize: opts.chunkSize});
                 self.enableResumableUpload = false;
                 return;
             }
@@ -1040,7 +1053,11 @@
                 },
                 logAjaxError: function (jqXHR, textStatus, errorThrown) {
                     if (self.resumableUploadOptions.showErrorLog) {
-                        self._log(jqXHR.status + ': ' + errorThrown + '. Error Details: ' + jqXHR.responseText || '');
+                        self._log(logs.ajaxError, {
+                            status: jqXHR.status,
+                            error: errorThrown,
+                            text: jqXHR.responseText || ''
+                        });
                     }
                 },
                 reset: function () {
@@ -1049,12 +1066,14 @@
                 },
                 setProcessed: function (status) {
                     var rm = self.resumableManager, fm = self.fileManager, id = rm.id, msg, $btnUpload = rm.$btnUpload,
-                        $thumb = rm.$thumb, $prog = rm.$progress,
-                        params = {id: $thumb.attr('id'), index: fm.getIndex(id), fileId: id};
+                        $thumb = rm.$thumb, $prog = rm.$progress, hasThumb = $thumb && $thumb.length,
+                        params = {id: hasThumb ? $thumb.attr('id') : '', index: fm.getIndex(id), fileId: id};
                     rm.completed = true;
                     rm.lastProgress = 0;
                     fm.uploadedSize += rm.file.size;
-                    $thumb.removeClass('file-uploading');
+                    if (hasThumb) {
+                        $thumb.removeClass('file-uploading');
+                    }
                     if (status === 'success') {
                         if (self.showPreview) {
                             self._setProgress(101, $prog);
@@ -1302,7 +1321,9 @@
                         chunkCount: rm.chunkCount,
                         retryCount: retry
                     });
-                    rm.$progress.show();
+                    if (rm.$progress && rm.$progress.length) {
+                        rm.$progress.show();
+                    }
                     fnBefore = function (jqXHR) {
                         outData = self._getOutData(fd, jqXHR);
                         if (self.showPreview) {
@@ -1322,7 +1343,11 @@
                         rm.currThreads--;
                         if (data.error) {
                             if (opts.showErrorLog) {
-                                self._log('Retry # ' + retry + 1 + ' for ' + rm.fileName + ' chunk # ' + index);
+                                self._log(logs.retryStatus, {
+                                    retry: retry + 1,
+                                    filename: rm.fileName,
+                                    chunk: index
+                                });
                             }
                             rm.pushAjax(index, retry + 1);
                             rm.error = data.error;
@@ -1913,12 +1938,15 @@
             var self = this;
             return self.encodeUrl ? encodeURI(vUrl) : vUrl;
         },
-        _log: function (msg) {
+        _log: function (msg, tokens) {
             var self = this, id = self.$element.attr('id');
             if (id) {
                 msg = '"' + id + '": ' + msg;
             }
             msg = 'bootstrap-fileinput: ' + msg;
+            if (typeof tokens === 'object') {
+                msg.setTokens(tokens);
+            }
             if (typeof window.console.log !== 'undefined') {
                 window.console.log(msg);
             } else {
@@ -1928,7 +1956,7 @@
         _validate: function () {
             var self = this, status = self.$element.attr('type') === 'file';
             if (!status) {
-                self._log('The input "type" must be set to "file" for initializing the "bootstrap-fileinput" plugin.');
+                self._log($h.logMessages.badInputType);
             }
             return status;
         },
@@ -2222,7 +2250,7 @@
         _scanDroppedItems: function (item, files, path) {
             path = path || '';
             var self = this, i, dirReader, readDir, errorHandler = function (e) {
-                self._log('Error scanning dropped files!');
+                self._log($h.logMessages.badDroppedFiles);
                 self._log(e);
             };
             if (item.isFile) {
@@ -2884,7 +2912,7 @@
         _getFrame: function (id) {
             var self = this, $frame = $('#' + id);
             if (!$frame.length) {
-                self._log('Invalid thumb frame with id: "' + id + '".');
+                self._log($h.logMessages.invalidThumb, {id: id});
                 return null;
             }
             return $frame;
@@ -2965,11 +2993,11 @@
             self._mergeAjaxCallback('complete', fnComplete);
             self._mergeAjaxCallback('error', fnError);
             vUrl = vUrl || self.uploadUrlThumb || self.uploadUrl;
-            if (typeof vUrl === "function") {
+            if (typeof vUrl === 'function') {
                 vUrl = vUrl();
             }
             data = self._getExtraData(fileId, index) || {};
-            if (typeof data === "object") {
+            if (typeof data === 'object') {
                 $.each(data, function (key, value) {
                     formdata.append(key, value);
                 });
@@ -3046,8 +3074,8 @@
                             self._initPreviewActions();
                             self._clearFileInput();
                             $h.cleanZoomCache(self.$preview.find('#zoom-' + $thumb.attr('id')));
-                            //$thumb.remove();
-                            //$div.remove();
+                            $thumb.remove();
+                            $div.remove();
                             self._initSortable();
                         });
                     } else {
@@ -3555,7 +3583,7 @@
                 if ($h.isEmpty(vUrl) || vKey === undefined) {
                     return;
                 }
-                if (typeof vUrl === "function") {
+                if (typeof vUrl === 'function') {
                     vUrl = vUrl();
                 }
                 var $frame = $el.closest($h.FRAMES), cache = self.previewCache.data,
@@ -3905,11 +3933,15 @@
             self._setProgress(101, self.$progress, self.msgCancelled);
         },
         _setProgress: function (p, $el, error, stats) {
-            var self = this, pct = Math.min(p, 100), out, pctLimit = self.progressUploadThreshold,
+            var self = this;
+            $el = $el || self.$progress;
+            if (!$el.length) {
+                return;
+            }
+            var pct = Math.min(p, 100), out, pctLimit = self.progressUploadThreshold,
                 t = p <= 100 ? self.progressTemplate : self.progressCompleteTemplate,
                 template = pct < 100 ? self.progressTemplate :
                     (error ? (self.paused ? self.progressPauseTemplate : self.progressErrorTemplate) : t);
-            $el = $el || self.$progress;
             if (p >= 100) {
                 stats = '';
             }
@@ -3971,8 +4003,11 @@
             obj.lastProgress = pct;
         },
         _setFileUploadStats: function (id, pct, total, stats) {
-            var self = this, fm = self.fileManager, $thumb = fm.getThumb(id), pctTot,
-                rm = self.resumableManager,
+            var self = this, $prog = self.$progress;
+            if (!self.showPreview && (!$prog || !$prog.length)) {
+                return;
+            }
+            var fm = self.fileManager, $thumb = fm.getThumb(id), pctTot, rm = self.resumableManager,
                 totUpSize = 0, totSize = fm.getTotalSize(), totStats = $.extend(true, {}, stats);
             if (self.enableResumableUpload) {
                 var loaded = stats.loaded, currUplSize = rm.getUploadedSize(), currTotSize = rm.file.size, totLoaded;
@@ -3986,7 +4021,8 @@
                 self._setResumableProgress(pctTot, totStats);
             } else {
                 fm.setProgress(id, pct);
-                self._setProgress(pct, $thumb.find('.file-thumb-progress'), null, self._getStats(stats));
+                $prog = $thumb && $thumb.length ? $thumb.find('.file-thumb-progress') : null;
+                self._setProgress(pct, $prog, null, self._getStats(stats));
                 $.each(fm.stats, function (id, cfg) {
                     totUpSize += cfg.loaded;
                 });
@@ -4069,7 +4105,7 @@
             self._setPreviewError($thumb);
         },
         _getExifObj: function (data) {
-            var self = this, exifObj = null;
+            var self = this, exifObj = null, error = $h.logMessages.exifWarning;
             if (data.slice(0, 23) !== 'data:image/jpeg;base64,' && data.slice(0, 22) !== 'data:image/jpg;base64,') {
                 exifObj = null;
                 return;
@@ -4078,10 +4114,10 @@
                 exifObj = window.piexif ? window.piexif.load(data) : null;
             } catch (err) {
                 exifObj = null;
-                self._log(err);
+                error = err && err.message || '';
             }
             if (!exifObj) {
-                self._log('Error loading the piexif.js library.');
+                self._log($h.logMessages.badExifParser, {details: error});
             }
             return exifObj;
         },
@@ -5298,7 +5334,7 @@
         deleteUrl: '',
         deleteExtraData: {},
         overwriteInitial: true,
-        sanitizeZoomCache: function(content) {
+        sanitizeZoomCache: function (content) {
             var $container = $(document.createElement('div')).append(content);
             $container.find('input,select,.file-thumbnail-footer').remove();
             return $container.html();
