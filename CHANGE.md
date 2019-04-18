@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.0.2
 
-**Date:** _under development_
+**Date:** 18-Apr-2019
 
 - Better management of console log messages.
 - (bug #1391): Correct resumable upload progress update behavior when `showPreview` is `false`.

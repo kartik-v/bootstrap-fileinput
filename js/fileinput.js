@@ -70,7 +70,7 @@
             invalidThumb: 'Invalid thumb frame with id: "{id}".',
             noResumableSupport: 'The browser does not support resumable or chunk uploads.',
             noUploadUrl: 'The "uploadUrl" is not set. Ajax uploads and resumable uploads have been disabled.',
-            retryStatus: 'Retrying upload for chunk # {chunk} for {filename}... retry # {retry}.',
+            retryStatus: 'Retrying upload for chunk # {chunk} for {filename}... retry # {retry}.'
         },
         objUrl: window.URL || window.webkitURL,
         now: function () {
