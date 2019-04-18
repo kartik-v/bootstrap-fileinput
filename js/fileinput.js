@@ -1098,8 +1098,8 @@
                             } else {
                                 $btnUpload.removeAttr('disabled');
                             }
-                            self._setProgress(101, $prog, self.msgUploadError);
-                            self._setProgress(101, self.$progress, self.msgUploadError);
+                            self._setProgress(101, $prog, self.msgProgressError);
+                            self._setProgress(101, self.$progress, self.msgProgressError);
                             self.cancelling = true;
                         }
                         if (!self.$errorContainer.find('li[data-file-id="' + params.fileId + '"]').length) {
@@ -1108,7 +1108,7 @@
                                 max: self.resumableUploadOptions.maxRetries,
                                 error: rm.error
                             });
-                            self._showUploadError(msg, params);
+                            self._showFileError(msg, params);
                         }
                     }
                     if (fm.isProcessed()) {
@@ -2043,7 +2043,7 @@
             $error.fadeIn(800);
             self._raise('filefoldererror', [folders, msg]);
         },
-        _showUploadError: function (msg, params, event) {
+        _showFileError: function (msg, params, event) {
             var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror',
                 fId = params && params.fileId || '', e = params && params.id ?
                 '<li data-thumb-id="' + params.id + '" data-file-id="' + fId + '">' + msg + '</li>' : '<li>' + msg + '</li>';
@@ -3157,8 +3157,8 @@
             var self = this, fm = self.fileManager, count = fm.count(), formdata = new FormData(), outData,
                 previewId = self.previewInitId + '-' + i, $thumb, chkComplete, $btnUpload, $btnDelete,
                 hasPostData = count > 0 || !$.isEmptyObject(self.uploadExtraData), uploadFailed,
-                $prog, fnBefore, fnSuccess, fnComplete, fnError, updateUploadLog,
-                fileObj = fm.getFile(id), rm = self.resumableManager,
+                $prog, fnBefore, fnSuccess, fnComplete, fnError, updateUploadLog, op = self.ajaxOperations.uploadThumb,
+                errMsg, fileObj = fm.getFile(id), rm = self.resumableManager,
                 params = {id: previewId, index: i, fileId: id}, fileName = self.fileManager.getFileName(id, true);
             if (self.enableResumableUpload) {
                 self.paused = false;
@@ -3269,7 +3269,8 @@
                         }
                     } else {
                         uploadFailed = true;
-                        self._showUploadError(data.error, params);
+                        errMsg = self._parseError(op, jqXHR, self.msgUploadError, self.fileManager.getFileName(id));
+                        self._showFileError(errMsg, params);
                         self._setPreviewError($thumb, true);
                         if (!self.retryErrorUploads) {
                             $btnUpload.hide();
@@ -3298,8 +3299,7 @@
                 }, self.processDelay);
             };
             fnError = function (jqXHR, textStatus, errorThrown) {
-                var op = self.ajaxOperations.uploadThumb,
-                    errMsg = self._parseError(op, jqXHR, errorThrown, self.fileManager.getFileName(id));
+                errMsg = self._parseError(op, jqXHR, errorThrown, self.fileManager.getFileName(id));
                 uploadFailed = true;
                 setTimeout(function () {
                     if (isBatch) {
@@ -3313,7 +3313,7 @@
                     $.extend(true, params, self._getOutData(formdata, jqXHR));
                     self._setProgress(101, $prog, self.msgAjaxProgressError.replace('{operation}', op));
                     self._setProgress(101, $thumb.find('.file-thumb-progress'), self.msgUploadError);
-                    self._showUploadError(errMsg, params);
+                    self._showFileError(errMsg, params);
                 }, self.processDelay);
             };
             formdata.append(self.uploadFileAttr, fileObj.file, fileName);
@@ -3322,8 +3322,8 @@
         },
         _uploadBatch: function () {
             var self = this, fm = self.fileManager, total = fm.total(), params = {}, fnBefore, fnSuccess, fnError,
-                fnComplete, hasPostData = total > 0 || !$.isEmptyObject(self.uploadExtraData),
-                setAllUploaded, formdata = new FormData();
+                fnComplete, hasPostData = total > 0 || !$.isEmptyObject(self.uploadExtraData), errMsg,
+                setAllUploaded, formdata = new FormData(), op = self.ajaxOperations.uploadBatch;
             if (total === 0 || !hasPostData || self._abort(params)) {
                 return;
             }
@@ -3409,7 +3409,8 @@
                         });
                         self._initUploadSuccess(data);
                     }
-                    self._showUploadError(data.error, outData, 'filebatchuploaderror');
+                    errMsg = self._parseError(op, jqXHR, self.msgUploadError);
+                    self._showFileError(errMsg, outData, 'filebatchuploaderror');
                     self._setProgress(101, self.$progress, self.msgUploadError);
                 }
             };
@@ -3420,9 +3421,9 @@
                 self._raise('filebatchuploadcomplete', [self.fileManager.stack, self._getExtraData()]);
             };
             fnError = function (jqXHR, textStatus, errorThrown) {
-                var outData = self._getOutData(formdata, jqXHR), op = self.ajaxOperations.uploadBatch,
-                    errMsg = self._parseError(op, jqXHR, errorThrown);
-                self._showUploadError(errMsg, outData, 'filebatchuploaderror');
+                var outData = self._getOutData(formdata, jqXHR);
+                errMsg = self._parseError(op, jqXHR, errorThrown);
+                self._showFileError(errMsg, outData, 'filebatchuploaderror');
                 self.uploadFileCount = total - 1;
                 if (!self.showPreview) {
                     return;
@@ -3449,7 +3450,8 @@
             self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, formdata);
         },
         _uploadExtraOnly: function () {
-            var self = this, params = {}, fnBefore, fnSuccess, fnComplete, fnError, formdata = new FormData();
+            var self = this, params = {}, fnBefore, fnSuccess, fnComplete, fnError, formdata = new FormData(), errMsg,
+                op = self.ajaxOperations.uploadExtra;
             if (self._abort(params)) {
                 return;
             }
@@ -3473,7 +3475,8 @@
                     self._initUploadSuccess(data);
                     self._setProgress(101);
                 } else {
-                    self._showUploadError(data.error, outData, 'filebatchuploaderror');
+                    errMsg = self._parseError(op, jqXHR, self.msgUploadError);
+                    self._showFileError(errMsg, outData, 'filebatchuploaderror');
                 }
             };
             fnComplete = function () {
@@ -3482,10 +3485,10 @@
                 self._raise('filebatchuploadcomplete', [self.fileManager.stack, self._getExtraData()]);
             };
             fnError = function (jqXHR, textStatus, errorThrown) {
-                var outData = self._getOutData(formdata, jqXHR), op = self.ajaxOperations.uploadExtra,
-                    errMsg = self._parseError(op, jqXHR, errorThrown);
+                var outData = self._getOutData(formdata, jqXHR);
+                errMsg = self._parseError(op, jqXHR, errorThrown);
                 params.data = outData;
-                self._showUploadError(errMsg, outData, 'filebatchuploaderror');
+                self._showFileError(errMsg, outData, 'filebatchuploaderror');
                 self._setProgress(101, self.$progress, self.msgAjaxProgressError.replace('{operation}', op));
             };
             self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, formdata);
@@ -3587,19 +3590,20 @@
                 };
             self._initZoomButton();
             $preview.find(btnRemove).each(function () {
-                var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'),
-                    fnBefore, fnSuccess, fnError;
+                var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'), errMsg, fnBefore,
+                    fnSuccess, fnError, op = self.ajaxOperations.deleteThumb;
                 if ($h.isEmpty(vUrl) || vKey === undefined) {
                     return;
                 }
                 if (typeof vUrl === 'function') {
                     vUrl = vUrl();
                 }
-                var $frame = $el.closest($h.FRAMES), cache = self.previewCache.data,
-                    settings, params, index = $frame.attr('data-fileindex'), config, extraData;
+                var $frame = $el.closest($h.FRAMES), cache = self.previewCache.data, settings, params, config,
+                    fileName, extraData, index = $frame.attr('data-fileindex');
                 index = parseInt(index.replace('init_', ''));
                 config = $h.isEmpty(cache.config) && $h.isEmpty(cache.config[index]) ? null : cache.config[index];
                 extraData = $h.isEmpty(config) || $h.isEmpty(config.extra) ? deleteExtraData : config.extra;
+                fileName = config.filename || config.caption || '';
                 if (typeof extraData === 'function') {
                     extraData = extraData();
                 }
@@ -3620,7 +3624,8 @@
                     if (!$h.isEmpty(data) && !$h.isEmpty(data.error)) {
                         params.jqXHR = jqXHR;
                         params.response = data;
-                        self._showError(data.error, params, 'filedeleteerror');
+                        errMsg = self._parseError(op, jqXHR, self.msgDeleteError, fileName);
+                        self._showFileError(errMsg, params, 'filedeleteerror');
                         $frame.removeClass('file-uploading');
                         $el.removeClass('disabled ' + origClass).addClass(errClass);
                         resetProgress();
@@ -3642,10 +3647,10 @@
                     });
                 };
                 fnError = function (jqXHR, textStatus, errorThrown) {
-                    var op = self.ajaxOperations.deleteThumb, errMsg = self._parseError(op, jqXHR, errorThrown);
+                    var errMsg = self._parseError(op, jqXHR, errorThrown, fileName);
                     params.jqXHR = jqXHR;
                     params.response = {};
-                    self._showError(errMsg, params, 'filedeleteerror');
+                    self._showFileError(errMsg, params, 'filedeleteerror');
                     $frame.removeClass('file-uploading');
                     $el.removeClass('disabled ' + origClass).addClass(errClass);
                     resetProgress();
@@ -4110,7 +4115,7 @@
                 return;
             }
             msg = self['msgImage' + type + chk].setTokens({'name': fname, 'size': limit});
-            self._showUploadError(msg, params);
+            self._showFileError(msg, params);
             self._setPreviewError($thumb);
         },
         _getExifObj: function (data) {
@@ -4213,7 +4218,7 @@
                 $thumb = config.thumb, throwError, msg, exifObj = config.exifObj, exifStr, file, params, evParams;
             throwError = function (msg, params, ev) {
                 if (self.isAjaxUpload) {
-                    self._showUploadError(msg, params, ev);
+                    self._showFileError(msg, params, ev);
                 } else {
                     self._showError(msg, params, ev);
                 }
@@ -4578,7 +4583,7 @@
                 throwError = function (mesg, file, previewId, index) {
                     var p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files), {id: previewId, index: index}),
                         p2 = {id: previewId, index: index, file: file, files: files};
-                    return isAjaxUpload ? self._showUploadError(mesg, p1) : self._showError(mesg, p2);
+                    return isAjaxUpload ? self._showFileError(mesg, p1) : self._showError(mesg, p2);
                 },
                 maxCountCheck = function (n, m) {
                     var msg = self.msgFilesTooMany.replace('{m}', m).replace('{n}', n);
@@ -4640,7 +4645,7 @@
                 data.abortData = self.ajaxAborted.data || {};
                 data.abortMessage = self.ajaxAborted.message;
                 self._setProgress(101, self.$progress, self.msgCancelled);
-                self._showUploadError(self.ajaxAborted.message, data, 'filecustomerror');
+                self._showFileError(self.ajaxAborted.message, data, 'filecustomerror');
                 self.cancel();
                 return true;
             }
@@ -4670,7 +4675,7 @@
             cnt = cnt || 0;
             if (self.required && !self.getFilesCount()) {
                 self.$errorContainer.html('');
-                self._showUploadError(self.msgFileRequired);
+                self._showFileError(self.msgFileRequired);
                 return false;
             }
             if (self.minFileCount > 0 && self._getFileCount(cnt) < self.minFileCount) {
@@ -4730,7 +4735,7 @@
                     }
                     self._initFileActions();
                     $thumb.remove();
-                    self.isError = self.isAjaxUpload ? self._showUploadError(msg, p1) : self._showError(msg, p2);
+                    self.isError = self.isAjaxUpload ? self._showFileError(msg, p1) : self._showError(msg, p2);
                     self._updateFileDetails(numFiles);
                 };
             self.fileManager.clearImages();
@@ -5136,7 +5141,7 @@
             self.lastProgress = 0;
             self._resetUpload();
             if (totLen === 0 && !hasExtraData) {
-                self._showUploadError(self.msgUploadEmpty);
+                self._showFileError(self.msgUploadEmpty);
                 return;
             }
             self.cancelling = false;
@@ -5527,7 +5532,9 @@
         msgUploadEnd: 'Done',
         msgUploadResume: 'Resuming upload...',
         msgUploadEmpty: 'No valid data available for upload.',
-        msgUploadError: 'Error',
+        msgUploadError: 'Upload Error',
+        msgDeleteError: 'Delete Error',
+        msgProgressError: 'Error',
         msgValidationError: 'Validation Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
