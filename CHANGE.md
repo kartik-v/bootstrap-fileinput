@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** 18-Apr-2019
 
+- (enh #1136): Allow proper retry of error uploads based on `retryErrorUploads` setting.
 - Better management of console log messages.
 - (bug #1391): Correct resumable upload progress update behavior when `showPreview` is `false`.
 - (bug #1390): Correct remove button display validation set via `fileActionSettings`.

@@ -40,6 +40,11 @@
         <button type="reset" class="btn btn-outline-secondary">Reset</button>
     </form>
     <hr>
+    <h5>Preupload Validation</h5>
+    <input id="file-0" name="file-0" type="file">
+    <br>
+    <textarea id="description" rows=3" class="form-control" placeholder="Enter description for the files selected..."></textarea>
+    <br>
     <form enctype="multipart/form-data">
         <label for="file-0b">Test invalid input type</label>
         <div class="file-loading">
@@ -142,7 +147,9 @@
     });
     $("#file-0").fileinput({
         theme: 'fas',
-        'allowedFileExtensions': ['jpg', 'png', 'gif']
+        uploadUrl: '#'
+    }).on('filepreupload', function(event, data, previewId, index) {
+        alert('The description entered is:\n\n' + ($('#description').val() || ' NULL'));
     });
     $("#file-1").fileinput({
         theme: 'fas',
