@@ -5,6 +5,11 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** 18-Apr-2019
 
+- (enh #1394): New error message properties (updates to locales).
+    - `msgProgressError`
+    - `msgDeleteError`
+    - `msgUploadError` (modification)
+- (enh #1393): Standardize error alert formats for ajax deletes.
 - (enh #1136): Allow proper retry of error uploads based on `retryErrorUploads` setting.
 - Better management of console log messages.
 - (bug #1391): Correct resumable upload progress update behavior when `showPreview` is `false`.
@@ -603,7 +608,7 @@ Change Log: `bootstrap-fileinput`
 - (enh #481): Universal Module Definition for use with CommonJS, AMD or browser globals.
 - (enh #474): Upload via button within each preview thumbnail skips last file for async uploads.
 - (enh #477): Fix IE10 specific styling bug for file input block button.
-- (enh #465): Add Català translations.
+- (enh #465): Add CatalĂ  translations.
 - (enh #462): Responsive buttons and new property `buttonLabelClass`.
 - (enh #460): Update CSS selectors prefix to start with `file`.
 - (enh #454): Update Turkish Translations.
