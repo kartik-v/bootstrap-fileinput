@@ -771,6 +771,7 @@
             self.fileManager = {
                 stack: {},
                 processed: [],
+                errors: [],
                 loadedImages: {},
                 totalImages: 0,
                 totalFiles: null,
@@ -904,6 +905,7 @@
                     fm.totalSize = null;
                     fm.uploadedSize = 0;
                     fm.stack = {};
+                    fm.errors = [];
                     fm.processed = [];
                     fm.stats = {};
                     fm.clearImages();
@@ -2042,9 +2044,9 @@
             self._raise('filefoldererror', [folders, msg]);
         },
         _showUploadError: function (msg, params, event) {
-            var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror', fId = params.fileId || '',
-                e = params && params.id ?
-                    '<li data-thumb-id="' + params.id + '" data-file-id="' + fId + '">' + msg + '</li>' : '<li>' + msg + '</li>';
+            var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror',
+                fId = params && params.fileId || '', e = params && params.id ?
+                '<li data-thumb-id="' + params.id + '" data-file-id="' + fId + '">' + msg + '</li>' : '<li>' + msg + '</li>';
             if ($error.find('ul').length === 0) {
                 self._addError('<ul>' + e + '</ul>');
             } else {
@@ -2755,7 +2757,7 @@
             }
             if (self.isAjaxUpload) {
                 if (self.fileManager.count() > 0) {
-                    files = self.fileManager.stack;
+                    files = $.extend(true, {}, self.fileManager.stack);
                     self.fileManager.clear();
                     self._clearFileInput();
                 } else {
@@ -3178,10 +3180,12 @@
             }
             updateUploadLog = function () {
                 if (!uploadFailed) {
-                    self.fileManager.removeFile(id);
+                    fm.removeFile(id);
+                } else {
+                    fm.errors.push(id);
                 }
-                self.fileManager.setProcessed(id);
-                if (self.fileManager.isProcessed()) {
+                fm.setProcessed(id);
+                if (fm.isProcessed()) {
                     self.fileBatchCompleted = true;
                 }
             };
@@ -3191,7 +3195,7 @@
                     return;
                 }
                 setTimeout(function () {
-                    var triggerReset = self.fileManager.count() === 0;
+                    var triggerReset = fm.count() === 0, errCount = fm.errors.length;
                     self._updateInitialPreview();
                     self.unlock(triggerReset);
                     if (triggerReset) {
@@ -3202,8 +3206,10 @@
                         $h.addCss($initThumbs, $h.SORT_CSS);
                         self._initSortable();
                     }
-                    self._raise('filebatchuploadcomplete', [self.fileManager.stack, self._getExtraData()]);
-                    self.fileManager.clear();
+                    self._raise('filebatchuploadcomplete', [fm.stack, self._getExtraData()]);
+                    if (!self.retryErrorUploads || errCount === 0) {
+                        fm.clear();
+                    }
                     self._setProgress(101);
                     self.ajaxAborted = false;
                 }, self.processDelay);
@@ -3225,6 +3231,9 @@
                 }
                 if (!isBatch) {
                     self.lock();
+                }
+                if (fm.errors.indexOf(id) !== -1) {
+                    delete fm.errors[id];
                 }
                 self._raise('filepreupload', [outData, previewId, i]);
                 $.extend(true, params, outData);
