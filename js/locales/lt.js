@@ -96,7 +96,8 @@
             indicatorNewTitle: 'Dar neįkelta',
             indicatorSuccessTitle: 'Įkelta',
             indicatorErrorTitle: 'Įkėlimo Klaida',
-            indicatorLoadingTitle: 'Įkeliama ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Įkeliama ...'
         },
         previewZoomButtonTitles: {
             prev: 'Peržiūrėti ankstesnį failą',

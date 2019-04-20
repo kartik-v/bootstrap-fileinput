@@ -97,7 +97,8 @@
             indicatorNewTitle: 'Belum diunggah',
             indicatorSuccessTitle: 'Sudah diunggah',
             indicatorErrorTitle: 'Kesalahan dalam mengungah',
-            indicatorLoadingTitle: 'Mengunggah ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Mengunggah ...'
         },
         previewZoomButtonTitles: {
             prev: 'Lihat berkas sebelumnya',

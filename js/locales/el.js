@@ -96,7 +96,8 @@
             indicatorNewTitle: 'Δεν μεταφορτώθηκε ακόμα',
             indicatorSuccessTitle: 'Μεταφορτώθηκε',
             indicatorErrorTitle: 'Σφάλμα Μεταφόρτωσης',
-            indicatorLoadingTitle: 'Μεταφόρτωση ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Μεταφόρτωση ...'
         },
         previewZoomButtonTitles: {
             prev: 'Προηγούμενο αρχείο',

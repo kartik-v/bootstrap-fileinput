@@ -95,7 +95,8 @@
             indicatorNewTitle: 'Opplastning ikke fullført',
             indicatorSuccessTitle: 'Opplastet',
             indicatorErrorTitle: 'Opplastningsfeil',
-            indicatorLoadingTitle: 'Laster opp ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Laster opp ...'
         },
         previewZoomButtonTitles: {
             prev: 'Vis forrige fil',

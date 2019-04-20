@@ -96,7 +96,8 @@
             indicatorNewTitle: 'Ještě nenahrál',
             indicatorSuccessTitle: 'Nahraný',
             indicatorErrorTitle: 'Chyba nahrávání',
-            indicatorLoadingTitle: 'Nahrávání ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Nahrávání ...'
         },
         previewZoomButtonTitles: {
             prev: 'Zobrazit předchozí soubor',

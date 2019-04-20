@@ -5,6 +5,13 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1398): Resumable uploads enhancements (only when `enableResumableUpload` is `true`):
+    - Add new properties to fileActionSettings:
+        - `indicatorPaused`
+        - `indicatorPausedTitle`
+    - Enhance pause and resume behavior by showing appropriate indicators on the file thumbnails
+    - Add `resume` method and enhance `pause` method for resumable uploads
+    - Remove upload button from individual thumbnails and ability to upload selective single file for resumable uploads.
 - (enh #1397): Correct `uploadParamNames` to include all parameters.
 
 ## version 5.0.2

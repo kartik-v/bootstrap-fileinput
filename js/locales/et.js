@@ -95,7 +95,8 @@
             indicatorNewTitle: 'Pole veel salvestatud',
             indicatorSuccessTitle: 'Uploaded',
             indicatorErrorTitle: 'Salvestamise viga',
-            indicatorLoadingTitle: 'Salvestan ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Salvestan ...'
         },
         previewZoomButtonTitles: {
             prev: 'View previous file',

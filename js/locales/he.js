@@ -91,7 +91,8 @@
             indicatorNewTitle: 'עדיין לא הועלה',
             indicatorSuccessTitle: 'הועלה',
             indicatorErrorTitle: 'שגיאת העלאה',
-            indicatorLoadingTitle: 'מעלה...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'מעלה...'
         },
         previewZoomButtonTitles: {
             prev: 'הצגת את הקובץ הקודם',

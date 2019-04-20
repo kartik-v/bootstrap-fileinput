@@ -96,7 +96,8 @@
             indicatorNewTitle: 'Not uploaded yet',
             indicatorSuccessTitle: 'Uploaded',
             indicatorErrorTitle: 'Upload Error',
-            indicatorLoadingTitle: 'Uploading ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Uploading ...'
         },
         previewZoomButtonTitles: {
             prev: 'View previous file',

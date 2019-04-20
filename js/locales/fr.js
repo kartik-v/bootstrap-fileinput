@@ -95,7 +95,8 @@
             indicatorNewTitle: 'Pas encore transféré',
             indicatorSuccessTitle: 'Posté',
             indicatorErrorTitle: 'Ajouter erreur',
-            indicatorLoadingTitle: 'En cours...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'En cours...'
         },
         previewZoomButtonTitles: {
             prev: 'Voir le fichier précédent',

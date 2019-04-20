@@ -1043,10 +1043,9 @@
                     rm.lastProgress = 0;
                     if (self.showPreview) {
                         rm.$thumb = fm.getThumb(id) || null;
-                        rm.$progress = rm.$btnUpload = rm.$btnDelete = null;
+                        rm.$progress = rm.$btnDelete = null;
                         if (rm.$thumb && rm.$thumb.length) {
                             rm.$progress = rm.$thumb.find('.file-thumb-progress');
-                            rm.$btnUpload = rm.$thumb.find('.kv-file-upload');
                             rm.$btnDelete = rm.$thumb.find('.kv-file-remove');
                         }
                     }
@@ -1067,7 +1066,7 @@
                     rm.processed = {};
                 },
                 setProcessed: function (status) {
-                    var rm = self.resumableManager, fm = self.fileManager, id = rm.id, msg, $btnUpload = rm.$btnUpload,
+                    var rm = self.resumableManager, fm = self.fileManager, id = rm.id, msg,
                         $thumb = rm.$thumb, $prog = rm.$progress, hasThumb = $thumb && $thumb.length,
                         params = {id: hasThumb ? $thumb.attr('id') : '', index: fm.getIndex(id), fileId: id};
                     rm.completed = true;
@@ -1081,7 +1080,6 @@
                             self._setProgress(101, $prog);
                             self._setThumbStatus($thumb, 'Success');
                             self._initUploadSuccess(rm.processed[id].data, $thumb);
-                            $btnUpload.hide();
                         }
                         self.fileManager.removeFile(id);
                         delete rm.processed[id];
@@ -1093,11 +1091,6 @@
                         if (self.showPreview) {
                             self._setThumbStatus($thumb, 'Error');
                             self._setPreviewError($thumb, true);
-                            if (!self.retryErrorUploads) {
-                                $btnUpload.hide();
-                            } else {
-                                $btnUpload.removeAttr('disabled');
-                            }
                             self._setProgress(101, $prog, self.msgProgressError);
                             self._setProgress(101, self.$progress, self.msgProgressError);
                             self.cancelling = true;
@@ -1163,24 +1156,6 @@
                         clearInterval(intervalId);
                         self.unlock();
                     }
-                },
-                uploadSingle: function (id) {
-                    var rm = self.resumableManager, fm = self.fileManager, flag = 'new', intervalId;
-                    intervalId = setInterval(function () {
-                        rm.checkAborted(intervalId);
-                        if (flag === 'new') {
-                            self.lock();
-                            flag = 'processing';
-                            if (fm.stack[id]) {
-                                rm.init(id, fm.stack[id]);
-                                rm.uploadResumable();
-                            }
-                        }
-                        if (!fm.isPending(id) && rm.completed || fm.isProcessed()) {
-                            clearInterval(intervalId);
-                            self.unlock();
-                        }
-                    }, self.processDelay);
                 },
                 upload: function () {
                     var rm = self.resumableManager, fm = self.fileManager, ids = fm.getIdList(), flag = 'new',
@@ -1297,7 +1272,7 @@
                 sendAjax: function (index, retry) {
                     var fm = self.fileManager, rm = self.resumableManager, opts = self.resumableUploadOptions, f,
                         chunkSize = rm.chunkSize, id = rm.id, file = rm.file, $thumb = rm.$thumb,
-                        $btnUpload = rm.$btnUpload, $btnDelete = rm.$btnDelete;
+                        $btnDelete = rm.$btnDelete;
                     if (rm.processed[id] && rm.processed[id][index]) {
                         return;
                     }
@@ -1312,15 +1287,15 @@
                     fd = new FormData();
                     f = fm.stack[id];
                     self._setUploadData(fd, {
-                        fileId: id,
-                        fileName: rm.fileName,
-                        fileSize: file.size,
-                        fileRelativePath: f.relativePath,
-                        fileBlob: [blob, rm.fileName],
+                        chunkCount: rm.chunkCount,
                         chunkIndex: index,
                         chunkSize: chunkSize,
                         chunkSizeStart: chunkSize * index,
-                        chunkCount: rm.chunkCount,
+                        fileBlob: [blob, rm.fileName],
+                        fileId: id,
+                        fileName: rm.fileName,
+                        fileRelativePath: f.relativePath,
+                        fileSize: file.size,
                         retryCount: retry
                     });
                     if (rm.$progress && rm.$progress.length) {
@@ -1333,7 +1308,6 @@
                                 self._setThumbStatus($thumb, 'Loading');
                                 $h.addCss($thumb, 'file-uploading');
                             }
-                            $btnUpload.attr('disabled', true);
                             $btnDelete.attr('disabled', true);
                         }
                         self._raise('filechunkbeforesend', [id, index, retry, fm, rm, outData]);
@@ -1685,10 +1659,12 @@
                     indicatorSuccess: '<i class="glyphicon glyphicon-ok-sign text-success"></i>',
                     indicatorError: '<i class="glyphicon glyphicon-exclamation-sign text-danger"></i>',
                     indicatorLoading: '<i class="glyphicon glyphicon-hourglass text-muted"></i>',
+                    indicatorPaused: '<i class="glyphicon glyphicon-pause text-primary"></i>',
                     indicatorNewTitle: 'Not uploaded yet',
                     indicatorSuccessTitle: 'Uploaded',
                     indicatorErrorTitle: 'Upload Error',
-                    indicatorLoadingTitle: 'Uploading ...'
+                    indicatorLoadingTitle: 'Uploading ...',
+                    indicatorPausedTitle: 'Upload Paused'
                 }
             };
             $.each(self.defaults, function (key, setting) {
@@ -3160,11 +3136,7 @@
                 $prog, fnBefore, fnSuccess, fnComplete, fnError, updateUploadLog, op = self.ajaxOperations.uploadThumb,
                 errMsg, fileObj = fm.getFile(id), rm = self.resumableManager,
                 params = {id: previewId, index: i, fileId: id}, fileName = self.fileManager.getFileName(id, true);
-            if (self.enableResumableUpload) {
-                self.paused = false;
-                self.cancelling = false;
-                fm.initStats(id);
-                rm.uploadSingle(id);
+            if (self.enableResumableUpload) { // not enabled for resumable uploads
                 return;
             }
             if (self.showPreview) {
@@ -3931,7 +3903,7 @@
                 css = 'file-preview-' + status.toLowerCase(),
                 $indicator = $thumb.find('.file-upload-indicator'),
                 config = self.fileActionSettings;
-            $thumb.removeClass('file-preview-success file-preview-error file-preview-loading');
+            $thumb.removeClass('file-preview-success file-preview-error file-preview-paused file-preview-loading');
             if (status === 'Success') {
                 $thumb.find('.file-drag-handle').remove();
             }
@@ -4483,11 +4455,16 @@
             dUrl,
             dFile
         ) {
+            var self = this;
             if (!cfg.type && isInit) {
                 cfg.type = 'image';
             }
-            if (typeof showUpl === 'function') {
-                showUpl = showUpl(cfg);
+            if (self.enableResumableUpload) {
+                showUpl = false;
+            } else {
+                if (typeof showUpl === 'function') {
+                    showUpl = showUpl(cfg);
+                }
             }
             if (typeof showDwn === 'function') {
                 showDwn = showDwn(cfg);
@@ -4845,6 +4822,9 @@
                 if (self.isAjaxUpload && self.fileManager.exists(fileId)) {
                     msg = self.msgDuplicateFile.setTokens({name: caption, size: fSizeKB});
                     throwError(msg, file, previewId, i, fileId);
+                    if (self.showPreview && $('#' + previewId).length) {
+                        $('#' + previewId).remove();
+                    }
                     return;
                 }
                 if (!self.canPreview(file)) {
@@ -4983,10 +4963,38 @@
             self._raise('fileunlock', [self.fileManager.stack, self._getExtraData()]);
             return self.$element;
         },
-        pause: function () {
-            var self = this, rm = self.resumableManager, xhr = self.ajaxRequests, len = xhr.length, i;
+        resume: function () {
+            var self = this, flag = false, $pr = self.$progress, rm = self.resumableManager;
             if (!self.enableResumableUpload) {
-                return;
+                return self.$element;
+            }
+            if (self.paused) {
+                $pr.html(self.progressPauseTemplate.setTokens({
+                    percent: 101,
+                    status: self.msgUploadResume,
+                    stats: ''
+                }));
+            } else {
+                flag = true;
+            }
+            self.paused = false;
+            if (flag) {
+                $pr.html(self.progressInfoTemplate.setTokens({
+                    percent: 101,
+                    status: self.msgUploadBegin,
+                    stats: ''
+                }));
+            }
+            setTimeout(function () {
+                rm.upload();
+            }, self.processDelay);
+            return self.$element;
+        },
+        pause: function () {
+            var self = this, rm = self.resumableManager, xhr = self.ajaxRequests, len = xhr.length, i,
+                pct = rm.getProgress(), actions = self.fileActionSettings;
+            if (!self.enableResumableUpload) {
+                return self.$element;
             }
             if (rm.chunkIntervalId) {
                 clearInterval(rm.chunkIntervalId);
@@ -5002,12 +5010,17 @@
                 }
             }
             if (self.showPreview) {
-                rm.$btnUpload.removeAttr('disabled');
                 self._getThumbs().each(function () {
-                    var $thumb = $(this), fileId = $thumb.attr('data-fileid');
+                    var $thumb = $(this), fileId = $thumb.attr('data-fileid'), t = self._getLayoutTemplate('stats'),
+                        stats, $indicator = $thumb.find('.file-upload-indicator');
                     $thumb.removeClass('file-uploading');
+                    if ($indicator.attr('title') === actions.indicatorLoadingTitle) {
+                        self._setThumbStatus($thumb, 'Paused');
+                        stats = t.setTokens({pendingTime: self.msgPaused, uploadSpeed: ''});
+                        self.paused = true;
+                        self._setProgress(pct, $thumb.find('.file-thumb-progress'), pct + '%', stats);
+                    }
                     if (!self.fileManager.getFile(fileId)) {
-                        $thumb.find('.kv-file-upload').removeClass('disabled').removeAttr('disabled');
                         $thumb.find('.kv-file-remove').removeClass('disabled').removeAttr('disabled');
                     }
                 });
@@ -5133,8 +5146,8 @@
             return self.$element;
         },
         upload: function () {
-            var self = this, fm = self.fileManager, totLen = fm.count(), i, outData, len, rm = self.resumableManager,
-                hasExtraData = !$.isEmptyObject(self._getExtraData()), $pr = self.$progress;
+            var self = this, fm = self.fileManager, totLen = fm.count(), i, outData, len,
+                hasExtraData = !$.isEmptyObject(self._getExtraData());
             if (!self.isAjaxUpload || self.isDisabled || !self._isFileSelectionValid(totLen)) {
                 return;
             }
@@ -5153,6 +5166,9 @@
                 self._uploadExtraOnly();
                 return;
             }
+            if (self.enableResumableUpload) {
+                return self.resume();
+            }
             if (self.uploadAsync || self.enableResumableUpload) {
                 outData = self._getOutData(null);
                 self._raise('filebatchpreupload', [outData]);
@@ -5166,30 +5182,6 @@
                 self.$preview.find('.file-preview-initial').removeClass($h.SORT_CSS);
                 self._initSortable();
                 self.cacheInitialPreview = self.getPreview();
-            }
-            if (self.enableResumableUpload) {
-                var flag = false;
-                if (self.paused) {
-                    $pr.html(self.progressPauseTemplate.setTokens({
-                        percent: 101,
-                        status: self.msgUploadResume,
-                        stats: ''
-                    }));
-                } else {
-                    flag = true;
-                }
-                self.paused = false;
-                if (flag) {
-                    $pr.html(self.progressInfoTemplate.setTokens({
-                        percent: 101,
-                        status: self.msgUploadBegin,
-                        stats: ''
-                    }));
-                }
-                setTimeout(function () {
-                    rm.upload();
-                }, self.processDelay);
-                return self.$element;
             }
             self._setProgress(2);
             self.hasInitData = false;

@@ -94,7 +94,8 @@
             indicatorNewTitle: 'Noch nicht hochgeladen',
             indicatorSuccessTitle: 'Hochgeladen',
             indicatorErrorTitle: 'Upload Fehler',
-            indicatorLoadingTitle: 'Hochladen ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Hochladen ...'
         },
         previewZoomButtonTitles: {
             prev: 'Vorherige Datei anzeigen',

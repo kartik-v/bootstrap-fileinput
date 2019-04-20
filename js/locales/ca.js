@@ -96,7 +96,8 @@
             indicatorNewTitle: 'No pujat encara',
             indicatorSuccessTitle: 'Subido',
             indicatorErrorTitle: 'Pujar Error',
-            indicatorLoadingTitle: 'Pujant ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Pujant ...'
         },
         previewZoomButtonTitles: {
             prev: 'View previous file',

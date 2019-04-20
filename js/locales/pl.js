@@ -86,7 +86,8 @@
             indicatorNewTitle: 'Jeszcze nie przesłany',
             indicatorSuccessTitle: 'Dodane',
             indicatorErrorTitle: 'Błąd',
-            indicatorLoadingTitle: 'Przesyłanie ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Przesyłanie ...'
         },
         previewZoomButtonTitles: {
             prev: 'Pokaż poprzedni plik',

@@ -97,7 +97,8 @@
             indicatorNewTitle: 'Davam edir',
             indicatorSuccessTitle: 'Tamamlandı',
             indicatorErrorTitle: 'Yükləmə xətası',
-            indicatorLoadingTitle: 'Yükləmə ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Yükləmə ...'
         },
         previewZoomButtonTitles: {
             prev: 'Əvvəlki fayla bax',

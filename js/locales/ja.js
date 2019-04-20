@@ -105,7 +105,8 @@
             indicatorNewTitle: 'まだアップロードされていません',
             indicatorSuccessTitle: 'アップロード済み',
             indicatorErrorTitle: 'アップロード失敗',
-            indicatorLoadingTitle: 'アップロード中...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'アップロード中...'
         },
         previewZoomButtonTitles: {
             prev: '前のファイルを表示',

@@ -96,7 +96,8 @@
             indicatorNewTitle: 'Все още не е качил',
             indicatorSuccessTitle: 'Качено',
             indicatorErrorTitle: 'Качи Error',
-            indicatorLoadingTitle: 'Качва се ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Качва се ...'
         },
         previewZoomButtonTitles: {
             prev: 'View previous file',

@@ -96,7 +96,8 @@
             indicatorNewTitle: '아직 업로드 되지 않았습니다',
             indicatorSuccessTitle: '업로드 성공',
             indicatorErrorTitle: '업로드 중 에러 발생',
-            indicatorLoadingTitle: '업로드 중 ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  '업로드 중 ...'
         },
         previewZoomButtonTitles: {
             prev: '이전 파일',

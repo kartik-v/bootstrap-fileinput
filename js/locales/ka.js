@@ -97,7 +97,8 @@
             indicatorNewTitle: 'ჯერ არ ატვირთულა',
             indicatorSuccessTitle: 'ატვირთულია',
             indicatorErrorTitle: 'ატვირთვის შეცდომა',
-            indicatorLoadingTitle: 'ატვირთვა ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'ატვირთვა ...'
         },
         previewZoomButtonTitles: {
             prev: 'წინა ფაილის ნახვა',

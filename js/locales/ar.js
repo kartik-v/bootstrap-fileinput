@@ -97,7 +97,8 @@
             indicatorNewTitle: 'لم يتم الرفع بعد',
             indicatorSuccessTitle: 'تم الرفع',
             indicatorErrorTitle: 'خطأ بالرفع',
-            indicatorLoadingTitle: 'جارٍ الرفع ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'جارٍ الرفع ...'
         },
         previewZoomButtonTitles: {
             prev: 'View previous file',

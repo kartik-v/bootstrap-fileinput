@@ -97,7 +97,8 @@
             indicatorNewTitle: 'Nu a încărcat încă',
             indicatorSuccessTitle: 'încărcat',
             indicatorErrorTitle: 'Încărcați eroare',
-            indicatorLoadingTitle: 'Se încarcă ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Se încarcă ...'
         },
         previewZoomButtonTitles: {
             prev: 'View previous file',
