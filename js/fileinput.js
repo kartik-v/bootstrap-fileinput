@@ -5403,16 +5403,17 @@
         uploadUrlThumb: null,
         uploadAsync: true,
         uploadParamNames: {
-            chunkIndex: 'chunkIndex',
             chunkCount: 'chunkCount',
+            chunkIndex: 'chunkIndex',
             chunkSize: 'chunkSize',
             chunkSizeStart: 'chunkSizeStart',
             chunksUploaded: 'chunksUploaded',
-            retryCount: 'retryCount',
+            fileBlob: 'fileBlob',
             fileId: 'fileId',
+            fileName: 'fileName',
             fileRelativePath: 'fileRelativePath',
             fileSize: 'fileSize',
-            fileName: 'fileName'
+            retryCount: 'retryCount'
         },
         maxAjaxThreads: 5,
         processDelay: 100,

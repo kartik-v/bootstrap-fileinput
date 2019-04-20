@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.0.3
+
+**Date:** _under development_
+
+- (enh #1397): Correct `uploadParamNames` to include all parameters.
+
 ## version 5.0.2
 
 **Date:** 18-Apr-2019
