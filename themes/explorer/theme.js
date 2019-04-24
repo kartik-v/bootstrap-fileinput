@@ -43,7 +43,6 @@
             tagAfter: '</td>\n{footer}</tr>\n'
         },
         previewSettings: {
-            image: {height: "60px"},
             html: {width: "100px", height: "60px"},
             text: {width: "100px", height: "60px"},
             video: {width: "auto", height: "60px"},
