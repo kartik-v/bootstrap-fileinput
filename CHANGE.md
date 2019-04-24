@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1400): Enhance image auto orientation for zoom images when thumbnail is hidden.
 - (enh #1399): Enhance Krajee Explorer themes for better image preview.
 - (enh #1398): Resumable uploads enhancements (only when `enableResumableUpload` is `true`):
     - Add new properties to fileActionSettings:

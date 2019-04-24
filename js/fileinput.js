@@ -576,30 +576,6 @@
             el.style['-moz-transform'] = val;
             el.style['-ms-transform'] = val;
             el.style['-o-transform'] = val;
-        },
-        setImageOrientation: function ($img, $zoomImg, value) {
-            if (!$img || !$img.length) {
-                return;
-            }
-            var ev = 'load.fileinputimageorient';
-            $img.off(ev).on(ev, function () {
-                var img = $img.get(0), zoomImg = $zoomImg && $zoomImg.length ? $zoomImg.get(0) : null,
-                    h = img.offsetHeight, w = img.offsetWidth, r = $h.getRotation(value);
-                $img.data('orientation', value);
-                if (zoomImg) {
-                    $zoomImg.data('orientation', value);
-                }
-                if (value < 5) {
-                    $h.setTransform(img, r);
-                    $h.setTransform(zoomImg, r);
-                    return;
-                }
-                var offsetAngle = Math.atan(w / h), origFactor = Math.sqrt(Math.pow(h, 2) + Math.pow(w, 2)),
-                    scale = !origFactor ? 1 : (h / Math.cos(Math.PI / 2 + offsetAngle)) / origFactor,
-                    s = ' scale(' + Math.abs(scale) + ')';
-                $h.setTransform(img, r + s);
-                $h.setTransform(zoomImg, r + s);
-            });
         }
     };
     FileInput = function (element, options) {
@@ -2426,9 +2402,7 @@
                     id = $thumb.attr('id');
                     $img = $thumb.find('>.kv-file-content img');
                     $zoomImg = self.$preview.find('#zoom-' + id + ' >.kv-file-content img');
-                    if ($img && $img.length) {
-                        $h.setImageOrientation($img, $zoomImg, config.exif.Orientation);
-                    }
+                    self.setImageOrientation($img, $zoomImg, config.exif.Orientation, $thumb);
                 }
                 i++;
             });
@@ -3132,10 +3106,10 @@
         _uploadSingle: function (i, id, isBatch) {
             var self = this, fm = self.fileManager, count = fm.count(), formdata = new FormData(), outData,
                 previewId = self.previewInitId + '-' + i, $thumb, chkComplete, $btnUpload, $btnDelete,
-                hasPostData = count > 0 || !$.isEmptyObject(self.uploadExtraData), uploadFailed,
-                $prog, fnBefore, fnSuccess, fnComplete, fnError, updateUploadLog, op = self.ajaxOperations.uploadThumb,
-                errMsg, fileObj = fm.getFile(id), rm = self.resumableManager,
-                params = {id: previewId, index: i, fileId: id}, fileName = self.fileManager.getFileName(id, true);
+                hasPostData = count > 0 || !$.isEmptyObject(self.uploadExtraData), uploadFailed, $prog, fnBefore,
+                errMsg, fnSuccess, fnComplete, fnError, updateUploadLog, op = self.ajaxOperations.uploadThumb,
+                fileObj = fm.getFile(id), params = {id: previewId, index: i, fileId: id},
+                fileName = self.fileManager.getFileName(id, true);
             if (self.enableResumableUpload) { // not enabled for resumable uploads
                 return;
             }
@@ -3553,7 +3527,6 @@
                 origClass = settings.removeClass, errClass = settings.removeErrorClass,
                 resetProgress = function () {
                     var hasFiles = self.isAjaxUpload ? self.previewCache.count(true) : self._inputFileCount();
-                    // console.log(self.previewCache, hasFiles, self.getFrames().length);
                     if (!self.getFrames().length && !hasFiles) {
                         self._setCaption('');
                         self.reset();
@@ -4107,15 +4080,64 @@
             }
             return exifObj;
         },
+        setImageOrientation: function ($img, $zoomImg, value, $thumb) {
+            var self = this, invalidImg = !$img || !$img.length, invalidZoomImg = !$zoomImg || !$zoomImg.length, $mark,
+                isHidden = false, $div, zoomOnly = invalidImg && $thumb && $thumb.attr('data-template') === 'image', ev;
+            if (invalidImg && invalidZoomImg) {
+                return;
+            }
+            ev = 'load.fileinputimageorient';
+            if (zoomOnly) {
+                $img = $zoomImg;
+                $zoomImg = null;
+                $img.css(self.previewSettings.image);
+                $div = $(document.createElement('div')).appendTo($thumb.find('.kv-file-content'));
+                $mark = $(document.createElement('span')).insertBefore($img);
+                $img.css('visibility', 'hidden').removeClass('file-zoom-detail').appendTo($div);
+            } else {
+                isHidden = !$img.is(':visible');
+            }
+            $img.off(ev).on(ev, function () {
+                if (isHidden) {
+                    self.$preview.removeClass('hide-content');
+                    $thumb.find('.kv-file-content').css('visibility', 'hidden');
+                }
+                var img = $img.get(0), zoomImg = $zoomImg && $zoomImg.length ? $zoomImg.get(0) : null,
+                    h = img.offsetHeight, w = img.offsetWidth, r = $h.getRotation(value);
+                if (isHidden) {
+                    $thumb.find('.kv-file-content').css('visibility', 'visible');
+                    self.$preview.addClass('hide-content');
+                }
+                $img.data('orientation', value);
+                if (zoomImg) {
+                    $zoomImg.data('orientation', value);
+                }
+                if (value < 5) {
+                    $h.setTransform(img, r);
+                    $h.setTransform(zoomImg, r);
+                    return;
+                }
+                var offsetAngle = Math.atan(w / h), origFactor = Math.sqrt(Math.pow(h, 2) + Math.pow(w, 2)),
+                    scale = !origFactor ? 1 : (h / Math.cos(Math.PI / 2 + offsetAngle)) / origFactor,
+                    s = ' scale(' + Math.abs(scale) + ')';
+                $h.setTransform(img, r + s);
+                $h.setTransform(zoomImg, r + s);
+                if (zoomOnly) {
+                    $img.css('visibility', 'visible').insertAfter($mark).addClass('file-zoom-detail');
+                    $mark.remove();
+                    $div.remove();
+                }
+            });
+        },
         _validateImageOrientation: function ($img, file, previewId, fileId, caption, ftype, fsize, iData) {
             var self = this, exifObj, value, autoOrientImage = self.autoOrientImage;
-            exifObj = $img.length && autoOrientImage ? self._getExifObj(iData) : null;
+            exifObj = autoOrientImage ? self._getExifObj(iData) : null;
             value = exifObj ? exifObj['0th'][piexif.ImageIFD.Orientation] : null; // jshint ignore:line
             if (!value) {
                 self._validateImage(previewId, fileId, caption, ftype, fsize, iData, exifObj);
                 return;
             }
-            $h.setImageOrientation($img, self.$preview.find('#zoom-' + previewId + ' img'), value);
+            self.setImageOrientation($img, $('#zoom-' + previewId + ' img'), value, $('#' + previewId));
             self._raise('fileimageoriented', {'$img': $img, 'file': file});
             self._validateImage(previewId, fileId, caption, ftype, fsize, iData, exifObj);
         },
@@ -4481,10 +4503,9 @@
             if (!showUpl && !showDwn && !showDel && !showZoom && !showDrag) {
                 return '';
             }
-            var self = this, vUrl = url === false ? '' : ' data-url="' + url + '"',
+            var vUrl = url === false ? '' : ' data-url="' + url + '"', btnZoom = '', btnDrag = '', css,
                 vKey = key === false ? '' : ' data-key="' + key + '"', btnDelete = '', btnUpload = '', btnDownload = '',
-                btnZoom = '', btnDrag = '', css, template = self._getLayoutTemplate('actions'),
-                config = self.fileActionSettings,
+                template = self._getLayoutTemplate('actions'), config = self.fileActionSettings,
                 otherButtons = self.otherActionButtons.setTokens({'dataKey': vKey, 'key': key}),
                 removeClass = disabled ? config.removeClass + ' disabled' : config.removeClass;
             if (showDel) {
@@ -4736,7 +4757,7 @@
                     $status.html('');
                     return;
                 }
-                var node = ctr + i, previewId = previewInitId + '-' + node, file = files[i], fSizeKB, j, msg,
+                var node = ctr + i, previewId = previewInitId + '-' + node, file = files[i], fSizeKB, j, msg, $thumb,
                     fnText = settings.text, fnImage = settings.image, fnHtml = settings.html, typ, chk, typ1, typ2,
                     caption = self._getFileName(file, ''), fileSize = (file && file.size || 0) / 1000,
                     fileExtExpr = '', previewData = $h.createObjectURL(file), fileCount = 0,
@@ -4822,8 +4843,9 @@
                 if (self.isAjaxUpload && self.fileManager.exists(fileId)) {
                     msg = self.msgDuplicateFile.setTokens({name: caption, size: fSizeKB});
                     throwError(msg, file, previewId, i, fileId);
-                    if (self.showPreview && $('#' + previewId).length) {
-                        $('#' + previewId).remove();
+                    $thumb = $('#' + previewId);
+                    if ($thumb && $thumb.length) {
+                        $thumb.remove();
                     }
                     return;
                 }
