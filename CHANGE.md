@@ -5,7 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** 12-May-2019
 
-- (enh #1409): Correct the sequence of raise of `filechunkaccess` event.
+- (enh #1409): Correct the sequence of raise of `filechunksuccess` event.
 - Implement stale bot.
 - (enh #1400): Enhance image auto orientation for zoom images when thumbnail is hidden.
 - (enh #1399): Enhance Krajee Explorer themes for better image preview.
