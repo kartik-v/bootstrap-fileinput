@@ -1311,8 +1311,8 @@
                             }
                             rm.processed[id][data[chunkIndex]] = true;
                             rm.processed[id].data = data;
-                            rm.check();
                             self._raise('filechunksuccess', params);
+                            rm.check();
                         }
                     };
                     fnError = function (jqXHR, textStatus, errorThrown) {

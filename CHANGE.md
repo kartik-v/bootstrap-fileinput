@@ -3,8 +3,10 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.0.3
 
-**Date:** _under development_
+**Date:** 12-May-2019
 
+- (enh #1409): Correct the sequence of raise of `filechunkaccess` event.
+- Implement stale bot.
 - (enh #1400): Enhance image auto orientation for zoom images when thumbnail is hidden.
 - (enh #1399): Enhance Krajee Explorer themes for better image preview.
 - (enh #1398): Resumable uploads enhancements (only when `enableResumableUpload` is `true`):
