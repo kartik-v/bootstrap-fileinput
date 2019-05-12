@@ -97,7 +97,8 @@
             indicatorNewTitle: 'Chưa được upload',
             indicatorSuccessTitle: 'Đã upload',
             indicatorErrorTitle: 'Upload bị lỗi',
-            indicatorLoadingTitle: 'Đang upload ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Đang upload ...'
         },
         previewZoomButtonTitles: {
             prev: 'Xem tập tin phía trước',

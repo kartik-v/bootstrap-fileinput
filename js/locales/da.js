@@ -96,7 +96,8 @@
             indicatorNewTitle: 'Ikke uploadet endnu',
             indicatorSuccessTitle: 'Uploadet',
             indicatorErrorTitle: 'Upload fejl',
-            indicatorLoadingTitle: 'Uploader ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Uploader ...'
         },
         previewZoomButtonTitles: {
             prev: 'Se forrige fil',

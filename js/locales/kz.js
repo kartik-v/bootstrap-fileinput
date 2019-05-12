@@ -84,7 +84,8 @@
             indicatorNewTitle: 'Жүктелген жоқ',
             indicatorSuccessTitle: 'Жүктелген',
             indicatorErrorTitle: 'Жүктелу қатесі ',
-            indicatorLoadingTitle: 'Жүктелу ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Жүктелу ...'
         },
         previewZoomButtonTitles: {
             prev: 'Алдыңғы файлды қарау',

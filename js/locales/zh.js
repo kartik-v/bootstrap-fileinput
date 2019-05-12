@@ -97,7 +97,8 @@
             indicatorNewTitle: '没有上传',
             indicatorSuccessTitle: '上传',
             indicatorErrorTitle: '上传错误',
-            indicatorLoadingTitle: '上传 ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  '上传 ...'
         },
         previewZoomButtonTitles: {
             prev: '预览上一个文件',

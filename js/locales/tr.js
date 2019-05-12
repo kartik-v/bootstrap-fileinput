@@ -95,7 +95,8 @@
             indicatorNewTitle: 'Henüz yüklenmedi',
             indicatorSuccessTitle: 'Yüklendi',
             indicatorErrorTitle: 'Yükleme Hatası',
-            indicatorLoadingTitle: 'Yükleniyor ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Yükleniyor ...'
         },
         previewZoomButtonTitles: {
             prev: 'Önceki dosyayı göster',

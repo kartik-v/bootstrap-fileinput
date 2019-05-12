@@ -96,7 +96,8 @@
             indicatorNewTitle: 'Ainda não enviado',
             indicatorSuccessTitle: 'Enviado',
             indicatorErrorTitle: 'Erro',
-            indicatorLoadingTitle: 'Enviando...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Enviando...'
         },
         previewZoomButtonTitles: {
             prev: 'Visualizar arquivo anterior',

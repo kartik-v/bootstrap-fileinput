@@ -96,7 +96,8 @@
             indicatorNewTitle: 'Non subido aínda',
             indicatorSuccessTitle: 'Subido',
             indicatorErrorTitle: 'Erro ao subir',
-            indicatorLoadingTitle: 'Subindo...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Subindo...'
         },
         previewZoomButtonTitles: {
             prev: 'Ver arquivo anterior',

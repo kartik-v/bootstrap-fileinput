@@ -94,7 +94,8 @@
             indicatorNewTitle: 'Še ni naloženo',
             indicatorSuccessTitle: 'Naloženo',
             indicatorErrorTitle: 'Napaka pri nalaganju',
-            indicatorLoadingTitle: 'Nalagam ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Nalagam ...'
         },
         previewZoomButtonTitles: {
             prev: 'Poglej prejšno datoteko',

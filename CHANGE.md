@@ -1,6 +1,23 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.0.3
+
+**Date:** 12-May-2019
+
+- (enh #1409): Correct the sequence of raise of `filechunkaccess` event.
+- Implement stale bot.
+- (enh #1400): Enhance image auto orientation for zoom images when thumbnail is hidden.
+- (enh #1399): Enhance Krajee Explorer themes for better image preview.
+- (enh #1398): Resumable uploads enhancements (only when `enableResumableUpload` is `true`):
+    - Add new properties to fileActionSettings:
+        - `indicatorPaused`
+        - `indicatorPausedTitle`
+    - Enhance pause and resume behavior by showing appropriate indicators on the file thumbnails
+    - Add `resume` method and enhance `pause` method for resumable uploads
+    - Remove upload button from individual thumbnails and ability to upload selective single file for resumable uploads.
+- (enh #1397): Correct `uploadParamNames` to include all parameters.
+
 ## version 5.0.2
 
 **Date:** 18-Apr-2019

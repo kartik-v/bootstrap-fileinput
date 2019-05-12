@@ -97,7 +97,8 @@
             indicatorNewTitle: 'آپلود نشده است',
             indicatorSuccessTitle: 'آپلود شده',
             indicatorErrorTitle: 'بارگذاری خطا',
-            indicatorLoadingTitle: 'آپلود ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'آپلود ...'
         },
         previewZoomButtonTitles: {
             prev: 'مشاهده فایل قبلی',

@@ -96,7 +96,8 @@
             indicatorNewTitle: 'Nog niet geupload',
             indicatorSuccessTitle: 'geupload',
             indicatorErrorTitle: 'fout uploaden',
-            indicatorLoadingTitle: 'uploaden ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'uploaden ...'
         },
         previewZoomButtonTitles: {
             prev: 'Toon vorig bestand',

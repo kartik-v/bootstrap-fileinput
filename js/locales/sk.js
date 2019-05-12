@@ -96,7 +96,8 @@
             indicatorNewTitle: 'Ešte nenahral',
             indicatorSuccessTitle: 'Nahraný',
             indicatorErrorTitle: 'Chyba pri nahrávaní',
-            indicatorLoadingTitle: 'Nahrávanie ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Nahrávanie ...'
         },
         previewZoomButtonTitles: {
             prev: 'Zobraziť predchádzajúci súbor',

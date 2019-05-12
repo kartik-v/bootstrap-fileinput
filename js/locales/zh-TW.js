@@ -98,7 +98,8 @@
             indicatorNewTitle: '尚未上傳',
             indicatorSuccessTitle: '上傳成功',
             indicatorErrorTitle: '上傳失敗',
-            indicatorLoadingTitle: '上傳中 ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  '上傳中 ...'
         },
         previewZoomButtonTitles: {
             prev: '預覽上壹個文件',

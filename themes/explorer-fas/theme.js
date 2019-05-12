@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.0.2
+ * bootstrap-fileinput v5.0.3
  * http://plugins.krajee.com/file-input
  *
  * Krajee Explorer Font Awesome theme configuration for bootstrap-fileinput. 
@@ -46,7 +46,6 @@
             tagAfter: '</td>\n{footer}</tr>\n'
         },
         previewSettings: {
-            image: {height: '60px'},
             html: {width: '100px', height: '60px'},
             text: {width: '100px', height: '60px'},
             video: {width: 'auto', height: '60px'},
@@ -67,7 +66,8 @@
             indicatorNew: '<i class="fas fa-plus-circle text-warning"></i>',
             indicatorSuccess: '<i class="fas fa-check-circle text-success"></i>',
             indicatorError: '<i class="fas fa-exclamation-circle text-danger"></i>',
-            indicatorLoading: '<i class="fas fa-hourglass text-muted"></i>'
+            indicatorLoading: '<i class="fas fa-hourglass text-muted"></i>',
+            indicatorPaused: '<i class="fa fa-pause text-info"></i>'
         },
         previewZoomButtonIcons: {
             prev: '<i class="fas fa-caret-left fa-lg"></i>',

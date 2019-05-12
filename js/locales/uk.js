@@ -97,7 +97,8 @@
             indicatorNewTitle: 'Ще не відвантажено',
             indicatorSuccessTitle: 'Відвантажено',
             indicatorErrorTitle: 'Помилка при відвантаженні',
-            indicatorLoadingTitle: 'Завантаження ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Завантаження ...'
         },
         previewZoomButtonTitles: {
             prev: 'Переглянути попередній файл',

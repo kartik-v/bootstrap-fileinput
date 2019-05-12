@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.0.2
+ * bootstrap-fileinput v5.0.3
  * http://plugins.krajee.com/file-input
  *
  * Krajee Explorer Font Awesome theme configuration for bootstrap-fileinput. 
@@ -13,7 +13,7 @@
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
 (function ($) {
-    "use strict";
+    'use strict';
     var teTagBef = '<tr class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
         ' data-fileid="{fileid}" data-template="{template}"', teContent = '<td class="kv-file-content">\n';
     $.fn.fileinputThemes['explorer-fa'] = {
@@ -46,15 +46,14 @@
             tagAfter: '</td>\n{footer}</tr>\n'
         },
         previewSettings: {
-            image: {height: "60px"},
-            html: {width: "100px", height: "60px"},
-            text: {width: "100px", height: "60px"},
-            video: {width: "auto", height: "60px"},
-            audio: {width: "auto", height: "60px"},
-            flash: {width: "100%", height: "60px"},
-            object: {width: "100%", height: "60px"},
-            pdf: {width: "100px", height: "60px"},
-            other: {width: "100%", height: "60px"}
+            html: {width: '100px', height: '60px'},
+            text: {width: '100px', height: '60px'},
+            video: {width: 'auto', height: '60px'},
+            audio: {width: 'auto', height: '60px'},
+            flash: {width: '100%', height: '60px'},
+            object: {width: '100%', height: '60px'},
+            pdf: {width: '100px', height: '60px'},
+            other: {width: '100%', height: '60px'}
         },
         frameClass: 'explorer-frame',
         fileActionSettings: {
@@ -67,7 +66,8 @@
             indicatorNew: '<i class="fa fa-plus-circle text-warning"></i>',
             indicatorSuccess: '<i class="fa fa-check-circle text-success"></i>',
             indicatorError: '<i class="fa fa-exclamation-circle text-danger"></i>',
-            indicatorLoading: '<i class="fa fa-hourglass text-muted"></i>'
+            indicatorLoading: '<i class="fa fa-hourglass text-muted"></i>',
+            indicatorPaused: '<i class="fa fa-pause text-info"></i>'
         },
         previewZoomButtonIcons: {
             prev: '<i class="fa fa-caret-left fa-lg"></i>',

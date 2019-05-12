@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.0.2
+ * bootstrap-fileinput v5.0.3
  * http://plugins.krajee.com/file-input
  *
  * Font Awesome icon theme configuration for bootstrap-fileinput. Requires font awesome assets to be loaded.
@@ -24,7 +24,8 @@
             indicatorNew: '<i class="fa fa-plus-circle text-warning"></i>',
             indicatorSuccess: '<i class="fa fa-check-circle text-success"></i>',
             indicatorError: '<i class="fa fa-exclamation-circle text-danger"></i>',
-            indicatorLoading: '<i class="fa fa-hourglass text-muted"></i>'
+            indicatorLoading: '<i class="fa fa-hourglass text-muted"></i>',
+            indicatorPaused: '<i class="fa fa-pause text-info"></i>'
         },
         layoutTemplates: {
             fileIcon: '<i class="fa fa-file kv-caption-icon"></i> '

@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.0.2
+ * bootstrap-fileinput v5.0.3
  * http://plugins.krajee.com/file-input
  *
  * Krajee Explorer theme configuration for bootstrap-fileinput. Load this theme file after loading `fileinput.js`.
@@ -43,7 +43,6 @@
             tagAfter: '</td>\n{footer}</tr>\n'
         },
         previewSettings: {
-            image: {height: "60px"},
             html: {width: "100px", height: "60px"},
             text: {width: "100px", height: "60px"},
             video: {width: "auto", height: "60px"},

@@ -96,7 +96,8 @@
             indicatorNewTitle: 'Ainda não carregou',
             indicatorSuccessTitle: 'Carregado',
             indicatorErrorTitle: 'Carregar Erro',
-            indicatorLoadingTitle: 'A carregar ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'A carregar ...'
         },
         previewZoomButtonTitles: {
             prev: 'View previous file',

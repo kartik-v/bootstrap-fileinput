@@ -95,7 +95,8 @@
             indicatorNewTitle: 'Inte uppladdat ännu',
             indicatorSuccessTitle: 'Uppladdad',
             indicatorErrorTitle: 'Uppladdningsfel',
-            indicatorLoadingTitle: 'Laddar upp...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Laddar upp...'
         },
         previewZoomButtonTitles: {
             prev: 'Visa föregående fil',

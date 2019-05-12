@@ -97,7 +97,8 @@
             indicatorNewTitle: 'Još nije učitao',
             indicatorSuccessTitle: 'Preneseno',
             indicatorErrorTitle: 'Postavi Greška',
-            indicatorLoadingTitle: 'Prijenos ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Prijenos ...'
         },
         previewZoomButtonTitles: {
             prev: 'View previous file',

@@ -96,7 +96,8 @@
             indicatorNewTitle: 'ยังไม่ได้อัปโหลด',
             indicatorSuccessTitle: 'อัพโหลด',
             indicatorErrorTitle: 'อัปโหลดข้อผิดพลาด',
-            indicatorLoadingTitle: 'อัพโหลด ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'อัพโหลด ...'
         },
         previewZoomButtonTitles: {
             prev: 'View previous file',

@@ -84,7 +84,8 @@
             indicatorNewTitle: 'Ei ladattu',
             indicatorSuccessTitle: 'Ladattu',
             indicatorErrorTitle: 'Lataus epäonnistui',
-            indicatorLoadingTitle: 'Ladataan ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  'Ladataan ...'
         },
         previewZoomButtonTitles: {
             prev: 'Seuraava tiedosto',
