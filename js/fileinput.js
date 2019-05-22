@@ -4702,10 +4702,10 @@
             return self.$element;
         },
         getFileStack: function () {
-            return this.files.stack;
+            return this.fileManager.stack;
         },
         getFileList: function () {
-            return this.files.list();
+            return this.fileManager.list();
         },
         getFilesCount: function () {
             var self = this, len = self.isAjaxUpload ? self.fileManager.count() : self._inputFileCount();

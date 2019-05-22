@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (bug #1413): Correct `getFileStack` and `getFileList` methods.
 
 ## version 5.0.3
 
