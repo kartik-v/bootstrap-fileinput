@@ -6,6 +6,7 @@ Change Log: `bootstrap-fileinput`
 **Date:** _under development_
 
 - (bug #1413): Correct `getFileStack` and `getFileList` methods.
+- Implement sentiment bot.
 
 ## version 5.0.3
 
