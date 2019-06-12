@@ -2086,10 +2086,10 @@
                     });
                 }
             }
-            return out;
+            return out || self.previewFileIcon;
         },
         _parseFilePreviewIcon: function (content, fname) {
-            var self = this, icn = self._getPreviewIcon(fname) || self.previewFileIcon, out = content;
+            var self = this, icn = self._getPreviewIcon(fname), out = content;
             if (out.indexOf('{previewFileIcon}') > -1) {
                 out = out.setTokens({'previewFileIconClass': self.previewFileIconClass, 'previewFileIcon': icn});
             }
@@ -3683,11 +3683,10 @@
         ) {
             var self = this, caption = self.slug(fname), prevContent, zoomContent = '', styleAttribs = '',
                 screenW = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-                config, newCat = self.preferIconicPreview ? 'other' : cat, title = caption, alt = caption,
+                config, title = caption, alt = caption, typeCss = 'type-default', getContent,
                 footer = foot || self._renderFileFooter(cat, caption, size, 'auto', isError),
-                hasIconSetting = self._getPreviewIcon(fname), typeCss = 'type-default',
-                forcePrevIcon = hasIconSetting && self.preferIconicPreview,
-                forceZoomIcon = hasIconSetting && self.preferIconicZoomPreview, getContent;
+                forcePrevIcon = self.preferIconicPreview, forceZoomIcon = self.preferIconicZoomPreview,
+                newCat = forcePrevIcon ? 'other' : cat;
             config = screenW < 400 ? (self.previewSettingsSmall[newCat] || self.defaults.previewSettingsSmall[newCat]) :
                 (self.previewSettings[newCat] || self.defaults.previewSettings[newCat]);
             if (config) {
