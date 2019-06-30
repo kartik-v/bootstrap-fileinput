@@ -21,11 +21,11 @@ An enhanced HTML 5 file input for Bootstrap 3.x and 4.x with file preview for va
 
 > NOTE: Version 5.x is a significant rewrite. With version 5.x, the plugin code has been revamped with enhanced file management, resumable chunk uploads support, and other new features. You can go through the various closed enhancements and features and documented for [Release 5.x milestone](https://github.com/kartik-v/bootstrap-fileinput/milestone/1?closed=1).   
 
-![Krajee Default Theme](https://lh3.googleusercontent.com/8m5BKa-o2_W63OuL-NJtAYOxelboHccfsDojxdqhmVCxY49LTiSVK8rOywzup2EDJlXcda_SsKkMVA=w1366-h768-rw-no)
+![Krajee Default Theme](https://user-images.githubusercontent.com/3592619/60393698-ea1fc280-9b36-11e9-9f16-b27c529d6819.png)
 
 > NOTE: An alternative new [Krajee Explorer Theme](http://plugins.krajee.com/file-krajee-explorer-demo) (preview shown below) for `bootstrap-fileinput` has been released and available since v4.3.7. For more theming options and suggestions refer the [theming demos](http://plugins.krajee.com/file-theme-demo).
 
-![Krajee Explorer Theme](https://lh3.googleusercontent.com/eKMw_la1h6Z0y1Vk0SU3fsWVpmUoqg_HS-ZEZ1U2-1e8s6fgFZqoGbXcRjIXbYLkLi6Ns17-nb2yOg=w1366-h768-rw-no)
+![Krajee Explorer Theme](https://user-images.githubusercontent.com/3592619/60393721-51d60d80-9b37-11e9-991c-810c942ac516.png)
 
 ## Documentation and Demo
 
@@ -77,19 +77,19 @@ Step 1: Load the following assets in your header.
 ```html
 <!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 <!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
-<!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
+<!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you 
     wish to resize images before upload. This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/plugins/piexif.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/js/plugins/piexif.min.js" type="text/javascript"></script>
 <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
     This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/plugins/sortable.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/js/plugins/sortable.min.js" type="text/javascript"></script>
 <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for 
     HTML files. This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/plugins/purify.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/js/plugins/purify.min.js" type="text/javascript"></script>
 <!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js 
    3.3.x versions without popper.min.js. -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -97,11 +97,11 @@ Step 1: Load the following assets in your header.
     dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- the main fileinput plugin file -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/js/fileinput.min.js"></script>
 <!-- optionally if you need a theme like font awesome theme you can include it as mentioned below -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/themes/fa/theme.js"></script>
 <!-- optionally if you need translation for your language then include  locale file as mentioned below -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/locales/(lang).js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/js/locales/(lang).js"></script>
 ```
 
 If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`. The theme file `themes/fa/theme.js` can be optionally included for the font awesome icons styling. The locale file `<lang>.js` can be optionally included for translating for your language if needed.
