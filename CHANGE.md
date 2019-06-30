@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.0.4
 
-**Date:** _under development_
+**Date:** 30-Jun-2019
 
 - (enh #1422): Correct drag indicator SCSS.
 - (enh #1420): Correct `preferIconicPreview` parsing.
