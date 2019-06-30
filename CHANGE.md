@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1422): Correct drag indicator SCSS.
 - (enh #1420): Correct `preferIconicPreview` parsing.
 - (bug #1413): Correct `getFileStack` and `getFileList` methods.
 - Implement sponsorship.
