@@ -21,11 +21,11 @@ An enhanced HTML 5 file input for Bootstrap 3.x and 4.x with file preview for va
 
 > NOTE: Version 5.x is a significant rewrite. With version 5.x, the plugin code has been revamped with enhanced file management, resumable chunk uploads support, and other new features. You can go through the various closed enhancements and features and documented for [Release 5.x milestone](https://github.com/kartik-v/bootstrap-fileinput/milestone/1?closed=1).   
 
-![Krajee Default Theme](https://lh3.googleusercontent.com/8m5BKa-o2_W63OuL-NJtAYOxelboHccfsDojxdqhmVCxY49LTiSVK8rOywzup2EDJlXcda_SsKkMVA=w1366-h768-rw-no)
+![Krajee Default Theme](https://user-images.githubusercontent.com/3592619/60393698-ea1fc280-9b36-11e9-9f16-b27c529d6819.png)
 
 > NOTE: An alternative new [Krajee Explorer Theme](http://plugins.krajee.com/file-krajee-explorer-demo) (preview shown below) for `bootstrap-fileinput` has been released and available since v4.3.7. For more theming options and suggestions refer the [theming demos](http://plugins.krajee.com/file-theme-demo).
 
-![Krajee Explorer Theme](https://lh3.googleusercontent.com/eKMw_la1h6Z0y1Vk0SU3fsWVpmUoqg_HS-ZEZ1U2-1e8s6fgFZqoGbXcRjIXbYLkLi6Ns17-nb2yOg=w1366-h768-rw-no)
+![Krajee Explorer Theme](https://user-images.githubusercontent.com/3592619/60393721-51d60d80-9b37-11e9-991c-810c942ac516.png)
 
 ## Documentation and Demo
 
