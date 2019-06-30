@@ -23,9 +23,9 @@ $mine-shaft: #333 !default;
 $boston-blue: #428bca !default;
 $tapa: #777 !default;
 $black: #000 !default;
-$black-20: rgba(0, 0, 0, 0.2);
-$black-30: rgba(0, 0, 0, 0.3);
-$black-40: rgba(0, 0, 0, 0.4);
+$black-20: rgba(0, 0, 0, 0.2) !default;
+$black-30: rgba(0, 0, 0, 0.3) !default;
+$black-40: rgba(0, 0, 0, 0.4) !default;
 $mystic: #e1edf7 !default;
 $perano: #a1abff !default;
 $silver-chalice: #aaa !default;
@@ -78,7 +78,8 @@ $border: 1px !default;
     margin: 0;
 }
 %set-indicator {
-    margin: $pad 0 (-$pad);
+    float: left;
+    margin-top: multiply($pad, 2);
     width: multiply($pad, 3.2);
     height: multiply($pad, 3.2);
 }
