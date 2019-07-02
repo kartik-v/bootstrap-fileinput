@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1429): Enhance thumbnail preview identifiers.
 
 ## version 5.0.4
 

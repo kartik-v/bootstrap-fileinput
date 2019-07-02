@@ -48,6 +48,7 @@
     $h = {
         FRAMES: '.kv-preview-thumb',
         SORT_CSS: 'file-sortable',
+        INIT_FLAG: 'init-',
         OBJECT_PARAMS: '<param name="controller" value="true" />\n' +
         '<param name="allowFullScreen" value="true" />\n' +
         '<param name="allowScriptAccess" value="always" />\n' +
@@ -720,7 +721,7 @@
             }
             if (!refreshMode) {
                 self.$errorContainer.hide();
-                self.previewInitId = 'preview-' + $h.uniqId();
+                self.previewInitId = 'thumb-' + $el.attr('id');
                 self._initPreviewCache();
                 self._initPreview(true);
                 self._initPreviewActions();
@@ -911,8 +912,9 @@
                 getThumb: function (id) {
                     var $thumb = null;
                     self._getThumbs().each(function () {
-                        if ($(this).attr('data-fileid') === id) {
-                            $thumb = $(this);
+                        var $t = $(this);
+                        if ($t.attr('data-fileid') === id) {
+                            $thumb = $t;
                         }
                     });
                     return $thumb;
@@ -1697,15 +1699,16 @@
                     return self.previewCache.data.content.length;
                 },
                 get: function (i, isDisabled) {
-                    var ind = 'init_' + i, data = self.previewCache.data, config = data.config[i], fileId,
-                        content = data.content[i], previewId = self.previewInitId + '-' + ind, out, $tmp, cat, ftr,
+                    var ind = $h.INIT_FLAG + i, data = self.previewCache.data, config = data.config[i],
+                        content = data.content[i], out, $tmp, cat, ftr,
                         fname, ftype, frameClass, asData = $h.ifSet('previewAsData', config, self.initialPreviewAsData),
                         a = config ? {title: config.title || null, alt: config.alt || null} : {title: null, alt: null},
-                        parseTemplate = function (cat, dat, fn, ft, id, ftr, ind, fc, t) {
-                            fc = ' file-preview-initial ' + $h.SORT_CSS + (fc ? ' ' + fc : '');
+                        parseTemplate = function (cat, dat, fname, ftype, ftr, ind, fclass, t) {
+                            var fc = ' file-preview-initial ' + $h.SORT_CSS + (fclass ? ' ' + fclass : ''),
+                                id = self.previewInitId + '-' + $h.INIT_FLAG + ind,
+                                fileId = config && config.fileId || id;
                             /** @namespace config.zoomData */
-                            fileId = config && config.fileId || 'file_' + id;
-                            return self._generatePreviewTemplate(cat, dat, fn, ft, id, fileId, false, null, fc,
+                            return self._generatePreviewTemplate(cat, dat, fname, ftype, id, fileId, false, null, fc,
                                 ftr, ind, t, a, config && config.zoomData || dat);
                         };
                     if (!content || !content.length) {
@@ -1718,9 +1721,9 @@
                     ftr = self.previewCache.footer(i, isDisabled, (config && config.size || null));
                     frameClass = $h.ifSet('frameClass', config);
                     if (asData) {
-                        out = parseTemplate(cat, content, fname, ftype, previewId, ftr, ind, frameClass);
+                        out = parseTemplate(cat, content, fname, ftype, ftr, ind, frameClass);
                     } else {
-                        out = parseTemplate('generic', content, fname, ftype, previewId, ftr, ind, frameClass, cat)
+                        out = parseTemplate('generic', content, fname, ftype, ftr, ind, frameClass, cat)
                             .setTokens({'content': data.content[i]});
                     }
                     if (data.tags.length && data.tags[i]) {
@@ -2368,7 +2371,7 @@
                     self.initialPreviewConfig = $h.moveArray(self.initialPreviewConfig, oldIndex, newIndex, rev);
                     self.previewCache.init();
                     self.getFrames('.file-preview-initial').each(function () {
-                        $(this).attr('data-fileindex', 'init_' + i);
+                        $(this).attr('data-fileindex', $h.INIT_FLAG + i);
                         i++;
                     });
                     self._raise('filesorted', {
@@ -2873,6 +2876,10 @@
             css = css || '';
             return this.getFrames(':not(.file-preview-initial)' + css);
         },
+        _getThumbId: function (fileId) {
+            var self = this;
+            return self.previewInitId + '-' + fileId;
+        },
         _getExtraData: function (fileId, index) {
             var self = this, data = self.uploadExtraData;
             if (typeof self.uploadExtraData === 'function') {
@@ -3105,7 +3112,7 @@
         },
         _uploadSingle: function (i, id, isBatch) {
             var self = this, fm = self.fileManager, count = fm.count(), formdata = new FormData(), outData,
-                previewId = self.previewInitId + '-' + i, $thumb, chkComplete, $btnUpload, $btnDelete,
+                previewId = self._getThumbId(id), $thumb, chkComplete, $btnUpload, $btnDelete,
                 hasPostData = count > 0 || !$.isEmptyObject(self.uploadExtraData), uploadFailed, $prog, fnBefore,
                 errMsg, fnSuccess, fnComplete, fnError, updateUploadLog, op = self.ajaxOperations.uploadThumb,
                 fileObj = fm.getFile(id), params = {id: previewId, index: i, fileId: id},
@@ -3441,18 +3448,18 @@
         },
         _deleteFileIndex: function ($frame) {
             var self = this, ind = $frame.attr('data-fileindex'), rev = self.reversePreviewOrder;
-            if (ind.substring(0, 5) === 'init_') {
-                ind = parseInt(ind.replace('init_', ''));
+            if (ind.substring(0, 5) === $h.INIT_FLAG) {
+                ind = parseInt(ind.replace($h.INIT_FLAG, ''));
                 self.initialPreview = $h.spliceArray(self.initialPreview, ind, rev);
                 self.initialPreviewConfig = $h.spliceArray(self.initialPreviewConfig, ind, rev);
                 self.initialPreviewThumbTags = $h.spliceArray(self.initialPreviewThumbTags, ind, rev);
                 self.getFrames().each(function () {
                     var $nFrame = $(this), nInd = $nFrame.attr('data-fileindex');
-                    if (nInd.substring(0, 5) === 'init_') {
-                        nInd = parseInt(nInd.replace('init_', ''));
+                    if (nInd.substring(0, 5) === $h.INIT_FLAG) {
+                        nInd = parseInt(nInd.replace($h.INIT_FLAG, ''));
                         if (nInd > ind) {
                             nInd--;
-                            $nFrame.attr('data-fileindex', 'init_' + nInd);
+                            $nFrame.attr('data-fileindex', $h.INIT_FLAG + nInd);
                         }
                     }
                 });
@@ -3545,7 +3552,7 @@
                 }
                 var $frame = $el.closest($h.FRAMES), cache = self.previewCache.data, settings, params, config,
                     fileName, extraData, index = $frame.attr('data-fileindex');
-                index = parseInt(index.replace('init_', ''));
+                index = parseInt(index.replace($h.INIT_FLAG, ''));
                 config = $h.isEmpty(cache.config) && $h.isEmpty(cache.config[index]) ? null : cache.config[index];
                 extraData = $h.isEmpty(config) || $h.isEmpty(config.extra) ? deleteExtraData : config.extra;
                 fileName = config.filename || config.caption || '';
@@ -3578,7 +3585,7 @@
                     }
                     $frame.removeClass('file-uploading').addClass('file-deleted');
                     $frame.fadeOut('slow', function () {
-                        index = parseInt(($frame.attr('data-fileindex')).replace('init_', ''));
+                        index = parseInt(($frame.attr('data-fileindex')).replace($h.INIT_FLAG, ''));
                         self.previewCache.unset(index);
                         self._deleteFileIndex($frame);
                         n = self.previewCache.count(true);
@@ -3757,14 +3764,15 @@
             var self = this;
             return self.reversePreviewOrder ? $preview.prepend(content) : $preview.append(content);
         },
-        _previewDefault: function (file, previewId, isDisabled) {
+        _previewDefault: function (file, isDisabled) {
             var self = this, $preview = self.$preview;
             if (!self.showPreview) {
                 return;
             }
             var fname = $h.getFileName(file), ftype = file ? file.type : '', content, size = file.size || 0,
                 caption = self._getFileName(file, ''), isError = isDisabled === true && !self.isAjaxUpload,
-                data = $h.createObjectURL(file), fileId = self.fileManager.getId(file);
+                data = $h.createObjectURL(file), fileId = self.fileManager.getId(file),
+                previewId = self._getThumbId(fileId);
             self._clearDefaultPreview();
             content = self._generatePreviewTemplate('other', data, fname, ftype, previewId, fileId, isError, size);
             self._addToPreview($preview, content);
@@ -3773,34 +3781,14 @@
                 self._setThumbStatus($('#' + previewId), 'Error');
             }
         },
-        canPreview: function (file) {
-            var self = this;
-            if (!file || !self.showPreview || !self.$preview || !self.$preview.length) {
-                return false;
-            }
-            var name = file.name || '', type = file.type || '', size = (file.size || 0) / 1000,
-                cat = self._parseFileType(type, name), allowedTypes, allowedMimes, allowedExts, skipPreview,
-                types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes,
-                exts = self.allowedPreviewExtensions || [], dTypes = self.disabledPreviewTypes,
-                dMimes = self.disabledPreviewMimeTypes, dExts = self.disabledPreviewExtensions || [],
-                maxSize = self.maxFilePreviewSize && parseFloat(self.maxFilePreviewSize) || 0,
-                expAllExt = new RegExp('\\.(' + exts.join('|') + ')$', 'i'),
-                expDisExt = new RegExp('\\.(' + dExts.join('|') + ')$', 'i');
-            allowedTypes = !types || types.indexOf(cat) !== -1;
-            allowedMimes = !mimes || mimes.indexOf(type) !== -1;
-            allowedExts = !exts.length || $h.compare(name, expAllExt);
-            skipPreview = (dTypes && dTypes.indexOf(cat) !== -1) || (dMimes && dMimes.indexOf(type) !== -1) ||
-                (dExts.length && $h.compare(name, expDisExt)) || (maxSize && !isNaN(maxSize) && size > maxSize);
-            return !skipPreview && (allowedTypes || allowedMimes || allowedExts);
-        },
-        _previewFile: function (i, file, theFile, previewId, data, fileInfo) {
+        _previewFile: function (i, file, theFile, data, fileInfo) {
             if (!this.showPreview) {
                 return;
             }
             var self = this, fname = $h.getFileName(file), ftype = fileInfo.type, caption = fileInfo.name,
                 cat = self._parseFileType(ftype, fname), content, $preview = self.$preview, fsize = file.size || 0,
                 iData = (cat === 'text' || cat === 'html' || cat === 'image') ? theFile.target.result : data,
-                fileId = self.fileManager.getId(file);
+                fileId = self.fileManager.getId(file), previewId = self._getThumbId(fileId);
             /** @namespace window.DOMPurify */
             if (cat === 'html' && self.purifyHtml && window.DOMPurify) {
                 iData = window.DOMPurify.sanitize(iData);
@@ -3828,7 +3816,7 @@
             }
             for (var i = 0; i < len; i++) {
                 config = data.config[i];
-                previewId = self.previewInitId + '-' + 'init_' + i;
+                previewId = self.previewInitId + '-' + $h.INIT_FLAG + i;
                 caption = $h.ifSet('caption', config, $h.ifSet('filename', config));
                 size = $h.ifSet('size', config);
                 self._setThumbAttr(previewId, caption, size);
@@ -4656,13 +4644,12 @@
                     return;
                 }
                 if (!self.fileManager.getFile($thumb.attr('data-fileid'))) {
-                    $thumb.attr({'id': self.previewInitId + '-' + i, 'data-fileindex': i});
+                    $thumb.attr({'data-fileindex': i});
                     i++;
                 } else {
-                    $thumb.attr({'id': 'uploaded-' + $h.uniqId(), 'data-fileindex': '-1'});
+                    $thumb.attr({'data-fileindex': '-1'});
                 }
                 self.$preview.find('#zoom-' + pid).attr({
-                    'id': 'zoom-' + $thumb.attr('id'),
                     'data-fileindex': $thumb.attr('data-fileindex')
                 });
             });
@@ -4680,6 +4667,26 @@
                 return false;
             }
             return true;
+        },
+        _canPreview: function (file) {
+            var self = this;
+            if (!file || !self.showPreview || !self.$preview || !self.$preview.length) {
+                return false;
+            }
+            var name = file.name || '', type = file.type || '', size = (file.size || 0) / 1000,
+                cat = self._parseFileType(type, name), allowedTypes, allowedMimes, allowedExts, skipPreview,
+                types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes,
+                exts = self.allowedPreviewExtensions || [], dTypes = self.disabledPreviewTypes,
+                dMimes = self.disabledPreviewMimeTypes, dExts = self.disabledPreviewExtensions || [],
+                maxSize = self.maxFilePreviewSize && parseFloat(self.maxFilePreviewSize) || 0,
+                expAllExt = new RegExp('\\.(' + exts.join('|') + ')$', 'i'),
+                expDisExt = new RegExp('\\.(' + dExts.join('|') + ')$', 'i');
+            allowedTypes = !types || types.indexOf(cat) !== -1;
+            allowedMimes = !mimes || mimes.indexOf(type) !== -1;
+            allowedExts = !exts.length || $h.compare(name, expAllExt);
+            skipPreview = (dTypes && dTypes.indexOf(cat) !== -1) || (dMimes && dMimes.indexOf(type) !== -1) ||
+                (dExts.length && $h.compare(name, expDisExt)) || (maxSize && !isNaN(maxSize) && size > maxSize);
+            return !skipPreview && (allowedTypes || allowedMimes || allowedExts);
         },
         clearFileStack: function () {
             var self = this;
@@ -4722,7 +4729,7 @@
                     var p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
                         {id: previewId, index: index, fileId: fileId}), $thumb = $('#' + previewId),
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
-                    self._previewDefault(file, previewId, true);
+                    self._previewDefault(file, true);
                     if (self.isAjaxUpload) {
                         setTimeout(function () {
                             readFile(index + 1);
@@ -4848,13 +4855,13 @@
                     }
                     return;
                 }
-                if (!self.canPreview(file)) {
+                if (!self._canPreview(file)) {
                     if (self.isAjaxUpload) {
                         self.fileManager.add(file);
                     }
                     if (self.showPreview) {
                         $container.addClass('file-thumb-loading');
-                        self._previewDefault(file, previewId);
+                        self._previewDefault(file);
                         self._initFileActions();
                     }
                     setTimeout(function () {
@@ -4879,7 +4886,7 @@
                             self._errorHandler(theFileNew, caption);
                         };
                         newReader.onload = function (theFileNew) {
-                            self._previewFile(i, file, theFileNew, previewId, previewData, fileInfo);
+                            self._previewFile(i, file, theFileNew, previewData, fileInfo);
                             self._initFileActions();
                             processFileLoaded();
                         };
@@ -4917,7 +4924,7 @@
                             return;
                         }
                     }
-                    self._previewFile(i, file, theFile, previewId, previewData, fileInfo);
+                    self._previewFile(i, file, theFile, previewData, fileInfo);
                     self._initFileActions();
                     processFileLoaded();
                 };
