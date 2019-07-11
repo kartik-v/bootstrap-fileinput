@@ -2346,7 +2346,7 @@
             $thumbs.each(function () {
                 var $thumb = $(this);
                 $thumb.remove();
-                $h.cleanZoomCache($p.find('#zoom-' + $thumb.attr('id')));
+                $h.cleanZoomCache($p.find("[id='" + '#zoom-' + $thumb.attr('id') + "']"));
             });
             if (!self.getFrames().length || !self.showPreview) {
                 self._resetUpload();
@@ -2404,13 +2404,15 @@
                 if (config && config.exif && config.exif.Orientation) {
                     id = $thumb.attr('id');
                     $img = $thumb.find('>.kv-file-content img');
-                    $zoomImg = self.$preview.find('#zoom-' + id + ' >.kv-file-content img');
+                    $zoomImg = self.$preview.find("[id='" + '#zoom-' + id + "']" + ' >.kv-file-content img');
                     self.setImageOrientation($img, $zoomImg, config.exif.Orientation, $thumb);
                 }
                 i++;
             });
         },
         _initPreview: function (isInit) {
+            if(!isInit)
+                return;
             var self = this, cap = self.initialCaption || '', out;
             if (!self.previewCache.count(true)) {
                 self._clearPreview();
@@ -2572,7 +2574,7 @@
         },
         _setZoomContent: function ($frame, animate) {
             var self = this, $content, tmplt, body, title, $body, $dataEl, config, previewId = $frame.attr('id'),
-                $zoomPreview = self.$preview.find('#zoom-' + previewId), $modal = self.$modal, $tmp,
+                $zoomPreview = self.$preview.find("[id='" + '#zoom-' + previewId + "']"), $modal = self.$modal, $tmp,
                 $btnFull = $modal.find('.btn-fullscreen'), $btnBord = $modal.find('.btn-borderless'), cap, size,
                 $btnTogh = $modal.find('.btn-toggleheader');
             tmplt = $zoomPreview.attr('data-template') || 'generic';
@@ -2865,7 +2867,7 @@
             return n > 0 ? self.msgSelected.replace('{n}', n).replace('{files}', strFiles) : self.msgNoFilesSelected;
         },
         _getFrame: function (id) {
-            var self = this, $frame = $('#' + id);
+            var self = this, $frame =  $("[id='" + id + "']");
             if (!$frame.length) {
                 self._log($h.logMessages.invalidThumb, {id: id});
                 return null;
@@ -3032,7 +3034,7 @@
                             }
                             self._initPreviewActions();
                             self._clearFileInput();
-                            $h.cleanZoomCache(self.$preview.find('#zoom-' + $thumb.attr('id')));
+                            $h.cleanZoomCache(self.$preview.find("[id='" + '#zoom-' + $thumb.attr('id') + "']"));
                             $thumb.remove();
                             $div.remove();
                             self._initSortable();
@@ -3067,7 +3069,7 @@
                         return;
                     }
                     $thumb.fadeOut('slow', function () {
-                        $h.cleanZoomCache($preview.find('#zoom-' + id));
+                        $h.cleanZoomCache($preview.find("[id='" + '#zoom-' + id + "']"));
                         $thumb.remove();
                         if (!self.getFrames().length) {
                             self.reset();
@@ -3231,7 +3233,7 @@
                         if (isBatch) {
                             updateUploadLog();
                         }
-                        self._setProgress(101, $('#' + pid).find('.file-thumb-progress'), self.msgUploadError);
+                        self._setProgress(101, $("[id='" + pid + "']").find('.file-thumb-progress'), self.msgUploadError);
                     }
                 }, self.processDelay);
             };
@@ -3485,7 +3487,7 @@
                     hasError = $frame.hasClass('file-preview-error');
                     $h.cleanMemory($frame);
                     $frame.fadeOut('slow', function () {
-                        $h.cleanZoomCache($preview.find('#zoom-' + id));
+                        $h.cleanZoomCache($preview.find("[id='" + '#zoom-' + id + "']"));
                         self.fileManager.remove($frame);
                         self._clearObjects($frame);
                         $frame.remove();
@@ -3592,7 +3594,7 @@
                         cap = n > 0 ? self._getMsgSelected(n) : '';
                         self._setCaption(cap);
                         self._raise('filedeleted', [vKey, jqXHR, extraData]);
-                        $h.cleanZoomCache($preview.find('#zoom-' + $frame.attr('id')));
+                        $h.cleanZoomCache($preview.find("[id='" + '#zoom-' + $frame.attr('id') + "']"));
                         self._clearObjects($frame);
                         $frame.remove();
                         resetProgress();
@@ -3778,7 +3780,7 @@
             self._addToPreview($preview, content);
             self._setThumbAttr(previewId, caption, size);
             if (isDisabled === true && self.isAjaxUpload) {
-                self._setThumbStatus($('#' + previewId), 'Error');
+                self._setThumbStatus($("[id='" + previewId + "']"), 'Error');
             }
         },
         _previewFile: function (i, file, theFile, data, fileInfo) {
@@ -3796,13 +3798,13 @@
             content = self._generatePreviewTemplate(cat, iData, fname, ftype, previewId, fileId, false, fsize);
             self._clearDefaultPreview();
             self._addToPreview($preview, content);
-            var $thumb = $preview.find('#' + previewId), $img = $thumb.find('img'), id = $thumb.attr('data-fileid');
+            var $thumb = $preview.find("[id='" + previewId + "']"), $img = $thumb.find('img'), id = $thumb.attr('data-fileid');
             self._validateImageOrientation($img, file, previewId, id, caption, ftype, fsize, iData);
             self._setThumbAttr(previewId, caption, fsize);
             self._initSortable();
         },
         _setThumbAttr: function (id, caption, size) {
-            var self = this, $frame = $('#' + id);
+            var self = this, $frame = $("[id='" + id + "']");
             if ($frame.length) {
                 size = size && size > 0 ? self._getSize(size) : '';
                 $frame.data({'caption': caption, 'size': size});
@@ -4124,12 +4126,12 @@
                 self._validateImage(previewId, fileId, caption, ftype, fsize, iData, exifObj);
                 return;
             }
-            self.setImageOrientation($img, $('#zoom-' + previewId + ' img'), value, $('#' + previewId));
+            self.setImageOrientation($img, $("[id='" + '#zoom-' + previewId + ' img' + "']"), value, $("[id='" + previewId + "']"));
             self._raise('fileimageoriented', {'$img': $img, 'file': file});
             self._validateImage(previewId, fileId, caption, ftype, fsize, iData, exifObj);
         },
         _validateImage: function (previewId, fileId, fname, ftype, fsize, iData, exifObj) {
-            var self = this, $preview = self.$preview, params, w1, w2, $thumb = $preview.find('#' + previewId),
+            var self = this, $preview = self.$preview, params, w1, w2, $thumb = $preview.find("[id='" + previewId + "']"),
                 i = $thumb.attr('data-fileindex'), $img = $thumb.find('img');
             fname = fname || 'Untitled';
             $img.one('load', function () {
@@ -4649,7 +4651,7 @@
                 } else {
                     $thumb.attr({'data-fileindex': '-1'});
                 }
-                self.$preview.find('#zoom-' + pid).attr({
+                self.$preview.find("[id='" + '#zoom-' + pid + "']").attr({
                     'data-fileindex': $thumb.attr('data-fileindex')
                 });
             });
@@ -4727,7 +4729,7 @@
                 fileExt = self.allowedFileExtensions, strExt = $h.isEmpty(fileExt) ? '' : fileExt.join(', '),
                 throwError = function (msg, file, previewId, index, fileId) {
                     var p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
-                        {id: previewId, index: index, fileId: fileId}), $thumb = $('#' + previewId),
+                        {id: previewId, index: index, fileId: fileId}), $thumb = $("[id='" + previewId + "']"),
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
                     self._previewDefault(file, true);
                     if (self.isAjaxUpload) {
@@ -4849,7 +4851,7 @@
                 if (self.isAjaxUpload && self.fileManager.exists(fileId)) {
                     msg = self.msgDuplicateFile.setTokens({name: caption, size: fSizeKB});
                     throwError(msg, file, previewId, i, fileId);
-                    $thumb = $('#' + previewId);
+                    $thumb = $("[id='" + previewId + "']");
                     if ($thumb && $thumb.length) {
                         $thumb.remove();
                     }
