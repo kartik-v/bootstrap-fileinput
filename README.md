@@ -11,7 +11,7 @@
     </a>
 </h1>
 
-[![Bower version](https://badge.fury.io/bo/bootstrap-fileinput.svg)](http://badge.fury.io/bo/bootstrap-fileinput)
+[![Financial Contributors on Open Collective](https://opencollective.com/bootstrap-fileinput/all/badge.svg?label=financial+contributors)](https://opencollective.com/bootstrap-fileinput) [![Bower version](https://badge.fury.io/bo/bootstrap-fileinput.svg)](http://badge.fury.io/bo/bootstrap-fileinput)
 [![Latest Stable Version](https://poser.pugx.org/kartik-v/bootstrap-fileinput/v/stable)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)
 [![License](https://poser.pugx.org/kartik-v/bootstrap-fileinput/license)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)
 [![Packagist Downloads](https://poser.pugx.org/kartik-v/bootstrap-fileinput/downloads)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)
@@ -131,6 +131,36 @@ Alternatively, you can directly call the plugin options by setting data attribut
 ```html
 <input id="input-id" type="file" class="file" data-preview-file-type="text" >
 ```
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/kartik-v/bootstrap-fileinput/graphs/contributors"><img src="https://opencollective.com/bootstrap-fileinput/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/bootstrap-fileinput/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/bootstrap-fileinput"><img src="https://opencollective.com/bootstrap-fileinput/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/bootstrap-fileinput/contribute)]
+
+<a href="https://opencollective.com/bootstrap-fileinput/organization/0/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/1/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/2/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/3/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/4/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/5/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/6/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/7/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/8/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/9/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/9/avatar.svg"></a>
 
 ## License
 

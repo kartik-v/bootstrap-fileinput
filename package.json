@@ -26,8 +26,9 @@
         "gallery"
     ],
     "dependencies": {
+        "bootstrap": ">= 3.4.1",
         "jquery": ">= 1.9.0",
-        "bootstrap": ">= 3.4.1"
+        "opencollective-postinstall": "^2.0.2"
     },
     "main": "./js/fileinput.js",
     "style": "./css/fileinput.css",
@@ -35,5 +36,12 @@
         "jquery": ">= 1.9.0",
         "bootstrap": ">= 3.0.0"
     },
-    "license": "BSD-3-Clause"
+    "license": "BSD-3-Clause",
+    "collective": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/bootstrap-fileinput"
+    },
+    "scripts": {
+        "postinstall": "opencollective-postinstall || true"
+    }
 }
