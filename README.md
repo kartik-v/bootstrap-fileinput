@@ -136,7 +136,7 @@ Alternatively, you can directly call the plugin options by setting data attribut
 
 ### Code Contributors
 
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+This project exists thanks to all the people who contribute. [[Contribute](.github/CONTRIBUTING.md)].
 <a href="https://github.com/kartik-v/bootstrap-fileinput/graphs/contributors"><img src="https://opencollective.com/bootstrap-fileinput/contributors.svg?width=890&button=false" /></a>
 
 ### Financial Contributors
