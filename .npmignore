@@ -1,0 +1,8 @@
+.git
+.github
+.DS_Store
+.idea
+composer.json
+bower.json
+nuget
+examples

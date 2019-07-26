@@ -32,6 +32,7 @@
     },
     "main": "./js/fileinput.js",
     "style": "./css/fileinput.css",
+    "sass": "scss/fileinput.scss",
     "peerDependencies": {
         "jquery": ">= 1.9.0",
         "bootstrap": ">= 3.0.0"

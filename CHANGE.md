@@ -3,8 +3,12 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.0.5
 
-**Date:** _under development_
+**Date:** 26-Jul-2019
 
+- (enh #1442): Implement `.npmignore` to clean unwanted files for NPM package.
+- (enh #1438): Activating Open Collective.
+- (enh #1436): Improve Portuguese translations.
+- (enh #1435): Handle special characters in file thumb id attribute.
 - (enh #1429): Enhance thumbnail preview identifiers.
 
 ## version 5.0.4
