@@ -3,8 +3,10 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.0.5
 
-**Date:** 26-Jul-2019
+**Date:** _under development_
 
+- (enh #1446): New property `showConsoleLogs` to control display of plugin console messages.
+- (enh #1445): Correct invalid thumb frame log errors.
 - (enh #1442): Implement `.npmignore` to clean unwanted files for NPM package.
 - (enh #1438): Activating Open Collective.
 - (enh #1436): Improve Portuguese translations.
