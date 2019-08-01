@@ -1719,7 +1719,7 @@
                         a = config ? {title: config.title || null, alt: config.alt || null} : {title: null, alt: null},
                         parseTemplate = function (cat, dat, fname, ftype, ftr, ind, fclass, t) {
                             var fc = ' file-preview-initial ' + $h.SORT_CSS + (fclass ? ' ' + fclass : ''),
-                                id = self.previewInitId + '-' + $h.INIT_FLAG + ind,
+                                id = self.previewInitId + '-' + ind,
                                 fileId = config && config.fileId || id;
                             /** @namespace config.zoomData */
                             return self._generatePreviewTemplate(cat, dat, fname, ftype, id, fileId, false, null, fc,
@@ -1911,14 +1911,17 @@
         },
         _log: function (msg, tokens) {
             var self = this, id = self.$element.attr('id');
+            if (!self.showConsoleLogs) {
+                return;
+            }
             if (id) {
                 msg = '"' + id + '": ' + msg;
             }
             msg = 'bootstrap-fileinput: ' + msg;
             if (typeof tokens === 'object') {
-                msg.setTokens(tokens);
+                msg = msg.setTokens(tokens);
             }
-            if (typeof window.console.log !== 'undefined') {
+            if (window.console && typeof window.console.log !== 'undefined') {
                 window.console.log(msg);
             } else {
                 window.alert(msg);
@@ -5360,6 +5363,7 @@
         showPause: null,
         showClose: true,
         showUploadedThumbs: true,
+        showConsoleLogs: true,
         browseOnZoneClick: false,
         autoReplace: false,
         autoOrientImage: function () { // applicable for JPEG images only and non ios safari
