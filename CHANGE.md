@@ -3,8 +3,10 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.0.5
 
-**Date:** _under development_
+**Date:** 23-Aug-2019
 
+- (enh #1450): Update Russian Translations.
+- (enh #1449): Lock file input while files are being read for preview.
 - (enh #1446): New property `showConsoleLogs` to control display of plugin console messages.
 - (enh #1445): Correct invalid thumb frame log errors.
 - (enh #1442): Implement `.npmignore` to clean unwanted files for NPM package.

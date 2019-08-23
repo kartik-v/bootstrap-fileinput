@@ -4788,10 +4788,12 @@
                     } else {
                         self._raise('filebatchselected', [files]);
                     }
+                    self.unlock();
                     $container.removeClass('file-thumb-loading');
                     $status.html('');
                     return;
                 }
+                self.lock(true);
                 var node = ctr + i, previewId = previewInitId + '-' + node, file = files[i], fSizeKB, j, msg,
                     fnText = settings.text, fnImage = settings.image, fnHtml = settings.html, typ, chk, typ1, typ2,
                     caption = self._getFileName(file, ''), fileSize = (file && file.size || 0) / 1000,
@@ -4987,15 +4989,15 @@
             readFile(0);
             self._updateFileDetails(numFiles, false);
         },
-        lock: function () {
+        lock: function (selectMode) {
             var self = this, $container = self.$container;
             self._resetErrors();
             self.disable();
             $container.addClass('is-locked');
-            if (self.showCancel) {
+            if (!selectMode && self.showCancel) {
                 $container.find('.fileinput-cancel').show();
             }
-            if (self.showPause) {
+            if (!selectMode && self.showPause) {
                 $container.find('.fileinput-pause').show();
             }
             self._raise('filelock', [self.fileManager.stack, self._getExtraData()]);
