@@ -4783,12 +4783,12 @@
                     numFiles = 1;
                 }
                 if (i >= numFiles) {
+                    self.unlock();
                     if (self.isAjaxUpload && self.fileManager.count() > 0) {
                         self._raise('filebatchselected', [self.fileManager.stack]);
                     } else {
                         self._raise('filebatchselected', [files]);
                     }
-                    self.unlock();
                     $container.removeClass('file-thumb-loading');
                     $status.html('');
                     return;

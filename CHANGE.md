@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (bug #1460): Correct `filebatchselected` event trigger.
 
 ## version 5.0.5
 
