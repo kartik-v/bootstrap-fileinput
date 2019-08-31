@@ -1,6 +1,11 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.0.6
+
+**Date:** _under development_
+
+
 ## version 5.0.5
 
 **Date:** 23-Aug-2019
