@@ -2881,9 +2881,9 @@
             var self = this, strFiles = n === 1 ? self.fileSingle : self.filePlural;
             return n > 0 ? self.msgSelected.replace('{n}', n).replace('{files}', strFiles) : self.msgNoFilesSelected;
         },
-        _getFrame: function (id, selector) {
-            var self = this, $frame = $h.getFrameElement(self.$preview, id, selector);
-            if (!$frame.length) {
+        _getFrame: function (id, skipWarning) {
+            var self = this, $frame = $h.getFrameElement(self.$preview, id);
+            if (!skipWarning && !$frame.length) {
                 self._log($h.logMessages.invalidThumb, {id: id});
             }
             return $frame;
@@ -4747,13 +4747,13 @@
             var self = this, $el = self.$element, reader = self.reader, $container = self.$previewContainer,
                 $status = self.$previewStatus, msgLoading = self.msgLoading, msgProgress = self.msgProgress,
                 previewInitId = self.previewInitId, numFiles = files.length, settings = self.fileTypeSettings,
-                ctr = self.fileManager.count(), readFile, fileTypes = self.allowedFileTypes,
-                typLen = fileTypes ? fileTypes.length : 0, fileExt = self.allowedFileExtensions,
-                strExt = $h.isEmpty(fileExt) ? '' : fileExt.join(', '),
+                readFile, fileTypes = self.allowedFileTypes, typLen = fileTypes ? fileTypes.length : 0,
+                fileExt = self.allowedFileExtensions, strExt = $h.isEmpty(fileExt) ? '' : fileExt.join(', '),
                 throwError = function (msg, file, previewId, index, fileId, skipThumbEmbed) {
                     var p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
-                        {id: previewId, index: index, fileId: fileId}), $thumb = self._getFrame(previewId),
+                        {id: previewId, index: index, fileId: fileId}), $thumb = self._getFrame(previewId, true),
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
+                    skipThumbEmbed = skipThumbEmbed || self.removeFromPreviewOnError;
                     if (!skipThumbEmbed) {
                         self._previewDefault(file, true);
                     }
@@ -4794,7 +4794,7 @@
                     return;
                 }
                 self.lock(true);
-                var node = ctr + i, previewId = previewInitId + '-' + node, file = files[i], fSizeKB, j, msg,
+                var file = files[i], previewId = previewInitId + '-' + self._getFileId(file), fSizeKB, j, msg,
                     fnText = settings.text, fnImage = settings.image, fnHtml = settings.html, typ, chk, typ1, typ2,
                     caption = self._getFileName(file, ''), fileSize = (file && file.size || 0) / 1000,
                     fileExtExpr = '', previewData = $h.createObjectURL(file), fileCount = 0,
@@ -4837,7 +4837,7 @@
                     fileExtExpr = new RegExp('\\.(' + fileExt.join('|') + ')$', 'i');
                 }
                 fSizeKB = fileSize.toFixed(2);
-                if (self.isAjaxUpload && self.fileManager.exists(fileId) || self._getFrame(previewId).length) {
+                if (self.isAjaxUpload && self.fileManager.exists(fileId) || self._getFrame(previewId, true).length) {
                     msg = self.msgDuplicateFile.setTokens({name: caption, size: fSizeKB});
                     throwError(msg, file, previewId, i, fileId, true);
                     if (!self.isAjaxUpload) {
