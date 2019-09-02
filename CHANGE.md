@@ -6,6 +6,7 @@ Change Log: `bootstrap-fileinput`
 **Date:** _under development_
 
 - (bug #1460): Correct `filebatchselected` event trigger.
+- (bug #1459): Upload Async does not recognize initialPreview correctly for ajax response immediately sent with uploadUrl.
 - (bug #1457): Correct `removeFromPreviewOnError` validation.
 
 ## version 5.0.5

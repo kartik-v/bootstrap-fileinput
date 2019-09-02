@@ -2770,7 +2770,7 @@
         },
         _resetUpload: function () {
             var self = this;
-            self.uploadCache = {content: [], config: [], tags: [], append: true};
+            self.uploadCache = [];
             self.$btnUpload.removeAttr('disabled');
             self._setProgress(0);
             self.$progress.hide();
@@ -2778,7 +2778,6 @@
             self._initAjax();
             self.fileManager.clearImages();
             self._resetCanvas();
-            self.cacheInitialPreview = {};
             if (self.overwriteInitial) {
                 self.initialPreview = [];
                 self.initialPreviewConfig = [];
@@ -3021,7 +3020,7 @@
             self[prop] = arr1.concat(arr2);
         },
         _initUploadSuccess: function (out, $thumb, allFiles) {
-            var self = this, append, data, index, $div, $newCache, content, config, tags, i;
+            var self = this, append, data, index, $div, $newCache, content, config, tags, id, i;
             if (!self.showPreview || typeof out !== 'object' || $.isEmptyObject(out)) {
                 return;
             }
@@ -3061,11 +3060,17 @@
                             self._initSortable();
                         });
                     } else {
-                        i = $thumb.attr('data-fileindex');
-                        self.uploadCache.content[i] = content[0];
-                        self.uploadCache.config[i] = config[0] || [];
-                        self.uploadCache.tags[i] = tags[0] || [];
-                        self.uploadCache.append = append;
+                        id = $thumb.attr('id');
+                        i = self._getUploadCacheIndex(id);
+                        if (i !== null) {
+                            self.uploadCache[i] = {
+                                id: id,
+                                content: content[0],
+                                config: config[0] || [],
+                                tags: tags[0] || [],
+                                append: append
+                            };
+                        }
                     }
                 } else {
                     self.previewCache.set(content, config, tags, append);
@@ -3073,6 +3078,16 @@
                     self._initPreviewActions();
                 }
             }
+        },
+        _getUploadCacheIndex: function (id) {
+            var self = this, i, len = self.uploadCache.length, config;
+            for (i = 0; i < len; i++) {
+                config = self.uploadCache[i];
+                if (config.id === id) {
+                    return i;
+                }
+            }
+            return null;
         },
         _initSuccessThumbs: function () {
             var self = this;
@@ -3100,33 +3115,11 @@
             });
         },
         _updateInitialPreview: function () {
-            var self = this, u = self.uploadCache, i, j, len = 0, data = self.cacheInitialPreview;
-            if (data && data.content) {
-                len = data.content.length;
-            }
+            var self = this, u = self.uploadCache, i, j, len = 0;
             if (self.showPreview) {
-                self.previewCache.set(u.content, u.config, u.tags, u.append);
-                if (len) {
-                    for (i = 0; i < u.content.length; i++) {
-                        j = i + len;
-                        data.content[j] = u.content[i];
-                        //noinspection JSUnresolvedVariable
-                        if (data.config.length) {
-                            data.config[j] = u.config[i];
-                        }
-                        if (data.tags.length) {
-                            data.tags[j] = u.tags[i];
-                        }
-                    }
-                    self.initialPreview = $h.cleanArray(data.content);
-                    self.initialPreviewConfig = $h.cleanArray(data.config);
-                    self.initialPreviewThumbTags = $h.cleanArray(data.tags);
-                } else {
-                    self.initialPreview = u.content;
-                    self.initialPreviewConfig = u.config;
-                    self.initialPreviewThumbTags = u.tags;
-                }
-                self.cacheInitialPreview = {};
+                $.each(u, function (key, setting) {
+                    self.previewCache.add(setting.content, setting.config, setting.tags, setting.append);
+                });
                 if (self.hasInitData) {
                     self._initPreview();
                     self._initPreviewActions();
@@ -3487,9 +3480,6 @@
                         }
                     }
                 });
-                if (self.uploadAsync || self.enableResumableUpload) {
-                    self.cacheInitialPreview = self.getPreview();
-                }
             }
         },
         _initFileActions: function () {
@@ -5232,15 +5222,13 @@
                 outData = self._getOutData(null);
                 self._raise('filebatchpreupload', [outData]);
                 self.fileBatchCompleted = false;
-                self.uploadCache = {content: [], config: [], tags: [], append: true};
-                for (i = 0; i < len; i++) {
-                    self.uploadCache.content[i] = null;
-                    self.uploadCache.config[i] = null;
-                    self.uploadCache.tags[i] = null;
-                }
+                self.uploadCache = [];
+                $.each(self.getFileStack(), function (id, value) {
+                    var previewId = self._getThumbId(id);
+                    self.uploadCache.push({id: previewId, content: null, config: null, tags: null, append: true});
+                });
                 self.$preview.find('.file-preview-initial').removeClass($h.SORT_CSS);
                 self._initSortable();
-                self.cacheInitialPreview = self.getPreview();
             }
             self._setProgress(2);
             self.hasInitData = false;
