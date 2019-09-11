@@ -1385,14 +1385,13 @@
             tMain2 = '{preview}\n<div class="kv-upload-progress kv-hidden"></div>\n<div class="clearfix"></div>\n' +
                 '{remove}\n{cancel}\n{upload}\n{browse}\n';
             tPreview = '<div class="file-preview {class}">\n' +
-                '    {close}' +
-                '    <div class="{dropClass}">\n' +
-                '    <div class="file-preview-thumbnails">\n' +
+                '  {close}' +
+                '  <div class="{dropClass} clearfix">\n' +
+                '    <div class="file-preview-thumbnails clearfix">\n' +
                 '    </div>\n' +
-                '    <div class="clearfix"></div>' +
                 '    <div class="file-preview-status text-center text-success"></div>\n' +
                 '    <div class="kv-fileinput-error"></div>\n' +
-                '    </div>\n' +
+                '  </div>\n' +
                 '</div>';
             tClose = $h.closeButton('fileinput-remove');
             tFileIcon = '<i class="glyphicon glyphicon-file"></i>';
