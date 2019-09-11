@@ -4751,6 +4751,7 @@
                             readFile(index + 1);
                         }, self.processDelay);
                     } else {
+                        self.unlock();
                         numFiles = 0;
                     }
                     if (!skipThumbEmbed) {
