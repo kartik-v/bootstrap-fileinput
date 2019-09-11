@@ -50,14 +50,14 @@
         SORT_CSS: 'file-sortable',
         INIT_FLAG: 'init-',
         OBJECT_PARAMS: '<param name="controller" value="true" />\n' +
-        '<param name="allowFullScreen" value="true" />\n' +
-        '<param name="allowScriptAccess" value="always" />\n' +
-        '<param name="autoPlay" value="false" />\n' +
-        '<param name="autoStart" value="false" />\n' +
-        '<param name="quality" value="high" />\n',
+            '<param name="allowFullScreen" value="true" />\n' +
+            '<param name="allowScriptAccess" value="always" />\n' +
+            '<param name="autoPlay" value="false" />\n' +
+            '<param name="autoStart" value="false" />\n' +
+            '<param name="quality" value="high" />\n',
         DEFAULT_PREVIEW: '<div class="file-preview-other">\n' +
-        '<span class="{previewFileIconClass}">{previewFileIcon}</span>\n' +
-        '</div>',
+            '<span class="{previewFileIconClass}">{previewFileIcon}</span>\n' +
+            '</div>',
         MODAL_ID: 'kvFileinputModal',
         MODAL_EVENTS: ['show', 'shown', 'hide', 'hidden', 'loaded'],
         logMessages: {
@@ -66,7 +66,7 @@
             badExifParser: 'Error loading the piexif.js library. {details}',
             badInputType: 'The input "type" must be set to "file" for initializing the "bootstrap-fileinput" plugin.',
             exifWarning: 'To avoid this warning, either set "autoOrientImage" to "false" OR ensure you have loaded ' +
-            'the "piexif.js" library correctly on your page before the "fileinput.js" script.',
+                'the "piexif.js" library correctly on your page before the "fileinput.js" script.',
             invalidChunkSize: 'Invalid upload chunk size: "{chunkSize}". Resumable uploads are disabled.',
             invalidThumb: 'Invalid thumb frame with id: "{id}".',
             noResumableSupport: 'The browser does not support resumable or chunk uploads.',
@@ -2853,7 +2853,7 @@
             return $h.replaceTags(template, self.customLayoutTags);
         },
         _getPreviewTemplate: function (t) {
-            var self = this, template = self.previewTemplates[t];
+            var self = this, templates = self.previewTemplates, template = templates[t] || templates.other;
             if ($h.isEmpty(self.customPreviewTags)) {
                 return template;
             }
@@ -3114,7 +3114,7 @@
             });
         },
         _updateInitialPreview: function () {
-            var self = this, u = self.uploadCache, i, j, len = 0;
+            var self = this, u = self.uploadCache;
             if (self.showPreview) {
                 $.each(u, function (key, setting) {
                     self.previewCache.add(setting.content, setting.config, setting.tags, setting.append);
@@ -4265,8 +4265,7 @@
                 if (!(blob instanceof Blob)) {
                     throwError(self.msgImageResizeError, params, 'fileimageresizeerror');
                 }
-            }
-            catch (err) {
+            } catch (err) {
                 counter.val++;
                 if (counter.val === numImgs) {
                     self._raise('fileimagesresized', [undefined, undefined]);
@@ -5195,7 +5194,7 @@
             return self.$element;
         },
         upload: function () {
-            var self = this, fm = self.fileManager, totLen = fm.count(), i, outData, len,
+            var self = this, fm = self.fileManager, totLen = fm.count(), i, outData,
                 hasExtraData = !$.isEmptyObject(self._getExtraData());
             if (!self.isAjaxUpload || self.isDisabled || !self._isFileSelectionValid(totLen)) {
                 return;
@@ -5209,7 +5208,6 @@
             self.cancelling = false;
             self.$progress.show();
             self.lock();
-            len = fm.count();
             if (totLen === 0 && hasExtraData) {
                 self._setProgress(2);
                 self._uploadExtraOnly();
@@ -5223,7 +5221,7 @@
                 self._raise('filebatchpreupload', [outData]);
                 self.fileBatchCompleted = false;
                 self.uploadCache = [];
-                $.each(self.getFileStack(), function (id, value) {
+                $.each(self.getFileStack(), function (id) {
                     var previewId = self._getThumbId(id);
                     self.uploadCache.push({id: previewId, content: null, config: null, tags: null, append: true});
                 });
