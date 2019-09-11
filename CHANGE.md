@@ -1,6 +1,17 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.0.6
+
+**Date:** _under development_
+
+- (enh #1464): Correct preview frame float styling issues.
+- (bug #1463): Correct file input unlock after file validation errors (for non-ajax mode).
+- (bug #1460): Correct `filebatchselected` event trigger.
+- (bug #1459): Upload Async does not recognize initialPreview correctly for ajax response immediately sent with uploadUrl.
+- (bug #1457): Correct `removeFromPreviewOnError` validation.
+- (enh #1455): Default preview template to `other` when invalid file type is passed.
+
 ## version 5.0.5
 
 **Date:** 23-Aug-2019
