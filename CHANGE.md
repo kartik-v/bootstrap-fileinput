@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.0.6
 
-**Date:** _under development_
+**Date:** 11-Sep-2019
 
 - (enh #1464): Correct preview frame float styling issues.
 - (bug #1463): Correct file input unlock after file validation errors (for non-ajax mode).
