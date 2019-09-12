@@ -658,12 +658,8 @@
                         break;
                 }
             });
-            if (self.maxTotalFileCount > 0) {
-                if (self.maxTotalFileCount < self.maxFileCount) {
-                    self.maxTotalFileCount = self.maxFileCount;
-                } else {
-                    self.validateInitialCount = false;
-                }
+            if (self.maxTotalFileCount > 0 && self.maxTotalFileCount < self.maxFileCount) {
+                self.maxTotalFileCount = self.maxFileCount;
             }
             if (self.rtl) { // swap buttons for rtl
                 tmp = self.previewZoomButtonIcons.prev;
@@ -4628,7 +4624,7 @@
             self._resetErrors();
             len = tfiles.length;
             initCount = isAjaxUpload ? (self.fileManager.count() + len) : len;
-            total = self._getFileCount(initCount);
+            total = self._getFileCount(initCount, inclAll ? false : undefined);
             if (maxCount > 0 && total > maxCount) {
                 if (!self.autoReplace || len > maxCount) {
                     maxCountCheck((self.autoReplace && len > maxCount ? len : total), maxCount);
@@ -5579,7 +5575,7 @@
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',
         msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>.',
-        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>({n})</b> files detected).',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'File "{name}" not found!',
         msgFileSecured: 'Security restrictions prevent reading the file "{name}".',
         msgFileNotReadable: 'File "{name}" is not readable.',

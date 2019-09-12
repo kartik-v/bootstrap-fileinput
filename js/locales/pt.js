@@ -34,7 +34,7 @@
         msgSizeTooLarge: 'Ficheiro "{name}" (<b>{size} KB</b>) excede o tamanho máximo permido de <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Deve selecionar pelo menos <b>{n}</b> {files} para enviar.',
         msgFilesTooMany: 'Número máximo de ficheiros selecionados <b>({n})</b> excede o limite máximo de <b>{m}</b>.',
-        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>({n})</b> files detected).',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Ficheiro "{name}" não encontrado.',
         msgFileSecured: 'Restrições de segurança impedem a leitura do ficheiro "{name}".',
         msgFileNotReadable: 'Ficheiro "{name}" não pode ser lido.',
