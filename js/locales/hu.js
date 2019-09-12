@@ -34,6 +34,7 @@
         msgSizeTooLarge: '"{name}" fájl (<b>{size} KB</b>) mérete nagyobb a megengedettnél <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Legalább <b>{n}</b> {files} ki kell választania a feltöltéshez.',
         msgFilesTooMany: 'A feltölteni kívánt fájlok száma <b>({n})</b> elérte a megengedett maximumot <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>({n})</b> files detected).',
         msgFileNotFound: '"{name}" fájl nem található!',
         msgFileSecured: 'Biztonsági beállítások nem engedik olvasni a fájlt "{name}".',
         msgFileNotReadable: '"{name}" fájl nem olvasható.',

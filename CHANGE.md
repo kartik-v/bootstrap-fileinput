@@ -3,8 +3,11 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.0.7
 
-_under development_
+**Date:** _under development_
 
+- (enh #1461): Allow two different max file count checks
+    - `maxFileCount` and `msgFilesTooMany` for files being selected before upload
+    - `maxTotalFileCount` and `msgTotalFilesTooMany` for total files selected and files included in initial preview
 
 ## version 5.0.6
 
