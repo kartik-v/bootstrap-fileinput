@@ -4577,7 +4577,9 @@
             if (self.isError && !self.isAjaxUpload) {
                 self.clear();
             }
-            self.$captionContainer.focus();
+            if (self.focusCaptionOnBrowse) {
+                self.$captionContainer.focus();
+            }
         },
         _change: function (e) {
             var self = this;
@@ -5173,7 +5175,9 @@
                 }
             }
             self._hideFileIcon();
-            self.$captionContainer.focus();
+            if (self.focusCaptionOnClear) {
+                self.$captionContainer.focus();
+            }
             self._setFileDropZoneTitle();
             self._raise('filecleared');
             return self.$element;
@@ -5389,6 +5393,8 @@
         rtl: false,
         hideThumbnailContent: false,
         encodeUrl: true,
+        focusCaptionOnBrowse: true,
+        focusCaptionOnClear: true,
         generateFileId: null,
         previewClass: '',
         captionClass: '',

@@ -8,7 +8,8 @@ Change Log: `bootstrap-fileinput`
 - (enh #1461): Allow two different max file count checks
     - `maxFileCount` and `msgFilesTooMany` for files being selected before upload
     - `maxTotalFileCount` and `msgTotalFilesTooMany` for total files selected and files included in initial preview
-
+- (enh #1448): New boolean properties `focusCaptionOnBrowse` and `focusCaptionOnClear` which default to `true`.
+  
 ## version 5.0.6
 
 **Date:** 11-Sep-2019
