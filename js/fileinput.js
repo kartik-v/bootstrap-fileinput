@@ -1762,10 +1762,11 @@
                     self.previewCache.data = data;
                 },
                 add: function (content, config, tags, append) {
-                    var data = self.previewCache.data, index = content.length - 1;
+                    var data = self.previewCache.data, index;
                     if (!content || !content.length) {
-                        return index;
+                        return 0;
                     }
+                    index = content.length - 1;
                     if (!$h.isArray(content)) {
                         content = content.split(self.initialPreviewDelimiter);
                     }
@@ -4592,8 +4593,8 @@
                         p2 = {id: previewId, index: index, file: file, files: files};
                     return isAjaxUpload ? self._showFileError(mesg, p1) : self._showError(mesg, p2);
                 },
-                maxCountCheck = function (n, m) {
-                    var msg = inclAll ? self.msgTotalFilesTooMany : self.msgFilesTooMany;
+                maxCountCheck = function (n, m, all) {
+                    var msg = all ? self.msgTotalFilesTooMany : self.msgFilesTooMany;
                     msg = msg.replace('{m}', m).replace('{n}', n);
                     self.isError = throwError(msg, null, null, null);
                     self.$captionContainer.removeClass('icon-visible');
@@ -4638,7 +4639,7 @@
                     total = self._getFileCount(initCount, true);
                     if (maxTotCount > 0 && total > maxTotCount) {
                         if (!self.autoReplace || len > maxCount) {
-                            maxCountCheck((self.autoReplace && len > maxTotCount ? len : total), maxTotCount);
+                            maxCountCheck((self.autoReplace && len > maxTotCount ? len : total), maxTotCount, true);
                             return;
                         }
                         if (total > maxCount) {
