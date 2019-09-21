@@ -5,6 +5,9 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1468): Update Uzbek Translations.
+- (enh #1467): Update Czekh Translations.
+- (enh #1466): Update Slovak Translations.
 - (bug #1465): Correct content.length parsing issue in preview cache.
 - (enh #1461): Allow two different max file count checks.
     - `maxFileCount` and `msgFilesTooMany` for files being selected before upload

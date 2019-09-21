@@ -34,6 +34,7 @@
         msgSizeTooLarge: 'Súbor "{name}" (<b>{size} KB</b>) je príliš veľký, maximálna povolená veľkosť <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Musíte vybrať najmenej <b>{n}</b> {files} pre nahranie.',
         msgFilesTooMany: 'Počet vybratých súborov <b>({n})</b> prekročil maximálny povolený limit <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Súbor "{name}" nebol nájdený!',
         msgFileSecured: 'Zabezpečenie súboru znemožnilo čítať súbor "{name}".',
         msgFileNotReadable: 'Súbor "{name}" nie je čitateľný.',

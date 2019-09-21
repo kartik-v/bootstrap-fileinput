@@ -35,6 +35,7 @@
         msgSizeTooLarge: '"{name}" fayl (<b>{size} KB</b>) ruxsat etilgan maksimal yuklash hajm: <b>{maxSize} KB</b> dan katta. Kichikroq fayl yuklashga urinib ko‘ring!',
         msgFilesTooLess: 'Yuklash uchun kamida <b>{n}</b> {files} tanlashingiz kerak. Yuklashga qaytadan urinib ko‘ring!',
         msgFilesTooMany: 'Siz tanlagan fayllar miqdori : <b>({n})</b>, ruxsat berilgan maksimal miqdor: <b>{m}</b> tadan ortiq. Ko‘rsatilgan miqdordan kamroq fayl tanlab, yuklashga qaytadan urinib ko‘ring!',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: '"{name}" fayl topilmadi!',
         msgFileSecured: '"{name}" faylni o‘qishga xavfsizlik cheklovi ruxsat bermaydi.',
         msgFileNotReadable: '"{name}" fayl o‘qilmaydi.',
