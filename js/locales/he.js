@@ -34,6 +34,7 @@
         msgSizeTooLarge: 'קובץ "{name}" (<b>{size} KB</b>) חורג מהגודל המרבי המותר להעלאה של <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'עליך לבחור לפחות <b>{n}</b> {files} להעלאה.',
         msgFilesTooMany: 'מספר הקבצים שנבחרו להעלאה <b>({n})</b> חורג מהמגבלה המרבית המותרת של <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'קובץ "{name}" לא נמצא!',
         msgFileSecured: 'הגבלות אבטחה מונעות קריאת הקובץ "{name}".',
         msgFileNotReadable: 'קובץ "{name}" לא קריא.',

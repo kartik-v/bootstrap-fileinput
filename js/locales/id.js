@@ -35,6 +35,7 @@
         msgSizeTooLarge: 'Berkas "{name}" (<b>{size} KB</b>) melebihi ukuran unggah maksimal yaitu <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Anda harus memilih setidaknya <b>{n}</b> {files} untuk diunggah.',
         msgFilesTooMany: '<b>({n})</b> berkas yang dipilih untuk diunggah melebihi ukuran unggah maksimal yaitu <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Berkas "{name}" tak ditemukan!',
         msgFileSecured: 'Sistem keamanan mencegah untuk membaca berkas "{name}".',
         msgFileNotReadable: 'Berkas "{name}" tak dapat dibaca.',

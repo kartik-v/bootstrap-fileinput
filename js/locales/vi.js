@@ -35,6 +35,7 @@
         msgSizeTooLarge: 'Tập tin "{name}" (<b>{size} KB</b>) vượt quá kích thước giới hạn cho phép <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Bạn phải chọn ít nhất <b>{n}</b> {files} để upload.',
         msgFilesTooMany: 'Số lượng tập tin upload <b>({n})</b> vượt quá giới hạn cho phép là <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Không tìm thấy tập tin "{name}"!',
         msgFileSecured: 'Các hạn chế về bảo mật không cho phép đọc tập tin "{name}".',
         msgFileNotReadable: 'Không đọc được tập tin "{name}".',

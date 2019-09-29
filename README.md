@@ -11,6 +11,7 @@
     </a>
 </h1>
 
+[![Financial Contributors on Open Collective](https://opencollective.com/bootstrap-fileinput/all/badge.svg?label=financial+contributors)](https://opencollective.com/bootstrap-fileinput)
 [![Bower version](https://badge.fury.io/bo/bootstrap-fileinput.svg)](http://badge.fury.io/bo/bootstrap-fileinput)
 [![Latest Stable Version](https://poser.pugx.org/kartik-v/bootstrap-fileinput/v/stable)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)
 [![License](https://poser.pugx.org/kartik-v/bootstrap-fileinput/license)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)
@@ -77,19 +78,19 @@ Step 1: Load the following assets in your header.
 ```html
 <!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.6/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 <!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
-<!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
+<!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.6/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you 
     wish to resize images before upload. This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/js/plugins/piexif.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.6/js/plugins/piexif.min.js" type="text/javascript"></script>
 <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
     This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/js/plugins/sortable.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.6/js/plugins/sortable.min.js" type="text/javascript"></script>
 <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for 
     HTML files. This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/js/plugins/purify.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.6/js/plugins/purify.min.js" type="text/javascript"></script>
 <!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js 
    3.3.x versions without popper.min.js. -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -97,11 +98,11 @@ Step 1: Load the following assets in your header.
     dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- the main fileinput plugin file -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.6/js/fileinput.min.js"></script>
 <!-- optionally if you need a theme like font awesome theme you can include it as mentioned below -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/themes/fa/theme.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.6/themes/fa/theme.js"></script>
 <!-- optionally if you need translation for your language then include  locale file as mentioned below -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.4/js/locales/(lang).js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.6/js/locales/(lang).js"></script>
 ```
 
 If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`. The theme file `themes/fa/theme.js` can be optionally included for the font awesome icons styling. The locale file `<lang>.js` can be optionally included for translating for your language if needed.
@@ -131,6 +132,36 @@ Alternatively, you can directly call the plugin options by setting data attribut
 ```html
 <input id="input-id" type="file" class="file" data-preview-file-type="text" >
 ```
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](.github/CONTRIBUTING.md)].
+<a href="https://github.com/kartik-v/bootstrap-fileinput/graphs/contributors"><img src="https://opencollective.com/bootstrap-fileinput/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/bootstrap-fileinput/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/bootstrap-fileinput"><img src="https://opencollective.com/bootstrap-fileinput/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/bootstrap-fileinput/contribute)]
+
+<a href="https://opencollective.com/bootstrap-fileinput/organization/0/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/1/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/2/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/3/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/4/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/5/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/6/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/7/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/8/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-fileinput/organization/9/website"><img src="https://opencollective.com/bootstrap-fileinput/organization/9/avatar.svg"></a>
 
 ## License
 

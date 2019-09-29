@@ -34,6 +34,7 @@
         msgSizeTooLarge: 'Fil "{name}" (<b>{size} KB</b>) er st&oslash;rre end de tilladte <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Du skal mindst v&aelig;lge <b>{n}</b> {files} til upload.',
         msgFilesTooMany: '<b>({n})</b> filer valgt til upload, men maks. <b>{m}</b> er tilladt.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Filen "{name}" blev ikke fundet!',
         msgFileSecured: 'Sikkerhedsrestriktioner forhindrer l&aelig;sning af "{name}".',
         msgFileNotReadable: 'Filen "{name}" kan ikke indl&aelig;ses.',

@@ -34,6 +34,7 @@
         msgSizeTooLarge: 'O arquivo "{name}" (<b>{size} KB</b>) excede o tamaño máximo permitido de <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Debe seleccionar ao menos <b>{n}</b> {files} a cargar.',
         msgFilesTooMany: 'O número de arquivos seleccionados a cargar <b>({n})</b> excede do límite máximo permitido de <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Arquivo "{name}" non encontrado.',
         msgFileSecured: 'Non é posible acceder ao arquivo "{name}" porque estará sendo usado por outra aplicación ou non teñamos permisos de lectura.',
         msgFileNotReadable: 'Non é posible acceder ao arquivo "{name}".',

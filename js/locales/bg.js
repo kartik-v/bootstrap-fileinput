@@ -34,6 +34,7 @@
         msgSizeTooLarge: 'Файла "{name}" (<b>{size} KB</b>) надвишава максималните разрешени <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Трябва да изберете поне <b>{n}</b> {files} файла.',
         msgFilesTooMany: 'Броя файлове избрани за качване <b>({n})</b> надвишава ограниченито от максимум <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Файлът "{name}" не може да бъде намерен!',
         msgFileSecured: 'От съображения за сигурност не може да прочетем файла "{name}".',
         msgFileNotReadable: 'Файлът "{name}" не е четим.',

@@ -34,6 +34,7 @@
         msgSizeTooLarge: '파일 "{name}" (<b>{size} KB</b>)이 너무 큽니다. 허용 파일 사이즈는 <b>{maxSize} KB</b>.입니다.',
         msgFilesTooLess: '업로드하기 위해 최소 <b>{n}</b> {files}개의 파일을 선택해야 합니다.',
         msgFilesTooMany: '선택한 파일의 수 <b>({n})</b>가 업로드 허용 최고치인 <b>{m}</b>를 넘었습니다..',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: '파일 "{name}"을 찾을 수 없습니다.!',
         msgFileSecured: '보안상의 이유로 "{name}"을/를 읽을 수 없습니다..',
         msgFileNotReadable: '"{name}"은/는 읽을 수 없습니다.',

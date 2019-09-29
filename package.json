@@ -1,6 +1,6 @@
 {
     "name": "bootstrap-fileinput",
-    "version": "5.0.5",
+    "version": "5.0.7",
     "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
     "authors": [
         "Kartik Visweswaran <kartikv2@gmail.com>"
@@ -26,14 +26,23 @@
         "gallery"
     ],
     "dependencies": {
+        "bootstrap": ">= 3.4.1",
         "jquery": ">= 1.9.0",
-        "bootstrap": ">= 3.4.1"
+        "opencollective-postinstall": "^2.0.2"
     },
     "main": "./js/fileinput.js",
     "style": "./css/fileinput.css",
+    "sass": "scss/fileinput.scss",
     "peerDependencies": {
         "jquery": ">= 1.9.0",
         "bootstrap": ">= 3.0.0"
     },
-    "license": "BSD-3-Clause"
+    "license": "BSD-3-Clause",
+    "collective": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/bootstrap-fileinput"
+    },
+    "scripts": {
+        "postinstall": "opencollective-postinstall || true"
+    }
 }

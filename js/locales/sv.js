@@ -34,6 +34,7 @@
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) överstiger högsta tillåtna uppladdningsstorlek <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Du måste välja minst <b>{n}</b> {files} för att ladda upp.',
         msgFilesTooMany: 'Antal filer valda för uppladdning <b>({n})</b> överstiger högsta tillåtna gränsen <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Filen "{name}" kunde inte hittas!',
         msgFileSecured: 'Säkerhetsbegränsningar förhindrar att läsa filen "{name}".',
         msgFileNotReadable: 'Filen "{name}" är inte läsbar.',

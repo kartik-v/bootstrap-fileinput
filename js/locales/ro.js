@@ -35,6 +35,7 @@
         msgSizeTooLarge: 'Fișierul "{name}" (<b>{size} KB</b>) depășește limita maximă de încărcare de <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Trebuie să selectezi cel puțin <b>{n}</b> {files} pentru a încărca.',
         msgFilesTooMany: 'Numărul fișierelor pentru încărcare <b>({n})</b> depășește limita maximă de <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Fișierul "{name}" nu a fost găsit!',
         msgFileSecured: 'Restricții de securitate previn citirea fișierului "{name}".',
         msgFileNotReadable: 'Fișierul "{name}" nu se poate citi.',

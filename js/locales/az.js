@@ -35,6 +35,7 @@
         msgSizeTooLarge: 'Seçdiyiniz "{name}" faylının həcmi (<b>{size} KB</b>)-dır,  maksimum <b>{maxSize} KB</b> olmalıdır.',
         msgFilesTooLess: 'Yükləmə üçün minimum <b>{n}</b> {files} seçməlisiniz.',
         msgFilesTooMany: 'Seçilmiş fayl sayı <b>({n})</b>. Maksimum <b>{m}</b> fayl seçmək mümkündür.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Fayl "{name}" tapılmadı!',
         msgFileSecured: '"{name}" faylının istifadəsinə yetginiz yoxdur.',
         msgFileNotReadable: '"{name}" faylının istifadəsi mümkün deyil.',

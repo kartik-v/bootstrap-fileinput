@@ -35,6 +35,7 @@
         msgSizeTooLarge: 'Failas "{name}" (<b>{size} KB</b>) viršija maksimalų leidžiamą įkeliamo failo dydį <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Turite pasirinkti bent <b>{n}</b> failus įkėlimui.',
         msgFilesTooMany: 'Įkėlimui pasirinktų failų skaičius <b>({n})</b> viršija maksimalų leidžiamą limitą <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Failas "{name}" nerastas!',
         msgFileSecured: 'Saugumo apribojimai neleidžia perskaityti failo "{name}".',
         msgFileNotReadable: 'Failas "{name}" neperskaitomas.',
