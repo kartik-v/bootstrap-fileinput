@@ -6,6 +6,7 @@ Change Log: `bootstrap-fileinput`
 **Date:** _under development_
 
 - (enh #1475): Prevent invalid thumb validation when `showPreview` is `false`.
+- (enh #1474): Hide upload icon for file validation errors.
 - (enh #1471): Improve pt-PT and pt-BR translations.
 - (enh #1468): Update Uzbek Translations.
 - (enh #1467): Update Czekh Translations.

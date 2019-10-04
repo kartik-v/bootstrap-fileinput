@@ -4763,14 +4763,15 @@
                 previewInitId = self.previewInitId, numFiles = files.length, settings = self.fileTypeSettings,
                 readFile, fileTypes = self.allowedFileTypes, typLen = fileTypes ? fileTypes.length : 0,
                 fileExt = self.allowedFileExtensions, strExt = $h.isEmpty(fileExt) ? '' : fileExt.join(', '),
-                throwError = function (msg, file, previewId, index, fileId, skipThumbEmbed) {
+                throwError = function (msg, file, previewId, index, fileId, removeThumb) {
                     var p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
-                        {id: previewId, index: index, fileId: fileId}), $thumb = self._getFrame(previewId, true),
+                        {id: previewId, index: index, fileId: fileId}), $thumb = '',
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
-                    skipThumbEmbed = skipThumbEmbed || self.removeFromPreviewOnError;
-                    if (!skipThumbEmbed) {
+                    removeThumb = removeThumb || self.removeFromPreviewOnError;
+                    if (!removeThumb) {
                         self._previewDefault(file, true);
                     }
+                    $thumb = self._getFrame(previewId, true);
                     if (self.isAjaxUpload) {
                         setTimeout(function () {
                             readFile(index + 1);
@@ -4779,10 +4780,10 @@
                         self.unlock();
                         numFiles = 0;
                     }
-                    if (!skipThumbEmbed) {
-                        self._initFileActions();
+                    if (removeThumb && $thumb.length) {
                         $thumb.remove();
                     } else {
+                        self._initFileActions();
                         $thumb.find('.kv-file-upload').remove();
                     }
                     self.isError = self.isAjaxUpload ? self._showFileError(msg, p1) : self._showError(msg, p2);
