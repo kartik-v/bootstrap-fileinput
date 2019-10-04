@@ -2886,14 +2886,14 @@
         },
         _getFrame: function (id, skipWarning) {
             var self = this, $frame = $h.getFrameElement(self.$preview, id);
-            if (!skipWarning && !$frame.length) {
+            if (self.showPreview && !skipWarning && !$frame.length) {
                 self._log($h.logMessages.invalidThumb, {id: id});
             }
             return $frame;
         },
         _getZoom: function (id, selector) {
             var self = this, $frame = $h.getZoomElement(self.$preview, id, selector);
-            if (!$frame.length) {
+            if (self.showPreview && !$frame.length) {
                 self._log($h.logMessages.invalidThumb, {id: id});
             }
             return $frame;
@@ -3276,6 +3276,7 @@
                 errMsg = self._parseError(op, jqXHR, errorThrown, self.fileManager.getFileName(id));
                 uploadFailed = true;
                 setTimeout(function () {
+                    var $prog;
                     if (isBatch) {
                         updateUploadLog();
                     }
@@ -3286,7 +3287,8 @@
                     }
                     $.extend(true, params, self._getOutData(formdata, jqXHR));
                     self._setProgress(101, $prog, self.msgAjaxProgressError.replace('{operation}', op));
-                    self._setProgress(101, $thumb.find('.file-thumb-progress'), self.msgUploadError);
+                    $prog = self.showPreview && $thumb ? $thumb.find('.file-thumb-progress') : '';
+                    self._setProgress(101, $prog, self.msgUploadError);
                     self._showFileError(errMsg, params);
                 }, self.processDelay);
             };
@@ -4780,6 +4782,8 @@
                     if (!skipThumbEmbed) {
                         self._initFileActions();
                         $thumb.remove();
+                    } else {
+                        $thumb.find('.kv-file-upload').remove();
                     }
                     self.isError = self.isAjaxUpload ? self._showFileError(msg, p1) : self._showError(msg, p2);
                     self._updateFileDetails(numFiles);
