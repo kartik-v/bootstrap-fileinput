@@ -4727,6 +4727,9 @@
                 (dExts.length && $h.compare(name, expDisExt)) || (maxSize && !isNaN(maxSize) && size > maxSize);
             return !skipPreview && (allowedTypes || allowedMimes || allowedExts);
         },
+        addToStack: function (file, id) {
+            this.fileManager.add(file, id);
+        },
         clearFileStack: function () {
             var self = this;
             self.fileManager.clear();

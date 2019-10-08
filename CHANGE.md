@@ -5,6 +5,13 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1479): Methods updated:
+   - Include `addToStack` method.
+   - Remove `updateStack` method
+   - Rename `clearStack` to `clearFileStack` method
+- (enh #1478): Update Slovak Translations.
+- (enh #1477): Update Czech Translations.
+- (enh #1476): Update Hungarian Translations.
 - (enh #1475): Prevent invalid thumb validation when `showPreview` is `false`.
 - (enh #1474): Hide upload icon for file validation errors.
 - (enh #1471): Improve pt-PT and pt-BR translations.
