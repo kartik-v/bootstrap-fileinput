@@ -211,12 +211,11 @@
                 $modal.appendTo($body);
             }
         },
-        // https://stackoverflow.com/a/6000016
         isFunction: function (v) {
-            return !!(v && v.constructor && v.call && v.apply);
+            return typeof v === 'function';
         },
         isEmpty: function (value, trim) {
-            return value === undefined || value === null || (!$h.isFunction(value) && ( value.length === 0 || (trim && $.trim(value) === '')));
+            return value === undefined || value === null || (!$h.isFunction(value) && (value.length === 0 || (trim && $.trim(value) === '')));
         },
         isArray: function (a) {
             return Array.isArray(a) || Object.prototype.toString.call(a) === '[object Array]';
