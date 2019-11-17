@@ -35,6 +35,7 @@
         msgSizeTooLarge: '文件 "{name}" (<b>{size} KB</b>) 超过了允许大小 <b>{maxSize} KB</b>.',
         msgFilesTooLess: '你必须选择最少 <b>{n}</b> {files} 来上传. ',
         msgFilesTooMany: '选择的上传文件个数 <b>({n})</b> 超出最大文件的限制个数 <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: '文件 "{name}" 未找到!',
         msgFileSecured: '安全限制，为了防止读取文件 "{name}".',
         msgFileNotReadable: '文件 "{name}" 不可读.',

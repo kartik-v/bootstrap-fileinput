@@ -33,6 +33,7 @@
         msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) ең үлкен <b>{maxSize} KB</b> өлшемінен асады.',
         msgFilesTooLess: 'Жүктеу үшіy кемінде <b>{n}</b> {files} таңдау керек.',
         msgFilesTooMany: 'Таңдалған <b>({n})</b> файлдардың саны берілген <b>{m}</b> саннан асып кетті.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Файл "{name}" табылмады!',
         msgFileSecured: 'Шектеу қауіпсіздігі "{name}" файлын оқуға тыйым салады.',
         msgFileNotReadable: '"{name}" файлды оқу мүмкін емес.',

@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.0.6
+ * bootstrap-fileinput v5.0.7
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -211,8 +211,11 @@
                 $modal.appendTo($body);
             }
         },
+        isFunction: function (v) {
+            return typeof v === 'function';
+        },
         isEmpty: function (value, trim) {
-            return value === undefined || value === null || value.length === 0 || (trim && $.trim(value) === '');
+            return value === undefined || value === null || (!$h.isFunction(value) && (value.length === 0 || (trim && $.trim(value) === '')));
         },
         isArray: function (a) {
             return Array.isArray(a) || Object.prototype.toString.call(a) === '[object Array]';
@@ -638,6 +641,7 @@
                 switch (key) {
                     case 'minFileCount':
                     case 'maxFileCount':
+                    case 'maxTotalFileCount':
                     case 'minFileSize':
                     case 'maxFileSize':
                     case 'maxFilePreviewSize':
@@ -657,6 +661,9 @@
                         break;
                 }
             });
+            if (self.maxTotalFileCount > 0 && self.maxTotalFileCount < self.maxFileCount) {
+                self.maxTotalFileCount = self.maxFileCount;
+            }
             if (self.rtl) { // swap buttons for rtl
                 tmp = self.previewZoomButtonIcons.prev;
                 self.previewZoomButtonIcons.prev = self.previewZoomButtonIcons.next;
@@ -1758,10 +1765,11 @@
                     self.previewCache.data = data;
                 },
                 add: function (content, config, tags, append) {
-                    var data = self.previewCache.data, index = content.length - 1;
+                    var data = self.previewCache.data, index;
                     if (!content || !content.length) {
-                        return index;
+                        return 0;
                     }
+                    index = content.length - 1;
                     if (!$h.isArray(content)) {
                         content = content.split(self.initialPreviewDelimiter);
                     }
@@ -2881,14 +2889,14 @@
         },
         _getFrame: function (id, skipWarning) {
             var self = this, $frame = $h.getFrameElement(self.$preview, id);
-            if (!skipWarning && !$frame.length) {
+            if (self.showPreview && !skipWarning && !$frame.length) {
                 self._log($h.logMessages.invalidThumb, {id: id});
             }
             return $frame;
         },
         _getZoom: function (id, selector) {
             var self = this, $frame = $h.getZoomElement(self.$preview, id, selector);
-            if (!$frame.length) {
+            if (self.showPreview && !$frame.length) {
                 self._log($h.logMessages.invalidThumb, {id: id});
             }
             return $frame;
@@ -3271,6 +3279,7 @@
                 errMsg = self._parseError(op, jqXHR, errorThrown, self.fileManager.getFileName(id));
                 uploadFailed = true;
                 setTimeout(function () {
+                    var $prog;
                     if (isBatch) {
                         updateUploadLog();
                     }
@@ -3281,7 +3290,8 @@
                     }
                     $.extend(true, params, self._getOutData(formdata, jqXHR));
                     self._setProgress(101, $prog, self.msgAjaxProgressError.replace('{operation}', op));
-                    self._setProgress(101, $thumb.find('.file-thumb-progress'), self.msgUploadError);
+                    $prog = self.showPreview && $thumb ? $thumb.find('.file-thumb-progress') : '';
+                    self._setProgress(101, $prog, self.msgUploadError);
                     self._showFileError(errMsg, params);
                 }, self.processDelay);
             };
@@ -3998,9 +4008,12 @@
             }
             return true;
         },
-        _getFileCount: function (fileCount) {
+        _getFileCount: function (fileCount, includeInitial) {
             var self = this, addCount = 0;
-            if (self.validateInitialCount && !self.overwriteInitial) {
+            if (includeInitial === undefined) {
+                includeInitial = self.validateInitialCount && !self.overwriteInitial;
+            }
+            if (includeInitial) {
                 addCount = self.previewCache.count(true);
                 fileCount += addCount;
             }
@@ -4566,7 +4579,9 @@
             if (self.isError && !self.isAjaxUpload) {
                 self.clear();
             }
-            self.$captionContainer.focus();
+            if (self.focusCaptionOnBrowse) {
+                self.$captionContainer.focus();
+            }
         },
         _change: function (e) {
             var self = this;
@@ -4574,17 +4589,18 @@
                 return;
             }
             var $el = self.$element, isDragDrop = arguments.length > 1, isAjaxUpload = self.isAjaxUpload,
-                tfiles, files = isDragDrop ? arguments[1] : $el.get(0).files, total,
-                maxCount = !isAjaxUpload && $h.isEmpty($el.attr('multiple')) ? 1 : self.maxFileCount,
-                len, ctr = self.fileManager.count(), isSingleUpload = $h.isEmpty($el.attr('multiple')),
-                flagSingle = (isSingleUpload && ctr > 0),
+                tfiles, files = isDragDrop ? arguments[1] : $el.get(0).files, ctr = self.fileManager.count(),
+                total, initCount, len, isSingleUpl = $h.isEmpty($el.attr('multiple')),
+                maxCount = !isAjaxUpload && isSingleUpl ? 1 : self.maxFileCount, maxTotCount = self.maxTotalFileCount,
+                inclAll = maxTotCount > 0 && maxTotCount > maxCount, flagSingle = (isSingleUpl && ctr > 0),
                 throwError = function (mesg, file, previewId, index) {
                     var p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files), {id: previewId, index: index}),
                         p2 = {id: previewId, index: index, file: file, files: files};
                     return isAjaxUpload ? self._showFileError(mesg, p1) : self._showError(mesg, p2);
                 },
-                maxCountCheck = function (n, m) {
-                    var msg = self.msgFilesTooMany.replace('{m}', m).replace('{n}', n);
+                maxCountCheck = function (n, m, all) {
+                    var msg = all ? self.msgTotalFilesTooMany : self.msgFilesTooMany;
+                    msg = msg.replace('{m}', m).replace('{n}', n);
                     self.isError = throwError(msg, null, null, null);
                     self.$captionContainer.removeClass('icon-visible');
                     self._setCaption('', true);
@@ -4613,7 +4629,8 @@
             }
             self._resetErrors();
             len = tfiles.length;
-            total = self._getFileCount(isAjaxUpload ? (self.fileManager.count() + len) : len);
+            initCount = isAjaxUpload ? (self.fileManager.count() + len) : len;
+            total = self._getFileCount(initCount, inclAll ? false : undefined);
             if (maxCount > 0 && total > maxCount) {
                 if (!self.autoReplace || len > maxCount) {
                     maxCountCheck((self.autoReplace && len > maxCount ? len : total), maxCount);
@@ -4623,6 +4640,18 @@
                     self._resetPreviewThumbs(isAjaxUpload);
                 }
             } else {
+                if (inclAll) {
+                    total = self._getFileCount(initCount, true);
+                    if (maxTotCount > 0 && total > maxTotCount) {
+                        if (!self.autoReplace || len > maxCount) {
+                            maxCountCheck((self.autoReplace && len > maxTotCount ? len : total), maxTotCount, true);
+                            return;
+                        }
+                        if (total > maxCount) {
+                            self._resetPreviewThumbs(isAjaxUpload);
+                        }
+                    }
+                }
                 if (!isAjaxUpload || flagSingle) {
                     self._resetPreviewThumbs(false);
                     if (flagSingle) {
@@ -4701,6 +4730,9 @@
                 (dExts.length && $h.compare(name, expDisExt)) || (maxSize && !isNaN(maxSize) && size > maxSize);
             return !skipPreview && (allowedTypes || allowedMimes || allowedExts);
         },
+        addToStack: function (file, id) {
+            this.fileManager.add(file, id);
+        },
         clearFileStack: function () {
             var self = this;
             self.fileManager.clear();
@@ -4737,14 +4769,15 @@
                 previewInitId = self.previewInitId, numFiles = files.length, settings = self.fileTypeSettings,
                 readFile, fileTypes = self.allowedFileTypes, typLen = fileTypes ? fileTypes.length : 0,
                 fileExt = self.allowedFileExtensions, strExt = $h.isEmpty(fileExt) ? '' : fileExt.join(', '),
-                throwError = function (msg, file, previewId, index, fileId, skipThumbEmbed) {
+                throwError = function (msg, file, previewId, index, fileId, removeThumb) {
                     var p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
-                        {id: previewId, index: index, fileId: fileId}), $thumb = self._getFrame(previewId, true),
+                        {id: previewId, index: index, fileId: fileId}), $thumb = '',
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
-                    skipThumbEmbed = skipThumbEmbed || self.removeFromPreviewOnError;
-                    if (!skipThumbEmbed) {
+                    removeThumb = removeThumb || self.removeFromPreviewOnError;
+                    if (!removeThumb) {
                         self._previewDefault(file, true);
                     }
+                    $thumb = self._getFrame(previewId, true);
                     if (self.isAjaxUpload) {
                         setTimeout(function () {
                             readFile(index + 1);
@@ -4753,9 +4786,11 @@
                         self.unlock();
                         numFiles = 0;
                     }
-                    if (!skipThumbEmbed) {
-                        self._initFileActions();
+                    if (removeThumb && $thumb.length) {
                         $thumb.remove();
+                    } else {
+                        self._initFileActions();
+                        $thumb.find('.kv-file-upload').remove();
                     }
                     self.isError = self.isAjaxUpload ? self._showFileError(msg, p1) : self._showError(msg, p2);
                     self._updateFileDetails(numFiles);
@@ -5148,7 +5183,9 @@
                 }
             }
             self._hideFileIcon();
-            self.$captionContainer.focus();
+            if (self.focusCaptionOnClear) {
+                self.$captionContainer.focus();
+            }
             self._setFileDropZoneTitle();
             self._raise('filecleared');
             return self.$element;
@@ -5364,6 +5401,8 @@
         rtl: false,
         hideThumbnailContent: false,
         encodeUrl: true,
+        focusCaptionOnBrowse: true,
+        focusCaptionOnClear: true,
         generateFileId: null,
         previewClass: '',
         captionClass: '',
@@ -5482,6 +5521,7 @@
         maxFilePreviewSize: 25600, // 25 MB
         minFileCount: 0,
         maxFileCount: 0,
+        maxTotalFileCount: 0,
         validateInitialCount: false,
         msgValidationErrorClass: 'text-danger',
         msgValidationErrorIcon: '<i class="glyphicon glyphicon-exclamation-sign"></i> ',
@@ -5547,6 +5587,7 @@
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',
         msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'File "{name}" not found!',
         msgFileSecured: 'Security restrictions prevent reading the file "{name}".',
         msgFileNotReadable: 'File "{name}" is not readable.',

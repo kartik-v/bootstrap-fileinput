@@ -34,6 +34,7 @@
         msgSizeTooLarge: 'Arxiu "{name}" (<b>{size} KB</b>) excedeix la mida màxima permès de <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Heu de seleccionar almenys <b>{n}</b> {files} a carregar.',
         msgFilesTooMany: 'El nombre d\'arxius seleccionats a carregar <b>({n})</b> excedeix el límit màxim permès de <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Arxiu "{name}" no trobat.',
         msgFileSecured: 'No es pot accedir a l\'arxiu "{name}" perquè estarà sent usat per una altra aplicació o no tinguem permisos de lectura.',
         msgFileNotReadable: 'No es pot accedir a l\'arxiu "{name}".',

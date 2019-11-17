@@ -35,6 +35,7 @@
         msgSizeTooLarge: 'ფაილი "{name}" (<b>{size} KB</b>) აჭარბებს მაქსიმალურ დასაშვებ ზომას <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'უნდა აირჩიოთ მინიმუმ <b>{n}</b> {file} ატვირთვისთვის.',
         msgFilesTooMany: 'არჩეული ფაილების რაოდენობა <b>({n})</b> აჭარბებს დასაშვებ ლიმიტს <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'ფაილი "{name}" არ მოიძებნა!',
         msgFileSecured: 'უსაფრთხოებით გამოწვეული შეზღუდვები კრძალავს ფაილის "{name}" წაკითხვას.',
         msgFileNotReadable: 'ფაილის "{name}" წაკითხვა შეუძლებელია.',

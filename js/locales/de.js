@@ -32,6 +32,7 @@
         msgSizeTooLarge: 'Datei "{name}" (<b>{size} KB</b>) überschreitet maximal zulässige Upload-Größe von <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Sie müssen mindestens <b>{n}</b> {files} zum Hochladen auswählen.',
         msgFilesTooMany: 'Anzahl der zum Hochladen ausgewählten Dateien <b>({n})</b>, überschreitet maximal zulässige Grenze von <b>{m}</b> Stück.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Datei "{name}" wurde nicht gefunden!',
         msgFileSecured: 'Sicherheitseinstellungen verhindern das Lesen der Datei "{name}".',
         msgFileNotReadable: 'Die Datei "{name}" ist nicht lesbar.',

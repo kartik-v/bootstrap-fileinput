@@ -35,6 +35,7 @@
         msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) превышает максимальный размер <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Вы должны выбрать как минимум <b>{n}</b> {files} для загрузки.',
         msgFilesTooMany: 'Количество выбранных файлов <b>({n})</b> превышает максимально допустимое количество <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Файл "{name}" не найден!',
         msgFileSecured: 'Ограничения безопасности запрещают читать файл "{name}".',
         msgFileNotReadable: 'Файл "{name}" невозможно прочитать.',

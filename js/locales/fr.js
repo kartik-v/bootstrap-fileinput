@@ -34,6 +34,7 @@
         msgSizeTooLarge: 'Le fichier "{name}" (<b>{size} Ko</b>) dépasse la taille maximale autorisée qui est de <b>{maxSize} Ko</b>.',
         msgFilesTooLess: 'Vous devez sélectionner au moins <b>{n}</b> {files} à transmettre.',
         msgFilesTooMany: 'Le nombre de fichier sélectionné <b>({n})</b> dépasse la quantité maximale autorisée qui est de <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Le fichier "{name}" est introuvable !',
         msgFileSecured: "Des restrictions de sécurité vous empêchent d'accéder au fichier \"{name}\".",
         msgFileNotReadable: 'Le fichier "{name}" est illisible.',

@@ -1,6 +1,31 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.0.7
+
+**Date:** 17-Nov-2019
+
+- (enh #1496): Correct isEmpty check for functions.
+- (enh #1485): Update Portugese Brazilian Translations.
+- (enh #1479): Methods updated:
+   - Include `addToStack` method.
+   - Remove `updateStack` method
+   - Rename `clearStack` to `clearFileStack` method
+- (enh #1478): Update Slovak Translations.
+- (enh #1477): Update Czech Translations.
+- (enh #1476): Update Hungarian Translations.
+- (enh #1475): Prevent invalid thumb validation when `showPreview` is `false`.
+- (enh #1474): Hide upload icon for file validation errors.
+- (enh #1471): Improve pt-PT and pt-BR translations.
+- (enh #1468): Update Uzbek Translations.
+- (enh #1467): Update Czekh Translations.
+- (enh #1466): Update Slovak Translations.
+- (bug #1465): Correct content.length parsing issue in preview cache.
+- (enh #1461): Allow two different max file count checks.
+    - `maxFileCount` and `msgFilesTooMany` for files being selected before upload
+    - `maxTotalFileCount` and `msgTotalFilesTooMany` for total files selected and files included in initial preview
+- (enh #1448): New boolean properties `focusCaptionOnBrowse` and `focusCaptionOnClear` which default to `true`.
+  
 ## version 5.0.6
 
 **Date:** 11-Sep-2019

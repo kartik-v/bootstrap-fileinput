@@ -34,6 +34,7 @@
         msgSizeTooLarge: 'Filen "{name}" (<b>{size} KB</b>) er for stor, maksimal filstørrelse er <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Du må velge minst <b>{n}</b> {files} for opplastning.',
         msgFilesTooMany: 'For mange filer til opplastning, <b>({n})</b> overstiger maksantallet som er <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: 'Fant ikke filen "{name}"!',
         msgFileSecured: 'Sikkerhetsrestriksjoner hindrer lesing av filen "{name}".',
         msgFileNotReadable: 'Filen "{name}" er ikke lesbar.',
