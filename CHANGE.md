@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.0.8
+
+**Date:** _under development_
+
+- (bug #1499, #1502): Correct duplicate file check error rendering.
+ 
 ## version 5.0.7
 
 **Date:** 17-Nov-2019

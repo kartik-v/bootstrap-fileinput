@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.0.7
+ * bootstrap-fileinput v5.0.8
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -215,7 +215,8 @@
             return typeof v === 'function';
         },
         isEmpty: function (value, trim) {
-            return value === undefined || value === null || (!$h.isFunction(value) && (value.length === 0 || (trim && $.trim(value) === '')));
+            return value === undefined || value === null || (!$h.isFunction(
+                value) && (value.length === 0 || (trim && $.trim(value) === '')));
         },
         isArray: function (a) {
             return Array.isArray(a) || Object.prototype.toString.call(a) === '[object Array]';
@@ -683,6 +684,7 @@
             if (!refreshMode) {
                 self._cleanup();
             }
+            self.duplicateErrors = [];
             self.$form = $el.closest('form');
             self._initTemplateDefaults();
             self.uploadFileAttr = !$h.isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
@@ -2026,6 +2028,7 @@
             var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror',
                 fId = params && params.fileId || '', e = params && params.id ?
                 '<li data-thumb-id="' + params.id + '" data-file-id="' + fId + '">' + msg + '</li>' : '<li>' + msg + '</li>';
+
             if ($error.find('ul').length === 0) {
                 self._addError('<ul>' + e + '</ul>');
             } else {
@@ -3289,7 +3292,7 @@
                         $btnUpload.hide();
                     }
                     $.extend(true, params, self._getOutData(formdata, jqXHR));
-                    self._setProgress(101, $prog, self.msgAjaxProgressError.replace('{operation}', op));
+                    self._setProgress(101, self.$progress, self.msgAjaxProgressError.replace('{operation}', op));
                     $prog = self.showPreview && $thumb ? $thumb.find('.file-thumb-progress') : '';
                     self._setProgress(101, $prog, self.msgUploadError);
                     self._showFileError(errMsg, params);
@@ -4771,7 +4774,7 @@
                 fileExt = self.allowedFileExtensions, strExt = $h.isEmpty(fileExt) ? '' : fileExt.join(', '),
                 throwError = function (msg, file, previewId, index, fileId, removeThumb) {
                     var p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
-                        {id: previewId, index: index, fileId: fileId}), $thumb = '',
+                        {id: previewId, index: index, fileId: fileId}), $thumb,
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
                     removeThumb = removeThumb || self.removeFromPreviewOnError;
                     if (!removeThumb) {
@@ -4803,11 +4806,22 @@
                 }
             });
             readFile = function (i) {
+                var $error = self.$errorContainer, errors;
                 if ($h.isEmpty($el.attr('multiple'))) {
                     numFiles = 1;
                 }
                 if (i >= numFiles) {
                     self.unlock();
+                    if (self.duplicateErrors.length) {
+                        errors = '<li>' + self.duplicateErrors.join('</li><li>') + '</li>';
+                        if ($error.find('ul').length === 0) {
+                            $error.html('<ul>' + errors + '</ul>');
+                        } else {
+                            $error.find('ul').append(errors);
+                        }
+                        $error.fadeIn(800);
+                        self.duplicateErrors = [];
+                    }
                     if (self.isAjaxUpload && self.fileManager.count() > 0) {
                         self._raise('filebatchselected', [self.fileManager.stack]);
                     } else {
@@ -4862,11 +4876,21 @@
                 }
                 fSizeKB = fileSize.toFixed(2);
                 if (self.isAjaxUpload && self.fileManager.exists(fileId) || self._getFrame(previewId, true).length) {
+                    var p2 = {id: previewId, index: i, fileId: fileId, file: file, files: files};
                     msg = self.msgDuplicateFile.setTokens({name: caption, size: fSizeKB});
-                    throwError(msg, file, previewId, i, fileId, true);
-                    if (!self.isAjaxUpload) {
+                    if (self.isAjaxUpload) {
+                        setTimeout(function () {
+                            self.duplicateErrors.push(msg);
+                            readFile(i + 1);
+                            self._updateFileDetails(numFiles);
+                        }, self.processDelay);
+                    } else {
+                        self._showError(msg, p2);
+                        self.unlock();
+                        numFiles = 0;
                         self._clearFileInput();
                         self.reset();
+                        self._updateFileDetails(numFiles);
                     }
                     return;
                 }
