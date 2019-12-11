@@ -3032,6 +3032,7 @@
         _initUploadSuccess: function (out, $thumb, allFiles) {
             var self = this, append, data, index, $div, $newCache, content, config, tags, id, i;
             if (!self.showPreview || typeof out !== 'object' || $.isEmptyObject(out)) {
+                self._resetCaption();
                 return;
             }
             if (out.initialPreview !== undefined && out.initialPreview.length > 0) {
@@ -3088,6 +3089,7 @@
                     self._initPreviewActions();
                 }
             }
+            self._resetCaption();
         },
         _getUploadCacheIndex: function (id) {
             var self = this, i, len = self.uploadCache.length, config;
@@ -3494,6 +3496,26 @@
                 });
             }
         },
+        _resetCaption: function () {
+            var self = this;
+            setTimeout(function () {
+                var cap, n, chk = self.previewCache.count(true), len = self.fileManager.count(), file,
+                    incomplete = ':not(.file-preview-success):not(.file-preview-error)',
+                    hasThumb = self.showPreview && self.getFrames(incomplete).length;
+                if (len === 0 && chk === 0 && !hasThumb) {
+                    self.reset();
+                } else {
+                    n = chk + len;
+                    if (n > 1) {
+                        cap = self._getMsgSelected(n);
+                    } else {
+                        file = self.fileManager.getFirstFile();
+                        cap = file ? file.nameFmt : '_';
+                    }
+                    self._setCaption(cap);
+                }
+            }, self.processDelay);
+        },
         _initFileActions: function () {
             var self = this;
             if (!self.showPreview) {
@@ -3502,7 +3524,7 @@
             self._initZoomButton();
             self.getFrames(' .kv-file-remove').each(function () {
                 var $el = $(this), $frame = $el.closest($h.FRAMES), hasError, id = $frame.attr('id'),
-                    ind = $frame.attr('data-fileindex'), n, cap, status;
+                    ind = $frame.attr('data-fileindex'), status;
                 self._handler($el, 'click', function () {
                     status = self._raise('filepreremove', [id, ind]);
                     if (status === false || !self._validateMinCount()) {
@@ -3524,20 +3546,7 @@
                             });
                         }
                         self._clearFileInput();
-                        var chk = self.previewCache.count(true), len = self.fileManager.count(),
-                            file, hasThumb = self.showPreview && self.getFrames().length;
-                        if (len === 0 && chk === 0 && !hasThumb) {
-                            self.reset();
-                        } else {
-                            n = chk + len;
-                            if (n > 1) {
-                                cap = self._getMsgSelected(n);
-                            } else {
-                                file = self.fileManager.getFirstFile();
-                                cap = file ? file.nameFmt : '_';
-                            }
-                            self._setCaption(cap);
-                        }
+                        self._resetCaption();
                         self._raise('fileremoved', [id, ind]);
                     });
                 });
@@ -3850,7 +3859,7 @@
         },
         _slugDefault: function (text) {
             // noinspection RegExpRedundantEscape
-            return $h.isEmpty(text) ? '' : String(text).replace(/[\[\]\/\{}:;#%=\(\)\*\+\?\\\^\$\|<>&"']/g, '_');
+            return $h.isEmpty(text, true) ? '' : String(text).replace(/[\[\]\/\{}:;#%=\(\)\*\+\?\\\^\$\|<>&"']/g, '_');
         },
         _updateFileDetails: function (numFiles) {
             var self = this, $el = self.$element, label, n, log, nFiles, file,

@@ -6,6 +6,7 @@ Change Log: `bootstrap-fileinput`
 **Date:** _under development_
 
 - (bug #1510): Lock browse button correctly when disable method is called.
+- (bug #1508): Correct file caption after files are uploaded.
 - (bug #1499, #1502): Correct duplicate file check error rendering.
  
 ## version 5.0.7
