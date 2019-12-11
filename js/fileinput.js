@@ -5041,7 +5041,6 @@
             var self = this, $container = self.$container;
             self._resetErrors();
             self.disable();
-            $container.addClass('is-locked');
             if (!selectMode && self.showCancel) {
                 $container.find('.fileinput-cancel').show();
             }
@@ -5231,26 +5230,28 @@
             return self.$element;
         },
         disable: function () {
-            var self = this;
+            var self = this, $container = self.$container;
             self.isDisabled = true;
             self._raise('filedisabled');
             self.$element.attr('disabled', 'disabled');
-            self.$container.find('.kv-fileinput-caption').addClass('file-caption-disabled');
-            self.$container.find('.fileinput-remove, .fileinput-upload, .file-preview-frame button')
+            $container.addClass('is-locked');
+            $h.addCss($container.find('.btn-file'), 'disabled');
+            $container.find('.kv-fileinput-caption').addClass('file-caption-disabled');
+            $container.find('.fileinput-remove, .fileinput-upload, .file-preview-frame button')
                 .attr('disabled', true);
-            $h.addCss(self.$container.find('.btn-file'), 'disabled');
             self._initDragDrop();
             return self.$element;
         },
         enable: function () {
-            var self = this;
+            var self = this, $container = self.$container;
             self.isDisabled = false;
             self._raise('fileenabled');
             self.$element.removeAttr('disabled');
-            self.$container.find('.kv-fileinput-caption').removeClass('file-caption-disabled');
-            self.$container.find('.fileinput-remove, .fileinput-upload, .file-preview-frame button')
+            $container.removeClass('is-locked');
+            $container.find('.kv-fileinput-caption').removeClass('file-caption-disabled');
+            $container.find('.fileinput-remove, .fileinput-upload, .file-preview-frame button')
                 .removeAttr('disabled');
-            self.$container.find('.btn-file').removeClass('disabled');
+            $container.find('.btn-file').removeClass('disabled');
             self._initDragDrop();
             return self.$element;
         },
