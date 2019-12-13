@@ -5,6 +5,10 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1514): Enhancements to duplicate file selection.
+    - New event `fileduplicateerror` will be triggered after every duplicate file detected.
+    - Duplicate error container can be closed by clicking the `close` icon.
+    - New property `fadeDelay` used in fade out / fade in animations of error containers.    
 - (bug #1510): Lock browse button correctly when disable method is called.
 - (bug #1508): Correct file caption after files are uploaded.
 - (bug #1499, #1502): Correct duplicate file check error rendering.

@@ -2021,7 +2021,7 @@
             msg = self.msgFoldersNotAllowed.replace('{n}', folders);
             self._addError(msg);
             self._setValidationError();
-            $error.fadeIn(800);
+            $error.fadeIn(self.fadeDelay);
             self._raise('filefoldererror', [folders, msg]);
         },
         _showFileError: function (msg, params, event) {
@@ -2034,7 +2034,7 @@
             } else {
                 $error.find('ul').append(e);
             }
-            $error.fadeIn(800);
+            $error.fadeIn(self.fadeDelay);
             self._raise(ev, [params, msg]);
             self._setValidationError('file-input-new');
             return true;
@@ -2044,7 +2044,7 @@
             params = params || {};
             params.reader = self.reader;
             self._addError(msg);
-            $error.fadeIn(800);
+            $error.fadeIn(self.fadeDelay);
             self._raise(ev, [params, msg]);
             if (!self.isAjaxUpload) {
                 self._clearFileInput();
@@ -2060,7 +2060,7 @@
             self._addError(msg);
             self.isError = true;
             self._updateFileDetails(0);
-            $error.fadeIn(800);
+            $error.fadeIn(self.fadeDelay);
             self._raise('fileerror', [params, msg]);
             self._clearFileInput();
             self._setValidationError();
@@ -4824,11 +4824,14 @@
                     if (self.duplicateErrors.length) {
                         errors = '<li>' + self.duplicateErrors.join('</li><li>') + '</li>';
                         if ($error.find('ul').length === 0) {
-                            $error.html('<ul>' + errors + '</ul>');
+                            $error.html(self.errorCloseButton + '<ul>' + errors + '</ul>');
                         } else {
                             $error.find('ul').append(errors);
                         }
-                        $error.fadeIn(800);
+                        $error.fadeIn(self.fadeDelay);
+                        self._handler($error.find('.kv-error-close'), 'click', function() {
+                            $error.fadeOut(self.fadeDelay);
+                        });
                         self.duplicateErrors = [];
                     }
                     if (self.isAjaxUpload && self.fileManager.count() > 0) {
@@ -4890,6 +4893,7 @@
                     if (self.isAjaxUpload) {
                         setTimeout(function () {
                             self.duplicateErrors.push(msg);
+                            self._raise('fileduplicateerror', [file, fileId, caption, fSizeKB, previewId, i]);
                             readFile(i + 1);
                             self._updateFileDetails(numFiles);
                         }, self.processDelay);
@@ -5527,6 +5531,7 @@
             retryCount: 'retryCount'
         },
         maxAjaxThreads: 5,
+        fadeDelay: 800,
         processDelay: 100,
         queueDelay: 10, // must be lesser than process delay
         progressDelay: 0, // must be lesser than process delay
