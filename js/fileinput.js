@@ -2697,11 +2697,18 @@
             self._initZoomButtons();
         },
         _zoomSlideShow: function (dir, previewId) {
-            var self = this, $btn = self.$modal.find('.kv-zoom-actions .btn-' + dir), $targFrame, i,
-                thumbs = self.getFrames().toArray(), len = thumbs.length, out;
+            var self = this, $btn = self.$modal.find('.kv-zoom-actions .btn-' + dir), $targFrame, i, $thumb,
+                thumbsData = self.getFrames().toArray(), thumbs = [], len = thumbsData.length, out;
             if ($btn.attr('disabled')) {
                 return;
             }
+            for (i = 0; i < len; i++) {
+                $thumb = $(thumbsData[i]);
+                if ($thumb && $thumb.length && $thumb.find('.kv-file-zoom:visible').length) {
+                    thumbs.push(thumbsData[i]);
+                }
+            }
+            len = thumbs.length;
             for (i = 0; i < len; i++) {
                 if ($(thumbs[i]).attr('id') === previewId) {
                     out = dir === 'prev' ? i - 1 : i + 1;
