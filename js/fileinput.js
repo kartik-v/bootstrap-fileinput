@@ -1555,7 +1555,7 @@
                     audio: {width: '100%', height: '30px'},
                     flash: {width: '213px', height: '160px'},
                     object: {width: '213px', height: '160px'},
-                    pdf: {width: '100%', height: '160px'},
+                    pdf: {width: '100%', height: '160px', 'position': 'relative'},
                     other: {width: '213px', height: '160px'}
                 },
                 previewSettingsSmall: {

@@ -23,6 +23,7 @@ Change Log: `bootstrap-fileinput`
 - (bug #1510): Lock browse button correctly when disable method is called.
 - (bug #1509): Correct zoom slideshow to show only files with zoom enabled via `showZoom`.
 - (bug #1508): Correct file caption after files are uploaded.
+- (enh #1503): Correct Mozilla PDF rendering bug.
 - (bug #1499, #1502): Correct duplicate file check error rendering.
 - (enh #1497): Better validation of progress display when `showPreview` is `false`.
 - (bug #1482): Validate `initialPreviewShowDelete` setting correctly.
