@@ -1,6 +1,34 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.0.8
+
+**Date:** 13-Dec-2019
+
+- (enh #1514): Enhancements to duplicate file selection.
+    - New event `fileduplicateerror` will be triggered after every duplicate file detected.
+    - Duplicate error container can be closed by clicking the `close` icon.
+    - New property `fadeDelay` used in fade out / fade in animations of error containers.    
+- (enh #1513): New `filebeforeload` event (only for ajax uploads). Can be used to abort loading of specific files at runtime.
+*Usage:*
+```
+    $('#input').on('filebeforeload', function(event, file, index, reader) {
+        // perform your validations based on the 'file' or other parameters
+        if (file.name === 'UNAPPROVED_FILE.txt') {
+            return false; // will abort the file loading for the selected file
+        }
+    });
+```    
+- (enh #1512): Include parameter to include initial preview files in `getFilesCount` method.
+- (bug #1510): Lock browse button correctly when disable method is called.
+- (bug #1509): Correct zoom slideshow to show only files with zoom enabled via `showZoom`.
+- (bug #1508): Correct file caption after files are uploaded.
+- (enh #1503): Correct Mozilla PDF rendering bug.
+- (bug #1499, #1502): Correct duplicate file check error rendering.
+- (enh #1497): Better validation of progress display when `showPreview` is `false`.
+- (bug #1482): Validate `initialPreviewShowDelete` setting correctly.
+- (bug #1480): Correct preview content setting after validation error.
+ 
 ## version 5.0.7
 
 **Date:** 17-Nov-2019
