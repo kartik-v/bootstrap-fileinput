@@ -3861,7 +3861,7 @@
             // noinspection RegExpRedundantEscape
             return $h.isEmpty(text, true) ? '' : String(text).replace(/[\[\]\/\{}:;#%=\(\)\*\+\?\\\^\$\|<>&"']/g, '_');
         },
-        _updateFileDetails: function (numFiles) {
+        _updateFileDetails: function (numFiles, skipRaiseEvent) {
             var self = this, $el = self.$element, label, n, log, nFiles, file,
                 name = ($h.isIE(9) && $h.findFileName($el.val())) || ($el[0].files[0] && $el[0].files[0].name);
             if (!name && self.fileManager.count() > 0) {
@@ -3882,7 +3882,7 @@
             }
             self._setCaption(log, self.isError);
             self.$container.removeClass('file-input-new file-input-ajax-new');
-            if (arguments.length === 1) {
+            if (!skipRaiseEvent) {
                 self._raise('fileselect', [numFiles, label]);
             }
             if (self.previewCache.count(true)) {
@@ -4840,7 +4840,7 @@
                 }
             });
             readFile = function (i) {
-                var $error = self.$errorContainer, errors;
+                var $error = self.$errorContainer, errors, fm = self.fileManager;
                 if ($h.isEmpty($el.attr('multiple'))) {
                     numFiles = 1;
                 }
@@ -4859,8 +4859,11 @@
                         });
                         self.duplicateErrors = [];
                     }
-                    if (self.isAjaxUpload && self.fileManager.count() > 0) {
-                        self._raise('filebatchselected', [self.fileManager.stack]);
+                    if (self.isAjaxUpload) {
+                        self._raise('filebatchselected', [fm.stack]);
+                        if (fm.count() === 0) {
+                            self.reset();
+                        }
                     } else {
                         self._raise('filebatchselected', [files]);
                     }
@@ -4873,7 +4876,7 @@
                     fnText = settings.text, fnImage = settings.image, fnHtml = settings.html, typ, chk, typ1, typ2,
                     caption = self._getFileName(file, ''), fileSize = (file && file.size || 0) / 1000,
                     fileExtExpr = '', previewData = $h.createObjectURL(file), fileCount = 0,
-                    strTypes = '', fileId,
+                    strTypes = '', fileId, canLoad,
                     func, knownTypes = 0, isText, isHtml, isImage, txtFlag, processFileLoaded = function () {
                         var msg = msgProgress.setTokens({
                             'index': i + 1,
@@ -4886,12 +4889,14 @@
                             self._updateFileDetails(numFiles);
                             readFile(i + 1);
                         }, self.processDelay);
-                        self._raise('fileloaded', [file, previewId, i, reader]);
+                        if (self._raise('fileloaded', [file, previewId, i, reader]) && self.isAjaxUpload) {
+                            fm.add(file);
+                        }
                     };
                 if (!file) {
                     return;
                 }
-                fileId = self.fileManager.getId(file);
+                fileId = fm.getId(file);
                 if (typLen > 0) {
                     for (j = 0; j < typLen; j++) {
                         typ1 = fileTypes[j];
@@ -4912,7 +4917,7 @@
                     fileExtExpr = new RegExp('\\.(' + fileExt.join('|') + ')$', 'i');
                 }
                 fSizeKB = fileSize.toFixed(2);
-                if (self.isAjaxUpload && self.fileManager.exists(fileId) || self._getFrame(previewId, true).length) {
+                if (self.isAjaxUpload && fm.exists(fileId) || self._getFrame(previewId, true).length) {
                     var p2 = {id: previewId, index: i, fileId: fileId, file: file, files: files};
                     msg = self.msgDuplicateFile.setTokens({name: caption, size: fSizeKB});
                     if (self.isAjaxUpload) {
@@ -4973,16 +4978,19 @@
                     }
                 }
                 if (!self._canPreview(file)) {
-                    if (self.isAjaxUpload) {
-                        self.fileManager.add(file);
+                    canLoad = self.isAjaxUpload && self._raise('filebeforeload', [file, i, reader]);
+                    if (self.isAjaxUpload && canLoad) {
+                        fm.add(file);
                     }
-                    if (self.showPreview) {
+                    if (self.showPreview && canLoad) {
                         $container.addClass('file-thumb-loading');
                         self._previewDefault(file);
                         self._initFileActions();
                     }
                     setTimeout(function () {
-                        self._updateFileDetails(numFiles);
+                        if (canLoad) {
+                            self._updateFileDetails(numFiles);
+                        }
                         readFile(i + 1);
                         self._raise('fileloaded', [file, previewId, i]);
                     }, 10);
@@ -5003,6 +5011,9 @@
                             self._errorHandler(theFileNew, caption);
                         };
                         newReader.onload = function (theFileNew) {
+                            if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
+                                return;
+                            }
                             self._previewFile(i, file, theFileNew, previewData, fileInfo);
                             self._initFileActions();
                             processFileLoaded();
@@ -5041,6 +5052,9 @@
                             return;
                         }
                     }
+                    if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
+                        return;
+                    }
                     self._previewFile(i, file, theFile, previewData, fileInfo);
                     self._initFileActions();
                     processFileLoaded();
@@ -5059,7 +5073,6 @@
                         }, self.processDelay);
                     }
                 };
-
                 if (isText || isHtml) {
                     reader.readAsText(file, self.textEncoding);
                 } else {
@@ -5069,11 +5082,10 @@
                         reader.readAsArrayBuffer(file);
                     }
                 }
-                self.fileManager.add(file);
             };
 
             readFile(0);
-            self._updateFileDetails(numFiles, false);
+            self._updateFileDetails(numFiles, true);
         },
         lock: function (selectMode) {
             var self = this, $container = self.$container;
@@ -5252,7 +5264,7 @@
             self._resetPreview();
             self.$container.find('.fileinput-filename').text('');
             $h.addCss(self.$container, 'file-input-new');
-            if (self.getFrames().length || self.dropZoneEnabled) {
+            if (self.getFrames().length) {
                 self.$container.removeClass('file-input-new');
             }
             self.clearFileStack();

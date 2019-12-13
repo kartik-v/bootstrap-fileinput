@@ -9,6 +9,16 @@ Change Log: `bootstrap-fileinput`
     - New event `fileduplicateerror` will be triggered after every duplicate file detected.
     - Duplicate error container can be closed by clicking the `close` icon.
     - New property `fadeDelay` used in fade out / fade in animations of error containers.    
+- (enh #1513): New `filebeforeload` event (only for ajax uploads). Can be used to abort loading of specific files at runtime.
+*Usage:*
+```
+    $('#input').on('filebeforeload', function(event, file, index, reader) {
+        // perform your validations based on the 'file' or other parameters
+        if (file.name === 'UNAPPROVED_FILE.txt') {
+            return false; // will abort the file loading for the selected file
+        }
+    });
+```    
 - (enh #1512): Include parameter to include initial preview files in `getFilesCount` method.
 - (bug #1510): Lock browse button correctly when disable method is called.
 - (bug #1508): Correct file caption after files are uploaded.
