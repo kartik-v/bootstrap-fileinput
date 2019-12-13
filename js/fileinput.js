@@ -2783,7 +2783,7 @@
             self.uploadCache = [];
             self.$btnUpload.removeAttr('disabled');
             self._setProgress(0);
-            self.$progress.hide();
+            self._hideProgress();
             self._resetErrors(false);
             self._initAjax();
             self.fileManager.clearImages();
@@ -3555,7 +3555,7 @@
                 var $el = $(this);
                 self._handler($el, 'click', function () {
                     var $frame = $el.closest($h.FRAMES), fileId = $frame.attr('data-fileid');
-                    self.$progress.hide();
+                    self._hideProgress();
                     if ($frame.hasClass('file-preview-error') && !self.retryErrorUploads) {
                         return;
                     }
@@ -3983,6 +3983,16 @@
             self._setProgress(pct, $prog, null, self._getStats(stats));
             obj.lastProgress = pct;
         },
+        _toggleResumableProgress: function (template, message) {
+            var self = this, $progress = self.$progress;
+            if ($progress && $progress.length) {
+                $progress.html(template.setTokens({
+                    percent: 101,
+                    status: message,
+                    stats: ''
+                }));
+            }
+        },
         _setFileUploadStats: function (id, pct, total, stats) {
             var self = this, $prog = self.$progress;
             if (!self.showPreview && (!$prog || !$prog.length)) {
@@ -4297,6 +4307,18 @@
                 }
                 msg = self.msgImageResizeException.replace('{errors}', err.message);
                 throwError(msg, params, 'fileimageresizeexception');
+            }
+        },
+        _showProgress: function () {
+            var self = this;
+            if (self.$progress && self.$progress.length) {
+                self.$progress.show();
+            }
+        },
+        _hideProgress: function () {
+            var self = this;
+            if (self.$progress && self.$progress.length) {
+                self.$progress.hide();
             }
         },
         _initBrowse: function ($container) {
@@ -4997,7 +5019,7 @@
                             knownTypes++;
                         }
                     });
-                    if (knownTypes === 0) {// auto detect mime types from content if no known file types detected
+                    if (knownTypes === 0) { // auto detect mime types from content if no known file types detected
                         uint = new Uint8Array(theFile.target.result);
                         for (j = 0; j < uint.length; j++) {
                             byte = uint[j].toString(16);
@@ -5086,26 +5108,18 @@
             return self.$element;
         },
         resume: function () {
-            var self = this, flag = false, $pr = self.$progress, rm = self.resumableManager;
+            var self = this, flag = false, rm = self.resumableManager;
             if (!self.enableResumableUpload) {
                 return self.$element;
             }
             if (self.paused) {
-                $pr.html(self.progressPauseTemplate.setTokens({
-                    percent: 101,
-                    status: self.msgUploadResume,
-                    stats: ''
-                }));
+                self._toggleResumableProgress(self.progressPauseTemplate, self.msgUploadResume);
             } else {
                 flag = true;
             }
             self.paused = false;
             if (flag) {
-                $pr.html(self.progressInfoTemplate.setTokens({
-                    percent: 101,
-                    status: self.msgUploadBegin,
-                    stats: ''
-                }));
+                self._toggleResumableProgress(self.progressInfoTemplate, self.msgUploadBegin);
             }
             setTimeout(function () {
                 rm.upload();
@@ -5284,7 +5298,7 @@
                 return;
             }
             self.cancelling = false;
-            self.$progress.show();
+            self._showProgress();
             self.lock();
             if (totLen === 0 && hasExtraData) {
                 self._setProgress(2);
