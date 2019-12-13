@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.0.8
 
-**Date:** _under development_
+**Date:** 13-Dec-2019
 
 - (enh #1514): Enhancements to duplicate file selection.
     - New event `fileduplicateerror` will be triggered after every duplicate file detected.
