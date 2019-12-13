@@ -4770,8 +4770,11 @@
         getFileList: function () {
             return this.fileManager.list();
         },
-        getFilesCount: function () {
+        getFilesCount: function (includeInitial) {
             var self = this, len = self.isAjaxUpload ? self.fileManager.count() : self._inputFileCount();
+            if (includeInitial) {
+                len += self.previewCache.count(true);
+            }
             return self._getFileCount(len);
         },
         readFiles: function (files) {
@@ -4829,7 +4832,7 @@
                             $error.find('ul').append(errors);
                         }
                         $error.fadeIn(self.fadeDelay);
-                        self._handler($error.find('.kv-error-close'), 'click', function() {
+                        self._handler($error.find('.kv-error-close'), 'click', function () {
                             $error.fadeOut(self.fadeDelay);
                         });
                         self.duplicateErrors = [];
