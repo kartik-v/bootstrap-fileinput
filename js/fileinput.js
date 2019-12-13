@@ -1775,7 +1775,7 @@
                     if (!$h.isArray(content)) {
                         content = content.split(self.initialPreviewDelimiter);
                     }
-                    if (append) {
+                    if (append && data.content && data.content.length) {
                         index = data.content.push(content[0]) - 1;
                         data.config[index] = config;
                         data.tags[index] = tags;
@@ -2057,7 +2057,12 @@
             var self = this, label = self.minFileCount > 1 ? self.filePlural : self.fileSingle,
                 msg = self.msgFilesTooLess.replace('{n}', self.minFileCount).replace('{files}', label),
                 $error = self.$errorContainer;
-            self._addError(msg);
+            msg = '<li>' + msg + '</li>';
+            if ($error.find('ul').length === 0) {
+                self._addError('<ul>' + msg + '</ul>');
+            } else {
+                $error.find('ul').append(msg);
+            }
             self.isError = true;
             self._updateFileDetails(0);
             $error.fadeIn(self.fadeDelay);
@@ -4868,7 +4873,7 @@
                     }
                     if (self.isAjaxUpload) {
                         self._raise('filebatchselected', [fm.stack]);
-                        if (fm.count() === 0) {
+                        if (fm.count() === 0 && !self.isError) {
                             self.reset();
                         }
                     } else {
