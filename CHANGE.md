@@ -24,6 +24,7 @@ Change Log: `bootstrap-fileinput`
 - (bug #1508): Correct file caption after files are uploaded.
 - (bug #1499, #1502): Correct duplicate file check error rendering.
 - (enh #1497): Better validation of progress display when `showPreview` is `false`.
+- (bug #1482): Validate `initialPreviewShowDelete` setting correctly.
  
 ## version 5.0.7
 
