@@ -1775,7 +1775,7 @@
                     if (!$h.isArray(content)) {
                         content = content.split(self.initialPreviewDelimiter);
                     }
-                    if (append && data.content && data.content.length) {
+                    if (append && data.content) {
                         index = data.content.push(content[0]) - 1;
                         data.config[index] = config;
                         data.tags[index] = tags;

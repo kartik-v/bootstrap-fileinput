@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.0.9
+
+**Date:** _under development_
+
+- (bug #1518, #1522): Initial preview rendering correction when preview returned by server immediately after upload.
+
 ## version 5.0.8
 
 **Date:** 13-Dec-2019
