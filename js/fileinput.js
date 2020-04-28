@@ -84,7 +84,7 @@
         getFileRelativePath: function (file) {
             /** @namespace file.relativePath */
             /** @namespace file.webkitRelativePath */
-            return String(file.relativePath || file.webkitRelativePath || $h.getFileName(file) || null);
+            return String(file.fullPath || file.relativePath || file.webkitRelativePath || $h.getFileName(file) || null);
 
         },
         getFileId: function (file, generateFileId) {
@@ -2244,6 +2244,7 @@
             };
             if (item.isFile) {
                 item.file(function (file) {
+                    file.fullPath = path + file.name;
                     files.push(file);
                 }, errorHandler);
             } else {
