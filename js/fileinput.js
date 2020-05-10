@@ -514,7 +514,7 @@
                         }
                     }
                 }
-            } else {
+            } else if($h.checkFullScreen()) {
                 /** @namespace document.exitFullscreen */
                 /** @namespace document.msExitFullscreen */
                 /** @namespace document.mozCancelFullScreen */
