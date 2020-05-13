@@ -4104,7 +4104,7 @@
             self._setPreviewError($thumb);
         },
         _getExifObj: function (data) {
-            var self = this, exifObj = null, error = $h.logMessages.exifWarning;
+            var self = this, exifObj, error = $h.logMessages.exifWarning;
             if (data.slice(0, 23) !== 'data:image/jpeg;base64,' && data.slice(0, 22) !== 'data:image/jpg;base64,') {
                 exifObj = null;
                 return;
@@ -4846,9 +4846,6 @@
             });
             readFile = function (i) {
                 var $error = self.$errorContainer, errors, fm = self.fileManager;
-                if ($h.isEmpty($el.attr('multiple'))) {
-                    numFiles = 1;
-                }
                 if (i >= numFiles) {
                     self.unlock();
                     if (self.duplicateErrors.length) {

@@ -7,6 +7,7 @@ Change Log: `bootstrap-fileinput`
 
 - (enh #1552, #1553): More correct full screen exit.
 - (bug #1551): Correct MIME Type detection for PNG.
+- (enh #1548): Correct `filebatchselected` trigger for single file uploads.
 - (bug #1518, #1522): Initial preview rendering correction when preview returned by server immediately after upload.
 
 ## version 5.0.8
