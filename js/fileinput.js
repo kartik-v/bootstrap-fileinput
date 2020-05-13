@@ -4740,6 +4740,9 @@
         },
         _isFileSelectionValid: function (cnt) {
             var self = this;
+            if (self.isDisabled) {
+                return true;
+            }
             cnt = cnt || 0;
             if (self.required && !self.getFilesCount()) {
                 self.$errorContainer.html('');
@@ -5305,7 +5308,7 @@
         upload: function () {
             var self = this, fm = self.fileManager, totLen = fm.count(), i, outData,
                 hasExtraData = !$.isEmptyObject(self._getExtraData());
-            if (!self.isAjaxUpload || self.isDisabled || !self._isFileSelectionValid(totLen)) {
+            if (!self.isAjaxUpload || !self._isFileSelectionValid(totLen)) {
                 return;
             }
             self.lastProgress = 0;

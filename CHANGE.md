@@ -9,6 +9,7 @@ Change Log: `bootstrap-fileinput`
 - (bug #1551): Correct MIME Type detection for PNG.
 - (enh #1548): Correct `filebatchselected` trigger for single file uploads.
 - (enh #1545, #1546): Enhance file path for folder drag.
+- (enh #1540): Better validation of `required` property.
 - (bug #1518, #1522): Initial preview rendering correction when preview returned by server immediately after upload.
 
 ## version 5.0.8
