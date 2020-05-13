@@ -3,7 +3,7 @@
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2019, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2020, Kartik Visweswaran, Krajee.com
  *
  * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
@@ -382,7 +382,7 @@
                 case 'ffd8ffe1':
                 case 'ffd8ffe2':
                     return 'image/jpeg';
-                case '89504E47':
+                case '89504e47':
                     return 'image/png';
                 case '47494638':
                     return 'image/gif';

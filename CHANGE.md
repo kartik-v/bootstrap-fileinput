@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (bug #1551): Correct MIME Type detection for PNG.
 - (bug #1518, #1522): Initial preview rendering correction when preview returned by server immediately after upload.
 
 ## version 5.0.8
