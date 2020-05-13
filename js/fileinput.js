@@ -492,13 +492,8 @@
                 document.msFullscreenElement;
         },
         toggleFullScreen: function (maximize) {
-            var doc = document, de = doc.documentElement;
-            if (de && maximize && !$h.checkFullScreen()) {
-                /** @namespace document.requestFullscreen */
-                /** @namespace document.msRequestFullscreen */
-                /** @namespace document.mozRequestFullScreen */
-                /** @namespace document.webkitRequestFullscreen */
-                /** @namespace Element.ALLOW_KEYBOARD_INPUT */
+            var doc = document, de = doc.documentElement, isFullScreen = $h.checkFullScreen();
+            if (de && maximize && !isFullScreen) {
                 if (de.requestFullscreen) {
                     de.requestFullscreen();
                 } else {
@@ -515,21 +510,19 @@
                     }
                 }
             } else {
-                /** @namespace document.exitFullscreen */
-                /** @namespace document.msExitFullscreen */
-                /** @namespace document.mozCancelFullScreen */
-                /** @namespace document.webkitExitFullscreen */
-                if (doc.exitFullscreen) {
-                    doc.exitFullscreen();
-                } else {
-                    if (doc.msExitFullscreen) {
-                        doc.msExitFullscreen();
+                if (isFullScreen) {
+                    if (doc.exitFullscreen) {
+                        doc.exitFullscreen();
                     } else {
-                        if (doc.mozCancelFullScreen) {
-                            doc.mozCancelFullScreen();
+                        if (doc.msExitFullscreen) {
+                            doc.msExitFullscreen();
                         } else {
-                            if (doc.webkitExitFullscreen) {
-                                doc.webkitExitFullscreen();
+                            if (doc.mozCancelFullScreen) {
+                                doc.mozCancelFullScreen();
+                            } else {
+                                if (doc.webkitExitFullscreen) {
+                                    doc.webkitExitFullscreen();
+                                }
                             }
                         }
                     }
