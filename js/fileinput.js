@@ -84,7 +84,7 @@
         getFileRelativePath: function (file) {
             /** @namespace file.relativePath */
             /** @namespace file.webkitRelativePath */
-            return String(file.relativePath || file.webkitRelativePath || $h.getFileName(file) || null);
+            return String(file.newPath || file.relativePath || file.webkitRelativePath || $h.getFileName(file) || null);
 
         },
         getFileId: function (file, generateFileId) {
@@ -2237,6 +2237,9 @@
             };
             if (item.isFile) {
                 item.file(function (file) {
+                    if (path) {
+                        file.newPath = path + file.name;
+                    }
                     files.push(file);
                 }, errorHandler);
             } else {
@@ -4806,7 +4809,7 @@
         },
         readFiles: function (files) {
             this.reader = new FileReader();
-            var self = this, $el = self.$element, reader = self.reader, $container = self.$previewContainer,
+            var self = this, reader = self.reader, $container = self.$previewContainer,
                 $status = self.$previewStatus, msgLoading = self.msgLoading, msgProgress = self.msgProgress,
                 previewInitId = self.previewInitId, numFiles = files.length, settings = self.fileTypeSettings,
                 readFile, fileTypes = self.allowedFileTypes, typLen = fileTypes ? fileTypes.length : 0,
