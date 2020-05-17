@@ -5366,7 +5366,7 @@
                 tasksPool = tm.getTasksPool(rm.id);
             if (!self.enableResumableUpload) {
                 return self.$element;
-            } else {
+            } else if(tasksPool) {
                 tasksPool.cancelAllTasks();
             }
             self._raise('fileuploadpaused', [self.fileManager, rm]);
@@ -5400,7 +5400,7 @@
                 rm = self.resumableManager, tm = self.taskManager,
                 tasksPool = tm.getTasksPool(rm.id), len = xhr.length, i;
 
-            if (self.enableResumableUpload) {
+            if (self.enableResumableUpload && tasksPool) {
                 tasksPool.cancelAllTasks().done(function() {
                     self._setProgressCancelled();
                 });
