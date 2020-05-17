@@ -1239,6 +1239,7 @@
                 init: function (id, f, index) {
                     var rm = self.resumableManager, fm = self.fileManager;
                     rm.logs = [];
+                    rm.stack = [];
                     rm.error = '';
                     rm.id = id;
                     rm.file = f.file;
