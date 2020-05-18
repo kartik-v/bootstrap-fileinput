@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1557, #1559): Enhance and fix resumable and ajax queues.
 - (enh #1552, #1553): More correct full screen exit.
 - (bug #1551): Correct MIME Type detection for PNG.
 - (enh #1548): Correct `filebatchselected` trigger for single file uploads.

@@ -124,7 +124,7 @@
                 minute: 60,
                 second: 1
             };
-            Object.keys(structure).forEach(function (key) {
+            $h.getObjectKeys(structure).forEach(function (key) {
                 result[key] = Math.floor(delta / structure[key]);
                 delta -= result[key] * structure[key];
             });
@@ -588,6 +588,53 @@
             el.style['-moz-transform'] = val;
             el.style['-ms-transform'] = val;
             el.style['-o-transform'] = val;
+        },
+        getObjectKeys: function (obj) {
+            var key, keys = [];
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    keys.push(key);
+                }
+            }
+            return keys;
+        },
+        getObjectSize: function (obj) {
+            return this.getObjectKeys(obj).length;
+        },
+        /**
+         * Small dependency injection for the task manager
+         * https://gist.github.com/fearphage/4341799
+         */
+        whenAll: function (array) {
+            var s = [].slice, resolveValues = arguments.length === 1 && $h.isArray(array) ? array : s.call(arguments),
+                deferred = $.Deferred(), i, failed = 0, value, length = resolveValues.length,
+                remaining = length, rejectContexts, rejectValues, resolveContexts, updateFunc;
+            rejectContexts = rejectValues = resolveContexts = Array(length);
+            updateFunc = function (index, contexts, values) {
+                return function () {
+                    if (values !== resolveValues) {
+                        failed++;
+                    }
+                    deferred.notifyWith(contexts[index] = this, values[index] = s.call(arguments));
+                    if (!(--remaining)) {
+                        deferred[(!failed ? 'resolve' : 'reject') + 'With'](contexts, values);
+                    }
+                };
+            };
+            for (i = 0; i < length; i++) {
+                if ((value = resolveValues[i]) && $.isFunction(value.promise)) {
+                    value.promise()
+                        .done(updateFunc(i, resolveContexts, resolveValues))
+                        .fail(updateFunc(i, rejectContexts, rejectValues));
+                } else {
+                    deferred.notifyWith(this, value);
+                    --remaining;
+                }
+            }
+            if (!remaining) {
+                deferred.resolveWith(resolveContexts, resolveValues);
+            }
+            return deferred.promise();
         }
     };
     FileInput = function (element, options) {
@@ -621,11 +668,136 @@
             self._initAjax();
         },
         _initAjax: function () {
-            var self = this;
+            var self = this, tm = self.taskManager = {
+                pool: {},
+                addPool: function (id) {
+                    var TasksPool = tm.TasksPool;
+                    return (tm.pool[id] = new TasksPool(id));
+                },
+                getPool: function (id) {
+                    return this.pool[id];
+                },
+                addTask: function (id, logic) { // add standalone task directly from task manager
+                    var tm = this, Task = tm.Task;
+                    return new Task(id, logic);
+                },
+                TasksPool: function (id) {
+                    var tp = this, Task = tm.Task;
+                    tp.id = id;
+                    tp.cancelled = false;
+                    tp.cancelledDeferrer = $.Deferred();
+                    tp.tasks = {};
+                    tp.addTask = function (id, logic) {
+                        return (tp.tasks[id] = new Task(id, logic));
+                    };
+                    tp.size = function () {
+                        return $h.getObjectSize(tp.tasks);
+                    };
+                    tp.run = function (maxThreads) {
+                        var i = 0, failed = false, task, tasksList = $h.getObjectKeys(tp.tasks).map(function (key) {
+                            return tp.tasks[key];
+                        }), tasksCount = tasksList.length, tasksDone = [], deferred = $.Deferred(), enqueue, callback;
+
+                        if (tp.cancelled) {
+                            tp.cancelledDeferrer.resolve();
+                            return deferred.reject();
+                        }
+                        // if run all at once
+                        if (!maxThreads) {
+                            var tasksDeferredList = $h.getObjectKeys(tp.tasks).map(function (key) {
+                                return tp.tasks[key].deferred;
+                            });
+                            // when all are done
+                            $h.whenAll(tasksDeferredList).done(function () {
+                                var argv = Array.from(arguments);
+                                if (!tp.cancelled) {
+                                    deferred.resolve.apply(null, argv);
+                                    tp.cancelledDeferrer.reject();
+                                } else {
+                                    deferred.reject.apply(null, argv);
+                                    tp.cancelledDeferrer.resolve();
+                                }
+                            }).fail(function () {
+                                var argv = Array.from(arguments);
+                                deferred.reject.apply(null, argv);
+                                if (!tp.cancelled) {
+                                    tp.cancelledDeferrer.reject();
+                                } else {
+                                    tp.cancelledDeferrer.resolve();
+                                }
+                            });
+                            // run all tasks
+                            $.each(tp.tasks, function (id) {
+                                task = tp.tasks[id];
+                                task.run();
+                            });
+                            return deferred;
+                        }
+                        enqueue = function (task) {
+                            $.when(task.deferred)
+                                .fail(function () {
+                                    failed = true;
+                                    callback.apply(null, arguments);
+                                })
+                                .always(callback);
+                        };
+                        callback = function () {
+                            var argv = Array.from(arguments);
+                            // notify a task just ended
+                            deferred.notify(argv);
+                            tasksDone.push(argv);
+                            if (tp.cancelled) {
+                                deferred.reject.apply(null, tasksDone);
+                                tp.cancelledDeferrer.resolve();
+                                return;
+                            }
+                            if (tasksDone.length === tasksCount) {
+                                if (failed) {
+                                    deferred.reject.apply(null, tasksDone);
+                                } else {
+                                    deferred.resolve.apply(null, tasksDone);
+                                }
+                            }
+                            // if there are any tasks remaining
+                            if (tasksList.length) {
+                                task = tasksList.shift();
+                                enqueue(task);
+                                task.run();
+                            }
+                        };
+                        // run the first "maxThreads" tasks
+                        while (tasksList.length && i++ < maxThreads) {
+                            task = tasksList.shift();
+                            enqueue(task);
+                            task.run();
+                        }
+                        return deferred;
+                    };
+                    tp.cancel = function () {
+                        tp.cancelled = true;
+                        return tp.cancelledDeferrer;
+                    };
+                },
+                Task: function (id, logic) {
+                    var tk = this;
+                    tk.id = id;
+                    tk.deferred = $.Deferred();
+                    tk.logic = logic;
+                    tk.context = null;
+                    tk.run = function () {
+                        var argv = Array.from(arguments);
+                        argv.unshift(tk.deferred);     // add deferrer as first argument
+                        logic.apply(tk.context, argv); // run task
+                        return tk.deferred;            // return deferrer
+                    };
+                    tk.runWithContext = function (context) {
+                        tk.context = context;
+                        return tk.run();
+                    };
+                }
+            };
             self.ajaxQueue = [];
             self.ajaxRequests = [];
-            self.ajaxQueueIntervalId = null;
-            self.ajaxCurrentThreads = 0;
             self.ajaxAborted = false;
         },
         _init: function (options, refreshMode) {
@@ -763,7 +935,7 @@
             var self = this;
             self.fileManager = {
                 stack: {},
-                processed: [],
+                filesProcessed: [],
                 errors: [],
                 loadedImages: {},
                 totalImages: 0,
@@ -881,16 +1053,16 @@
                     return files;
                 },
                 isPending: function (id) {
-                    return $.inArray(id, self.fileManager.processed) === -1 && self.fileManager.exists(id);
+                    return $.inArray(id, self.fileManager.filesProcessed) === -1 && self.fileManager.exists(id);
                 },
                 isProcessed: function () {
-                    var processed = true, fm = self.fileManager;
+                    var filesProcessed = true, fm = self.fileManager;
                     $.each(fm.stack, function (id) {
                         if (fm.isPending(id)) {
-                            processed = false;
+                            filesProcessed = false;
                         }
                     });
-                    return processed;
+                    return filesProcessed;
                 },
                 clear: function () {
                     var fm = self.fileManager;
@@ -899,7 +1071,7 @@
                     fm.uploadedSize = 0;
                     fm.stack = {};
                     fm.errors = [];
-                    fm.processed = [];
+                    fm.filesProcessed = [];
                     fm.stats = {};
                     fm.clearImages();
                 },
@@ -914,7 +1086,7 @@
                     delete self.fileManager.loadedImages[id];
                 },
                 getImageIdList: function () {
-                    return Object.keys(self.fileManager.loadedImages);
+                    return $h.getObjectKeys(self.fileManager.loadedImages);
                 },
                 getImageCount: function () {
                     return self.fileManager.getImageIdList().length;
@@ -940,7 +1112,7 @@
                     return self.fileManager.getIndex(id);
                 },
                 getIdList: function () {
-                    return Object.keys(self.fileManager.stack);
+                    return $h.getObjectKeys(self.fileManager.stack);
                 },
                 getFile: function (id) {
                     return self.fileManager.stack[id] || null;
@@ -964,14 +1136,14 @@
                     }
                 },
                 setProcessed: function (id) {
-                    self.fileManager.processed.push(id);
+                    self.fileManager.filesProcessed.push(id);
                 },
                 getProgress: function () {
-                    var total = self.fileManager.total(), processed = self.fileManager.processed.length;
+                    var total = self.fileManager.total(), filesProcessed = self.fileManager.filesProcessed.length;
                     if (!total) {
                         return 0;
                     }
-                    return Math.ceil(processed / total * 100);
+                    return Math.ceil(filesProcessed / total * 100);
 
                 },
                 setProgress: function (id, pct) {
@@ -1023,11 +1195,9 @@
             self.resumableManager = {
                 init: function (id, f, index) {
                     var rm = self.resumableManager, fm = self.fileManager;
-                    rm.currThreads = 0;
                     rm.logs = [];
                     rm.stack = [];
                     rm.error = '';
-                    rm.chunkIntervalId = null;
                     rm.id = id;
                     rm.file = f.file;
                     rm.fileName = f.name;
@@ -1057,7 +1227,8 @@
                 },
                 reset: function () {
                     var rm = self.resumableManager;
-                    rm.processed = {};
+                    rm.stack = [];
+                    rm.chunksProcessed = {};
                 },
                 setProcessed: function (status) {
                     var rm = self.resumableManager, fm = self.fileManager, id = rm.id, msg,
@@ -1065,37 +1236,39 @@
                         params = {id: hasThumb ? $thumb.attr('id') : '', index: fm.getIndex(id), fileId: id};
                     rm.completed = true;
                     rm.lastProgress = 0;
-                    fm.uploadedSize += rm.file.size;
                     if (hasThumb) {
                         $thumb.removeClass('file-uploading');
                     }
                     if (status === 'success') {
+                        fm.uploadedSize += rm.file.size;
                         if (self.showPreview) {
                             self._setProgress(101, $prog);
                             self._setThumbStatus($thumb, 'Success');
-                            self._initUploadSuccess(rm.processed[id].data, $thumb);
+                            self._initUploadSuccess(rm.chunksProcessed[id].data, $thumb);
                         }
                         self.fileManager.removeFile(id);
-                        delete rm.processed[id];
+                        delete rm.chunksProcessed[id];
                         self._raise('fileuploaded', [params.id, params.index, params.fileId]);
                         if (fm.isProcessed()) {
                             self._setProgress(101);
                         }
                     } else {
-                        if (self.showPreview) {
-                            self._setThumbStatus($thumb, 'Error');
-                            self._setPreviewError($thumb, true);
-                            self._setProgress(101, $prog, self.msgProgressError);
-                            self._setProgress(101, self.$progress, self.msgProgressError);
-                            self.cancelling = true;
-                        }
-                        if (!self.$errorContainer.find('li[data-file-id="' + params.fileId + '"]').length) {
-                            msg = self.msgResumableUploadRetriesExceeded.setTokens({
-                                file: rm.fileName,
-                                max: self.resumableUploadOptions.maxRetries,
-                                error: rm.error
-                            });
-                            self._showFileError(msg, params);
+                        if (status !== 'cancel') {
+                            if (self.showPreview) {
+                                self._setThumbStatus($thumb, 'Error');
+                                self._setPreviewError($thumb, true);
+                                self._setProgress(101, $prog, self.msgProgressError);
+                                self._setProgress(101, self.$progress, self.msgProgressError);
+                                self.cancelling = true;
+                            }
+                            if (!self.$errorContainer.find('li[data-file-id="' + params.fileId + '"]').length) {
+                                msg = self.msgResumableUploadRetriesExceeded.setTokens({
+                                    file: rm.fileName,
+                                    max: self.resumableUploadOptions.maxRetries,
+                                    error: rm.error
+                                });
+                                self._showFileError(msg, params);
+                            }
                         }
                     }
                     if (fm.isProcessed()) {
@@ -1110,10 +1283,6 @@
                             return false;
                         }
                     });
-                    if (status) {
-                        clearInterval(rm.chunkIntervalId);
-                        rm.setProcessed('success');
-                    }
                 },
                 processedResumables: function () {
                     var logs = self.resumableManager.logs, i, count = 0;
@@ -1139,11 +1308,11 @@
                     return 0;
                 },
                 getProgress: function () {
-                    var rm = self.resumableManager, processed = rm.processedResumables(), total = rm.chunkCount;
+                    var rm = self.resumableManager, chunksProcessed = rm.processedResumables(), total = rm.chunkCount;
                     if (total === 0) {
                         return 0;
                     }
-                    return Math.ceil(processed / total * 100);
+                    return Math.ceil(chunksProcessed / total * 100);
                 },
                 checkAborted: function (intervalId) {
                     if (self.paused || self.cancelling) {
@@ -1198,14 +1367,31 @@
                     }, self.processDelay);
                 },
                 uploadResumable: function () {
-                    var i, rm = self.resumableManager, total = rm.chunkCount;
+                    var i, pool, tm = self.taskManager, rm = self.resumableManager, total = rm.chunkCount;
+
+                    // 1 task pool per file
+                    pool = tm.addPool(rm.id);
+
                     for (i = 0; i < total; i++) {
-                        rm.logs[i] = !!(rm.processed[rm.id] && rm.processed[rm.id][i]);
+                        rm.logs[i] = !!(rm.chunksProcessed[rm.id] && rm.chunksProcessed[rm.id][i]);
+                        if (!rm.logs[i]) {
+                            rm.pushAjax(i, 0);
+                        }
                     }
-                    for (i = 0; i < total; i++) {
-                        rm.pushAjax(i, 0);
+
+                    if (!rm.testing) {
+                        pool.run(self.resumableUploadOptions.maxThreads)
+                            .done(function () {
+                                rm.setProcessed('success');
+                            })
+                            .fail(function () {
+                                if (pool.cancelled) {
+                                    rm.setProcessed('cancel');
+                                } else {
+                                    rm.setProcessed('error');
+                                }
+                            });
                     }
-                    rm.chunkIntervalId = setInterval(rm.loopAjax, self.queueDelay);
                 },
                 testUpload: function () {
                     var rm = self.resumableManager, opts = self.resumableUploadOptions, fd, f,
@@ -1236,14 +1422,14 @@
                         if (!data[chunksUploaded] || !$h.isArray(data[chunksUploaded])) {
                             self._raise('filetesterror', params);
                         } else {
-                            if (!rm.processed[id]) {
-                                rm.processed[id] = {};
+                            if (!rm.chunksProcessed[id]) {
+                                rm.chunksProcessed[id] = {};
                             }
                             $.each(data[chunksUploaded], function (key, index) {
                                 rm.logs[index] = true;
-                                rm.processed[id][index] = true;
+                                rm.chunksProcessed[id][index] = true;
                             });
-                            rm.processed[id].data = data;
+                            rm.chunksProcessed[id].data = data;
                             self._raise('filetestsuccess', params);
                         }
                         rm.testing = false;
@@ -1261,17 +1447,28 @@
                     self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, fd, id, rm.fileIndex, opts.testUrl);
                 },
                 pushAjax: function (index, retry) {
-                    self.resumableManager.stack.push([index, retry]);
+                    var tm = self.taskManager, rm = self.resumableManager, pool = tm.getPool(rm.id);
+                    pool.addTask(pool.size() + 1, function (deferrer) {
+                        // use fifo chunk stack
+                        var arr = rm.stack.shift(), index;
+                        index = arr[0];
+                        if (!rm.chunksProcessed[rm.id] || !rm.chunksProcessed[rm.id][index]) {
+                            rm.sendAjax(index, arr[1], deferrer);
+                        } else {
+                            self._log('Could not add task to ajax pool for chunk index # ' + index);
+                        }
+                    });
+                    rm.stack.push([index, retry]);
                 },
-                sendAjax: function (index, retry) {
+                sendAjax: function (index, retry, deferrer) {
                     var fm = self.fileManager, rm = self.resumableManager, opts = self.resumableUploadOptions, f,
                         chunkSize = rm.chunkSize, id = rm.id, file = rm.file, $thumb = rm.$thumb,
                         $btnDelete = rm.$btnDelete;
-                    if (rm.processed[id] && rm.processed[id][index]) {
+                    if (rm.chunksProcessed[id] && rm.chunksProcessed[id][index]) {
                         return;
                     }
-                    rm.currThreads++;
                     if (retry > opts.maxRetries) {
+                        deferrer.reject('max try reached');
                         rm.setProcessed('error');
                         return;
                     }
@@ -1310,7 +1507,6 @@
                         outData = self._getOutData(fd, jqXHR, data);
                         var paramNames = self.uploadParamNames, chunkIndex = paramNames.chunkIndex || 'chunkIndex',
                             opts = self.resumableUploadOptions, params = [id, index, retry, fm, rm, outData];
-                        rm.currThreads--;
                         if (data.error) {
                             if (opts.showErrorLog) {
                                 self._log(logs.retryStatus, {
@@ -1324,44 +1520,30 @@
                             self._raise('filechunkerror', params);
                         } else {
                             rm.logs[data[chunkIndex]] = true;
-                            if (!rm.processed[id]) {
-                                rm.processed[id] = {};
+                            if (!rm.chunksProcessed[id]) {
+                                rm.chunksProcessed[id] = {};
                             }
-                            rm.processed[id][data[chunkIndex]] = true;
-                            rm.processed[id].data = data;
+                            rm.chunksProcessed[id][data[chunkIndex]] = true;
+                            rm.chunksProcessed[id].data = data;
+                            deferrer.resolve.call(null, data);
                             self._raise('filechunksuccess', params);
                             rm.check();
                         }
                     };
                     fnError = function (jqXHR, textStatus, errorThrown) {
                         outData = self._getOutData(fd, jqXHR);
-                        rm.currThreads--;
                         rm.error = errorThrown;
                         rm.logAjaxError(jqXHR, textStatus, errorThrown);
                         self._raise('filechunkajaxerror', [id, index, retry, fm, rm, outData]);
+                        // push another task
                         rm.pushAjax(index, retry + 1);
+                        // resolve the current task
+                        deferrer.reject('try failed');
                     };
                     fnComplete = function () {
                         self._raise('filechunkcomplete', [id, index, retry, fm, rm, self._getOutData(fd)]);
                     };
                     self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, fd, id, rm.fileIndex);
-                },
-                loopAjax: function () {
-                    var rm = self.resumableManager;
-                    if (rm.currThreads < self.resumableUploadOptions.maxThreads && !rm.testing) {
-                        var arr = rm.stack.shift(), index;
-                        if (typeof arr !== 'undefined') {
-                            index = arr[0];
-                            if (!rm.processed[rm.id] || !rm.processed[rm.id][index]) {
-                                rm.sendAjax(index, arr[1]);
-                            } else {
-                                if (rm.processedResumables() >= rm.getTotalChunks()) {
-                                    rm.setProcessed('success');
-                                    clearInterval(rm.chunkIntervalId);
-                                }
-                            }
-                        }
-                    }
                 }
             };
             self.resumableManager.reset();
@@ -2979,7 +3161,7 @@
             }
         },
         _ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError, formdata, fileId, index, vUrl) {
-            var self = this, settings, defaults, data, processQueue;
+            var self = this, settings, defaults, data, ajaxTask;
             if (!self._raise('filepreajax', [formdata, fileId, index])) {
                 return;
             }
@@ -3015,23 +3197,14 @@
                 contentType: false
             };
             settings = $.extend(true, {}, defaults, self._ajaxSettings);
+            ajaxTask = self.taskManager.addTask(fileId + '-' + vUrl, function () {
+                var self = this.self, config, xhr;
+                config = self.ajaxQueue.shift();
+                xhr = $.ajax(config);
+                self.ajaxRequests.push(xhr);
+            });
             self.ajaxQueue.push(settings);
-            processQueue = function () {
-                var config, xhr;
-                if (self.ajaxCurrentThreads < self.maxAjaxThreads) {
-                    config = self.ajaxQueue.shift();
-                    if (typeof config !== 'undefined') {
-                        self.ajaxCurrentThreads++;
-                        xhr = $.ajax(config).done(function () {
-                            clearInterval(self.ajaxQueueIntervalId);
-                            self.ajaxCurrentThreads--;
-                        });
-                        self.ajaxRequests.push(xhr);
-                    }
-                }
-            };
-            self.ajaxQueueIntervalId = setInterval(processQueue, self.queueDelay);
-
+            ajaxTask.runWithContext({self: self});
         },
         _mergeArray: function (prop, content) {
             var self = this, arr1 = $h.cleanArray(self[prop]), arr2 = $h.cleanArray(content);
@@ -4740,9 +4913,6 @@
         },
         _isFileSelectionValid: function (cnt) {
             var self = this;
-            if (self.isDisabled) {
-                return true;
-            }
             cnt = cnt || 0;
             if (self.required && !self.getFilesCount()) {
                 self.$errorContainer.html('');
@@ -5148,15 +5318,14 @@
         },
         pause: function () {
             var self = this, rm = self.resumableManager, xhr = self.ajaxRequests, len = xhr.length, i,
-                pct = rm.getProgress(), actions = self.fileActionSettings;
+                pct = rm.getProgress(), actions = self.fileActionSettings, tm = self.taskManager,
+                pool = tm.getPool(rm.id);
             if (!self.enableResumableUpload) {
                 return self.$element;
-            }
-            if (rm.chunkIntervalId) {
-                clearInterval(rm.chunkIntervalId);
-            }
-            if (self.ajaxQueueIntervalId) {
-                clearInterval(self.ajaxQueueIntervalId);
+            } else {
+                if (pool) {
+                    pool.cancel();
+                }
             }
             self._raise('fileuploadpaused', [self.fileManager, rm]);
             if (len > 0) {
@@ -5185,16 +5354,18 @@
             return self.$element;
         },
         cancel: function () {
-            var self = this, xhr = self.ajaxRequests, rm = self.resumableManager, len = xhr.length, i;
-            if (self.enableResumableUpload && rm.chunkIntervalId) {
-                clearInterval(rm.chunkIntervalId);
+            var self = this, xhr = self.ajaxRequests,
+                rm = self.resumableManager, tm = self.taskManager,
+                pool = tm.getPool(rm.id), len = xhr.length, i;
+
+            if (self.enableResumableUpload && pool) {
+                pool.cancel().done(function () {
+                    self._setProgressCancelled();
+                });
                 rm.reset();
                 self._raise('fileuploadcancelled', [self.fileManager, rm]);
             } else {
                 self._raise('fileuploadcancelled', [self.fileManager]);
-            }
-            if (self.ajaxQueueIntervalId) {
-                clearInterval(self.ajaxQueueIntervalId);
             }
             self._initAjax();
             if (len > 0) {
@@ -5308,7 +5479,7 @@
         upload: function () {
             var self = this, fm = self.fileManager, totLen = fm.count(), i, outData,
                 hasExtraData = !$.isEmptyObject(self._getExtraData());
-            if (!self.isAjaxUpload || !self._isFileSelectionValid(totLen)) {
+            if (!self.isAjaxUpload || self.isDisabled || !self._isFileSelectionValid(totLen)) {
                 return;
             }
             self.lastProgress = 0;
