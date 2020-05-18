@@ -11,16 +11,14 @@
 (function (factory) {
     'use strict';
     //noinspection JSUnresolvedVariable
-    if (typeof define === 'function' && define.amd) { // jshint ignore:line
-        // AMD. Register as an anonymous module.
-        define(['jquery'], factory); // jshint ignore:line
+    if (typeof define === 'function' && define.amd) { // AMD. Register as an anonymous module.
+        //noinspection JSUnresolvedFunction
+        define(['jquery'], factory);
     } else { // noinspection JSUnresolvedVariable
-        if (typeof module === 'object' && module.exports) { // jshint ignore:line
-            // Node/CommonJS
-            // noinspection JSUnresolvedVariable
-            module.exports = factory(require('jquery')); // jshint ignore:line
-        } else {
-            // Browser globals
+        if (typeof module === 'object' && module.exports) { // Node/CommonJS
+            // noinspection JSUnresolvedVariable,JSUnresolvedFunction,NpmUsedModulesInstalled
+            module.exports = factory(require('jquery'));
+        } else { // Browser globals
             factory(window.jQuery);
         }
     }
@@ -590,16 +588,16 @@
             el.style['-o-transform'] = val;
         },
         getObjectKeys: function (obj) {
-            var key, keys = [];
-            for (key in obj) {
-                if (obj.hasOwnProperty(key)) {
+            var keys = [];
+            if (obj) {
+                $.each(obj, function (key) {
                     keys.push(key);
-                }
+                });
             }
             return keys;
         },
         getObjectSize: function (obj) {
-            return this.getObjectKeys(obj).length;
+            return $h.getObjectKeys(obj).length;
         },
         /**
          * Small dependency injection for the task manager
@@ -667,28 +665,30 @@
             self.lastProgress = 0;
             self._initAjax();
         },
+        _isAborted: function () {
+            var self = this;
+            return self.cancelling || self.paused;
+        },
         _initAjax: function () {
             var self = this, tm = self.taskManager = {
                 pool: {},
                 addPool: function (id) {
-                    var TasksPool = tm.TasksPool;
-                    return (tm.pool[id] = new TasksPool(id));
+                    return (tm.pool[id] = new tm.TasksPool(id));
                 },
                 getPool: function (id) {
-                    return this.pool[id];
+                    return tm.pool[id];
                 },
                 addTask: function (id, logic) { // add standalone task directly from task manager
-                    var tm = this, Task = tm.Task;
-                    return new Task(id, logic);
+                    return new tm.Task(id, logic);
                 },
                 TasksPool: function (id) {
-                    var tp = this, Task = tm.Task;
+                    var tp = this;
                     tp.id = id;
                     tp.cancelled = false;
                     tp.cancelledDeferrer = $.Deferred();
                     tp.tasks = {};
                     tp.addTask = function (id, logic) {
-                        return (tp.tasks[id] = new Task(id, logic));
+                        return (tp.tasks[id] = new tm.Task(id, logic));
                     };
                     tp.size = function () {
                         return $h.getObjectSize(tp.tasks);
@@ -696,7 +696,7 @@
                     tp.run = function (maxThreads) {
                         var i = 0, failed = false, task, tasksList = $h.getObjectKeys(tp.tasks).map(function (key) {
                             return tp.tasks[key];
-                        }), tasksCount = tasksList.length, tasksDone = [], deferred = $.Deferred(), enqueue, callback;
+                        }), tasksDone = [], deferred = $.Deferred(), enqueue, callback;
 
                         if (tp.cancelled) {
                             tp.cancelledDeferrer.resolve();
@@ -751,7 +751,7 @@
                                 tp.cancelledDeferrer.resolve();
                                 return;
                             }
-                            if (tasksDone.length === tasksCount) {
+                            if (tasksDone.length === tp.size()) {
                                 if (failed) {
                                     deferred.reject.apply(null, tasksDone);
                                 } else {
@@ -1315,7 +1315,7 @@
                     return Math.ceil(chunksProcessed / total * 100);
                 },
                 checkAborted: function (intervalId) {
-                    if (self.paused || self.cancelling) {
+                    if (self._isAborted()) {
                         clearInterval(intervalId);
                         self.unlock();
                     }
@@ -1455,7 +1455,7 @@
                         if (!rm.chunksProcessed[rm.id] || !rm.chunksProcessed[rm.id][index]) {
                             rm.sendAjax(index, arr[1], deferrer);
                         } else {
-                            self._log('Could not add task to ajax pool for chunk index # ' + index);
+                            self._log('Could not push task to ajax pool for chunk index # ' + index);
                         }
                     });
                     rm.stack.push([index, retry]);
@@ -1504,6 +1504,10 @@
                         self._raise('filechunkbeforesend', [id, index, retry, fm, rm, outData]);
                     };
                     fnSuccess = function (data, textStatus, jqXHR) {
+                        if (self._isAborted()) {
+                            deferrer.reject('cancelling');
+                            return;
+                        }
                         outData = self._getOutData(fd, jqXHR, data);
                         var paramNames = self.uploadParamNames, chunkIndex = paramNames.chunkIndex || 'chunkIndex',
                             opts = self.resumableUploadOptions, params = [id, index, retry, fm, rm, outData];
@@ -1531,17 +1535,21 @@
                         }
                     };
                     fnError = function (jqXHR, textStatus, errorThrown) {
+                        if (self._isAborted()) {
+                            deferrer.reject('cancelling');
+                            return;
+                        }
                         outData = self._getOutData(fd, jqXHR);
                         rm.error = errorThrown;
                         rm.logAjaxError(jqXHR, textStatus, errorThrown);
                         self._raise('filechunkajaxerror', [id, index, retry, fm, rm, outData]);
-                        // push another task
-                        rm.pushAjax(index, retry + 1);
-                        // resolve the current task
-                        deferrer.reject('try failed');
+                        rm.pushAjax(index, retry + 1); // push another task
+                        deferrer.reject('try failed'); // resolve the current task
                     };
                     fnComplete = function () {
-                        self._raise('filechunkcomplete', [id, index, retry, fm, rm, self._getOutData(fd)]);
+                        if (!self._isAborted()) {
+                            self._raise('filechunkcomplete', [id, index, retry, fm, rm, self._getOutData(fd)]);
+                        }
                     };
                     self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, fd, id, rm.fileIndex);
                 }
@@ -3197,7 +3205,7 @@
                 contentType: false
             };
             settings = $.extend(true, {}, defaults, self._ajaxSettings);
-            ajaxTask = self.taskManager.addTask(fileId + '-' + vUrl, function () {
+            ajaxTask = self.taskManager.addTask(fileId + '-' + index, function () {
                 var self = this.self, config, xhr;
                 config = self.ajaxQueue.shift();
                 xhr = $.ajax(config);
@@ -5621,7 +5629,8 @@
         }
     };
 
-    //noinspection HtmlUnknownAttribute
+    var IFRAME_ATTRIBS = 'class="kv-preview-data file-preview-pdf" src="{renderer}?file={data}" {style}';
+
     $.fn.fileinput.defaults = {
         language: 'en',
         showCaption: true,
@@ -5807,7 +5816,7 @@
             return !!navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/i) || isIE11;
         },
         pdfRendererUrl: '',
-        pdfRendererTemplate: '<iframe class="kv-preview-data file-preview-pdf" src="{renderer}?file={data}" {style}></iframe>'
+        pdfRendererTemplate: '<iframe ' + IFRAME_ATTRIBS + '></iframe>'
     };
 
     // noinspection HtmlUnknownAttribute
