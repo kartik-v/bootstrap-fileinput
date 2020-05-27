@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1525, #1566): Handle `filebeforeload` event abort when returning `false`.
+- (enh #1563): Update Català Translations.
 - (enh #1561): Correct triggering of events for cancelled & paused scenarios.
 - (enh #1557, #1559): Enhance and fix resumable and ajax queues.
 - (enh #1552, #1553): More correct full screen exit.
