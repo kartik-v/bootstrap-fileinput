@@ -3454,20 +3454,18 @@
                 }, self.processDelay);
             };
             fnComplete = function () {
-                setTimeout(function () {
-                    if (self.showPreview) {
-                        $btnUpload.removeAttr('disabled');
-                        $btnDelete.removeAttr('disabled');
-                        $thumb.removeClass('file-uploading');
-                    }
-                    if (!isBatch) {
-                        self.unlock(false);
-                        self._clearFileInput();
-                    } else {
-                        chkComplete();
-                    }
-                    self._initSuccessThumbs();
-                }, self.processDelay);
+                if (self.showPreview) {
+                    $btnUpload.removeAttr('disabled');
+                    $btnDelete.removeAttr('disabled');
+                    $thumb.removeClass('file-uploading');
+                }
+                if (!isBatch) {
+                    self.unlock(false);
+                    self._clearFileInput();
+                } else {
+                    chkComplete();
+                }
+                self._initSuccessThumbs();
             };
             fnError = function (jqXHR, textStatus, errorThrown) {
                 errMsg = self._parseError(op, jqXHR, errorThrown, self.fileManager.getFileName(id));
@@ -5378,7 +5376,7 @@
         cancel: function () {
             var self = this, xhr = self.ajaxRequests,
                 rm = self.resumableManager, tm = self.taskManager,
-                pool = tm.getPool(rm.id), len = xhr.length, i;
+                pool = rm ? tm.getPool(rm.id) : undefined, len = xhr.length, i;
 
             if (self.enableResumableUpload && pool) {
                 pool.cancel().done(function () {
