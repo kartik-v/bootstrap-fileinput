@@ -2257,7 +2257,7 @@
             /** @namespace jqXHR.responseJSON */
             var self = this, errMsg = $.trim(errorThrown + ''), textPre,
                 text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined ?
-                    jqXHR.responseJSON.error : jqXHR.responseText;
+                    jqXHR.responseJSON.error.toString() : jqXHR.responseText;
             if (self.cancelling && self.msgUploadAborted) {
                 errMsg = self.msgUploadAborted;
             }
