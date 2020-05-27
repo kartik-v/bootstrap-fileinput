@@ -633,6 +633,84 @@
                 deferred.resolveWith(resolveContexts, resolveValues);
             }
             return deferred.promise();
+        },
+        uniqId: function() {
+            return (new Date().getTime()+Math.floor(Math.random()*Math.pow(10, 15))).toString(36);
+        },
+        parseEventCode: function(str) {
+            return Function(`'use strict'; return (function() { ${str} })`)();
+        },
+        cspBuffer: {
+            domEventsList: [
+                'mousedown', 'mouseup', 'click', 'dblclick', 'mousemove',
+                'mouseover', 'mousewheel', 'mouseout', 'contextmenu',
+                'touchstart', 'touchmove', 'touchend', 'touchcancel',
+                'keydown', 'keypress', 'keyup', 'focus', 'blur', 'change',
+                'submit', 'scroll', 'resize', 'hashchange', 'load', 'unload',
+                'cut', 'copy', 'paste'
+            ],
+            domElementEvents: {},
+            domElementsStyles: {},
+            stash: function (htmlString) {
+                let self = this, outterDom = $.parseHTML('<div>' + htmlString + '</div>'),
+                    $el = $(outterDom);
+                // Css Handle
+                $el.find('[style]').each(function(k,v) {
+                    let styleString = $(v).attr('style'), uniqId = $h.uniqId(), styles = {};
+
+                    styleString.slice(0, styleString.length - 1).split(';').map(function(x) {
+                        x = x.split(':');
+                        if(x[0]) styles[x[0]] = x[1] ? x[1] : '';
+                    });
+                    self.domElementsStyles[uniqId] = styles;
+                    $(v).removeAttr('style');
+                    $(v).attr('cspTmp', uniqId);
+                });
+                // make sure all style attr are removed
+                // empty ones wont match '[style]' selector
+                $el.filter('*').removeAttr('style');
+                // JS events handle
+                $.each(self.domEventsList, function (k, eventName) {
+                    let $inlineEvent = $el.find('[on' + eventName + ']');
+                    if($inlineEvent.length) {
+                        let uniqId, fn = $h.parseEventCode($inlineEvent.attr(eventName));
+                        if ($inlineEvent.attr('cspTmp')) {
+                            uniqId = $inlineEvent.attr('cspTmp');
+                        } else {
+                            uniqId = $h.uniqId();
+                            self.domElementEvents[uniqId] = [];
+                        }
+                        self.domElementEvents[uniqId].push({
+                            name: eventName,
+                            handler: fn
+                        });
+                        $inlineEvent.removeAttr('on'+eventName);
+                        $inlineEvent.attr('cspTmp', uniqId);
+                    }
+                });
+                return Object.values(outterDom).flatMap(function (x) { return x.outerHTML; }).join('');
+            },
+            apply: function (DomElement) {
+                var self = this, $el = $(DomElement);
+
+                $el.find('[cspTmp]').each(function (k, v) {
+                    let id = $(v).attr('cspTmp'), styles = self.domElementsStyles[id],
+                    events = self.domElementEvents[id];
+                    if (styles) {
+                        for (const prop in styles) {
+                            $(v).css(prop, styles[prop]);
+                        }
+                    }
+                    if (events) {
+                        for(let event of events) {
+                            $(v).off(event.name).on(event.name, event.handler);
+                        }
+                    }
+                    $(v).removeAttr('cspTmp');
+                });
+                self.domElementsStyles = {};
+                self.domElementEvents = {};
+            }
         }
     };
     FileInput = function (element, options) {
@@ -1676,7 +1754,7 @@
                 'data="{data}" type="{type}"' + tStyle + '>\n' + '<param name="movie" value="{caption}" />\n' +
                 $h.OBJECT_PARAMS + ' ' + $h.DEFAULT_PREVIEW + '\n</object>\n';
             tOther = '<div class="kv-preview-data file-preview-other-frame"' + tStyle + '>\n' + $h.DEFAULT_PREVIEW + '\n</div>\n';
-            tZoomCache = '<div class="kv-zoom-cache" style="display:none">{zoomContent}</div>';
+            tZoomCache = '<div class="kv-zoom-cache" style="display:none;">{zoomContent}</div>';
             vDefaultDim = {width: '100%', height: '100%', 'min-height': '480px'};
             if (self._isPdfRendered()) {
                 tPdf = self.pdfRendererTemplate.replace('{renderer}', self._encodeURI(self.pdfRendererUrl));
@@ -1936,7 +2014,8 @@
                     }
                     /** @namespace config.frameAttr */
                     if (!$h.isEmpty(config) && !$h.isEmpty(config.frameAttr)) {
-                        $tmp = $(document.createElement('div')).html(out);
+                        // this wont trigger CSP rules that way
+                        $tmp = $($.parseHTML('<div>' + out + '</div>'));
                         $tmp.find('.file-preview-initial').attr(config.frameAttr);
                         out = $tmp.html();
                         $tmp.remove();
@@ -2131,7 +2210,8 @@
             if ($errList.length) {
                 return true;
             }
-            $err = $(document.createElement('div')).html(self.$errorContainer.html());
+            // this wont trigger CSP rules that way
+            $err = $($.parseHTML('<div>' + self.$errorContainer.html() + '</div>'));
             $err.find('.kv-error-close').remove();
             $err.find('ul').remove();
             return !!$.trim($err.text()).length;
@@ -2164,7 +2244,8 @@
         _addError: function (msg) {
             var self = this, $error = self.$errorContainer;
             if (msg && $error.length) {
-                $error.html(self.errorCloseButton + msg);
+                $error.html($h.cspBuffer.stash(self.errorCloseButton + msg));
+                $h.cspBuffer.apply($error);
                 self._handler($error.find('.kv-error-close'), 'click', function () {
                     setTimeout(function () {
                         if (self.showPreview && !self.getFrames().length) {
@@ -2608,7 +2689,8 @@
         },
         _setPreviewContent: function (content) {
             var self = this;
-            self.$preview.html(content);
+            self.$preview.html($h.cspBuffer.stash(content));
+            $h.cspBuffer.apply(self.$preview);
             self._autoFitContent();
         },
         _initPreviewImageOrientations: function () {
@@ -2705,12 +2787,15 @@
             }
             self.$modal = $(modalId);
             if (!self.$modal || !self.$modal.length) {
-                $dialog = $(document.createElement('div')).html(modalMain).insertAfter(self.$container);
+                // this wont trigger CSP rules that way
+                $dialog = $($.parseHTML($h.cspBuffer.stash('<div>' + modalMain + '</div>'))).insertAfter(self.$container);
                 self.$modal = $(modalId).insertBefore($dialog);
+                $h.cspBuffer.apply(self.$modal);
                 $dialog.remove();
             }
             $h.initModal(self.$modal);
-            self.$modal.html(self._getModalContent());
+            self.$modal.html($h.cspBuffer.stash(self._getModalContent()));
+            $h.cspBuffer.apply(self.$modal);
             $.each($h.MODAL_EVENTS, function (key, event) {
                 self._listenModalEvent(event);
             });
@@ -2804,7 +2889,8 @@
             $modal.removeClass('kv-single-content');
             if (animate) {
                 $tmp = $body.addClass('file-thumb-loading').clone().insertAfter($body);
-                $body.html(body).hide();
+                $body.html($h.cspBuffer.stash(body)).hide();
+                $h.cspBuffer.apply($body);
                 $tmp.fadeOut('fast', function () {
                     $body.fadeIn('fast', function () {
                         $body.removeClass('file-thumb-loading');
@@ -2812,7 +2898,8 @@
                     $tmp.remove();
                 });
             } else {
-                $body.html(body);
+                $body.html($h.cspBuffer.stash(body));
+                $h.cspBuffer.apply($body);
             }
             config = self.previewZoomSettings[tmplt];
             if (config) {
@@ -2881,7 +2968,8 @@
                 throw 'Cannot zoom to detailed preview!';
             }
             $h.initModal($modal);
-            $modal.html(self._getModalContent());
+            $modal.html($h.cspBuffer.stash(self._getModalContent()));
+            $h.cspBuffer.apply($modal);
             $frame = $btn.closest($h.FRAMES);
             self._setZoomContent($frame);
             $modal.modal('show');
@@ -3242,7 +3330,8 @@
                     if (!allFiles) {
                         index = self.previewCache.add(content[0], config[0], tags[0], append);
                         data = self.previewCache.get(index, false);
-                        $div = $(document.createElement('div')).html(data).hide().insertAfter($thumb);
+                        // this wont trigger CSP rules that way
+                        $div = $($.parseHTML('<div>' + data + '</div>')).hide().insertAfter($thumb);
                         $newCache = $div.find('.kv-zoom-cache');
                         if ($newCache && $newCache.length) {
                             $newCache.insertAfter($thumb);
@@ -3984,7 +4073,9 @@
         },
         _addToPreview: function ($preview, content) {
             var self = this;
-            return self.reversePreviewOrder ? $preview.prepend(content) : $preview.append(content);
+            content = $h.cspBuffer.stash(content);
+            self.reversePreviewOrder ? $preview.prepend(content) : $preview.append(content);
+            $h.cspBuffer.apply($preview);
         },
         _previewDefault: function (file, isDisabled) {
             var self = this, $preview = self.$preview;
@@ -4089,7 +4180,8 @@
             if (status === 'Success') {
                 $thumb.find('.file-drag-handle').remove();
             }
-            $indicator.html(config[icon]);
+            $indicator.html($h.cspBuffer.stash(config[icon]));
+            $h.cspBuffer.apply($indicator);
             $indicator.attr('title', config[msg]);
             $thumb.addClass(css);
             if (status === 'Error' && !self.retryErrorUploads) {
@@ -4121,9 +4213,11 @@
                 }
                 stats = stats || '';
                 out = out.setTokens({stats: stats});
-                $el.html(out);
+                $el.html($h.cspBuffer.stash(out));
+                $h.cspBuffer.apply($el);
                 if (error) {
-                    $el.find('[role="progressbar"]').html(error);
+                    $el.find('[role="progressbar"]').html($h.cspBuffer.stash(error));
+                    $h.cspBuffer.apply($el);
                 }
             }
         },
@@ -4173,11 +4267,12 @@
         _toggleResumableProgress: function (template, message) {
             var self = this, $progress = self.$progress;
             if ($progress && $progress.length) {
-                $progress.html(template.setTokens({
+                $progress.html($h.cspBuffer.stash(template.setTokens({
                     percent: 101,
                     status: message,
                     stats: ''
-                }));
+                })));
+                $h.cspBuffer.apply($progress);
             }
         },
         _setFileUploadStats: function (id, pct, total, stats) {
@@ -4267,7 +4362,8 @@
                 icon = cfg.uploadRetryIcon;
                 title = cfg.uploadRetryTitle;
             }
-            $btn.attr('title', title).html(icon);
+            $btn.attr('title', title).html($h.cspBuffer.stash(icon));
+            $h.cspBuffer.apply($btn);
         },
         _checkDimensions: function (i, chk, $img, $thumb, fname, type, params) {
             var self = this, msg, dim, tag = chk === 'Small' ? 'min' : 'max', limit = self[tag + 'Image' + type],
@@ -4578,11 +4674,14 @@
             }
             self.$captionContainer.addClass('icon-visible');
             self.$caption.attr('title', title).val(out);
-            self.$captionIcon.html(icon);
+            self.$captionIcon.html($h.cspBuffer.stash(icon));
+            $h.cspBuffer.apply(self.$catptionIcon);
         },
         _createContainer: function () {
             var self = this, attribs = {'class': 'file-input file-input-new' + (self.rtl ? ' kv-rtl' : '')},
-                $container = $(document.createElement('div')).attr(attribs).html(self._renderMain());
+            // this wont trigger CSP rules that way
+            $container = $($.parseHTML('<div>' + $h.cspBuffer.stash(self._renderMain()) + '</div>')).attr(attribs);
+            $h.cspBuffer.apply($container);
             $container.insertBefore(self.$element);
             self._initBrowse($container);
             if (self.theme) {
@@ -4593,7 +4692,8 @@
         _refreshContainer: function () {
             var self = this, $container = self.$container, $el = self.$element;
             $el.insertAfter($container);
-            $container.html(self._renderMain());
+            $container.html($h.cspBuffer.stash(self._renderMain()));
+            $h.cspBuffer.apply($container);
             self._initBrowse($container);
             self._validateDisabled();
         },
@@ -5033,7 +5133,8 @@
                     if (self.duplicateErrors.length) {
                         errors = '<li>' + self.duplicateErrors.join('</li><li>') + '</li>';
                         if ($error.find('ul').length === 0) {
-                            $error.html(self.errorCloseButton + '<ul>' + errors + '</ul>');
+                            $error.html($h.cspBuffer.stash(self.errorCloseButton + '<ul>' + errors + '</ul>'));
+                            $h.cspBuffer.apply($error);
                         } else {
                             $error.find('ul').append(errors);
                         }
@@ -5577,7 +5678,8 @@
                 return;
             }
             $h.initModal($modal);
-            $modal.html(self._getModalContent());
+            $modal.html($h.cspBuffer.stash(self._getModalContent()));
+            $h.cspBuffer.apply($modal);
             self._setZoomContent($frame);
             $modal.modal('show');
             self._initZoomButtons();
@@ -5693,7 +5795,8 @@
         deleteExtraData: {},
         overwriteInitial: true,
         sanitizeZoomCache: function (content) {
-            var $container = $(document.createElement('div')).append(content);
+            // this wont trigger CSP rules that way
+            var $container = $($.parseHTML('<div>' + content + '</div>'));
             $container.find('input,select,.file-thumbnail-footer').remove();
             return $container.html();
         },
