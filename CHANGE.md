@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1568): Correct timeout and resumable validation for async uploads.
+- (enh #1536, #1567): Parse response as string in `_parseError` function.
 - (enh #1525, #1566): Handle `filebeforeload` event abort when returning `false`.
 - (enh #1563): Update Català Translations.
 - (enh #1561): Correct triggering of events for cancelled & paused scenarios.
