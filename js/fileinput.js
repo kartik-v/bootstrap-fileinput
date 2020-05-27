@@ -5062,7 +5062,7 @@
                     fnText = settings.text, fnImage = settings.image, fnHtml = settings.html, typ, chk, typ1, typ2,
                     caption = self._getFileName(file, ''), fileSize = (file && file.size || 0) / 1000,
                     fileExtExpr = '', previewData = $h.createObjectURL(file), fileCount = 0,
-                    strTypes = '', fileId, canLoad,
+                    strTypes = '', fileId, canLoad, fileReaderAborted = false,
                     func, knownTypes = 0, isText, isHtml, isImage, txtFlag, processFileLoaded = function () {
                         var msg = msgProgress.setTokens({
                             'index': i + 1,
@@ -5198,6 +5198,12 @@
                         };
                         newReader.onload = function (theFileNew) {
                             if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
+                                fileReaderAborted = true;
+                                self._resetCaption();
+                                reader.abort();
+                                $status.html('');
+                                $container.removeClass('file-thumb-loading');
+                                self.enable();
                                 return;
                             }
                             self._previewFile(i, file, theFileNew, previewData, fileInfo);
@@ -5239,6 +5245,12 @@
                         }
                     }
                     if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
+                        fileReaderAborted = true;
+                        self._resetCaption();
+                        reader.abort();
+                        $status.html('');
+                        $container.removeClass('file-thumb-loading');
+                        self.enable();
                         return;
                     }
                     self._previewFile(i, file, theFile, previewData, fileInfo);
@@ -5255,7 +5267,9 @@
                             'name': caption
                         });
                         setTimeout(function () {
-                            $status.html(msg);
+                            if (!fileReaderAborted) {
+                                $status.html(msg);
+                            }
                         }, self.processDelay);
                     }
                 };
