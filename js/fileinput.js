@@ -660,6 +660,7 @@
             self.clearFileStack();
             self.fileBatchCompleted = true;
             self.isError = false;
+            self.isPersistentError = false;
             self.cancelling = false;
             self.paused = false;
             self.lastProgress = 0;
@@ -908,6 +909,7 @@
                 $h.addCss(self.$errorContainer, self.msgErrorClass);
             }
             if (!refreshMode) {
+                self._resetErrors();
                 self.$errorContainer.hide();
                 self.previewInitId = 'thumb-' + $el.attr('id');
                 self._initPreviewCache();
@@ -1066,6 +1068,7 @@
                 },
                 clear: function () {
                     var fm = self.fileManager;
+                    self.isPersistentError = false;
                     fm.totalFiles = null;
                     fm.totalSize = null;
                     fm.uploadedSize = 0;
@@ -2183,6 +2186,9 @@
         },
         _resetErrors: function (fade) {
             var self = this, $error = self.$errorContainer;
+            if (self.isPersistentError) {
+                return;
+            }
             self.isError = false;
             self.$container.removeClass('has-error');
             self.$captionContainer.removeClass('is-invalid');
@@ -3357,6 +3363,7 @@
                 fm.setProcessed(id);
                 if (fm.isProcessed()) {
                     self.fileBatchCompleted = true;
+                    chkComplete();
                 }
             };
             chkComplete = function () {
@@ -4817,6 +4824,7 @@
                 throwError = function (mesg, file, previewId, index) {
                     var p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files), {id: previewId, index: index}),
                         p2 = {id: previewId, index: index, file: file, files: files};
+                    self.isPersistentError = true;
                     return isAjaxUpload ? self._showFileError(mesg, p1) : self._showError(mesg, p2);
                 },
                 maxCountCheck = function (n, m, all) {
@@ -5016,6 +5024,7 @@
                         self._initFileActions();
                         $thumb.find('.kv-file-upload').remove();
                     }
+                    self.isPersistentError = true;
                     self.isError = self.isAjaxUpload ? self._showFileError(msg, p1) : self._showError(msg, p2);
                     self._updateFileDetails(numFiles);
                 };
@@ -5422,6 +5431,7 @@
             self._clearFileInput();
             self._resetUpload();
             self.clearFileStack();
+            self.isPersistentError = false;
             self._resetErrors(true);
             if (self._hasInitialPreview()) {
                 self._showFileIcon();

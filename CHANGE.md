@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (bug #1569): Correctly validate persistent file validation errors and display them.
 - (enh #1568): Correct timeout and resumable validation for async uploads.
 - (enh #1536, #1567): Parse response as string in `_parseError` function.
 - (enh #1525, #1566): Handle `filebeforeload` event abort when returning `false`.
