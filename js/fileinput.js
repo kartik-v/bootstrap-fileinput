@@ -39,6 +39,12 @@
         return str;
     };
 
+    if (!Array.prototype.flatMap) { // polyfill flatMap
+        Array.prototype.flatMap = function (lambda) {
+            return [].concat(this.map(lambda));
+        };
+    }
+
     var $h, FileInput;
 
     // fileinput helper object for all global variables and internal helper methods
@@ -180,6 +186,11 @@
             document.body.appendChild(div);
             div.parentNode.removeChild(div);
             return status;
+        },
+        orientationSupported: function () {
+            var $img = $(document.createElement('img')), flag = $img.css('image-orientation');
+            $img.remove();
+            return !!flag;
         },
         canAssignFilesToInput: function () {
             var input = document.createElement('input');
@@ -455,7 +466,7 @@
             return (new Date().getTime() + Math.floor(Math.random() * Math.pow(10, 15))).toString(36);
         },
         parseEventCallback: function (str) {
-            return Function("'use strict'; return (function() { " + str + " });")();
+            return Function('\'use strict\'; return (function() { ' + str + ' });')();
         },
         cspBuffer: {
             CSP_ATTRIB: 'data-csp-01928735', // a randomly named temporary attribute to store the CSP elem id
@@ -500,7 +511,10 @@
                         $inlineEvent.removeAttr(event).attr(self.CSP_ATTRIB, id);
                     }
                 });
-                return Object.values(outerDom).flatMap(function (elem) {
+                var values = Object.values ? Object.values(outerDom) : Object.keys(outerDom).map(function (itm) {
+                    return outerDom[itm];
+                });
+                return values.flatMap(function (elem) {
                     return elem.outerHTML;
                 }).join('');
             },
@@ -2699,8 +2713,8 @@
             self._autoFitContent();
         },
         _initPreviewImageOrientations: function () {
-            var self = this, i = 0;
-            if (!self.autoOrientImageInitial) {
+            var self = this, i = 0, isOrientationSupported = $h.orientationSupported();
+            if (!self.autoOrientImageInitial && !isOrientationSupported) {
                 return;
             }
             self.getFrames('.file-preview-initial').each(function () {
@@ -2710,7 +2724,11 @@
                     id = $thumb.attr('id');
                     $img = $thumb.find('>.kv-file-content img');
                     $zoomImg = self._getZoom(id, ' >.kv-file-content img');
-                    self.setImageOrientation($img, $zoomImg, config.exif.Orientation, $thumb);
+                    if (isOrientationSupported) {
+                        $img.css('image-orientation', (self.autoOrientImageInitial ? 'from-image' : 'none'));
+                    } else {
+                        self.setImageOrientation($img, $zoomImg, config.exif.Orientation, $thumb);
+                    }
                 }
                 i++;
             });
@@ -4446,8 +4464,12 @@
             });
         },
         _validateImageOrientation: function ($img, file, previewId, fileId, caption, ftype, fsize, iData) {
-            var self = this, exifObj, value, autoOrientImage = self.autoOrientImage,
-                selector = $h.getZoomSelector(previewId, ' img');
+            var self = this, exifObj, value, autoOrientImage = self.autoOrientImage, selector;
+            if ($h.orientationSupported()) {
+                $img.css('image-orientation', (autoOrientImage ? 'from-image' : 'none'));
+                return;
+            }
+            selector = $h.getZoomSelector(previewId, ' img');
             exifObj = autoOrientImage ? self._getExifObj(iData) : null;
             value = exifObj ? exifObj['0th'][piexif.ImageIFD.Orientation] : null; // jshint ignore:line
             if (!value) {
