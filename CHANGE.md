@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (bug #1565, 1571): Implement CSP compliance for HTML markup via templates.
 - (bug #1569): Correctly validate persistent file validation errors and display them.
 - (enh #1568): Correct timeout and resumable validation for async uploads.
 - (enh #1536, #1567): Parse response as string in `_parseError` function.
