@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1574): Enhance filezoom events to fire correctly only once for the source file input.
+    - fixes issue when multiple file input plugins are initialized on the same page
 - (enh #1573): Update French Translations.
 - (enh #1572): Correct image auto orientation based on browser support.
 - (bug #1565, 1571): Implement CSP compliance for HTML markup via templates.

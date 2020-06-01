@@ -2788,7 +2788,9 @@
             };
             $modal.on(event + '.bs.modal', function (e) {
                 var $btnFull = $modal.find('.btn-fullscreen'), $btnBord = $modal.find('.btn-borderless');
-                self._raise('filezoom' + event, getParams(e));
+                if ($modal.data('fileinputPluginId') === self.$element.attr('id')) {
+                    self._raise('filezoom' + event, getParams(e));
+                }
                 if (event === 'shown') {
                     $btnBord.removeClass('active').attr('aria-pressed', 'false');
                     $btnFull.removeClass('active').attr('aria-pressed', 'false');
@@ -2982,17 +2984,25 @@
                 }
             });
         },
-        _zoomPreview: function ($btn) {
-            var self = this, $frame, $modal = self.$modal;
-            if (!$btn.length) {
-                throw 'Cannot zoom to detailed preview!';
+        _showModal: function($frame) {
+            var self = this, $modal = self.$modal;
+            if (!$frame) {
+                return;
             }
             $h.initModal($modal);
             $h.setHtml($modal, self._getModalContent());
-            $frame = $btn.closest($h.FRAMES);
             self._setZoomContent($frame);
+            $modal.data('fileinputPluginId', self.$element.attr('id'));
             $modal.modal('show');
             self._initZoomButtons();
+        },
+        _zoomPreview: function ($btn) {
+            var self = this, $frame;
+            if (!$btn.length) {
+                throw 'Cannot zoom to detailed preview!';
+            }
+            $frame = $btn.closest($h.FRAMES);
+            self._showModal($frame);
         },
         _zoomSlideShow: function (dir, previewId) {
             var self = this, $btn = self.$modal.find('.kv-zoom-actions .btn-' + dir), $targFrame, i, $thumb,
@@ -5692,15 +5702,8 @@
             return $el;
         },
         zoom: function (frameId) {
-            var self = this, $frame = self._getFrame(frameId), $modal = self.$modal;
-            if (!$frame) {
-                return;
-            }
-            $h.initModal($modal);
-            $h.setHtml($modal, self._getModalContent());
-            self._setZoomContent($frame);
-            $modal.modal('show');
-            self._initZoomButtons();
+            var self = this, $frame = self._getFrame(frameId);
+            self._showModal($frame);
         },
         getExif: function (frameId) {
             var self = this, $frame = self._getFrame(frameId);
