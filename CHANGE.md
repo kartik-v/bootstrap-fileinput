@@ -1,6 +1,10 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.1.0
+
+**Date:** _under development_
+
 ## version 5.0.9
 
 **Date:** 02-Jun-2020
@@ -9,7 +13,7 @@ Change Log: `bootstrap-fileinput`
     - fixes issue when multiple file input plugins are initialized on the same page
 - (enh #1573): Update French Translations.
 - (enh #1572): Correct image auto orientation based on browser support.
-- (bug #1565, 1571): Implement CSP compliance for HTML markup via templates.
+- (bug #1565, #1571): Implement CSP compliance for HTML markup via templates.
 - (bug #1569): Correctly validate persistent file validation errors and display them.
 - (enh #1568): Correct timeout and resumable validation for async uploads.
 - (enh #1536, #1567): Parse response as string in `_parseError` function.
