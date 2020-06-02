@@ -340,13 +340,13 @@
 
 .file-zoom-dialog .btn-navigate {
     padding: 0;
-    margin: 0;
+    margin: -60px 0 0;
+    font-size: 60px;
     background: transparent;
     text-decoration: none;
     outline: none;
     opacity: 0.7;
-    top: 45%;
-    font-size: 4em;
+    top: 50%;
     color: #1c94c4;
 }
 
@@ -468,6 +468,7 @@
 
 .file-zoom-content {
     text-align: center;
+    min-height: 300px;
 }
 
 .file-zoom-content .file-preview-image {

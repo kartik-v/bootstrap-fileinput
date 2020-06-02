@@ -406,13 +406,13 @@ input[type=file].file-loading {
     .btn-navigate {
         @extend %set-absolute;
         padding: 0;
-        margin: 0;
+        margin: -60px 0 0;
+        font-size: 60px;
         background: transparent;
         text-decoration: none;
         outline: none;
         opacity: 0.7;
-        top: 45%;
-        font-size: 4em;
+        top: 50%;
         color: $curious-blue;
         &:not([disabled]):hover {
             outline: none;
@@ -551,7 +551,7 @@ input[type=file].file-loading {
     margin-left: multiply($pad, 0.6);
 }
 .file-zoom-content {
-    height: multiply($pad, 96);
+    min-height: 300px;
     text-align: center;
     .file-preview-image {
         max-height: 100%;

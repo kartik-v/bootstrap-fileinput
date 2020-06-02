@@ -187,8 +187,9 @@
             div.parentNode.removeChild(div);
             return status;
         },
-        orientationSupported: function () {
-            var $img = $(document.createElement('img')), flag = $img.css('image-orientation');
+        canOrientImage: function ($el) {
+            var $img = $(document.createElement('img')).css({width: '1px', height: '1px'}).insertAfter($el),
+                flag = $img.css('image-orientation');
             $img.remove();
             return !!flag;
         },
@@ -899,6 +900,7 @@
         _init: function (options, refreshMode) {
             var self = this, f, $el = self.$element, $cont, t, tmp;
             self.options = options;
+            self.canOrientImage = $h.canOrientImage($el);
             $.each(options, function (key, value) {
                 switch (key) {
                     case 'minFileCount':
@@ -2713,8 +2715,8 @@
             self._autoFitContent();
         },
         _initPreviewImageOrientations: function () {
-            var self = this, i = 0, isOrientationSupported = $h.orientationSupported();
-            if (!self.autoOrientImageInitial && !isOrientationSupported) {
+            var self = this, i = 0, canOrientImage = self.canOrientImage;
+            if (!self.autoOrientImageInitial && !canOrientImage) {
                 return;
             }
             self.getFrames('.file-preview-initial').each(function () {
@@ -2724,7 +2726,7 @@
                     id = $thumb.attr('id');
                     $img = $thumb.find('>.kv-file-content img');
                     $zoomImg = self._getZoom(id, ' >.kv-file-content img');
-                    if (isOrientationSupported) {
+                    if (canOrientImage) {
                         $img.css('image-orientation', (self.autoOrientImageInitial ? 'from-image' : 'none'));
                     } else {
                         self.setImageOrientation($img, $zoomImg, config.exif.Orientation, $thumb);
@@ -2984,9 +2986,9 @@
                 }
             });
         },
-        _showModal: function($frame) {
+        _showModal: function ($frame) {
             var self = this, $modal = self.$modal;
-            if (!$frame) {
+            if (!$frame || !$frame.length) {
                 return;
             }
             $h.initModal($modal);
@@ -4475,7 +4477,7 @@
         },
         _validateImageOrientation: function ($img, file, previewId, fileId, caption, ftype, fsize, iData) {
             var self = this, exifObj, value, autoOrientImage = self.autoOrientImage, selector;
-            if ($h.orientationSupported()) {
+            if (self.canOrientImage) {
                 $img.css('image-orientation', (autoOrientImage ? 'from-image' : 'none'));
                 return;
             }

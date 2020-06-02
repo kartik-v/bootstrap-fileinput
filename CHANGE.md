@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.0.9
 
-**Date:** _under development_
+**Date:** 02-Jun-2020
 
 - (enh #1574): Enhance filezoom events to fire correctly only once for the source file input.
     - fixes issue when multiple file input plugins are initialized on the same page
