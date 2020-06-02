@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.0.9
+ * bootstrap-fileinput v5.1.0
  * http://plugins.krajee.com/file-input
  *
  * Glyphicon (default) theme configuration for bootstrap-fileinput.
