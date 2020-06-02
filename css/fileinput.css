@@ -1,11 +1,11 @@
 /*!
- * bootstrap-fileinput v5.0.8
+ * bootstrap-fileinput v5.0.9
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2019, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2020, Kartik Visweswaran, Krajee.com
  *
  * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
@@ -340,13 +340,13 @@
 
 .file-zoom-dialog .btn-navigate {
     padding: 0;
-    margin: 0;
+    margin: -60px 0 0;
+    font-size: 60px;
     background: transparent;
     text-decoration: none;
     outline: none;
     opacity: 0.7;
-    top: 45%;
-    font-size: 4em;
+    top: 50%;
     color: #1c94c4;
 }
 
@@ -467,8 +467,8 @@
 }
 
 .file-zoom-content {
-    height: 480px;
     text-align: center;
+    min-height: 300px;
 }
 
 .file-zoom-content .file-preview-image {
