@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'No has seleccionat cap arxiu',
         msgPaused: 'Pausat',
         msgCancelled: 'cancel·lat',
-        msgPlaceholder: 'Selecciona {files}...',
+        msgPlaceholder: 'Selecciona {files} &hellip;',
         msgZoomModalHeading: 'Vista prèvia detallada',
         msgFileRequired: 'Has de seleccionar un arxiu per pujar.',
         msgSizeTooSmall: 'Arxiu "{name}" (<b>{size} KB</b>) es massa petit, ha de ser més gran de <b>{minSize} KB</b>.',
@@ -54,10 +54,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'La càrrega d\'arxius s\'ha cancel·lat',
-        msgUploadThreshold: 'Processant...',
-        msgUploadBegin: 'Inicialitzant...',
+        msgUploadThreshold: 'Processant &hellip;',
+        msgUploadBegin: 'Inicialitzant &hellip;',
         msgUploadEnd: 'Fet',
-        msgUploadResume: 'Continuant pujada...',
+        msgUploadResume: 'Continuant pujada &hellip;',
         msgUploadEmpty: 'No hi han dades vàlides per la pujada.',
         msgUploadError: 'Error al pujar',
         msgDeleteError: 'Error al borrar',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Pujat',
             indicatorErrorTitle: 'Error al pujar',
             indicatorPausedTitle: 'Pujada pausada',
-            indicatorLoadingTitle:  'Pujant ...'
+            indicatorLoadingTitle:  'Pujant &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Veure arxiu previ',

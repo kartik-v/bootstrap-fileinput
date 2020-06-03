@@ -28,7 +28,7 @@
         msgNoFilesSelected: 'Hech qanday fayl tanlanmagan',
         msgPaused: 'To‘xtatildi',
         msgCancelled: 'Bekor qilindi',
-        msgPlaceholder: '{files} tanlash...',
+        msgPlaceholder: '{files} tanlash &hellip;',
         msgZoomModalHeading: 'Batafsil ko‘rib chiqish',
         msgFileRequired: 'Yuklash uchun faylni tanlashingiz kerak.',
         msgSizeTooSmall: 'Siz tanlagan fayl hajmi: "{name}" (<b>{size} KB</b>). Tanlangan fayl hajmi <b>{minSize} KB</b> dan katta bo‘lishi lozim. Ko‘rsatilgan hajmdan kattaroq fayl yuklashga urinib ko‘ring',
@@ -55,10 +55,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'Fayl yuklanishi bekor qilindi',
-        msgUploadThreshold: 'Qayta ishlanmoqda...',
-        msgUploadBegin: 'Ishga tushirilmoqda...',
+        msgUploadThreshold: 'Qayta ishlanmoqda &hellip;',
+        msgUploadBegin: 'Ishga tushirilmoqda &hellip;',
         msgUploadEnd: 'Bajarildi',
-        msgUploadResume: 'Yuklash davom etmoqda...',
+        msgUploadResume: 'Yuklash davom etmoqda &hellip;',
         msgUploadEmpty: 'Yuklash uchun tegishli ma‘lumotlar mavjud emas.',
         msgUploadError: 'Yuklashda xato',
         msgDeleteError: 'Xatolikni o‘chirish',
@@ -99,7 +99,7 @@
             indicatorSuccessTitle: 'Yuklandi',
             indicatorErrorTitle: 'Yuklashda xato',
             indicatorPausedTitle: 'Yuklash to‘xtatildi',
-            indicatorLoadingTitle:  'Yuklanmoqda ...'
+            indicatorLoadingTitle:  'Yuklanmoqda &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Oldingi faylni ko‘rish',

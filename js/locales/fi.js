@@ -48,10 +48,10 @@
             'pdf': 'PDF',
             'object': 'Olio'
         },
-        msgUploadThreshold: 'Käsitellään...',
-        msgUploadBegin: 'Initializing...',
+        msgUploadThreshold: 'Käsitellään &hellip;',
+        msgUploadBegin: 'Initializing &hellip;',
         msgUploadEnd: 'Done',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'Ei ladattavaa dataa.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -86,7 +86,7 @@
             indicatorSuccessTitle: 'Ladattu',
             indicatorErrorTitle: 'Lataus epäonnistui',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Ladataan ...'
+            indicatorLoadingTitle:  'Ladataan &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Seuraava tiedosto',

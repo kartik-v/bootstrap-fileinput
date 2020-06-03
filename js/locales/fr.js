@@ -14,7 +14,7 @@
     $.fn.fileinputLocales['fr'] = {
         fileSingle: 'fichier',
         filePlural: 'fichiers',
-        browseLabel: 'Parcourir...',
+        browseLabel: 'Parcourir &hellip;',
         removeLabel: 'Retirer',
         removeTitle: 'Retirer les fichiers sélectionnés',
         cancelLabel: 'Annuler',
@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Aucun fichier sélectionné',
         msgPaused: 'Suspendu',
         msgCancelled: 'Annulé',
-        msgPlaceholder: 'Sélectionner le(s) {files}...',
+        msgPlaceholder: 'Sélectionner le(s) {files} &hellip;',
         msgZoomModalHeading: 'Aperçu détaillé',
         msgFileRequired: 'Vous devez sélectionner un fichier à envoyer.',
         msgSizeTooSmall: 'Le fichier "{name}" (<b>{size} KB</b>) est inférieur à la taille minimale de <b>{minSize} KB</b>.',
@@ -54,16 +54,16 @@
             'object': 'object'
         },
         msgUploadAborted: 'Le transfert du fichier a été interrompu',
-        msgUploadThreshold: 'En cours...',
-        msgUploadBegin: 'Initialisation...',
+        msgUploadThreshold: 'En cours &hellip;',
+        msgUploadBegin: 'Initialisation &hellip;',
         msgUploadEnd: 'Terminé',
-        msgUploadResume: 'Reprise du transfert...',
+        msgUploadResume: 'Reprise du transfert &hellip;',
         msgUploadEmpty: 'Aucune donnée valide n\'est disponible pour l\'envoi.',
         msgUploadError: 'Erreur lors du transfert',
         msgDeleteError: 'Erreur de suppression',
         msgProgressError: 'Erreur',
         msgValidationError: 'Erreur de validation',
-        msgLoading: 'Transmission du fichier {index} sur {files}...',
+        msgLoading: 'Transmission du fichier {index} sur {files} &hellip;',
         msgProgress: 'Transmission du fichier {index} sur {files} - {name} - {percent}%.',
         msgSelected: '{n} {files} sélectionné(s)',
         msgFoldersNotAllowed: 'Glissez et déposez uniquement des fichiers ! {n} répertoire(s) exclu(s).',
@@ -85,7 +85,7 @@
             uploadBatch: 'transfert des fichiers',
             uploadExtra: 'soumission des données du formulaire'
         },
-        dropZoneTitle: 'Glissez et déposez les fichiers ici...',
+        dropZoneTitle: 'Glissez et déposez les fichiers ici &hellip;',
         dropZoneClickTitle: '<br>(ou cliquez pour sélectionner manuellement)',
         fileActionSettings: {
             removeTitle: 'Supprimer le fichier',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Posté',
             indicatorErrorTitle: 'Ajouter erreur',
             indicatorPausedTitle: 'Transfert suspendu',
-            indicatorLoadingTitle:  'En cours...'
+            indicatorLoadingTitle:  'En cours &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Voir le fichier précédent',

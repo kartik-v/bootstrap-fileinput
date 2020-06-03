@@ -27,7 +27,7 @@
         msgNoFilesSelected: '선택한 파일이 없습니다',
         msgPaused: 'Paused',
         msgCancelled: '취소되었습니다',
-        msgPlaceholder: '{files} 선택...',
+        msgPlaceholder: '{files} 선택 &hellip;',
         msgZoomModalHeading: '세부 정보',
         msgFileRequired: '업로드를 위해 반드시 파일을 선택해야 합니다.',
         msgSizeTooSmall: '파일 "{name}" (<b>{size} KB</b>)이 너무 작습니다. <b>{minSize} KB</b>보다 용량이 커야 합니다..',
@@ -54,10 +54,10 @@
             'object': 'object'
         },
         msgUploadAborted: '파일 업로드가 중단되었습니다',
-        msgUploadThreshold: '처리하는 중...',
-        msgUploadBegin: '초기화 중...',
+        msgUploadThreshold: '처리하는 중 &hellip;',
+        msgUploadBegin: '초기화 중 &hellip;',
         msgUploadEnd: '완료',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: '업로드 가능한 데이터가 존재하지 않습니다.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: '업로드 성공',
             indicatorErrorTitle: '업로드 중 에러 발생',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  '업로드 중 ...'
+            indicatorLoadingTitle:  '업로드 중 &hellip;'
         },
         previewZoomButtonTitles: {
             prev: '이전 파일',

@@ -5,6 +5,9 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1577): Use `&hellip;` instead of three dots.
+- (enh #1576): Update French Translations.
+
 ## version 5.0.9
 
 **Date:** 02-Jun-2020
