@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1578): Enhance progress bar styling.
 - (enh #1577): Use `&hellip;` instead of three dots.
 - (enh #1576): Update French Translations.
 
