@@ -27,7 +27,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Paused',
         msgCancelled: 'Geannuleerd',
-        msgPlaceholder: 'Selecteer {files} &hellip;',
+        msgPlaceholder: 'Selecteer {files} ...',
         msgZoomModalHeading: 'Gedetailleerd voorbeeld',
         msgFileRequired: 'U moet een bestand kiezen om te uploaden.',
         msgSizeTooSmall: 'Bestand "{name}" (<b>{size} KB</b>) is te klein en moet groter zijn dan <b>{minSize} KB</b>.',

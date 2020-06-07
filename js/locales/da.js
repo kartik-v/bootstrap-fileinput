@@ -27,7 +27,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Paused',
         msgCancelled: 'aflyst',
-        msgPlaceholder: 'V&aelig;lg {files} &hellip;',
+        msgPlaceholder: 'V&aelig;lg {files} ...',
         msgZoomModalHeading: 'Detaljeret visning',
         msgFileRequired: 'Du skal v&aelig;lge en fil at uploade.',
         msgSizeTooSmall: 'Fil "{name}" (<b>{size} KB</b>) er for lille og skal v&aelig;re st&oslash;rre end <b>{minSize} KB</b>.',

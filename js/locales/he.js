@@ -28,7 +28,7 @@
         msgNoFilesSelected: 'לא נבחרו קבצים',
         msgPaused: 'Paused',
         msgCancelled: 'מבוטל',
-        msgPlaceholder: 'בחר {files} &hellip;',
+        msgPlaceholder: 'בחר {files} ...',
         msgZoomModalHeading: 'תצוגה מקדימה מפורטת',
         msgSizeTooSmall: 'קובץ "{name}" (<b>{size} KB</b>) קטן מדי וחייב להיות גדול מ <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'קובץ "{name}" (<b>{size} KB</b>) חורג מהגודל המרבי המותר להעלאה של <b>{maxSize} KB</b>.',

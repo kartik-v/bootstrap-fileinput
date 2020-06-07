@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Brak zaznaczonych plików',
         msgPaused: 'Paused',
         msgCancelled: 'Odwołany',
-        msgPlaceholder: 'Wybierz {files} &hellip;',
+        msgPlaceholder: 'Wybierz {files} ...',
         msgZoomModalHeading: 'Szczegółowy podgląd',
         msgFileRequired: 'Musisz wybrać plik do wgrania.',
         msgSizeTooSmall: 'Plik "{name}" (<b>{size} KB</b>) jest zbyt mały i musi być większy niż <b>{minSize} KB</b>.',

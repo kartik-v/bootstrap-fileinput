@@ -28,7 +28,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Paused',
         msgCancelled: 'Dibatalkan',
-        msgPlaceholder: 'Pilih {files} &hellip;',
+        msgPlaceholder: 'Pilih {files} ...',
         msgZoomModalHeading: 'Pratinjau terperinci',
         msgFileRequired: 'Anda harus memilih berkas untuk diunggah.',
         msgSizeTooSmall: 'Berkas "{name}" (<b>{size} KB</b>) terlalu kecil dan harus lebih besar dari <b>{minSize} KB</b>.',

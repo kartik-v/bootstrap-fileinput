@@ -28,7 +28,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Paused',
         msgCancelled: 'Cкасовано',
-        msgPlaceholder: 'Оберіть {files} &hellip;',
+        msgPlaceholder: 'Оберіть {files} ...',
         msgZoomModalHeading: 'Детальний превью',
         msgFileRequired: 'Ви повинні обрати файл для завантаження.',
         msgSizeTooSmall: 'Файл "{name}" (<b>{size} KB</b>) занадто малий і повинен бути більший, ніж <b>{minSize} KB</b>.',

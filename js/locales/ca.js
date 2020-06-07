@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'No has seleccionat cap arxiu',
         msgPaused: 'Pausat',
         msgCancelled: 'cancel·lat',
-        msgPlaceholder: 'Selecciona {files} &hellip;',
+        msgPlaceholder: 'Selecciona {files} ...',
         msgZoomModalHeading: 'Vista prèvia detallada',
         msgFileRequired: 'Has de seleccionar un arxiu per pujar.',
         msgSizeTooSmall: 'Arxiu "{name}" (<b>{size} KB</b>) es massa petit, ha de ser més gran de <b>{minSize} KB</b>.',

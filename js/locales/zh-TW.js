@@ -29,7 +29,7 @@
         msgPaused: 'Paused',
         msgCancelled: '取消',
         zoomTitle: '詳細資料',
-        msgPlaceholder: '選擇 {files} &hellip;',
+        msgPlaceholder: '選擇 {files} ...',
         msgZoomModalHeading: '內容預覽',
         msgFileRequired: '必須選擇壹個文件上傳.',
         msgSizeTooSmall: '檔案 "{name}" (<b>{size} KB</b>) 必須大於限定大小 <b>{minSize} KB</b>.',

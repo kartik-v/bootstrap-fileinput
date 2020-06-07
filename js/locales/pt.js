@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Nenhum ficheiro selecionado',
         msgPaused: 'Parado',
         msgCancelled: 'Cancelado',
-        msgPlaceholder: 'Selecionar {files} &hellip;',
+        msgPlaceholder: 'Selecionar {files} ...',
         msgZoomModalHeading: 'Pré-visualização detalhada',
         msgFileRequired: 'É necessário selecionar um ficheiro a enviar.',
         msgSizeTooSmall: 'Ficheiro "{name}" (<b>{size} KB</b>) é demasiado pequeno, tem ser ser maior que <b>{minSize} KB</b>.',

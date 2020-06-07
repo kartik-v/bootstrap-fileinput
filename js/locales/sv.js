@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Inga filer valda',
         msgPaused: 'Paused',
         msgCancelled: 'Avbruten',
-        msgPlaceholder: 'Select {files} &hellip;',
+        msgPlaceholder: 'Select {files} ...',
         msgZoomModalHeading: 'detaljerad förhandsgranskning',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Filen "{name}" (<b>{size} KB</b>) är för liten och måste vara större än <b>{minSize} KB</b>.',

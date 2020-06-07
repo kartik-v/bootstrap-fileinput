@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Nevybrány žádné soubory',
         msgPaused: 'Pozastavené',
         msgCancelled: 'Zrušeno',
-        msgPlaceholder: 'Vybrat {files} &hellip;',
+        msgPlaceholder: 'Vybrat {files} ...',
         msgZoomModalHeading: 'Detailní náhled',
         msgFileRequired: 'Musíte vybrat soubor, který chcete nahrát.',
         msgSizeTooSmall: 'Soubor "{name}" (<b>{size} KB</b>) je příliš malý, musí mít velikost nejméně <b>{minSize} KB</b>.',

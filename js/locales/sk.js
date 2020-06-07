@@ -27,7 +27,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Pozastavené',
         msgCancelled: 'Zrušené',
-        msgPlaceholder: 'Vybrať {files} &hellip;',
+        msgPlaceholder: 'Vybrať {files} ...',
         msgZoomModalHeading: 'Detailný náhľad',
         msgFileRequired: 'Musíte vybrať súbor, ktorý chcete nahrať.',
         msgSizeTooSmall: 'Súbor "{name}" (<b>{size} KB</b>) je príliš malý, musí mať veľkosť najmenej <b>{minSize} KB</b>.',

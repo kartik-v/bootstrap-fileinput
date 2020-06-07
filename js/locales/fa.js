@@ -28,7 +28,7 @@
         msgNoFilesSelected: 'هیچ فایلی انتخاب نشده است',
         msgPaused: 'Paused',
         msgCancelled: 'لغو شد',
-        msgPlaceholder: 'انتخاب {files} &hellip;',
+        msgPlaceholder: 'انتخاب {files} ...',
         msgZoomModalHeading: 'نمایش با جزییات',
         msgFileRequired: 'شما باید یک فایل برای بارگذاری انتخاب نمایید.',
         msgSizeTooSmall: 'فایل "{name}" (<b>{size} کیلوبایت</b>) خیلی کوچک است و باید از <b>{minSize} کیلوبایت بزرگتر باشد</b>.',

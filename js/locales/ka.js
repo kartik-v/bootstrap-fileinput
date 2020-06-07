@@ -28,7 +28,7 @@
         msgNoFilesSelected: 'ფაილები არ არის არჩეული',
         msgPaused: 'Paused',
         msgCancelled: 'გაუქმებულია',
-        msgPlaceholder: 'აირჩიეთ {files} &hellip;',
+        msgPlaceholder: 'აირჩიეთ {files} ...',
         msgZoomModalHeading: 'დეტალურად ნახვა',
         msgFileRequired: 'ატვირთვისთვის აუცილებელია ფაილის არჩევა.',
         msgSizeTooSmall: 'ფაილი "{name}" (<b>{size} KB</b>) არის ძალიან პატარა. მისი ზომა უნდა იყოს არანაკლებ <b>{minSize} KB</b>.',

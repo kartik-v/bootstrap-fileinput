@@ -29,7 +29,7 @@
         msgNoFilesSelected: 'Nessun file selezionato',
         msgPaused: 'Paused',
         msgCancelled: 'Annullato',
-        msgPlaceholder: 'Seleziona {files} &hellip;',
+        msgPlaceholder: 'Seleziona {files} ...',
         msgZoomModalHeading: 'Anteprima dettagliata',
         msgFileRequired: 'Devi selezionare un file da caricare.',
         msgSizeTooSmall: 'Il file "{name}" (<b>{size} KB</b>) è troppo piccolo, deve essere almeno di <b>{minSize} KB</b>.',

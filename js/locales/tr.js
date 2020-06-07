@@ -27,7 +27,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Paused',
         msgCancelled: 'İptal edildi',
-        msgPlaceholder: 'Seçilen {files} &hellip;',
+        msgPlaceholder: 'Seçilen {files} ...',
         msgZoomModalHeading: 'Detaylı Önizleme',
         msgFileRequired: 'Yüklemek için bir dosya seçmelisiniz.',
         msgSizeTooSmall: '"{name}"(<b>{size} KB</b>) dosyası çok küçük  ve <b>{minSize} KB</b> boyutundan büyük olmalıdır.',

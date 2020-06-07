@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Δεν επιλέχθηκαν αρχεία',
         msgPaused: 'Paused',
         msgCancelled: 'Ακυρώθηκε',
-        msgPlaceholder: 'Select {files} &hellip;',
+        msgPlaceholder: 'Select {files} ...',
         msgZoomModalHeading: 'Λεπτομερής Προεπισκόπηση',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Το "{name}" (<b>{size} KB</b>) είναι πολύ μικρό, πρέπει να είναι μεγαλύτερο από <b>{minSize} KB</b>.',

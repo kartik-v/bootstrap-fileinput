@@ -28,7 +28,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Приостановлено',
         msgCancelled: 'Отменено',
-        msgPlaceholder: 'Выбрать {files} &hellip;',
+        msgPlaceholder: 'Выбрать {files} ...',
         msgZoomModalHeading: 'Подробное превью',
         msgFileRequired: 'Необходимо выбрать файл для загрузки.',
         msgSizeTooSmall: 'Файл "{name}" (<b>{size} KB</b>) имеет слишком маленький размер и должен быть больше <b>{minSize} KB</b>.',

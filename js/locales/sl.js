@@ -28,7 +28,7 @@
         msgNoFilesSelected: 'Nobena datoteka ni izbrana',
         msgPaused: 'Paused',
         msgCancelled: 'Preklicano',
-        msgPlaceholder: 'Select {files} &hellip;',
+        msgPlaceholder: 'Select {files} ...',
         msgZoomModalHeading: 'Podroben predogled',
         msgSizeTooLarge: 'Datoteka "{name}" (<b>{size} KB</b>) presega največjo dovoljeno velikost za nalaganje <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'Za nalaganje morate izbrati vsaj <b>{n}</b> {files}.',
