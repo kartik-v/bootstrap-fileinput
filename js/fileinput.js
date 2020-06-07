@@ -4250,6 +4250,10 @@
                 }
             }
         },
+        _hasFiles: function () {
+            var el = this.$element.get(0);
+            return !!(el && el.files && el.files.length);
+        },
         _setFileDropZoneTitle: function () {
             var self = this, $zone = self.$container.find('.file-drop-zone'), title = self.dropZoneTitle, strFiles;
             if (self.isClickable) {
@@ -4258,7 +4262,7 @@
             }
             $zone.find('.' + self.dropZoneTitleClass).remove();
             if (!self.showPreview || $zone.length === 0 || self.fileManager.count() > 0 || !self.dropZoneEnabled ||
-                (!self.isAjaxUpload && self.$element.files)) {
+                (!self.isAjaxUpload && self._hasFiles())) {
                 return;
             }
             if ($zone.find($h.FRAMES).length === 0 && $h.isEmpty(self.defaultPreviewContent)) {
