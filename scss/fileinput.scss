@@ -626,12 +626,18 @@ input[type=file].file-loading {
     padding-right: multiply($pad, 4);
 }
 .file-sortable .file-drag-handle {
-    cursor: move;
+    cursor: grab;
     opacity: 1;
     &:hover {
         opacity: 0.7;
     }
 }
+
+.file-sortable.sortable-chosen .file-drag-handle {
+    cursor: grabbing;
+    opacity: 0.5;
+}
+
 .clickable .file-drop-zone-title {
     cursor: pointer;
 }

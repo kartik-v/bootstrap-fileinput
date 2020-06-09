@@ -2675,15 +2675,15 @@
             self._validateDefaultPreview();
         },
         _initSortable: function () {
-            var self = this, $el = self.$preview, settings, selector = '.' + $h.SORT_CSS,
-                rev = self.reversePreviewOrder;
-            if (!window.KvSortable || $el.find(selector).length === 0) {
+            var self = this, $el = self.$preview.find('>div'), settings, selector = '.' + $h.SORT_CSS,
+                rev = self.reversePreviewOrder, Sortable = window.Sortable;
+            if (!Sortable || $el.find(selector).length === 0) {
                 return;
             }
             //noinspection JSUnusedGlobalSymbols
             settings = {
                 handle: '.drag-handle-init',
-                dataIdAttr: 'data-preview-id',
+                dataIdAttr: 'data-fileid',
                 scroll: false,
                 draggable: selector,
                 onSort: function (e) {
@@ -2701,13 +2701,13 @@
                         'newIndex': newIndex,
                         stack: self.initialPreviewConfig
                     });
-                }
+                },
             };
-            if ($el.data('kvsortable')) {
-                $el.kvsortable('destroy');
-            }
             $.extend(true, settings, self.fileActionSettings.dragSettings);
-            $el.kvsortable(settings);
+            if (self.sortable) {
+                self.sortable.destroy();
+            }
+            self.sortable = Sortable.create($el[0], settings);
         },
         _setPreviewContent: function (content) {
             var self = this;
@@ -3045,7 +3045,7 @@
             });
         },
         _inputFileCount: function () {
-            return this.$element.get(0).files.length;
+            return this.$element[0].files.length;
         },
         _refreshPreview: function () {
             var self = this, files;
@@ -3058,10 +3058,10 @@
                     self.fileManager.clear();
                     self._clearFileInput();
                 } else {
-                    files = self.$element.get(0).files;
+                    files = self.$element[0].files;
                 }
             } else {
-                files = self.$element.get(0).files;
+                files = self.$element[0].files;
             }
             if (files && files.length) {
                 self.readFiles(files);
@@ -4251,7 +4251,7 @@
             }
         },
         _hasFiles: function () {
-            var el = this.$element.get(0);
+            var el = this.$element[0];
             return !!(el && el.files && el.files.length);
         },
         _setFileDropZoneTitle: function () {
@@ -4452,7 +4452,7 @@
                     self.$preview.removeClass('hide-content');
                     $thumb.find('.kv-file-content').css('visibility', 'hidden');
                 }
-                var img = $img.get(0), zoomImg = $zoomImg && $zoomImg.length ? $zoomImg.get(0) : null,
+                var img = $img[0], zoomImg = $zoomImg && $zoomImg.length ? $zoomImg[0] : null,
                     h = img.offsetHeight, w = img.offsetWidth, r = $h.getRotation(value);
                 if (isHidden) {
                     $thumb.find('.kv-file-content').css('visibility', 'visible');
@@ -4943,7 +4943,7 @@
                 return;
             }
             var $el = self.$element, isDragDrop = arguments.length > 1, isAjaxUpload = self.isAjaxUpload,
-                tfiles, files = isDragDrop ? arguments[1] : $el.get(0).files, ctr = self.fileManager.count(),
+                tfiles, files = isDragDrop ? arguments[1] : $el[0].files, ctr = self.fileManager.count(),
                 total, initCount, len, isSingleUpl = $h.isEmpty($el.attr('multiple')),
                 maxCount = !isAjaxUpload && isSingleUpl ? 1 : self.maxFileCount, maxTotCount = self.maxTotalFileCount,
                 inclAll = maxTotCount > 0 && maxTotCount > maxCount, flagSingle = (isSingleUpl && ctr > 0),
@@ -5784,7 +5784,7 @@
         showPause: null,
         showClose: true,
         showUploadedThumbs: true,
-        showConsoleLogs: true,
+        showConsoleLogs: false,
         browseOnZoneClick: false,
         autoReplace: false,
         autoOrientImage: function () { // applicable for JPEG images only and non ios safari

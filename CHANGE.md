@@ -5,6 +5,11 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1582): Set `showConsoleLogs` to `false` as default.
+- (enh #1581): Enhance Sortable Behavior & Styles.
+    - Update to use latest release of Rubaxa Sortable Plugin
+    - Fix errors in sortable init
+    - Update drag handle styles to show correct grab cursor
 - (enh #1580): Validate drop zone title by correctly checking if native input has files.
 - (enh #1578): Enhance progress bar styling.
 - (enh #1577): Use `&hellip;` instead of three dots.

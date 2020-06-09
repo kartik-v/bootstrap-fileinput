@@ -531,8 +531,13 @@
 }
 
 .file-sortable .file-drag-handle {
-    cursor: move;
+    cursor: grab;
     opacity: 1;
+}
+
+.file-sortable.sortable-chosen .file-drag-handle {
+    cursor: grabbing;
+    opacity: 0.5;
 }
 
 .file-sortable .file-drag-handle:hover {
