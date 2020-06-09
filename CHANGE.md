@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (bug #1583): Correct cspBuffer stash html content store.
 - (enh #1582): Set `showConsoleLogs` to `false` as default.
 - (enh #1581): Enhance Sortable Behavior & Styles.
     - Update to use latest release of Rubaxa Sortable Plugin

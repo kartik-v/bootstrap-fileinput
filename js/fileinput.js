@@ -516,7 +516,7 @@
                     return outerDom[itm];
                 });
                 return values.flatMap(function (elem) {
-                    return elem.outerHTML;
+                    return elem.innerHTML;
                 }).join('');
             },
             apply: function (domElement) {
@@ -2675,7 +2675,7 @@
             self._validateDefaultPreview();
         },
         _initSortable: function () {
-            var self = this, $el = self.$preview.find('>div'), settings, selector = '.' + $h.SORT_CSS,
+            var self = this, $el = self.$preview, settings, selector = '.' + $h.SORT_CSS,
                 rev = self.reversePreviewOrder, Sortable = window.Sortable;
             if (!Sortable || $el.find(selector).length === 0) {
                 return;
