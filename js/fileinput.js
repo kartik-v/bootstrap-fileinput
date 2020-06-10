@@ -10,13 +10,13 @@
  */
 (function (factory) {
     'use strict';
-    //noinspection JSUnresolvedVariable
+    //noinspection JSUnresolvedVariable,JSHint
     if (typeof define === 'function' && define.amd) { // AMD. Register as an anonymous module.
-        //noinspection JSUnresolvedFunction
+        //noinspection JSUnresolvedFunction,JSHint
         define(['jquery'], factory);
-    } else { // noinspection JSUnresolvedVariable
+    } else { // noinspection JSUnresolvedVariable,JSHint
         if (typeof module === 'object' && module.exports) { // Node/CommonJS
-            // noinspection JSUnresolvedVariable,JSUnresolvedFunction,NpmUsedModulesInstalled
+            // noinspection JSUnresolvedVariable,JSUnresolvedFunction,NpmUsedModulesInstalled,JSHint
             module.exports = factory(require('jquery'));
         } else { // Browser globals
             factory(window.jQuery);
@@ -467,7 +467,7 @@
             return (new Date().getTime() + Math.floor(Math.random() * Math.pow(10, 15))).toString(36);
         },
         parseEventCallback: function (str) {
-            return Function('\'use strict\'; return (function() { ' + str + ' });')();
+            return Function('\'use strict\'; return (function() { ' + str + ' });')(); // jshint ignore:line
         },
         cspBuffer: {
             CSP_ATTRIB: 'data-csp-01928735', // a randomly named temporary attribute to store the CSP elem id
@@ -485,7 +485,7 @@
                     var $elem = $(elem), styleString = $elem.attr('style'), id = $h.uniqId(), styles = {};
                     if (styleString && styleString.length) {
                         if (styleString.indexOf(';') === -1) {
-                            styleString += ';'
+                            styleString += ';';
                         }
                         styleString.slice(0, styleString.length - 1).split(';').map(function (str) {
                             str = str.split(':');
@@ -2675,17 +2675,30 @@
             self._validateDefaultPreview();
         },
         _initSortable: function () {
-            var self = this, $el = self.$preview, settings, selector = '.' + $h.SORT_CSS,
-                rev = self.reversePreviewOrder, Sortable = window.Sortable;
+            var self = this, $el = self.$preview, settings, selector = '.' + $h.SORT_CSS, $cont, $body = $('body'),
+                $html = $('html'), rev = self.reversePreviewOrder, Sortable = window.Sortable, beginGrab, endGrab;
             if (!Sortable || $el.find(selector).length === 0) {
                 return;
             }
+            $cont = $body.length ? $body : ($html.length ? $html : self.$container);
+            beginGrab = function () {
+                $cont.addClass('file-grabbing');
+            };
+            endGrab = function () {
+                $cont.removeClass('file-grabbing');
+            };
             //noinspection JSUnusedGlobalSymbols
             settings = {
                 handle: '.drag-handle-init',
                 dataIdAttr: 'data-fileid',
-                scroll: false,
+                animation: 600,
                 draggable: selector,
+                scroll: false,
+                forceFallback: true,
+                onChoose: beginGrab,
+                onStart: beginGrab,
+                onUnchoose: endGrab,
+                onEnd: endGrab,
                 onSort: function (e) {
                     var oldIndex = e.oldIndex, newIndex = e.newIndex, i = 0;
                     self.initialPreview = $h.moveArray(self.initialPreview, oldIndex, newIndex, rev);

@@ -625,6 +625,9 @@ input[type=file].file-loading {
     padding-left: 0;
     padding-right: multiply($pad, 4);
 }
+.clickable .file-drop-zone-title {
+    cursor: pointer;
+}
 .file-sortable .file-drag-handle {
     cursor: grab;
     opacity: 1;
@@ -632,14 +635,11 @@ input[type=file].file-loading {
         opacity: 0.7;
     }
 }
-
-.file-sortable.sortable-chosen .file-drag-handle {
-    cursor: grabbing;
-    opacity: 0.5;
+.file-grabbing, .file-grabbing * {
+    cursor: not-allowed !important;
 }
-
-.clickable .file-drop-zone-title {
-    cursor: pointer;
+.file-grabbing .file-preview-thumbnails * {
+    cursor: grabbing !important;
 }
 .file-preview-initial.sortable-chosen {
     background-color: $link-water;
