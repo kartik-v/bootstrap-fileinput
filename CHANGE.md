@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.1.0
 
-**Date:** _under development_
+**Date:** 11-Jun-2020
 
 - (enh #1584): Revamp Krajee Explorer Themes.
 - (bug #1583): Correct cspBuffer stash html content store.
