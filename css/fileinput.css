@@ -60,7 +60,7 @@
     height: 16px;
 }
 
-.krajee-default .file-thumb-progress .progress, .krajee-default .file-thumb-progress .progress-bar {
+.file-thumb-progress .progress, .file-thumb-progress .progress-bar {
     font-family: Verdana, Helvetica, sans-serif;
     font-size: 0.7rem;
 }

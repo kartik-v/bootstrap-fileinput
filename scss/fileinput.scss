@@ -381,6 +381,15 @@ input[type=file].file-loading {
         margin: -10px 0 5px;
     }
 }
+.file-thumb-progress {
+    .progress {
+        background-color: #ccc;
+    }
+    .progress-bar {
+        font-size: 0.7rem;
+        font-family: Verdana, Helvetica, sans-serif;
+    }
+}
 .file-zoom-dialog {
     .file-other-icon {
         //noinspection CssOverwrittenProperties

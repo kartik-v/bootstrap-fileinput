@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (enh #1584): Revamp Krajee Explorer Themes.
 - (bug #1583): Correct cspBuffer stash html content store.
 - (enh #1582): Set `showConsoleLogs` to `false` as default.
 - (enh #1581): Enhance Sortable Behavior & Styles.

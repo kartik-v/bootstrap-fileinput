@@ -3910,7 +3910,7 @@
                 index = parseInt(index.replace($h.INIT_FLAG, ''));
                 config = $h.isEmpty(cache.config) && $h.isEmpty(cache.config[index]) ? null : cache.config[index];
                 extraData = $h.isEmpty(config) || $h.isEmpty(config.extra) ? deleteExtraData : config.extra;
-                fileName = config.filename || config.caption || '';
+                fileName = config && (config.filename || config.caption) || '';
                 if (typeof extraData === 'function') {
                     extraData = extraData();
                 }
@@ -4275,7 +4275,7 @@
             }
             $zone.find('.' + self.dropZoneTitleClass).remove();
             if (!self.showPreview || $zone.length === 0 || self.fileManager.count() > 0 || !self.dropZoneEnabled ||
-                (!self.isAjaxUpload && self._hasFiles())) {
+                self.previewCache.count() > 0 || (!self.isAjaxUpload && self._hasFiles())) {
                 return;
             }
             if ($zone.find($h.FRAMES).length === 0 && $h.isEmpty(self.defaultPreviewContent)) {
