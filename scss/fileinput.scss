@@ -381,6 +381,15 @@ input[type=file].file-loading {
         margin: -10px 0 5px;
     }
 }
+.file-thumb-progress {
+    .progress {
+        background-color: #ccc;
+    }
+    .progress-bar {
+        font-size: 0.7rem;
+        font-family: Verdana, Helvetica, sans-serif;
+    }
+}
 .file-zoom-dialog {
     .file-other-icon {
         //noinspection CssOverwrittenProperties
@@ -625,15 +634,21 @@ input[type=file].file-loading {
     padding-left: 0;
     padding-right: multiply($pad, 4);
 }
+.clickable .file-drop-zone-title {
+    cursor: pointer;
+}
 .file-sortable .file-drag-handle {
-    cursor: move;
+    cursor: grab;
     opacity: 1;
     &:hover {
         opacity: 0.7;
     }
 }
-.clickable .file-drop-zone-title {
-    cursor: pointer;
+.file-grabbing, .file-grabbing * {
+    cursor: not-allowed !important;
+}
+.file-grabbing .file-preview-thumbnails * {
+    cursor: grabbing !important;
 }
 .file-preview-initial.sortable-chosen {
     background-color: $link-water;

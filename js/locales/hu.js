@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Nincs fájl kiválasztva',
         msgPaused: 'Szünetel',
         msgCancelled: 'Megszakítva',
-        msgPlaceholder: 'Válasz {files}...',
+        msgPlaceholder: 'Válasz {files} ...',
         msgZoomModalHeading: 'Részletes Előnézet',
         msgFileRequired: 'Kötelező fájlt kiválasztani a feltöltéshez.',
         msgSizeTooSmall: 'A fájl: "{name}" (<b>{size} KB</b>) mérete túl kicsi, nagyobbnak kell lennie, mint <b>{minSize} KB</b>.',
@@ -54,10 +54,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'A fájl feltöltés megszakítva',
-        msgUploadThreshold: 'Folyamatban...',
-        msgUploadBegin: 'Inicializálás...',
+        msgUploadThreshold: 'Folyamatban &hellip;',
+        msgUploadBegin: 'Inicializálás &hellip;',
         msgUploadEnd: 'Kész',
-        msgUploadResume: 'Feltöltés folytatása...',
+        msgUploadResume: 'Feltöltés folytatása &hellip;',
         msgUploadEmpty: 'Nincs érvényes adat a feltöltéshez.',
         msgUploadError: 'Feltöltési hiba',
         msgDeleteError: 'Hiba törlése',
@@ -86,7 +86,7 @@
             uploadExtra: 'űrlap adat feltöltés'
         },
         dropZoneTitle: 'Húzzon ide fájlokat &hellip;',
-        dropZoneClickTitle: '<br>(vagy kattintson ide a {files} tallózásához...)',
+        dropZoneClickTitle: '<br>(vagy kattintson ide a {files} tallózásához &hellip;)',
         fileActionSettings: {
             removeTitle: 'A fájl eltávolítása',
             uploadTitle: 'fájl feltöltése',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Feltöltött',
             indicatorErrorTitle: 'Feltöltés hiba',
             indicatorPausedTitle: 'Feltöltés szüneteltetve',
-            indicatorLoadingTitle:  'Feltöltés ...'
+            indicatorLoadingTitle:  'Feltöltés &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Elöző fájl megnézése',

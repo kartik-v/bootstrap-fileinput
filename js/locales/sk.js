@@ -27,7 +27,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Pozastavené',
         msgCancelled: 'Zrušené',
-        msgPlaceholder: 'Vybrať {files}...',
+        msgPlaceholder: 'Vybrať {files} ...',
         msgZoomModalHeading: 'Detailný náhľad',
         msgFileRequired: 'Musíte vybrať súbor, ktorý chcete nahrať.',
         msgSizeTooSmall: 'Súbor "{name}" (<b>{size} KB</b>) je príliš malý, musí mať veľkosť najmenej <b>{minSize} KB</b>.',
@@ -54,10 +54,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'Nahrávanie súboru bolo prerušené',
-        msgUploadThreshold: 'Spracovávam...',
-        msgUploadBegin: 'Inicializujem...',
+        msgUploadThreshold: 'Spracovávam &hellip;',
+        msgUploadBegin: 'Inicializujem &hellip;',
         msgUploadEnd: 'Hotovo',
-        msgUploadResume: 'Obnovuje sa nahrávanie...',
+        msgUploadResume: 'Obnovuje sa nahrávanie &hellip;',
         msgUploadEmpty: 'Na nahrávanie nie sú k dispozícii žiadne platné údaje.',
         msgUploadError: 'Chyba pri nahrávaní',
         msgDeleteError: 'Chyba pri odstraňovaní',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Nahraný',
             indicatorErrorTitle: 'Chyba pri nahrávaní',
             indicatorPausedTitle: 'Nahrávanie bolo pozastavené',
-            indicatorLoadingTitle:  'Nahrávanie...'
+            indicatorLoadingTitle:  'Nahrávanie &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Zobraziť predchádzajúci súbor',

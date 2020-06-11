@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Δεν επιλέχθηκαν αρχεία',
         msgPaused: 'Paused',
         msgCancelled: 'Ακυρώθηκε',
-        msgPlaceholder: 'Select {files}...',
+        msgPlaceholder: 'Select {files} ...',
         msgZoomModalHeading: 'Λεπτομερής Προεπισκόπηση',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Το "{name}" (<b>{size} KB</b>) είναι πολύ μικρό, πρέπει να είναι μεγαλύτερο από <b>{minSize} KB</b>.',
@@ -54,10 +54,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'Η μεταφόρτωση του αρχείου ματαιώθηκε',
-        msgUploadThreshold: 'Μεταφόρτωση ...',
-        msgUploadBegin: 'Initializing...',
+        msgUploadThreshold: 'Μεταφόρτωση &hellip;',
+        msgUploadBegin: 'Initializing &hellip;',
         msgUploadEnd: 'Done',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Μεταφορτώθηκε',
             indicatorErrorTitle: 'Σφάλμα Μεταφόρτωσης',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Μεταφόρτωση ...'
+            indicatorLoadingTitle:  'Μεταφόρτωση &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Προηγούμενο αρχείο',

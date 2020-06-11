@@ -27,7 +27,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Paused',
         msgCancelled: 'İptal edildi',
-        msgPlaceholder: 'Seçilen {files}...',
+        msgPlaceholder: 'Seçilen {files} ...',
         msgZoomModalHeading: 'Detaylı Önizleme',
         msgFileRequired: 'Yüklemek için bir dosya seçmelisiniz.',
         msgSizeTooSmall: '"{name}"(<b>{size} KB</b>) dosyası çok küçük  ve <b>{minSize} KB</b> boyutundan büyük olmalıdır.',
@@ -54,10 +54,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'Dosya yükleme iptal edildi',
-        msgUploadThreshold: 'İşlem yapılıyor...',
-        msgUploadBegin: 'Başlıyor...',
+        msgUploadThreshold: 'İşlem yapılıyor &hellip;',
+        msgUploadBegin: 'Başlıyor &hellip;',
         msgUploadEnd: 'Başarılı',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'Yüklemek için geçerli veri mevcut değil.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -97,7 +97,7 @@
             indicatorSuccessTitle: 'Yüklendi',
             indicatorErrorTitle: 'Yükleme Hatası',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Yükleniyor ...'
+            indicatorLoadingTitle:  'Yükleniyor &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Önceki dosyayı göster',

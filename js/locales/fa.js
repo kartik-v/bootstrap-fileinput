@@ -28,7 +28,7 @@
         msgNoFilesSelected: 'هیچ فایلی انتخاب نشده است',
         msgPaused: 'Paused',
         msgCancelled: 'لغو شد',
-        msgPlaceholder: 'انتخاب {files}...',
+        msgPlaceholder: 'انتخاب {files} ...',
         msgZoomModalHeading: 'نمایش با جزییات',
         msgFileRequired: 'شما باید یک فایل برای بارگذاری انتخاب نمایید.',
         msgSizeTooSmall: 'فایل "{name}" (<b>{size} کیلوبایت</b>) خیلی کوچک است و باید از <b>{minSize} کیلوبایت بزرگتر باشد</b>.',
@@ -55,10 +55,10 @@
             'object': 'دیگر'
         },
         msgUploadAborted: 'بارگذاری فایل به مشکل خورد.',
-        msgUploadThreshold: 'در حال پردازش...',
-        msgUploadBegin: 'در حال شروع...',
+        msgUploadThreshold: 'در حال پردازش &hellip;',
+        msgUploadBegin: 'در حال شروع &hellip;',
         msgUploadEnd: 'انجام شد',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'هیچ داده معتبری برای بارگذاری موجود نیست.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -99,7 +99,7 @@
             indicatorSuccessTitle: 'آپلود شده',
             indicatorErrorTitle: 'بارگذاری خطا',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'آپلود ...'
+            indicatorLoadingTitle:  'آپلود &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'مشاهده فایل قبلی',

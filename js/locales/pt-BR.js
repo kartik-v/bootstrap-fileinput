@@ -14,7 +14,7 @@
     $.fn.fileinputLocales['pt-BR'] = {
         fileSingle: 'arquivo',
         filePlural: 'arquivos',
-        browseLabel: 'Procurar&hellip;',
+        browseLabel: 'Procurar &hellip;',
         removeLabel: 'Remover',
         removeTitle: 'Remover arquivos selecionados',
         cancelLabel: 'Cancelar',
@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Nenhum arquivo selecionado',
         msgPaused: 'Pausado',
         msgCancelled: 'Cancelado',
-        msgPlaceholder: 'Selecionar {files}...',
+        msgPlaceholder: 'Selecionar {files} ...',
         msgZoomModalHeading: 'Pré-visualização detalhada',
         msgFileRequired: 'Você deve selecionar um arquivo para enviar.',
         msgSizeTooSmall: 'O arquivo "{name}" (<b>{size} KB</b>) é muito pequeno e deve ser maior que <b>{minSize} KB</b>.',
@@ -54,16 +54,16 @@
             'object': 'objeto'
         },
         msgUploadAborted: 'O envio do arquivo foi abortado',
-        msgUploadThreshold: 'Processando...',
-        msgUploadBegin: 'Inicializando...',
+        msgUploadThreshold: 'Processando &hellip;',
+        msgUploadBegin: 'Inicializando &hellip;',
         msgUploadEnd: 'Concluído',
-        msgUploadResume: 'Retomando envio...',
+        msgUploadResume: 'Retomando envio &hellip;',
         msgUploadEmpty: 'Nenhuma informação válida para upload.',
         msgUploadError: 'Erro de Envio',
         msgDeleteError: 'Erro ao Deletar',
         msgProgressError: 'Erro de Envio',
         msgValidationError: 'Erro de validação',
-        msgLoading: 'Enviando arquivo {index} de {files}&hellip;',
+        msgLoading: 'Enviando arquivo {index} de {files} &hellip;',
         msgProgress: 'Enviando arquivo {index} de {files} - {name} - {percent}% completo.',
         msgSelected: '{n} {files} selecionado(s)',
         msgFoldersNotAllowed: 'Arraste e solte apenas arquivos! {n} pasta(s) ignoradas.',
@@ -85,7 +85,7 @@
             uploadBatch: 'Carregamento de arquivos em lote',
             uploadExtra: 'Carregamento de dados do formulário'
         },
-        dropZoneTitle: 'Arraste e solte os arquivos aqui&hellip;',
+        dropZoneTitle: 'Arraste e solte os arquivos aqui &hellip;',
         dropZoneClickTitle: '<br>(ou clique para selecionar o(s) arquivo(s))',
         fileActionSettings: {
             removeTitle: 'Remover arquivo',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Enviado',
             indicatorErrorTitle: 'Erro',
             indicatorPausedTitle: 'Envio pausado',
-            indicatorLoadingTitle:  'Enviando...'
+            indicatorLoadingTitle:  'Enviando &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Visualizar arquivo anterior',

@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Brak zaznaczonych plików',
         msgPaused: 'Paused',
         msgCancelled: 'Odwołany',
-        msgPlaceholder: 'Wybierz {files}...',
+        msgPlaceholder: 'Wybierz {files} ...',
         msgZoomModalHeading: 'Szczegółowy podgląd',
         msgFileRequired: 'Musisz wybrać plik do wgrania.',
         msgSizeTooSmall: 'Plik "{name}" (<b>{size} KB</b>) jest zbyt mały i musi być większy niż <b>{minSize} KB</b>.',
@@ -44,10 +44,10 @@
         msgInvalidFileType: 'Nieznany typ pliku "{name}". Tylko następujące rodzaje plików są dozwolone: "{types}".',
         msgInvalidFileExtension: 'Złe rozszerzenie dla pliku "{name}". Tylko następujące rozszerzenia plików są dozwolone: "{extensions}".',
         msgUploadAborted: 'Przesyłanie pliku zostało przerwane',
-        msgUploadThreshold: 'Przetwarzanie...',
-        msgUploadBegin: 'Rozpoczynanie...',
+        msgUploadThreshold: 'Przetwarzanie &hellip;',
+        msgUploadBegin: 'Rozpoczynanie &hellip;',
         msgUploadEnd: 'Gotowe!',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'Brak poprawnych danych do przesłania.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -88,7 +88,7 @@
             indicatorSuccessTitle: 'Dodane',
             indicatorErrorTitle: 'Błąd',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Przesyłanie ...'
+            indicatorLoadingTitle:  'Przesyłanie &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Pokaż poprzedni plik',

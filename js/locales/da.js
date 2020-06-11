@@ -27,7 +27,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Paused',
         msgCancelled: 'aflyst',
-        msgPlaceholder: 'V&aelig;lg {files}...',
+        msgPlaceholder: 'V&aelig;lg {files} ...',
         msgZoomModalHeading: 'Detaljeret visning',
         msgFileRequired: 'Du skal v&aelig;lge en fil at uploade.',
         msgSizeTooSmall: 'Fil "{name}" (<b>{size} KB</b>) er for lille og skal v&aelig;re st&oslash;rre end <b>{minSize} KB</b>.',
@@ -54,10 +54,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'Filupload annulleret',
-        msgUploadThreshold: 'Arbejder...',
-        msgUploadBegin: 'Initialiserer...',
+        msgUploadThreshold: 'Arbejder &hellip;',
+        msgUploadBegin: 'Initialiserer &hellip;',
         msgUploadEnd: 'Udf&oslash;rt',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'Ingen gyldig data tilg&aelig;ngelig til upload.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Uploadet',
             indicatorErrorTitle: 'Upload fejl',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Uploader ...'
+            indicatorLoadingTitle:  'Uploader &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Se forrige fil',

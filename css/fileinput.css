@@ -60,10 +60,9 @@
     height: 16px;
 }
 
-.krajee-default .file-thumb-progress .progress, .krajee-default .file-thumb-progress .progress-bar {
-    height: 11px;
+.file-thumb-progress .progress, .file-thumb-progress .progress-bar {
     font-family: Verdana, Helvetica, sans-serif;
-    font-size: 9px;
+    font-size: 0.7rem;
 }
 
 .krajee-default .file-thumb-progress .progress, .kv-upload-progress .progress {
@@ -205,8 +204,8 @@
 
 .krajee-default.file-preview-frame {
     margin: 8px;
-    border: 1px solid rgba(0,0,0,0.2);
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     padding: 6px;
     float: left;
     text-align: center;
@@ -237,8 +236,8 @@
 }
 
 .krajee-default.file-preview-frame:not(.file-preview-error):hover {
-    border: 1px solid rgba(0,0,0,0.3);
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.4);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
 }
 
 .krajee-default .file-preview-text {
@@ -292,7 +291,6 @@
 }
 
 .krajee-default .file-thumb-progress {
-    height: 11px;
     top: 37px;
     left: 0;
     right: 0;
@@ -532,17 +530,25 @@
     padding-right: 20px;
 }
 
+.clickable .file-drop-zone-title {
+    cursor: pointer;
+}
+
 .file-sortable .file-drag-handle {
-    cursor: move;
+    cursor: grab;
     opacity: 1;
+}
+
+.file-grabbing, .file-grabbing * {
+    cursor: not-allowed !important;
+}
+
+.file-grabbing .file-preview-thumbnails * {
+    cursor: grabbing !important;
 }
 
 .file-sortable .file-drag-handle:hover {
     opacity: 0.7;
-}
-
-.clickable .file-drop-zone-title {
-    cursor: pointer;
 }
 
 .file-preview-initial.sortable-chosen {

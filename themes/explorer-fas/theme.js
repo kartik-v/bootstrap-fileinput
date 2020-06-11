@@ -2,7 +2,7 @@
  * bootstrap-fileinput v5.1.0
  * http://plugins.krajee.com/file-input
  *
- * Krajee Explorer Font Awesome theme configuration for bootstrap-fileinput. 
+ * Krajee Explorer Font Awesome theme configuration for bootstrap-fileinput.
  * Load this theme file after loading `fileinput.js`. Ensure that
  * font awesome assets and CSS are loaded on the page as well.
  *
@@ -14,36 +14,19 @@
  */
 (function ($) {
     'use strict';
-    var teTagBef = '<tr class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
-        ' data-fileid="{fileid}" data-template="{template}"', teContent = '<td class="kv-file-content">\n';
     $.fn.fileinputThemes['explorer-fas'] = {
         layoutTemplates: {
-            preview: '<div class="file-preview {class}">\n' +
-            '    {close}' +
-            '    <div class="{dropClass}">\n' +
-            '    <table class="table table-bordered table-hover"><tbody class="file-preview-thumbnails">\n' +
-            '    </tbody></table>\n' +
-            '    <div class="clearfix"></div>' +
-            '    <div class="file-preview-status text-center text-success"></div>\n' +
-            '    <div class="kv-fileinput-error"></div>\n' +
-            '    </div>\n' +
-            '</div>',
-            footer: '<td class="file-details-cell"><div class="explorer-caption" title="{caption}">{caption}</div> ' +
-            '{size}{progress}</td><td class="file-actions-cell">{indicator} {actions}</td>',
+            footer: '<div class="file-details-cell">' +
+                '<div class="explorer-caption" title="{caption}">{caption}</div> ' + '{size}{progress}' +
+                '</div>' +
+                '<div class="file-actions-cell">{indicator} {actions}</div>',
             actions: '{drag}\n' +
-            '<div class="file-actions">\n' +
-            '    <div class="file-footer-buttons">\n' +
-            '        {upload} {download} {delete} {zoom} {other} ' +
-            '    </div>\n' +
-            '</div>',
-            zoomCache: '<tr style="display:none" class="kv-zoom-cache-theme"><td>' +
-            '<table class="kv-zoom-cache">{zoomContent}</table></td></tr>',
+                '<div class="file-actions">\n' +
+                '    <div class="file-footer-buttons">\n' +
+                '        {upload} {download} {delete} {zoom} {other} ' +
+                '    </div>\n' +
+                '</div>',
             fileIcon: '<i class="fas fa-file kv-caption-icon"></i> '
-        },
-        previewMarkupTags: {
-            tagBefore1: teTagBef + '>' + teContent,
-            tagBefore2: teTagBef + ' title="{caption}">' + teContent,
-            tagAfter: '</td>\n{footer}</tr>\n'
         },
         previewSettings: {
             html: {width: '100px', height: '60px'},

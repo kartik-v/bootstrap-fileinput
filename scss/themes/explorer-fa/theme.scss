@@ -2,7 +2,8 @@
  * bootstrap-fileinput v5.1.0
  * http://plugins.krajee.com/file-input
  *
- * Krajee Explorer Font Awesome theme style for bootstrap-fileinput. Load this theme file after loading `fileinput.css`.
+ * Krajee Explorer Font Awesome 4.x theme style for bootstrap-fileinput. Load this theme file after loading
+ * `fileinput.css`.
  *
  * Author: Kartik Visweswaran
  * Copyright: 2014 - 2020, Kartik Visweswaran, Krajee.com
@@ -16,186 +17,210 @@ $alto: #ddd !default;
 $tapa: #777 !default;
 $mystic: #e1edf7 !default;
 $perano: #a1abff !default;
+$white-smoke: #f5f5f5 !default;
 
 //fonts
-$font-0: Menlo !default;
-$font-1: Monaco !default;
-$font-2: Consolas !default;
-$font-3: "Courier New" !default;
-$font-4: monospace !default;
+$font: Menlo, Monaco, Consolas, "Courier New", monospace !default;
 
 //standard measures
 $pad: 5px !default;
-$border: 1px !default;
-$tablet: 767px !default;
 
 //operations
 @function multiply($pixels, $multiplier) {
     @return $pixels * $multiplier;
 }
 
-//@extend-elements
-%set_text_center {
-    text-align: center;
-}
-
-%set_progress {
-    height: multiply($pad, 2.6);
-    font-size: multiply($pad, 2.2);
-    line-height: multiply($pad, 2.6);
-}
-
-%set_indicator {
-    position: absolute;
-    display: inline-block;
-    top: 0;
-    right: multiply($pad, 0.6);
-    width: multiply($pad, 3.2);
-    height: multiply($pad, 3.2);
-    font-size: multiply($pad, 3.2);
-    @extend %set_text_center;
-}
-
-%set_block {
-    display: block;
-}
-
 .theme-explorer-fa {
-    .explorer-frame {
-        td {
-            vertical-align: middle;
-            text-align: left;
+    .file-preview-frame {
+        border: multiply($pad, 0.2) solid $alto;
+        margin: multiply($pad, 0.4) 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        samp {
+            font-size: 0.9rem;
         }
+    }
+
+    .file-actions {
+        text-align: center;
+    }
+
+    .file-upload-indicator,
+    .file-drag-handle {
+        text-align: center;
+        position: absolute;
+        display: inline-block;
+        bottom: multiply($pad, 1.6);
+        right: multiply($pad, 0.8);
+        width: multiply($pad, 3.2);
+        height: multiply($pad, 3.2);
+        font-size: multiply($pad, 3.2);
+    }
+
+    .explorer-frame {
         .kv-file-content {
-            width: multiply($pad, 16);
+            width: multiply($pad, 32);
             height: multiply($pad, 16);
             padding: $pad;
-            @extend %set_text_center;
+            text-align: left;
         }
     }
-    .file-actions-cell {
-        position: relative;
-        width: multiply($pad, 24);
-        padding: 0;
-    }
+
     .file-thumb-progress {
         .progress {
-            @extend %set_block;
-            @extend %set_progress;
-            margin-top: $pad;
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            margin-top: 5px;
         }
-        .progress-bar {
-            @extend %set_progress;
-        }
     }
-    .file-upload-indicator {
-        @extend %set_indicator;
-    }
-    .file-drag-handle {
-        @extend %set_indicator;
-    }
+
     .explorer-caption {
-        @extend %set_block;
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        padding: 5px;
         color: $tapa;
     }
-    .file-actions {
-        @extend %set_text_center;
+
+    .file-footer-buttons {
+        padding: 5px;
+        text-align: right;
     }
+
     .kvsortable-ghost {
         opacity: 0.6;
         background: $mystic;
-        border: multiply($border, 2) solid $perano;
+        border: multiply($pad, 0.4) solid $perano;
     }
-    .file-preview .table {
-        margin: 0;
+
+    .file-preview {
+        .table {
+            margin: 0;
+        }
     }
-    .file-error-message ul {
-        padding: $pad 0 0 multiply($pad, 4);
+
+    .file-error-message {
+        ul {
+            padding: 5px 0 0 20px;
+        }
+    }
+
+    .file-details-cell {
+        width: 60%;
+        font-size: 0.95rem;
+        text-align: left;
+        margin-right: auto;
+    }
+
+    .file-actions-cell {
+        position: relative;
+        height: multiply($pad, 16);
+        width: multiply($pad, 40);
     }
 }
 
 .explorer-frame {
+    .file-preview-other {
+        text-align: center;
+    }
+
     .file-preview-text {
         display: inline-block;
         color: $boston-blue;
-        border: $border solid $alto;
-        font-family: $font-0, $font-1, $font-2, $font-3, $font-4;
+        border: 1px solid $alto;
+        font-family: $font;
         outline: none;
         padding: multiply($pad, 1.6);
         resize: none;
     }
+
     .file-preview-html {
         display: inline-block;
-        border: $border solid $alto;
+        border: 1px solid $alto;
         padding: multiply($pad, 1.6);
         overflow: auto;
     }
-    .file-preview-other {
-        @extend %set_text_center;
-    }
+
     .file-other-icon {
         font-size: 2.6em;
     }
+
+    &:hover {
+        background-color: $white-smoke;
+    }
 }
 
-@media only screen and(max-width: $tablet) {
-    //@extend-elements
-    %set_block_full {
-        display: block;
-        width: 100% !important;
+.file-zoom-dialog {
+    .explorer-frame {
+        .file-other-icon {
+            //noinspection CssOverwrittenProperties
+            font-size: 22em;
+            //noinspection CssOverwrittenProperties
+            font-size: 50vmin;
+        }
     }
+}
+
+@media only screen and (max-width: 1249px) {
     .theme-explorer-fa {
-        .table {
-            @extend %set_block_full;
-            border: none;
-            tbody {
-                @extend %set_block_full;
+        .file-preview-frame {
+            .file-details-cell {
+                width: 40%;
             }
-            tr {
-                @extend %set_block_full;
-                margin-top: $pad;
-                &:first-child {
-                    margin-top: 0;
-                }
+        }
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    .theme-explorer-fa {
+        .file-preview-frame {
+            .file-details-cell {
+                width: 30%;
             }
-            td {
-                @extend %set_block_full;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .theme-explorer-fa {
+        .file-preview-frame {
+            .file-details-cell {
+                width: multiply($pad, 40);
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .theme-explorer-fa {
+        .file-preview-frame {
+            flex-direction: column;
+
+            .kv-file-content {
+                width: auto;
                 text-align: center;
             }
-            .kv-file-content {
-                border-bottom: none;
-                padding: multiply($pad, 0.8);
-                margin: 0;
-                .file-preview-image {
-                    max-width: 100%;
-                    font-size: multiply($pad, 4);
-                }
-            }
         }
+
         .file-details-cell {
-            border-top: none;
-            border-bottom: none;
-            padding-top: 0;
-            margin: 0;
+            width: multiply($pad, 20);
+            text-align: center;
+            margin-right: 0;
         }
+
         .file-actions-cell {
-            border-top: none;
-            padding-bottom: multiply($pad, 0.8);
+            width: 100%;
+            height: auto;
         }
-        .explorer-frame .explorer-caption {
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            left: 0;
-            right: 0;
-            margin: auto;
+
+        .file-footer-buttons {
+            text-align: left;
         }
     }
-}
-
-.file-zoom-dialog .explorer-frame .file-other-icon {
-    //noinspection CssOverwrittenProperties
-    font-size: 22em;
-    //noinspection CssOverwrittenProperties
-    font-size: 50vmin;
 }

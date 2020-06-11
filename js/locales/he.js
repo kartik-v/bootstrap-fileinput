@@ -28,7 +28,7 @@
         msgNoFilesSelected: 'לא נבחרו קבצים',
         msgPaused: 'Paused',
         msgCancelled: 'מבוטל',
-        msgPlaceholder: 'בחר {files}...',
+        msgPlaceholder: 'בחר {files} ...',
         msgZoomModalHeading: 'תצוגה מקדימה מפורטת',
         msgSizeTooSmall: 'קובץ "{name}" (<b>{size} KB</b>) קטן מדי וחייב להיות גדול מ <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'קובץ "{name}" (<b>{size} KB</b>) חורג מהגודל המרבי המותר להעלאה של <b>{maxSize} KB</b>.',
@@ -54,10 +54,10 @@
             'object': 'אובייקט'
         },
         msgUploadAborted: 'העלאת הקובץ בוטלה',
-        msgUploadThreshold: 'מעבד...',
-        msgUploadBegin: 'מאתחל ...',
+        msgUploadThreshold: 'מעבד &hellip;',
+        msgUploadBegin: 'מאתחל &hellip;',
         msgUploadEnd: 'בוצע',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'אין נתונים זמינים להעלאה.',
         msgValidationError: 'שגיאת אימות',
         msgLoading: 'טוען קובץ {index} של {files} &hellip;',
@@ -93,7 +93,7 @@
             indicatorSuccessTitle: 'הועלה',
             indicatorErrorTitle: 'שגיאת העלאה',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'מעלה...'
+            indicatorLoadingTitle:  'מעלה &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'הצגת את הקובץ הקודם',

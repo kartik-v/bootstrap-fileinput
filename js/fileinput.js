@@ -10,13 +10,13 @@
  */
 (function (factory) {
     'use strict';
-    //noinspection JSUnresolvedVariable
+    //noinspection JSUnresolvedVariable,JSHint
     if (typeof define === 'function' && define.amd) { // AMD. Register as an anonymous module.
-        //noinspection JSUnresolvedFunction
+        //noinspection JSUnresolvedFunction,JSHint
         define(['jquery'], factory);
-    } else { // noinspection JSUnresolvedVariable
+    } else { // noinspection JSUnresolvedVariable,JSHint
         if (typeof module === 'object' && module.exports) { // Node/CommonJS
-            // noinspection JSUnresolvedVariable,JSUnresolvedFunction,NpmUsedModulesInstalled
+            // noinspection JSUnresolvedVariable,JSUnresolvedFunction,NpmUsedModulesInstalled,JSHint
             module.exports = factory(require('jquery'));
         } else { // Browser globals
             factory(window.jQuery);
@@ -467,7 +467,7 @@
             return (new Date().getTime() + Math.floor(Math.random() * Math.pow(10, 15))).toString(36);
         },
         parseEventCallback: function (str) {
-            return Function('\'use strict\'; return (function() { ' + str + ' });')();
+            return Function('\'use strict\'; return (function() { ' + str + ' });')(); // jshint ignore:line
         },
         cspBuffer: {
             CSP_ATTRIB: 'data-csp-01928735', // a randomly named temporary attribute to store the CSP elem id
@@ -485,7 +485,7 @@
                     var $elem = $(elem), styleString = $elem.attr('style'), id = $h.uniqId(), styles = {};
                     if (styleString && styleString.length) {
                         if (styleString.indexOf(';') === -1) {
-                            styleString += ';'
+                            styleString += ';';
                         }
                         styleString.slice(0, styleString.length - 1).split(';').map(function (str) {
                             str = str.split(':');
@@ -516,7 +516,7 @@
                     return outerDom[itm];
                 });
                 return values.flatMap(function (elem) {
-                    return elem.outerHTML;
+                    return elem.innerHTML;
                 }).join('');
             },
             apply: function (domElement) {
@@ -1946,7 +1946,7 @@
                     indicatorNewTitle: 'Not uploaded yet',
                     indicatorSuccessTitle: 'Uploaded',
                     indicatorErrorTitle: 'Upload Error',
-                    indicatorLoadingTitle: 'Uploading ...',
+                    indicatorLoadingTitle: 'Uploading &hellip;',
                     indicatorPausedTitle: 'Upload Paused'
                 }
             };
@@ -2675,17 +2675,30 @@
             self._validateDefaultPreview();
         },
         _initSortable: function () {
-            var self = this, $el = self.$preview, settings, selector = '.' + $h.SORT_CSS,
-                rev = self.reversePreviewOrder;
-            if (!window.KvSortable || $el.find(selector).length === 0) {
+            var self = this, $el = self.$preview, settings, selector = '.' + $h.SORT_CSS, $cont, $body = $('body'),
+                $html = $('html'), rev = self.reversePreviewOrder, Sortable = window.Sortable, beginGrab, endGrab;
+            if (!Sortable || $el.find(selector).length === 0) {
                 return;
             }
+            $cont = $body.length ? $body : ($html.length ? $html : self.$container);
+            beginGrab = function () {
+                $cont.addClass('file-grabbing');
+            };
+            endGrab = function () {
+                $cont.removeClass('file-grabbing');
+            };
             //noinspection JSUnusedGlobalSymbols
             settings = {
                 handle: '.drag-handle-init',
-                dataIdAttr: 'data-preview-id',
-                scroll: false,
+                dataIdAttr: 'data-fileid',
+                animation: 600,
                 draggable: selector,
+                scroll: false,
+                forceFallback: true,
+                onChoose: beginGrab,
+                onStart: beginGrab,
+                onUnchoose: endGrab,
+                onEnd: endGrab,
                 onSort: function (e) {
                     var oldIndex = e.oldIndex, newIndex = e.newIndex, i = 0;
                     self.initialPreview = $h.moveArray(self.initialPreview, oldIndex, newIndex, rev);
@@ -2701,13 +2714,13 @@
                         'newIndex': newIndex,
                         stack: self.initialPreviewConfig
                     });
-                }
+                },
             };
-            if ($el.data('kvsortable')) {
-                $el.kvsortable('destroy');
-            }
             $.extend(true, settings, self.fileActionSettings.dragSettings);
-            $el.kvsortable(settings);
+            if (self.sortable) {
+                self.sortable.destroy();
+            }
+            self.sortable = Sortable.create($el[0], settings);
         },
         _setPreviewContent: function (content) {
             var self = this;
@@ -3045,7 +3058,7 @@
             });
         },
         _inputFileCount: function () {
-            return this.$element.get(0).files.length;
+            return this.$element[0].files.length;
         },
         _refreshPreview: function () {
             var self = this, files;
@@ -3058,10 +3071,10 @@
                     self.fileManager.clear();
                     self._clearFileInput();
                 } else {
-                    files = self.$element.get(0).files;
+                    files = self.$element[0].files;
                 }
             } else {
-                files = self.$element.get(0).files;
+                files = self.$element[0].files;
             }
             if (files && files.length) {
                 self.readFiles(files);
@@ -3897,7 +3910,7 @@
                 index = parseInt(index.replace($h.INIT_FLAG, ''));
                 config = $h.isEmpty(cache.config) && $h.isEmpty(cache.config[index]) ? null : cache.config[index];
                 extraData = $h.isEmpty(config) || $h.isEmpty(config.extra) ? deleteExtraData : config.extra;
-                fileName = config.filename || config.caption || '';
+                fileName = config && (config.filename || config.caption) || '';
                 if (typeof extraData === 'function') {
                     extraData = extraData();
                 }
@@ -4250,6 +4263,10 @@
                 }
             }
         },
+        _hasFiles: function () {
+            var el = this.$element[0];
+            return !!(el && el.files && el.files.length);
+        },
         _setFileDropZoneTitle: function () {
             var self = this, $zone = self.$container.find('.file-drop-zone'), title = self.dropZoneTitle, strFiles;
             if (self.isClickable) {
@@ -4258,7 +4275,7 @@
             }
             $zone.find('.' + self.dropZoneTitleClass).remove();
             if (!self.showPreview || $zone.length === 0 || self.fileManager.count() > 0 || !self.dropZoneEnabled ||
-                (!self.isAjaxUpload && self.$element.files)) {
+                self.previewCache.count() > 0 || (!self.isAjaxUpload && self._hasFiles())) {
                 return;
             }
             if ($zone.find($h.FRAMES).length === 0 && $h.isEmpty(self.defaultPreviewContent)) {
@@ -4448,7 +4465,7 @@
                     self.$preview.removeClass('hide-content');
                     $thumb.find('.kv-file-content').css('visibility', 'hidden');
                 }
-                var img = $img.get(0), zoomImg = $zoomImg && $zoomImg.length ? $zoomImg.get(0) : null,
+                var img = $img[0], zoomImg = $zoomImg && $zoomImg.length ? $zoomImg[0] : null,
                     h = img.offsetHeight, w = img.offsetWidth, r = $h.getRotation(value);
                 if (isHidden) {
                     $thumb.find('.kv-file-content').css('visibility', 'visible');
@@ -4939,7 +4956,7 @@
                 return;
             }
             var $el = self.$element, isDragDrop = arguments.length > 1, isAjaxUpload = self.isAjaxUpload,
-                tfiles, files = isDragDrop ? arguments[1] : $el.get(0).files, ctr = self.fileManager.count(),
+                tfiles, files = isDragDrop ? arguments[1] : $el[0].files, ctr = self.fileManager.count(),
                 total, initCount, len, isSingleUpl = $h.isEmpty($el.attr('multiple')),
                 maxCount = !isAjaxUpload && isSingleUpl ? 1 : self.maxFileCount, maxTotCount = self.maxTotalFileCount,
                 inclAll = maxTotCount > 0 && maxTotCount > maxCount, flagSingle = (isSingleUpl && ctr > 0),
@@ -5780,7 +5797,7 @@
         showPause: null,
         showClose: true,
         showUploadedThumbs: true,
-        showConsoleLogs: true,
+        showConsoleLogs: false,
         browseOnZoneClick: false,
         autoReplace: false,
         autoOrientImage: function () { // applicable for JPEG images only and non ios safari
@@ -5973,7 +5990,7 @@
         msgNoFilesSelected: 'No files selected',
         msgCancelled: 'Cancelled',
         msgPaused: 'Paused',
-        msgPlaceholder: 'Select {files}...',
+        msgPlaceholder: 'Select {files} ...',
         msgZoomModalHeading: 'Detailed Preview',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
@@ -6000,10 +6017,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'The file upload was aborted',
-        msgUploadThreshold: 'Processing...',
-        msgUploadBegin: 'Initializing...',
+        msgUploadThreshold: 'Processing &hellip;',
+        msgUploadBegin: 'Initializing &hellip;',
         msgUploadEnd: 'Done',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',

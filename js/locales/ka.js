@@ -28,7 +28,7 @@
         msgNoFilesSelected: 'ფაილები არ არის არჩეული',
         msgPaused: 'Paused',
         msgCancelled: 'გაუქმებულია',
-        msgPlaceholder: 'აირჩიეთ {files}...',
+        msgPlaceholder: 'აირჩიეთ {files} ...',
         msgZoomModalHeading: 'დეტალურად ნახვა',
         msgFileRequired: 'ატვირთვისთვის აუცილებელია ფაილის არჩევა.',
         msgSizeTooSmall: 'ფაილი "{name}" (<b>{size} KB</b>) არის ძალიან პატარა. მისი ზომა უნდა იყოს არანაკლებ <b>{minSize} KB</b>.',
@@ -55,10 +55,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'ფაილის ატვირთვა შეწყდა',
-        msgUploadThreshold: 'მუშავდება...',
-        msgUploadBegin: 'ინიციალიზაცია...',
+        msgUploadThreshold: 'მუშავდება &hellip;',
+        msgUploadBegin: 'ინიციალიზაცია &hellip;',
         msgUploadEnd: 'დასრულებულია',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'ატვირთვისთვის დაუშვებელი მონაცემები.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -99,7 +99,7 @@
             indicatorSuccessTitle: 'ატვირთულია',
             indicatorErrorTitle: 'ატვირთვის შეცდომა',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'ატვირთვა ...'
+            indicatorLoadingTitle:  'ატვირთვა &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'წინა ფაილის ნახვა',

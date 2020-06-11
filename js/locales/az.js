@@ -28,7 +28,7 @@
         msgNoFilesSelected: 'Heç bir fayl seçilməmişdir',
         msgPaused: 'Paused',
         msgCancelled: 'İmtina edildi',
-        msgPlaceholder: 'Select {files}...',
+        msgPlaceholder: 'Select {files} ...',
         msgZoomModalHeading: 'İlkin baxış',
         msgFileRequired: 'Yükləmə üçün fayl seçməlisiniz.',
         msgSizeTooSmall: 'Seçdiyiniz "{name}" faylının həcmi (<b>{size} KB</b>)-dır,  minimum <b>{minSize} KB</b> olmalıdır.',
@@ -55,10 +55,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'Yükləmə dayandırılmışdır',
-        msgUploadThreshold: 'Yükləmə...',
-        msgUploadBegin: 'Yoxlama...',
+        msgUploadThreshold: 'Yükləmə &hellip;',
+        msgUploadBegin: 'Yoxlama &hellip;',
         msgUploadEnd: 'Fayl(lar) yükləndi',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'Yükləmə üçün verilmiş məlumatlar yanlışdır',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -99,7 +99,7 @@
             indicatorSuccessTitle: 'Tamamlandı',
             indicatorErrorTitle: 'Yükləmə xətası',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Yükləmə ...'
+            indicatorLoadingTitle:  'Yükləmə &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Əvvəlki fayla bax',

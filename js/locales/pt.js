@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Nenhum ficheiro selecionado',
         msgPaused: 'Parado',
         msgCancelled: 'Cancelado',
-        msgPlaceholder: 'Selecionar {files}...',
+        msgPlaceholder: 'Selecionar {files} ...',
         msgZoomModalHeading: 'Pré-visualização detalhada',
         msgFileRequired: 'É necessário selecionar um ficheiro a enviar.',
         msgSizeTooSmall: 'Ficheiro "{name}" (<b>{size} KB</b>) é demasiado pequeno, tem ser ser maior que <b>{minSize} KB</b>.',
@@ -54,10 +54,10 @@
             'object': 'objeto'
         },
         msgUploadAborted: 'O envio do ficheiro foi abortado',
-        msgUploadThreshold: 'A processar...',
-        msgUploadBegin: 'A inicializar...',
+        msgUploadThreshold: 'A processar &hellip;',
+        msgUploadBegin: 'A inicializar &hellip;',
         msgUploadEnd: 'Concluído',
-        msgUploadResume: 'A retomar o envio...',
+        msgUploadResume: 'A retomar o envio &hellip;',
         msgUploadEmpty: 'Não existem dados válidos disponíveis para o envio.',
         msgUploadError: 'Erro de Envio',
         msgDeleteError: 'Erro de Eliminação',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Enviado',
             indicatorErrorTitle: 'Erro de Envio',
             indicatorPausedTitle: 'Envio Parado',
-            indicatorLoadingTitle:  'A enviar ...'
+            indicatorLoadingTitle:  'A enviar &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Ver ficheiro anterior',

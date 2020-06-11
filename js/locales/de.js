@@ -25,7 +25,7 @@
         msgNoFilesSelected: 'Keine Dateien ausgewählt',
         msgPaused: 'Paused',
         msgCancelled: 'Abgebrochen',
-        msgPlaceholder: '{files} auswählen...',
+        msgPlaceholder: '{files} auswählen &hellip;',
         msgZoomModalHeading: 'ausführliche Vorschau',
         msgFileRequired: 'Sie müssen eine Datei zum Hochladen auswählen.',
         msgSizeTooSmall: 'Datei "{name}" (<b>{size} KB</b>) unterschreitet mindestens notwendige Upload-Größe von <b>{minSize} KB</b>.',
@@ -52,16 +52,16 @@
             'object': 'object'
         },
         msgUploadAborted: 'Der Datei-Upload wurde abgebrochen',
-        msgUploadThreshold: 'Wird bearbeitet ...',
-        msgUploadBegin: 'Wird initialisiert ...',
+        msgUploadThreshold: 'Wird bearbeitet &hellip;',
+        msgUploadBegin: 'Wird initialisiert &hellip;',
         msgUploadEnd: 'Erledigt',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'Keine gültigen Daten zum Hochladen verfügbar.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
         msgProgressError: 'Fehler',
         msgValidationError: 'Validierungsfehler',
-        msgLoading: 'Lade Datei {index} von {files} hoch&hellip;',
+        msgLoading: 'Lade Datei {index} von {files} hoch &hellip;',
         msgProgress: 'Datei {index} von {files} - {name} - zu {percent}% fertiggestellt.',
         msgSelected: '{n} {files} ausgewählt',
         msgFoldersNotAllowed: 'Drag & Drop funktioniert nur bei Dateien! {n} Ordner übersprungen.',
@@ -96,7 +96,7 @@
             indicatorSuccessTitle: 'Hochgeladen',
             indicatorErrorTitle: 'Upload Fehler',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Hochladen ...'
+            indicatorLoadingTitle:  'Hochladen &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Vorherige Datei anzeigen',

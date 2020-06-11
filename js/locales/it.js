@@ -16,7 +16,7 @@
     $.fn.fileinputLocales['it'] = {
         fileSingle: 'file',
         filePlural: 'file',
-        browseLabel: 'Sfoglia&hellip;',
+        browseLabel: 'Sfoglia &hellip;',
         removeLabel: 'Rimuovi',
         removeTitle: 'Rimuovi i file selezionati',
         cancelLabel: 'Annulla',
@@ -29,7 +29,7 @@
         msgNoFilesSelected: 'Nessun file selezionato',
         msgPaused: 'Paused',
         msgCancelled: 'Annullato',
-        msgPlaceholder: 'Seleziona {files}...',
+        msgPlaceholder: 'Seleziona {files} ...',
         msgZoomModalHeading: 'Anteprima dettagliata',
         msgFileRequired: 'Devi selezionare un file da caricare.',
         msgSizeTooSmall: 'Il file "{name}" (<b>{size} KB</b>) è troppo piccolo, deve essere almeno di <b>{minSize} KB</b>.',
@@ -56,16 +56,16 @@
             'object': 'object'
         },
         msgUploadAborted: 'Il caricamento del file è stato interrotto',
-        msgUploadThreshold: 'In lavorazione...',
-        msgUploadBegin: 'Inizializzazione...',
+        msgUploadThreshold: 'In lavorazione &hellip;',
+        msgUploadBegin: 'Inizializzazione &hellip;',
         msgUploadEnd: 'Fatto',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'Dati non disponibili',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
         msgProgressError: 'Errore',
         msgValidationError: 'Errore di convalida',
-        msgLoading: 'Caricamento file {index} di {files}&hellip;',
+        msgLoading: 'Caricamento file {index} di {files} &hellip;',
         msgProgress: 'Caricamento file {index} di {files} - {name} - {percent}% completato.',
         msgSelected: '{n} {files} selezionati',
         msgFoldersNotAllowed: 'Trascina solo file! Ignorata/e {n} cartella/e.',
@@ -87,7 +87,7 @@
             uploadBatch: 'caricamento file in batch',
             uploadExtra: 'upload dati del form'
         },
-        dropZoneTitle: 'Trascina i file qui&hellip;',
+        dropZoneTitle: 'Trascina i file qui &hellip;',
         dropZoneClickTitle: '<br>(o clicca per selezionare {files})',
         fileActionSettings: {
             removeTitle: 'Rimuovere il file',
@@ -100,7 +100,7 @@
             indicatorSuccessTitle: 'Caricati',
             indicatorErrorTitle: 'Carica Errore',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Caricamento ...'
+            indicatorLoadingTitle:  'Caricamento &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Vedi il file precedente',

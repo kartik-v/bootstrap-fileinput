@@ -28,7 +28,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Paused',
         msgCancelled: 'Anulat',
-        msgPlaceholder: 'Select {files}...',
+        msgPlaceholder: 'Select {files} ...',
         msgZoomModalHeading: 'Previzualizare detaliată',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
@@ -55,10 +55,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'Fișierul Încărcarea a fost întrerupt',
-        msgUploadThreshold: 'Processing...',
-        msgUploadBegin: 'Initializing...',
+        msgUploadThreshold: 'Processing &hellip;',
+        msgUploadBegin: 'Initializing &hellip;',
         msgUploadEnd: 'Done',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -99,7 +99,7 @@
             indicatorSuccessTitle: 'încărcat',
             indicatorErrorTitle: 'Încărcați eroare',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Se încarcă ...'
+            indicatorLoadingTitle:  'Se încarcă &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'View previous file',

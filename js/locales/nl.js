@@ -27,7 +27,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Paused',
         msgCancelled: 'Geannuleerd',
-        msgPlaceholder: 'Selecteer {files}...',
+        msgPlaceholder: 'Selecteer {files} ...',
         msgZoomModalHeading: 'Gedetailleerd voorbeeld',
         msgFileRequired: 'U moet een bestand kiezen om te uploaden.',
         msgSizeTooSmall: 'Bestand "{name}" (<b>{size} KB</b>) is te klein en moet groter zijn dan <b>{minSize} KB</b>.',
@@ -54,10 +54,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'Het uploaden van bestanden is afgebroken',
-        msgUploadThreshold: 'Verwerken...',
-        msgUploadBegin: 'Initialiseren...',
+        msgUploadThreshold: 'Verwerken &hellip;',
+        msgUploadBegin: 'Initialiseren &hellip;',
         msgUploadEnd: 'Gedaan',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'Geen geldige data beschikbaar voor upload.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'geupload',
             indicatorErrorTitle: 'fout uploaden',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'uploaden ...'
+            indicatorLoadingTitle:  'uploaden &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Toon vorig bestand',

@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'No hay archivos seleccionados',
         msgPaused: 'Paused',
         msgCancelled: 'Cancelado',
-        msgPlaceholder: 'Seleccionar {files}...',
+        msgPlaceholder: 'Seleccionar {files} ...',
         msgZoomModalHeading: 'Vista previa detallada',
         msgFileRequired: 'Debes seleccionar un archivo para subir.',
         msgSizeTooSmall: 'El archivo "{name}" (<b>{size} KB</b>) es demasiado pequeño y debe ser mayor de <b>{minSize} KB</b>.',
@@ -54,10 +54,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'La carga de archivos se ha cancelado',
-        msgUploadThreshold: 'Procesando...',
-        msgUploadBegin: 'Inicializando...',
+        msgUploadThreshold: 'Procesando &hellip;',
+        msgUploadBegin: 'Inicializando &hellip;',
         msgUploadEnd: 'Hecho',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'No existen datos válidos para el envío.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Subido',
             indicatorErrorTitle: 'Error al subir',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Subiendo...'
+            indicatorLoadingTitle:  'Subiendo &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Anterior',

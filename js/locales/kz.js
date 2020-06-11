@@ -28,7 +28,7 @@
         msgNoFilesSelected: 'Файл таңдалмады',
         msgPaused: 'Paused',
         msgCancelled: 'Күші жойылған',
-        msgPlaceholder: 'Select {files}...',
+        msgPlaceholder: 'Select {files} ...',
         msgZoomModalHeading: 'Алдын ала толық көру',
         msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) ең үлкен <b>{maxSize} KB</b> өлшемінен асады.',
         msgFilesTooLess: 'Жүктеу үшіy кемінде <b>{n}</b> {files} таңдау керек.',
@@ -42,10 +42,10 @@
         msgInvalidFileType: '"{name}" тыйым салынған файл түрі. Тек мынаналарға рұқсат етілген: "{types}"',
         msgInvalidFileExtension: '"{name}" тыйым салынған файл кеңейтімі. Тек "{extensions}" рұқсат.',
         msgUploadAborted: 'Файлды жүктеу доғарылды',
-        msgUploadThreshold: 'Өңдеу...',
-        msgUploadBegin: 'Initializing...',
+        msgUploadThreshold: 'Өңдеу &hellip;',
+        msgUploadBegin: 'Initializing &hellip;',
         msgUploadEnd: 'Done',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'No valid data available for upload.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -86,7 +86,7 @@
             indicatorSuccessTitle: 'Жүктелген',
             indicatorErrorTitle: 'Жүктелу қатесі ',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Жүктелу ...'
+            indicatorLoadingTitle:  'Жүктелу &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Алдыңғы файлды қарау',

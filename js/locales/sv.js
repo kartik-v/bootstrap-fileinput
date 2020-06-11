@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Inga filer valda',
         msgPaused: 'Paused',
         msgCancelled: 'Avbruten',
-        msgPlaceholder: 'Select {files}...',
+        msgPlaceholder: 'Select {files} ...',
         msgZoomModalHeading: 'detaljerad förhandsgranskning',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Filen "{name}" (<b>{size} KB</b>) är för liten och måste vara större än <b>{minSize} KB</b>.',
@@ -54,10 +54,10 @@
             'object': 'objekt'
         },
         msgUploadAborted: 'Filöverföringen avbröts',
-        msgUploadThreshold: 'Bearbetar...',
-        msgUploadBegin: 'Påbörjar...',
+        msgUploadThreshold: 'Bearbetar &hellip;',
+        msgUploadBegin: 'Påbörjar &hellip;',
         msgUploadEnd: 'Färdig',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'Ingen giltig data tillgänglig för uppladdning.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -97,7 +97,7 @@
             indicatorSuccessTitle: 'Uppladdad',
             indicatorErrorTitle: 'Uppladdningsfel',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Laddar upp...'
+            indicatorLoadingTitle:  'Laddar upp &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Visa föregående fil',

@@ -3,7 +3,19 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.1.0
 
-**Date:** _under development_
+**Date:** 11-Jun-2020
+
+- (enh #1584): Revamp Krajee Explorer Themes.
+- (bug #1583): Correct cspBuffer stash html content store.
+- (enh #1582): Set `showConsoleLogs` to `false` as default.
+- (enh #1581): Enhance Sortable Behavior & Styles.
+    - Update to use latest release of Rubaxa Sortable Plugin
+    - Fix errors in sortable init
+    - Update drag handle styles to show correct grab cursor
+- (enh #1580): Validate drop zone title by correctly checking if native input has files.
+- (enh #1578): Enhance progress bar styling.
+- (enh #1577): Use `&hellip;` instead of three dots.
+- (enh #1576): Update French Translations.
 
 ## version 5.0.9
 

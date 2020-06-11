@@ -28,7 +28,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Paused',
         msgCancelled: 'Cкасовано',
-        msgPlaceholder: 'Оберіть {files}...',
+        msgPlaceholder: 'Оберіть {files} ...',
         msgZoomModalHeading: 'Детальний превью',
         msgFileRequired: 'Ви повинні обрати файл для завантаження.',
         msgSizeTooSmall: 'Файл "{name}" (<b>{size} KB</b>) занадто малий і повинен бути більший, ніж <b>{minSize} KB</b>.',
@@ -55,10 +55,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'Вивантаження файлу перервана',
-        msgUploadThreshold: 'Обробка...',
-        msgUploadBegin: 'Ініціалізація...',
+        msgUploadThreshold: 'Обробка &hellip;',
+        msgUploadBegin: 'Ініціалізація &hellip;',
         msgUploadEnd: 'Готово',
-        msgUploadResume: 'Resuming upload...',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: 'Немає доступних даних для відвантаження.',
         msgUploadError: 'Upload Error',
         msgDeleteError: 'Delete Error',
@@ -99,7 +99,7 @@
             indicatorSuccessTitle: 'Відвантажено',
             indicatorErrorTitle: 'Помилка при відвантаженні',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Завантаження ...'
+            indicatorLoadingTitle:  'Завантаження &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Переглянути попередній файл',

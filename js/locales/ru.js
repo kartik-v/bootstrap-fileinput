@@ -28,7 +28,7 @@
         msgNoFilesSelected: '',
         msgPaused: 'Приостановлено',
         msgCancelled: 'Отменено',
-        msgPlaceholder: 'Выбрать {files}...',
+        msgPlaceholder: 'Выбрать {files} ...',
         msgZoomModalHeading: 'Подробное превью',
         msgFileRequired: 'Необходимо выбрать файл для загрузки.',
         msgSizeTooSmall: 'Файл "{name}" (<b>{size} KB</b>) имеет слишком маленький размер и должен быть больше <b>{minSize} KB</b>.',
@@ -55,10 +55,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'Выгрузка файла прервана',
-        msgUploadThreshold: 'Обработка...',
-        msgUploadBegin: 'Инициализация...',
+        msgUploadThreshold: 'Обработка &hellip;',
+        msgUploadBegin: 'Инициализация &hellip;',
         msgUploadEnd: 'Готово',
-        msgUploadResume: 'Возобновление загрузки...',
+        msgUploadResume: 'Возобновление загрузки &hellip;',
         msgUploadEmpty: 'Недопустимые данные для загрузки',
         msgUploadError: 'Ошибка загрузки',
         msgDeleteError: 'Ошибка удаления',
@@ -99,7 +99,7 @@
             indicatorSuccessTitle: 'Загружен',
             indicatorErrorTitle: 'Ошибка загрузки',
             indicatorPausedTitle: 'Upload Paused',
-            indicatorLoadingTitle:  'Загрузка ...'
+            indicatorLoadingTitle:  'Загрузка &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Посмотреть предыдущий файл',

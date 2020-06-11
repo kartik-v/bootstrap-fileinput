@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Nevybrány žádné soubory',
         msgPaused: 'Pozastavené',
         msgCancelled: 'Zrušeno',
-        msgPlaceholder: 'Vybrat {files}...',
+        msgPlaceholder: 'Vybrat {files} ...',
         msgZoomModalHeading: 'Detailní náhled',
         msgFileRequired: 'Musíte vybrat soubor, který chcete nahrát.',
         msgSizeTooSmall: 'Soubor "{name}" (<b>{size} KB</b>) je příliš malý, musí mít velikost nejméně <b>{minSize} KB</b>.',
@@ -54,10 +54,10 @@
             'object': 'object'
         },
         msgUploadAborted: 'Nahrávání souboru bylo přerušeno',
-        msgUploadThreshold: 'Zpracovávám...',
-        msgUploadBegin: 'Inicializujem...',
+        msgUploadThreshold: 'Zpracovávám &hellip;',
+        msgUploadBegin: 'Inicializujem &hellip;',
         msgUploadEnd: 'Hotovo',
-        msgUploadResume: 'Obnovuje se nahrávání...',
+        msgUploadResume: 'Obnovuje se nahrávání &hellip;',
         msgUploadEmpty: 'Pro nahrávání nejsou k dispozici žádné platné údaje.',
         msgUploadError: 'Chyba při nahrávání',
         msgDeleteError: 'Chyba při odstraňování',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Nahraný',
             indicatorErrorTitle: 'Chyba nahrávání',
             indicatorPausedTitle: 'Nahrávání bylo pozastaveno',
-            indicatorLoadingTitle:  'Nahrávání ...'
+            indicatorLoadingTitle:  'Nahrávání &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Zobrazit předchozí soubor',
