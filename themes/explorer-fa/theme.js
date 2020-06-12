@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.1.0
+ * bootstrap-fileinput v5.1.1
  * http://plugins.krajee.com/file-input
  *
  * Krajee Explorer Font Awesome theme configuration for bootstrap-fileinput. 
