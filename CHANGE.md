@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date:** _under development_
 
+- (bug #1585): Correct file sorting and zoom cache handling.
+
 ## version 5.1.0
 
 **Date:** 11-Jun-2020
