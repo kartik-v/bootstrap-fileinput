@@ -534,6 +534,10 @@
     cursor: pointer;
 }
 
+.file-sortable .file-drag-handle:hover {
+    opacity: 0.7;
+}
+
 .file-sortable .file-drag-handle {
     cursor: grab;
     opacity: 1;
@@ -547,10 +551,8 @@
     cursor: grabbing !important;
 }
 
-.file-sortable .file-drag-handle:hover {
-    opacity: 0.7;
-}
-
-.file-preview-initial.sortable-chosen {
+.file-preview-frame.sortable-chosen {
     background-color: #d9edf7;
+    border-color: #17a2b8;
+    box-shadow: none !important;
 }

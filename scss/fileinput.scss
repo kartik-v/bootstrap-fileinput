@@ -21,6 +21,7 @@ $celeste: #ccc !default;
 $green: #008000 !default;
 $mine-shaft: #333 !default;
 $boston-blue: #428bca !default;
+$pelorous: #17a2b8 !default;
 $tapa: #777 !default;
 $black: #000 !default;
 $black-20: rgba(0, 0, 0, 0.2) !default;
@@ -652,4 +653,6 @@ input[type=file].file-loading {
 }
 .file-preview-initial.sortable-chosen {
     background-color: $link-water;
+    border-color: $pelorous;
+    box-shadow: none;
 }
