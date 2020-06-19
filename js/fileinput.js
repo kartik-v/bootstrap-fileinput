@@ -1633,7 +1633,7 @@
                             return;
                         }
                         outData = self._getOutData(fd, jqXHR);
-                        rm.error = errorThrown;
+                        rm.error = jqXHR.responseJSON && jqXHR.responseJSON.error ? jqXHR.responseJSON.error : errorThrown;
                         rm.logAjaxError(jqXHR, textStatus, errorThrown);
                         self._raise('filechunkajaxerror', [id, index, retry, fm, rm, outData]);
                         rm.pushAjax(index, retry + 1); // push another task
