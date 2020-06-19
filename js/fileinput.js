@@ -75,7 +75,8 @@
             invalidThumb: 'Invalid thumb frame with id: "{id}".',
             noResumableSupport: 'The browser does not support resumable or chunk uploads.',
             noUploadUrl: 'The "uploadUrl" is not set. Ajax uploads and resumable uploads have been disabled.',
-            retryStatus: 'Retrying upload for chunk # {chunk} for {filename}... retry # {retry}.'
+            retryStatus: 'Retrying upload for chunk # {chunk} for {filename}... retry # {retry}.',
+            chunkQueueError: 'Could not push task to ajax pool for chunk index # {index}.'
         },
         objUrl: window.URL || window.webkitURL,
         now: function () {
@@ -1309,7 +1310,13 @@
                     rm.chunkSize = self.resumableUploadOptions.chunkSize * 1024;
                     rm.chunkCount = rm.getTotalChunks();
                 },
-                logAjaxError: function (jqXHR, textStatus, errorThrown) {
+                setAjaxError: function (jqXHR, textStatus, errorThrown, isTest) {
+                    if (jqXHR.responseJSON && jqXHR.responseJSON.error) {
+                        errorThrown = jqXHR.responseJSON.error.toString();
+                    }
+                    if (!isTest) {
+                        rm.error = errorThrown;
+                    }
                     if (self.resumableUploadOptions.showErrorLog) {
                         self._log(logs.ajaxError, {
                             status: jqXHR.status,
@@ -1530,7 +1537,7 @@
                     fnError = function (jqXHR, textStatus, errorThrown) {
                         outData = self._getOutData(fd, jqXHR);
                         self._raise('filetestajaxerror', [id, fm, rm, outData]);
-                        rm.logAjaxError(jqXHR, textStatus, errorThrown);
+                        rm.setAjaxError(jqXHR, textStatus, errorThrown, true);
                         rm.testing = false;
                     };
                     fnComplete = function () {
@@ -1548,7 +1555,7 @@
                         if (!rm.chunksProcessed[rm.id] || !rm.chunksProcessed[rm.id][index]) {
                             rm.sendAjax(index, arr[1], deferrer);
                         } else {
-                            self._log('Could not push task to ajax pool for chunk index # ' + index);
+                            self._log(logs.chunkQueueError, {index: index});
                         }
                     });
                     rm.stack.push([index, retry]);
@@ -1633,8 +1640,7 @@
                             return;
                         }
                         outData = self._getOutData(fd, jqXHR);
-                        rm.error = errorThrown;
-                        rm.logAjaxError(jqXHR, textStatus, errorThrown);
+                        rm.setAjaxError(jqXHR, textStatus, errorThrown);
                         self._raise('filechunkajaxerror', [id, index, retry, fm, rm, outData]);
                         rm.pushAjax(index, retry + 1); // push another task
                         deferrer.reject('try failed'); // resolve the current task
@@ -2351,16 +2357,20 @@
         },
         _parseError: function (operation, jqXHR, errorThrown, fileName) {
             /** @namespace jqXHR.responseJSON */
-            var self = this, errMsg = $.trim(errorThrown + ''), textPre,
-                text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined ?
-                    jqXHR.responseJSON.error.toString() : jqXHR.responseText;
+            var self = this, errMsg = $.trim(errorThrown + ''), textPre, errText, text;
+            errText = jqXHR.responseJSON && jqXHR.responseJSON.error ? jqXHR.responseJSON.error.toString() : '';
+            text = errText ? errText : jqXHR.responseText;
             if (self.cancelling && self.msgUploadAborted) {
                 errMsg = self.msgUploadAborted;
             }
             if (self.showAjaxErrorDetails && text) {
-                text = $.trim(text.replace(/\n\s*\n/g, '\n'));
-                textPre = text.length ? '<pre>' + text + '</pre>' : '';
-                errMsg += errMsg ? textPre : text;
+                if (errText) {
+                    errMsg = $.trim(errText + '');
+                } else {
+                    text = $.trim(text.replace(/\n\s*\n/g, '\n'));
+                    textPre = text.length ? '<pre>' + text + '</pre>' : '';
+                    errMsg += errMsg ? textPre : text;
+                }
             }
             if (!errMsg) {
                 errMsg = self.msgAjaxError.replace('{operation}', operation);
