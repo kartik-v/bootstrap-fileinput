@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.1.1
 
-**Date:** _under development_
+**Date:** 20-Jun-2020
 
 - (enh #1587): Enhance resumable ajax error trapping.
 - (bug #1585): Correct file sorting and zoom cache handling.
