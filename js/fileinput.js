@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.1.0
+ * bootstrap-fileinput v5.1.1
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -75,7 +75,8 @@
             invalidThumb: 'Invalid thumb frame with id: "{id}".',
             noResumableSupport: 'The browser does not support resumable or chunk uploads.',
             noUploadUrl: 'The "uploadUrl" is not set. Ajax uploads and resumable uploads have been disabled.',
-            retryStatus: 'Retrying upload for chunk # {chunk} for {filename}... retry # {retry}.'
+            retryStatus: 'Retrying upload for chunk # {chunk} for {filename}... retry # {retry}.',
+            chunkQueueError: 'Could not push task to ajax pool for chunk index # {index}.'
         },
         objUrl: window.URL || window.webkitURL,
         now: function () {
@@ -639,13 +640,6 @@
                 newArr.reverse();
             }
             return newArr;
-        },
-        cleanZoomCache: function ($el) {
-            var $cache = $el.closest('.kv-zoom-cache-theme');
-            if (!$cache.length) {
-                $cache = $el.closest('.kv-zoom-cache');
-            }
-            $cache.remove();
         },
         closeButton: function (css) {
             css = css ? 'close ' + css : 'close';
@@ -1316,7 +1310,13 @@
                     rm.chunkSize = self.resumableUploadOptions.chunkSize * 1024;
                     rm.chunkCount = rm.getTotalChunks();
                 },
-                logAjaxError: function (jqXHR, textStatus, errorThrown) {
+                setAjaxError: function (jqXHR, textStatus, errorThrown, isTest) {
+                    if (jqXHR.responseJSON && jqXHR.responseJSON.error) {
+                        errorThrown = jqXHR.responseJSON.error.toString();
+                    }
+                    if (!isTest) {
+                        rm.error = errorThrown;
+                    }
                     if (self.resumableUploadOptions.showErrorLog) {
                         self._log(logs.ajaxError, {
                             status: jqXHR.status,
@@ -1537,7 +1537,7 @@
                     fnError = function (jqXHR, textStatus, errorThrown) {
                         outData = self._getOutData(fd, jqXHR);
                         self._raise('filetestajaxerror', [id, fm, rm, outData]);
-                        rm.logAjaxError(jqXHR, textStatus, errorThrown);
+                        rm.setAjaxError(jqXHR, textStatus, errorThrown, true);
                         rm.testing = false;
                     };
                     fnComplete = function () {
@@ -1555,7 +1555,7 @@
                         if (!rm.chunksProcessed[rm.id] || !rm.chunksProcessed[rm.id][index]) {
                             rm.sendAjax(index, arr[1], deferrer);
                         } else {
-                            self._log('Could not push task to ajax pool for chunk index # ' + index);
+                            self._log(logs.chunkQueueError, {index: index});
                         }
                     });
                     rm.stack.push([index, retry]);
@@ -1640,8 +1640,7 @@
                             return;
                         }
                         outData = self._getOutData(fd, jqXHR);
-                        rm.error = errorThrown;
-                        rm.logAjaxError(jqXHR, textStatus, errorThrown);
+                        rm.setAjaxError(jqXHR, textStatus, errorThrown);
                         self._raise('filechunkajaxerror', [id, index, retry, fm, rm, outData]);
                         rm.pushAjax(index, retry + 1); // push another task
                         deferrer.reject('try failed'); // resolve the current task
@@ -1754,7 +1753,7 @@
                 ' data-fileid="{fileid}" data-template="{template}"';
             tTagBef1 = tTagBef + '><div class="kv-file-content">\n';
             tTagBef2 = tTagBef + ' title="{caption}"><div class="kv-file-content">\n';
-            tTagAft = '</div>{footer}\n</div>\n';
+            tTagAft = '</div>{footer}\n{zoomCache}</div>\n';
             tGeneric = '{content}\n';
             tStyle = ' {style}';
             tHtml = '<div class="kv-preview-data file-preview-html" title="{caption}"' + tStyle + '>{data}</div>\n';
@@ -2358,16 +2357,20 @@
         },
         _parseError: function (operation, jqXHR, errorThrown, fileName) {
             /** @namespace jqXHR.responseJSON */
-            var self = this, errMsg = $.trim(errorThrown + ''), textPre,
-                text = jqXHR.responseJSON !== undefined && jqXHR.responseJSON.error !== undefined ?
-                    jqXHR.responseJSON.error.toString() : jqXHR.responseText;
+            var self = this, errMsg = $.trim(errorThrown + ''), textPre, errText, text;
+            errText = jqXHR.responseJSON && jqXHR.responseJSON.error ? jqXHR.responseJSON.error.toString() : '';
+            text = errText ? errText : jqXHR.responseText;
             if (self.cancelling && self.msgUploadAborted) {
                 errMsg = self.msgUploadAborted;
             }
             if (self.showAjaxErrorDetails && text) {
-                text = $.trim(text.replace(/\n\s*\n/g, '\n'));
-                textPre = text.length ? '<pre>' + text + '</pre>' : '';
-                errMsg += errMsg ? textPre : text;
+                if (errText) {
+                    errMsg = $.trim(errText + '');
+                } else {
+                    text = $.trim(text.replace(/\n\s*\n/g, '\n'));
+                    textPre = text.length ? '<pre>' + text + '</pre>' : '';
+                    errMsg += errMsg ? textPre : text;
+                }
             }
             if (!errMsg) {
                 errMsg = self.msgAjaxError.replace('{operation}', operation);
@@ -2665,9 +2668,8 @@
             var self = this,
                 $thumbs = self.showUploadedThumbs ? self.getFrames(':not(.file-preview-success)') : self.getFrames();
             $thumbs.each(function () {
-                var $thumb = $(this), id = $thumb.attr('id'), $zoom = self._getZoom(id);
+                var $thumb = $(this);
                 $thumb.remove();
-                $h.cleanZoomCache($zoom);
             });
             if (!self.getFrames().length || !self.showPreview) {
                 self._resetUpload();
@@ -2700,7 +2702,11 @@
                 onUnchoose: endGrab,
                 onEnd: endGrab,
                 onSort: function (e) {
-                    var oldIndex = e.oldIndex, newIndex = e.newIndex, i = 0;
+                    var oldIndex = e.oldIndex, newIndex = e.newIndex, i = 0, len = self.initialPreviewConfig.length,
+                        exceedsLast = len > 0 && newIndex >= len, $item = $(e.item), $first;
+                    if (exceedsLast) {
+                        newIndex = len - 1;
+                    }
                     self.initialPreview = $h.moveArray(self.initialPreview, oldIndex, newIndex, rev);
                     self.initialPreviewConfig = $h.moveArray(self.initialPreviewConfig, oldIndex, newIndex, rev);
                     self.previewCache.init();
@@ -2708,8 +2714,16 @@
                         $(this).attr('data-fileindex', $h.INIT_FLAG + i);
                         i++;
                     });
+                    if (exceedsLast) {
+                        $first = self.getFrames(':not(.file-preview-initial):first');
+                        if ($first.length) {
+                            $item.slideUp(function () {
+                                $item.insertBefore($first).slideDown();
+                            });
+                        }
+                    }
                     self._raise('filesorted', {
-                        previewId: $(e.item).attr('id'),
+                        previewId: $item.attr('id'),
                         'oldIndex': oldIndex,
                         'newIndex': newIndex,
                         stack: self.initialPreviewConfig
@@ -3374,10 +3388,10 @@
                     if (!allFiles) {
                         index = self.previewCache.add(content[0], config[0], tags[0], append);
                         data = self.previewCache.get(index, false);
-                        $div = $h.createElement(data).hide().insertAfter($thumb);
+                        $div = $h.createElement(data).hide().appendTo($thumb);
                         $newCache = $div.find('.kv-zoom-cache');
                         if ($newCache && $newCache.length) {
-                            $newCache.insertAfter($thumb);
+                            $newCache.appendTo($thumb);
                         }
                         $thumb.fadeOut('slow', function () {
                             var $newThumb = $div.find('.file-preview-frame');
@@ -3386,7 +3400,6 @@
                             }
                             self._initPreviewActions();
                             self._clearFileInput();
-                            $h.cleanZoomCache(self._getZoom($thumb.attr('id')));
                             $thumb.remove();
                             $div.remove();
                             self._initSortable();
@@ -3438,7 +3451,6 @@
                         return;
                     }
                     $thumb.fadeOut('slow', function () {
-                        $h.cleanZoomCache(self._getZoom(id));
                         $thumb.remove();
                         if (!self.getFrames().length) {
                             self.reset();
@@ -3853,7 +3865,6 @@
                     hasError = $frame.hasClass('file-preview-error');
                     $h.cleanMemory($frame);
                     $frame.fadeOut('slow', function () {
-                        $h.cleanZoomCache(self._getZoom(id));
                         self.fileManager.remove($frame);
                         self._clearObjects($frame);
                         $frame.remove();
@@ -3947,7 +3958,6 @@
                         cap = n > 0 ? self._getMsgSelected(n) : '';
                         self._setCaption(cap);
                         self._raise('filedeleted', [vKey, jqXHR, extraData]);
-                        $h.cleanZoomCache(self._getZoom($frame.attr('id')));
                         self._clearObjects($frame);
                         $frame.remove();
                         resetProgress();
@@ -4113,7 +4123,7 @@
                 zoomContent = self.sanitizeZoomCache(zoomContent);
             }
             prevContent = getContent((forcePrevIcon ? 'other' : cat), data, false, 'kv-preview-thumb');
-            return prevContent + zoomContent;
+            return prevContent.setTokens({zoomCache: zoomContent});
         },
         _addToPreview: function ($preview, content) {
             var self = this, $el;
