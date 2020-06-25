@@ -28,7 +28,7 @@
         msgNoFilesSelected: 'Hech qanday fayl tanlanmagan',
         msgPaused: 'To‘xtatildi',
         msgCancelled: 'Bekor qilindi',
-        msgPlaceholder: '{files} tanlash &hellip;',
+        msgPlaceholder: '{files} tanlash ...',
         msgZoomModalHeading: 'Batafsil ko‘rib chiqish',
         msgFileRequired: 'Yuklash uchun faylni tanlashingiz kerak.',
         msgSizeTooSmall: 'Siz tanlagan fayl hajmi: "{name}" (<b>{size} KB</b>). Tanlangan fayl hajmi <b>{minSize} KB</b> dan katta bo‘lishi lozim. Ko‘rsatilgan hajmdan kattaroq fayl yuklashga urinib ko‘ring',
