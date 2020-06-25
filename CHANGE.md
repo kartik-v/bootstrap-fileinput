@@ -6,6 +6,7 @@ Change Log: `bootstrap-fileinput`
 **Date**: _under development_
 
 - (enh #1589): Correct msgPlaceholder for de & uz translations.
+- (enh #1588): Enhance duplicate validation for recently uploaded thumbs.
 
 ## version 5.1.1
 

@@ -750,6 +750,7 @@
             self.clearFileStack();
             self.fileBatchCompleted = true;
             self.isError = false;
+            self.isDuplicateError = false;
             self.isPersistentError = false;
             self.cancelling = false;
             self.paused = false;
@@ -1159,6 +1160,7 @@
                 },
                 clear: function () {
                     var fm = self.fileManager;
+                    self.isDuplicateError = false;
                     self.isPersistentError = false;
                     fm.totalFiles = null;
                     fm.totalSize = null;
@@ -3154,13 +3156,28 @@
             return !self.overwriteInitial && self.previewCache.count(true);
         },
         _resetPreview: function () {
-            var self = this, out, cap;
+            var self = this, out, cap, $div, hasSuc = self.showUploadedThumbs, hasErr = !self.removeFromPreviewOnError,
+                includeProcessed = (hasSuc || hasErr) && self.isDuplicateError;
             if (self.previewCache.count(true)) {
                 out = self.previewCache.out();
+                if (includeProcessed) {
+                    $div = $h.createElement('').insertAfter(self.$container);
+                    self.getFrames().each(function () {
+                        var $thumb = $(this);
+                        if ((hasSuc && $thumb.hasClass('file-preview-success')) ||
+                            (hasErr && $thumb.hasClass('file-preview-error'))) {
+                            $div.append($thumb);
+                        }
+                    });
+                }
                 self._setPreviewContent(out.content);
                 self._setInitThumbAttr();
                 cap = self.initialCaption ? self.initialCaption : out.caption;
                 self._setCaption(cap);
+                if (includeProcessed) {
+                    $div.contents().appendTo(self.$preview);
+                    $div.remove();
+                }
             } else {
                 self._clearPreview();
                 self._initCaption();
@@ -3169,6 +3186,7 @@
                 self._initZoom();
                 self._initSortable();
             }
+            self.isDuplicateError = false;
         },
         _clearDefaultPreview: function () {
             var self = this;
@@ -5150,11 +5168,10 @@
                 previewInitId = self.previewInitId, numFiles = files.length, settings = self.fileTypeSettings,
                 readFile, fileTypes = self.allowedFileTypes, typLen = fileTypes ? fileTypes.length : 0,
                 fileExt = self.allowedFileExtensions, strExt = $h.isEmpty(fileExt) ? '' : fileExt.join(', '),
-                throwError = function (msg, file, previewId, index, fileId, removeThumb) {
-                    var p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
-                        {id: previewId, index: index, fileId: fileId}), $thumb,
+                throwError = function (msg, file, previewId, index, fileId) {
+                    var $thumb, p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
+                        {id: previewId, index: index, fileId: fileId}),
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
-                    removeThumb = removeThumb || self.removeFromPreviewOnError;
                     if (!removeThumb) {
                         self._previewDefault(file, true);
                     }
@@ -5167,7 +5184,7 @@
                         self.unlock();
                         numFiles = 0;
                     }
-                    if (removeThumb && $thumb.length) {
+                    if (self.removeFromPreviewOnError && $thumb.length) {
                         $thumb.remove();
                     } else {
                         self._initFileActions();
@@ -5263,12 +5280,11 @@
                     var p2 = {id: previewId, index: i, fileId: fileId, file: file, files: files};
                     msg = self.msgDuplicateFile.setTokens({name: caption, size: fSizeKB});
                     if (self.isAjaxUpload) {
-                        setTimeout(function () {
-                            self.duplicateErrors.push(msg);
-                            self._raise('fileduplicateerror', [file, fileId, caption, fSizeKB, previewId, i]);
-                            readFile(i + 1);
-                            self._updateFileDetails(numFiles);
-                        }, self.processDelay);
+                        self.duplicateErrors.push(msg);
+                        self.isDuplicateError = true;
+                        self._raise('fileduplicateerror', [file, fileId, caption, fSizeKB, previewId, i]);
+                        readFile(i + 1);
+                        self._updateFileDetails(numFiles);
                     } else {
                         self._showError(msg, p2);
                         self.unlock();
@@ -5580,6 +5596,7 @@
             self._clearFileInput();
             self._resetUpload();
             self.clearFileStack();
+            self.isDuplicateError = false;
             self.isPersistentError = false;
             self._resetErrors(true);
             if (self._hasInitialPreview()) {
