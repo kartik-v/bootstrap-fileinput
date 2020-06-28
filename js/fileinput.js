@@ -877,7 +877,10 @@
                     tk.logic = logic;
                     tk.context = null;
                     tk.run = function () {
-                        var argv = Array.from(arguments);
+                        var argv = [], i;
+                        for (i = 0; i < arguments.length; i++) {
+                            argv.push(arguments[i]);
+                        }
                         argv.unshift(tk.deferred);     // add deferrer as first argument
                         logic.apply(tk.context, argv); // run task
                         return tk.deferred;            // return deferrer
