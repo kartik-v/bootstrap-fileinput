@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1593): Correct resumable test upload validation.
 - (enh #1591): Parse arguments as an array via vanilla JS.
 - (enh #1589): Correct msgPlaceholder for de & uz translations.
 - (enh #1588): Enhance duplicate validation for recently uploaded thumbs.

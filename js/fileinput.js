@@ -86,6 +86,13 @@
             num = parseFloat(num);
             return isNaN(num) ? 0 : Math.floor(Math.round(num));
         },
+        getArray: function (obj) {
+            var i, arr = [], len = obj && obj.length || 0;
+            for (i = 0; i < len; i++) {
+                arr.push(obj[i]);
+            }
+            return arr;
+        },
         getFileRelativePath: function (file) {
             /** @namespace file.relativePath */
             /** @namespace file.webkitRelativePath */
@@ -801,7 +808,7 @@
                             });
                             // when all are done
                             $h.whenAll(tasksDeferredList).done(function () {
-                                var argv = Array.from(arguments);
+                                var argv = $h.getArray(arguments);
                                 if (!tp.cancelled) {
                                     deferred.resolve.apply(null, argv);
                                     tp.cancelledDeferrer.reject();
@@ -810,7 +817,7 @@
                                     tp.cancelledDeferrer.resolve();
                                 }
                             }).fail(function () {
-                                var argv = Array.from(arguments);
+                                var argv = $h.getArray(arguments);
                                 deferred.reject.apply(null, argv);
                                 if (!tp.cancelled) {
                                     tp.cancelledDeferrer.reject();
@@ -834,7 +841,7 @@
                                 .always(callback);
                         };
                         callback = function () {
-                            var argv = Array.from(arguments);
+                            var argv = $h.getArray(arguments);
                             // notify a task just ended
                             deferred.notify(argv);
                             tasksDone.push(argv);
@@ -877,10 +884,7 @@
                     tk.logic = logic;
                     tk.context = null;
                     tk.run = function () {
-                        var argv = [], i;
-                        for (i = 0; i < arguments.length; i++) {
-                            argv.push(arguments[i]);
-                        }
+                        var argv = $h.getArray(arguments);
                         argv.unshift(tk.deferred);     // add deferrer as first argument
                         logic.apply(tk.context, argv); // run task
                         return tk.deferred;            // return deferrer
@@ -1302,7 +1306,6 @@
                     rm.fileName = f.name;
                     rm.fileIndex = index;
                     rm.completed = false;
-                    rm.testing = false;
                     rm.lastProgress = 0;
                     if (self.showPreview) {
                         rm.$thumb = fm.getThumb(id) || null;
@@ -1438,8 +1441,7 @@
                             fm.initStats(id);
                             if (fm.stack[id]) {
                                 rm.init(id, fm.stack[id], fm.getIndex(id));
-                                rm.testUpload();
-                                rm.uploadResumable();
+                                rm.processUpload();
                             }
                         }
                         if (!fm.isPending(id) && rm.completed) {
@@ -1483,29 +1485,21 @@
                             rm.pushAjax(i, 0);
                         }
                     }
-
-                    if (!rm.testing) {
-                        pool.run(self.resumableUploadOptions.maxThreads)
-                            .done(function () {
-                                rm.setProcessed('success');
-                            })
-                            .fail(function () {
-                                if (pool.cancelled) {
-                                    rm.setProcessed('cancel');
-                                } else {
-                                    rm.setProcessed('error');
-                                }
-                            });
-                    }
+                    pool.run(self.resumableUploadOptions.maxThreads)
+                        .done(function () {
+                            rm.setProcessed('success');
+                        })
+                        .fail(function () {
+                            rm.setProcessed(pool.cancelled ? 'cancel' : 'error');
+                        });
                 },
-                testUpload: function () {
+                processUpload: function () {
                     var rm = self.resumableManager, opts = self.resumableUploadOptions, fd, f,
                         fm = self.fileManager, id = rm.id, fnBefore, fnSuccess, fnError, fnComplete, outData;
                     if (!opts.testUrl) {
-                        rm.testing = false;
+                        rm.uploadResumable();
                         return;
                     }
-                    rm.testing = true;
                     fd = new FormData();
                     f = fm.stack[id];
                     self._setUploadData(fd, {
@@ -1537,17 +1531,16 @@
                             rm.chunksProcessed[id].data = data;
                             self._raise('filetestsuccess', params);
                         }
-                        rm.testing = false;
+                        rm.uploadResumable();
                     };
                     fnError = function (jqXHR, textStatus, errorThrown) {
                         outData = self._getOutData(fd, jqXHR);
                         self._raise('filetestajaxerror', [id, fm, rm, outData]);
                         rm.setAjaxError(jqXHR, textStatus, errorThrown, true);
-                        rm.testing = false;
+                        rm.uploadResumable();
                     };
                     fnComplete = function () {
                         self._raise('filetestcomplete', [id, fm, rm, self._getOutData(fd)]);
-                        rm.testing = false;
                     };
                     self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, fd, id, rm.fileIndex, opts.testUrl);
                 },
@@ -3293,7 +3286,7 @@
                     pct = $h.round(loaded / total * 100);
                 }
                 if (fileId) {
-                    self._setFileUploadStats(fileId, pct, fileCount, stats);
+                    self._setFileUploadStats(fileId, pct, stats);
                 } else {
                     self._setProgress(pct, null, null, self._getStats(stats));
                 }
@@ -4351,7 +4344,7 @@
                 }));
             }
         },
-        _setFileUploadStats: function (id, pct, total, stats) {
+        _setFileUploadStats: function (id, pct, stats) {
             var self = this, $prog = self.$progress;
             if (!self.showPreview && (!$prog || !$prog.length)) {
                 return;
