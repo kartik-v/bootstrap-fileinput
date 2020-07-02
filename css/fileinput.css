@@ -400,6 +400,7 @@
 
 .file-drop-zone {
     border: 1px dashed #aaa;
+    min-height: 260px;
     border-radius: 4px;
     text-align: center;
     vertical-align: middle;
@@ -422,6 +423,7 @@
 .file-drop-zone-title {
     color: #aaa;
     font-size: 1.6em;
+    text-align:center;
     padding: 85px 10px;
     cursor: default;
 }

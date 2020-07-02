@@ -505,7 +505,7 @@ input[type=file].file-loading {
 .file-drop-zone {
     border: $border dashed $silver-chalice;
     border-radius: $radius;
-    height: 100%;
+    min-height: multiply($pad, 52);
     text-align: center;
     vertical-align: middle;
     margin: multiply($pad, 2.4) multiply($pad, 3) multiply($pad, 2.4) multiply($pad, 2.4);
