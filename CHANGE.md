@@ -5,11 +5,11 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (bug #1594): Correct `removeThumb` validation for in readFiles `throwError` method.
 - (enh #1593): Correct resumable test upload validation.
 - (enh #1591): Parse arguments as an array via vanilla JS.
 - (enh #1589): Correct msgPlaceholder for de & uz translations.
 - (enh #1588): Enhance duplicate validation for recently uploaded thumbs.
-
 ## version 5.1.1
 
 **Date:** 20-Jun-2020

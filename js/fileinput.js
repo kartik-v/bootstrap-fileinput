@@ -5168,9 +5168,7 @@
                     var $thumb, p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
                         {id: previewId, index: index, fileId: fileId}),
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
-                    if (!removeThumb) {
-                        self._previewDefault(file, true);
-                    }
+                    self._previewDefault(file, true);
                     $thumb = self._getFrame(previewId, true);
                     if (self.isAjaxUpload) {
                         setTimeout(function () {
