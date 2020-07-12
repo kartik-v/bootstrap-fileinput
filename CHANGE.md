@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1602): Enhance zoom cache sanitization by parsing all inputs.
 - (enh #1595): Enhance styling for drop zone to maintain consistent size during file selections.
 - (bug #1594): Correct `removeThumb` validation for in readFiles `throwError` method.
 - (enh #1593): Correct resumable test upload validation.

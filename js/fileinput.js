@@ -5857,7 +5857,7 @@
         overwriteInitial: true,
         sanitizeZoomCache: function (content) {
             var $container = $h.createElement(content);
-            $container.find('input,select,.file-thumbnail-footer').remove();
+            $container.find('input,textarea,select,datalist,form,.file-thumbnail-footer').remove();
             return $container.html();
         },
         previewZoomButtonIcons: {
