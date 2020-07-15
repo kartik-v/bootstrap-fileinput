@@ -10,15 +10,13 @@
  */
 (function (factory) {
     'use strict';
-    //noinspection JSUnresolvedVariable,JSHint
-    if (typeof define === 'function' && define.amd) { // AMD. Register as an anonymous module.
-        //noinspection JSUnresolvedFunction,JSHint
+    if (typeof define === 'function' && define.amd) {
         define(['jquery'], factory);
-    } else { // noinspection JSUnresolvedVariable,JSHint
-        if (typeof module === 'object' && module.exports) { // Node/CommonJS
-            // noinspection JSUnresolvedVariable,JSUnresolvedFunction,NpmUsedModulesInstalled,JSHint
+    } else {
+        if (typeof module === 'object' && module.exports) {
+            //noinspection NpmUsedModulesInstalled
             module.exports = factory(require('jquery'));
-        } else { // Browser globals
+        } else {
             factory(window.jQuery);
         }
     }
@@ -48,7 +46,6 @@
     var $h, FileInput;
 
     // fileinput helper object for all global variables and internal helper methods
-    //noinspection JSUnresolvedVariable
     $h = {
         FRAMES: '.kv-preview-thumb',
         SORT_CSS: 'file-sortable',
@@ -76,7 +73,11 @@
             noResumableSupport: 'The browser does not support resumable or chunk uploads.',
             noUploadUrl: 'The "uploadUrl" is not set. Ajax uploads and resumable uploads have been disabled.',
             retryStatus: 'Retrying upload for chunk # {chunk} for {filename}... retry # {retry}.',
-            chunkQueueError: 'Could not push task to ajax pool for chunk index # {index}.'
+            chunkQueueError: 'Could not push task to ajax pool for chunk index # {index}.',
+            resumableMaxRetriesReached: 'Maximum resumable ajax retries ({n}) reached.',
+            resumableRetryError: 'Could not retry the resumable request (try # {n})... aborting.',
+            resumableAborting: 'Aborting / cancelling the resumable request.'
+
         },
         objUrl: window.URL || window.webkitURL,
         now: function () {
@@ -117,8 +118,7 @@
             return '[id="' + id + '"]' + selector;
         },
         getZoomSelector: function (id, selector) {
-            selector = selector || '';
-            return '[id="zoom-' + id + '"]' + selector;
+            return $h.getFrameSelector('zoom-' + id, selector);
         },
         getFrameElement: function ($element, id, selector) {
             return $element.find($h.getFrameSelector(id, selector));
@@ -316,7 +316,6 @@
                 (!!Blob.prototype.webkitSlice || !!Blob.prototype.mozSlice || !!Blob.prototype.slice || false);
         },
         dataURI2Blob: function (dataURI) {
-            //noinspection JSUnresolvedVariable
             var BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder ||
                 window.MSBlobBuilder, canBlob = $h.hasBlobSupport(), byteStr, arrayBuffer, intArray, i, mimeStr, bb,
                 canProceed = (canBlob || BlobBuilder) && window.atob && window.ArrayBuffer && window.Uint8Array;
@@ -342,9 +341,7 @@
             return bb.getBlob(mimeStr);
         },
         arrayBuffer2String: function (buffer) {
-            //noinspection JSUnresolvedVariable
             if (window.TextDecoder) {
-                // noinspection JSUnresolvedFunction
                 return new TextDecoder('utf-8').decode(buffer);
             }
             var array = Array.prototype.slice.apply(new Uint8Array(buffer)), out = '', i = 0, len, c, char2, char3;
@@ -589,7 +586,6 @@
             return filePath.split(filePath.substring(sepIndex, sepIndex + 1)).pop();
         },
         checkFullScreen: function () {
-            //noinspection JSUnresolvedVariable
             return document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement ||
                 document.msFullscreenElement;
         },
@@ -748,7 +744,7 @@
         }
         self.$element.removeClass('file-loading');
     };
-    //noinspection JSUnusedGlobalSymbols
+
     FileInput.prototype = {
         constructor: FileInput,
         _cleanup: function () {
@@ -1269,7 +1265,7 @@
             });
         },
         _initResumableUpload: function () {
-            var self = this, opts = self.resumableUploadOptions, logs = $h.logMessages;
+            var self = this, opts = self.resumableUploadOptions, logs = $h.logMessages, rm, fm = self.fileManager;
             if (!self.enableResumableUpload) {
                 return;
             }
@@ -1295,9 +1291,8 @@
                 self.enableResumableUpload = false;
                 return;
             }
-            self.resumableManager = {
+            rm = self.resumableManager = {
                 init: function (id, f, index) {
-                    var rm = self.resumableManager, fm = self.fileManager;
                     rm.logs = [];
                     rm.stack = [];
                     rm.error = '';
@@ -1315,7 +1310,7 @@
                             rm.$btnDelete = rm.$thumb.find('.kv-file-remove');
                         }
                     }
-                    rm.chunkSize = self.resumableUploadOptions.chunkSize * 1024;
+                    rm.chunkSize = opts.chunkSize * 1024;
                     rm.chunkCount = rm.getTotalChunks();
                 },
                 setAjaxError: function (jqXHR, textStatus, errorThrown, isTest) {
@@ -1325,7 +1320,7 @@
                     if (!isTest) {
                         rm.error = errorThrown;
                     }
-                    if (self.resumableUploadOptions.showErrorLog) {
+                    if (opts.showErrorLog) {
                         self._log(logs.ajaxError, {
                             status: jqXHR.status,
                             error: errorThrown,
@@ -1334,13 +1329,11 @@
                     }
                 },
                 reset: function () {
-                    var rm = self.resumableManager;
                     rm.stack = [];
                     rm.chunksProcessed = {};
                 },
                 setProcessed: function (status) {
-                    var rm = self.resumableManager, fm = self.fileManager, id = rm.id, msg,
-                        $thumb = rm.$thumb, $prog = rm.$progress, hasThumb = $thumb && $thumb.length,
+                    var id = rm.id, msg, $thumb = rm.$thumb, $prog = rm.$progress, hasThumb = $thumb && $thumb.length,
                         params = {id: hasThumb ? $thumb.attr('id') : '', index: fm.getIndex(id), fileId: id};
                     rm.completed = true;
                     rm.lastProgress = 0;
@@ -1354,7 +1347,7 @@
                             self._setThumbStatus($thumb, 'Success');
                             self._initUploadSuccess(rm.chunksProcessed[id].data, $thumb);
                         }
-                        self.fileManager.removeFile(id);
+                        fm.removeFile(id);
                         delete rm.chunksProcessed[id];
                         self._raise('fileuploaded', [params.id, params.index, params.fileId]);
                         if (fm.isProcessed()) {
@@ -1372,7 +1365,7 @@
                             if (!self.$errorContainer.find('li[data-file-id="' + params.fileId + '"]').length) {
                                 msg = self.msgResumableUploadRetriesExceeded.setTokens({
                                     file: rm.fileName,
-                                    max: self.resumableUploadOptions.maxRetries,
+                                    max: opts.maxRetries,
                                     error: rm.error
                                 });
                                 self._showFileError(msg, params);
@@ -1384,7 +1377,7 @@
                     }
                 },
                 check: function () {
-                    var rm = self.resumableManager, status = true;
+                    var status = true;
                     $.each(rm.logs, function (index, value) {
                         if (!value) {
                             status = false;
@@ -1393,7 +1386,7 @@
                     });
                 },
                 processedResumables: function () {
-                    var logs = self.resumableManager.logs, i, count = 0;
+                    var logs = rm.logs, i, count = 0;
                     if (!logs || !logs.length) {
                         return 0;
                     }
@@ -1405,18 +1398,18 @@
                     return count;
                 },
                 getUploadedSize: function () {
-                    var rm = self.resumableManager, size = rm.processedResumables() * rm.chunkSize;
+                    var size = rm.processedResumables() * rm.chunkSize;
                     return size > rm.file.size ? rm.file.size : size;
                 },
                 getTotalChunks: function () {
-                    var rm = self.resumableManager, chunkSize = parseFloat(rm.chunkSize);
+                    var chunkSize = parseFloat(rm.chunkSize);
                     if (!isNaN(chunkSize) && chunkSize > 0) {
                         return Math.ceil(rm.file.size / chunkSize);
                     }
                     return 0;
                 },
                 getProgress: function () {
-                    var rm = self.resumableManager, chunksProcessed = rm.processedResumables(), total = rm.chunkCount;
+                    var chunksProcessed = rm.processedResumables(), total = rm.chunkCount;
                     if (total === 0) {
                         return 0;
                     }
@@ -1429,8 +1422,7 @@
                     }
                 },
                 upload: function () {
-                    var rm = self.resumableManager, fm = self.fileManager, ids = fm.getIdList(), flag = 'new',
-                        intervalId;
+                    var ids = fm.getIdList(), flag = 'new', intervalId;
                     intervalId = setInterval(function () {
                         var id;
                         rm.checkAborted(intervalId);
@@ -1474,18 +1466,15 @@
                     }, self.processDelay);
                 },
                 uploadResumable: function () {
-                    var i, pool, tm = self.taskManager, rm = self.resumableManager, total = rm.chunkCount;
-
-                    // 1 task pool per file
+                    var i, pool, tm = self.taskManager, total = rm.chunkCount;
                     pool = tm.addPool(rm.id);
-
                     for (i = 0; i < total; i++) {
                         rm.logs[i] = !!(rm.chunksProcessed[rm.id] && rm.chunksProcessed[rm.id][i]);
                         if (!rm.logs[i]) {
                             rm.pushAjax(i, 0);
                         }
                     }
-                    pool.run(self.resumableUploadOptions.maxThreads)
+                    pool.run(opts.maxThreads)
                         .done(function () {
                             rm.setProcessed('success');
                         })
@@ -1494,8 +1483,7 @@
                         });
                 },
                 processUpload: function () {
-                    var rm = self.resumableManager, opts = self.resumableUploadOptions, fd, f,
-                        fm = self.fileManager, id = rm.id, fnBefore, fnSuccess, fnError, fnComplete, outData;
+                    var fd, f, id = rm.id, fnBefore, fnSuccess, fnError, fnComplete, outData;
                     if (!opts.testUrl) {
                         rm.uploadResumable();
                         return;
@@ -1545,7 +1533,7 @@
                     self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, fd, id, rm.fileIndex, opts.testUrl);
                 },
                 pushAjax: function (index, retry) {
-                    var tm = self.taskManager, rm = self.resumableManager, pool = tm.getPool(rm.id);
+                    var tm = self.taskManager, pool = tm.getPool(rm.id);
                     pool.addTask(pool.size() + 1, function (deferrer) {
                         // use fifo chunk stack
                         var arr = rm.stack.shift(), index;
@@ -1559,14 +1547,20 @@
                     rm.stack.push([index, retry]);
                 },
                 sendAjax: function (index, retry, deferrer) {
-                    var fm = self.fileManager, rm = self.resumableManager, opts = self.resumableUploadOptions, f,
-                        chunkSize = rm.chunkSize, id = rm.id, file = rm.file, $thumb = rm.$thumb,
-                        $btnDelete = rm.$btnDelete;
+                    var f, chunkSize = rm.chunkSize, id = rm.id, file = rm.file, $thumb = rm.$thumb,
+                        msgs = $h.logMessages, $btnDelete = rm.$btnDelete, logError = function (msg, tokens) {
+                            if (tokens) {
+                                msg = msg.setTokens(tokens);
+                            }
+                            msg = 'Error processing resumable ajax request. ' + msg;
+                            self._log(msg);
+                            deferrer.reject(msg);
+                        };
                     if (rm.chunksProcessed[id] && rm.chunksProcessed[id][index]) {
                         return;
                     }
                     if (retry > opts.maxRetries) {
-                        deferrer.reject('max try reached');
+                        logError(msgs.resumableMaxRetriesReached, {n: opts.maxRetries});
                         rm.setProcessed('error');
                         return;
                     }
@@ -1603,12 +1597,12 @@
                     };
                     fnSuccess = function (data, textStatus, jqXHR) {
                         if (self._isAborted()) {
-                            deferrer.reject('cancelling');
+                            logError(msgs.resumableAborting);
                             return;
                         }
                         outData = self._getOutData(fd, jqXHR, data);
                         var paramNames = self.uploadParamNames, chunkIndex = paramNames.chunkIndex || 'chunkIndex',
-                            opts = self.resumableUploadOptions, params = [id, index, retry, fm, rm, outData];
+                            params = [id, index, retry, fm, rm, outData];
                         if (data.error) {
                             if (opts.showErrorLog) {
                                 self._log(logs.retryStatus, {
@@ -1634,14 +1628,14 @@
                     };
                     fnError = function (jqXHR, textStatus, errorThrown) {
                         if (self._isAborted()) {
-                            deferrer.reject('cancelling');
+                            logError(msgs.resumableAborting);
                             return;
                         }
                         outData = self._getOutData(fd, jqXHR);
                         rm.setAjaxError(jqXHR, textStatus, errorThrown);
                         self._raise('filechunkajaxerror', [id, index, retry, fm, rm, outData]);
-                        rm.pushAjax(index, retry + 1); // push another task
-                        deferrer.reject('try failed'); // resolve the current task
+                        rm.pushAjax(index, retry + 1);                        // push another task
+                        logError(msgs.resumableRetryError, {n: retry - 1}); // resolve the current task
                     };
                     fnComplete = function () {
                         if (!self._isAborted()) {
@@ -1651,7 +1645,7 @@
                     self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, fd, id, rm.fileIndex);
                 }
             };
-            self.resumableManager.reset();
+            rm.reset();
         },
         _initTemplateDefaults: function () {
             var self = this, tMain1, tMain2, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse,
@@ -2687,7 +2681,6 @@
             endGrab = function () {
                 $cont.removeClass('file-grabbing');
             };
-            //noinspection JSUnusedGlobalSymbols
             settings = {
                 handle: '.drag-handle-init',
                 dataIdAttr: 'data-fileid',
@@ -3277,7 +3270,7 @@
             }
             return data;
         },
-        _initXhr: function (xhrobj, fileId, fileCount) {
+        _initXhr: function (xhrobj, fileId) {
             var self = this, fm = self.fileManager, func = function (event) {
                 var pct = 0, total = event.total, loaded = event.loaded || event.position,
                     stats = fm.getUploadStats(fileId, loaded, total);
@@ -3354,7 +3347,7 @@
             defaults = {
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
-                    return self._initXhr(xhrobj, fileId, self.fileManager.count());
+                    return self._initXhr(xhrobj, fileId);
                 },
                 url: self._encodeURI(vUrl),
                 type: 'POST',
@@ -4002,7 +3995,6 @@
                     }
                     self.ajaxAborted = false;
                     self._raise('filebeforedelete', [vKey, extraData]);
-                    //noinspection JSUnresolvedVariable,JSHint
                     if (self.ajaxAborted instanceof Promise) {
                         self.ajaxAborted.then(function (result) {
                             if (!result) {
@@ -4349,7 +4341,7 @@
             if (!self.showPreview && (!$prog || !$prog.length)) {
                 return;
             }
-            var fm = self.fileManager, $thumb = fm.getThumb(id), pctTot, rm = self.resumableManager,
+            var fm = self.fileManager, rm = self.resumableManager, $thumb = fm.getThumb(id), pctTot,
                 totUpSize = 0, totSize = fm.getTotalSize(), totStats = $.extend(true, {}, stats);
             if (self.enableResumableUpload) {
                 var loaded = stats.loaded, currUplSize = rm.getUploadedSize(), currTotSize = rm.file.size, totLoaded;
@@ -5986,7 +5978,6 @@
         retryErrorUploads: true,
         reversePreviewOrder: false,
         usePdfRenderer: function () {
-            //noinspection JSUnresolvedVariable
             var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
             return !!navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/i) || isIE11;
         },

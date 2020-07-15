@@ -3,8 +3,9 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.1.2
 
-**Date**: _under development_
+**Date**: 15-Jul-2020
 
+- (enh #1603): Add Serbian Latin Translations.
 - (enh #1602): Enhance zoom cache sanitization by parsing all inputs.
 - (enh #1595): Enhance styling for drop zone to maintain consistent size during file selections.
 - (bug #1594): Correct `removeThumb` validation for in readFiles `throwError` method.
@@ -12,6 +13,7 @@ Change Log: `bootstrap-fileinput`
 - (enh #1591): Parse arguments as an array via vanilla JS.
 - (enh #1589): Correct msgPlaceholder for de & uz translations.
 - (enh #1588): Enhance duplicate validation for recently uploaded thumbs.
+
 ## version 5.1.1
 
 **Date:** 20-Jun-2020
