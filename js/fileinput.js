@@ -1050,10 +1050,8 @@
                     }
                 },
                 getUploadStats: function (id, loaded, total) {
-                    var fm = self.fileManager, started = id ? fm.stats[id] && fm.stats[id].started || null : null;
-                    if (!started) {
-                        started = self.uploadStartTime;
-                    }
+                    var fm = self.fileManager,
+                        started = id ? fm.stats[id] && fm.stats[id].started || $h.now() : self.uploadStartTime;
                     var elapsed = ($h.now() - started) / 1000,
                         speeds = ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
                         bps = elapsed ? loaded / elapsed : 0, bitrate = self._getSize(bps, speeds),
