@@ -81,7 +81,7 @@
         },
         objUrl: window.URL || window.webkitURL,
         now: function () {
-            return new Date();
+            return new Date().getTime();
         },
         round: function (num) {
             num = parseFloat(num);
@@ -1030,6 +1030,7 @@
         },
         _initFileManager: function () {
             var self = this;
+            self.uploadStartTime = $h.now();
             self.fileManager = {
                 stack: {},
                 filesProcessed: [],
@@ -1041,7 +1042,7 @@
                 uploadedSize: 0,
                 stats: {},
                 initStats: function (id) {
-                    var data = {started: $h.now().getTime()};
+                    var data = {started: $h.now()};
                     if (id) {
                         self.fileManager.stats[id] = data;
                     } else {
@@ -1051,9 +1052,9 @@
                 getUploadStats: function (id, loaded, total) {
                     var fm = self.fileManager, started = id ? fm.stats[id] && fm.stats[id].started || null : null;
                     if (!started) {
-                        started = $h.now().getTime();
+                        started = self.uploadStartTime;
                     }
-                    var elapsed = ($h.now().getTime() - started) / 1000,
+                    var elapsed = ($h.now() - started) / 1000,
                         speeds = ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
                         bps = elapsed ? loaded / elapsed : 0, bitrate = self._getSize(bps, speeds),
                         pendingBytes = total - loaded,
@@ -3115,6 +3116,7 @@
         },
         _resetUpload: function () {
             var self = this;
+            self.uploadStartTime = $h.now();
             self.uploadCache = [];
             self.$btnUpload.removeAttr('disabled');
             self._setProgress(0);

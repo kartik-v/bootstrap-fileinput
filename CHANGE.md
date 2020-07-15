@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: 15-Jul-2020
 
+- (enh #1604): Correct upload stats time calculation for sync uploads.
 - (enh #1603): Add Serbian Latin Translations.
 - (enh #1602): Enhance zoom cache sanitization by parsing all inputs.
 - (enh #1595): Enhance styling for drop zone to maintain consistent size during file selections.
