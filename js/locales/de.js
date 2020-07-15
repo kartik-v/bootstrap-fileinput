@@ -25,7 +25,7 @@
         msgNoFilesSelected: 'Keine Dateien ausgewählt',
         msgPaused: 'Paused',
         msgCancelled: 'Abgebrochen',
-        msgPlaceholder: '{files} auswählen &hellip;',
+        msgPlaceholder: '{files} auswählen ...',
         msgZoomModalHeading: 'ausführliche Vorschau',
         msgFileRequired: 'Sie müssen eine Datei zum Hochladen auswählen.',
         msgSizeTooSmall: 'Datei "{name}" (<b>{size} KB</b>) unterschreitet mindestens notwendige Upload-Größe von <b>{minSize} KB</b>.',
