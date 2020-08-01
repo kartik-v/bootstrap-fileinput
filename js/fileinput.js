@@ -471,18 +471,8 @@
         uniqId: function () {
             return (new Date().getTime() + Math.floor(Math.random() * Math.pow(10, 15))).toString(36);
         },
-        parseEventCallback: function (str) {
-            return Function('\'use strict\'; return (function() { ' + str + ' });')(); // jshint ignore:line
-        },
         cspBuffer: {
             CSP_ATTRIB: 'data-csp-01928735', // a randomly named temporary attribute to store the CSP elem id
-            domEventsList: [
-                'mousedown', 'mouseup', 'click', 'dblclick', 'mousemove', 'mouseover', 'mousewheel', 'mouseout',
-                'contextmenu', 'touchstart', 'touchmove', 'touchend', 'touchcancel', 'keydown', 'keypress', 'keyup',
-                'focus', 'blur', 'change', 'submit', 'scroll', 'resize', 'hashchange', 'load', 'unload',
-                'cut', 'copy', 'paste'
-            ],
-            domElementEvents: {},
             domElementsStyles: {},
             stash: function (htmlString) {
                 var self = this, outerDom = $.parseHTML('<div>' + htmlString + '</div>'), $el = $(outerDom);
@@ -503,20 +493,6 @@
                     }
                 });
                 $el.filter('*').removeAttr('style');                   // make sure all style attr are removed
-                $.each(self.domEventsList, function (key, eventName) { // handle onXXX events set as inline markup
-                    var id, fn, event = 'on' + eventName, $inlineEvent = $el.find('[' + event + ']');
-                    if ($inlineEvent.length) {
-                        fn = $h.parseEventCallback($inlineEvent.attr(event));
-                        if ($inlineEvent.attr(self.CSP_ATTRIB)) {
-                            id = $inlineEvent.attr(self.CSP_ATTRIB);
-                        } else {
-                            id = $h.uniqId();
-                            self.domElementEvents[id] = [];
-                        }
-                        self.domElementEvents[id].push({name: eventName + '.csp', handler: fn}); // special csp namespace
-                        $inlineEvent.removeAttr(event).attr(self.CSP_ATTRIB, id);
-                    }
-                });
                 var values = Object.values ? Object.values(outerDom) : Object.keys(outerDom).map(function (itm) {
                     return outerDom[itm];
                 });
@@ -1027,6 +1003,8 @@
             if (self.hideThumbnailContent) {
                 $h.addCss(self.$preview, 'hide-content');
             }
+            $cont.find('.file-caption-name').on('keydown', function () { return false; })
+                .on('paste', function () { return false; });
         },
         _initFileManager: function () {
             var self = this;
@@ -1680,7 +1658,7 @@
             // noinspection HtmlUnknownAttribute
             tCaption = '<div class="file-caption form-control {class}" tabindex="500">\n' +
                 '  <span class="file-caption-icon"></span>\n' +
-                '  <input class="file-caption-name" onkeydown="return false;" onpaste="return false;">\n' +
+                '  <input class="file-caption-name">\n' +
                 '</div>';
             //noinspection HtmlUnknownAttribute
             tBtnDefault = '<button type="{type}" tabindex="500" title="{title}" class="{css}" ' +
