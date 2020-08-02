@@ -1003,8 +1003,6 @@
             if (self.hideThumbnailContent) {
                 $h.addCss(self.$preview, 'hide-content');
             }
-            $cont.find('.file-caption-name').on('keydown', function () { return false; })
-                .on('paste', function () { return false; });
         },
         _initFileManager: function () {
             var self = this;
@@ -2468,6 +2466,8 @@
             self._handler($cont.find('.fileinput-remove:not([disabled])'), 'click', $.proxy(self.clear, self));
             self._handler($cont.find('.fileinput-cancel'), 'click', $.proxy(self.cancel, self));
             self._handler($cont.find('.fileinput-pause'), 'click', $.proxy(self.pause, self));
+            self._handler($cont.find('.file-caption-name'), 'keydown', function () { return false; });
+            self._handler($cont.find('.file-caption-name'), 'paste', function () { return false; });
             self._initDragDrop();
             self._handler($form, 'reset', $.proxy(self.clear, self));
             if (!self.isAjaxUpload) {
