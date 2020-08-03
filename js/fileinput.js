@@ -471,18 +471,8 @@
         uniqId: function () {
             return (new Date().getTime() + Math.floor(Math.random() * Math.pow(10, 15))).toString(36);
         },
-        parseEventCallback: function (str) {
-            return Function('\'use strict\'; return (function() { ' + str + ' });')(); // jshint ignore:line
-        },
         cspBuffer: {
             CSP_ATTRIB: 'data-csp-01928735', // a randomly named temporary attribute to store the CSP elem id
-            domEventsList: [
-                'mousedown', 'mouseup', 'click', 'dblclick', 'mousemove', 'mouseover', 'mousewheel', 'mouseout',
-                'contextmenu', 'touchstart', 'touchmove', 'touchend', 'touchcancel', 'keydown', 'keypress', 'keyup',
-                'focus', 'blur', 'change', 'submit', 'scroll', 'resize', 'hashchange', 'load', 'unload',
-                'cut', 'copy', 'paste'
-            ],
-            domElementEvents: {},
             domElementsStyles: {},
             stash: function (htmlString) {
                 var self = this, outerDom = $.parseHTML('<div>' + htmlString + '</div>'), $el = $(outerDom);
@@ -503,20 +493,6 @@
                     }
                 });
                 $el.filter('*').removeAttr('style');                   // make sure all style attr are removed
-                $.each(self.domEventsList, function (key, eventName) { // handle onXXX events set as inline markup
-                    var id, fn, event = 'on' + eventName, $inlineEvent = $el.find('[' + event + ']');
-                    if ($inlineEvent.length) {
-                        fn = $h.parseEventCallback($inlineEvent.attr(event));
-                        if ($inlineEvent.attr(self.CSP_ATTRIB)) {
-                            id = $inlineEvent.attr(self.CSP_ATTRIB);
-                        } else {
-                            id = $h.uniqId();
-                            self.domElementEvents[id] = [];
-                        }
-                        self.domElementEvents[id].push({name: eventName + '.csp', handler: fn}); // special csp namespace
-                        $inlineEvent.removeAttr(event).attr(self.CSP_ATTRIB, id);
-                    }
-                });
                 var values = Object.values ? Object.values(outerDom) : Object.keys(outerDom).map(function (itm) {
                     return outerDom[itm];
                 });
@@ -527,22 +503,13 @@
             apply: function (domElement) {
                 var self = this, $el = $(domElement);
                 $el.find('[' + self.CSP_ATTRIB + ']').each(function (key, elem) {
-                    var $elem = $(elem), id = $elem.attr(self.CSP_ATTRIB), styles = self.domElementsStyles[id],
-                        events = self.domElementEvents[id];
+                    var $elem = $(elem), id = $elem.attr(self.CSP_ATTRIB), styles = self.domElementsStyles[id];
                     if (styles) {
                         $elem.css(styles);
-                    }
-                    if (events) {
-                        $.each(events, function (key, event) {
-                            if (event && event.name) {
-                                $elem.off(event.name).on(event.name, event.handler);
-                            }
-                        });
                     }
                     $elem.removeAttr(self.CSP_ATTRIB);
                 });
                 self.domElementsStyles = {};
-                self.domElementEvents = {};
             }
         },
         setHtml: function ($elem, htmlString) {
@@ -1680,7 +1647,7 @@
             // noinspection HtmlUnknownAttribute
             tCaption = '<div class="file-caption form-control {class}" tabindex="500">\n' +
                 '  <span class="file-caption-icon"></span>\n' +
-                '  <input class="file-caption-name" onkeydown="return false;" onpaste="return false;">\n' +
+                '  <input class="file-caption-name">\n' +
                 '</div>';
             //noinspection HtmlUnknownAttribute
             tBtnDefault = '<button type="{type}" tabindex="500" title="{title}" class="{css}" ' +
@@ -2490,6 +2457,8 @@
             self._handler($cont.find('.fileinput-remove:not([disabled])'), 'click', $.proxy(self.clear, self));
             self._handler($cont.find('.fileinput-cancel'), 'click', $.proxy(self.cancel, self));
             self._handler($cont.find('.fileinput-pause'), 'click', $.proxy(self.pause, self));
+            self._handler($cont.find('.file-caption-name'), 'keydown', function () { return false; });
+            self._handler($cont.find('.file-caption-name'), 'paste', function () { return false; });
             self._initDragDrop();
             self._handler($form, 'reset', $.proxy(self.clear, self));
             if (!self.isAjaxUpload) {
