@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1612, #1614): Remove unsupported script-inline from template and CSP buffer.
 
 ## version 5.1.2
 
