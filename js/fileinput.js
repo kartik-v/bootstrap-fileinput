@@ -503,22 +503,13 @@
             apply: function (domElement) {
                 var self = this, $el = $(domElement);
                 $el.find('[' + self.CSP_ATTRIB + ']').each(function (key, elem) {
-                    var $elem = $(elem), id = $elem.attr(self.CSP_ATTRIB), styles = self.domElementsStyles[id],
-                        events = self.domElementEvents[id];
+                    var $elem = $(elem), id = $elem.attr(self.CSP_ATTRIB), styles = self.domElementsStyles[id];
                     if (styles) {
                         $elem.css(styles);
-                    }
-                    if (events) {
-                        $.each(events, function (key, event) {
-                            if (event && event.name) {
-                                $elem.off(event.name).on(event.name, event.handler);
-                            }
-                        });
                     }
                     $elem.removeAttr(self.CSP_ATTRIB);
                 });
                 self.domElementsStyles = {};
-                self.domElementEvents = {};
             }
         },
         setHtml: function ($elem, htmlString) {
