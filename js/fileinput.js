@@ -111,7 +111,7 @@
             if (!relativePath) {
                 return null;
             }
-            return (file.size + '_' + relativePath.replace(/\s/img, '_'));
+            return (file.size + '_' + encodeURIComponent(relativePath).replace(/%/g, '_'));
         },
         getFrameSelector: function (id, selector) {
             selector = selector || '';
