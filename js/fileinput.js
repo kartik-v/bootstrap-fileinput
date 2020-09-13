@@ -5912,7 +5912,7 @@
         resizeQuality: 0.92,
         resizeDefaultImageType: 'image/jpeg',
         resizeIfSizeMoreThan: 0, // in KB
-        minFileSize: 0,
+        minFileSize: -1,
         maxFileSize: 0,
         maxFilePreviewSize: 25600, // 25 MB
         minFileCount: 0,
