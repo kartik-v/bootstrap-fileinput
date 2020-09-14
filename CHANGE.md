@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1627): Add bootstrap 4 progress bar animation.
 - (enh #1625): Default `minFileSize` to -1 to allow zero byte files to be uploaded.
 - (enh #1617): Better encoded file id generation.
 - (enh #1612, #1614): Remove unsupported script-inline from template and CSP buffer.
