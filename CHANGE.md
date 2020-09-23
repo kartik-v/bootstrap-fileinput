@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (bug #1631): Correct modal dialog `aria-labelledby` binding.
 - (enh #1630): New `preProcessUpload` callback that can convert / encrypt file content before upload.
 - (enh #1627): Add bootstrap 4 progress bar animation.
 - (enh #1625): Default `minFileSize` to -1 to allow zero byte files to be uploaded.

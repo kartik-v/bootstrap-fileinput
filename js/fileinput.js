@@ -1618,7 +1618,7 @@
                 tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionDownload,
                 tActionZoom, tActionDrag, tIndicator, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage,
                 tText, tOffice, tGdocs, tVideo, tAudio, tFlash, tObject, tPdf, tOther, tStyle, tZoomCache, vDefaultDim,
-                tStats;
+                tStats, tModalLabel;
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
                 '<div class="input-group {class}">\n' +
@@ -1656,12 +1656,13 @@
             tBtnLink = '<a href="{href}" tabindex="500" title="{title}" class="{css}" {status}>{icon} {label}</a>';
             //noinspection HtmlUnknownAttribute
             tBtnBrowse = '<div tabindex="500" class="{css}" {status}>{icon} {label}</div>';
+            tModalLabel =  $h.MODAL_ID + 'Label';
             tModalMain = '<div id="' + $h.MODAL_ID + '" class="file-zoom-dialog modal fade" ' +
-                'tabindex="-1" aria-labelledby="' + $h.MODAL_ID + 'Label"></div>';
+                'tabindex="-1" aria-labelledby="' + tModalLabel + '"></div>';
             tModal = '<div class="modal-dialog modal-lg{rtl}" role="document">\n' +
                 '  <div class="modal-content">\n' +
                 '    <div class="modal-header">\n' +
-                '      <h5 class="modal-title">{heading}</h5>\n' +
+                '      <h5 class="modal-title" id="' + tModalLabel + '">{heading}</h5>\n' +
                 '      <span class="kv-zoom-title"></span>\n' +
                 '      <div class="kv-zoom-actions">{toggleheader}{fullscreen}{borderless}{close}</div>\n' +
                 '    </div>\n' +
@@ -3616,7 +3617,7 @@
             self._setUploadData(formdata, {fileId: id});
             self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, formdata, id, i);
         },
-        _setFileData: function(formdata, file, fileName, fileId) {
+        _setFileData: function (formdata, file, fileName, fileId) {
             var self = this, preProcess = self.preProcessUpload;
             if (preProcess && typeof preProcess === 'function') {
                 formdata.append(self.uploadFileAttr, preProcess(fileId, file));
