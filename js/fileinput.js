@@ -3612,9 +3612,17 @@
                     self._showFileError(errMsg, params);
                 }, self.processDelay);
             };
-            formdata.append(self.uploadFileAttr, fileObj.file, fileName);
+            self._setFileData(formdata, fileObj.file, fileName, id);
             self._setUploadData(formdata, {fileId: id});
             self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, formdata, id, i);
+        },
+        _setFileData: function(formdata, file, fileName, fileId) {
+            var self = this, preProcess = self.preProcessUpload;
+            if (preProcess && typeof preProcess === 'function') {
+                formdata.append(self.uploadFileAttr, preProcess(fileId, file));
+            } else {
+                formdata.append(self.uploadFileAttr, file, fileName);
+            }
         },
         _uploadBatch: function () {
             var self = this, fm = self.fileManager, total = fm.total(), params = {}, fnBefore, fnSuccess, fnError,
@@ -3739,7 +3747,7 @@
             var ctr = 0;
             $.each(self.fileManager.stack, function (key, data) {
                 if (!$h.isEmpty(data.file)) {
-                    formdata.append(self.uploadFileAttr, data.file, (data.nameFmt || ('untitled_' + ctr)));
+                    self._setFileData(formdata, data.file, (data.nameFmt || ('untitled_' + ctr)), key);
                 }
                 ctr++;
             });
@@ -5190,7 +5198,7 @@
                     return;
                 }
                 self.lock(true);
-                var file = files[i], previewId = previewInitId + '-' + self._getFileId(file), fSizeKB, j, msg,
+                var file = files[i], id = self._getFileId(file), previewId = previewInitId + '-' + id, fSizeKB, j, msg,
                     fnText = settings.text, fnImage = settings.image, fnHtml = settings.html, typ, chk, typ1, typ2,
                     caption = self._getFileName(file, ''), fileSize = (file && file.size || 0) / 1000,
                     fileExtExpr = '', previewData = $h.createObjectURL(file), fileCount = 0,
@@ -5207,7 +5215,7 @@
                             self._updateFileDetails(numFiles);
                             readFile(i + 1);
                         }, self.processDelay);
-                        if (self._raise('fileloaded', [file, previewId, i, reader]) && self.isAjaxUpload) {
+                        if (self._raise('fileloaded', [file, previewId, id, i, reader]) && self.isAjaxUpload) {
                             fm.add(file);
                         }
                     };
@@ -5309,7 +5317,7 @@
                             self._updateFileDetails(numFiles);
                         }
                         readFile(i + 1);
-                        self._raise('fileloaded', [file, previewId, i]);
+                        self._raise('fileloaded', [file, previewId, id, i]);
                     }, 10);
                     return;
                 }
@@ -5943,6 +5951,7 @@
         fileActionSettings: {},
         otherActionButtons: '',
         textEncoding: 'UTF-8',
+        preProcessUpload: null,
         ajaxSettings: {},
         ajaxDeleteSettings: {},
         showAjaxErrorDetails: true,
