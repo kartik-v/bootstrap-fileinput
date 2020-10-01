@@ -241,19 +241,14 @@
 }
 
 .krajee-default .file-preview-text {
-    display: block;
     color: #428bca;
     border: 1px solid #ddd;
-    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     outline: none;
-    padding: 8px;
     resize: none;
 }
 
 .krajee-default .file-preview-html {
     border: 1px solid #ddd;
-    padding: 8px;
-    overflow: auto;
 }
 
 .krajee-default .file-other-icon {
