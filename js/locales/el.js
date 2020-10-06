@@ -27,7 +27,7 @@
         msgNoFilesSelected: 'Δεν επιλέχθηκαν αρχεία',
         msgPaused: 'Σε παύση',
         msgCancelled: 'Ακυρώθηκε',
-        msgPlaceholder: 'Επιλογή {files} ...',
+        msgPlaceholder: 'Επιλέξτε {files} ...',
         msgZoomModalHeading: 'Λεπτομερής Προεπισκόπηση',
         msgFileRequired: 'Πρέπει να επιλέξετε αρχείο για φόρτωση.',
         msgSizeTooSmall: 'Το "{name}" (<b>{size} KB</b>) είναι πολύ μικρό, πρέπει να είναι μεγαλύτερο από <b>{minSize} KB</b>.',
@@ -86,7 +86,7 @@
             uploadExtra: 'φόρτωση δεδομένων φόρμας'
         },
         dropZoneTitle: 'Σύρετε τα αρχεία εδώ &hellip;',
-        dropZoneClickTitle: '<br>(ή πατήστε για επιλογή {files})',
+        dropZoneClickTitle: '<br>(ή πατήστε για να επιλέξετε {files})',
         fileActionSettings: {
             removeTitle: 'Αφαιρέστε το αρχείο',
             uploadTitle: 'Μεταφορτώστε το αρχείο',
