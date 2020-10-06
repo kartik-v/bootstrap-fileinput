@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1639): Update Greek Translations.
+- (enh #1638): Correct zoom cache to prevent duplicate thumb frames display.
 - (enh #1637): Remove dependency on DOM Purify Plugin.
 - (enh #1636): Enhance preview for PDF, Text & HTML.
 - (enh #1635): Enhance Text & HTML files initial preview to be read as links.

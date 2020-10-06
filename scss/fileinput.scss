@@ -241,11 +241,18 @@ input[type=file].file-loading {
     }
     .clickable {
         cursor: pointer;
+    }    
+    .kv-zoom-cache {
+        display: none;
     }
 }
 .file-preview-image {
     font: multiply($pad, 8) $font-0, $font-1, $font-2;
     color: $green;
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:100%;    
 }
 .krajee-default {
     &.file-preview-frame {
