@@ -2539,15 +2539,15 @@
             e.preventDefault();
         },
         _zoneDragEnter: function (e) {
-            var self = this, dataTransfer = e.originalEvent.dataTransfer,
-                hasFiles = $.inArray('Files', dataTransfer.types) > -1;
+            var self = this, dt = e.originalEvent.dataTransfer, hasFiles = $.inArray('Files', dt.types) > -1;
             self._zoneDragDropInit(e);
             if (self.isDisabled || !hasFiles) {
-                e.originalEvent.dataTransfer.effectAllowed = 'none';
-                e.originalEvent.dataTransfer.dropEffect = 'none';
+                dt.effectAllowed = 'none';
+                dt.dropEffect = 'none';
                 return;
             }
-            if (self._raise('fileDragEnter', {'sourceEvent': e, 'files': dataTransfer.types.Files})) {
+            dt.dropEffect = 'copy';
+            if (self._raise('fileDragEnter', {'sourceEvent': e, 'files': dt.types.Files})) {
                 $h.addCss(self.$dropZone, 'file-highlighted');
             }
         },
@@ -2564,8 +2564,8 @@
         },
         _zoneDrop: function (e) {
             /** @namespace e.originalEvent.dataTransfer */
-            var self = this, i, $el = self.$element, dataTransfer = e.originalEvent.dataTransfer,
-                files = dataTransfer.files, items = dataTransfer.items, folders = $h.getDragDropFolders(items),
+            var self = this, i, $el = self.$element, dt = e.originalEvent.dataTransfer,
+                files = dt.files, items = dt.items, folders = $h.getDragDropFolders(items),
                 processFiles = function () {
                     if (!self.isAjaxUpload) {
                         self.changeTriggered = true;

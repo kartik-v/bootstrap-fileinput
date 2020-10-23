@@ -5,6 +5,9 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1644): Fix problem with outlook deleting email after drag and drop.
+- (enh #1643): Update Arabic Translations.
+- (enh #1640): Update Greek Translations.
 - (enh #1639): Update Greek Translations.
 - (enh #1638): Correct zoom cache to prevent duplicate thumb frames display.
 - (enh #1637): Remove dependency on DOM Purify Plugin.
