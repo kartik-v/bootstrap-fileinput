@@ -2547,6 +2547,8 @@
                 e.originalEvent.dataTransfer.dropEffect = 'none';
                 return;
             }
+            
+            e.originalEvent.dataTransfer.dropEffect = "copy";
             if (self._raise('fileDragEnter', {'sourceEvent': e, 'files': dataTransfer.types.Files})) {
                 $h.addCss(self.$dropZone, 'file-highlighted');
             }
