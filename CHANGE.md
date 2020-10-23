@@ -1,6 +1,26 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.1.3
+
+**Date**: 24-Oct-2020
+
+- (enh #1644): Fix problem with outlook deleting email after drag and drop.
+- (enh #1643): Update Arabic Translations.
+- (enh #1640): Update Greek Translations.
+- (enh #1639): Update Greek Translations.
+- (enh #1638): Correct zoom cache to prevent duplicate thumb frames display.
+- (enh #1637): Remove dependency on DOM Purify Plugin.
+- (enh #1636): Enhance preview for PDF, Text & HTML.
+- (enh #1635): Enhance Text & HTML files initial preview to be read as links.
+- (bug #1632): Correct preview for plain text content.
+- (bug #1631): Correct modal dialog `aria-labelledby` binding.
+- (enh #1630): New `preProcessUpload` callback that can convert / encrypt file content before upload.
+- (enh #1627): Add bootstrap 4 progress bar animation.
+- (enh #1625): Default `minFileSize` to -1 to allow zero byte files to be uploaded.
+- (enh #1617): Better encoded file id generation.
+- (enh #1612, #1614): Remove unsupported script-inline from template and CSP buffer.
+
 ## version 5.1.2
 
 **Date**: 15-Jul-2020
