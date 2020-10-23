@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.1.3
 
-**Date**: _under development_
+**Date**: 24-Oct-2020
 
 - (enh #1644): Fix problem with outlook deleting email after drag and drop.
 - (enh #1643): Update Arabic Translations.
