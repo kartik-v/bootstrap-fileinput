@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.1.3
+ * bootstrap-fileinput v5.1.4
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -3533,7 +3533,7 @@
                 if (fm.errors.indexOf(id) !== -1) {
                     delete fm.errors[id];
                 }
-                self._raise('filepreupload', [outData, previewId, i]);
+                self._raise('filepreupload', [outData, previewId, i, $thumb.attr('data-fileid')]);
                 $.extend(true, params, outData);
                 if (self._abort(params)) {
                     jqXHR.abort();
@@ -3559,7 +3559,7 @@
                             self._initUploadSuccess(data, $thumb, isBatch);
                             self._setProgress(101, $prog);
                         }
-                        self._raise('fileuploaded', [outData, pid, i]);
+                        self._raise('fileuploaded', [outData, pid, i, $thumb.attr('data-fileid')]);
                         if (!isBatch) {
                             self.fileManager.remove($thumb);
                         } else {

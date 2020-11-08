@@ -1,6 +1,14 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.1.4
+
+**Date**: _under development_
+
+- (enh #1651): Pass file id in `fileuploaded` event for non-resumable ajax async uploads.
+- (enh #1650): Update Ukranian Translations.
+- (enh #1645): Update Polish Translations.
+
 ## version 5.1.3
 
 **Date**: 24-Oct-2020
