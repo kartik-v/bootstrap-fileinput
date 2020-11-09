@@ -3533,7 +3533,11 @@
                 if (fm.errors.indexOf(id) !== -1) {
                     delete fm.errors[id];
                 }
-                self._raise('filepreupload', [outData, previewId, i, $thumb.attr('data-fileid')]);
+                if (self.showPreview) {
+                    self._raise('filepreupload', [outData, previewId, i, $thumb.attr('data-fileid')]);
+                } else {
+                    self._raise('filepreupload', [outData, previewId, i]);
+                }
                 $.extend(true, params, outData);
                 if (self._abort(params)) {
                     jqXHR.abort();
