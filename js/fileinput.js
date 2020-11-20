@@ -5131,6 +5131,9 @@
         getFileList: function () {
             return this.fileManager.list();
         },
+        getFilesSize: function() {
+            return this.fileManager.getTotalSize();
+        },
         getFilesCount: function (includeInitial) {
             var self = this, len = self.isAjaxUpload ? self.fileManager.count() : self._inputFileCount();
             if (includeInitial) {
