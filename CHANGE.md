@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1652): Correct thumb parsing error for events when `showPreview` is false.
 - (enh #1651): Pass file id in `fileuploaded` event for non-resumable ajax async uploads.
 - (enh #1650): Update Ukranian Translations.
 - (enh #1645): Update Polish Translations.

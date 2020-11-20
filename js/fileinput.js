@@ -1082,7 +1082,7 @@
                     };
                 },
                 remove: function ($thumb) {
-                    var id = $thumb.attr('data-fileid');
+                    var id = self._getThumbFileId($thumb);
                     if (id) {
                         self.fileManager.removeFile(id);
                     }
@@ -1166,14 +1166,14 @@
                     var $thumb = null;
                     self._getThumbs().each(function () {
                         var $t = $(this);
-                        if ($t.attr('data-fileid') === id) {
+                        if (self._getThumbFileId($t) === id) {
                             $thumb = $t;
                         }
                     });
                     return $thumb;
                 },
                 getThumbIndex: function ($thumb) {
-                    var id = $thumb.attr('data-fileid');
+                    var id = self._getThumbFileId($thumb);
                     return self.fileManager.getIndex(id);
                 },
                 getIdList: function () {
@@ -3454,6 +3454,17 @@
                 }
             }
         },
+        _getThumbFileId: function($thumb) {
+            var self = this;
+            if (self.showPreview || $thumb !== undefined) {
+                return self._getThumbFileId($thumb);
+            }
+            return null;
+        },
+        _getThumbFile: function($thumb) {
+            var self = this, id = self._getThumbFileId($thumb);
+            return id ? self.fileManager.getFile(id) : null;
+        },
         _uploadSingle: function (i, id, isBatch) {
             var self = this, fm = self.fileManager, count = fm.count(), formdata = new FormData(), outData,
                 previewId = self._getThumbId(id), $thumb, chkComplete, $btnUpload, $btnDelete,
@@ -3533,11 +3544,7 @@
                 if (fm.errors.indexOf(id) !== -1) {
                     delete fm.errors[id];
                 }
-                if (self.showPreview) {
-                    self._raise('filepreupload', [outData, previewId, i, $thumb.attr('data-fileid')]);
-                } else {
-                    self._raise('filepreupload', [outData, previewId, i]);
-                }
+                self._raise('filepreupload', [outData, previewId, i, self._getThumbFileId($thumb)]);
                 $.extend(true, params, outData);
                 if (self._abort(params)) {
                     jqXHR.abort();
@@ -3563,7 +3570,7 @@
                             self._initUploadSuccess(data, $thumb, isBatch);
                             self._setProgress(101, $prog);
                         }
-                        self._raise('fileuploaded', [outData, pid, i, $thumb.attr('data-fileid')]);
+                        self._raise('fileuploaded', [outData, pid, i, self._getThumbFileId($thumb)]);
                         if (!isBatch) {
                             self.fileManager.remove($thumb);
                         } else {
@@ -3742,7 +3749,7 @@
                 self._getThumbs().each(function () {
                     var $thumb = $(this);
                     $thumb.removeClass('file-uploading');
-                    if (self.fileManager.getFile($thumb.attr('data-fileid'))) {
+                    if (self._getThumbFile($thumb)) {
                         self._setPreviewError($thumb);
                     }
                 });
@@ -3880,7 +3887,7 @@
             self.getFrames(' .kv-file-upload').each(function () {
                 var $el = $(this);
                 self._handler($el, 'click', function () {
-                    var $frame = $el.closest($h.FRAMES), fileId = $frame.attr('data-fileid');
+                    var $frame = $el.closest($h.FRAMES), fileId = self._getThumbFile($frame);
                     self._hideProgress();
                     if ($frame.hasClass('file-preview-error') && !self.retryErrorUploads) {
                         return;
@@ -5051,7 +5058,7 @@
                 if (ind === '-1' || ind === -1) {
                     return;
                 }
-                if (!self.fileManager.getFile($thumb.attr('data-fileid'))) {
+                if (!self._getThumbFile($thumb)) {
                     $thumb.attr({'data-fileindex': i});
                     i++;
                 } else {
@@ -5485,8 +5492,8 @@
             }
             if (self.showPreview) {
                 self._getThumbs().each(function () {
-                    var $thumb = $(this), fileId = $thumb.attr('data-fileid'), t = self._getLayoutTemplate('stats'),
-                        stats, $indicator = $thumb.find('.file-upload-indicator');
+                    var $thumb = $(this), t = self._getLayoutTemplate('stats'), stats,
+                        $indicator = $thumb.find('.file-upload-indicator');
                     $thumb.removeClass('file-uploading');
                     if ($indicator.attr('title') === actions.indicatorLoadingTitle) {
                         self._setThumbStatus($thumb, 'Paused');
@@ -5494,7 +5501,7 @@
                         self.paused = true;
                         self._setProgress(pct, $thumb.find('.file-thumb-progress'), pct + '%', stats);
                     }
-                    if (!self.fileManager.getFile(fileId)) {
+                    if (!self._getThumbFile($thumb)) {
                         $thumb.find('.kv-file-remove').removeClass('disabled').removeAttr('disabled');
                     }
                 });
@@ -5524,11 +5531,11 @@
                 }
             }
             self._getThumbs().each(function () {
-                var $thumb = $(this), fileId = $thumb.attr('data-fileid'), $prog = $thumb.find('.file-thumb-progress');
+                var $thumb = $(this), $prog = $thumb.find('.file-thumb-progress');
                 $thumb.removeClass('file-uploading');
                 self._setProgress(0, $prog);
                 $prog.hide();
-                if (!self.fileManager.getFile(fileId)) {
+                if (!self._getThumbFile($thumb)) {
                     $thumb.find('.kv-file-upload').removeClass('disabled').removeAttr('disabled');
                     $thumb.find('.kv-file-remove').removeClass('disabled').removeAttr('disabled');
                 }
