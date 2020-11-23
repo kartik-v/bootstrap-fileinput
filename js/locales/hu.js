@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Feltöltött',
             indicatorErrorTitle: 'Feltöltés hiba',
             indicatorPausedTitle: 'Feltöltés szüneteltetve',
-            indicatorLoadingTitle:  'Feltöltés&hellip;'
+            indicatorLoadingTitle: 'Feltöltés&hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Előző fájl megnézése',
