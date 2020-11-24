@@ -3456,8 +3456,8 @@
         },
         _getThumbFileId: function($thumb) {
             var self = this;
-            if (self.showPreview || $thumb !== undefined) {
-                return self._getThumbFileId($thumb);
+            if (self.showPreview && $thumb !== undefined) {
+                return $thumb.attr('data-fileid');
             }
             return null;
         },
