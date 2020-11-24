@@ -55,9 +55,9 @@
         },
         msgUploadAborted: 'A fájl feltöltés megszakítva',
         msgUploadThreshold: 'Feldolgozás&hellip;',
-        msgUploadBegin: 'Inicializálás&hellip;',
+        msgUploadBegin: 'Inicializálás &hellip;',
         msgUploadEnd: 'Kész',
-        msgUploadResume: 'Feltöltés folytatása&hellip;',
+        msgUploadResume: 'Feltöltés folytatása &hellip;',
         msgUploadEmpty: 'Nincs érvényes adat a feltöltéshez.',
         msgUploadError: 'Feltöltési hiba',
         msgDeleteError: 'Törlési hiba',
@@ -85,8 +85,8 @@
             uploadBatch: 'csoportos fájl feltöltés',
             uploadExtra: 'űrlap adat feltöltés'
         },
-        dropZoneTitle: 'Húzzon ide fájlokat&hellip;',
-        dropZoneClickTitle: '<br>(vagy kattintson ide a {files} tallózásához&hellip;)',
+        dropZoneTitle: 'Húzzon ide fájlokat &hellip;',
+        dropZoneClickTitle: '<br>(vagy kattintson ide a {files} tallózásához &hellip;)',
         fileActionSettings: {
             removeTitle: 'A fájl eltávolítása',
             uploadTitle: 'Fájl feltöltése',
@@ -98,7 +98,7 @@
             indicatorSuccessTitle: 'Feltöltött',
             indicatorErrorTitle: 'Feltöltés hiba',
             indicatorPausedTitle: 'Feltöltés szüneteltetve',
-            indicatorLoadingTitle: 'Feltöltés&hellip;'
+            indicatorLoadingTitle:  'Feltöltés &hellip;'
         },
         previewZoomButtonTitles: {
             prev: 'Előző fájl megnézése',
