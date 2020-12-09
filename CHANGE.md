@@ -12,6 +12,7 @@ Change Log: `bootstrap-fileinput`
 - (enh #1650): Update Ukranian Translations.
 - (enh #1648): New plugin method `getFilesSize` to return sum of bytes of all files.
 - (enh #1645): Update Polish Translations.
+- (bug #1123): Fix clickable zone behavior on file validation error.
 
 ## version 5.1.3
 

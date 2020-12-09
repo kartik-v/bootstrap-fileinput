@@ -3454,14 +3454,14 @@
                 }
             }
         },
-        _getThumbFileId: function($thumb) {
+        _getThumbFileId: function ($thumb) {
             var self = this;
             if (self.showPreview && $thumb !== undefined) {
                 return $thumb.attr('data-fileid');
             }
             return null;
         },
-        _getThumbFile: function($thumb) {
+        _getThumbFile: function ($thumb) {
             var self = this, id = self._getThumbFileId($thumb);
             return id ? self.fileManager.getFile(id) : null;
         },
@@ -4684,9 +4684,9 @@
             $zone.attr('tabindex', -1);
             self._handler($zone, 'click', function (e) {
                 var $tar = $(e.target);
-                if (!$(self.elErrorContainer + ':visible').length &&
-                    (!$tar.parents('.file-preview-thumbnails').length || $tar.parents(
-                        '.file-default-preview').length)) {
+                if (!self.$errorContainer.is(':visible') && (!$tar.parents(
+                    '.file-preview-thumbnails').length || $tar.parents(
+                    '.file-default-preview').length)) {
                     self.$element.data('zoneClicked', true).trigger('click');
                     $zone.blur();
                 }
@@ -5131,7 +5131,7 @@
         getFileList: function () {
             return this.fileManager.list();
         },
-        getFilesSize: function() {
+        getFilesSize: function () {
             return this.fileManager.getTotalSize();
         },
         getFilesCount: function (includeInitial) {
