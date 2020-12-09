@@ -4015,7 +4015,7 @@
             $h.addCss(self.$captionContainer, 'icon-visible');
         },
         _getSize: function (bytes, sizes) {
-            var self = this, size = parseFloat(bytes), i, func = self.fileSizeGetter, out;
+            var self = this, size = parseFloat(bytes), i, func = self.fileSizeGetter, n = 8, out;
             if (!$.isNumeric(bytes) || !$.isNumeric(size)) {
                 return '';
             }
@@ -4028,8 +4028,9 @@
                     i = Math.floor(Math.log(size) / Math.log(1024));
                     if (!sizes) {
                         sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                        n = 1;
                     }
-                    out = (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                    out = (size * n / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
                 }
             }
             return self._getLayoutTemplate('size').replace('{sizeText}', out);

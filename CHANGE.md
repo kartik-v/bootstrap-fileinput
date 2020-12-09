@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1663): Correct upload bitrate.
 - (enh #1657, #1659): Update Hungarian Translations.
 - (bug #1656): Correct error in `_getThumbFileId`.
 - (bug #1652): Correct thumb parsing error for events when `showPreview` is false.
