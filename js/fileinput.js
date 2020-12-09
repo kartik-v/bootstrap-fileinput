@@ -1008,6 +1008,8 @@
                 totalSize: null,
                 uploadedSize: 0,
                 stats: {},
+                bpsLog: [],
+                bps: 0,
                 initStats: function (id) {
                     var data = {started: $h.now()};
                     if (id) {
@@ -1018,21 +1020,35 @@
                 },
                 getUploadStats: function (id, loaded, total) {
                     var fm = self.fileManager,
-                        started = id ? fm.stats[id] && fm.stats[id].started || $h.now() : self.uploadStartTime;
-                    var elapsed = ($h.now() - started) / 1000,
+                        started = id ? fm.stats[id] && fm.stats[id].started || $h.now() : self.uploadStartTime,
+                        elapsed = ($h.now() - started) / 1000,
                         speeds = ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
-                        bps = elapsed ? loaded / elapsed : 0, bitrate = self._getSize(bps, speeds),
-                        pendingBytes = total - loaded,
-                        out = {
-                            fileId: id,
-                            started: started,
-                            elapsed: elapsed,
-                            loaded: loaded,
-                            total: total,
-                            bps: bps,
-                            bitrate: bitrate,
-                            pendingBytes: pendingBytes
-                        };
+                        bps = Math.ceil(elapsed ? loaded / elapsed : 0),
+                        pendingBytes = total - loaded, out, delay = fm.bpsLog.length ? self.bitrateUpdateDelay : 0;
+                    setTimeout(function () {
+                        var i, j = 0, n = 0, len, beg;
+                        fm.bpsLog.push(bps);
+                        fm.bpsLog.sort(function (a, b) {
+                            return a - b;
+                        });
+                        len = fm.bpsLog.length;
+                        beg = len > 10 ? len - 10 : Math.ceil(len / 2);
+                        for (i = len; i > beg; i--) {
+                            n = parseFloat(fm.bpsLog[i]);
+                            j++;
+                        }
+                        fm.bps = (j > 0 ? n / j : 0) * 64;
+                    }, delay);
+                    out = {
+                        fileId: id,
+                        started: started,
+                        elapsed: elapsed,
+                        loaded: loaded,
+                        total: total,
+                        bps: fm.bps,
+                        bitrate: self._getSize(fm.bps, speeds),
+                        pendingBytes: pendingBytes
+                    };
                     if (id) {
                         fm.stats[id] = out;
                     } else {
@@ -1138,6 +1154,8 @@
                     fm.errors = [];
                     fm.filesProcessed = [];
                     fm.stats = {};
+                    fm.bpsLog = [];
+                    fm.bps = 0;
                     fm.clearImages();
                 },
                 clearImages: function () {
@@ -4015,7 +4033,7 @@
             $h.addCss(self.$captionContainer, 'icon-visible');
         },
         _getSize: function (bytes, sizes) {
-            var self = this, size = parseFloat(bytes), i, func = self.fileSizeGetter, n = 8, out;
+            var self = this, size = parseFloat(bytes), i, func = self.fileSizeGetter, out;
             if (!$.isNumeric(bytes) || !$.isNumeric(size)) {
                 return '';
             }
@@ -4025,12 +4043,11 @@
                 if (size === 0) {
                     out = '0.00 B';
                 } else {
-                    i = Math.floor(Math.log(size) / Math.log(1024));
                     if (!sizes) {
                         sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-                        n = 1;
                     }
-                    out = (size * n / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+                    i = Math.floor(Math.log(size) / Math.log(1024));
+                    out = (size / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
                 }
             }
             return self._getLayoutTemplate('size').replace('{sizeText}', out);
@@ -5458,7 +5475,9 @@
             return self.$element;
         },
         resume: function () {
-            var self = this, flag = false, rm = self.resumableManager;
+            var self = this, fm = self.fileManager, flag = false, rm = self.resumableManager;
+            fm.bpsLog = [];
+            fm.bps = 0;
             if (!self.enableResumableUpload) {
                 return self.$element;
             }
@@ -5641,6 +5660,8 @@
         upload: function () {
             var self = this, fm = self.fileManager, totLen = fm.count(), i, outData,
                 hasExtraData = !$.isEmptyObject(self._getExtraData());
+            fm.bpsLog = [];
+            fm.bps = 0;
             if (!self.isAjaxUpload || self.isDisabled || !self._isFileSelectionValid(totLen)) {
                 return;
             }
@@ -5896,6 +5917,7 @@
         maxAjaxThreads: 5,
         fadeDelay: 800,
         processDelay: 100,
+        bitrateUpdateDelay: 500,
         queueDelay: 10, // must be lesser than process delay
         progressDelay: 0, // must be lesser than process delay
         enableResumableUpload: false,
