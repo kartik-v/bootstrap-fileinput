@@ -12,6 +12,7 @@ Change Log: `bootstrap-fileinput`
 - (bug #1652): Correct thumb parsing error for events when `showPreview` is false.
 - (enh #1651): Pass file id in `fileuploaded` event for non-resumable ajax async uploads.
 - (enh #1650): Update Ukranian Translations.
+- (bug #1649): Correct image size validation.
 - (enh #1648): New plugin method `getFilesSize` to return sum of bytes of all files.
 - (enh #1645): Update Polish Translations.
 - (bug #1123): Fix clickable zone behavior on file validation error.
