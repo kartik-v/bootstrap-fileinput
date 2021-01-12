@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.1.4
 
-**Date**: _under development_
+**Date**: 12-Jan-2021
 
 - (enh #1672): Add namespace control on bootstrap modal show trigger to avoid interaction with other plugins.
 - (bug #1671): Correct upload button behavior in file thumbnail footer.
