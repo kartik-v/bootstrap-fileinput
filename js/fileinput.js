@@ -2800,6 +2800,7 @@
                 };
             };
             $modal.on(event + '.bs.modal', function (e) {
+                if (e.namespace!=='bs.modal') return;
                 var $btnFull = $modal.find('.btn-fullscreen'), $btnBord = $modal.find('.btn-borderless');
                 if ($modal.data('fileinputPluginId') === self.$element.attr('id')) {
                     self._raise('filezoom' + event, getParams(e));
