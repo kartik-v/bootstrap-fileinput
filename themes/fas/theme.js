@@ -5,7 +5,7 @@
  * Font Awesome 5 icon theme configuration for bootstrap-fileinput. Requires font awesome 5 assets to be loaded.
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2020, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2021, Kartik Visweswaran, Krajee.com
  *
  * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md

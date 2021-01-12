@@ -3,7 +3,7 @@
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2020, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2021, Kartik Visweswaran, Krajee.com
  *
  * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
@@ -1075,7 +1075,7 @@
                         return fm.totalSize;
                     }
                     fm.totalSize = 0;
-                    $.each(self.fileManager.stack, function (id, f) {
+                    $.each(self.getFileStack(), function (id, f) {
                         var size = parseFloat(f.size);
                         fm.totalSize += isNaN(size) ? 0 : size;
                     });
@@ -1124,7 +1124,7 @@
                 },
                 list: function () {
                     var files = [];
-                    $.each(self.fileManager.stack, function (k, v) {
+                    $.each(self.getFileStack(), function (k, v) {
                         if (v && v.file) {
                             files.push(v.file);
                         }
@@ -1136,7 +1136,7 @@
                 },
                 isProcessed: function () {
                     var filesProcessed = true, fm = self.fileManager;
-                    $.each(fm.stack, function (id) {
+                    $.each(self.getFileStack(), function (id) {
                         if (fm.isPending(id)) {
                             filesProcessed = false;
                         }
@@ -2800,7 +2800,9 @@
                 };
             };
             $modal.on(event + '.bs.modal', function (e) {
-                if (e.namespace!=='bs.modal') return;
+                if (e.namespace !== 'bs.modal') {
+                    return;
+                }
                 var $btnFull = $modal.find('.btn-fullscreen'), $btnBord = $modal.find('.btn-borderless');
                 if ($modal.data('fileinputPluginId') === self.$element.attr('id')) {
                     self._raise('filezoom' + event, getParams(e));
@@ -3066,7 +3068,7 @@
             }
             if (self.isAjaxUpload) {
                 if (self.fileManager.count() > 0) {
-                    files = $.extend(true, {}, self.fileManager.stack);
+                    files = $.extend(true, {}, self.getFileList());
                     self.fileManager.clear();
                     self._clearFileInput();
                 } else {
@@ -3495,7 +3497,7 @@
                 return;
             }
             if (self.showPreview) {
-                $thumb = self.fileManager.getThumb(id);
+                $thumb = fm.getThumb(id);
                 $prog = $thumb.find('.file-thumb-progress');
                 $btnUpload = $thumb.find('.kv-file-upload');
                 $btnDelete = $thumb.find('.kv-file-remove');
@@ -3906,7 +3908,7 @@
             self.getFrames(' .kv-file-upload').each(function () {
                 var $el = $(this);
                 self._handler($el, 'click', function () {
-                    var $frame = $el.closest($h.FRAMES), fileId = self._getThumbFile($frame);
+                    var $frame = $el.closest($h.FRAMES), fileId = self._getThumbFileId($frame);
                     self._hideProgress();
                     if ($frame.hasClass('file-preview-error') && !self.retryErrorUploads) {
                         return;
@@ -5689,7 +5691,7 @@
                 self._raise('filebatchpreupload', [outData]);
                 self.fileBatchCompleted = false;
                 self.uploadCache = [];
-                $.each(self.getFileStack(), function (id) {
+                $.each(self.getFileStack(), function (id, f) {
                     var previewId = self._getThumbId(id);
                     self.uploadCache.push({id: previewId, content: null, config: null, tags: null, append: true});
                 });
@@ -5700,7 +5702,7 @@
             self.hasInitData = false;
             if (self.uploadAsync) {
                 i = 0;
-                $.each(fm.stack, function (id) {
+                $.each(self.getFileStack(), function (id, f) {
                     self._uploadSingle(i, id, true);
                     i++;
                 });

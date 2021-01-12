@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1672): Add namespace control on bootstrap modal show trigger to avoid interaction with other plugins.
+- (bug #1671): Correct upload button behavior in file thumbnail footer.
 - (enh #1664): Enhance upload stats and add bitrate update delay.
 - (enh #1663): Correct upload bitrate.
 - (enh #1657, #1659): Update Hungarian Translations.
