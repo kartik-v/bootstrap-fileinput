@@ -1,6 +1,24 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.1.4
+
+**Date**: 12-Jan-2021
+
+- (enh #1672): Add namespace control on bootstrap modal show trigger to avoid interaction with other plugins.
+- (bug #1671): Correct upload button behavior in file thumbnail footer.
+- (enh #1664): Enhance upload stats and add bitrate update delay.
+- (enh #1663): Correct upload bitrate.
+- (enh #1657, #1659): Update Hungarian Translations.
+- (bug #1656): Correct error in `_getThumbFileId`.
+- (bug #1652): Correct thumb parsing error for events when `showPreview` is false.
+- (enh #1651): Pass file id in `fileuploaded` event for non-resumable ajax async uploads.
+- (enh #1650): Update Ukranian Translations.
+- (bug #1649): Correct image size validation.
+- (enh #1648): New plugin method `getFilesSize` to return sum of bytes of all files.
+- (enh #1645): Update Polish Translations.
+- (bug #1123): Fix clickable zone behavior on file validation error.
+
 ## version 5.1.3
 
 **Date**: 24-Oct-2020
