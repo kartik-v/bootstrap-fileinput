@@ -75,7 +75,7 @@
         msgImageResizeException: 'Görüntü boyutlandırma sırasında hata.<pre>{errors}</pre>',
         msgAjaxError: '{operation} işlemi ile ilgili bir şeyler ters gitti. Lütfen daha sonra tekrar deneyiniz!',
         msgAjaxProgressError: '{operation} işlemi başarısız oldu.',
-        msgDuplicateFile: 'File "{name}" of same size "{size} KB" has already been selected earlier. Skipping duplicate selection.',
+        msgDuplicateFile: 'Aynı "{size} KB" boyutundaki "{name}" dosyası daha önce seçilmiş. Yinelenen seçim atlanıyor.',
         msgResumableUploadRetriesExceeded:  '<b>{max}</b> deneme sonrasında <b>{file}</b> dosyasının yükleme işlemi iptal edildi! Hata Detayları: <pre>{error}</pre>',
         msgPendingTime: '{time} kaldı',
         msgCalculatingTime: 'kalan süre hesaplanıyor',
