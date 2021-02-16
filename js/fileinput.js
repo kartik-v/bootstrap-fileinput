@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.1.4
+ * bootstrap-fileinput v5.1.5
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -477,16 +477,10 @@
             stash: function (htmlString) {
                 var self = this, outerDom = $.parseHTML('<div>' + htmlString + '</div>'), $el = $(outerDom);
                 $el.find('[style]').each(function (key, elem) {
-                    var $elem = $(elem), styleString = $elem.attr('style'), id = $h.uniqId(), styles = {};
-                    if (styleString && styleString.length) {
-                        if (styleString.indexOf(';') === -1) {
-                            styleString += ';';
-                        }
-                        styleString.slice(0, styleString.length - 1).split(';').map(function (str) {
-                            str = str.split(':');
-                            if (str[0]) {
-                                styles[str[0]] = str[1] ? str[1] : '';
-                            }
+                    var $elem = $(elem), styleDeclaration = $elem[0].style, id = $h.uniqId(), styles = {};
+                    if (styleDeclaration && styleDeclaration.length) {
+                        $(styleDeclaration).each(function () {
+                            styles[this] = styleDeclaration[this];
                         });
                         self.domElementsStyles[id] = styles;
                         $elem.removeAttr('style').attr(self.CSP_ATTRIB, id);

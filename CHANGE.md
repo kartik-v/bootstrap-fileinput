@@ -1,7 +1,14 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 5.1.4
+## version 5.1.5
+
+**Date**: _under development_
+
+- (enh #1683): Better correct CSP Buffer Stash using CSSStyleDeclaration.
+- (enh #1681): Update Turkish Translations.
+
+## version 5.1.5
 
 **Date**: 12-Jan-2021
 
