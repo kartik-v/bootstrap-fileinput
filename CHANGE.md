@@ -7,8 +7,11 @@ Change Log: `bootstrap-fileinput`
 
 - (enh #1683): Better correct CSP Buffer Stash using CSSStyleDeclaration.
 - (enh #1681): Update Turkish Translations.
+- (bug #1678): Resumable upload error handling fixes
+    - new boolean property `resumableUploadOptions.skipErrorsAndProceed`
+    - new event `filemaxretries`
 
-## version 5.1.5
+## version 5.1.4
 
 **Date**: 12-Jan-2021
 
