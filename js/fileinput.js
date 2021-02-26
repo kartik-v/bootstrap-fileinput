@@ -2262,7 +2262,7 @@
         },
         _resetErrors: function (fade) {
             var self = this, $error = self.$errorContainer;
-            if (self.isPersistentError) {
+            if (self.isPersistentError || self.resumableUploadOptions.skipErrorsAndProceed) {
                 return;
             }
             self.isError = false;
