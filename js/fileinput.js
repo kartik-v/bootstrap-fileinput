@@ -76,7 +76,8 @@
             chunkQueueError: 'Could not push task to ajax pool for chunk index # {index}.',
             resumableMaxRetriesReached: 'Maximum resumable ajax retries ({n}) reached.',
             resumableRetryError: 'Could not retry the resumable request (try # {n})... aborting.',
-            resumableAborting: 'Aborting / cancelling the resumable request.'
+            resumableAborting: 'Aborting / cancelling the resumable request.',
+            resumableRequestError: 'Error processing resumable request. {msg}'
 
         },
         objUrl: window.URL || window.webkitURL,
@@ -1536,7 +1537,7 @@
                             if (tokens) {
                                 msg = msg.setTokens(tokens);
                             }
-                            msg = 'Error processing resumable request. ' + msg;
+                            msg = msgs.resumableRequestError.setTokens({msg: msg});
                             self._log(msg);
                             deferrer.reject(msg);
                         };
@@ -2261,8 +2262,8 @@
             $h.addCss(self.$captionContainer, 'is-invalid');
         },
         _resetErrors: function (fade) {
-            var self = this, $error = self.$errorContainer;
-            if (self.isPersistentError) {
+            var self = this, $error = self.$errorContainer, history = self.resumableUploadOptions.retainErrorHistory;
+            if (self.isPersistentError || (self.enableResumableUpload && history)) {
                 return;
             }
             self.isError = false;
@@ -5933,6 +5934,7 @@
             maxThreads: 4,
             maxRetries: 3,
             showErrorLog: true,
+            retainErrorHistory: true, // display complete error history always unless user explicitly resets upload
             skipErrorsAndProceed: false // when set to true, error file will be skipped and upload will continue with other files
         },
         uploadExtraData: {},

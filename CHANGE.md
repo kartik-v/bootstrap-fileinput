@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1687, #1688): Allow error history to be displayed for resumable uploads.
+    - new boolean property `resumableUploadOptions.retainErrorHistory`
 - (enh #1683): Better correct CSP Buffer Stash using CSSStyleDeclaration.
 - (enh #1681): Update Turkish Translations.
 - (bug #1678): Resumable upload error handling fixes
