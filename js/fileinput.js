@@ -5935,7 +5935,7 @@
             maxRetries: 3,
             showErrorLog: true,
             retainErrorHistory: true, // display complete error history always unless user explicitly resets upload
-            skipErrorsAndProceed: false // when set to true, error file will be skipped and upload will continue with other files
+            skipErrorsAndProceed: false // when set to true, files with errors will be skipped and upload will continue with other files
         },
         uploadExtraData: {},
         zoomModalHeight: 480,

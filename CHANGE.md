@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.1.5
 
-**Date**: _under development_
+**Date**: 03-Mar-2021
 
 - (enh #1687, #1688): Allow error history to be displayed for resumable uploads.
     - new boolean property `resumableUploadOptions.retainErrorHistory`
