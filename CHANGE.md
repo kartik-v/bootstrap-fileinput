@@ -1,6 +1,18 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.1.5
+
+**Date**: 03-Mar-2021
+
+- (enh #1687, #1688): Allow error history to be displayed for resumable uploads.
+    - new boolean property `resumableUploadOptions.retainErrorHistory`
+- (enh #1683): Better correct CSP Buffer Stash using CSSStyleDeclaration.
+- (enh #1681): Update Turkish Translations.
+- (bug #1678): Resumable upload error handling fixes
+    - new boolean property `resumableUploadOptions.skipErrorsAndProceed`
+    - new event `filemaxretries`
+
 ## version 5.1.4
 
 **Date**: 12-Jan-2021
