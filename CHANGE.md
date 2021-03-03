@@ -5,7 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
-- (enh #1681): Update Turkish Translations.
+- (enh #1690): Add Uzbek Cyrillic Translations.
 
 ## version 5.1.5
 
