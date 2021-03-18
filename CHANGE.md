@@ -7,6 +7,7 @@ Change Log: `bootstrap-fileinput`
 
 - (enh #1693): Add Latvian Translations.
 - (enh #1690): Add Uzbek Cyrillic Translations.
+- (enh #1647, #1679, #1695): Correct success file thumbs init.
 
 ## version 5.1.5
 

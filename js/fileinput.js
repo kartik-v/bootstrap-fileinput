@@ -3446,24 +3446,26 @@
             if (!self.showPreview) {
                 return;
             }
-            self._getThumbs($h.FRAMES + '.file-preview-success').each(function () {
-                var $thumb = $(this), $remove = $thumb.find('.kv-file-remove');
-                $remove.removeAttr('disabled');
-                self._handler($remove, 'click', function () {
-                    var id = $thumb.attr('id'),
-                        out = self._raise('filesuccessremove', [id, $thumb.attr('data-fileindex')]);
-                    $h.cleanMemory($thumb);
-                    if (out === false) {
-                        return;
-                    }
-                    $thumb.fadeOut('slow', function () {
-                        $thumb.remove();
-                        if (!self.getFrames().length) {
-                            self.reset();
+            setTimeout(function() {
+                self._getThumbs($h.FRAMES + '.file-preview-success').each(function () {
+                    var $thumb = $(this), $remove = $thumb.find('.kv-file-remove');
+                    $remove.removeAttr('disabled');
+                    self._handler($remove, 'click', function () {
+                        var id = $thumb.attr('id'),
+                            out = self._raise('filesuccessremove', [id, $thumb.attr('data-fileindex')]);
+                        $h.cleanMemory($thumb);
+                        if (out === false) {
+                            return;
                         }
+                        $thumb.fadeOut('slow', function () {
+                            $thumb.remove();
+                            if (!self.getFrames().length) {
+                                self.reset();
+                            }
+                        });
                     });
                 });
-            });
+            }, self.processDelay);
         },
         _updateInitialPreview: function () {
             var self = this, u = self.uploadCache;
