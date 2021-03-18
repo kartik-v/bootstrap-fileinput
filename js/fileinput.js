@@ -3616,18 +3616,20 @@
                 }, self.processDelay);
             };
             fnComplete = function () {
-                if (self.showPreview) {
-                    $btnUpload.removeAttr('disabled');
-                    $btnDelete.removeAttr('disabled');
-                    $thumb.removeClass('file-uploading');
-                }
-                if (!isBatch) {
-                    self.unlock(false);
-                    self._clearFileInput();
-                } else {
-                    chkComplete();
-                }
-                self._initSuccessThumbs();
+                setTimeout(function () {
+                    if (self.showPreview) {
+                        $btnUpload.removeAttr('disabled');
+                        $btnDelete.removeAttr('disabled');
+                        $thumb.removeClass('file-uploading');
+                    }
+                    if (!isBatch) {
+                        self.unlock(false);
+                        self._clearFileInput();
+                    } else {
+                        chkComplete();
+                    }
+                    self._initSuccessThumbs();
+                }, self.processDelay);
             };
             fnError = function (jqXHR, textStatus, errorThrown) {
                 errMsg = self._parseError(op, jqXHR, errorThrown, self.fileManager.getFileName(id));
