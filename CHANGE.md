@@ -6,6 +6,21 @@ Change Log: `bootstrap-fileinput`
 **Date**: _under development_
 
 - (enh #1699): Update Danish Translations.
+- (enh #1698): Tab index ordering enhancements.
+  - fix tab order breaking after file caption highlight 
+  - added new property `tabIndexConfig` for configuration of tab indices for each section 
+    which defaults to (null value means no tabindex property will be set for that section) 
+~~~
+    tabIndexConfig: {
+        caption: 500,
+        browse: 500,
+        remove: 500,
+        upload: 500,
+        cancel: null,
+        pause: null,
+        modal: -1
+    }
+~~~
 - (enh #1693): Add Latvian Translations.
 - (enh #1690): Add Uzbek Cyrillic Translations.
 - (enh #1647, #1679, #1695): Correct success file thumbs init.

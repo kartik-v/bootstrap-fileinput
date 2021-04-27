@@ -1668,20 +1668,20 @@
             tClose = $h.closeButton('fileinput-remove');
             tFileIcon = '<i class="glyphicon glyphicon-file"></i>';
             // noinspection HtmlUnknownAttribute
-            tCaption = '<div class="file-caption form-control {class}" tabindex="500">\n' +
+            tCaption = '<div class="file-caption form-control {class}" {tabIndexConfig}>\n' +
                 '  <span class="file-caption-icon"></span>\n' +
-                '  <input class="file-caption-name">\n' +
+                '  <input readonly class="file-caption-name">\n' +
                 '</div>';
             //noinspection HtmlUnknownAttribute
-            tBtnDefault = '<button type="{type}" tabindex="500" title="{title}" class="{css}" ' +
-                '{status}>{icon} {label}</button>';
+            tBtnDefault = '<button type="{type}" title="{title}" class="{css}" ' +
+                '{status} {tabIndexConfig}>{icon} {label}</button>';
             //noinspection HtmlUnknownTarget,HtmlUnknownAttribute
-            tBtnLink = '<a href="{href}" tabindex="500" title="{title}" class="{css}" {status}>{icon} {label}</a>';
+            tBtnLink = '<a href="{href}" title="{title}" class="{css}" {status} {tabIndexConfig}>{icon} {label}</a>';
             //noinspection HtmlUnknownAttribute
-            tBtnBrowse = '<div tabindex="500" class="{css}" {status}>{icon} {label}</div>';
+            tBtnBrowse = '<div class="{css}" {status} {tabIndexConfig}>{icon} {label}</div>';
             tModalLabel = $h.MODAL_ID + 'Label';
             tModalMain = '<div id="' + $h.MODAL_ID + '" class="file-zoom-dialog modal fade" ' +
-                'tabindex="-1" aria-labelledby="' + tModalLabel + '"></div>';
+                'aria-labelledby="' + tModalLabel + '" {tabIndexConfig}></div>';
             tModal = '<div class="modal-dialog modal-lg{rtl}" role="document">\n' +
                 '  <div class="modal-content">\n' +
                 '    <div class="modal-header">\n' +
@@ -2463,7 +2463,7 @@
             }
         },
         _listen: function () {
-            var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, fullScreenEv, $cap, fn;
+            var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, fullScreenEv;
             self._handler($el, 'click', function (e) {
                 if ($el.hasClass('file-no-browse')) {
                     if ($el.data('zoneClicked')) {
@@ -2476,16 +2476,17 @@
             self._handler($el, 'change', $.proxy(self._change, self));
             if (self.showBrowse) {
                 self._handler(self.$btnFile, 'click', $.proxy(self._browse, self));
+                self._handler(self.$btnFile, 'keypress', function(e) {
+                    var keycode = e.keyCode || e.which
+                    if (keycode === 13) {
+                        $el.trigger('click');
+                        self._browse(e);
+                    }
+                });
             }
-            $cap = $cont.find('.file-caption-name');
-            fn = function () {
-                return false;
-            };
             self._handler($cont.find('.fileinput-remove:not([disabled])'), 'click', $.proxy(self.clear, self));
             self._handler($cont.find('.fileinput-cancel'), 'click', $.proxy(self.cancel, self));
             self._handler($cont.find('.fileinput-pause'), 'click', $.proxy(self.pause, self));
-            self._handler($cap, 'keydown', fn);
-            self._handler($cap, 'paste', fn);
             self._initDragDrop();
             self._handler($form, 'reset', $.proxy(self.clear, self));
             if (!self.isAjaxUpload) {
@@ -2825,6 +2826,7 @@
         },
         _initZoom: function () {
             var self = this, $dialog, modalMain = self._getLayoutTemplate('modalMain'), modalId = '#' + $h.MODAL_ID;
+            modalMain = self._setTabIndex('modal', modalMain);
             if (!self.showPreview) {
                 return;
             }
@@ -4778,6 +4780,12 @@
             var self = this;
             self.$caption.attr({readonly: self.isDisabled});
         },
+        _setTabIndex: function(type, html) {
+            var self = this, index = self.tabIndexConfig[type];
+            return html.setTokens({
+                tabIndexConfig: index === undefined || index === null ? '' : 'tabindex="' + index + '"'
+            });
+        },
         _renderMain: function () {
             var self = this,
                 dropCss = self.dropZoneEnabled ? ' file-drop-zone' : 'file-drop-disabled',
@@ -4786,6 +4794,7 @@
                     .setTokens({'class': self.previewClass, 'dropClass': dropCss}),
                 css = self.isDisabled ? self.captionClass + ' file-caption-disabled' : self.captionClass,
                 caption = self.captionTemplate.setTokens({'class': css + ' kv-fileinput-caption'});
+            caption = self._setTabIndex('caption', caption);
             return self.mainTemplate.setTokens({
                 'class': self.mainClass + (!self.showBrowse && self.showCaption ? ' no-browse' : ''),
                 'preview': preview,
@@ -4840,6 +4849,7 @@
                 default:
                     return '';
             }
+            tmplt = self._setTabIndex(type, tmplt);
 
             css += type === 'browse' ? ' btn-file' : ' fileinput-' + type + ' fileinput-' + type + '-button';
             if (!$h.isEmpty(label)) {
@@ -5994,7 +6004,16 @@
             return !!navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/i) || isIE11;
         },
         pdfRendererUrl: '',
-        pdfRendererTemplate: '<iframe ' + IFRAME_ATTRIBS + '></iframe>'
+        pdfRendererTemplate: '<iframe ' + IFRAME_ATTRIBS + '></iframe>',
+        tabIndexConfig: {
+            caption: 500,
+            browse: 500,
+            remove: 500,
+            upload: 500,
+            cancel: null,
+            pause: null,
+            modal: -1
+        }
     };
 
     // noinspection HtmlUnknownAttribute
