@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.1.5
+ * bootstrap-fileinput v5.2.0
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -22,10 +22,12 @@
     }
 }(function ($) {
     'use strict';
-
     $.fn.fileinputLocales = {};
     $.fn.fileinputThemes = {};
-
+    if (!$.fn.fileinputBsVersion) {
+        $.fn.fileinputBsVersion = (window.Alert && window.Alert.VERSION) ||
+            (window.bootstrap && window.bootstrap.Alert && bootstrap.Alert.VERSION) || '3.x.x';
+    }
     String.prototype.setTokens = function (replacePairs) {
         var str = this.toString(), key, re;
         for (key in replacePairs) {
@@ -81,6 +83,18 @@
 
         },
         objUrl: window.URL || window.webkitURL,
+        isBs: function (ver) {
+            var chk = ($.fn.fileinputBsVersion || '') + '';
+            ver = parseInt(ver, 10);
+            if (!chk) {
+                return ver === 4;
+            }
+            return ver === parseInt(chk.charAt(0), 10);
+
+        },
+        defaultButtonCss: function (fill) {
+            return 'btn-default btn-' + (fill ? '' : 'outline-') + 'secondary';
+        },
         now: function () {
             return new Date().getTime();
         },
@@ -607,9 +621,9 @@
             return newArr;
         },
         closeButton: function (css) {
-            css = css ? 'close ' + css : 'close';
+            css = ($h.isBs(5) ? 'btn-close' : 'close') + (css ? ' ' + css : '');
             return '<button type="button" class="' + css + '" aria-label="Close">\n' +
-                '  <span aria-hidden="true">&times;</span>\n' +
+                ($h.isBs(5) ? '' : '  <span aria-hidden="true">&times;</span>\n') +
                 '</button>';
         },
         getRotation: function (value) {
@@ -885,6 +899,9 @@
                         break;
                 }
             });
+            if (self.errorCloseButton === undefined) {
+                self.errorCloseButton = $h.closeButton('kv-error-close' + ($h.isBs(5) ? '  float-end' : ''));
+            }
             if (self.maxTotalFileCount > 0 && self.maxTotalFileCount < self.maxFileCount) {
                 self.maxTotalFileCount = self.maxFileCount;
             }
@@ -1641,18 +1658,18 @@
                 tStats, tModalLabel, renderObject = function (type, mime) {
                     return '<object class="kv-preview-data file-preview-' + type + '" title="{caption}" ' +
                         'data="{data}" type="' + mime + '"' + tStyle + '>\n' + $h.DEFAULT_PREVIEW + '\n</object>\n';
-                };
+                }, defBtnCss1 = 'btn btn-sm btn-kv ' + $h.defaultButtonCss();
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
                 '<div class="input-group {class}">\n' +
                 '  {caption}\n' +
-                '<div class="input-group-btn input-group-append">\n' +
+                ($h.isBs(5) ? '' : '<div class="input-group-btn input-group-append">\n') +
                 '      {remove}\n' +
                 '      {cancel}\n' +
                 '      {pause}\n' +
                 '      {upload}\n' +
                 '      {browse}\n' +
-                '    </div>\n' +
+                ($h.isBs(5) ? '' : '    </div>\n') +
                 '</div>';
             tMain2 = '{preview}\n<div class="kv-upload-progress kv-hidden"></div>\n<div class="clearfix"></div>\n' +
                 '{remove}\n{cancel}\n{upload}\n{browse}\n';
@@ -1668,20 +1685,20 @@
             tClose = $h.closeButton('fileinput-remove');
             tFileIcon = '<i class="glyphicon glyphicon-file"></i>';
             // noinspection HtmlUnknownAttribute
-            tCaption = '<div class="file-caption form-control {class}" tabindex="500">\n' +
+            tCaption = '<div class="file-caption form-control {class}" {tabIndexConfig}>\n' +
                 '  <span class="file-caption-icon"></span>\n' +
-                '  <input class="file-caption-name">\n' +
+                '  <input readonly class="file-caption-name">\n' +
                 '</div>';
             //noinspection HtmlUnknownAttribute
-            tBtnDefault = '<button type="{type}" tabindex="500" title="{title}" class="{css}" ' +
-                '{status}>{icon} {label}</button>';
+            tBtnDefault = '<button type="{type}" title="{title}" class="{css}" ' +
+                '{status} {tabIndexConfig}>{icon} {label}</button>';
             //noinspection HtmlUnknownTarget,HtmlUnknownAttribute
-            tBtnLink = '<a href="{href}" tabindex="500" title="{title}" class="{css}" {status}>{icon} {label}</a>';
+            tBtnLink = '<a href="{href}" title="{title}" class="{css}" {status} {tabIndexConfig}>{icon} {label}</a>';
             //noinspection HtmlUnknownAttribute
-            tBtnBrowse = '<div tabindex="500" class="{css}" {status}>{icon} {label}</div>';
+            tBtnBrowse = '<div class="{css}" {status} {tabIndexConfig}>{icon} {label}</div>';
             tModalLabel = $h.MODAL_ID + 'Label';
             tModalMain = '<div id="' + $h.MODAL_ID + '" class="file-zoom-dialog modal fade" ' +
-                'tabindex="-1" aria-labelledby="' + tModalLabel + '"></div>';
+                'aria-labelledby="' + tModalLabel + '" {tabIndexConfig}></div>';
             tModal = '<div class="modal-dialog modal-lg{rtl}" role="document">\n' +
                 '  <div class="modal-content">\n' +
                 '    <div class="modal-header">\n' +
@@ -1900,19 +1917,19 @@
                     showZoom: true,
                     showDrag: true,
                     removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
-                    removeClass: 'btn btn-sm btn-kv btn-default btn-outline-secondary',
+                    removeClass: defBtnCss1,
                     removeErrorClass: 'btn btn-sm btn-kv btn-danger',
                     removeTitle: 'Remove file',
                     uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
-                    uploadClass: 'btn btn-sm btn-kv btn-default btn-outline-secondary',
+                    uploadClass: defBtnCss1,
                     uploadTitle: 'Upload file',
                     uploadRetryIcon: '<i class="glyphicon glyphicon-repeat"></i>',
                     uploadRetryTitle: 'Retry upload',
                     downloadIcon: '<i class="glyphicon glyphicon-download"></i>',
-                    downloadClass: 'btn btn-sm btn-kv btn-default btn-outline-secondary',
+                    downloadClass: defBtnCss1,
                     downloadTitle: 'Download file',
                     zoomIcon: '<i class="glyphicon glyphicon-zoom-in"></i>',
-                    zoomClass: 'btn btn-sm btn-kv btn-default btn-outline-secondary',
+                    zoomClass: defBtnCss1,
                     zoomTitle: 'View Details',
                     dragIcon: '<i class="glyphicon glyphicon-move"></i>',
                     dragClass: 'text-info',
@@ -2440,8 +2457,8 @@
             if (!$modal || !$modal.length) {
                 return;
             }
-            $btnFull = $modal && $modal.find('.btn-fullscreen');
-            $btnBord = $modal && $modal.find('.btn-borderless');
+            $btnFull = $modal && $modal.find('.btn-kv-fullscreen');
+            $btnBord = $modal && $modal.find('.btn-kv-borderless');
             if (!$btnFull.length || !$btnBord.length) {
                 return;
             }
@@ -2463,7 +2480,7 @@
             }
         },
         _listen: function () {
-            var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, fullScreenEv, $cap, fn;
+            var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, fullScreenEv;
             self._handler($el, 'click', function (e) {
                 if ($el.hasClass('file-no-browse')) {
                     if ($el.data('zoneClicked')) {
@@ -2476,16 +2493,17 @@
             self._handler($el, 'change', $.proxy(self._change, self));
             if (self.showBrowse) {
                 self._handler(self.$btnFile, 'click', $.proxy(self._browse, self));
+                self._handler(self.$btnFile, 'keypress', function (e) {
+                    var keycode = e.keyCode || e.which
+                    if (keycode === 13) {
+                        $el.trigger('click');
+                        self._browse(e);
+                    }
+                });
             }
-            $cap = $cont.find('.file-caption-name');
-            fn = function () {
-                return false;
-            };
             self._handler($cont.find('.fileinput-remove:not([disabled])'), 'click', $.proxy(self.clear, self));
             self._handler($cont.find('.fileinput-cancel'), 'click', $.proxy(self.cancel, self));
             self._handler($cont.find('.fileinput-pause'), 'click', $.proxy(self.pause, self));
-            self._handler($cap, 'keydown', fn);
-            self._handler($cap, 'paste', fn);
             self._initDragDrop();
             self._handler($form, 'reset', $.proxy(self.clear, self));
             if (!self.isAjaxUpload) {
@@ -2772,12 +2790,12 @@
         },
         _getZoomButton: function (type) {
             var self = this, label = self.previewZoomButtonIcons[type], css = self.previewZoomButtonClasses[type],
-                title = ' title="' + (self.previewZoomButtonTitles[type] || '') + '" ',
-                params = title + (type === 'close' ? ' data-dismiss="modal" aria-hidden="true"' : '');
+                title = ' title="' + (self.previewZoomButtonTitles[type] || '') + '" ', tag = $h.isBs(5) ? 'bs-' : '',
+                params = title + (type === 'close' ? ' data-' + tag + 'dismiss="modal" aria-hidden="true"' : '');
             if (type === 'fullscreen' || type === 'borderless' || type === 'toggleheader') {
                 params += ' data-toggle="button" aria-pressed="false" autocomplete="off"';
             }
-            return '<button type="button" class="' + css + ' btn-' + type + '"' + params + '>' + label + '</button>';
+            return '<button type="button" class="' + css + ' btn-kv-' + type + '"' + params + '>' + label + '</button>';
         },
         _getModalContent: function () {
             var self = this;
@@ -2825,6 +2843,7 @@
         },
         _initZoom: function () {
             var self = this, $dialog, modalMain = self._getLayoutTemplate('modalMain'), modalId = '#' + $h.MODAL_ID;
+            modalMain = self._setTabIndex('modal', modalMain);
             if (!self.showPreview) {
                 return;
             }
@@ -2844,8 +2863,8 @@
         },
         _initZoomButtons: function () {
             var self = this, previewId = self.$modal.data('previewId') || '', $first, $last,
-                thumbs = self.getFrames().toArray(), len = thumbs.length, $prev = self.$modal.find('.btn-prev'),
-                $next = self.$modal.find('.btn-next');
+                thumbs = self.getFrames().toArray(), len = thumbs.length, $prev = self.$modal.find('.btn-kv-prev'),
+                $next = self.$modal.find('.btn-kv-next');
             if (thumbs.length < 2) {
                 $prev.hide();
                 $next.hide();
@@ -2886,8 +2905,8 @@
             $modal.find('.kv-zoom-body').height(h);
         },
         _resizeZoomDialog: function (fullScreen) {
-            var self = this, $modal = self.$modal, $btnFull = $modal.find('.btn-fullscreen'),
-                $btnBord = $modal.find('.btn-borderless');
+            var self = this, $modal = self.$modal, $btnFull = $modal.find('.btn-kv-fullscreen'),
+                $btnBord = $modal.find('.btn-kv-borderless');
             if ($modal.hasClass('file-zoom-fullscreen')) {
                 $h.toggleFullScreen(false);
                 if (!fullScreen) {
@@ -2918,8 +2937,8 @@
         _setZoomContent: function ($frame, animate) {
             var self = this, $content, tmplt, body, title, $body, $dataEl, config, previewId = $frame.attr('id'),
                 $zoomPreview = self._getZoom(previewId), $modal = self.$modal, $tmp,
-                $btnFull = $modal.find('.btn-fullscreen'), $btnBord = $modal.find('.btn-borderless'), cap, size,
-                $btnTogh = $modal.find('.btn-toggleheader');
+                $btnFull = $modal.find('.btn-kv-fullscreen'), $btnBord = $modal.find('.btn-kv-borderless'), cap, size,
+                $btnTogh = $modal.find('.btn-kv-toggleheader');
             tmplt = $zoomPreview.attr('data-template') || 'generic';
             $content = $zoomPreview.find('.kv-file-content');
             body = $content.length ? $content.html() : '';
@@ -2953,10 +2972,10 @@
                 });
             }
             $modal.data('previewId', previewId);
-            self._handler($modal.find('.btn-prev'), 'click', function () {
+            self._handler($modal.find('.btn-kv-prev'), 'click', function () {
                 self._zoomSlideShow('prev', previewId);
             });
-            self._handler($modal.find('.btn-next'), 'click', function () {
+            self._handler($modal.find('.btn-kv-next'), 'click', function () {
                 self._zoomSlideShow('next', previewId);
             });
             self._handler($btnFull, 'click', function () {
@@ -2992,7 +3011,8 @@
                 $modal.focus();
             });
             self._handler($modal, 'keydown', function (e) {
-                var key = e.which || e.keyCode, $prev = $(this).find('.btn-prev'), $next = $(this).find('.btn-next'),
+                var key = e.which || e.keyCode, $prev = $(this).find('.btn-kv-prev'),
+                    $next = $(this).find('.btn-kv-next'),
                     vId = $(this).data('previewId'), vPrevKey = self.rtl ? 39 : 37, vNextKey = self.rtl ? 37 : 39;
                 if (key === vPrevKey && $prev.length && !$prev.attr('disabled')) {
                     self._zoomSlideShow('prev', vId);
@@ -3003,15 +3023,18 @@
             });
         },
         _showModal: function ($frame) {
-            var self = this, $modal = self.$modal;
+            var self = this, $modal = self.$modal, bs5Modal;
             if (!$frame || !$frame.length) {
                 return;
             }
             $h.initModal($modal);
             $h.setHtml($modal, self._getModalContent());
             self._setZoomContent($frame);
-            $modal.data('fileinputPluginId', self.$element.attr('id'));
+            $modal.data({backdrop: false});
+            //$modal.data('fileinputPluginId', self.$element.attr('id'));
+            console.log('KV--1');
             $modal.modal('show');
+            console.log('KV--2');
             self._initZoomButtons();
         },
         _zoomPreview: function ($btn) {
@@ -3023,7 +3046,7 @@
             self._showModal($frame);
         },
         _zoomSlideShow: function (dir, previewId) {
-            var self = this, $btn = self.$modal.find('.kv-zoom-actions .btn-' + dir), $targFrame, i, $thumb,
+            var self = this, $btn = self.$modal.find('.kv-zoom-actions .btn-kv-' + dir), $targFrame, i, $thumb,
                 thumbsData = self.getFrames().toArray(), thumbs = [], len = thumbsData.length, out;
             if ($btn.attr('disabled')) {
                 return;
@@ -3446,24 +3469,26 @@
             if (!self.showPreview) {
                 return;
             }
-            self._getThumbs($h.FRAMES + '.file-preview-success').each(function () {
-                var $thumb = $(this), $remove = $thumb.find('.kv-file-remove');
-                $remove.removeAttr('disabled');
-                self._handler($remove, 'click', function () {
-                    var id = $thumb.attr('id'),
-                        out = self._raise('filesuccessremove', [id, $thumb.attr('data-fileindex')]);
-                    $h.cleanMemory($thumb);
-                    if (out === false) {
-                        return;
-                    }
-                    $thumb.fadeOut('slow', function () {
-                        $thumb.remove();
-                        if (!self.getFrames().length) {
-                            self.reset();
+            setTimeout(function () {
+                self._getThumbs($h.FRAMES + '.file-preview-success').each(function () {
+                    var $thumb = $(this), $remove = $thumb.find('.kv-file-remove');
+                    $remove.removeAttr('disabled');
+                    self._handler($remove, 'click', function () {
+                        var id = $thumb.attr('id'),
+                            out = self._raise('filesuccessremove', [id, $thumb.attr('data-fileindex')]);
+                        $h.cleanMemory($thumb);
+                        if (out === false) {
+                            return;
                         }
+                        $thumb.fadeOut('slow', function () {
+                            $thumb.remove();
+                            if (!self.getFrames().length) {
+                                self.reset();
+                            }
+                        });
                     });
                 });
-            });
+            }, self.processDelay);
         },
         _updateInitialPreview: function () {
             var self = this, u = self.uploadCache;
@@ -4776,6 +4801,12 @@
             var self = this;
             self.$caption.attr({readonly: self.isDisabled});
         },
+        _setTabIndex: function (type, html) {
+            var self = this, index = self.tabIndexConfig[type];
+            return html.setTokens({
+                tabIndexConfig: index === undefined || index === null ? '' : 'tabindex="' + index + '"'
+            });
+        },
         _renderMain: function () {
             var self = this,
                 dropCss = self.dropZoneEnabled ? ' file-drop-zone' : 'file-drop-disabled',
@@ -4784,6 +4815,7 @@
                     .setTokens({'class': self.previewClass, 'dropClass': dropCss}),
                 css = self.isDisabled ? self.captionClass + ' file-caption-disabled' : self.captionClass,
                 caption = self.captionTemplate.setTokens({'class': css + ' kv-fileinput-caption'});
+            caption = self._setTabIndex('caption', caption);
             return self.mainTemplate.setTokens({
                 'class': self.mainClass + (!self.showBrowse && self.showCaption ? ' no-browse' : ''),
                 'preview': preview,
@@ -4838,6 +4870,7 @@
                 default:
                     return '';
             }
+            tmplt = self._setTabIndex(type, tmplt);
 
             css += type === 'browse' ? ' btn-file' : ' fileinput-' + type + ' fileinput-' + type + '-button';
             if (!$h.isEmpty(label)) {
@@ -5803,7 +5836,8 @@
         }
     };
 
-    var IFRAME_ATTRIBS = 'class="kv-preview-data file-preview-pdf" src="{renderer}?file={data}" {style}';
+    var IFRAME_ATTRIBS = 'class="kv-preview-data file-preview-pdf" src="{renderer}?file={data}" {style}',
+        defBtnCss1 = 'btn btn-sm btn-kv ' + $h.defaultButtonCss(), defBtnCss2 = 'btn ' + $h.defaultButtonCss(true);
 
     $.fn.fileinput.defaults = {
         language: 'en',
@@ -5869,10 +5903,10 @@
         previewZoomButtonClasses: {
             prev: 'btn btn-navigate',
             next: 'btn btn-navigate',
-            toggleheader: 'btn btn-sm btn-kv btn-default btn-outline-secondary',
-            fullscreen: 'btn btn-sm btn-kv btn-default btn-outline-secondary',
-            borderless: 'btn btn-sm btn-kv btn-default btn-outline-secondary',
-            close: 'btn btn-sm btn-kv btn-default btn-outline-secondary'
+            toggleheader: defBtnCss1,
+            fullscreen: defBtnCss1,
+            borderless: defBtnCss1,
+            close: defBtnCss1
         },
         previewTemplates: {},
         previewContentTemplates: {},
@@ -5897,13 +5931,13 @@
         browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>&nbsp;',
         browseClass: 'btn btn-primary',
         removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
-        removeClass: 'btn btn-default btn-secondary',
+        removeClass: defBtnCss2,
         cancelIcon: '<i class="glyphicon glyphicon-ban-circle"></i>',
-        cancelClass: 'btn btn-default btn-secondary',
+        cancelClass: defBtnCss2,
         pauseIcon: '<i class="glyphicon glyphicon-pause"></i>',
-        pauseClass: 'btn btn-default btn-secondary',
+        pauseClass: defBtnCss2,
         uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
-        uploadClass: 'btn btn-default btn-secondary',
+        uploadClass: defBtnCss2,
         uploadUrl: null,
         uploadUrlThumb: null,
         uploadAsync: true,
@@ -5972,7 +6006,7 @@
         elPreviewImage: null,
         elPreviewStatus: null,
         elErrorContainer: null,
-        errorCloseButton: $h.closeButton('kv-error-close'),
+        errorCloseButton: undefined,
         slugCallback: null,
         dropZoneEnabled: true,
         dropZoneTitleClass: 'file-drop-zone-title',
@@ -5992,7 +6026,16 @@
             return !!navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/i) || isIE11;
         },
         pdfRendererUrl: '',
-        pdfRendererTemplate: '<iframe ' + IFRAME_ATTRIBS + '></iframe>'
+        pdfRendererTemplate: '<iframe ' + IFRAME_ATTRIBS + '></iframe>',
+        tabIndexConfig: {
+            caption: 500,
+            browse: 500,
+            remove: 500,
+            upload: 500,
+            cancel: null,
+            pause: null,
+            modal: -1
+        }
     };
 
     // noinspection HtmlUnknownAttribute
