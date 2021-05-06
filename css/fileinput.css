@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.1.6
+ * bootstrap-fileinput v5.2.0
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -362,11 +362,11 @@
     opacity: 0.3;
 }
 
-.file-zoom-dialog .btn-prev {
+.file-zoom-dialog .btn-kv-prev {
     left: 1px;
 }
 
-.file-zoom-dialog .btn-next {
+.file-zoom-dialog .btn-kv-next {
     right: 1px;
 }
 

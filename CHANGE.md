@@ -1,10 +1,15 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 5.1.6
+## version 5.2.0
 
-**Date**: _under development_
+**Date**: 06-May-2021
 
+- (enh #1674): Enhancements to add support for Bootstrap v5.
+    - Major release to support Bootstrap version 5.x
+    - Bootstrap version is auto detected with this release if the bootstrap javascript library is loaded
+    - Additional flexibility is provided to developer to override a specific bootstrap version by setting `$.fn.fileinputBsVersion`
+    - There is an existing issue for MODAL dialog initialization in Bootstrap library v5.x. This [issue with is reported](https://github.com/twbs/bootstrap/issues/33840#issuecomment-833462016) at the Bootstrap 5.x library repo with a workaround.
 - (enh #1699): Update Danish Translations.
 - (enh #1698): Tab index ordering enhancements.
   - fix tab order breaking after file caption highlight 

@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.1.6
+ * bootstrap-fileinput v5.2.0
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -445,10 +445,10 @@ input[type=file].file-loading {
     .btn-navigate[disabled] {
         opacity: 0.3;
     }
-    .btn-prev {
+    .btn-kv-prev {
         left: multiply($pad, 0.2);
     }
-    .btn-next {
+    .btn-kv-next {
         right: multiply($pad, 0.2);
     }
     .kv-zoom-title {

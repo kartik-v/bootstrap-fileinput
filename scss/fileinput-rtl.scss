@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.1.6
+ * bootstrap-fileinput v5.2.0
  * http://plugins.krajee.com/file-input
  *
  * Krajee RTL (Right To Left) default styling for bootstrap-fileinput.
@@ -69,11 +69,11 @@ $border: 1px !default;
     .file-drop-zone {
         margin: multiply($pad, 2.4) multiply($pad, 2.4) multiply($pad, 2.4) multiply($pad, 3);
     }
-    .btn-prev {
+    .btn-kv-prev {
         right: multiply($pad, 0.2);
         left: auto;
     }
-    .btn-next {
+    .btn-kv-next {
         left: multiply($pad, 0.2);
         right: auto;
     }
