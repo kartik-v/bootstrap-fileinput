@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.2.1
+
+**Date**: _under development_
+
+- (enh #1704): Enhance and fix CDN to use jsDelivr.
+
 ## version 5.2.0
 
 **Date**: 06-May-2021
