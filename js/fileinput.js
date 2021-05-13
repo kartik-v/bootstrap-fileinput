@@ -3480,6 +3480,7 @@
                         if (out === false) {
                             return;
                         }
+                        $cont.find('.file-caption-name').attr('title', '');
                         $thumb.fadeOut('slow', function () {
                             $thumb.remove();
                             if (!self.getFrames().length) {
