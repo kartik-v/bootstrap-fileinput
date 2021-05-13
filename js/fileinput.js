@@ -883,7 +883,7 @@
                     case 'minFileSize':
                     case 'maxFileSize':
                     case 'maxFilePreviewSize':
-                    case 'resizeImageQuality':
+                    case 'resizeQuality':
                     case 'resizeIfSizeMoreThan':
                     case 'progressUploadThreshold':
                     case 'initialPreviewCount':
@@ -3158,8 +3158,8 @@
         },
         _resetCanvas: function () {
             var self = this;
-            if (self.canvas && self.imageCanvasContext) {
-                self.imageCanvasContext.clearRect(0, 0, self.canvas.width, self.canvas.height);
+            if (self.imageCanvas && self.imageCanvasContext) {
+                self.imageCanvasContext.clearRect(0, 0, self.imageCanvas.width, self.imageCanvas.height);
             }
         },
         _hasInitialPreview: function () {
@@ -5272,7 +5272,7 @@
                     fileExtExpr = '', previewData = $h.createObjectURL(file), fileCount = 0,
                     strTypes = '', fileId, canLoad, fileReaderAborted = false,
                     func, knownTypes = 0, isImage, txtFlag, processFileLoaded = function () {
-                        var msg = msgProgress.setTokens({
+                        var isImageResized = !!fm.loadedImages[id], msg = msgProgress.setTokens({
                             'index': i + 1,
                             'files': numFiles,
                             'percent': 50,
@@ -5284,7 +5284,13 @@
                             readFile(i + 1);
                         }, self.processDelay);
                         if (self._raise('fileloaded', [file, previewId, id, i, reader]) && self.isAjaxUpload) {
-                            fm.add(file);
+                            if (!isImageResized) {
+                                fm.add(file);
+                            }
+                        } else {
+                            if (isImageResized) {
+                                fm.removeFile(id);
+                            }
                         }
                     };
                 if (!file) {
