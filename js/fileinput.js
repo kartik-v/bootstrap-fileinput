@@ -3480,6 +3480,7 @@
                         if (out === false) {
                             return;
                         }
+                        self.$caption.attr('title', '');
                         $thumb.fadeOut('slow', function () {
                             $thumb.remove();
                             if (!self.getFrames().length) {
@@ -4769,6 +4770,7 @@
                 icon = '<span class="' + self.msgValidationErrorClass + '">' + self.msgValidationErrorIcon + '</span>';
             } else {
                 if ($h.isEmpty(content)) {
+                    self.$caption.attr('title', '');
                     return;
                 }
                 title = $('<div>' + content + '</div>').text();

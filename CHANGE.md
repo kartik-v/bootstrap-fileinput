@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1705): Enhance reset of file caption title.
 - (enh #1705): Corrections to image resizing.
 - (enh #1704): Enhance and fix CDN to use jsDelivr.
 
