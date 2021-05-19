@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.2.1
 
-**Date**: _under development_
+**Date**: 19-May-2021
 
 - (enh #1705): Enhance reset of file caption title.
 - (enh #1705): Corrections to image resizing.
