@@ -1,6 +1,14 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.2.1
+
+**Date**: 19-May-2021
+
+- (enh #1705): Enhance reset of file caption title.
+- (enh #1705): Corrections to image resizing.
+- (enh #1704): Enhance and fix CDN to use jsDelivr.
+
 ## version 5.2.0
 
 **Date**: 06-May-2021
