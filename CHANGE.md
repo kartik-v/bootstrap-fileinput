@@ -1,11 +1,19 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.2.2
+
+**Date**: _under development_
+
+- (enh #1710): Correct isEmpty helper.
+- (bug #1709): Corrections to image resizing.
+- (bug #1708): Corrections to reselection/upload of image file deleted earlier.
+
 ## version 5.2.1
 
 **Date**: 19-May-2021
 
-- (enh #1705): Enhance reset of file caption title.
+- (enh #1706): Enhance reset of file caption title.
 - (enh #1705): Corrections to image resizing.
 - (enh #1704): Enhance and fix CDN to use jsDelivr.
 

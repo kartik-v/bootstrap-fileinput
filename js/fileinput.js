@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.1
+ * bootstrap-fileinput v5.2.2
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -248,11 +248,25 @@
             return typeof v === 'function';
         },
         isEmpty: function (value, trim) {
-            return value === undefined || value === null || (!$h.isFunction(
-                value) && (value.length === 0 || (trim && $.trim(value) === '')));
+            if (value === undefined || value === null || value === '') {
+                return true;
+            }
+            if ($h.isString(value) && trim) {
+                return $.trim(value) === '';
+            }
+            if ($h.isArray(value)) {
+                return value.length === 0;
+            }
+            if ($.isPlainObject(value) && $.isEmptyObject(value)) {
+                return true
+            }
+            return false;
         },
         isArray: function (a) {
             return Array.isArray(a) || Object.prototype.toString.call(a) === '[object Array]';
+        },
+        isString: function (a) {
+            return Object.prototype.toString.call(a) === '[object String]';
         },
         ifSet: function (needle, haystack, def) {
             def = def || '';
@@ -1111,13 +1125,15 @@
                 },
                 remove: function ($thumb) {
                     var id = self._getThumbFileId($thumb);
-                    if (id) {
-                        self.fileManager.removeFile(id);
-                    }
+                    self.fileManager.removeFile(id);
                 },
                 removeFile: function (id) {
-                    delete self.fileManager.stack[id];
-                    delete self.fileManager.loadedImages[id];
+                    var fm = self.fileManager;
+                    if (!id) {
+                        return;
+                    }
+                    delete fm.stack[id];
+                    delete fm.loadedImages[id];
                 },
                 move: function (idFrom, idTo) {
                     var result = {}, stack = self.fileManager.stack;
@@ -3032,9 +3048,7 @@
             self._setZoomContent($frame);
             $modal.data({backdrop: false});
             //$modal.data('fileinputPluginId', self.$element.attr('id'));
-            console.log('KV--1');
             $modal.modal('show');
-            console.log('KV--2');
             self._initZoomButtons();
         },
         _zoomPreview: function ($btn) {
@@ -3482,6 +3496,7 @@
                         }
                         self.$caption.attr('title', '');
                         $thumb.fadeOut('slow', function () {
+                            var fm = self.fileManager;
                             $thumb.remove();
                             if (!self.getFrames().length) {
                                 self.reset();
@@ -3907,7 +3922,7 @@
             self._initZoomButton();
             self.getFrames(' .kv-file-remove').each(function () {
                 var $el = $(this), $frame = $el.closest($h.FRAMES), hasError, id = $frame.attr('id'),
-                    ind = $frame.attr('data-fileindex'), status;
+                    ind = $frame.attr('data-fileindex'), status, fm = self.fileManager;
                 self._handler($el, 'click', function () {
                     status = self._raise('filepreremove', [id, ind]);
                     if (status === false || !self._validateMinCount()) {
@@ -4202,8 +4217,8 @@
             }
             var self = this, fname = $h.getFileName(file), ftype = fileInfo.type, caption = fileInfo.name,
                 cat = self._parseFileType(ftype, fname), content, $preview = self.$preview, fsize = file.size || 0,
-                iData = cat === 'image' ? theFile.target.result : data,
-                fileId = self.fileManager.getId(file), previewId = self._getThumbId(fileId);
+                iData = cat === 'image' ? theFile.target.result : data, fm = self.fileManager,
+                fileId = fm.getId(file), previewId = self._getThumbId(fileId);
             /** @namespace window.DOMPurify */
             content = self._generatePreviewTemplate(cat, iData, fname, ftype, previewId, fileId, false, fsize);
             self._clearDefaultPreview();
@@ -4597,14 +4612,6 @@
                 self._validateAllImages();
             }).one('error', function () {
                 self._raise('fileimageloaderror', [previewId]);
-            }).each(function () {
-                if (this.complete) {
-                    $(this).trigger('load');
-                } else {
-                    if (this.error) {
-                        $(this).trigger('error');
-                    }
-                }
             });
         },
         _validateAllImages: function () {
