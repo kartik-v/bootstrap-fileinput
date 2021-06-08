@@ -63,6 +63,7 @@
         msgLoading: 'טוען קובץ {index} של {files} &hellip;',
         msgProgress: 'טוען קובץ {index} של {files} - {name} - {percent}% הושלמה.',
         msgSelected: '{n} {files} נבחרו',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'גרירת קבצים ושחרורם בלבד! דילוג {n} גרירת תיקיה(s).',
         msgImageWidthSmall: 'רוחב קובץ התמונה "{name}" חייב להיות לפחות {size} px.',
         msgImageHeightSmall: 'גובה קובץ התמונה "{name}" חייב להיות לפחות {size} px.',

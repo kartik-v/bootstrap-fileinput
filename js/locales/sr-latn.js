@@ -66,6 +66,7 @@
         msgLoading: 'Učitavanje dokumenta {index} od {files} &hellip;',
         msgProgress: 'Učitavanje dokumenta {index} od {files} - {name} - {percent}% završeno.',
         msgSelected: '{n} dokumenata odabrano',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Prevlačenje foldera nije dozvoljeno! {n} prevučenih foldera nije dodato.',
         msgImageWidthSmall: 'Širina slike "{name}" mora biti veća od {size} px.',
         msgImageHeightSmall: 'Visina slike "{name}" mora biti veća od {size} px.',

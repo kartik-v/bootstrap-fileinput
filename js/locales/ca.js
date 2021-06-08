@@ -66,6 +66,7 @@
         msgLoading: 'Pujant fitxer {index} de {files} &hellip;',
         msgProgress: 'Pujant fitxer {index} de {files} - {name} - {percent}% completat.',
         msgSelected: '{n} {files} seleccionat(s)',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Arrossegueu i deixeu anar únicament arxius. Omesa(es) {n} carpeta(es).',
         msgImageWidthSmall: 'L\'ample de la imatge "{name}" ha de ser almenys {size} px.',
         msgImageHeightSmall: 'L\'alçada de la imatge "{name}" ha de ser almenys {size} px.',

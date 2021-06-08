@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1714): Various enhancements to file caption styling and file preview processing.
+- (enh #1713): Allow pasting files and images from clipboard to the fileinput.
 - (enh #1710): Correct isEmpty helper.
 - (bug #1709): Corrections to image resizing.
 - (bug #1708): Corrections to reselection/upload of image file deleted earlier.

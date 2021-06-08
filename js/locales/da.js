@@ -66,6 +66,7 @@
         msgLoading: 'Henter fil {index} af {files} &hellip;',
         msgProgress: 'Henter fil {index} af {files} - {name} - {percent}% færdiggjort.',
         msgSelected: '{n} {files} valgt',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Drag & drop kun filer! {n} mappe(r) sprunget over.',
         msgImageWidthSmall: 'Bredden af billedet "{name}" skal være på mindst {size} px.',
         msgImageHeightSmall: 'Højden af billedet "{name}" skal være på mindst {size} px.',

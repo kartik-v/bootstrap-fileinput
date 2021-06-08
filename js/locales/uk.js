@@ -67,6 +67,7 @@
         msgLoading: 'Відвантаження файла {index} із {files} &hellip;',
         msgProgress: 'Відвантаження файла {index} із {files} - {name} - {percent}% завершено.',
         msgSelected: '{n} {files} обрано',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Дозволено перетягувати тільки файли! Пропущено {n} тек.',
         msgImageWidthSmall: 'Ширина зображення "{name}" повинна бути не менше {size} px.',
         msgImageHeightSmall: 'Висота зображення "{name}" повинна бути не менше {size} px.',
