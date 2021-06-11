@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1716): Update Czech Translations.
+- (enh #1715): Update Slovak Translations.
 - (enh #1714): Various enhancements to file caption styling and file preview processing.
 - (enh #1713): Allow pasting files and images from clipboard to the fileinput.
 - (enh #1710): Correct isEmpty helper.
