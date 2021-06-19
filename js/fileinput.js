@@ -84,7 +84,7 @@
         },
         objUrl: window.URL || window.webkitURL,
         isBs: function (ver) {
-            var chk = ($.fn.fileinputBsVersion || '') + '';
+            var chk = $.trim(($.fn.fileinputBsVersion || '')  + '');
             ver = parseInt(ver, 10);
             if (!chk) {
                 return ver === 4;
@@ -1690,7 +1690,7 @@
                 '  </div>'
                 '</div>';
             tMain2 = '{preview}\n<div class="kv-upload-progress kv-hidden"></div>\n<div class="clearfix"></div>\n' +
-                '{remove}\n{cancel}\n{upload}\n{browse}\n';
+                '<span class="{class}">{remove}\n{cancel}\n{upload}\n{browse}\n</span>';
             tPreview = '<div class="file-preview {class}">\n' +
                 '  {close}' +
                 '  <div class="{dropClass} clearfix">\n' +
@@ -1701,7 +1701,7 @@
                 '  </div>\n' +
                 '</div>';
             tClose = $h.closeButton('fileinput-remove');
-            tFileIcon = '<i class="glyphicon glyphicon-file"></i>';
+            tFileIcon = '<i class="bi-file-earmark-fill"></i>';
             // noinspection HtmlUnknownAttribute
             tCaption = '<input readonly class="file-caption-name form-control {class}">\n';
             //noinspection HtmlUnknownAttribute
@@ -1733,7 +1733,7 @@
                 '        {status}\n' +
                 '     </div>\n' +
                 '</div>{stats}';
-            tStats = '<div class="text-info file-upload-stats">' +
+            tStats = '<div class="text-primary file-upload-stats">' +
                 '<span class="pending-time">{pendingTime}</span> ' +
                 '<span class="upload-speed">{uploadSpeed}</span>' +
                 '</div>';
@@ -1931,30 +1931,30 @@
                     showDownload: true,
                     showZoom: true,
                     showDrag: true,
-                    removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+                    removeIcon: '<i class="bi-trash"></i>',
                     removeClass: defBtnCss1,
                     removeErrorClass: 'btn btn-sm btn-kv btn-danger',
                     removeTitle: 'Remove file',
-                    uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+                    uploadIcon: '<i class="bi-upload"></i>',
                     uploadClass: defBtnCss1,
                     uploadTitle: 'Upload file',
-                    uploadRetryIcon: '<i class="glyphicon glyphicon-repeat"></i>',
+                    uploadRetryIcon: '<i class="bi-arrow-clockwise"></i>',
                     uploadRetryTitle: 'Retry upload',
-                    downloadIcon: '<i class="glyphicon glyphicon-download"></i>',
+                    downloadIcon: '<i class="bi-download"></i>',
                     downloadClass: defBtnCss1,
                     downloadTitle: 'Download file',
-                    zoomIcon: '<i class="glyphicon glyphicon-zoom-in"></i>',
+                    zoomIcon: '<i class="bi-zoom-in"></i>',
                     zoomClass: defBtnCss1,
                     zoomTitle: 'View Details',
-                    dragIcon: '<i class="glyphicon glyphicon-move"></i>',
-                    dragClass: 'text-info',
+                    dragIcon: '<i class="bi-arrows-move"></i>',
+                    dragClass: 'text-primary',
                     dragTitle: 'Move / Rearrange',
                     dragSettings: {},
-                    indicatorNew: '<i class="glyphicon glyphicon-plus-sign text-warning"></i>',
-                    indicatorSuccess: '<i class="glyphicon glyphicon-ok-sign text-success"></i>',
-                    indicatorError: '<i class="glyphicon glyphicon-exclamation-sign text-danger"></i>',
-                    indicatorLoading: '<i class="glyphicon glyphicon-hourglass text-muted"></i>',
-                    indicatorPaused: '<i class="glyphicon glyphicon-pause text-primary"></i>',
+                    indicatorNew: '<i class="bi-plus-lg text-warning"></i>',
+                    indicatorSuccess: '<i class="bi-check-lg text-success"></i>',
+                    indicatorError: '<i class="bi-exclamation-lg text-danger"></i>',
+                    indicatorLoading: '<i class="bi-hourglass-bottom text-muted"></i>',
+                    indicatorPaused: '<i class="bi-pause-fill text-primary"></i>',
                     indicatorNewTitle: 'Not uploaded yet',
                     indicatorSuccessTitle: 'Uploaded',
                     indicatorErrorTitle: 'Upload Error',
@@ -4269,7 +4269,7 @@
             }
             n = self.isAjaxUpload ? self.fileManager.count() : numFiles;
             nFiles = self.previewCache.count(true) + n;
-            log = n === 1 ? label : self._getMsgSelected(nFiles, true);
+            log = n === 1 ? label : self._getMsgSelected(nFiles, !self.isAjaxUpload && !self.isError);
             if (self.isError) {
                 self.$previewContainer.removeClass('file-thumb-loading');
                 self._initCapStatus();
@@ -5940,12 +5940,12 @@
             return $container.html();
         },
         previewZoomButtonIcons: {
-            prev: '<i class="glyphicon glyphicon-triangle-left"></i>',
-            next: '<i class="glyphicon glyphicon-triangle-right"></i>',
-            toggleheader: '<i class="glyphicon glyphicon-resize-vertical"></i>',
-            fullscreen: '<i class="glyphicon glyphicon-fullscreen"></i>',
-            borderless: '<i class="glyphicon glyphicon-resize-full"></i>',
-            close: '<i class="glyphicon glyphicon-remove"></i>'
+            prev: '<i class="bi-caret-left-fill"></i>',
+            next: '<i class="bi-caret-right-fill"></i>',
+            toggleheader: '<i class="bi-arrows-expand"></i>',
+            fullscreen: '<i class="bi-arrows-fullscreen"></i>',
+            borderless: '<i class="bi-arrows-angle-expand"></i>',
+            close: '<i class="bi-x-lg"></i>'
         },
         previewZoomButtonClasses: {
             prev: 'btn btn-navigate',
@@ -5970,20 +5970,20 @@
         defaultPreviewContent: null,
         customLayoutTags: {},
         customPreviewTags: {},
-        previewFileIcon: '<i class="glyphicon glyphicon-file"></i>',
+        previewFileIcon: '<i class="bi-file-earmark-fill"></i>',
         previewFileIconClass: 'file-other-icon',
         previewFileIconSettings: {},
         previewFileExtSettings: {},
         buttonLabelClass: 'hidden-xs',
-        browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>&nbsp;',
+        browseIcon: '<i class="bi-folder2-open"></i> ',
         browseClass: 'btn btn-primary',
-        removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+        removeIcon: '<i class="bi-trash"></i>',
         removeClass: defBtnCss2,
-        cancelIcon: '<i class="glyphicon glyphicon-ban-circle"></i>',
+        cancelIcon: '<i class="bi-slash-circle"></i>',
         cancelClass: defBtnCss2,
-        pauseIcon: '<i class="glyphicon glyphicon-pause"></i>',
+        pauseIcon: '<i class="bi-pause-fill"></i>',
         pauseClass: defBtnCss2,
-        uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+        uploadIcon: '<i class="bi-upload"></i>',
         uploadClass: defBtnCss2,
         uploadUrl: null,
         uploadUrlThumb: null,
@@ -6037,7 +6037,7 @@
         maxTotalFileCount: 0,
         validateInitialCount: false,
         msgValidationErrorClass: 'text-danger',
-        msgValidationErrorIcon: '<i class="glyphicon glyphicon-exclamation-sign"></i> ',
+        msgValidationErrorIcon: '<i class="bi-exclamation-circle-fill"></i> ',
         msgErrorClass: 'file-error-message',
         progressThumbClass: 'progress-bar progress-bar-striped active progress-bar-animated',
         progressClass: 'progress-bar bg-success progress-bar-success progress-bar-striped active progress-bar-animated',
