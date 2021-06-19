@@ -67,6 +67,7 @@
         msgLoading: '{files} fayldan {index} yüklənir &hellip;',
         msgProgress: '{files} fayldan {index} - {name} - {percent}% yükləndi.',
         msgSelected: 'Faylların sayı: {n}',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Ancaq faylların daşınmasına icazə verilir! {n} qovluq yüklənmədi.',
         msgImageWidthSmall: '{name} faylının eni {size} px -dən kiçik olmamalıdır.',
         msgImageHeightSmall: '{name} faylının hündürlüyü {size} px -dən kiçik olmamalıdır.',

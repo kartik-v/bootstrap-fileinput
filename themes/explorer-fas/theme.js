@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.1
+ * bootstrap-fileinput v5.2.2
  * http://plugins.krajee.com/file-input
  *
  * Krajee Explorer Font Awesome theme configuration for bootstrap-fileinput.
@@ -14,6 +14,7 @@
  */
 (function ($) {
     'use strict';
+    $.fn.fileinput.defaults.theme = 'explorer-fas';
     $.fn.fileinputThemes['explorer-fas'] = {
         layoutTemplates: {
             footer: '<div class="file-details-cell">' +

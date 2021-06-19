@@ -64,6 +64,7 @@
         msgLoading: 'Lade Datei {index} von {files} hoch &hellip;',
         msgProgress: 'Datei {index} von {files} - {name} - zu {percent}% fertiggestellt.',
         msgSelected: '{n} {files} ausgewählt',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Drag & Drop funktioniert nur bei Dateien! {n} Ordner übersprungen.',
         msgImageWidthSmall: 'Breite der Bilddatei "{name}" muss mindestens {size} px betragen.',
         msgImageHeightSmall: 'Höhe der Bilddatei "{name}" muss mindestens {size} px betragen.',

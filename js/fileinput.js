@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.1
+ * bootstrap-fileinput v5.2.2
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -84,7 +84,7 @@
         },
         objUrl: window.URL || window.webkitURL,
         isBs: function (ver) {
-            var chk = ($.fn.fileinputBsVersion || '') + '';
+            var chk = $.trim(($.fn.fileinputBsVersion || '')  + '');
             ver = parseInt(ver, 10);
             if (!chk) {
                 return ver === 4;
@@ -248,11 +248,25 @@
             return typeof v === 'function';
         },
         isEmpty: function (value, trim) {
-            return value === undefined || value === null || (!$h.isFunction(
-                value) && (value.length === 0 || (trim && $.trim(value) === '')));
+            if (value === undefined || value === null || value === '') {
+                return true;
+            }
+            if ($h.isString(value) && trim) {
+                return $.trim(value) === '';
+            }
+            if ($h.isArray(value)) {
+                return value.length === 0;
+            }
+            if ($.isPlainObject(value) && $.isEmptyObject(value)) {
+                return true
+            }
+            return false;
         },
         isArray: function (a) {
             return Array.isArray(a) || Object.prototype.toString.call(a) === '[object Array]';
+        },
+        isString: function (a) {
+            return Object.prototype.toString.call(a) === '[object String]';
         },
         ifSet: function (needle, haystack, def) {
             def = def || '';
@@ -1111,13 +1125,15 @@
                 },
                 remove: function ($thumb) {
                     var id = self._getThumbFileId($thumb);
-                    if (id) {
-                        self.fileManager.removeFile(id);
-                    }
+                    self.fileManager.removeFile(id);
                 },
                 removeFile: function (id) {
-                    delete self.fileManager.stack[id];
-                    delete self.fileManager.loadedImages[id];
+                    var fm = self.fileManager;
+                    if (!id) {
+                        return;
+                    }
+                    delete fm.stack[id];
+                    delete fm.loadedImages[id];
                 },
                 move: function (idFrom, idTo) {
                     var result = {}, stack = self.fileManager.stack;
@@ -1661,8 +1677,9 @@
                 }, defBtnCss1 = 'btn btn-sm btn-kv ' + $h.defaultButtonCss();
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
-                '<div class="input-group {class}">\n' +
-                '  {caption}\n' +
+                '<div class="file-caption {class}">\n' +
+                '  <span class="file-caption-icon"></span>\n' +
+                '  <div class="input-group">\n' + '{caption}\n' +
                 ($h.isBs(5) ? '' : '<div class="input-group-btn input-group-append">\n') +
                 '      {remove}\n' +
                 '      {cancel}\n' +
@@ -1670,9 +1687,10 @@
                 '      {upload}\n' +
                 '      {browse}\n' +
                 ($h.isBs(5) ? '' : '    </div>\n') +
+                '  </div>'
                 '</div>';
             tMain2 = '{preview}\n<div class="kv-upload-progress kv-hidden"></div>\n<div class="clearfix"></div>\n' +
-                '{remove}\n{cancel}\n{upload}\n{browse}\n';
+                '<span class="{class}">{remove}\n{cancel}\n{upload}\n{browse}\n</span>';
             tPreview = '<div class="file-preview {class}">\n' +
                 '  {close}' +
                 '  <div class="{dropClass} clearfix">\n' +
@@ -1683,12 +1701,9 @@
                 '  </div>\n' +
                 '</div>';
             tClose = $h.closeButton('fileinput-remove');
-            tFileIcon = '<i class="glyphicon glyphicon-file"></i>';
+            tFileIcon = '<i class="bi-file-earmark-fill"></i>';
             // noinspection HtmlUnknownAttribute
-            tCaption = '<div class="file-caption form-control {class}" {tabIndexConfig}>\n' +
-                '  <span class="file-caption-icon"></span>\n' +
-                '  <input readonly class="file-caption-name">\n' +
-                '</div>';
+            tCaption = '<input readonly class="file-caption-name form-control {class}">\n';
             //noinspection HtmlUnknownAttribute
             tBtnDefault = '<button type="{type}" title="{title}" class="{css}" ' +
                 '{status} {tabIndexConfig}>{icon} {label}</button>';
@@ -1718,7 +1733,7 @@
                 '        {status}\n' +
                 '     </div>\n' +
                 '</div>{stats}';
-            tStats = '<div class="text-info file-upload-stats">' +
+            tStats = '<div class="text-primary file-upload-stats">' +
                 '<span class="pending-time">{pendingTime}</span> ' +
                 '<span class="upload-speed">{uploadSpeed}</span>' +
                 '</div>';
@@ -1916,30 +1931,30 @@
                     showDownload: true,
                     showZoom: true,
                     showDrag: true,
-                    removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+                    removeIcon: '<i class="bi-trash"></i>',
                     removeClass: defBtnCss1,
                     removeErrorClass: 'btn btn-sm btn-kv btn-danger',
                     removeTitle: 'Remove file',
-                    uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+                    uploadIcon: '<i class="bi-upload"></i>',
                     uploadClass: defBtnCss1,
                     uploadTitle: 'Upload file',
-                    uploadRetryIcon: '<i class="glyphicon glyphicon-repeat"></i>',
+                    uploadRetryIcon: '<i class="bi-arrow-clockwise"></i>',
                     uploadRetryTitle: 'Retry upload',
-                    downloadIcon: '<i class="glyphicon glyphicon-download"></i>',
+                    downloadIcon: '<i class="bi-download"></i>',
                     downloadClass: defBtnCss1,
                     downloadTitle: 'Download file',
-                    zoomIcon: '<i class="glyphicon glyphicon-zoom-in"></i>',
+                    zoomIcon: '<i class="bi-zoom-in"></i>',
                     zoomClass: defBtnCss1,
                     zoomTitle: 'View Details',
-                    dragIcon: '<i class="glyphicon glyphicon-move"></i>',
-                    dragClass: 'text-info',
+                    dragIcon: '<i class="bi-arrows-move"></i>',
+                    dragClass: 'text-primary',
                     dragTitle: 'Move / Rearrange',
                     dragSettings: {},
-                    indicatorNew: '<i class="glyphicon glyphicon-plus-sign text-warning"></i>',
-                    indicatorSuccess: '<i class="glyphicon glyphicon-ok-sign text-success"></i>',
-                    indicatorError: '<i class="glyphicon glyphicon-exclamation-sign text-danger"></i>',
-                    indicatorLoading: '<i class="glyphicon glyphicon-hourglass text-muted"></i>',
-                    indicatorPaused: '<i class="glyphicon glyphicon-pause text-primary"></i>',
+                    indicatorNew: '<i class="bi-plus-lg text-warning"></i>',
+                    indicatorSuccess: '<i class="bi-check-lg text-success"></i>',
+                    indicatorError: '<i class="bi-exclamation-lg text-danger"></i>',
+                    indicatorLoading: '<i class="bi-hourglass-bottom text-muted"></i>',
+                    indicatorPaused: '<i class="bi-pause-fill text-primary"></i>',
                     indicatorNewTitle: 'Not uploaded yet',
                     indicatorSuccessTitle: 'Uploaded',
                     indicatorErrorTitle: 'Upload Error',
@@ -2276,7 +2291,7 @@
             var self = this;
             css = (css ? css + ' ' : '') + 'has-error';
             self.$container.removeClass(css).addClass('has-error');
-            $h.addCss(self.$captionContainer, 'is-invalid');
+            $h.addCss(self.$caption, 'is-invalid');
         },
         _resetErrors: function (fade) {
             var self = this, $error = self.$errorContainer, history = self.resumableUploadOptions.retainErrorHistory;
@@ -2285,7 +2300,7 @@
             }
             self.isError = false;
             self.$container.removeClass('has-error');
-            self.$captionContainer.removeClass('is-invalid');
+            self.$caption.removeClass('is-invalid is-valid file-processing');
             $error.html('');
             if (fade) {
                 $error.fadeOut('slow');
@@ -2491,6 +2506,7 @@
                 }
             });
             self._handler($el, 'change', $.proxy(self._change, self));
+            self._handler(self.$caption, 'paste', $.proxy(self.paste, self));
             if (self.showBrowse) {
                 self._handler(self.$btnFile, 'click', $.proxy(self._browse, self));
                 self._handler(self.$btnFile, 'keypress', function (e) {
@@ -2516,6 +2532,9 @@
             fullScreenEv = 'webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange';
             self._handler($(document), fullScreenEv, function () {
                 self._listenFullScreen($h.checkFullScreen());
+            });
+            self.$caption.on('focus', function() {
+                self.$captionContainer.focus();
             });
             self._autoFitContent();
             self._initClickable();
@@ -2600,23 +2619,24 @@
             }
 
         },
+        _dropFiles: function (e, files) {
+            var self = this, $el = self.$element;
+            if (!self.isAjaxUpload) {
+                self.changeTriggered = true;
+                $el.get(0).files = files;
+                setTimeout(function () {
+                    self.changeTriggered = false;
+                    $el.trigger('change' + self.namespace);
+                }, self.processDelay);
+            } else {
+                self._change(e, files);
+            }
+            self.$dropZone.removeClass('file-highlighted');
+        },
         _zoneDrop: function (e) {
             /** @namespace e.originalEvent.dataTransfer */
             var self = this, i, $el = self.$element, dt = e.originalEvent.dataTransfer,
-                files = dt.files, items = dt.items, folders = $h.getDragDropFolders(items),
-                processFiles = function () {
-                    if (!self.isAjaxUpload) {
-                        self.changeTriggered = true;
-                        $el.get(0).files = files;
-                        setTimeout(function () {
-                            self.changeTriggered = false;
-                            $el.trigger('change' + self.namespace);
-                        }, self.processDelay);
-                    } else {
-                        self._change(e, files);
-                    }
-                    self.$dropZone.removeClass('file-highlighted');
-                };
+                files = dt.files, items = dt.items, folders = $h.getDragDropFolders(items);
             e.preventDefault();
             if (self.isDisabled || $h.isEmpty(files)) {
                 return;
@@ -2637,10 +2657,10 @@
                     }
                 }
                 setTimeout(function () {
-                    processFiles();
+                    self._dropFiles(e, files);
                 }, 500);
             } else {
-                processFiles();
+                self._dropFiles(e, files);
             }
         },
         _uploadClick: function (e) {
@@ -3032,9 +3052,7 @@
             self._setZoomContent($frame);
             $modal.data({backdrop: false});
             //$modal.data('fileinputPluginId', self.$element.attr('id'));
-            console.log('KV--1');
             $modal.modal('show');
-            console.log('KV--2');
             self._initZoomButtons();
         },
         _zoomPreview: function ($btn) {
@@ -3259,9 +3277,10 @@
                 jqXHR: jqXHR
             };
         },
-        _getMsgSelected: function (n) {
+        _getMsgSelected: function (n, processing) {
             var self = this, strFiles = n === 1 ? self.fileSingle : self.filePlural;
-            return n > 0 ? self.msgSelected.replace('{n}', n).replace('{files}', strFiles) : self.msgNoFilesSelected;
+            return n > 0 ? self.msgSelected.replace('{n}', n).replace('{files}', strFiles) :
+                (processing ? self.msgProcessing : self.msgNoFilesSelected);
         },
         _getFrame: function (id, skipWarning) {
             var self = this, $frame = $h.getFrameElement(self.$preview, id);
@@ -3482,6 +3501,7 @@
                         }
                         self.$caption.attr('title', '');
                         $thumb.fadeOut('slow', function () {
+                            var fm = self.fileManager;
                             $thumb.remove();
                             if (!self.getFrames().length) {
                                 self.reset();
@@ -3907,7 +3927,7 @@
             self._initZoomButton();
             self.getFrames(' .kv-file-remove').each(function () {
                 var $el = $(this), $frame = $el.closest($h.FRAMES), hasError, id = $frame.attr('id'),
-                    ind = $frame.attr('data-fileindex'), status;
+                    ind = $frame.attr('data-fileindex'), status, fm = self.fileManager;
                 self._handler($el, 'click', function () {
                     status = self._raise('filepreremove', [id, ind]);
                     if (status === false || !self._validateMinCount()) {
@@ -4202,8 +4222,8 @@
             }
             var self = this, fname = $h.getFileName(file), ftype = fileInfo.type, caption = fileInfo.name,
                 cat = self._parseFileType(ftype, fname), content, $preview = self.$preview, fsize = file.size || 0,
-                iData = cat === 'image' ? theFile.target.result : data,
-                fileId = self.fileManager.getId(file), previewId = self._getThumbId(fileId);
+                iData = cat === 'image' ? theFile.target.result : data, fm = self.fileManager,
+                fileId = fm.getId(file), previewId = self._getThumbId(fileId);
             /** @namespace window.DOMPurify */
             content = self._generatePreviewTemplate(cat, iData, fname, ftype, previewId, fileId, false, fsize);
             self._clearDefaultPreview();
@@ -4249,9 +4269,10 @@
             }
             n = self.isAjaxUpload ? self.fileManager.count() : numFiles;
             nFiles = self.previewCache.count(true) + n;
-            log = n === 1 ? label : self._getMsgSelected(nFiles);
+            log = n === 1 ? label : self._getMsgSelected(nFiles, !self.isAjaxUpload && !self.isError);
             if (self.isError) {
                 self.$previewContainer.removeClass('file-thumb-loading');
+                self._initCapStatus();
                 self.$previewStatus.html('');
                 self.$captionContainer.removeClass('icon-visible');
             } else {
@@ -4597,14 +4618,6 @@
                 self._validateAllImages();
             }).one('error', function () {
                 self._raise('fileimageloaderror', [previewId]);
-            }).each(function () {
-                if (this.complete) {
-                    $(this).trigger('load');
-                } else {
-                    if (this.error) {
-                        $(this).trigger('error');
-                    }
-                }
             });
         },
         _validateAllImages: function () {
@@ -5200,6 +5213,18 @@
             }
             return self._getFileCount(len);
         },
+        _initCapStatus: function(status) {
+            var self = this, $cap = self.$caption;
+            $cap.removeClass('is-valid file-processing');
+            if (!status) {
+                return;
+            }
+            if (status === 'processing') {
+                $cap.addClass('file-processing');
+            } else {
+                $cap.addClass('is-valid');
+            }
+        },
         readFiles: function (files) {
             this.reader = new FileReader();
             var self = this, reader = self.reader, $container = self.$previewContainer,
@@ -5264,6 +5289,7 @@
                         self._raise('filebatchselected', [files]);
                     }
                     $container.removeClass('file-thumb-loading');
+                    self._initCapStatus('valid');
                     $status.html('');
                     return;
                 }
@@ -5385,6 +5411,7 @@
                     }
                     if (self.showPreview && canLoad) {
                         $container.addClass('file-thumb-loading');
+                        self._initCapStatus('processing');
                         self._previewDefault(file);
                         self._initFileActions();
                     }
@@ -5400,6 +5427,7 @@
                 isImage = fnImage(file.type, caption);
                 $status.html(msgLoading.replace('{index}', i + 1).replace('{files}', numFiles));
                 $container.addClass('file-thumb-loading');
+                self._initCapStatus('processing');
                 reader.onerror = function (evt) {
                     self._errorHandler(evt, caption);
                 };
@@ -5416,6 +5444,7 @@
                                 reader.abort();
                                 $status.html('');
                                 $container.removeClass('file-thumb-loading');
+                                self._initCapStatus('valid');
                                 self.enable();
                                 return;
                             }
@@ -5456,6 +5485,7 @@
                         reader.abort();
                         $status.html('');
                         $container.removeClass('file-thumb-loading');
+                        self._initCapStatus('valid');
                         self.enable();
                         return;
                     }
@@ -5499,6 +5529,7 @@
             if (!selectMode && self.showPause) {
                 $container.find('.fileinput-pause').show();
             }
+            self._initCapStatus('processing');
             self._raise('filelock', [self.fileManager.stack, self._getExtraData()]);
             return self.$element;
         },
@@ -5518,6 +5549,7 @@
             if (reset) {
                 self._resetFileStack();
             }
+            self._initCapStatus();
             self._raise('fileunlock', [self.fileManager.stack, self._getExtraData()]);
             return self.$element;
         },
@@ -5540,6 +5572,13 @@
             setTimeout(function () {
                 rm.upload();
             }, self.processDelay);
+            return self.$element;
+        },
+        paste: function (e) {
+            var self = this, ev = e.originalEvent, files = ev.clipboardData && ev.clipboardData.files || null;
+            if (files) {
+                self._dropFiles(e, files);
+            }
             return self.$element;
         },
         pause: function () {
@@ -5878,7 +5917,7 @@
         previewClass: '',
         captionClass: '',
         frameClass: 'krajee-default',
-        mainClass: 'file-caption-main',
+        mainClass: '',
         mainTemplate: null,
         fileSizeGetter: null,
         initialCaption: '',
@@ -5901,12 +5940,12 @@
             return $container.html();
         },
         previewZoomButtonIcons: {
-            prev: '<i class="glyphicon glyphicon-triangle-left"></i>',
-            next: '<i class="glyphicon glyphicon-triangle-right"></i>',
-            toggleheader: '<i class="glyphicon glyphicon-resize-vertical"></i>',
-            fullscreen: '<i class="glyphicon glyphicon-fullscreen"></i>',
-            borderless: '<i class="glyphicon glyphicon-resize-full"></i>',
-            close: '<i class="glyphicon glyphicon-remove"></i>'
+            prev: '<i class="bi-caret-left-fill"></i>',
+            next: '<i class="bi-caret-right-fill"></i>',
+            toggleheader: '<i class="bi-arrows-expand"></i>',
+            fullscreen: '<i class="bi-arrows-fullscreen"></i>',
+            borderless: '<i class="bi-arrows-angle-expand"></i>',
+            close: '<i class="bi-x-lg"></i>'
         },
         previewZoomButtonClasses: {
             prev: 'btn btn-navigate',
@@ -5931,20 +5970,20 @@
         defaultPreviewContent: null,
         customLayoutTags: {},
         customPreviewTags: {},
-        previewFileIcon: '<i class="glyphicon glyphicon-file"></i>',
+        previewFileIcon: '<i class="bi-file-earmark-fill"></i>',
         previewFileIconClass: 'file-other-icon',
         previewFileIconSettings: {},
         previewFileExtSettings: {},
         buttonLabelClass: 'hidden-xs',
-        browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>&nbsp;',
+        browseIcon: '<i class="bi-folder2-open"></i> ',
         browseClass: 'btn btn-primary',
-        removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+        removeIcon: '<i class="bi-trash"></i>',
         removeClass: defBtnCss2,
-        cancelIcon: '<i class="glyphicon glyphicon-ban-circle"></i>',
+        cancelIcon: '<i class="bi-slash-circle"></i>',
         cancelClass: defBtnCss2,
-        pauseIcon: '<i class="glyphicon glyphicon-pause"></i>',
+        pauseIcon: '<i class="bi-pause-fill"></i>',
         pauseClass: defBtnCss2,
-        uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+        uploadIcon: '<i class="bi-upload"></i>',
         uploadClass: defBtnCss2,
         uploadUrl: null,
         uploadUrlThumb: null,
@@ -5998,7 +6037,7 @@
         maxTotalFileCount: 0,
         validateInitialCount: false,
         msgValidationErrorClass: 'text-danger',
-        msgValidationErrorIcon: '<i class="glyphicon glyphicon-exclamation-sign"></i> ',
+        msgValidationErrorIcon: '<i class="bi-exclamation-circle-fill"></i> ',
         msgErrorClass: 'file-error-message',
         progressThumbClass: 'progress-bar progress-bar-striped active progress-bar-animated',
         progressClass: 'progress-bar bg-success progress-bar-success progress-bar-striped active progress-bar-animated',
@@ -6036,7 +6075,6 @@
         pdfRendererUrl: '',
         pdfRendererTemplate: '<iframe ' + IFRAME_ATTRIBS + '></iframe>',
         tabIndexConfig: {
-            caption: 500,
             browse: 500,
             remove: 500,
             upload: 500,
@@ -6102,6 +6140,7 @@
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
         msgSelected: '{n} {files} selected',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Drag & drop files only! {n} folder(s) dropped were skipped.',
         msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
         msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',

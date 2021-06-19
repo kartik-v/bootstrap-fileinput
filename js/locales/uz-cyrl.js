@@ -65,6 +65,7 @@
         msgLoading: '{Files} дан {index} файлини юклаш &hellip;',
         msgProgress: '{Files} дан {index}{name} файлини юклашда  - {percent}% тугалланди.',
         msgSelected: '{n} {files} танланган',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Фақат тортиб қўйиладон файллар! {n} та папка(lar) ўтказиб юборилди.',
         msgImageWidthSmall: '"{name}" файл эни камида {size} px бўлиши лозим.',
         msgImageHeightSmall: '"{name}" файл бўйи камида {size} px бўлиши лозим.',

@@ -66,6 +66,7 @@
         msgLoading: '{index}. fájl töltése&hellip;',
         msgProgress: '{index}. fájl töltése&hellip; - {name} - {percent}% kész.',
         msgSelected: '{n} fájl kiválasztva',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Csak fájlokat húzzon ide! Kihagyva {n} könyvtár.',
         msgImageWidthSmall: '"{name}" kép szélességének legalább {size} pixelnek kell lennie.',
         msgImageHeightSmall: '"{name}" kép magasságának legalább {size} pixelnek kell lennie.',

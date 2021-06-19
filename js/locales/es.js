@@ -66,6 +66,7 @@
         msgLoading: 'Subiendo archivo {index} de {files} &hellip;',
         msgProgress: 'Subiendo archivo {index} de {files} - {name} - {percent}% completado.',
         msgSelected: '{n} {files} seleccionado(s)',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Arrastre y suelte únicamente archivos. Omitida(s) {n} carpeta(s).',
         msgImageWidthSmall: 'El ancho de la imagen "{name}" debe ser de al menos {size} px.',
         msgImageHeightSmall: 'La altura de la imagen "{name}" debe ser de al menos {size} px.',

@@ -68,6 +68,7 @@
         msgLoading: 'Caricamento file {index} di {files} &hellip;',
         msgProgress: 'Caricamento file {index} di {files} - {name} - {percent}% completato.',
         msgSelected: '{n} {files} selezionati',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Trascina solo file! Ignorata/e {n} cartella/e.',
         msgImageWidthSmall: 'La larghezza dell\'immagine "{name}" deve essere di almeno {size} px.',
         msgImageHeightSmall: 'L\'altezza dell\'immagine "{name}" deve essere di almeno {size} px.',

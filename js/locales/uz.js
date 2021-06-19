@@ -67,6 +67,7 @@
         msgLoading: '{Files} dan {index} faylini yuklash &hellip;',
         msgProgress: '{Files} dan {index}{name} faylini yuklashi  - {percent}% tugallandi.',
         msgSelected: '{n} {files} tanlangan',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Faqat tortib qo‘yiladon fayllar! {n} o‘tirilgan tashlangan papka(lar).',
         msgImageWidthSmall: '"{name}" fayl kengligi {size} px dan kam bo‘lmasligi lozim.',
         msgImageHeightSmall: '"{name}" fayl bo‘yi {size} px dan kam bo‘lmasligi lozim.',

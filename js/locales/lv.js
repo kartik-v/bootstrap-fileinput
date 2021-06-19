@@ -60,6 +60,7 @@
         msgLoading: 'Lejupielādē failu {index} no {files} &hellip;',
         msgProgress: 'Notiek faila {index} ielāde no {files} - {name} - pabeigts {percent}%.',
         msgSelected: 'Atlasīti faili: {n}',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Atļauts ievilkt un noņemt vienīgi failus! Trūkst {n} mapes.',
         msgImageWidthSmall: 'Attēla platumam {name} jābūt vismaz {size} px.',
         msgImageHeightSmall: 'Attēla augstumam {name} jābūt vismaz {size} px.',
