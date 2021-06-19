@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: 19-Jun-2021
 
+- (enh #1719): Show loading / processing when browse button used for file selection
 - (enh #1718): Enhancements for Bootstrap 5.x & New Theme
     - Default to use bootstrap 5.x icons instead of glyphicons
     - Correct `layoutTemplates.main2` to use wrapper container for the buttons to use `mainClass`

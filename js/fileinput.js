@@ -84,7 +84,7 @@
         },
         objUrl: window.URL || window.webkitURL,
         isBs: function (ver) {
-            var chk = $.trim(($.fn.fileinputBsVersion || '')  + '');
+            var chk = $.trim(($.fn.fileinputBsVersion || '') + '');
             ver = parseInt(ver, 10);
             if (!chk) {
                 return ver === 4;
@@ -1688,7 +1688,7 @@
                 '      {browse}\n' +
                 ($h.isBs(5) ? '' : '    </div>\n') +
                 '  </div>'
-                '</div>';
+            '</div>';
             tMain2 = '{preview}\n<div class="kv-upload-progress kv-hidden"></div>\n<div class="clearfix"></div>\n' +
                 '<span class="{class}">{remove}\n{cancel}\n{upload}\n{browse}\n</span>';
             tPreview = '<div class="file-preview {class}">\n' +
@@ -1701,7 +1701,7 @@
                 '  </div>\n' +
                 '</div>';
             tClose = $h.closeButton('fileinput-remove');
-            tFileIcon = '<i class="bi-file-earmark-fill"></i>';
+            tFileIcon = '<i class="bi-file-earmark-arrow-up"></i>';
             // noinspection HtmlUnknownAttribute
             tCaption = '<input readonly class="file-caption-name form-control {class}">\n';
             //noinspection HtmlUnknownAttribute
@@ -2497,6 +2497,7 @@
         _listen: function () {
             var self = this, $el = self.$element, $form = self.$form, $cont = self.$container, fullScreenEv;
             self._handler($el, 'click', function (e) {
+                self._initFileSelected();
                 if ($el.hasClass('file-no-browse')) {
                     if ($el.data('zoneClicked')) {
                         $el.data('zoneClicked', false);
@@ -2533,7 +2534,7 @@
             self._handler($(document), fullScreenEv, function () {
                 self._listenFullScreen($h.checkFullScreen());
             });
-            self.$caption.on('focus', function() {
+            self.$caption.on('focus', function () {
                 self.$captionContainer.focus();
             });
             self._autoFitContent();
@@ -5029,9 +5030,11 @@
         },
         _change: function (e) {
             var self = this;
+            $(document.body).off('focusin.fileinput focusout.fileinput');
             if (self.changeTriggered) {
                 return;
             }
+            self._setLoading('show');
             var $el = self.$element, isDragDrop = arguments.length > 1, isAjaxUpload = self.isAjaxUpload,
                 tfiles, files = isDragDrop ? arguments[1] : $el[0].files, ctr = self.fileManager.count(),
                 total, initCount, len, isSingleUpl = $h.isEmpty($el.attr('multiple')),
@@ -5041,6 +5044,7 @@
                     var p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files), {id: previewId, index: index}),
                         p2 = {id: previewId, index: index, file: file, files: files};
                     self.isPersistentError = true;
+                    self._setLoading('hide');
                     return isAjaxUpload ? self._showFileError(mesg, p1) : self._showError(mesg, p2);
                 },
                 maxCountCheck = function (n, m, all) {
@@ -5109,6 +5113,7 @@
                 }
             }
             self.readFiles(tfiles);
+            self._setLoading('hide');
         },
         _abort: function (params) {
             var self = this, data;
@@ -5213,7 +5218,7 @@
             }
             return self._getFileCount(len);
         },
-        _initCapStatus: function(status) {
+        _initCapStatus: function (status) {
             var self = this, $cap = self.$caption;
             $cap.removeClass('is-valid file-processing');
             if (!status) {
@@ -5223,6 +5228,36 @@
                 $cap.addClass('file-processing');
             } else {
                 $cap.addClass('is-valid');
+            }
+        },
+        _setLoading: function (type) {
+            var self = this;
+            self.$previewStatus.html(type === 'hide' ? '' : self.msgProcessing);
+            self.$container.removeClass('file-thumb-loading');
+            self._initCapStatus(type === 'hide' ? '' : 'processing');
+            if (type !== 'hide') {
+                if (self.dropZoneEnabled) {
+                    self.$container.find('.file-drop-zone .' + self.dropZoneTitleClass).remove();
+                }
+                self.$container.addClass('file-thumb-loading');
+            }
+        },
+        _initFileSelected: function () {
+            var self = this, $el = self.$element, $body = $(document.body), ev = 'focusin.fileinput focusout.fileinput';
+            if ($body.length) {
+                $body.off(ev).on('focusout.fileinput', function () {
+                    self._setLoading('show');
+                }).on('focusin.fileinput', function () {
+                    setTimeout(function () {
+                        if (!$el.val()) {
+                            self._setLoading('hide');
+                            self._setFileDropZoneTitle();
+                        }
+                        $body.off(ev);
+                    }, 2500);
+                });
+            } else {
+                self._setLoading('hide');
             }
         },
         readFiles: function (files) {
@@ -5238,6 +5273,7 @@
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
                     self._previewDefault(file, true);
                     $thumb = self._getFrame(previewId, true);
+                    self._setLoading('hide');
                     if (self.isAjaxUpload) {
                         setTimeout(function () {
                             readFile(index + 1);
