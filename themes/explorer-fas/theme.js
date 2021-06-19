@@ -14,6 +14,7 @@
  */
 (function ($) {
     'use strict';
+    $.fn.fileinput.defaults.theme = 'explorer-fas';
     $.fn.fileinputThemes['explorer-fas'] = {
         layoutTemplates: {
             footer: '<div class="file-details-cell">' +

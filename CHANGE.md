@@ -3,8 +3,13 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.2.2
 
-**Date**: _under development_
+**Date**: 19-Jun-2021
 
+- (enh #1718): Enhancements for Bootstrap 5.x & New Theme
+    - Default to use bootstrap 5.x icons instead of glyphicons
+    - Correct `layoutTemplates.main2` to use wrapper container for the buttons to use `mainClass`
+    - Create a new theme `bs5` to support bootstrap 5.x icons and styles
+    - This is a BC breaking change - which will remove GLYPHICONS as default icons and replace them with Bootstrap 5.x Icon Library. Users must load the Bootstrap icons CSS on their pages for this new change to take effect (as mentioned in docs).
 - (enh #1716): Update Czech Translations.
 - (enh #1715): Update Slovak Translations.
 - (enh #1714): Various enhancements to file caption styling and file preview processing.
