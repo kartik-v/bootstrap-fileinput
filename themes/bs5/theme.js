@@ -29,7 +29,7 @@
             indicatorPaused: '<i class="bi-pause-fill text-primary"></i>',
         },
         layoutTemplates: {
-            fileIcon: '<i class="bi-file-earmark-fill kv-caption-icon"></i>'
+            fileIcon: '<i class="bi-file-earmark-arrow-up"></i>'
         },
         previewZoomButtonIcons: {
             prev: '<i class="bi-caret-left-fill"></i>',
