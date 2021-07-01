@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.2
+ * bootstrap-fileinput v5.2.3
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -1764,7 +1764,7 @@
             tActionDrag = '<span class="file-drag-handle {dragClass}" title="{dragTitle}">{dragIcon}</span>';
             tIndicator = '<div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>';
             tTagBef = '<div class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
-                ' data-fileid="{fileid}" data-template="{template}"';
+                ' data-fileid="{fileid}" data-template="{template}" data-zoom="{zoomData}"';
             tTagBef1 = tTagBef + '><div class="kv-file-content">\n';
             tTagBef2 = tTagBef + ' title="{caption}"><div class="kv-file-content">\n';
             tTagAft = '</div>{footer}\n{zoomCache}</div>\n';
@@ -2955,21 +2955,29 @@
             }
             $modal.focus();
         },
-        _setZoomContent: function ($frame, animate) {
+        _setZoomContent: function ($frame, navigate) {
             var self = this, $content, tmplt, body, title, $body, $dataEl, config, previewId = $frame.attr('id'),
                 $zoomPreview = self._getZoom(previewId), $modal = self.$modal, $tmp,
                 $btnFull = $modal.find('.btn-kv-fullscreen'), $btnBord = $modal.find('.btn-kv-borderless'), cap, size,
-                $btnTogh = $modal.find('.btn-kv-toggleheader');
+                $btnTogh = $modal.find('.btn-kv-toggleheader'), dir = navigate === 'prev' ? 'Left' : 'Right',
+                slideIn = 'slideIn' + dir, slideOut = 'slideOut' + dir, parsed, zoomData = $frame.data('zoom');
+            if (zoomData) {
+                zoomData = decodeURIComponent(zoomData);
+                parsed = $zoomPreview.html().setTokens({zoomData: zoomData});
+                $zoomPreview.html(parsed);
+                $frame.data('zoom', '');
+                $zoomPreview.attr('data-zoom', zoomData);
+            }
             tmplt = $zoomPreview.attr('data-template') || 'generic';
             $content = $zoomPreview.find('.kv-file-content');
-            body = $content.length ? $content.html() : '';
+            body = $content.length ? '<span class="kv-spacer"></span>\n' + $content.html() : '';
             cap = $frame.data('caption') || '';
             size = $frame.data('size') || '';
             title = cap + ' ' + size;
             $modal.find('.kv-zoom-title').attr('title', $('<div/>').html(title).text()).html(title);
             $body = $modal.find('.kv-zoom-body');
             $modal.removeClass('kv-single-content');
-            if (animate) {
+            if (navigate) {
                 $tmp = $body.addClass('file-thumb-loading').clone().insertAfter($body);
                 $h.setHtml($body, body).hide();
                 $tmp.fadeOut('fast', function () {
@@ -3033,14 +3041,22 @@
             });
             self._handler($modal, 'keydown', function (e) {
                 var key = e.which || e.keyCode, $prev = $(this).find('.btn-kv-prev'),
-                    $next = $(this).find('.btn-kv-next'),
-                    vId = $(this).data('previewId'), vPrevKey = self.rtl ? 39 : 37, vNextKey = self.rtl ? 37 : 39;
-                if (key === vPrevKey && $prev.length && !$prev.attr('disabled')) {
-                    self._zoomSlideShow('prev', vId);
-                }
-                if (key === vNextKey && $next.length && !$next.attr('disabled')) {
-                    self._zoomSlideShow('next', vId);
-                }
+                    $next = $(this).find('.btn-kv-next'), vId = $(this).data('previewId'),
+                    vPrevKey = self.rtl ? 39 : 37, vNextKey = self.rtl ? 37 : 39,
+                    listen = function (dir) {
+                        var $btn = dir === 'prev' ? $prev : $next, vKey = dir === 'prev' ? vPrevKey : vNextKey;
+                        if (key === vKey && $btn.length && !$btn.attr('disabled')) {
+                            $btn.focus();
+                            self._zoomSlideShow(dir, vId);
+                            setTimeout(function () {
+                                if ($btn.attr('disabled')) {
+                                    $modal.focus();
+                                }
+                            }, self.processDelay + 1);
+                        }
+                    };
+                listen('prev');
+                listen('next');
             });
         },
         _showModal: function ($frame) {
@@ -3088,7 +3104,7 @@
             }
             $targFrame = $(thumbs[out]);
             if ($targFrame.length) {
-                self._setZoomContent($targFrame, true);
+                self._setZoomContent($targFrame, dir);
             }
             self._initZoomButtons();
             self._raise('filezoom' + dir, {'previewId': previewId, modal: self.$modal});
@@ -4137,9 +4153,9 @@
                     styleAttribs += key + ':' + val + ';';
                 });
             }
-            getContent = function (c, d, zoom, frameCss) {
-                var id = zoom ? 'zoom-' + previewId : previewId, tmplt = self._getPreviewTemplate(c),
-                    css = (frameClass || '') + ' ' + frameCss;
+            getContent = function (vCat, vData, zoom, frameCss, vZoomData) {
+                var id = zoom ? 'zoom-' + previewId : previewId, tmplt = self._getPreviewTemplate(vCat),
+                    css = (frameClass || '') + ' ' + frameCss, tokens;
                 if (self.frameClass) {
                     css = self.frameClass + ' ' + css;
                 }
@@ -4165,7 +4181,7 @@
                         title = attrs.alt;
                     }
                 }
-                return tmplt.setTokens({
+                tokens = {
                     'previewId': id,
                     'caption': caption,
                     'title': title,
@@ -4176,21 +4192,26 @@
                     'fileid': fileId || '',
                     'typeCss': typeCss,
                     'footer': footer,
-                    'data': d,
+                    'data': zoom && vZoomData ? '{zoomData}' : vData,
                     'template': templ || cat,
-                    'style': styleAttribs ? 'style="' + styleAttribs + '"' : ''
-                });
+                    'style': styleAttribs ? 'style="' + styleAttribs + '"' : '',
+                    'zoomData': vZoomData ? encodeURIComponent(vZoomData) : ''
+                };
+                if (zoom) {
+                    tokens.zoomCache = '';
+                    tokens.zoomData = '{zoomData}';
+                }
+                return tmplt.setTokens(tokens);
             };
             ind = ind || previewId.slice(previewId.lastIndexOf('-') + 1);
             if (self.fileActionSettings.showZoom) {
-                zoomContent = getContent((forceZoomIcon ? 'other' : cat), zoomData ? zoomData : data, true,
-                    'kv-zoom-thumb');
+                zoomContent = getContent((forceZoomIcon ? 'other' : cat), data, true, 'kv-zoom-thumb', zoomData);
             }
             zoomContent = '\n' + self._getLayoutTemplate('zoomCache').replace('{zoomContent}', zoomContent);
             if (typeof self.sanitizeZoomCache === 'function') {
                 zoomContent = self.sanitizeZoomCache(zoomContent);
             }
-            prevContent = getContent((forcePrevIcon ? 'other' : cat), data, false, 'kv-preview-thumb');
+            prevContent = getContent((forcePrevIcon ? 'other' : cat), data, false, 'kv-preview-thumb', zoomData);
             return prevContent.setTokens({zoomCache: zoomContent});
         },
         _addToPreview: function ($preview, content) {
@@ -5976,8 +5997,8 @@
             return $container.html();
         },
         previewZoomButtonIcons: {
-            prev: '<i class="bi-caret-left-fill"></i>',
-            next: '<i class="bi-caret-right-fill"></i>',
+            prev: '<i class="bi-chevron-left"></i>',
+            next: '<i class="bi-chevron-right"></i>',
             toggleheader: '<i class="bi-arrows-expand"></i>',
             fullscreen: '<i class="bi-arrows-fullscreen"></i>',
             borderless: '<i class="bi-arrows-angle-expand"></i>',

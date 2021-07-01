@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.2
+ * bootstrap-fileinput v5.2.3
  * http://plugins.krajee.com/file-input
  *
  * Bootstrap 5.x icon theme configuration for bootstrap-fileinput. Requires bootstrap 5.x icons CSS to be loaded.
@@ -32,8 +32,8 @@
             fileIcon: '<i class="bi-file-earmark-arrow-up"></i>'
         },
         previewZoomButtonIcons: {
-            prev: '<i class="bi-caret-left-fill"></i>',
-            next: '<i class="bi-caret-right-fill"></i>',
+            prev: '<i class="bi-chevron-left"></i>',
+            next: '<i class="bi-chevron-right"></i>',
             toggleheader: '<i class="bi-arrows-expand"></i>',
             fullscreen: '<i class="bi-arrows-fullscreen"></i>',
             borderless: '<i class="bi-arrows-angle-expand"></i>',

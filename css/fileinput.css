@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.2
+ * bootstrap-fileinput v5.2.3
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -10,6 +10,7 @@
  * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
+
 .file-loading input[type=file],
 input[type=file].file-loading {
     width: 0;
@@ -382,29 +383,32 @@ input[type=file].file-loading {
 
 .file-zoom-dialog .btn-navigate {
     padding: 0;
-    margin: -60px 0 0;
-    font-size: 60px;
+    margin: -40px 0 0;
+    font-size: 40px;
     background: transparent;
     text-decoration: none;
     outline: none;
-    opacity: 0.7;
     top: 50%;
-    color: #1c94c4;
+    filter: invert(1) grayscale(100);
 }
 
-.file-zoom-dialog .btn-navigate:not([disabled]):hover {
+.file-zoom-dialog .btn-navigate:not([disabled]):hover,
+.file-zoom-dialog .btn-navigate:not([disabled]):focus {
     outline: none;
     box-shadow: none;
-    opacity: 0.6;
+    text-decoration: none;
+    color: #fff;
+    opacity: 0.9;
+    outline: 0;
+}
+
+.file-zoom-dialog .btn-navigate[disabled]  {
+    opacity: 0.4;
 }
 
 .file-zoom-dialog .floating-buttons {
     top: 5px;
     right: 10px;
-}
-
-.file-zoom-dialog .btn-navigate[disabled] {
-    opacity: 0.3;
 }
 
 .file-zoom-dialog .btn-kv-prev {
@@ -513,7 +517,17 @@ input[type=file].file-loading {
 
 .file-zoom-content {
     text-align: center;
+    white-space: nowrap;
     min-height: 300px;
+}
+
+.file-zoom-content>* {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.file-zoom-content .kv-spacer {
+    height: 100%;
 }
 
 .file-zoom-content .file-preview-image {

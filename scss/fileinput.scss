@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.2
+ * bootstrap-fileinput v5.2.3
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -423,18 +423,20 @@ input[type=file].file-loading {
     .btn-navigate {
         @extend %set-absolute;
         padding: 0;
-        margin: -60px 0 0;
-        font-size: 60px;
+        margin: -40px 0 0;
+        font-size: 40px;
         background: transparent;
         text-decoration: none;
         outline: none;
-        opacity: 0.7;
         top: 50%;
-        color: $curious-blue;
-        &:not([disabled]):hover {
+        filter: invert(1) grayscale(100);
+        &:not([disabled]):hover, &:not([disabled]):focus {
             outline: none;
             box-shadow: none;
-            opacity: 0.6;
+            text-decoration: none;
+            color: #fff;
+            opacity: 0.9;
+            outline: 0;
         }
     }
     .floating-buttons {
@@ -570,6 +572,14 @@ input[type=file].file-loading {
 .file-zoom-content {
     min-height: 300px;
     text-align: center;
+    white-space: nowrap;
+    > * {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .kv-spacer {
+        height: 100%;
+    }
     .file-preview-image {
         max-height: 100%;
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- release v5.2.2, copyright 2014 - 2021 Kartik Visweswaran -->
+<!-- release v5.2.3, copyright 2014 - 2021 Kartik Visweswaran -->
 <!--suppress JSUnresolvedLibraryURL -->
 <html lang="en">
 <head>
@@ -83,8 +83,8 @@
         </div>
         <hr>
         <div class="form-group">
+            <label for="file-3">Preview File Icon</label>
             <div class="file-loading">
-                <label>Preview File Icon</label>
                 <input id="file-3" type="file" multiple>
             </div>
         </div>
@@ -180,14 +180,14 @@
         overwriteInitial: false,
         initialPreviewAsData: true,
         initialPreview: [
-            "http://lorempixel.com/1920/1080/transport/1",
-            "http://lorempixel.com/1920/1080/transport/2",
-            "http://lorempixel.com/1920/1080/transport/3"
+            "http://lorempixel.com/640/360/transport/1",
+            "http://lorempixel.com/640/360/transport/2",
+            "http://lorempixel.com/640/360/transport/3"
         ],
         initialPreviewConfig: [
-            {caption: "transport-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1},
-            {caption: "transport-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2},
-            {caption: "transport-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3}
+            {caption: "transport-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1, zoomData: 'http://lorempixel.com/1920/1080/transport/1'},
+            {caption: "transport-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2, zoomData: 'http://lorempixel.com/1920/1080/transport/2'},
+            {caption: "transport-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3, zoomData: 'http://lorempixel.com/1920/1080/transport/3'}
         ]
     });
     $("#file-4").fileinput({
