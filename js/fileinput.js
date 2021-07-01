@@ -2901,6 +2901,9 @@
             $last = $(thumbs[len - 1]);
             $prev.removeAttr('disabled');
             $next.removeAttr('disabled');
+            if (self.reversePreviewOrder) {
+                [$prev, $next] = [$next, $prev]; // swap
+            }
             if ($first.length && $first.attr('id') === previewId) {
                 $prev.attr('disabled', true);
             }
@@ -3040,23 +3043,24 @@
                 $modal.focus();
             });
             self._handler($modal, 'keydown', function (e) {
-                var key = e.which || e.keyCode, $prev = $(this).find('.btn-kv-prev'),
-                    $next = $(this).find('.btn-kv-next'), vId = $(this).data('previewId'),
-                    vPrevKey = self.rtl ? 39 : 37, vNextKey = self.rtl ? 37 : 39,
-                    listen = function (dir) {
-                        var $btn = dir === 'prev' ? $prev : $next, vKey = dir === 'prev' ? vPrevKey : vNextKey;
-                        if (key === vKey && $btn.length && !$btn.attr('disabled')) {
+                var key = e.which || e.keyCode, delay = self.processDelay + 1, $prev = $(this).find('.btn-kv-prev'),
+                    $next = $(this).find('.btn-kv-next'), vId = $(this).data('previewId'), vPrevKey, vNextKey;
+                [vPrevKey, vNextKey] = self.rtl ? [39, 37] : [37, 39];
+                $.each({prev: [$prev, vPrevKey], next: [$next, vNextKey]}, function (direction, config) {
+                    var $btn = config[0], vKey = config[1];
+                    if (key === vKey && $btn.length) {
+                        $modal.focus();
+                        if (!$btn.attr('disabled')) {
                             $btn.focus();
-                            self._zoomSlideShow(dir, vId);
+                            self._zoomSlideShow(direction, vId);
                             setTimeout(function () {
                                 if ($btn.attr('disabled')) {
                                     $modal.focus();
                                 }
-                            }, self.processDelay + 1);
+                            }, delay);
                         }
-                    };
-                listen('prev');
-                listen('next');
+                    }
+                });
             });
         },
         _showModal: function ($frame) {
@@ -3083,6 +3087,9 @@
         _zoomSlideShow: function (dir, previewId) {
             var self = this, $btn = self.$modal.find('.kv-zoom-actions .btn-kv-' + dir), $targFrame, i, $thumb,
                 thumbsData = self.getFrames().toArray(), thumbs = [], len = thumbsData.length, out;
+            if (self.reversePreviewOrder) {
+                dir = dir === 'prev' ? 'next' : 'prev';
+            }
             if ($btn.attr('disabled')) {
                 return;
             }
