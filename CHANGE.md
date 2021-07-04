@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1731): Enhance RTL Styling for bootstrap 4/5 input groups.
 - (enh #1730): Enhancements for bootstrap input group styles.
   - New plugin option `inputGroupClass` - defaults to empty string
   - Can be set to `input-group-lg` or `input-group-sm` to get bootstrap input group styles

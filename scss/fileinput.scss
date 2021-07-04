@@ -229,7 +229,15 @@ input[type=file].file-loading {
         }
 
         .file-caption-name {
-            padding-left: multiply($pad, 3);
+            padding-left: 1.875rem;
+        }
+
+        > .input-group-lg .file-caption-name {
+            padding-left: 2.1rem;
+        }
+
+        > .input-group-sm .file-caption-name {
+            padding-left: 1.5rem;
         }
     }
 }
@@ -243,11 +251,11 @@ input[type=file].file-loading {
 
 .input-group-lg .file-caption-icon {
     font-size: 1.25rem;
-    padding: 0.9rem 0.9rem 0 0.2rem;
 }
 
 .input-group-sm .file-caption-icon {
     font-size: 0.875rem;
+    padding: 0.25rem;
 }
 
 .file-error-message {

@@ -179,7 +179,15 @@ input[type=file].file-loading {
 }
 
 .file-caption.icon-visible .file-caption-name {
-    padding-left: 30px;
+    padding-left: 1.875rem;
+}
+
+.file-caption.icon-visible > .input-group-lg .file-caption-name {
+    padding-left: 2.1rem;
+}
+
+.file-caption.icon-visible > .input-group-sm .file-caption-name {
+    padding-left: 1.5rem;
 }
 
 .file-caption-name:not(.file-caption-disabled) {
@@ -199,11 +207,11 @@ input[type=file].file-loading {
 
 .input-group-lg .file-caption-icon {
     font-size: 1.25rem;
-    padding: 0.9rem 0.9rem 0 0.2rem;
 }
 
 .input-group-sm .file-caption-icon {
     font-size: 0.875rem;
+    padding: 0.25rem;
 }
 
 .file-error-message {
