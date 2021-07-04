@@ -9,6 +9,7 @@ Change Log: `bootstrap-fileinput`
 - (enh #1726): Update Chinese translations.
 - (enh #1722): Enhance zoom cache rendering and carousel navigation indicators.
 - (enh #1720): Enhance parsing of `zoomData` to lazy load content asynchronously only on zoom.
+- (enh #1642): Enhance `filebatchpreupload` event listening for effective aborting.
 
 ## version 5.2.2
 
