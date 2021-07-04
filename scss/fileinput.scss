@@ -238,6 +238,16 @@ input[type=file].file-loading {
     @extend %set-hidden;
     @extend %set-absolute;
     left: multiply($pad, 1.6);
+    padding: 0.5rem;
+}
+
+.input-group-lg .file-caption-icon {
+    font-size: 1.25rem;
+    padding: 0.9rem 0.9rem 0 0.2rem;
+}
+
+.input-group-sm .file-caption-icon {
+    font-size: 0.875rem;
 }
 
 .file-error-message {

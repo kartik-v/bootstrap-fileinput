@@ -5,6 +5,10 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1730): Enhancements for bootstrap input group styles.
+  - New plugin option `inputGroupClass` - defaults to empty string
+  - Can be set to `input-group-lg` or `input-group-sm` to get bootstrap input group styles
+  - Enhanced caption icon styling to match the bootstrap input group styles
 - (enh #1727): Correct zoom navigation for reverse preview order.
 - (enh #1726): Update Chinese translations.
 - (enh #1722): Enhance zoom cache rendering and carousel navigation indicators.

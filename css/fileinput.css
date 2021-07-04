@@ -197,6 +197,15 @@ input[type=file].file-loading {
     left: 4px;
 }
 
+.input-group-lg .file-caption-icon {
+    font-size: 1.25rem;
+    padding: 0.9rem 0.9rem 0 0.2rem;
+}
+
+.input-group-sm .file-caption-icon {
+    font-size: 0.875rem;
+}
+
 .file-error-message {
     color: #a94442;
     background-color: #f2dede;

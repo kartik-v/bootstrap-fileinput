@@ -1678,8 +1678,8 @@
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress kv-hidden"></div><div class="clearfix"></div>\n' +
                 '<div class="file-caption {class}">\n' +
-                '  <span class="file-caption-icon"></span>\n' +
-                '  <div class="input-group">\n' + '{caption}\n' +
+                '  <div class="input-group {inputGroupClass}">\n' +
+                '      {caption}\n<span class="file-caption-icon"></span>\n' +
                 ($h.isBs(5) ? '' : '<div class="input-group-btn input-group-append">\n') +
                 '      {remove}\n' +
                 '      {cancel}\n' +
@@ -4867,6 +4867,7 @@
             caption = self._setTabIndex('caption', caption);
             return self.mainTemplate.setTokens({
                 'class': self.mainClass + (!self.showBrowse && self.showCaption ? ' no-browse' : ''),
+                'inputGroupClass': self.inputGroupClass,
                 'preview': preview,
                 'close': close,
                 'caption': caption,
@@ -5990,6 +5991,7 @@
         captionClass: '',
         frameClass: 'krajee-default',
         mainClass: '',
+        inputGroupClass: '',
         mainTemplate: null,
         fileSizeGetter: null,
         initialCaption: '',
