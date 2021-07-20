@@ -906,6 +906,7 @@
                     case 'maxImageHeight':
                     case 'minImageWidth':
                     case 'maxImageWidth':
+                    case 'bytesToKB':
                         self[key] = $h.getNum(value);
                         break;
                     default:
@@ -913,6 +914,9 @@
                         break;
                 }
             });
+            if (!self.bytesToKB || self.bytesToKB <= 0) {
+                self.bytesToKB = 1024;
+            }
             if (self.errorCloseButton === undefined) {
                 self.errorCloseButton = $h.closeButton('kv-error-close' + ($h.isBs(5) ? '  float-end' : ''));
             }
@@ -1322,7 +1326,7 @@
                             rm.$btnDelete = rm.$thumb.find('.kv-file-remove');
                         }
                     }
-                    rm.chunkSize = opts.chunkSize * 1024;
+                    rm.chunkSize = opts.chunkSize * self.bytesToKB;
                     rm.chunkCount = rm.getTotalChunks();
                 },
                 setAjaxError: function (jqXHR, textStatus, errorThrown, isTest) {
@@ -4135,8 +4139,8 @@
                     if (!sizes) {
                         sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
                     }
-                    i = Math.floor(Math.log(size) / Math.log(1024));
-                    out = (size / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+                    i = Math.floor(Math.log(size) / Math.log(self.bytesToKB));
+                    out = (size / Math.pow(self.bytesToKB, i)).toFixed(2) + ' ' + sizes[i];
                 }
             }
             return self._getLayoutTemplate('size').replace('{sizeText}', out);
@@ -4676,7 +4680,7 @@
             $.each(self.fileManager.loadedImages, function (id, config) {
                 if (!config.validated) {
                     fsize = config.siz;
-                    if (fsize && fsize > minSize * 1000) {
+                    if (fsize && fsize > minSize * self.bytesToKB) {
                         self._getResizedImage(id, config, counter, numImgs);
                     }
                     config.validated = true;
@@ -5209,7 +5213,7 @@
             if (!file || !self.showPreview || !self.$preview || !self.$preview.length) {
                 return false;
             }
-            var name = file.name || '', type = file.type || '', size = (file.size || 0) / 1000,
+            var name = file.name || '', type = file.type || '', size = (file.size || 0) / self.bytesToKB,
                 cat = self._parseFileType(type, name), allowedTypes, allowedMimes, allowedExts, skipPreview,
                 types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes,
                 exts = self.allowedPreviewExtensions || [], dTypes = self.disabledPreviewTypes,
@@ -5376,7 +5380,7 @@
                 self.lock(true);
                 var file = files[i], id = self._getFileId(file), previewId = previewInitId + '-' + id, fSizeKB, j, msg,
                     fnImage = settings.image, typ, chk, typ1, typ2,
-                    caption = self._getFileName(file, ''), fileSize = (file && file.size || 0) / 1000,
+                    caption = self._getFileName(file, ''), fileSize = (file && file.size || 0) / self.bytesToKB,
                     fileExtExpr = '', previewData = $h.createObjectURL(file), fileCount = 0,
                     strTypes = '', fileId, canLoad, fileReaderAborted = false,
                     func, knownTypes = 0, isImage, txtFlag, processFileLoaded = function () {
@@ -5970,6 +5974,7 @@
 
     $.fn.fileinput.defaults = {
         language: 'en',
+        bytesToKB: 1024,
         showCaption: true,
         showBrowse: true,
         showPreview: true,
@@ -6094,7 +6099,7 @@
         resumableUploadOptions: {
             fallback: null,
             testUrl: null, // used for checking status of chunks/ files previously / partially uploaded
-            chunkSize: 2 * 1024, // in KB
+            chunkSize: 2048, // in KB
             maxThreads: 4,
             maxRetries: 3,
             showErrorLog: true,

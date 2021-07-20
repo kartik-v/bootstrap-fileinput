@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1736): Correct byte to KB conversion.
+  - new property `bytesToKB` which defaults to `1024` is used for conversion.
 - (enh #1735): Correct file caption reset after thumbnail delete.
 - (bug #1734): Correct zoom data refresh for each individual file upload.
 - (enh #1731): Enhance RTL Styling for bootstrap 4/5 input groups.
