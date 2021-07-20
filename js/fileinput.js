@@ -3927,8 +3927,8 @@
         _resetCaption: function () {
             var self = this;
             setTimeout(function () {
-                var cap, n, chk = self.previewCache.count(true), len = self.fileManager.count(), file,
-                    incomplete = ':not(.file-preview-success):not(.file-preview-error)',
+                var cap = '', n, chk = self.previewCache.count(true), len = self.fileManager.count(), file,
+                    incomplete = ':not(.file-preview-success):not(.file-preview-error)', cfg,
                     hasThumb = self.showPreview && self.getFrames(incomplete).length;
                 if (len === 0 && chk === 0 && !hasThumb) {
                     self.reset();
@@ -3937,8 +3937,19 @@
                     if (n > 1) {
                         cap = self._getMsgSelected(n);
                     } else {
-                        file = self.fileManager.getFirstFile();
-                        cap = file ? file.nameFmt : '_';
+                        if (len === 0) {
+                            cfg = self.initialPreviewConfig[0];
+                            cap = '';
+                            if (cfg) {
+                                cap = cfg.caption || cfg.filename || ''
+                            }
+                            if (!cap) {
+                                cap = self._getMsgSelected(n);
+                            }
+                        } else {
+                            file = self.fileManager.getFirstFile();
+                            cap = file ? file.nameFmt : '_';
+                        }
                     }
                     self._setCaption(cap);
                 }
@@ -4000,6 +4011,8 @@
                         self._setCaption('');
                         self.reset();
                         self.initialCaption = '';
+                    } else {
+                        self._resetCaption();
                     }
                 };
             self._initZoomButton();

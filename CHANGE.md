@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1735): Correct file caption reset after thumbnail delete.
 - (bug #1734): Correct zoom data refresh for each individual file upload.
 - (enh #1731): Enhance RTL Styling for bootstrap 4/5 input groups.
 - (enh #1730): Enhancements for bootstrap input group styles.
