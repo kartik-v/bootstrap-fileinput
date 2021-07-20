@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (bug #1734): Correct zoom data refresh for each individual file upload.
 - (enh #1731): Enhance RTL Styling for bootstrap 4/5 input groups.
 - (enh #1730): Enhancements for bootstrap input group styles.
   - New plugin option `inputGroupClass` - defaults to empty string

@@ -3442,7 +3442,7 @@
             self[prop] = arr1.concat(arr2);
         },
         _initUploadSuccess: function (out, $thumb, allFiles) {
-            var self = this, append, data, index, $div, $newCache, content, config, tags, id, i;
+            var self = this, append, data, index, $div, content, config, tags, id, i;
             if (!self.showPreview || typeof out !== 'object' || $.isEmptyObject(out)) {
                 self._resetCaption();
                 return;
@@ -3466,12 +3466,8 @@
                         index = self.previewCache.add(content[0], config[0], tags[0], append);
                         data = self.previewCache.get(index, false);
                         $div = $h.createElement(data).hide().appendTo($thumb);
-                        $newCache = $div.find('.kv-zoom-cache');
-                        if ($newCache && $newCache.length) {
-                            $newCache.appendTo($thumb);
-                        }
                         $thumb.fadeOut('slow', function () {
-                            var $newThumb = $div.find('.file-preview-frame');
+                            var $newThumb = $div.find('> .file-preview-frame');
                             if ($newThumb && $newThumb.length) {
                                 $newThumb.insertBefore($thumb).fadeIn('slow').css('display:inline-block');
                             }
