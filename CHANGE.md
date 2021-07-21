@@ -5,6 +5,9 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1737): Configurable file size units and bitrate units. New plugin properties configurable and translateable via locale language files.
+  - `sizeUnits` defaults to `['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']`
+  - `bitRateUnits` defaults to `['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s']`
 - (enh #1736): Correct byte to KB conversion.
   - new property `bytesToKB` which defaults to `1024` is used for conversion.
 - (enh #1735): Correct file caption reset after thumbnail delete.

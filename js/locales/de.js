@@ -10,6 +10,8 @@
     "use strict";
 
     $.fn.fileinputLocales['de'] = {
+        sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], 
+        bitRateUnits: ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
         fileSingle: 'Datei',
         filePlural: 'Dateien',
         browseLabel: 'Auswählen &hellip;',

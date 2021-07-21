@@ -1051,9 +1051,7 @@
                 getUploadStats: function (id, loaded, total) {
                     var fm = self.fileManager,
                         started = id ? fm.stats[id] && fm.stats[id].started || $h.now() : self.uploadStartTime,
-                        elapsed = ($h.now() - started) / 1000,
-                        speeds = ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
-                        bps = Math.ceil(elapsed ? loaded / elapsed : 0),
+                        elapsed = ($h.now() - started) / 1000, bps = Math.ceil(elapsed ? loaded / elapsed : 0),
                         pendingBytes = total - loaded, out, delay = fm.bpsLog.length ? self.bitrateUpdateDelay : 0;
                     setTimeout(function () {
                         var i, j = 0, n = 0, len, beg;
@@ -1076,7 +1074,7 @@
                         loaded: loaded,
                         total: total,
                         bps: fm.bps,
-                        bitrate: self._getSize(fm.bps, speeds),
+                        bitrate: self._getSize(fm.bps, self.bitRateUnits),
                         pendingBytes: pendingBytes
                     };
                     if (id) {
@@ -4137,7 +4135,7 @@
                     out = '0.00 B';
                 } else {
                     if (!sizes) {
-                        sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                        sizes = self.sizeUnits;
                     }
                     i = Math.floor(Math.log(size) / Math.log(self.bytesToKB));
                     out = (size / Math.pow(self.bytesToKB, i)).toFixed(2) + ' ' + sizes[i];
@@ -6174,6 +6172,8 @@
 
     // noinspection HtmlUnknownAttribute
     $.fn.fileinputLocales.en = {
+        sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+        bitRateUnits: ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
         fileSingle: 'file',
         filePlural: 'files',
         browseLabel: 'Browse &hellip;',
