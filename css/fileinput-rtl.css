@@ -29,6 +29,10 @@
     text-align: right;
 }
 
+.kv-rtl .file-zoom-dialog .kv-desc-hide {
+    float: left;
+}
+
 .kv-rtl {
     direction: rtl;
 }
@@ -54,12 +58,12 @@
 }
 
 .kv-rtl .btn-kv-prev {
-    right: 1px;
+    right: 0;
     left: auto;
 }
 
 .kv-rtl .btn-kv-next {
-    left: 1px;
+    left: 0;
     right: auto;
 }
 

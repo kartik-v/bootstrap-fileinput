@@ -64,6 +64,10 @@ $border: 1px !default;
         @extend %set_text_right;
     }
 
+    .kv-desc-hide {
+        float: left;
+    }
+
     .file-error-message {
         pre {
             @extend %set_text_right;
@@ -79,12 +83,12 @@ $border: 1px !default;
     }
 
     .btn-kv-prev {
-        right: multiply($pad, 0.2);
+        right: 0;
         left: auto;
     }
 
     .btn-kv-next {
-        left: multiply($pad, 0.2);
+        left: 0;
         right: auto;
     }
 

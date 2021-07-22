@@ -1673,7 +1673,7 @@
                 tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionDownload,
                 tActionZoom, tActionDrag, tIndicator, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage,
                 tText, tOffice, tGdocs, tVideo, tAudio, tFlash, tObject, tPdf, tOther, tStyle, tZoomCache, vDefaultDim,
-                tStats, tModalLabel, renderObject = function (type, mime) {
+                tStats, tModalLabel, tDescClose, renderObject = function (type, mime) {
                     return '<object class="kv-preview-data file-preview-' + type + '" title="{caption}" ' +
                         'data="{data}" type="' + mime + '"' + tStyle + '>\n' + $h.DEFAULT_PREVIEW + '\n</object>\n';
                 }, defBtnCss1 = 'btn btn-sm btn-kv ' + $h.defaultButtonCss();
@@ -1718,17 +1718,16 @@
                 'aria-labelledby="' + tModalLabel + '" {tabIndexConfig}></div>';
             tModal = '<div class="modal-dialog modal-lg{rtl}" role="document">\n' +
                 '  <div class="modal-content">\n' +
-                '    <div class="modal-header">\n' +
-                '      <h5 class="modal-title" id="' + tModalLabel + '">{heading}</h5>\n' +
-                '      <span class="kv-zoom-title"></span>\n' +
+                '    <div class="modal-header kv-zoom-header">\n' +
+                '      <h6 class="modal-title kv-zoom-title" id="' + tModalLabel + '"><span class="kv-zoom-caption"></span> <span class="kv-zoom-size"></span></h6>\n' +
                 '      <div class="kv-zoom-actions">{toggleheader}{fullscreen}{borderless}{close}</div>\n' +
                 '    </div>\n' +
-                '    <div class="modal-body">\n' +
-                '      <div class="floating-buttons"></div>\n' +
-                '      <div class="kv-zoom-body file-zoom-content {zoomFrameClass}"></div>\n' + '{prev} {next}\n' +
-                '    </div>\n' +
+                '    <div class="floating-buttons"></div>\n' +
+                '    <div class="kv-zoom-body file-zoom-content {zoomFrameClass}"></div>\n' + '{prev} {next}\n' +
+                '    <div class="kv-zoom-description"></div>\n' +
                 '  </div>\n' +
                 '</div>\n';
+            tDescClose = '<button type="button" class="kv-desc-hide" aria-label="Close">{closeIcon}</button>';
             tProgress = '<div class="progress">\n' +
                 '    <div class="{class}" role="progressbar"' +
                 ' aria-valuenow="{percent}" aria-valuemin="0" aria-valuemax="100" style="width:{percent}%;">\n' +
@@ -1805,6 +1804,7 @@
                     caption: tCaption,
                     modalMain: tModalMain,
                     modal: tModal,
+                    descriptionClose: tDescClose,
                     progress: tProgress,
                     stats: tStats,
                     size: tSize,
@@ -2830,7 +2830,6 @@
             return self._getLayoutTemplate('modal').setTokens({
                 'rtl': self.rtl ? ' kv-rtl' : '',
                 'zoomFrameClass': self.frameClass,
-                'heading': self.msgZoomModalHeading,
                 'prev': self._getZoomButton('prev'),
                 'next': self._getZoomButton('next'),
                 'toggleheader': self._getZoomButton('toggleheader'),
@@ -2920,7 +2919,7 @@
         },
         _maximizeZoomDialog: function () {
             var self = this, $modal = self.$modal, $head = $modal.find('.modal-header:visible'),
-                $foot = $modal.find('.modal-footer:visible'), $body = $modal.find('.modal-body'),
+                $foot = $modal.find('.modal-footer:visible'), $body = $modal.find('.kv-zoom-body'),
                 h = $(window).height(), diff = 0;
             $modal.addClass('file-zoom-fullscreen');
             if ($head && $head.length) {
@@ -2967,7 +2966,7 @@
         },
         _setZoomContent: function ($frame, navigate) {
             var self = this, $content, tmplt, body, title, $body, $dataEl, config, previewId = $frame.attr('id'),
-                $zoomPreview = self._getZoom(previewId), $modal = self.$modal, $tmp,
+                $zoomPreview = self._getZoom(previewId), $modal = self.$modal, $tmp, desc, $desc,
                 $btnFull = $modal.find('.btn-kv-fullscreen'), $btnBord = $modal.find('.btn-kv-borderless'), cap, size,
                 $btnTogh = $modal.find('.btn-kv-toggleheader'), dir = navigate === 'prev' ? 'Left' : 'Right',
                 slideIn = 'slideIn' + dir, slideOut = 'slideOut' + dir, parsed, zoomData = $frame.data('zoom');
@@ -2981,10 +2980,27 @@
             tmplt = $zoomPreview.attr('data-template') || 'generic';
             $content = $zoomPreview.find('.kv-file-content');
             body = $content.length ? '<span class="kv-spacer"></span>\n' + $content.html() : '';
-            cap = $frame.data('caption') || '';
+            cap = $frame.data('caption') || self.msgZoomModalHeading;
             size = $frame.data('size') || '';
-            title = cap + ' ' + size;
-            $modal.find('.kv-zoom-title').attr('title', $('<div/>').html(title).text()).html(title);
+            desc = $frame.data('description') || '';
+            $modal.find('.kv-zoom-caption').attr('title', cap).html(cap);
+            $modal.find('.kv-zoom-size').html(size);
+            $desc = $modal.find('.kv-zoom-description').hide();
+            if (desc) {
+                if (self.showDescriptionClose) {
+                    desc = self._getLayoutTemplate('descriptionClose').setTokens({
+                        closeIcon: self.previewZoomButtonIcons.close
+                    }) + '</button>' + desc;
+                }
+                $desc.show().html(desc);
+                if (self.showDescriptionClose) {
+                    self._handler($modal.find('.kv-desc-hide'), 'click', function () {
+                        $(this).parent().fadeOut('fast', function () {
+                            $modal.focus();
+                        });
+                    });
+                }
+            }
             $body = $modal.find('.kv-zoom-body');
             $modal.removeClass('kv-single-content');
             if (navigate) {
@@ -3024,7 +3040,7 @@
                 self._resizeZoomDialog(false);
             });
             self._handler($btnTogh, 'click', function () {
-                var $header = $modal.find('.modal-header'), $floatBar = $modal.find('.modal-body .floating-buttons'),
+                var $header = $modal.find('.modal-header'), $floatBar = $modal.find('.floating-buttons'),
                     ht, $actions = $header.find('.kv-zoom-actions'), resize = function (height) {
                         var $body = self.$modal.find('.kv-zoom-body'), h = self.zoomModalHeight;
                         if ($modal.hasClass('file-zoom-fullscreen')) {
@@ -4278,16 +4294,16 @@
             self._setThumbAttr(previewId, caption, fsize);
             self._initSortable();
         },
-        _setThumbAttr: function (id, caption, size) {
+        _setThumbAttr: function (id, caption, size, description) {
             var self = this, $frame = self._getFrame(id);
             if ($frame.length) {
                 size = size && size > 0 ? self._getSize(size) : '';
-                $frame.data({'caption': caption, 'size': size});
+                $frame.data({'caption': caption, 'size': size, 'description': description || ''});
             }
         },
         _setInitThumbAttr: function () {
             var self = this, data = self.previewCache.data, len = self.previewCache.count(true), config,
-                caption, size, previewId;
+                caption, size, description, previewId;
             if (len === 0) {
                 return;
             }
@@ -4296,7 +4312,8 @@
                 previewId = self.previewInitId + '-' + $h.INIT_FLAG + i;
                 caption = $h.ifSet('caption', config, $h.ifSet('filename', config));
                 size = $h.ifSet('size', config);
-                self._setThumbAttr(previewId, caption, size);
+                description = $h.ifSet('description', config);
+                self._setThumbAttr(previewId, caption, size, description);
             }
         },
         _slugDefault: function (text) {
@@ -5986,6 +6003,7 @@
         showConsoleLogs: false,
         browseOnZoneClick: false,
         autoReplace: false,
+        showDescriptionClose: true,
         autoOrientImage: function () { // applicable for JPEG images only and non ios safari
             var ua = window.navigator.userAgent, webkit = !!ua.match(/WebKit/i),
                 iOS = !!ua.match(/iP(od|ad|hone)/i), iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
@@ -6034,8 +6052,8 @@
             close: '<i class="bi-x-lg"></i>'
         },
         previewZoomButtonClasses: {
-            prev: 'btn btn-navigate',
-            next: 'btn btn-navigate',
+            prev: 'btn btn-default btn-outline-secondary btn-navigate',
+            next: 'btn btn-default btn-outline-secondary btn-navigate',
             toggleheader: defBtnCss1,
             fullscreen: defBtnCss1,
             borderless: defBtnCss1,

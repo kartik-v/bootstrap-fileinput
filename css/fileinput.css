@@ -399,39 +399,18 @@ input[type=file].file-loading {
 }
 
 .file-zoom-dialog .btn-navigate {
+    margin: 0 0.1rem;
     padding: 0;
-    margin: -1.2rem 0.1rem 0;
     font-size: 1.2rem;
     width: 2.4rem;
     height: 2.4rem;
-    outline: none;
     top: 50%;
     border-radius: 50%;
-    opacity: 0.8;
-    background-color: #6c757d;
-    border-color: #6c757d;
-    color: #000;
+    text-align:center;
 }
 
 .btn-navigate * {
     width: auto;
-}
-
-.file-zoom-dialog .btn-navigate:hover,
-.file-zoom-dialog .btn-navigate:focus {
-    color: #fff;
-    background-color: #5c636a;
-    border-color: #565e64;
-}
-
-.file-zoom-dialog .btn-navigate:focus {
-    box-shadow: 0 0 0 0.25rem rgb(130 138 145 / 50%);
-}
-
-.file-zoom-dialog .btn-navigate[disabled] {
-    background-color: #999;
-    border-color: #999;
-    opacity: 0.4;
 }
 
 .file-zoom-dialog .floating-buttons {
@@ -440,20 +419,56 @@ input[type=file].file-loading {
 }
 
 .file-zoom-dialog .btn-kv-prev {
-    left: 1px;
+    left: 0;
 }
 
 .file-zoom-dialog .btn-kv-next {
-    right: 1px;
+    right: 0;
 }
 
-.file-zoom-dialog .kv-zoom-title {
-    font-weight: 300;
-    color: #999;
+.file-zoom-dialog .kv-zoom-caption {
     max-width: 50%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.file-zoom-dialog .kv-zoom-header {
+    padding: 0.5rem;
+}
+
+.file-zoom-dialog .kv-zoom-body {
+    padding: 0.25rem 0.5rem 0.25rem 0;
+}
+
+.file-zoom-dialog .kv-zoom-description {
+    position: absolute;
+    opacity: 0.8;
+    font-size: 0.8rem;
+    background-color: #1a1a1a;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    color: #fff;
+    left: 15%;
+    right: 15%;
+    bottom: 15%;
+}
+
+.file-zoom-dialog .kv-desc-hide {
+    float: right;
+    color: #fff;
+    padding: 0 0.1rem;
+    background: none;
+    border: none;
+}
+
+.file-zoom-dialog .kv-desc-hide:hover {
+    opacity: 0.7;
+}
+
+.file-zoom-dialog .kv-desc-hide:focus {
+    opacity: 0.9;
 }
 
 .file-input-new .no-browse .form-control {
@@ -526,7 +541,7 @@ input[type=file].file-loading {
     min-height: 100vh;
 }
 
-.file-zoom-fullscreen .modal-body {
+.file-zoom-fullscreen .kv-zoom-body {
     overflow-y: auto;
 }
 
