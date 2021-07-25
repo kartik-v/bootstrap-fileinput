@@ -27,6 +27,7 @@ Change Log: `bootstrap-fileinput`
 - (enh #1727): Correct zoom navigation for reverse preview order.
 - (enh #1726): Update Chinese translations.
 - (enh #1722): Enhance zoom cache rendering and carousel navigation indicators.
+- (enh #1721): Correct `fileselect` event triggering.
 - (enh #1720): Enhance parsing of `zoomData` to lazy load content asynchronously only on zoom.
 - (enh #1642): Enhance `filebatchpreupload` event listening for effective aborting.
 

@@ -4320,7 +4320,7 @@
             // noinspection RegExpRedundantEscape
             return $h.isEmpty(text, true) ? '' : String(text).replace(/[\[\]\/\{}:;#%=\(\)\*\+\?\\\^\$\|<>&"']/g, '_');
         },
-        _updateFileDetails: function (numFiles, skipRaiseEvent) {
+        _updateFileDetails: function (numFiles) {
             var self = this, $el = self.$element, label, n, log, nFiles, file,
                 name = ($h.isIE(9) && $h.findFileName($el.val())) || ($el[0].files[0] && $el[0].files[0].name);
             if (!name && self.fileManager.count() > 0) {
@@ -4342,9 +4342,7 @@
             }
             self._setCaption(log, self.isError);
             self.$container.removeClass('file-input-new file-input-ajax-new');
-            if (!skipRaiseEvent) {
-                self._raise('fileselect', [numFiles, label]);
-            }
+            self._raise('fileselect', [numFiles, label]);
             if (self.previewCache.count(true)) {
                 self._initPreviewActions();
             }
@@ -5616,7 +5614,7 @@
             };
 
             readFile(0);
-            self._updateFileDetails(numFiles, true);
+            self._updateFileDetails(numFiles);
         },
         lock: function (selectMode) {
             var self = this, $container = self.$container;
