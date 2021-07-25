@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.2
+ * bootstrap-fileinput v5.2.3
  * http://plugins.krajee.com/file-input
  *
  * Krajee RTL (Right To Left) default styling for bootstrap-fileinput.
@@ -40,93 +40,141 @@ $border: 1px !default;
 
 .kv-rtl {
     direction: rtl;
+
     .floating-buttons {
         left: multiply($pad, 2);
         right: auto;
+
         .btn-kv {
             margin-left: 0;
             margin-right: multiply($pad, 0.6);
         }
     }
+
     .file-caption-icon {
         left: auto;
         right: multiply($pad, 1.6);
     }
+
     .close {
         @extend %set_float_left;
     }
+
     .file-zoom-dialog {
         @extend %set_text_right;
     }
+
+    .kv-desc-hide {
+        float: left;
+    }
+
     .file-error-message {
         pre {
             @extend %set_text_right;
         }
+
         ul {
             @extend %set_text_right;
         }
     }
+
     .file-drop-zone {
         margin: multiply($pad, 2.4) multiply($pad, 2.4) multiply($pad, 2.4) multiply($pad, 3);
     }
+
     .btn-kv-prev {
-        right: multiply($pad, 0.2);
+        right: 0;
         left: auto;
     }
+
     .btn-kv-next {
-        left: multiply($pad, 0.2);
+        left: 0;
         right: auto;
     }
+
     .pull-right {
         float: left !important;
     }
+
     .pull-left {
         float: right !important;
     }
+
     .float-right {
         @extend .pull-right;
     }
+
     .float-left {
         @extend .pull-left;
     }
+
     .kv-zoom-title {
         direction: ltr;
     }
+
     .krajee-default {
         &.file-preview-frame {
             @extend %set_float_right;
             box-shadow: (-$border) $border multiply($border, 5) 0 $zorba;
+
             &:not(.file-preview-error):hover {
                 box-shadow: multiply($border, -3) multiply($border, 3) multiply($border, 5) 0 $mine-shaft;
             }
         }
+
         .file-actions {
             @extend %set_float_left;
         }
+
         .file-other-error {
             @extend %set_float_left;
         }
+
         .file-drag-handle {
             @extend %set_float_right;
         }
+
         .file-upload-indicator {
             @extend %set_float_right;
         }
     }
+
     .kv-zoom-actions .btn-kv {
         margin-left: 0;
         margin-right: multiply($pad, 0.6);
     }
+
     .file-caption.icon-visible .file-caption-name {
         padding-left: 0;
         padding-right: multiply($pad, 3);
     }
-    .input-group-btn > .btn:last-child {
-        border-radius: $radius 0 0 $radius;
+
+    .input-group {
+        > .input-group-btn:last-child > .btn:last-child {
+            border-radius: 4px 0 0 4px !important;
+        }
+
+        > .input-group-btn:first-child > .btn:first-child {
+            border-radius: 0 4px 4px 0 !important;
+        }
+
+        > .input-group-append:last-child > .btn:last-child,
+        > .btn:last-child,
+        > .form-control:last-child {
+            border-radius: 0.25rem 0 0 0.25rem !important;
+        }
+
+        > .input-group-prepend:first-child > .btn:first-child,
+        > .input-group > .btn:first-child,
+        > .form-control:first-child {
+            border-radius: 0 0.25rem 0.25rem 0 !important;
+        }
+
+        .file-caption-icon:first-child ~ .form-control:last-child {
+            border-radius: 0.25rem !important;
+        }
     }
-    .input-group .form-control:first-child {
-        border-radius: 0 $radius $radius 0;
-    }
+
     .btn-file input[type=file] {
         left: auto;
         right: 0;

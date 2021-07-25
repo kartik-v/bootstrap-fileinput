@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.2
+ * bootstrap-fileinput v5.2.3
  * http://plugins.krajee.com/file-input
  *
  * Glyphicon (default) theme configuration for bootstrap-fileinput.
@@ -28,8 +28,8 @@
             fileIcon: '<i class="glyphicon glyphicon-file kv-caption-icon"></i>'
         },
         previewZoomButtonIcons: {
-            prev: '<i class="glyphicon glyphicon-triangle-left"></i>',
-            next: '<i class="glyphicon glyphicon-triangle-right"></i>',
+            prev: '<i class="glyphicon glyphicon-menu-left"></i>',
+            next: '<i class="glyphicon glyphicon-menu-right"></i>',
             toggleheader: '<i class="glyphicon glyphicon-resize-vertical"></i>',
             fullscreen: '<i class="glyphicon glyphicon-fullscreen"></i>',
             borderless: '<i class="glyphicon glyphicon-resize-full"></i>',

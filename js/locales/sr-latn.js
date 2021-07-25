@@ -12,6 +12,8 @@
     "use strict";
 
     $.fn.fileinputLocales['sr-latn'] = {
+        sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], 
+        bitRateUnits: ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
         fileSingle: 'dokument',
         filePlural: 'dokumenti',
         browseLabel: 'Odaberi dokument &hellip;',

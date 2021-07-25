@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.2
+ * bootstrap-fileinput v5.2.3
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -10,6 +10,7 @@
  * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
+
 .file-loading input[type=file],
 input[type=file].file-loading {
     width: 0;
@@ -115,23 +116,23 @@ input[type=file].file-loading {
     margin: auto;
 }
 
-.file-zoom-content>.file-object.type-video,
-.file-zoom-content>.file-object.type-flash,
-.file-zoom-content>.file-object.type-image {
+.file-zoom-content > .file-object.type-video,
+.file-zoom-content > .file-object.type-flash,
+.file-zoom-content > .file-object.type-image {
     max-width: 100%;
     max-height: 100%;
     width: auto;
 }
 
-.file-zoom-content>.file-object.type-video,
-.file-zoom-content>.file-object.type-flash {
+.file-zoom-content > .file-object.type-video,
+.file-zoom-content > .file-object.type-flash {
     height: 100%;
 }
 
-.file-zoom-content>.file-object.type-pdf,
-.file-zoom-content>.file-object.type-html,
-.file-zoom-content>.file-object.type-text,
-.file-zoom-content>.file-object.type-default {
+.file-zoom-content > .file-object.type-pdf,
+.file-zoom-content > .file-object.type-html,
+.file-zoom-content > .file-object.type-text,
+.file-zoom-content > .file-object.type-default {
     width: 100%;
 }
 
@@ -178,7 +179,15 @@ input[type=file].file-loading {
 }
 
 .file-caption.icon-visible .file-caption-name {
-    padding-left: 30px;
+    padding-left: 1.875rem;
+}
+
+.file-caption.icon-visible > .input-group-lg .file-caption-name {
+    padding-left: 2.1rem;
+}
+
+.file-caption.icon-visible > .input-group-sm .file-caption-name {
+    padding-left: 1.5rem;
 }
 
 .file-caption-name:not(.file-caption-disabled) {
@@ -194,6 +203,15 @@ input[type=file].file-loading {
 .file-caption-icon {
     padding: 0.5rem;
     left: 4px;
+}
+
+.input-group-lg .file-caption-icon {
+    font-size: 1.25rem;
+}
+
+.input-group-sm .file-caption-icon {
+    font-size: 0.875rem;
+    padding: 0.25rem;
 }
 
 .file-error-message {
@@ -381,21 +399,18 @@ input[type=file].file-loading {
 }
 
 .file-zoom-dialog .btn-navigate {
+    margin: 0 0.1rem;
     padding: 0;
-    margin: -60px 0 0;
-    font-size: 60px;
-    background: transparent;
-    text-decoration: none;
-    outline: none;
-    opacity: 0.7;
+    font-size: 1.2rem;
+    width: 2.4rem;
+    height: 2.4rem;
     top: 50%;
-    color: #1c94c4;
+    border-radius: 50%;
+    text-align:center;
 }
 
-.file-zoom-dialog .btn-navigate:not([disabled]):hover {
-    outline: none;
-    box-shadow: none;
-    opacity: 0.6;
+.btn-navigate * {
+    width: auto;
 }
 
 .file-zoom-dialog .floating-buttons {
@@ -403,25 +418,57 @@ input[type=file].file-loading {
     right: 10px;
 }
 
-.file-zoom-dialog .btn-navigate[disabled] {
-    opacity: 0.3;
-}
-
 .file-zoom-dialog .btn-kv-prev {
-    left: 1px;
+    left: 0;
 }
 
 .file-zoom-dialog .btn-kv-next {
-    right: 1px;
+    right: 0;
 }
 
-.file-zoom-dialog .kv-zoom-title {
-    font-weight: 300;
-    color: #999;
+.file-zoom-dialog .kv-zoom-caption {
     max-width: 50%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.file-zoom-dialog .kv-zoom-header {
+    padding: 0.5rem;
+}
+
+.file-zoom-dialog .kv-zoom-body {
+    padding: 0.25rem 0.5rem 0.25rem 0;
+}
+
+.file-zoom-dialog .kv-zoom-description {
+    position: absolute;
+    opacity: 0.8;
+    font-size: 0.8rem;
+    background-color: #1a1a1a;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    color: #fff;
+    left: 15%;
+    right: 15%;
+    bottom: 15%;
+}
+
+.file-zoom-dialog .kv-desc-hide {
+    float: right;
+    color: #fff;
+    padding: 0 0.1rem;
+    background: none;
+    border: none;
+}
+
+.file-zoom-dialog .kv-desc-hide:hover {
+    opacity: 0.7;
+}
+
+.file-zoom-dialog .kv-desc-hide:focus {
+    opacity: 0.9;
 }
 
 .file-input-new .no-browse .form-control {
@@ -494,7 +541,7 @@ input[type=file].file-loading {
     min-height: 100vh;
 }
 
-.file-zoom-fullscreen .modal-body {
+.file-zoom-fullscreen .kv-zoom-body {
     overflow-y: auto;
 }
 
@@ -513,7 +560,21 @@ input[type=file].file-loading {
 
 .file-zoom-content {
     text-align: center;
+    white-space: nowrap;
     min-height: 300px;
+}
+
+.file-zoom-content:hover {
+    background: transparent;
+}
+
+.file-zoom-content > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.file-zoom-content .kv-spacer {
+    height: 100%;
 }
 
 .file-zoom-content .file-preview-image {
@@ -524,12 +585,12 @@ input[type=file].file-loading {
     max-height: 100%;
 }
 
-.file-zoom-content>.file-object.type-image {
+.file-zoom-content > .file-object.type-image {
     height: auto;
     min-height: inherit;
 }
 
-.file-zoom-content>.file-object.type-audio {
+.file-zoom-content > .file-object.type-audio {
     width: auto;
     height: 30px;
 }
@@ -553,6 +614,7 @@ input[type=file].file-loading {
         align-items: center;
         flex-direction: column;
     }
+
     .file-zoom-dialog .modal-header {
         flex-direction: column;
     }

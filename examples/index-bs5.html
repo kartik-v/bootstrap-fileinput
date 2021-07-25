@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- release v5.2.2, copyright 2014 - 2021 Kartik Visweswaran -->
+<!-- release v5.2.3, copyright 2014 - 2021 Kartik Visweswaran -->
 <!--suppress JSUnresolvedLibraryURL -->
 <html lang="en">
 <head>
@@ -35,7 +35,7 @@
         </div>
         <br>
         <div class="file-loading">
-            <input id="file-0a" class="file" type="file" multiple data-min-file-count="1" data-theme="fas">
+            <input id="file-0a" class="file" type="file" multiple data-min-file-count="1">
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -47,10 +47,10 @@
     <br>
     <textarea id="description" rows=3" class="form-control" placeholder="Enter description for the files selected..."></textarea>
     <br>
-    <form enctype="multipart/form-data">
+    <form enctype="multipart/form-data" action="">
         <label for="file-0b">Test invalid input type</label>
         <div class="file-loading">
-            <input id="file-0b" name="file-0b" class="file" type="text" multiple data-min-file-count="1" data-theme="fas">
+            <input id="file-0b" name="file-0b" class="file" type="text" multiple data-min-file-count="1">
         </div>
         <script>
             $(document).on('ready', function () {
@@ -59,39 +59,39 @@
         </script>
     </form>
     <hr>
-    <form enctype="multipart/form-data">
+    <form enctype="multipart/form-data" action="http://localhost/plugins/test">
         <div class="file-loading">
-            <input id="file-0c" class="file" type="file" multiple data-min-file-count="3" data-theme="fas">
+            <input id="file-0c" class="file" type="file" multiple data-min-file-count="3">
         </div>
         <hr>
         <div class="form-group">
             <div class="file-loading">
-                <input id="file-0d" class="file" type="file" data-theme="fas">
+                <input id="file-0d" class="file" type="file">
             </div>
         </div>
         <hr>
         <div class="form-group">
             <div class="file-loading">
-                <input id="file-1" type="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2" data-theme="fas">
+                <input id="file-1" type="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2">
             </div>
         </div>
         <hr>
         <div class="form-group">
             <div class="file-loading">
-                <input id="file-2" type="file" class="file" readonly data-show-upload="false" data-theme="fas">
+                <input id="file-2" type="file" class="file" readonly data-show-upload="false">
             </div>
         </div>
         <hr>
         <div class="form-group">
+            <label for="file-3">Batch Preupload Error Check</label>
             <div class="file-loading">
-                <label>Preview File Icon</label>
                 <input id="file-3" type="file" multiple>
             </div>
         </div>
         <hr>
         <div class="form-group">
             <div class="file-loading">
-                <input id="file-4" type="file" class="file" data-upload-url="#" data-theme="fas">
+                <input id="file-4" type="file" class="file" data-upload-url="#">
             </div>
         </div>
         <hr>
@@ -104,14 +104,14 @@
         <hr>
         <div class="form-group">
             <div class="file-loading">
-                <input type="file" class="file" id="test-upload" multiple data-theme="fas">
+                <input type="file" class="file" id="test-upload" multiple>
             </div>
             <div id="errorBlock" class="help-block"></div>
         </div>
         <hr>
         <div class="form-group">
             <div class="file-loading">
-                <input id="file-5" class="file" type="file" multiple data-preview-file-type="any" data-upload-url="#" data-theme="fas">
+                <input id="file-5" class="file" type="file" multiple data-preview-file-type="any" data-upload-url="#">
             </div>
         </div>
     </form>
@@ -172,23 +172,25 @@
      */
     $("#file-3").fileinput({
         theme: 'fas',
-        showUpload: false,
-        showCaption: false,
-        browseClass: "btn btn-primary btn-lg",
-        fileType: "any",
-        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+        browseClass: "btn btn-primary",
         overwriteInitial: false,
         initialPreviewAsData: true,
+        //uploadUrl: 'http://localhost/plugins/test-upload',
         initialPreview: [
-            "http://lorempixel.com/1920/1080/transport/1",
-            "http://lorempixel.com/1920/1080/transport/2",
-            "http://lorempixel.com/1920/1080/transport/3"
+            "http://lorempixel.com/640/360/transport/1",
+            "http://lorempixel.com/640/360/transport/2",
+            "http://lorempixel.com/640/360/transport/3"
         ],
         initialPreviewConfig: [
-            {caption: "transport-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1},
-            {caption: "transport-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2},
-            {caption: "transport-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3}
+            {caption: "transport-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1, zoomData: 'http://lorempixel.com/1920/1080/transport/1'},
+            {caption: "transport-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2, zoomData: 'http://lorempixel.com/1920/1080/transport/2'},
+            {caption: "transport-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3, zoomData: 'http://lorempixel.com/1920/1080/transport/3'}
         ]
+    }).on('filebatchpreupload', function(e, data) {
+        return {
+            message: 'Error here',
+            data: data
+        }
     });
     $("#file-4").fileinput({
         theme: 'fas',

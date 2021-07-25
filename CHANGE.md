@@ -1,6 +1,36 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.2.3
+
+**Date**: 25-Jul-2021
+
+- (enh #1738): Enhancements to zoomed preview to include additional description and better title styling.
+  - The `initialPreviewConfig` will include an additional property `description`
+  - The modal layout template will include a `kv-zoom-description` container which will render the description from `initialPreviewConfig`. This container will be hidden if no description found.
+  - The modal layout template will include `kv-zoom-caption` container which will render the `caption` or `filename` from `initialPreviewConfig`. If that is not found it will default to `msgZoomModalHeading`.
+  - The modal layout template will include `kv-zoom-size` container which will render the `size` as set in `initialPreviewConfig`.
+  - The description will be shown as a bubble text over the image/content.
+  - Additional new property `showDescriptionClose` (boolean). Will show a close icon to close the description bubble text when set to `true`. Defaults to `true`.
+- (enh #1737): Configurable file size units and bitrate units. New plugin properties configurable and translateable via locale language files.
+  - `sizeUnits` defaults to `['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']`
+  - `bitRateUnits` defaults to `['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s']`
+- (enh #1736): Correct byte to KB conversion.
+  - new property `bytesToKB` which defaults to `1024` is used for conversion.
+- (enh #1735): Correct file caption reset after thumbnail delete.
+- (bug #1734): Correct zoom data refresh for each individual file upload.
+- (enh #1731): Enhance RTL Styling for bootstrap 4/5 input groups.
+- (enh #1730): Enhancements for bootstrap input group styles.
+  - New plugin option `inputGroupClass` - defaults to empty string
+  - Can be set to `input-group-lg` or `input-group-sm` to get bootstrap input group styles
+  - Enhanced caption icon styling to match the bootstrap input group styles
+- (enh #1727): Correct zoom navigation for reverse preview order.
+- (enh #1726): Update Chinese translations.
+- (enh #1722): Enhance zoom cache rendering and carousel navigation indicators.
+- (enh #1721): Correct `fileselect` event triggering.
+- (enh #1720): Enhance parsing of `zoomData` to lazy load content asynchronously only on zoom.
+- (enh #1642): Enhance `filebatchpreupload` event listening for effective aborting.
+
 ## version 5.2.2
 
 **Date**: 19-Jun-2021

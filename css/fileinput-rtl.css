@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.2
+ * bootstrap-fileinput v5.2.3
  * http://plugins.krajee.com/file-input
  *
  * Krajee RTL (Right To Left) default styling for bootstrap-fileinput.
@@ -29,6 +29,10 @@
     text-align: right;
 }
 
+.kv-rtl .file-zoom-dialog .kv-desc-hide {
+    float: left;
+}
+
 .kv-rtl {
     direction: rtl;
 }
@@ -54,12 +58,12 @@
 }
 
 .kv-rtl .btn-kv-prev {
-    right: 1px;
+    right: 0;
     left: auto;
 }
 
 .kv-rtl .btn-kv-next {
-    left: 1px;
+    left: 0;
     right: auto;
 }
 
@@ -95,12 +99,29 @@
     padding-right: 30px;
 }
 
-.kv-rtl .input-group-btn > .btn:last-child {
-    border-radius: 4px 0 0 4px;
+.kv-rtl .input-group > .input-group-btn:last-child > .btn:last-child {
+    border-radius: 4px 0 0 4px !important;
 }
 
-.kv-rtl .input-group .form-control:first-child {
-    border-radius: 0 4px 4px 0;
+.kv-rtl .input-group > .input-group-btn:first-child > .btn:first-child {
+    border-radius: 0 4px 4px 0 !important;
+}
+
+.kv-rtl .input-group > .input-group-append:last-child > .btn:last-child,
+.kv-rtl .input-group > .btn:last-child,
+.kv-rtl .input-group > .form-control:last-child {
+    border-radius: 0.25rem 0 0 0.25rem !important;
+
+}
+
+.kv-rtl .input-group > .input-group-prepend:first-child > .btn:first-child,
+.kv-rtl .input-group > .input-group > .btn:first-child,
+.kv-rtl .input-group > .form-control:first-child {
+    border-radius: 0 0.25rem 0.25rem 0 !important;
+}
+
+.kv-rtl .input-group > .file-caption-icon:first-child ~ .form-control:last-child {
+    border-radius: 0.25rem !important;
 }
 
 .kv-rtl .btn-file input[type=file] {
