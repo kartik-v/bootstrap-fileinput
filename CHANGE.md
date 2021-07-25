@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.2.3
 
-**Date**: _under development_
+**Date**: 25-Jul-2021
 
 - (enh #1738): Enhancements to zoomed preview to include additional description and better title styling.
   - The `initialPreviewConfig` will include an additional property `description`
