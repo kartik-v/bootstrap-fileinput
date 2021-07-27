@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.3
+ * bootstrap-fileinput v5.2.4
  * http://plugins.krajee.com/file-input
  *
  * Bootstrap 5.x icon theme configuration for bootstrap-fileinput. Requires bootstrap 5.x icons CSS to be loaded.
