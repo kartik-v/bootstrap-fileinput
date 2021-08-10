@@ -46,13 +46,16 @@
     }
 
     var $h, FileInput;
-
+    var src = document.currentScript.src;
+	var src_path=src.substring(0,src.lastIndexOf("/"));
+	var loading_url=src_path.substring(0,src_path.lastIndexOf("/")+1)+'img/loading.gif';
+    
     // fileinput helper object for all global variables and internal helper methods
     $h = {
         FRAMES: '.kv-preview-thumb',
         SORT_CSS: 'file-sortable',
         INIT_FLAG: 'init-',
-        ZOOM_VAR: '?kvTemp__2873389129__=', // used to prevent 404 errors in URL parsing
+        ZOOM_VAR: loading_url+'?kvTemp__2873389129__=', // used to prevent 404 errors in URL parsing
         OBJECT_PARAMS: '<param name="controller" value="true" />\n' +
             '<param name="allowFullScreen" value="true" />\n' +
             '<param name="allowScriptAccess" value="always" />\n' +
