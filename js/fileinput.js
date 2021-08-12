@@ -22,12 +22,15 @@
     }
 }(function ($) {
     'use strict';
+
     $.fn.fileinputLocales = {};
     $.fn.fileinputThemes = {};
+
     if (!$.fn.fileinputBsVersion) {
         $.fn.fileinputBsVersion = (window.Alert && window.Alert.VERSION) ||
             (window.bootstrap && window.bootstrap.Alert && bootstrap.Alert.VERSION) || '3.x.x';
     }
+
     String.prototype.setTokens = function (replacePairs) {
         var str = this.toString(), key, re;
         for (key in replacePairs) {
@@ -45,14 +48,17 @@
         };
     }
 
-    var $h, FileInput;
+    var $h, FileInput, getLoadingUrl = function () {
+        var src = document.currentScript.src, srcPath = src.substring(0, src.lastIndexOf("/"));
+        return srcPath.substring(0, srcPath.lastIndexOf("/") + 1) + 'img/loading.gif'
+    };
 
     // fileinput helper object for all global variables and internal helper methods
     $h = {
         FRAMES: '.kv-preview-thumb',
         SORT_CSS: 'file-sortable',
         INIT_FLAG: 'init-',
-        ZOOM_VAR: '?kvTemp__2873389129__=', // used to prevent 404 errors in URL parsing
+        ZOOM_VAR: getLoadingUrl() + '?kvTemp__2873389129__=', // used to prevent 404 errors in URL parsing
         OBJECT_PARAMS: '<param name="controller" value="true" />\n' +
             '<param name="allowFullScreen" value="true" />\n' +
             '<param name="allowScriptAccess" value="always" />\n' +

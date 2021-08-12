@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1744): Enhance zoom cache temporary url to use loader image.
 - (enh #1741): Fix zoom cache 404 console warnings.
 
 ## version 5.2.3
