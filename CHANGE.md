@@ -3,8 +3,9 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.2.4
 
-**Date**: _under development_
+**Date**: 03-Sep-2021
 
+- (enh #1750): Enhancements to file caption icon and input group styling.
 - (enh #1744): Enhance zoom cache temporary url to use loader image.
 - (enh #1741): Fix zoom cache 404 console warnings.
 
