@@ -6,10 +6,12 @@
     bootstrap-fileinput
     <hr>
     <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DTP3NZQ6G2AYU"
-       title="Donate via Paypal" target="_blank">
-        <img src="https://kartik-v.github.io/bootstrap-fileinput-samples/samples/donate.png" alt="Donate"/>
-    </a>
+       title="Donate via Paypal" target="_blank"><img height="60" src="https://kartik-v.github.io/bootstrap-fileinput-samples/samples/donate.png" alt="Donate"/></a>
+    &nbsp; &nbsp; &nbsp;
+    <a href="https://www.buymeacoffee.com/kartikv" title="Buy me a coffee" ><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="60" alt="kartikv" /></a>
 </h1>
+
+<div align="center">
 
 [![Financial Contributors on Open Collective](https://opencollective.com/bootstrap-fileinput/all/badge.svg?label=financial+contributors)](https://opencollective.com/bootstrap-fileinput)
 [![Bower version](https://badge.fury.io/bo/bootstrap-fileinput.svg)](http://badge.fury.io/bo/bootstrap-fileinput)
@@ -17,6 +19,8 @@
 [![License](https://poser.pugx.org/kartik-v/bootstrap-fileinput/license)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)
 [![Packagist Downloads](https://poser.pugx.org/kartik-v/bootstrap-fileinput/downloads)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)
 [![Monthly Downloads](https://poser.pugx.org/kartik-v/bootstrap-fileinput/d/monthly)](https://packagist.org/packages/kartik-v/bootstrap-fileinput)
+
+</div>
 
 An enhanced HTML 5 file input for Bootstrap 5.x, 4.x, and 3.x with file preview for various files, offers multiple selection, resumable chunk uploads, and more. The plugin allows you a simple way to setup an advanced file picker/upload control built to work specially with Bootstrap 5.x, 4.x, and 3.x CSS3 styles. It enhances the file input functionality further, by offering support to preview a wide variety of files i.e. images, text, html, video, audio, flash, and objects. In addition, it includes AJAX based uploads, dragging &amp; dropping files, viewing upload progress, and selectively previewing, adding, or deleting files. 
 
@@ -36,7 +40,7 @@ View the [plugin documentation](http://plugins.krajee.com/file-input) and [plugi
 
 ## Pre-requisites  
 
-1. [Bootstrap 5.x, 4.x, or 3.x](http://getbootstrap.com/)
+1. [Bootstrap 5.x or 4.x, or 3.x](http://getbootstrap.com/)
 2. Latest [JQuery](http://jquery.com/)
 3. Most modern browsers supporting HTML5 (inputs and FileReader API) including CSS3 & JQuery. For Internet Explorer, one must use IE versions 10 and above. IE9 and below will work as a normal file input, and will not support multiple file selection or the HTML 5 FileReader API.
 4. With release 4.0, AJAX uploads are supported. AJAX uploads require that the browser support HTML5 FormData and XHR2 (XMLHttpRequest 2). Most modern browsers support FormData and XHR2. The plugin will automatically degrade to normal form based submission for browsers not supporting AJAX uploads
@@ -86,7 +90,7 @@ Step 1: Load the following assets on your page in the order mentioned.
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
 
 <!-- alternatively you can use the font awesome icon library if using with `fas` theme (or Bootstrap 4.x) by uncommenting below. -->
-<!-- link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" crossorigin="anonymous" -->
+<!-- link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous" -->
 
 <!-- the fileinput plugin styling CSS file -->
 <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.3/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />

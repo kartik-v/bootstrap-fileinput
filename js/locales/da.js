@@ -112,4 +112,4 @@
             close: 'Luk detaljeret visning'
         }
     };
-})(window.jQuery);
+}));

@@ -9,7 +9,16 @@
  * @Modified by Doston Usmonov <doston1533@gmail.com> 20.09.2019
  * NOTE: this file must be saved in UTF-8 encoding.
  */
-(function ($) {
+(function (factory) {
+    'use strict';
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery', 'window', 'document'],factory);
+    } else if (typeof module === 'object' && typeof module.exports === 'object') {
+        factory(require('jquery'), window, document);
+    } else {
+        factory(window.jQuery, window, document);
+    }
+}(function ($, window, document, undefined) {
     "use strict";
 
     $.fn.fileinputLocales.uz = {
@@ -113,4 +122,4 @@
             close: 'Batafsil ko‘rishni yopish'
         }
     };
-})(window.jQuery);
+}));

@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.3
+ * bootstrap-fileinput v5.2.4
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -11,23 +11,23 @@
 (function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
-        define(['jquery'], factory);
+        define(['jquery', 'window', 'document'], factory);
+    } else if (typeof module === 'object' && typeof module.exports === 'object') {
+        factory(require('jquery'), window, document);
     } else {
-        if (typeof module === 'object' && module.exports) {
-            //noinspection NpmUsedModulesInstalled
-            module.exports = factory(require('jquery'));
-        } else {
-            factory(window.jQuery);
-        }
+        factory(window.jQuery, window, document);
     }
-}(function ($) {
+}(function ($, window, document, undefined) {
     'use strict';
+
     $.fn.fileinputLocales = {};
     $.fn.fileinputThemes = {};
+
     if (!$.fn.fileinputBsVersion) {
         $.fn.fileinputBsVersion = (window.Alert && window.Alert.VERSION) ||
             (window.bootstrap && window.bootstrap.Alert && bootstrap.Alert.VERSION) || '3.x.x';
     }
+
     String.prototype.setTokens = function (replacePairs) {
         var str = this.toString(), key, re;
         for (key in replacePairs) {
@@ -45,13 +45,17 @@
         };
     }
 
-    var $h, FileInput;
+    var $h, FileInput, getLoadingUrl = function () {
+        var src = document.currentScript.src, srcPath = src.substring(0, src.lastIndexOf("/"));
+        return srcPath.substring(0, srcPath.lastIndexOf("/") + 1) + 'img/loading.gif'
+    };
 
     // fileinput helper object for all global variables and internal helper methods
     $h = {
         FRAMES: '.kv-preview-thumb',
         SORT_CSS: 'file-sortable',
         INIT_FLAG: 'init-',
+        ZOOM_VAR: getLoadingUrl() + '?kvTemp__2873389129__=', // used to prevent 404 errors in URL parsing
         OBJECT_PARAMS: '<param name="controller" value="true" />\n' +
             '<param name="allowFullScreen" value="true" />\n' +
             '<param name="allowScriptAccess" value="always" />\n' +
@@ -2972,7 +2976,7 @@
                 slideIn = 'slideIn' + dir, slideOut = 'slideOut' + dir, parsed, zoomData = $frame.data('zoom');
             if (zoomData) {
                 zoomData = decodeURIComponent(zoomData);
-                parsed = $zoomPreview.html().setTokens({zoomData: zoomData});
+                parsed = $zoomPreview.html().replace($h.ZOOM_VAR, '').setTokens({zoomData: zoomData});
                 $zoomPreview.html(parsed);
                 $frame.data('zoom', '');
                 $zoomPreview.attr('data-zoom', zoomData);
@@ -4231,7 +4235,7 @@
                     'fileid': fileId || '',
                     'typeCss': typeCss,
                     'footer': footer,
-                    'data': zoom && vZoomData ? '{zoomData}' : vData,
+                    'data': zoom && vZoomData ? $h.ZOOM_VAR + '{zoomData}' : vData,
                     'template': templ || cat,
                     'style': styleAttribs ? 'style="' + styleAttribs + '"' : '',
                     'zoomData': vZoomData ? encodeURIComponent(vZoomData) : ''
@@ -4573,7 +4577,7 @@
                 exifObj = null;
                 error = err && err.message || '';
             }
-            if (!exifObj) {
+            if (!exifObj && self.showExifErrorLog) {
                 self._log($h.logMessages.badExifParser, {details: error});
             }
             return exifObj;
@@ -4629,13 +4633,13 @@
         },
         _validateImageOrientation: function ($img, file, previewId, fileId, caption, ftype, fsize, iData) {
             var self = this, exifObj = null, value, autoOrientImage = self.autoOrientImage, selector;
+            exifObj = self._getExifObj(iData);
             if (self.canOrientImage) {
                 $img.css('image-orientation', (autoOrientImage ? 'from-image' : 'none'));
                 self._validateImage(previewId, fileId, caption, ftype, fsize, iData, exifObj);
                 return;
             }
             selector = $h.getZoomSelector(previewId, ' img');
-            exifObj = autoOrientImage ? self._getExifObj(iData) : null;
             value = exifObj ? exifObj['0th'][piexif.ImageIFD.Orientation] : null; // jshint ignore:line
             if (!value) {
                 self._validateImage(previewId, fileId, caption, ftype, fsize, iData, exifObj);
@@ -6008,6 +6012,7 @@
             return !iOSSafari;
         },
         autoOrientImageInitial: true,
+        showExifErrorLog: false,
         required: false,
         rtl: false,
         hideThumbnailContent: false,
