@@ -22,163 +22,163 @@ $border: 1px !default;
 
 //operations
 @function multiply($pixels, $multiplier) {
-    @return $pixels * $multiplier;
+  @return $pixels * $multiplier;
 }
 
 //@extend-elements
 %set_float_left {
-    float: left;
+  float: left;
 }
 
 %set_float_right {
-    float: right;
+  float: right;
 }
 
 %set_text_right {
-    text-align: right;
+  text-align: right;
 }
 
 .kv-rtl {
-    direction: rtl;
+  direction: rtl;
 
-    .floating-buttons {
-        left: multiply($pad, 2);
-        right: auto;
+  .floating-buttons {
+    left: multiply($pad, 2);
+    right: auto;
 
-        .btn-kv {
-            margin-left: 0;
-            margin-right: multiply($pad, 0.6);
-        }
+    .btn-kv {
+      margin-left: 0;
+      margin-right: multiply($pad, 0.6);
+    }
+  }
+
+  .file-caption-icon {
+    left: auto;
+    right: multiply($pad, 1.6);
+  }
+
+  .close {
+    @extend %set_float_left;
+  }
+
+  .file-zoom-dialog {
+    @extend %set_text_right;
+  }
+
+  .kv-desc-hide {
+    float: left;
+  }
+
+  .file-error-message {
+    pre {
+      @extend %set_text_right;
     }
 
-    .file-caption-icon {
-        left: auto;
-        right: multiply($pad, 1.6);
+    ul {
+      @extend %set_text_right;
+    }
+  }
+
+  .file-drop-zone {
+    margin: multiply($pad, 2.4) multiply($pad, 2.4) multiply($pad, 2.4) multiply($pad, 3);
+  }
+
+  .btn-kv-prev {
+    right: 0;
+    left: auto;
+  }
+
+  .btn-kv-next {
+    left: 0;
+    right: auto;
+  }
+
+  .pull-right {
+    float: left !important;
+  }
+
+  .pull-left {
+    float: right !important;
+  }
+
+  .float-right {
+    @extend .pull-right;
+  }
+
+  .float-left {
+    @extend .pull-left;
+  }
+
+  .kv-zoom-title {
+    direction: ltr;
+  }
+
+  .krajee-default {
+    &.file-preview-frame {
+      @extend %set_float_right;
+      box-shadow: (-$border) $border multiply($border, 5) 0 $zorba;
+
+      &:not(.file-preview-error):hover {
+        box-shadow: multiply($border, -3) multiply($border, 3) multiply($border, 5) 0 $mine-shaft;
+      }
     }
 
-    .close {
-        @extend %set_float_left;
+    .file-actions {
+      @extend %set_float_left;
     }
 
-    .file-zoom-dialog {
-        @extend %set_text_right;
+    .file-other-error {
+      @extend %set_float_left;
     }
 
-    .kv-desc-hide {
-        float: left;
+    .file-drag-handle {
+      @extend %set_float_right;
     }
 
-    .file-error-message {
-        pre {
-            @extend %set_text_right;
-        }
+    .file-upload-indicator {
+      @extend %set_float_right;
+    }
+  }
 
-        ul {
-            @extend %set_text_right;
-        }
+  .kv-zoom-actions .btn-kv {
+    margin-left: 0;
+    margin-right: multiply($pad, 0.6);
+  }
+
+  .file-caption.icon-visible .file-caption-name {
+    padding-left: 0;
+    padding-right: multiply($pad, 3);
+  }
+
+  .input-group {
+    > .input-group-btn:last-child > .btn:last-child {
+      border-radius: 4px 0 0 4px !important;
     }
 
-    .file-drop-zone {
-        margin: multiply($pad, 2.4) multiply($pad, 2.4) multiply($pad, 2.4) multiply($pad, 3);
+    > .input-group-btn:first-child > .btn:first-child {
+      border-radius: 0 4px 4px 0 !important;
     }
 
-    .btn-kv-prev {
-        right: 0;
-        left: auto;
+    > .input-group-append:last-child > .btn:last-child,
+    > .btn:last-child,
+    > .form-control:last-child {
+      border-radius: 0.25rem 0 0 0.25rem !important;
     }
 
-    .btn-kv-next {
-        left: 0;
-        right: auto;
+    > .input-group-prepend:first-child > .btn:first-child,
+    > .input-group > .btn:first-child,
+    > .form-control:first-child {
+      border-radius: 0 0.25rem 0.25rem 0 !important;
     }
 
-    .pull-right {
-        float: left !important;
+    .file-caption-icon:first-child ~ .form-control:last-child {
+      border-radius: 0.25rem !important;
     }
+  }
 
-    .pull-left {
-        float: right !important;
-    }
-
-    .float-right {
-        @extend .pull-right;
-    }
-
-    .float-left {
-        @extend .pull-left;
-    }
-
-    .kv-zoom-title {
-        direction: ltr;
-    }
-
-    .krajee-default {
-        &.file-preview-frame {
-            @extend %set_float_right;
-            box-shadow: (-$border) $border multiply($border, 5) 0 $zorba;
-
-            &:not(.file-preview-error):hover {
-                box-shadow: multiply($border, -3) multiply($border, 3) multiply($border, 5) 0 $mine-shaft;
-            }
-        }
-
-        .file-actions {
-            @extend %set_float_left;
-        }
-
-        .file-other-error {
-            @extend %set_float_left;
-        }
-
-        .file-drag-handle {
-            @extend %set_float_right;
-        }
-
-        .file-upload-indicator {
-            @extend %set_float_right;
-        }
-    }
-
-    .kv-zoom-actions .btn-kv {
-        margin-left: 0;
-        margin-right: multiply($pad, 0.6);
-    }
-
-    .file-caption.icon-visible .file-caption-name {
-        padding-left: 0;
-        padding-right: multiply($pad, 3);
-    }
-
-    .input-group {
-        > .input-group-btn:last-child > .btn:last-child {
-            border-radius: 4px 0 0 4px !important;
-        }
-
-        > .input-group-btn:first-child > .btn:first-child {
-            border-radius: 0 4px 4px 0 !important;
-        }
-
-        > .input-group-append:last-child > .btn:last-child,
-        > .btn:last-child,
-        > .form-control:last-child {
-            border-radius: 0.25rem 0 0 0.25rem !important;
-        }
-
-        > .input-group-prepend:first-child > .btn:first-child,
-        > .input-group > .btn:first-child,
-        > .form-control:first-child {
-            border-radius: 0 0.25rem 0.25rem 0 !important;
-        }
-
-        .file-caption-icon:first-child ~ .form-control:last-child {
-            border-radius: 0.25rem !important;
-        }
-    }
-
-    .btn-file input[type=file] {
-        left: auto;
-        right: 0;
-        text-align: left;
-        background: none repeat scroll 100% 0 transparent;
-    }
+  .btn-file input[type=file] {
+    left: auto;
+    right: 0;
+    text-align: left;
+    background: none repeat scroll 100% 0 transparent;
+  }
 }

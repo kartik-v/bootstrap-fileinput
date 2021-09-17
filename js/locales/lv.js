@@ -9,7 +9,16 @@
  *
  * NOTE: this file must be saved in UTF-8 encoding.
  */
-(function ($) {
+(function (factory) {
+    'use strict';
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery', 'window', 'document'],factory);
+    } else if (typeof module === 'object' && typeof module.exports === 'object') {
+        factory(require('jquery'), window, document);
+    } else {
+        factory(window.jQuery, window, document);
+    }
+}(function ($, window, document, undefined) {
     "use strict";
 
     $.fn.fileinputLocales['lv'] = {
@@ -101,4 +110,4 @@
             close: 'Aizveriet detalizētu priekšskatījumu'
         }
     };
-})(window.jQuery);
+}));

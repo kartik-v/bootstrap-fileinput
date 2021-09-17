@@ -3,8 +3,10 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.2.4
 
-**Date**: 03-Sep-2021
+**Date**: _under development_
 
+- (enh #1753): Enhance NPM module handling.
+- (enh #1752): Enhance exif properties validation .
 - (enh #1750): Enhancements to file caption icon and input group styling.
 - (enh #1744): Enhance zoom cache temporary url to use loader image.
 - (enh #1741): Fix zoom cache 404 console warnings.
