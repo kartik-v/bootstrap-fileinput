@@ -5,7 +5,7 @@
     "authors": [
         "Kartik Visweswaran <kartikv2@gmail.com>"
     ],
-    "description": "An enhanced HTML 5 file input for Bootstrap 3.x with file preview, multiple selection, ajax uploads, and more features.",
+    "description": "An enhanced HTML 5 file input for Bootstrap 5.x, 4.x, and 3.x with file preview, multiple selection, ajax uploads, and more features.",
     "repository": {
         "type": "git",
         "url": "https://github.com/kartik-v/bootstrap-fileinput.git"
