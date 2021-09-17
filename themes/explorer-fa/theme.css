@@ -81,7 +81,7 @@
 .explorer-frame .file-other-icon {
     font-size: 2.6em;
 }
-.explorer-frame:hover {
+.explorer-frame:not(.kv-zoom-body):hover {
     background-color: #f5f5f5;
 }
 .theme-explorer-fa .file-preview-frame samp {

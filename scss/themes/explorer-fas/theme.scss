@@ -151,7 +151,7 @@ $pad: 5px !default;
         font-size: 2.6em;
     }
 
-    &:hover {
+    &:not(.kv-zoom-body):hover {
         background-color: $white-smoke;
     }
 }

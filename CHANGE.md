@@ -3,8 +3,9 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.2.4
 
-**Date**: _under development_
+**Date**: 17-Sep-2021
 
+- (enh #1754): Default button styling & Explorer theme enhancements.
 - (enh #1753): Enhance NPM module handling.
 - (enh #1752): Enhance exif properties validation .
 - (enh #1750): Enhancements to file caption icon and input group styling.
