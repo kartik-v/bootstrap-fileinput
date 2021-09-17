@@ -27,200 +27,200 @@ $pad: 5px !default;
 
 //operations
 @function multiply($pixels, $multiplier) {
-    @return $pixels * $multiplier;
+  @return $pixels * $multiplier;
 }
 
 .theme-explorer-fa {
-    .file-preview-frame {
-        border: multiply($pad, 0.2) solid $alto;
-        margin: multiply($pad, 0.4) 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+  .file-preview-frame {
+    border: multiply($pad, 0.2) solid $alto;
+    margin: multiply($pad, 0.4) 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-        samp {
-            font-size: 0.9rem;
-        }
+    samp {
+      font-size: 0.9rem;
     }
+  }
 
-    .file-actions {
-        text-align: center;
-    }
+  .file-actions {
+    text-align: center;
+  }
 
-    .file-upload-indicator,
-    .file-drag-handle {
-        text-align: center;
-        position: absolute;
-        display: inline-block;
-        bottom: multiply($pad, 1.6);
-        right: multiply($pad, 0.8);
-        width: multiply($pad, 3.2);
-        height: multiply($pad, 3.2);
-        font-size: multiply($pad, 3.2);
-    }
+  .file-upload-indicator,
+  .file-drag-handle {
+    text-align: center;
+    position: absolute;
+    display: inline-block;
+    bottom: multiply($pad, 1.6);
+    right: multiply($pad, 0.8);
+    width: multiply($pad, 3.2);
+    height: multiply($pad, 3.2);
+    font-size: multiply($pad, 3.2);
+  }
 
-    .explorer-frame {
-        .kv-file-content {
-            width: multiply($pad, 32);
-            height: multiply($pad, 16);
-            padding: $pad;
-            text-align: left;
-        }
+  .explorer-frame {
+    .kv-file-content {
+      width: multiply($pad, 32);
+      height: multiply($pad, 16);
+      padding: $pad;
+      text-align: left;
     }
+  }
 
-    .file-thumb-progress {
-        .progress {
-            display: block;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            margin-top: 5px;
-        }
+  .file-thumb-progress {
+    .progress {
+      display: block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-top: 5px;
     }
+  }
 
-    .explorer-caption {
-        display: block;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        padding: 5px;
-        color: $tapa;
-    }
+  .explorer-caption {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 5px;
+    color: $tapa;
+  }
 
-    .file-footer-buttons {
-        padding: 5px;
-        text-align: right;
-    }
+  .file-footer-buttons {
+    padding: 5px;
+    text-align: right;
+  }
 
-    .kvsortable-ghost {
-        opacity: 0.6;
-        background: $mystic;
-        border: multiply($pad, 0.4) solid $perano;
-    }
+  .kvsortable-ghost {
+    opacity: 0.6;
+    background: $mystic;
+    border: multiply($pad, 0.4) solid $perano;
+  }
 
-    .file-preview {
-        .table {
-            margin: 0;
-        }
+  .file-preview {
+    .table {
+      margin: 0;
     }
+  }
 
-    .file-error-message {
-        ul {
-            padding: 5px 0 0 20px;
-        }
+  .file-error-message {
+    ul {
+      padding: 5px 0 0 20px;
     }
+  }
 
-    .file-details-cell {
-        width: 60%;
-        font-size: 0.95rem;
-        text-align: left;
-        margin-right: auto;
-    }
+  .file-details-cell {
+    width: 60%;
+    font-size: 0.95rem;
+    text-align: left;
+    margin-right: auto;
+  }
 
-    .file-actions-cell {
-        position: relative;
-        height: multiply($pad, 16);
-        width: multiply($pad, 40);
-    }
+  .file-actions-cell {
+    position: relative;
+    height: multiply($pad, 16);
+    width: multiply($pad, 40);
+  }
 }
 
 .explorer-frame {
-    .file-preview-other {
-        text-align: center;
-    }
+  .file-preview-other {
+    text-align: center;
+  }
 
-    .file-preview-text {
-        display: inline-block;
-        color: $boston-blue;
-        border: 1px solid $alto;
-        font-family: $font;
-        outline: none;
-        padding: multiply($pad, 1.6);
-        resize: none;
-    }
+  .file-preview-text {
+    display: inline-block;
+    color: $boston-blue;
+    border: 1px solid $alto;
+    font-family: $font;
+    outline: none;
+    padding: multiply($pad, 1.6);
+    resize: none;
+  }
 
-    .file-preview-html {
-        display: inline-block;
-        border: 1px solid $alto;
-        padding: multiply($pad, 1.6);
-        overflow: auto;
-    }
+  .file-preview-html {
+    display: inline-block;
+    border: 1px solid $alto;
+    padding: multiply($pad, 1.6);
+    overflow: auto;
+  }
 
-    .file-other-icon {
-        font-size: 2.6em;
-    }
+  .file-other-icon {
+    font-size: 2.6em;
+  }
 
-    &:hover {
-        background-color: $white-smoke;
-    }
+  &:hover {
+    background-color: $white-smoke;
+  }
 }
 
 .file-zoom-dialog {
-    .explorer-frame {
-        .file-other-icon {
-            //noinspection CssOverwrittenProperties
-            font-size: 22em;
-            //noinspection CssOverwrittenProperties
-            font-size: 50vmin;
-        }
+  .explorer-frame {
+    .file-other-icon {
+      //noinspection CssOverwrittenProperties
+      font-size: 22em;
+      //noinspection CssOverwrittenProperties
+      font-size: 50vmin;
     }
+  }
 }
 
 @media only screen and (max-width: 1249px) {
-    .theme-explorer-fa {
-        .file-preview-frame {
-            .file-details-cell {
-                width: 40%;
-            }
-        }
+  .theme-explorer-fa {
+    .file-preview-frame {
+      .file-details-cell {
+        width: 40%;
+      }
     }
+  }
 }
 
 @media only screen and (max-width: 1023px) {
-    .theme-explorer-fa {
-        .file-preview-frame {
-            .file-details-cell {
-                width: 30%;
-            }
-        }
+  .theme-explorer-fa {
+    .file-preview-frame {
+      .file-details-cell {
+        width: 30%;
+      }
     }
+  }
 }
 
 @media only screen and (max-width: 767px) {
-    .theme-explorer-fa {
-        .file-preview-frame {
-            .file-details-cell {
-                width: multiply($pad, 40);
-            }
-        }
+  .theme-explorer-fa {
+    .file-preview-frame {
+      .file-details-cell {
+        width: multiply($pad, 40);
+      }
     }
+  }
 }
 
 @media only screen and (max-width: 575px) {
-    .theme-explorer-fa {
-        .file-preview-frame {
-            flex-direction: column;
+  .theme-explorer-fa {
+    .file-preview-frame {
+      flex-direction: column;
 
-            .kv-file-content {
-                width: auto;
-                text-align: center;
-            }
-        }
-
-        .file-details-cell {
-            width: multiply($pad, 20);
-            text-align: center;
-            margin-right: 0;
-        }
-
-        .file-actions-cell {
-            width: 100%;
-            height: auto;
-        }
-
-        .file-footer-buttons {
-            text-align: left;
-        }
+      .kv-file-content {
+        width: auto;
+        text-align: center;
+      }
     }
+
+    .file-details-cell {
+      width: multiply($pad, 20);
+      text-align: center;
+      margin-right: 0;
+    }
+
+    .file-actions-cell {
+      width: 100%;
+      height: auto;
+    }
+
+    .file-footer-buttons {
+      text-align: left;
+    }
+  }
 }

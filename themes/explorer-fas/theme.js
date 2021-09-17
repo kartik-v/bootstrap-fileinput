@@ -12,9 +12,17 @@
  * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
-(function ($) {
+(function (factory) {
     'use strict';
-    $.fn.fileinput.defaults.theme = 'explorer-fas';
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery', 'window', 'document'],factory);
+    } else if (typeof module === 'object' && typeof module.exports === 'object') {
+        factory(require('jquery'), window, document);
+    } else {
+        factory(window.jQuery, window, document);
+    }
+}(function ($, window, document, undefined) {
+    'use strict';
     $.fn.fileinputThemes['explorer-fas'] = {
         layoutTemplates: {
             footer: '<div class="file-details-cell">' +
@@ -69,4 +77,4 @@
         uploadIcon: '<i class="fas fa-upload"></i>',
         msgValidationErrorIcon: '<i class="fas fa-exclamation-circle"></i> '
     };
-})(window.jQuery);
+}));

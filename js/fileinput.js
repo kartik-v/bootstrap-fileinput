@@ -11,16 +11,13 @@
 (function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
-        define(['jquery'], factory);
+        define(['jquery', 'window', 'document'], factory);
+    } else if (typeof module === 'object' && typeof module.exports === 'object') {
+        factory(require('jquery'), window, document);
     } else {
-        if (typeof module === 'object' && module.exports) {
-            //noinspection NpmUsedModulesInstalled
-            module.exports = factory(require('jquery'));
-        } else {
-            factory(window.jQuery);
-        }
+        factory(window.jQuery, window, document);
     }
-}(function ($) {
+}(function ($, window, document, undefined) {
     'use strict';
 
     $.fn.fileinputLocales = {};
@@ -4580,7 +4577,7 @@
                 exifObj = null;
                 error = err && err.message || '';
             }
-            if (!exifObj) {
+            if (!exifObj && self.showExifErrorLog) {
                 self._log($h.logMessages.badExifParser, {details: error});
             }
             return exifObj;
@@ -4636,13 +4633,13 @@
         },
         _validateImageOrientation: function ($img, file, previewId, fileId, caption, ftype, fsize, iData) {
             var self = this, exifObj = null, value, autoOrientImage = self.autoOrientImage, selector;
+            exifObj = self._getExifObj(iData);
             if (self.canOrientImage) {
                 $img.css('image-orientation', (autoOrientImage ? 'from-image' : 'none'));
                 self._validateImage(previewId, fileId, caption, ftype, fsize, iData, exifObj);
                 return;
             }
             selector = $h.getZoomSelector(previewId, ' img');
-            exifObj = autoOrientImage ? self._getExifObj(iData) : null;
             value = exifObj ? exifObj['0th'][piexif.ImageIFD.Orientation] : null; // jshint ignore:line
             if (!value) {
                 self._validateImage(previewId, fileId, caption, ftype, fsize, iData, exifObj);
@@ -6015,6 +6012,7 @@
             return !iOSSafari;
         },
         autoOrientImageInitial: true,
+        showExifErrorLog: false,
         required: false,
         rtl: false,
         hideThumbnailContent: false,
