@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.2.4
 
-**Date**: 17-Sep-2021
+**Date**: 18-Sep-2021
 
 - (enh #1754): Default button styling & Explorer theme enhancements.
 - (enh #1753): Enhance NPM module handling.
