@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.5
+ * bootstrap-fileinput v5.2.6
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -24,8 +24,8 @@
     $.fn.fileinputThemes = {};
 
     if (!$.fn.fileinputBsVersion) {
-        $.fn.fileinputBsVersion = (window.Alert && window.Alert.VERSION) ||
-            (window.bootstrap && window.bootstrap.Alert && bootstrap.Alert.VERSION) || '3.x.x';
+        var v = (bootstrap && bootstrap.Alert && bootstrap.Alert.VERSION) || (Alert && Alert.VERSION) || '3.x.x';
+        $.fn.fileinputBsVersion = v;
     }
 
     String.prototype.setTokens = function (replacePairs) {
@@ -45,17 +45,14 @@
         };
     }
 
-    var $h, FileInput, getLoadingUrl = function () {
-        var src = document.currentScript.src, srcPath = src.substring(0, src.lastIndexOf("/"));
-        return srcPath.substring(0, srcPath.lastIndexOf("/") + 1) + 'img/loading.gif'
-    };
+    var $h, FileInput;
 
     // fileinput helper object for all global variables and internal helper methods
     $h = {
         FRAMES: '.kv-preview-thumb',
         SORT_CSS: 'file-sortable',
         INIT_FLAG: 'init-',
-        ZOOM_VAR: getLoadingUrl() + '?kvTemp__2873389129__=', // used to prevent 404 errors in URL parsing
+        SCRIPT_SRC: document && document.currentScript && document.currentScript.src || null,
         OBJECT_PARAMS: '<param name="controller" value="true" />\n' +
             '<param name="allowFullScreen" value="true" />\n' +
             '<param name="allowScriptAccess" value="always" />\n' +
@@ -87,6 +84,14 @@
 
         },
         objUrl: window.URL || window.webkitURL,
+        getZoomPlaceholder: function () { // used to prevent 404 errors in URL parsing
+            var src = $h.SCRIPT_SRC, srcPath, zoomVar = '?kvTemp__2873389129__=';
+            if (!src) {
+                return zoomVar;
+            }
+            srcPath = src.substring(0, src.lastIndexOf("/"));
+            return srcPath.substring(0, srcPath.lastIndexOf("/") + 1) + 'img/loading.gif' + zoomVar;
+        },
         isBs: function (ver) {
             var chk = $.trim(($.fn.fileinputBsVersion || '') + '');
             ver = parseInt(ver, 10);
@@ -892,6 +897,7 @@
         _init: function (options, refreshMode) {
             var self = this, f, $el = self.$element, $cont, t, tmp;
             self.options = options;
+            self.zoomPlaceholder = $h.getZoomPlaceholder();
             self.canOrientImage = $h.canOrientImage($el);
             $.each(options, function (key, value) {
                 switch (key) {
@@ -2976,7 +2982,7 @@
                 slideIn = 'slideIn' + dir, slideOut = 'slideOut' + dir, parsed, zoomData = $frame.data('zoom');
             if (zoomData) {
                 zoomData = decodeURIComponent(zoomData);
-                parsed = $zoomPreview.html().replace($h.ZOOM_VAR, '').setTokens({zoomData: zoomData});
+                parsed = $zoomPreview.html().replace(self.zoomPlaceholder, '').setTokens({zoomData: zoomData});
                 $zoomPreview.html(parsed);
                 $frame.data('zoom', '');
                 $zoomPreview.attr('data-zoom', zoomData);
@@ -4235,7 +4241,7 @@
                     'fileid': fileId || '',
                     'typeCss': typeCss,
                     'footer': footer,
-                    'data': zoom && vZoomData ? $h.ZOOM_VAR + '{zoomData}' : vData,
+                    'data': zoom && vZoomData ? self.zoomPlaceholder + '{zoomData}' : vData,
                     'template': templ || cat,
                     'style': styleAttribs ? 'style="' + styleAttribs + '"' : '',
                     'zoomData': vZoomData ? encodeURIComponent(vZoomData) : ''
