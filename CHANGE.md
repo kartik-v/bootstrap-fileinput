@@ -1,6 +1,13 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.2.5
+
+**Date**: 19-Sep-2021
+
+- (enh #1755): Simplify NPM module handling.
+
+
 ## version 5.2.4
 
 **Date**: 18-Sep-2021

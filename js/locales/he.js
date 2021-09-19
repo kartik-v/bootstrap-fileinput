@@ -12,13 +12,13 @@
 (function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
-        define(['jquery', 'window', 'document'],factory);
+        define(['jquery'], factory);
     } else if (typeof module === 'object' && typeof module.exports === 'object') {
-        factory(require('jquery'), window, document);
+        factory(require('jquery'));
     } else {
-        factory(window.jQuery, window, document);
+        factory(window.jQuery);
     }
-}(function ($, window, document, undefined) {
+}(function ($) {
     "use strict";
 
     $.fn.fileinputLocales['he'] = {
