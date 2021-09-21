@@ -24,8 +24,8 @@
     $.fn.fileinputThemes = {};
 
     if (!$.fn.fileinputBsVersion) {
-        var v = (bootstrap && bootstrap.Alert && bootstrap.Alert.VERSION) || (Alert && Alert.VERSION) || '3.x.x';
-        $.fn.fileinputBsVersion = v;
+        $.fn.fileinputBsVersion = (window.bootstrap && window.bootstrap.Alert && window.bootstrap.Alert.VERSION) ||
+            (window.Alert && window.Alert.VERSION) || '3.x.x';
     }
 
     String.prototype.setTokens = function (replacePairs) {
