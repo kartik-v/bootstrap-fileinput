@@ -1,6 +1,13 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.2.6
+
+**Date**: 23-Sep-2021
+
+- (bug #1758): Correct bootstrap module parser.
+- (enh #1756): Replace `getLoadingUrl` to a new `$h.getZoomPlaceholder` method.
+
 ## version 5.2.5
 
 **Date**: 19-Sep-2021
