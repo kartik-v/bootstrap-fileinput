@@ -1,48 +1,48 @@
 {
-    "name": "bootstrap-fileinput",
-    "version": "5.2.6",
-    "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
-    "authors": [
-        "Kartik Visweswaran <kartikv2@gmail.com>"
-    ],
-    "description": "An enhanced HTML 5 file input for Bootstrap 5.x, 4.x, and 3.x with file preview, multiple selection, ajax uploads, and more features.",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/kartik-v/bootstrap-fileinput.git"
-    },
-    "bugs": {
-        "url": "https://github.com/kartik-v/bootstrap-fileinput/issues"
-    },
-    "keywords": [
-        "file",
-        "input",
-        "preview",
-        "image",
-        "upload",
-        "ajax",
-        "multiple",
-        "delete",
-        "progress",
-        "gallery"
-    ],
-    "dependencies": {
-        "bootstrap": ">= 3.4.1",
-        "jquery": ">= 1.9.0",
-        "opencollective-postinstall": "^2.0.2"
-    },
-    "main": "./js/fileinput.js",
-    "style": "./css/fileinput.css",
-    "sass": "scss/fileinput.scss",
-    "peerDependencies": {
-        "jquery": ">= 1.9.0",
-        "bootstrap": ">= 3.0.0"
-    },
-    "license": "BSD-3-Clause",
-    "collective": {
-        "type": "opencollective",
-        "url": "https://opencollective.com/bootstrap-fileinput"
-    },
-    "scripts": {
-        "postinstall": "opencollective-postinstall || true"
-    }
+  "name": "bootstrap-fileinput",
+  "version": "5.2.6",
+  "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
+  "authors": [
+    "Kartik Visweswaran <kartikv2@gmail.com>"
+  ],
+  "description": "An enhanced HTML 5 file input for Bootstrap 5.x, 4.x, and 3.x with file preview, multiple selection, ajax uploads, and more features.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kartik-v/bootstrap-fileinput.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kartik-v/bootstrap-fileinput/issues"
+  },
+  "keywords": [
+    "file",
+    "input",
+    "preview",
+    "image",
+    "upload",
+    "ajax",
+    "multiple",
+    "delete",
+    "progress",
+    "gallery"
+  ],
+  "dependencies": {
+    "bootstrap": ">= 3.4.1",
+    "jquery": ">= 1.9.0",
+    "opencollective-postinstall": "^2.0.2"
+  },
+  "main": "./js/fileinput.js",
+  "style": "./css/fileinput.css",
+  "sass": "scss/fileinput.scss",
+  "peerDependencies": {
+    "jquery": ">= 1.9.0",
+    "bootstrap": ">= 3.0.0"
+  },
+  "license": "BSD-3-Clause",
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/bootstrap-fileinput"
+  },
+  "scripts": {
+    "postinstall": "opencollective-postinstall || true"
+  }
 }
