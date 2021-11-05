@@ -274,17 +274,12 @@ input[type=file].file-loading {
     padding: 6px;
     float: left;
     text-align: center;
+
 }
 
 .krajee-default.file-preview-frame .kv-file-content {
     width: 213px;
     height: 160px;
-}
-
-.krajee-default .file-preview-other-frame {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .krajee-default.file-preview-frame .kv-file-content.kv-pdf-rendered {
@@ -406,7 +401,7 @@ input[type=file].file-loading {
     height: 2.4rem;
     top: 50%;
     border-radius: 50%;
-    text-align:center;
+    text-align: center;
 }
 
 .btn-navigate * {
@@ -438,7 +433,7 @@ input[type=file].file-loading {
 }
 
 .file-zoom-dialog .kv-zoom-body {
-    padding: 0.25rem 0.5rem 0.25rem 0;
+    padding: 0.25rem;
 }
 
 .file-zoom-dialog .kv-zoom-description {
@@ -568,15 +563,6 @@ input[type=file].file-loading {
     background: transparent;
 }
 
-.file-zoom-content > * {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.file-zoom-content .kv-spacer {
-    height: 100%;
-}
-
 .file-zoom-content .file-preview-image {
     max-height: 100%;
 }
@@ -668,4 +654,10 @@ input[type=file].file-loading {
 
 .file-preview .kv-zoom-cache {
     display: none;
+}
+
+.file-preview-other-frame, .file-preview-object, .kv-zoom-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

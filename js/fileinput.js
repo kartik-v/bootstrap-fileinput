@@ -2989,7 +2989,7 @@
             }
             tmplt = $zoomPreview.attr('data-template') || 'generic';
             $content = $zoomPreview.find('.kv-file-content');
-            body = $content.length ? '<span class="kv-spacer"></span>\n' + $content.html() : '';
+            body = $content.length ? $content.html() : '';
             cap = $frame.data('caption') || self.msgZoomModalHeading;
             size = $frame.data('size') || '';
             desc = $frame.data('description') || '';
@@ -6132,7 +6132,7 @@
             skipErrorsAndProceed: false // when set to true, files with errors will be skipped and upload will continue with other files
         },
         uploadExtraData: {},
-        zoomModalHeight: 480,
+        zoomModalHeight: 485, // 5px more than the default preview content heights set for text, html, pdf etc.
         minImageWidth: null,
         minImageHeight: null,
         maxImageWidth: null,

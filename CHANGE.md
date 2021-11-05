@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1763): Preview centering enhancements for thumbnail, object and zoom content.
 - (bug #1758): Correct bootstrap module parser.
 
 ## version 5.2.6
