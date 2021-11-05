@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.2.7
+
+**Date**: _under development_
+
+- (bug #1758): Correct bootstrap module parser.
+
 ## version 5.2.6
 
 **Date**: 23-Sep-2021

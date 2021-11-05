@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.6
+ * bootstrap-fileinput v5.2.7
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -2689,12 +2689,12 @@
             }
             if (!self.isAjaxUpload) {
                 if (isEnabled && $btn.attr('type') !== 'submit') {
+                    e.preventDefault();
                     $form = $btn.closest('form');
                     // downgrade to normal form submit if possible
                     if ($form.length) {
                         $form.trigger('submit');
                     }
-                    e.preventDefault();
                 }
                 return;
             }
@@ -3097,15 +3097,15 @@
             });
         },
         _showModal: function ($frame) {
-            var self = this, $modal = self.$modal, bs5Modal;
+            var self = this, $modal = self.$modal;
             if (!$frame || !$frame.length) {
                 return;
             }
             $h.initModal($modal);
             $h.setHtml($modal, self._getModalContent());
             self._setZoomContent($frame);
-            $modal.data({backdrop: false});
-            //$modal.data('fileinputPluginId', self.$element.attr('id'));
+            $modal.data({backdrop: false, fileinputPluginId: self.$element.attr('id')});
+            $modal.find('.kv-zoom-body').css('height', self.zoomModalHeight);
             $modal.modal('show');
             self._initZoomButtons();
         },
