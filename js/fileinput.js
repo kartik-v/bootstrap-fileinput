@@ -2197,7 +2197,7 @@
                         sDrg = $h.ifSet('showDrag', config, $h.ifSet('showDrag', fs, true)),
                         dis = (url === false) && isDisabled;
                     sDwl = sDwl && config.downloadUrl !== false && !!dUrl;
-                    a = self._renderFileActions(config, false, sDwl, sDel, sZm, sDrg, dis, url, key, true, dUrl, dFil);
+                    a = self._renderFileActions(config, false,sDwl, sDel, sZm, sDrg, dis, url, key, true, dUrl, dFil);
                     return self._getLayoutTemplate('footer').setTokens({
                         'progress': self._renderThumbProgress(),
                         'actions': a,

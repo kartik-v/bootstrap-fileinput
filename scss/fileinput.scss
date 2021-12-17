@@ -540,13 +540,6 @@ input[type=file].file-loading {
     right: 0;
   }
 
-  .kv-zoom-caption {
-    max-width: 50%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
   .kv-zoom-header {
     padding: 0.5rem;
   }
@@ -710,6 +703,10 @@ input[type=file].file-loading {
     margin-left: multiply($pad, 0.6);
     z-index: 3000;
   }
+}
+
+.kv-zoom-actions {
+  min-width: 140px;
 }
 
 .kv-zoom-actions .btn-kv {

@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.2.7
 
-**Date**: _under development_
+**Date**: 17-Dec-2021
 
 - (enh #1767): Enhance ajax task queuing to validate `maxAjaxThreads` correctly. 
    - enhancement for async uploads (with correct firing of events `filebatchuploadsuccess` and `filebatchuploaderror`)
