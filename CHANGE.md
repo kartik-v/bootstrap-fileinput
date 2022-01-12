@@ -1,6 +1,13 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.2.8
+
+**Date**: _under development_
+
+- (bug #1773): Fix blank preview issue for large files > `maxFilePreviewSize`.
+- (enh #1771): Human readable sizes in messages like `msgSizeTooLarge`.
+
 ## version 5.2.7
 
 **Date**: 17-Dec-2021
