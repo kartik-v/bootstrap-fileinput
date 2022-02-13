@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1777): Ensure `alt` property for image is applied via intial preview config if set.
+- (bug #1775): Correct syntax error for Danish translations.
 - (bug #1773): Fix blank preview issue for large files > `maxFilePreviewSize`.
 - (enh #1771): Human readable sizes in messages like `msgSizeTooLarge`.
 

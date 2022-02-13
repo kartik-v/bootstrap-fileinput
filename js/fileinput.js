@@ -1,9 +1,9 @@
 /*!
- * bootstrap-fileinput v5.2.8
+ * bootstrap-fileinput v5.2.7
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2022, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2021, Kartik Visweswaran, Krajee.com
  *
  * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
@@ -1085,7 +1085,7 @@
                         loaded: loaded,
                         total: total,
                         bps: fm.bps,
-                        bitrate: self._getSize(fm.bps, false, self.bitRateUnits),
+                        bitrate: self._getSize(fm.bps, self.bitRateUnits),
                         pendingBytes: pendingBytes
                     };
                     if (id) {
@@ -2197,7 +2197,7 @@
                         sDrg = $h.ifSet('showDrag', config, $h.ifSet('showDrag', fs, true)),
                         dis = (url === false) && isDisabled;
                     sDwl = sDwl && config.downloadUrl !== false && !!dUrl;
-                    a = self._renderFileActions(config, false, sDwl, sDel, sZm, sDrg, dis, url, key, true, dUrl, dFil);
+                    a = self._renderFileActions(config, false,sDwl, sDel, sZm, sDrg, dis, url, key, true, dUrl, dFil);
                     return self._getLayoutTemplate('footer').setTokens({
                         'progress': self._renderThumbProgress(),
                         'actions': a,
@@ -4164,31 +4164,25 @@
             var self = this;
             $h.addCss(self.$captionContainer, 'icon-visible');
         },
-        _getSize: function (bytes, skipTemplate, sizeUnits) {
-            var self = this, size = parseFloat(bytes), i = 0, factor = self.bytesToKB, func = self.fileSizeGetter, out,
-                sizeHuman = size;
+        _getSize: function (bytes, sizes) {
+            var self = this, size = parseFloat(bytes), i, func = self.fileSizeGetter, out;
             if (!$.isNumeric(bytes) || !$.isNumeric(size)) {
                 return '';
             }
             if (typeof func === 'function') {
                 out = func(size);
             } else {
-                if (size > 0) {
-                    if (!sizeUnits) {
-                        sizeUnits = self.sizeUnits;
+                if (size === 0) {
+                    out = '0.00 B';
+                } else {
+                    if (!sizes) {
+                        sizes = self.sizeUnits;
                     }
-                    while (sizeHuman >= factor) {
-                        sizeHuman /= factor;
-                        ++i;
-                    }
-                    if (!sizeUnits[i]) {
-                        sizeHuman = size;
-                        i = 0;
-                    }
+                    i = Math.floor(Math.log(size) / Math.log(self.bytesToKB));
+                    out = (size / Math.pow(self.bytesToKB, i)).toFixed(2) + ' ' + sizes[i];
                 }
-                out = sizeHuman.toFixed(2) + ' ' + sizeUnits[i];
             }
-            return skipTemplate ? out : self._getLayoutTemplate('size').replace('{sizeText}', out);
+            return self._getLayoutTemplate('size').replace('{sizeText}', out);
         },
         _getFileType: function (ftype) {
             var self = this;
@@ -4248,7 +4242,7 @@
                         title = attrs.title;
                     }
                     if (attrs.alt !== undefined && attrs.alt !== null) {
-                        title = attrs.alt;
+                        alt = title = attrs.alt;
                     }
                 }
                 tokens = {
@@ -5341,8 +5335,8 @@
                     self._setLoading('show');
                 }).on('focusin.fileinput', function () {
                     setTimeout(function () {
-                        self._setLoading('hide');
                         if (!$el.val()) {
+                            self._setLoading('hide');
                             self._setFileDropZoneTitle();
                         }
                         $body.off(ev);
@@ -5422,9 +5416,9 @@
                     return;
                 }
                 self.lock(true);
-                var file = files[i], id = self._getFileId(file), previewId = previewInitId + '-' + id, j, msg, chk, typ,
-                    fSize = (file && file.size || 0), sizeHuman = self._getSize(fSize, true), fnImage = settings.image,
-                    typ1, typ2, caption = self._getFileName(file, ''), fileSize = fSize / self.bytesToKB,
+                var file = files[i], id = self._getFileId(file), previewId = previewInitId + '-' + id, fSizeKB, j, msg,
+                    fnImage = settings.image, typ, chk, typ1, typ2,
+                    caption = self._getFileName(file, ''), fileSize = (file && file.size || 0) / self.bytesToKB,
                     fileExtExpr = '', previewData = $h.createObjectURL(file), fileCount = 0,
                     strTypes = '', fileId, canLoad, fileReaderAborted = false,
                     func, knownTypes = 0, isImage, txtFlag, processFileLoaded = function () {
@@ -5472,13 +5466,14 @@
                 if (!$h.isEmpty(fileExt)) {
                     fileExtExpr = new RegExp('\\.(' + fileExt.join('|') + ')$', 'i');
                 }
+                fSizeKB = fileSize.toFixed(2);
                 if (self.isAjaxUpload && fm.exists(fileId) || self._getFrame(previewId, true).length) {
                     var p2 = {id: previewId, index: i, fileId: fileId, file: file, files: files};
-                    msg = self.msgDuplicateFile.setTokens({name: caption, size: sizeHuman});
+                    msg = self.msgDuplicateFile.setTokens({name: caption, size: fSizeKB});
                     if (self.isAjaxUpload) {
                         self.duplicateErrors.push(msg);
                         self.isDuplicateError = true;
-                        self._raise('fileduplicateerror', [file, fileId, caption, sizeHuman, previewId, i]);
+                        self._raise('fileduplicateerror', [file, fileId, caption, fSizeKB, previewId, i]);
                         readFile(i + 1);
                         self._updateFileDetails(numFiles);
                     } else {
@@ -5494,8 +5489,8 @@
                 if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
                     msg = self.msgSizeTooLarge.setTokens({
                         'name': caption,
-                        'size': sizeHuman,
-                        'maxSize': self._getSize(self.maxFileSize * self.bytesToKB, true)
+                        'size': fSizeKB,
+                        'maxSize': self.maxFileSize
                     });
                     throwError(msg, file, previewId, i, fileId);
                     return;
@@ -5503,8 +5498,8 @@
                 if (self.minFileSize !== null && fileSize <= $h.getNum(self.minFileSize)) {
                     msg = self.msgSizeTooSmall.setTokens({
                         'name': caption,
-                        'size': sizeHuman,
-                        'minSize': self._getSize(self.minFileSize * self.bytesToKB, true)
+                        'size': fSizeKB,
+                        'minSize': self.minFileSize
                     });
                     throwError(msg, file, previewId, i, fileId);
                     return;
@@ -5532,7 +5527,7 @@
                     }
                 }
                 if (!self._canPreview(file)) {
-                    canLoad = self._raise('filebeforeload', [file, i, reader]);
+                    canLoad = self.isAjaxUpload && self._raise('filebeforeload', [file, i, reader]);
                     if (self.isAjaxUpload && canLoad) {
                         fm.add(file);
                     }
@@ -6252,8 +6247,8 @@
         msgPlaceholder: 'Select {files} ...',
         msgZoomModalHeading: 'Detailed Preview',
         msgFileRequired: 'You must select a file to upload.',
-        msgSizeTooSmall: 'File "{name}" (<b>{size}</b>) is too small and must be larger than <b>{minSize}</b>.',
-        msgSizeTooLarge: 'File "{name}" (<b>{size}</b>) exceeds maximum allowed upload size of <b>{maxSize}</b>.',
+        msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
+        msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',
         msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
@@ -6298,7 +6293,7 @@
         msgImageResizeException: 'Error while resizing the image.<pre>{errors}</pre>',
         msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
         msgAjaxProgressError: '{operation} failed',
-        msgDuplicateFile: 'File "{name}" of same size "{size}" has already been selected earlier. Skipping duplicate selection.',
+        msgDuplicateFile: 'File "{name}" of same size "{size} KB" has already been selected earlier. Skipping duplicate selection.',
         msgResumableUploadRetriesExceeded: 'Upload aborted beyond <b>{max}</b> retries for file <b>{file}</b>! Error Details: <pre>{error}</pre>',
         msgPendingTime: '{time} remaining',
         msgCalculatingTime: 'calculating time remaining',
