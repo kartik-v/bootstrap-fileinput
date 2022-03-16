@@ -2197,7 +2197,7 @@
                         sDrg = $h.ifSet('showDrag', config, $h.ifSet('showDrag', fs, true)),
                         dis = (url === false) && isDisabled;
                     sDwl = sDwl && config.downloadUrl !== false && !!dUrl;
-                    a = self._renderFileActions(config, false,sDwl, sDel, sZm, sDrg, dis, url, key, true, dUrl, dFil);
+                    a = self._renderFileActions(config, false, sDwl, sDel, sZm, sDrg, dis, url, key, true, dUrl, dFil);
                     return self._getLayoutTemplate('footer').setTokens({
                         'progress': self._renderThumbProgress(),
                         'actions': a,
@@ -2335,10 +2335,24 @@
             $error.fadeIn(self.fadeDelay);
             self._raise('filefoldererror', [folders, msg]);
         },
+        showUserError: function (msg, params) {
+            var self = this, fileName;
+            if (!params || !params.fileId) {
+                self.$errorContainer.html('');
+            } else {
+                self.$errorContainer.find('[data-file-id="' + params.fileId + '"]').remove();
+                fileName = self.fileManager.getFileName(params.fileId);
+                if (fileName) {
+                    msg = '<b>' + fileName + ':</b> ' + msg;
+                }
+            }
+            self._showFileError(msg, params, 'fileusererror');
+        },
         _showFileError: function (msg, params, event) {
             var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror',
                 fId = params && params.fileId || '', e = params && params.id ?
-                '<li data-thumb-id="' + params.id + '" data-file-id="' + fId + '">' + msg + '</li>' : '<li>' + msg + '</li>';
+                '<li data-thumb-id="' + params.id + '" data-file-id="' + fId + '">' + msg + '</li>' :
+                '<li>' + msg + '</li>';
 
             if ($error.find('ul').length === 0) {
                 self._addError('<ul>' + e + '</ul>');
@@ -2470,9 +2484,6 @@
                 case 'filereset':
                 case 'fileerror':
                 case 'filefoldererror':
-                case 'fileuploaderror':
-                case 'filebatchuploaderror':
-                case 'filedeleteerror':
                 case 'filecustomerror':
                 case 'filesuccessremove':
                     break;

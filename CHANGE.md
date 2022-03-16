@@ -6,6 +6,20 @@ Change Log: `bootstrap-fileinput`
 **Date**: _under development_
 
 - (enh #1782): Correct loading indicator reset for file selection.
+- (enh #1779): New plugin method `showUserError` and new event `fileusererror`. 
+  Usage:
+```js
+var $input = $('#file-input-id');
+$input.on('fileuploaderror', function(event, data) {
+  var userMessage = 'We could not process the upload because of a server error.';
+
+  // to show error specific to each file pass `data` as received above (the `data` object must contain the `fileId` property)
+  $input.fileinput('showUserError', userMessage, data);
+
+  // to show a constant global error not specific to each file do not pass `data` (uncomment below line to achieve this)
+  // $input.fileinput('showUserError', userMessage); 
+});
+```
 - (enh #1777): Ensure `alt` property for image is applied via intial preview config if set.
 - (bug #1775): Correct syntax error for Danish translations.
 - (bug #1773): Fix blank preview issue for large files > `maxFilePreviewSize`.

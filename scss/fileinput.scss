@@ -204,6 +204,10 @@ input[type=file].file-loading {
 .file-caption {
   @extend %set-relative;
 
+  .input-group {
+    align-items: center;
+  }
+
   .file-caption-name {
     width: 100%;
     margin: 0;

@@ -50,6 +50,10 @@ input[type=file].file-loading {
     display: none;
 }
 
+.file-caption .input-group {
+    align-items: center;
+}
+
 .btn-file input[type=file],
 .file-caption-icon,
 .file-preview .fileinput-remove,
