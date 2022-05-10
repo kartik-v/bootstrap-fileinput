@@ -4581,24 +4581,22 @@
             $btn.attr('title', title);
             $h.setHtml($btn, icon);
         },
-        _checkDimensions: function (i, chk, $img, $thumb, fname, type, params) {
-            var self = this, msg, dim, tag = chk === 'Small' ? 'min' : 'max', attr = tag + 'Image' + type,
-                limit = self[attr], $imgEl, isValid;
-            if ($h.isEmpty(limit) || !$img.length) {
+        _isValidSize: function (size, type, $image, $thumb, filename, params) {
+            var self = this, msg, dim, $img, tag = size === 'Small' ? 'min' : 'max', limit = self[tag + 'Image' + type];
+            if ($h.isEmpty(limit) || !$image.length) {
                 return true;
             }
-            $imgEl = $img[0];
-            dim = (type === 'Width') ? $imgEl.naturalWidth || $imgEl.width : $imgEl.naturalHeight || $imgEl.height;
-            isValid = chk === 'Small' ? dim >= limit : dim <= limit;
-            if (isValid) {
+            $img = $image[0];
+            dim = (type === 'Width') ? $img.naturalWidth || $img.width : $img.naturalHeight || $img.height;
+            if (size === 'Small' ? dim >= limit : dim <= limit) {
                 return true;
             }
-            msg = self['msgImage' + type + chk].setTokens({'name': fname, 'size': limit});
-            self._showFileError(msg, params);
+            msg = self['msgImage' + type + size] || 'Image "{name}" has a size validation error (limit "{size}").';
+            self._showFileError(msg.setTokens({'name': filename, 'size': limit, 'dimension': dim}), params);
             self._setPreviewError($thumb);
             self.fileManager.remove($thumb);
             self._clearFileInput();
-            return isValid;
+            return false;
         },
         _getExifObj: function (data) {
             var self = this, exifObj, error = $h.logMessages.exifWarning;
@@ -4701,11 +4699,11 @@
                 params = {ind: i, id: previewId, fileId: fileId};
                 setTimeout(function () {
                     var isValidWidth, isValidHeight;
-                    isValidWidth = self._checkDimensions(i, 'Small', $img, $thumb, fname, 'Width', params);
-                    isValidHeight = self._checkDimensions(i, 'Small', $img, $thumb, fname, 'Height', params);
+                    isValidWidth = self._isValidSize('Small', 'Width', $img, $thumb, fname, params);
+                    isValidHeight = self._isValidSize('Small', 'Height', $img, $thumb, fname, params);
                     if (!self.resizeImage) {
-                        isValidWidth = isValidWidth ? self._checkDimensions(i, 'Large', $img, $thumb, fname, 'Width', params) : false;
-                        isValidHeight = isValidHeight ? self._checkDimensions(i, 'Large', $img, $thumb, fname, 'Height', params) : false;
+                        isValidWidth = isValidWidth && self._isValidSize('Large', 'Width', $img, $thumb, fname, params);
+                        isValidHeight = isValidHeight && self._isValidSize('Large', 'Height', $img, $thumb, fname,  params);
                     }
                     self._raise('fileimageloaded', [previewId]);
                     $thumb.data('exif', exifObj);
@@ -6309,10 +6307,10 @@
         msgSelected: '{n} {files} selected',
         msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: 'Drag & drop files only! {n} folder(s) dropped were skipped.',
-        msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
-        msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
-        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
-        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
+        msgImageWidthSmall: 'Width of image file "{name}" must be at least <b>{size} px</b> (detected <b>{dimension} px</b>).',
+        msgImageHeightSmall: 'Height of image file "{name}" must be at least <b>{size} px</b> (detected <b>{dimension} px</b>).',
+        msgImageWidthLarge: 'Width of image file "{name}" cannot exceed <b>{size} px</b> (detected <b>{dimension} px</b>).',
+        msgImageHeightLarge: 'Height of image file "{name}" cannot exceed <b>{size} px</b> (detected <b>{dimension} px</b>).',
         msgImageResizeError: 'Could not get the image dimensions to resize.',
         msgImageResizeException: 'Error while resizing the image.<pre>{errors}</pre>',
         msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',

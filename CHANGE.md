@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1787): Enhance image size validation messages.
 - (enh #1786): Correct Uzbek Cyrillic Translation file name.
 - (enh #1784): Correct documentation for `layoutTemplates.fileIcon`.
 - (bug #1783): Correct image size validation checks (for min and max width/height).
