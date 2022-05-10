@@ -5195,6 +5195,7 @@
                 if (total > maxCount) {
                     self._resetPreviewThumbs(isAjaxUpload);
                 }
+
             } else {
                 if (inclAll) {
                     total = self._getFileCount(initCount, true);
@@ -5218,6 +5219,14 @@
                         self._resetPreviewThumbs(true);
                     }
                 }
+            }
+            if (self.autoReplace) {
+                self._getThumbs().each(function() {
+                    var $thumb = $(this);
+                    if ($thumb.hasClass('file-preview-success') || $thumb.hasClass('file-preview-error')) {
+                        $thumb.remove();
+                    }
+                });
             }
             self.readFiles(tfiles);
             self._toggleLoading('hide');

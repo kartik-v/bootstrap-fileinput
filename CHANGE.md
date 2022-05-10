@@ -3,13 +3,14 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.2.8
 
-**Date**: _under development_
+**Date**: 10-May-2022
 
 - (enh #1787): Enhance image size validation messages.
 - (enh #1786): Correct Uzbek Cyrillic Translation file name.
 - (enh #1784): Correct documentation for `layoutTemplates.fileIcon`.
 - (bug #1783): Correct image size validation checks (for min and max width/height).
 - (enh #1782): Correct loading indicator reset for file selection.
+- (bug #1780): Correct `autoReplace` behavior to clear already uploaded thumbnails.
 - (enh #1779): New plugin method `showUserError` and new event `fileusererror`. 
   Usage:
 ```js
