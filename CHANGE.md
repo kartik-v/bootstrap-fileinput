@@ -5,6 +5,9 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1786): Correct Uzbek Cyrillic Translation file name.
+- (enh #1784): Correct documentation for `layoutTemplates.fileIcon`.
+- (bug #1783): Correct image size validation checks (for min and max width/height).
 - (enh #1782): Correct loading indicator reset for file selection.
 - (enh #1779): New plugin method `showUserError` and new event `fileusererror`. 
   Usage:
