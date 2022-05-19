@@ -1,6 +1,25 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.2.9
+
+**Date**: _under development_
+
+- (enh #1788): Enhancements to `showUserError` method.
+  - New 3rd parameter `retainErrorHistory` which allows you to retain previous errors (defaults to false) 
+```js
+var $input = $('#file-input-id');
+$input.on('fileuploaderror', function(event, data) {
+  var userMessage = 'We could not process the upload because of a server error.',
+      retainErrorHistory = true; // whether to retain error history
+  // to show error specific to each file pass `data` as received above (the `data` object must contain the `fileId` property)
+  $input.fileinput('showUserError', userMessage, data, retainErrorHistory);
+
+  // to show a constant global error not specific to each file do not pass `data` (uncomment below line to achieve this)
+  // $input.fileinput('showUserError', userMessage); 
+});
+```
+
 ## version 5.2.8
 
 **Date**: 10-May-2022

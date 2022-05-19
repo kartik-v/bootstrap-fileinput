@@ -1,9 +1,9 @@
 /*!
- * bootstrap-fileinput v5.2.7
+ * bootstrap-fileinput v5.2.9
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2021, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2022, Kartik Visweswaran, Krajee.com
  *
  * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
@@ -2335,12 +2335,19 @@
             $error.fadeIn(self.fadeDelay);
             self._raise('filefoldererror', [folders, msg]);
         },
-        showUserError: function (msg, params) {
+        showUserError: function (msg, params, retainErrorHistory) {
             var self = this, fileName;
+            if (!self.uploadInitiated) {
+                return;
+            }
             if (!params || !params.fileId) {
-                self.$errorContainer.html('');
+                if (!retainErrorHistory) {
+                    self.$errorContainer.html('');
+                }
             } else {
-                self.$errorContainer.find('[data-file-id="' + params.fileId + '"]').remove();
+                if (!retainErrorHistory) {
+                    self.$errorContainer.find('[data-file-id="' + params.fileId + '"]').remove();
+                }
                 fileName = self.fileManager.getFileName(params.fileId);
                 if (fileName) {
                     msg = '<b>' + fileName + ':</b> ' + msg;
@@ -3226,6 +3233,7 @@
         },
         _resetUpload: function () {
             var self = this;
+            self.uploadInitiated = false;
             self.uploadStartTime = $h.now();
             self.uploadCache = [];
             self.$btnUpload.removeAttr('disabled');
@@ -3619,6 +3627,7 @@
             if (self.enableResumableUpload) { // not enabled for resumable uploads
                 return;
             }
+            self.uploadInitiated = true;
             if (self.showPreview) {
                 $thumb = fm.getThumb(id);
                 $prog = $thumb.find('.file-thumb-progress');
@@ -3665,6 +3674,7 @@
                     }
                     self._setProgress(101);
                     self.ajaxAborted = false;
+                    self.uploadInitiated = false;
                 }, self.processDelay);
             };
             fnBefore = function (jqXHR) {
@@ -5922,6 +5932,7 @@
                 return;
             }
             self.cancelling = false;
+            self.uploadInitiated = true;
             self._showProgress();
             self.lock();
             if (totLen === 0 && hasExtraData) {
