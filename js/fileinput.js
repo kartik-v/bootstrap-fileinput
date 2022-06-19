@@ -267,7 +267,7 @@
                 return value.length === 0;
             }
             if ($.isPlainObject(value) && $.isEmptyObject(value)) {
-                return true
+                return true;
             }
             return false;
         },
@@ -427,6 +427,13 @@
             return false;
         },
         isSvg: function (str) {
+            if ($h.isEmpty(str)) {
+                return false;
+            }
+            str = str.toString().trim().replace(/\n/g, ' ');
+            if (str.length === 0) {
+                return false;
+            }
             return str.match(/^\s*<\?xml/i) && (str.match(/<!DOCTYPE svg/i) || str.match(/<svg/i));
         },
         getMimeType: function (signature, contents, type) {
@@ -1700,7 +1707,7 @@
                 '      {upload}\n' +
                 '      {browse}\n' +
                 ($h.isBs(5) ? '' : '    </div>\n') +
-                '  </div>'
+                '  </div>';
             '</div>';
             tMain2 = '{preview}\n<div class="kv-upload-progress kv-hidden"></div>\n<div class="clearfix"></div>\n' +
                 '<span class="{class}">{remove}\n{cancel}\n{upload}\n{browse}\n</span>';
@@ -2547,7 +2554,7 @@
             if (self.showBrowse) {
                 self._handler(self.$btnFile, 'click', $.proxy(self._browse, self));
                 self._handler(self.$btnFile, 'keypress', function (e) {
-                    var keycode = e.keyCode || e.which
+                    var keycode = e.keyCode || e.which;
                     if (keycode === 13) {
                         $el.trigger('click');
                         self._browse(e);
@@ -4005,7 +4012,7 @@
                             cfg = self.initialPreviewConfig[0];
                             cap = '';
                             if (cfg) {
-                                cap = cfg.caption || cfg.filename || ''
+                                cap = cfg.caption || cfg.filename || '';
                             }
                             if (!cap) {
                                 cap = self._getMsgSelected(n);
@@ -4337,9 +4344,9 @@
             if (!this.showPreview) {
                 return;
             }
-            var self = this, fname = $h.getFileName(file), ftype = fileInfo.type, caption = fileInfo.name,
-                cat = self._parseFileType(ftype, fname), content, $preview = self.$preview, fsize = file.size || 0,
-                iData = cat === 'image' ? theFile.target.result : data, fm = self.fileManager,
+            var self = this, fname = fileInfo.filename || $h.getFileName(file), ftype = fileInfo.type, content,
+                caption = fileInfo.name, cat = self._parseFileType(ftype, fname), $preview = self.$preview,
+                fsize = file.size || 0, iData = cat === 'image' ? theFile.target.result : data, fm = self.fileManager,
                 fileId = fm.getId(file), previewId = self._getThumbId(fileId);
             /** @namespace window.DOMPurify */
             content = self._generatePreviewTemplate(cat, iData, fname, ftype, previewId, fileId, false, fsize);
@@ -4723,7 +4730,7 @@
                     isValidHeight = self._isValidSize('Small', 'Height', $img, $thumb, fname, params);
                     if (!self.resizeImage) {
                         isValidWidth = isValidWidth && self._isValidSize('Large', 'Width', $img, $thumb, fname, params);
-                        isValidHeight = isValidHeight && self._isValidSize('Large', 'Height', $img, $thumb, fname,  params);
+                        isValidHeight = isValidHeight && self._isValidSize('Large', 'Height', $img, $thumb, fname, params);
                     }
                     self._raise('fileimageloaded', [previewId]);
                     $thumb.data('exif', exifObj);
@@ -5241,7 +5248,7 @@
                 }
             }
             if (self.autoReplace) {
-                self._getThumbs().each(function() {
+                self._getThumbs().each(function () {
                     var $thumb = $(this);
                     if ($thumb.hasClass('file-preview-success') || $thumb.hasClass('file-preview-error')) {
                         $thumb.remove();
@@ -5470,9 +5477,10 @@
                 var file = files[i], id = self._getFileId(file), previewId = previewInitId + '-' + id,
                     fSize = (file && file.size || 0), sizeHuman = self._getSize(fSize, true), j, msg,
                     fnImage = settings.image, chk, typ, typ1, typ2, caption = self._getFileName(file, ''),
-                    fileSize = fSize / self.bytesToKB, fileExtExpr = '', previewData = $h.createObjectURL(file), fileCount = 0,
+                    fileSize = fSize / self.bytesToKB, fileExtExpr = '', previewData = $h.createObjectURL(file),
+                    fileCount = 0,
                     strTypes = '', fileId, canLoad, fileReaderAborted = false,
-                    func, knownTypes = 0, isImage, txtFlag, processFileLoaded = function () {
+                    func, knownTypes = 0, isImage, processFileLoaded = function () {
                         var isImageResized = !!fm.loadedImages[id], msg = msgProgress.setTokens({
                             'index': i + 1,
                             'files': numFiles,
@@ -5604,66 +5612,79 @@
                     self._errorHandler(evt, caption);
                 };
                 reader.onload = function (theFile) {
-                    var hex, fileInfo, uint, byte, bytes = [], contents, mime, readImage = function () {
-                        var newReader = new FileReader();
-                        newReader.onerror = function (theFileNew) {
-                            self._errorHandler(theFileNew, caption);
-                        };
-                        newReader.onload = function (theFileNew) {
-                            if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
-                                fileReaderAborted = true;
-                                self._resetCaption();
-                                reader.abort();
-                                $status.html('');
-                                $container.removeClass('file-thumb-loading');
-                                self._initCapStatus('valid');
-                                self.enable();
-                                return;
-                            }
-                            self._previewFile(i, file, theFileNew, previewData, fileInfo);
-                            self._initFileActions();
-                            processFileLoaded();
-                        };
-                        newReader.readAsDataURL(file);
+                    var hex, fileInfo, fileData, byte, bytes = [], contents, mime, processPreview = function (fType, ext) {
+                        if ($h.isEmpty(fType)) { // look for ascii text content
+                            contents = $h.arrayBuffer2String(reader.result);
+                            fType = $h.isSvg(contents) ? 'image/svg+xml' : $h.getMimeType(hex, contents, file.type);
+                        }
+                        fileInfo = {'name': caption, 'type': fType || ''};
+                        var chkExt = caption.split('.').pop().toLowerCase();
+                        if (ext && self.autoRenameExtension && chkExt !== ext) {
+                            caption = caption + '.' + ext;
+                            fileInfo.name = fileInfo.filename = caption;
+                        }
+                        isImage = fnImage(fType, '');
+                        if (isImage) {
+                            var newReader = new FileReader();
+                            newReader.onerror = function (theFileNew) {
+                                self._errorHandler(theFileNew, caption);
+                            };
+                            newReader.onload = function (theFileNew) {
+                                if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
+                                    fileReaderAborted = true;
+                                    self._resetCaption();
+                                    reader.abort();
+                                    $status.html('');
+                                    $container.removeClass('file-thumb-loading');
+                                    self._initCapStatus('valid');
+                                    self.enable();
+                                    return;
+                                }
+                                self._previewFile(i, file, theFileNew, previewData, fileInfo);
+                                self._initFileActions();
+                                processFileLoaded();
+                            };
+                            newReader.readAsDataURL(file);
+                            return;
+                        }
+                        if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
+                            fileReaderAborted = true;
+                            self._resetCaption();
+                            reader.abort();
+                            $status.html('');
+                            $container.removeClass('file-thumb-loading');
+                            self._initCapStatus('valid');
+                            self.enable();
+                            return;
+                        }
+                        self._previewFile(i, file, theFile, previewData, fileInfo);
+                        self._initFileActions();
+                        processFileLoaded();
                     };
-                    fileInfo = {'name': caption, 'type': file.type};
+                    mime = file.type;
+                    fileInfo = {'name': caption, 'type': mime};
                     $.each(settings, function (k, f) {
-                        if (k !== 'object' && k !== 'other' && typeof f === 'function' && f(file.type, caption)) {
+                        if (k !== 'object' && k !== 'other' && typeof f === 'function' && f(mime, caption)) {
                             knownTypes++;
                         }
                     });
-                    if (knownTypes === 0) { // auto detect mime types from content if no known file types detected
-                        uint = new Uint8Array(theFile.target.result);
-                        for (j = 0; j < uint.length; j++) {
-                            byte = uint[j].toString(16);
-                            bytes.push(byte);
+                    if (typeof FileTypeParser !== "undefined") {
+                        fileData = new Uint8Array(theFile.target.result);
+                        new FileTypeParser().parse(fileData).then(function (result){
+                            processPreview(result && result.mime || mime, result && result.ext || '');
+                        });
+                    } else {
+                        if (knownTypes === 0) { // auto detect mime types from content if no known file types detected
+                            fileData = new Uint8Array(theFile.target.result);
+                            for (j = 0; j < fileData.length; j++) {
+                                byte = fileData[j].toString(16);
+                                bytes.push(byte);
+                            }
+                            hex = bytes.join('').toLowerCase().substring(0, 8);
+                            mime = $h.getMimeType(hex, '', '');
                         }
-                        hex = bytes.join('').toLowerCase().substring(0, 8);
-                        mime = $h.getMimeType(hex, '', '');
-                        if ($h.isEmpty(mime)) { // look for ascii text content
-                            contents = $h.arrayBuffer2String(reader.result);
-                            mime = $h.isSvg(contents) ? 'image/svg+xml' : $h.getMimeType(hex, contents, file.type);
-                        }
-                        fileInfo = {'name': caption, 'type': mime};
-                        isImage = fnImage(mime, '');
-                        if (isImage) {
-                            readImage(txtFlag);
-                            return;
-                        }
+                        processPreview(mime);
                     }
-                    if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
-                        fileReaderAborted = true;
-                        self._resetCaption();
-                        reader.abort();
-                        $status.html('');
-                        $container.removeClass('file-thumb-loading');
-                        self._initCapStatus('valid');
-                        self.enable();
-                        return;
-                    }
-                    self._previewFile(i, file, theFile, previewData, fileInfo);
-                    self._initFileActions();
-                    processFileLoaded();
                 };
                 reader.onprogress = function (data) {
                     if (data.lengthComputable) {
@@ -5681,11 +5702,7 @@
                         }, self.processDelay);
                     }
                 };
-                if (isImage) {
-                    reader.readAsDataURL(file);
-                } else {
-                    reader.readAsArrayBuffer(file);
-                }
+                reader.readAsArrayBuffer(file);
             };
 
             readFile(0);
@@ -6091,6 +6108,7 @@
         browseOnZoneClick: false,
         autoReplace: false,
         showDescriptionClose: true,
+        autoRenameExtension: true,
         autoOrientImage: function () { // applicable for JPEG images only and non ios safari
             var ua = window.navigator.userAgent, webkit = !!ua.match(/WebKit/i),
                 iOS = !!ua.match(/iP(od|ad|hone)/i), iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
