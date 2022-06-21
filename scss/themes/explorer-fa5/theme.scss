@@ -30,7 +30,7 @@ $pad: 5px !default;
     @return $pixels * $multiplier;
 }
 
-.theme-explorer-fas {
+.theme-explorer-fa5 {
     .file-preview-frame {
         border: multiply($pad, 0.2) solid $alto;
         margin: multiply($pad, 0.4) 0;
@@ -168,7 +168,7 @@ $pad: 5px !default;
 }
 
 @media only screen and (max-width: 1249px) {
-    .theme-explorer-fas {
+    .theme-explorer-fa5 {
         .file-preview-frame {
             .file-details-cell {
                 width: 40%;
@@ -178,7 +178,7 @@ $pad: 5px !default;
 }
 
 @media only screen and (max-width: 1023px) {
-    .theme-explorer-fas {
+    .theme-explorer-fa5 {
         .file-preview-frame {
             .file-details-cell {
                 width: 30%;
@@ -188,7 +188,7 @@ $pad: 5px !default;
 }
 
 @media only screen and (max-width: 767px) {
-    .theme-explorer-fas {
+    .theme-explorer-fa5 {
         .file-preview-frame {
             .file-details-cell {
                 width: multiply($pad, 40);
@@ -198,7 +198,7 @@ $pad: 5px !default;
 }
 
 @media only screen and (max-width: 575px) {
-    .theme-explorer-fas {
+    .theme-explorer-fa5 {
         .file-preview-frame {
             flex-direction: column;
 

@@ -2,7 +2,7 @@
  * bootstrap-fileinput v5.2.9
  * http://plugins.krajee.com/file-input
  *
- * Font Awesome 5 icon theme configuration for bootstrap-fileinput. Requires font awesome 5 assets to be loaded.
+ * Font Awesome 5.x icon theme configuration for bootstrap-fileinput. Requires font awesome 5 assets to be loaded.
  *
  * Author: Kartik Visweswaran
  * Copyright: 2014 - 2022, Kartik Visweswaran, Krajee.com
@@ -22,13 +22,13 @@
 }(function ($) {
     "use strict";
 
-    $.fn.fileinputThemes.fas = {
+    $.fn.fileinputThemes.fa5 = {
         fileActionSettings: {
-            removeIcon: '<i class="fas fa-trash-alt"></i>',
+            removeIcon: '<i class="far fa-trash-alt"></i>',
             uploadIcon: '<i class="fas fa-upload"></i>',
             uploadRetryIcon: '<i class="fas fa-cloud-arrow-up"></i>',
             downloadIcon: '<i class="fas fa-download"></i>',
-            rotateIcon: '<i class="fas fa-rotate-right"></i>',
+            rotateIcon: '<i class="fas fa-redo"></i>',
             zoomIcon: '<i class="fas fa-search-plus"></i>',
             dragIcon: '<i class="fas fa-arrows-alt"></i>',
             indicatorNew: '<i class="fas fa-plus-circle text-warning"></i>',
@@ -43,15 +43,15 @@
         previewZoomButtonIcons: {
             prev: '<i class="fas fa-chevron-left"></i>',
             next: '<i class="fas fa-chevron-right"></i>',
-            rotate: '<i class="fas fa-rotate-right"></i>',
+            rotate: '<i class="fas fa-redo"></i>',
             toggleheader: '<i class="fas fa-fw fa-arrows-alt-v"></i>',
-            fullscreen: '<i class="fas fa-fw fa-arrows-alt"></i>',
+            fullscreen: '<i class="fas fa-expand-arrows-alt"></i>',
             borderless: '<i class="fas fa-fw fa-external-link-alt"></i>',
             close: '<i class="fas fa-fw fa-times"></i>'
         },
         previewFileIcon: '<i class="fas fa-file"></i>',
         browseIcon: '<i class="fas fa-folder-open"></i>',
-        removeIcon: '<i class="fas fa-trash-alt"></i>',
+        removeIcon: '<i class="far fa-trash-alt"></i>',
         cancelIcon: '<i class="fas fa-ban"></i>',
         pauseIcon: '<i class="fas fa-pause"></i>',
         uploadIcon: '<i class="fas fa-upload"></i>',

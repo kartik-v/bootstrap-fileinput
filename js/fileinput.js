@@ -4072,7 +4072,7 @@
         },
         _handleRotation: function ($el, $content, angle) {
             var self = this, css, newCss, addCss = '', scale = 1, elContent = $content[0], quadrant, transform, h, w;
-            if (!$content.length) {
+            if (!$content.length || $el.hasClass('hide-rotate')) {
                 return;
             }
             transform = $content.css('transform');
@@ -4129,6 +4129,9 @@
                         angle = ($modal.data('angle') || 0) + 90;
                         self._handleRotation($modal, $modal.find('.file-zoom-detail'), angle);
                         self._handleRotation($frame, $content, angle);
+                        if ($frame.hasClass('hide-rotate')) {
+                            $frame.data('angle', angle);
+                        }
                     });
                 }
             }
@@ -4420,9 +4423,9 @@
             ind = ind || previewId.slice(previewId.lastIndexOf('-') + 1);
             isRotatable = self.fileActionSettings.showRotate && $.inArray(ext, self.rotatableFileExtensions) !== -1;
             if (self.fileActionSettings.showZoom) {
-                addFrameCss = 'kv-zoom-thumb';
-                if (isRotatable && !forceZoomIcon) {
-                    addFrameCss += ' rotatable';
+                addFrameCss = 'kv-zoom-thumb'
+                if (isRotatable) {
+                    addFrameCss += ' rotatable' + (forceZoomIcon ? ' hide-rotate' : '');
                 }
                 zoomContent = getContent((forceZoomIcon ? 'other' : cat), data, true, addFrameCss, zoomData);
             }
@@ -4431,8 +4434,8 @@
                 zoomContent = self.sanitizeZoomCache(zoomContent);
             }
             addFrameCss = 'kv-preview-thumb';
-            if (isRotatable && !forcePrevIcon) {
-                addFrameCss += ' rotatable';
+            if (isRotatable) {
+                addFrameCss += ' rotatable' + (forcePrevIcon || self.hideThumbnailContent ? ' hide-rotate' : '');
             }
             prevContent = getContent((forcePrevIcon ? 'other' : cat), data, false, addFrameCss, zoomData);
             return prevContent.setTokens({zoomCache: zoomContent});
@@ -6315,6 +6318,7 @@
         previewContentTemplates: {},
         preferIconicPreview: false,
         preferIconicZoomPreview: false,
+        rotatableFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],
         allowedFileTypes: null,
         allowedFileExtensions: null,
         allowedPreviewTypes: undefined,
@@ -6485,7 +6489,6 @@
             'pdf': 'PDF',
             'object': 'object'
         },
-        rotatableFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],
         msgUploadAborted: 'The file upload was aborted',
         msgUploadThreshold: 'Processing &hellip;',
         msgUploadBegin: 'Initializing &hellip;',

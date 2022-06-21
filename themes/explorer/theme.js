@@ -30,7 +30,7 @@
             actions: '{drag}\n' +
                 '<div class="file-actions">\n' +
                 '    <div class="file-footer-buttons">\n' +
-                '        {upload} {download} {delete} {zoom} {other} ' +
+                '        {rotate} {upload} {download} {delete} {zoom} {other} ' +
                 '    </div>\n' +
                 '</div>',
         },

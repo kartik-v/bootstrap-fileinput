@@ -3,7 +3,7 @@
  * http://plugins.krajee.com/file-input
  *
  * Krajee Explorer Font Awesome 5.x theme style for bootstrap-fileinput. Load this theme file after loading
- * font awesome 5.x CSS and `fileinput.css`.
+ * font awesome 4.x CSS and `fileinput.css`.
  *
  * Author: Kartik Visweswaran
  * Copyright: 2014 - 2022, Kartik Visweswaran, Krajee.com
@@ -11,7 +11,7 @@
  * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
-.theme-explorer-fas .file-preview-frame {
+.theme-explorer-fa4 .file-preview-frame {
     border: 1px solid #ddd;
     margin: 2px 0;
     width: 100%;
@@ -19,11 +19,11 @@
     justify-content: space-between;
     align-items: center;
 }
-.theme-explorer-fas .file-actions,
-.theme-explorer-fas .file-upload-indicator, .theme-explorer-fas .file-drag-handle, .theme-explorer-fas .explorer-frame .kv-file-content, .theme-explorer-fas .file-actions, .explorer-frame .file-preview-other {
+.theme-explorer-fa4 .file-actions,
+.theme-explorer-fa4 .file-upload-indicator, .theme-explorer-fa4 .file-drag-handle, .theme-explorer-fa4 .explorer-frame .kv-file-content, .theme-explorer-fa4 .file-actions, .explorer-frame .file-preview-other {
     text-align: center;
 }
-.theme-explorer-fas .file-upload-indicator, .theme-explorer-fas .file-drag-handle {
+.theme-explorer-fa4 .file-upload-indicator, .theme-explorer-fa4 .file-drag-handle {
     position: absolute;
     display: inline-block;
     bottom: 8px;
@@ -32,35 +32,35 @@
     height: 16px;
     font-size: 16px;
 }
-.theme-explorer-fas .file-thumb-progress .progress, .theme-explorer-fas .explorer-caption {
+.theme-explorer-fa4 .file-thumb-progress .progress, .theme-explorer-fa4 .explorer-caption {
     display: block;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.theme-explorer-fas .file-thumb-progress .progress {
+.theme-explorer-fa4 .file-thumb-progress .progress {
     margin-top: 5px;
 }
-.theme-explorer-fas .explorer-caption,
-.theme-explorer-fas .file-footer-buttons {
+.theme-explorer-fa4 .explorer-caption,
+.theme-explorer-fa4 .file-footer-buttons {
     padding: 5px;
 }
-.theme-explorer-fas .file-footer-buttons {
+.theme-explorer-fa4 .file-footer-buttons {
     text-align: right;
 }
-.theme-explorer-fas .explorer-caption {
+.theme-explorer-fa4 .explorer-caption {
     color: #777;
     padding-top: 5px;
 }
-.theme-explorer-fas .kvsortable-ghost {
+.theme-explorer-fa4 .kvsortable-ghost {
     opacity: 0.6;
     background: #e1edf7;
     border: 2px solid #a1abff;
 }
-.theme-explorer-fas .file-preview .table {
+.theme-explorer-fa4 .file-preview .table {
     margin: 0;
 }
-.theme-explorer-fas .file-error-message ul {
+.theme-explorer-fa4 .file-error-message ul {
     padding: 5px 0 0 20px;
 }
 .explorer-frame .file-preview-text {
@@ -84,22 +84,22 @@
 .explorer-frame:not(.kv-zoom-body):hover {
     background-color: #f5f5f5;
 }
-.theme-explorer-fas .file-preview-frame samp {
+.theme-explorer-fa4 .file-preview-frame samp {
     font-size: 0.9rem;
 }
-.theme-explorer-fas .explorer-frame .kv-file-content {
+.theme-explorer-fa4 .explorer-frame .kv-file-content {
     width: 160px;
     height: 80px;
     padding: 5px;
     text-align: left;
 }
-.theme-explorer-fas .file-details-cell {
+.theme-explorer-fa4 .file-details-cell {
     width: 60%;
     font-size: 0.95rem;
     text-align: left;
     margin-right: auto;
 }
-.theme-explorer-fas .file-actions-cell {
+.theme-explorer-fa4 .file-actions-cell {
     position: relative;
     height: 80px;
     width: 200px;
@@ -110,47 +110,47 @@
     font-size: 50vmin;
 }
 @media only screen and (max-width: 1249px) {
-    .theme-explorer-fas .file-preview-frame .file-details-cell {
+    .theme-explorer-fa4 .file-preview-frame .file-details-cell {
         width: 40%;
     }
 }
 @media only screen and (max-width: 1023px) {
-    .theme-explorer-fas .file-preview-frame .file-details-cell {
+    .theme-explorer-fa4 .file-preview-frame .file-details-cell {
         width: 30%;
     }
 }
 @media only screen and (max-width: 767px) {
-    .theme-explorer-fas .file-preview-frame .file-details-cell {
+    .theme-explorer-fa4 .file-preview-frame .file-details-cell {
         width: 200px;
     }
 }
 @media only screen and (max-width: 575px) {
-    .theme-explorer-fas .file-preview-frame {
+    .theme-explorer-fa4 .file-preview-frame {
         flex-direction: column;
     }
 
-    .theme-explorer-fas .file-preview-frame .kv-file-content {
+    .theme-explorer-fa4 .file-preview-frame .kv-file-content {
         width: auto;
         text-align: center;
     }
 
-    .theme-explorer-fas .file-details-cell {
+    .theme-explorer-fa4 .file-details-cell {
         width: 100px;
         text-align: center;
         margin-right: 0;
     }
 
-    .theme-explorer-fas .file-preview-frame .kv-file-content,
-    .theme-explorer-fas .file-details-cell,
-    .theme-explorer-fas .file-actions-cell {
+    .theme-explorer-fa4 .file-preview-frame .kv-file-content,
+    .theme-explorer-fa4 .file-details-cell,
+    .theme-explorer-fa4 .file-actions-cell {
         width: 100%;
     }
 
-    .theme-explorer-fas .file-actions-cell {
+    .theme-explorer-fa4 .file-actions-cell {
         height: auto;
     }
 
-    .theme-explorer-fas .file-footer-buttons {
+    .theme-explorer-fa4 .file-footer-buttons {
         text-align: left;
     }
 }

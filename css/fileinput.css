@@ -668,8 +668,8 @@ input[type=file].file-loading {
     display: none;
 }
 
-.rotatable .btn-kv-rotate,
-.rotatable .kv-file-rotate {
+.rotatable:not(.hide-rotate) .btn-kv-rotate,
+.rotatable:not(.hide-rotate) .kv-file-rotate {
     display: inline-block;
 }
 

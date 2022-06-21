@@ -2,7 +2,7 @@
  * bootstrap-fileinput v5.2.9
  * http://plugins.krajee.com/file-input
  *
- * Krajee Explorer Font Awesome theme configuration for bootstrap-fileinput.
+ * Krajee Explorer Font Awesome 5.x theme configuration for bootstrap-fileinput.
  * Load this theme file after loading `fileinput.js`. Ensure that
  * font awesome assets and CSS are loaded on the page as well.
  *
@@ -23,7 +23,7 @@
     }
 }(function ($) {
     'use strict';
-    $.fn.fileinputThemes['explorer-fas'] = {
+    $.fn.fileinputThemes['explorer-fa5'] = {
         layoutTemplates: {
             footer: '<div class="file-details-cell">' +
                 '<div class="explorer-caption" title="{caption}">{caption}</div> ' + '{size}{progress}' +
@@ -32,7 +32,7 @@
             actions: '{drag}\n' +
                 '<div class="file-actions">\n' +
                 '    <div class="file-footer-buttons">\n' +
-                '        {upload} {download} {delete} {zoom} {other} ' +
+                '        {rotate} {upload} {download} {delete} {zoom} {other} ' +
                 '    </div>\n' +
                 '</div>',
             fileIcon: '<i class="fas fa-file kv-caption-icon"></i> '
@@ -49,31 +49,31 @@
         },
         frameClass: 'explorer-frame',
         fileActionSettings: {
-            removeIcon: '<i class="fas fa-trash-alt"></i>',
+            removeIcon: '<i class="far fa-trash-alt"></i>',
             uploadIcon: '<i class="fas fa-upload"></i>',
             uploadRetryIcon: '<i class="fas fa-cloud-arrow-up"></i>',
             downloadIcon: '<i class="fas fa-download"></i>',
-            rotateIcon: '<i class="fas fa-rotate-right"></i>',
+            rotateIcon: '<i class="fas fa-redo"></i>',
             zoomIcon: '<i class="fas fa-search-plus"></i>',
             dragIcon: '<i class="fas fa-arrows-alt"></i>',
             indicatorNew: '<i class="fas fa-plus-circle text-warning"></i>',
             indicatorSuccess: '<i class="fas fa-check-circle text-success"></i>',
             indicatorError: '<i class="fas fa-exclamation-circle text-danger"></i>',
             indicatorLoading: '<i class="fas fa-hourglass text-muted"></i>',
-            indicatorPaused: '<i class="fa fa-pause text-info"></i>'
+            indicatorPaused: '<i class="fas fa-pause text-info"></i>'
         },
         previewZoomButtonIcons: {
             prev: '<i class="fas fa-chevron-left"></i>',
             next: '<i class="fas fa-chevron-right"></i>',
-            rotate: '<i class="fas fa-rotate-right"></i>',
+            rotate: '<i class="fas fa-redo"></i>',
             toggleheader: '<i class="fas fa-fw fa-arrows-alt-v"></i>',
-            fullscreen: '<i class="fas fa-fw fa-arrows-alt"></i>',
+            fullscreen: '<i class="fas fa-expand-arrows-alt"></i>',
             borderless: '<i class="fas fa-fw fa-external-link-alt"></i>',
             close: '<i class="fas fa-fw fa-times"></i>'
         },
         previewFileIcon: '<i class="fas fa-file"></i>',
         browseIcon: '<i class="fas fa-folder-open"></i>',
-        removeIcon: '<i class="fas fa-trash-alt"></i>',
+        removeIcon: '<i class="far fa-trash-alt"></i>',
         cancelIcon: '<i class="fas fa-ban"></i>',
         pauseIcon: '<i class="fas fa-pause"></i>',
         uploadIcon: '<i class="fas fa-upload"></i>',

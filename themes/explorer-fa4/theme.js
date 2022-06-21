@@ -2,7 +2,9 @@
  * bootstrap-fileinput v5.2.9
  * http://plugins.krajee.com/file-input
  *
- * Font Awesome icon theme configuration for bootstrap-fileinput. Requires font awesome assets to be loaded.
+ * Krajee Explorer Font Awesome theme configuration for bootstrap-fileinput. 
+ * Load this theme file after loading `fileinput.js`. Ensure that
+ * font awesome assets and CSS are loaded on the page as well.
  *
  * Author: Kartik Visweswaran
  * Copyright: 2014 - 2022, Kartik Visweswaran, Krajee.com
@@ -20,9 +22,32 @@
         factory(window.jQuery);
     }
 }(function ($) {
-    "use strict";
-
-    $.fn.fileinputThemes.fa = {
+    'use strict';
+    $.fn.fileinputThemes['explorer-fa4'] = {
+        layoutTemplates: {
+            footer: '<div class="file-details-cell">' +
+                '<div class="explorer-caption" title="{caption}">{caption}</div> ' + '{size}{progress}' +
+                '</div>' +
+                '<div class="file-actions-cell">{indicator} {actions}</div>',
+            actions: '{drag}\n' +
+                '<div class="file-actions">\n' +
+                '    <div class="file-footer-buttons">\n' +
+                '        {rotate} {upload} {download} {delete} {zoom} {other} ' +
+                '    </div>\n' +
+                '</div>',
+            fileIcon: '<i class="fa fa-file kv-caption-icon"></i> '
+        },
+        previewSettings: {
+            html: {width: '100px', height: '60px'},
+            text: {width: '100px', height: '60px'},
+            video: {width: 'auto', height: '60px'},
+            audio: {width: 'auto', height: '60px'},
+            flash: {width: '100%', height: '60px'},
+            object: {width: '100%', height: '60px'},
+            pdf: {width: '100px', height: '60px'},
+            other: {width: '100%', height: '60px'}
+        },
+        frameClass: 'explorer-frame',
         fileActionSettings: {
             removeIcon: '<i class="fa fa-trash"></i>',
             uploadIcon: '<i class="fa fa-upload"></i>',
@@ -36,9 +61,6 @@
             indicatorError: '<i class="fa fa-exclamation-circle text-danger"></i>',
             indicatorLoading: '<i class="fa fa-hourglass text-muted"></i>',
             indicatorPaused: '<i class="fa fa-pause text-info"></i>'
-        },
-        layoutTemplates: {
-            fileIcon: '<i class="fa fa-file kv-caption-icon"></i> '
         },
         previewZoomButtonIcons: {
             prev: '<i class="fa fa-chevron-left"></i>',

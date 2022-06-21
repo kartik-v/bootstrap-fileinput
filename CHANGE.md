@@ -5,6 +5,14 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: 19-Jun-2022
 
+- (enh #1796): Add two new Font Awesome 6.x themes.
+  - `fa6`
+  - `explorer-fa6` 
+- (enh #1795): Refactoring and renaming of all Font Awesome based themes.
+  - Refactor and rename `fa` theme to `fa4`
+  - Refactor and rename `fas` theme to `fa5`
+  - Refactor and rename `explorer-fa` theme to `explorer-fa4`
+  - Refactor and rename `explorer-fas` theme to `explorer-fa5`
 - (enh #1792): Advanced file mime type detection for preview irrespective of file extension.
    - Load the following new plugin files before fileinput.min.js
 ```html
