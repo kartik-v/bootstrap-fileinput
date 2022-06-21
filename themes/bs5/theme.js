@@ -27,8 +27,9 @@
         fileActionSettings: {
             removeIcon: '<i class="bi-trash"></i>',
             uploadIcon: '<i class="bi-upload"></i>',
-            uploadRetryIcon: '<i class="bi-arrow-clockwise"></i>',
+            uploadRetryIcon: '<i class="bi-cloud-arrow-up-fill"></i>',
             downloadIcon: '<i class="bi-download"></i>',
+            rotateIcon: '<i class="bi-arrow-clockwise"></i>',
             zoomIcon: '<i class="bi-zoom-in"></i>',
             dragIcon: '<i class="bi-arrows-move"></i>',
             indicatorNew: '<i class="bi-plus-lg text-warning"></i>',
@@ -43,6 +44,7 @@
         previewZoomButtonIcons: {
             prev: '<i class="bi-chevron-left"></i>',
             next: '<i class="bi-chevron-right"></i>',
+            rotate: '<i class="bi-arrow-clockwise"></i>',
             toggleheader: '<i class="bi-arrows-expand"></i>',
             fullscreen: '<i class="bi-arrows-fullscreen"></i>',
             borderless: '<i class="bi-arrows-angle-expand"></i>',

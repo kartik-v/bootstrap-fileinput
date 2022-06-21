@@ -94,6 +94,7 @@
             uploadTitle: 'Przesyłanie pliku',
             uploadRetryTitle: 'Ponów',
             downloadTitle: 'Pobierz plik',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Pokaż szczegóły',
             dragTitle: 'Przenies / Ponownie zaaranżuj',
             indicatorNewTitle: 'Jeszcze nie przesłany',
@@ -105,6 +106,7 @@
         previewZoomButtonTitles: {
             prev: 'Pokaż poprzedni plik',
             next: 'Pokaż następny plik',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Włącz / wyłącz nagłówek',
             fullscreen: 'Włącz / wyłącz pełny ekran',
             borderless: 'Włącz / wyłącz tryb bez ramek',

@@ -105,6 +105,7 @@
             uploadTitle: 'Відвантажити файл',
             uploadRetryTitle: 'Повторити відвантаження',
             downloadTitle: 'Завантажити файл',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Подивитися деталі',
             dragTitle: 'Перенести / Переставити',
             indicatorNewTitle: 'Ще не відвантажено',
@@ -116,6 +117,7 @@
         previewZoomButtonTitles: {
             prev: 'Переглянути попередній файл',
             next: 'Переглянути наступний файл',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Перемкнути заголовок',
             fullscreen: 'Перемкнути повноекранний режим',
             borderless: 'Перемкнути режим без полів',

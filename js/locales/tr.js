@@ -103,6 +103,7 @@
             removeTitle: 'Dosyayı kaldır',
             uploadTitle: 'Dosyayı yükle',
             uploadRetryTitle: 'Tekrar dene',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Ayrıntıları görüntüle',
             dragTitle: 'Taşı / Yeniden düzenle',
             indicatorNewTitle: 'Henüz yüklenmedi',
@@ -114,6 +115,7 @@
         previewZoomButtonTitles: {
             prev: 'Önceki dosyayı göster',
             next: 'Sonraki dosyayı göster',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Üst bilgi geçiş',
             fullscreen: 'Tam ekran geçiş',
             borderless: 'Çerçevesiz moda geçiş',

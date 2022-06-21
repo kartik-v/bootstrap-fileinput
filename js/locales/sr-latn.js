@@ -104,6 +104,7 @@
             uploadTitle: 'Pošalji dokument',
             uploadRetryTitle: 'Ponovi slanje',
             downloadTitle: 'Skini dokument',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Pregled detalja',
             dragTitle: 'Promeni redosled',
             indicatorNewTitle: 'Nije poslato',
@@ -115,6 +116,7 @@
         previewZoomButtonTitles: {
             prev: 'Prethodni dokument',
             next: 'Sledeći dokument',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Isključi naslov',
             fullscreen: 'Raširi na ceo prozor',
             borderless: 'Isključi ivice',

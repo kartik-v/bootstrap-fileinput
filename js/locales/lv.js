@@ -94,6 +94,7 @@
             uploadTitle: 'Augšuplādēt failu',
             uploadRetryTitle: 'Atkārtot augšuplādēšanu',
             downloadTitle: 'Lejuplādēt failu',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Pārskatīt detaļas',
             dragTitle: 'Pārvietot / Mainīt secību',
             indicatorNewTitle: 'Vēl nav augšuplādēts',
@@ -104,6 +105,7 @@
         previewZoomButtonTitles: {
             prev: 'Skatīt iepriekšējo failu',
             next: 'Skatīt nākamo failu',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Skatīt nākamo failu',
             fullscreen: 'Pārslēgt pilnekrāna režīmu',
             borderless: 'Pārslēgt bez kontūrām',

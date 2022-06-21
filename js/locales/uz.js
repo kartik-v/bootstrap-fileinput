@@ -105,6 +105,7 @@
             uploadTitle: 'Faylni yuklash',
             uploadRetryTitle: 'Qayta yuklab olish',
             downloadTitle: 'Faylni yuklab olish',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Tafsilotlarni ko‘rish',
             dragTitle: 'Ko‘chirish / qayta tartiblash',
             indicatorNewTitle: 'Hali yuklanmagan',
@@ -116,6 +117,7 @@
         previewZoomButtonTitles: {
             prev: 'Oldingi faylni ko‘rish',
             next: 'Keyingi faylni ko‘rish',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Sarlavhani yashirish',
             fullscreen: 'To‘liq ekranga o‘tish',
             borderless: 'Chegarasiz rejimga o‘tish',

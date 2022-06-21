@@ -103,6 +103,7 @@
             uploadTitle: 'Файлни юклаш',
             uploadRetryTitle: 'Қайта уруниш',
             downloadTitle: 'Файлни юклаб олиш',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Тафсилотларни кўриш',
             dragTitle: 'Кўчириш / қайта тартиблаш',
             indicatorNewTitle: 'Ҳали юкланмади',
@@ -114,6 +115,7 @@
         previewZoomButtonTitles: {
             prev: 'Олдинги файлни кўриш',
             next: 'Кейинги файлни кўриш',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Сарлавҳани яшириш',
             fullscreen: 'Тўлиқ экранга ўтиш',
             borderless: 'Чегарасиз режимга ўтиш',

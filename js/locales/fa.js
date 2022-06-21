@@ -105,6 +105,7 @@
             uploadTitle: 'آپلود فایل',
             uploadRetryTitle: 'بارگیری مجدد',
             downloadTitle: 'دریافت فایل',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'دیدن جزئیات',
             dragTitle: 'جابجایی / چیدمان',
             indicatorNewTitle: 'آپلود نشده است',
@@ -116,6 +117,7 @@
         previewZoomButtonTitles: {
             prev: 'مشاهده فایل قبلی',
             next: 'مشاهده فایل بعدی',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'نمایش عنوان',
             fullscreen: 'نمایش تمام صفحه',
             borderless: 'نمایش حاشیه',

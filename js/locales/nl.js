@@ -104,6 +104,7 @@
             uploadTitle: 'bestand uploaden',
             uploadRetryTitle: 'Opnieuw uploaden',
             downloadTitle: 'Download file',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Bekijk details',
             dragTitle: 'Verplaatsen / herindelen',
             indicatorNewTitle: 'Nog niet geupload',
@@ -115,6 +116,7 @@
         previewZoomButtonTitles: {
             prev: 'Toon vorig bestand',
             next: 'Toon volgend bestand',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Toggle header',
             fullscreen: 'Toggle volledig scherm',
             borderless: 'Toggle randloze modus',

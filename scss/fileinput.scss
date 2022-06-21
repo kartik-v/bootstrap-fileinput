@@ -846,3 +846,39 @@ input[type=file].file-loading {
   align-items: center;
   justify-content: center;
 }
+
+.btn-kv-rotate {
+  display: none;
+}
+
+.kv-file-rotate {
+  display: none;
+}
+
+.rotatable {
+  .btn-kv-rotate {
+    display: inline-block;
+  }
+
+  .kv-file-rotate {
+    display: inline-block;
+  }
+
+  .file-zoom-detail {
+    transform-origin: top left;
+  }
+
+  .kv-file-content {
+    transform-origin: top left;
+
+    > {
+      &:first-child {
+        transform-origin: top left;
+      }
+    }
+  }
+}
+
+.rotate-animate {
+  transition: transform 0.3s ease;
+}

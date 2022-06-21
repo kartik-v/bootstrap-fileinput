@@ -103,6 +103,7 @@
             uploadTitle: 'อัปโหลดไฟล์',
             uploadRetryTitle: 'Retry upload',
             downloadTitle: 'Download file',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'ดูรายละเอียด',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'ยังไม่ได้อัปโหลด',
@@ -114,6 +115,7 @@
         previewZoomButtonTitles: {
             prev: 'View previous file',
             next: 'View next file',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Toggle header',
             fullscreen: 'Toggle full screen',
             borderless: 'Toggle borderless mode',

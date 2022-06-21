@@ -104,6 +104,7 @@
             uploadTitle: 'Subir archivo',
             uploadRetryTitle: 'Reintentar subir',
             downloadTitle: 'Descargar archivo',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Ver detalles',
             dragTitle: 'Mover / Reordenar',
             indicatorNewTitle: 'No subido todavía',
@@ -115,6 +116,7 @@
         previewZoomButtonTitles: {
             prev: 'Anterior',
             next: 'Siguiente',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Mostrar encabezado',
             fullscreen: 'Pantalla completa',
             borderless: 'Modo sin bordes',

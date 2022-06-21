@@ -103,6 +103,7 @@
             uploadTitle: 'Качване на файл',
             uploadRetryTitle: 'Retry upload',
             downloadTitle: 'Download file',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Вижте детайли',
             dragTitle: 'Move / Rearrange',
             indicatorNewTitle: 'Все още не е качил',
@@ -114,6 +115,7 @@
         previewZoomButtonTitles: {
             prev: 'View previous file',
             next: 'View next file',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Toggle header',
             fullscreen: 'Toggle full screen',
             borderless: 'Toggle borderless mode',

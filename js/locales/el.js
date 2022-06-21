@@ -104,6 +104,7 @@
             uploadTitle: 'Μεταφορτώστε το αρχείο',
             uploadRetryTitle: 'Δοκιμή της φόρτωσης εκ νέου',
             downloadTitle: 'Μεταφόρτωση αρχείου',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Δείτε λεπτομέρειες',
             dragTitle: 'Μετακίνηση/Προσαρμογή',
             indicatorNewTitle: 'Δεν μεταφορτώθηκε ακόμα',
@@ -115,6 +116,7 @@
         previewZoomButtonTitles: {
             prev: 'Προηγούμενο αρχείο',
             next: 'Επόμενο αρχείο',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Εμφάνιση/Απόκρυψη τίτλου',
             fullscreen: 'Εναλλαγή πλήρους οθόνης',
             borderless: 'Με ή χωρίς πλαίσιο',

@@ -104,6 +104,7 @@
             uploadTitle: 'Upload tập tin',
             uploadRetryTitle: 'Retry upload',
             downloadTitle: 'Download file',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Phóng lớn',
             dragTitle: 'Di chuyển / Sắp xếp lại',
             indicatorNewTitle: 'Chưa được upload',
@@ -115,6 +116,7 @@
         previewZoomButtonTitles: {
             prev: 'Xem tập tin phía trước',
             next: 'Xem tập tin tiếp theo',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Ẩn/hiện tiêu đề',
             fullscreen: 'Bật/tắt toàn màn hình',
             borderless: 'Bật/tắt chế độ không viền',

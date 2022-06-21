@@ -105,6 +105,7 @@
             uploadTitle: 'رفع الملف',
             uploadRetryTitle: 'إعادة محاولة التحميل',
             downloadTitle: 'تنزيل الملف',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'مشاهدة التفاصيل',
             dragTitle: 'نقل / إعادة ترتيب',
             indicatorNewTitle: 'لم يتم الرفع بعد',
@@ -116,6 +117,7 @@
         previewZoomButtonTitles: {
             prev: 'عرض الملف السابق',
             next: 'عرض الملف التالي',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'تبديل الرأسية',
             fullscreen: 'تبديل ملء الشاشة',
             borderless: 'تبديل وضع بلا حدود',

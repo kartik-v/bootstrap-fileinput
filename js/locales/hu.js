@@ -104,6 +104,7 @@
             uploadTitle: 'Fájl feltöltése',
             uploadRetryTitle: 'Feltöltés újból',
             downloadTitle: 'Fájl letöltése',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Részletek megtekintése',
             dragTitle: 'Mozgatás / Átrendezés',
             indicatorNewTitle: 'Még fel nem töltött',
@@ -115,6 +116,7 @@
         previewZoomButtonTitles: {
             prev: 'Előző fájl megnézése',
             next: 'Következő fájl megnézése',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Fejléc mutatása',
             fullscreen: 'Teljes képernyős mód bekapcsolása',
             borderless: 'Keret nélküli ablak mód bekapcsolása',

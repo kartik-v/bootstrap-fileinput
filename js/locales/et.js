@@ -102,6 +102,7 @@
             removeTitle: 'Eemalda fail',
             uploadTitle: 'Salvesta fail',
             uploadRetryTitle: 'Retry upload',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Vaata detaile',
             dragTitle: 'Liiguta / Korralda',
             indicatorNewTitle: 'Pole veel salvestatud',
@@ -113,6 +114,7 @@
         previewZoomButtonTitles: {
             prev: 'View previous file',
             next: 'View next file',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Toggle header',
             fullscreen: 'Toggle full screen',
             borderless: 'Toggle borderless mode',

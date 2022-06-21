@@ -426,6 +426,15 @@
             }
             return false;
         },
+        isPdf: function (str) {
+            if ($h.isEmpty(str)) {
+                return false;
+            }
+            str = str.toString().trim().replace(/\n/g, ' ');
+            if (str.length === 0) {
+                return false;
+            }
+        },
         isSvg: function (str) {
             if ($h.isEmpty(str)) {
                 return false;
@@ -1103,7 +1112,8 @@
                     return out;
                 },
                 exists: function (id) {
-                    return $.inArray(id, self.fileManager.getIdList()) !== -1;
+                    var list = self.fileManager.getIdList();
+                    return $.inArray(id, list) !== -1 && (!altId || $.inArray(altId, list) !== -1);
                 },
                 count: function () {
                     return self.fileManager.getIdList().length;
@@ -1691,7 +1701,7 @@
                 tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionDownload,
                 tActionZoom, tActionDrag, tIndicator, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage,
                 tText, tOffice, tGdocs, tVideo, tAudio, tFlash, tObject, tPdf, tOther, tStyle, tZoomCache, vDefaultDim,
-                tStats, tModalLabel, tDescClose, renderObject = function (type, mime) {
+                tActionRotate, tStats, tModalLabel, tDescClose, renderObject = function (type, mime) {
                     return '<object class="kv-preview-data file-preview-' + type + '" title="{caption}" ' +
                         'data="{data}" type="' + mime + '"' + tStyle + '>\n' + $h.DEFAULT_PREVIEW + '\n</object>\n';
                 }, defBtnCss1 = 'btn btn-sm btn-kv ' + $h.defaultButtonCss();
@@ -1738,7 +1748,7 @@
                 '  <div class="modal-content">\n' +
                 '    <div class="modal-header kv-zoom-header">\n' +
                 '      <h6 class="modal-title kv-zoom-title" id="' + tModalLabel + '"><span class="kv-zoom-caption"></span> <span class="kv-zoom-size"></span></h6>\n' +
-                '      <div class="kv-zoom-actions">{toggleheader}{fullscreen}{borderless}{close}</div>\n' +
+                '      <div class="kv-zoom-actions">{rotate}{toggleheader}{fullscreen}{borderless}{close}</div>\n' +
                 '    </div>\n' +
                 '    <div class="floating-buttons"></div>\n' +
                 '    <div class="kv-zoom-body file-zoom-content {zoomFrameClass}"></div>\n' + '{prev} {next}\n' +
@@ -1766,7 +1776,7 @@
                 '</div>';
             tActions = '<div class="file-actions">\n' +
                 '    <div class="file-footer-buttons">\n' +
-                '        {download} {upload} {delete} {zoom} {other}' +
+                '        {rotate} {download} {upload} {delete} {zoom} {other}' +
                 '    </div>\n' +
                 '</div>\n' +
                 '{drag}\n' +
@@ -1776,6 +1786,8 @@
                 'title="{removeTitle}" {dataUrl}{dataKey}>{removeIcon}</button>\n';
             tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
                 '{uploadIcon}</button>';
+            tActionRotate = '<button type="button" class="kv-file-rotate {rotateClass}" title="{rotateTitle}">' +
+                '{rotateIcon}</button>';
             tActionDownload = '<a class="kv-file-download {downloadClass}" title="{downloadTitle}" ' +
                 'href="{downloadUrl}" download="{caption}" target="_blank">{downloadIcon}</a>';
             tActionZoom = '<button type="button" class="kv-file-zoom {zoomClass}" ' +
@@ -1783,7 +1795,7 @@
             tActionDrag = '<span class="file-drag-handle {dragClass}" title="{dragTitle}">{dragIcon}</span>';
             tIndicator = '<div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>';
             tTagBef = '<div class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
-                ' data-fileid="{fileid}" data-template="{template}" data-zoom="{zoomData}"';
+                ' data-fileid="{fileid}" data-filename="{filename}" data-template="{template}" data-zoom="{zoomData}"';
             tTagBef1 = tTagBef + '><div class="kv-file-content">\n';
             tTagBef2 = tTagBef + ' title="{caption}"><div class="kv-file-content">\n';
             tTagAft = '</div>{footer}\n{zoomCache}</div>\n';
@@ -1830,6 +1842,7 @@
                     indicator: tIndicator,
                     actions: tActions,
                     actionDelete: tActionDelete,
+                    actionRotate: tActionRotate,
                     actionUpload: tActionUpload,
                     actionDownload: tActionDownload,
                     actionZoom: tActionZoom,
@@ -1951,6 +1964,7 @@
                     showDownload: true,
                     showZoom: true,
                     showDrag: true,
+                    showRotate: true,
                     removeIcon: '<i class="bi-trash"></i>',
                     removeClass: defBtnCss1,
                     removeErrorClass: 'btn btn-sm btn-kv btn-danger',
@@ -1958,11 +1972,14 @@
                     uploadIcon: '<i class="bi-upload"></i>',
                     uploadClass: defBtnCss1,
                     uploadTitle: 'Upload file',
-                    uploadRetryIcon: '<i class="bi-arrow-clockwise"></i>',
+                    uploadRetryIcon: '<i class="bi-cloud-arrow-up-fill"></i>',
                     uploadRetryTitle: 'Retry upload',
                     downloadIcon: '<i class="bi-download"></i>',
                     downloadClass: defBtnCss1,
                     downloadTitle: 'Download file',
+                    rotateIcon: '<i class="bi-arrow-clockwise"></i>',
+                    rotateClass: defBtnCss1,
+                    rotateTitle: 'Rotate 90 deg. clockwise',
                     zoomIcon: '<i class="bi-zoom-in"></i>',
                     zoomClass: defBtnCss1,
                     zoomTitle: 'View Details',
@@ -2045,7 +2062,7 @@
                                 id = self.previewInitId + '-' + ind,
                                 fileId = config && config.fileId || id;
                             /** @namespace config.zoomData */
-                            return self._generatePreviewTemplate(cat, dat, fname, ftype, id, fileId, false, null, fc,
+                            return self._generatePreviewTemplate(cat, dat, fname, ftype, id, fileId, false, null, null, fc,
                                 ftr, ind, t, a, config && config.zoomData || dat);
                         };
                     if (!content || !content.length) {
@@ -2199,12 +2216,13 @@
                         dFil = config.filename || config.caption || '',
                         initPreviewShowDwl = !!(dUrl),
                         sDel = $h.ifSet('showRemove', config, initPreviewShowDel),
+                        sRot = $h.ifSet('showRotate', config, $h.ifSet('showRotate', fs, true)),
                         sDwl = $h.ifSet('showDownload', config, $h.ifSet('showDownload', fs, initPreviewShowDwl)),
                         sZm = $h.ifSet('showZoom', config, $h.ifSet('showZoom', fs, true)),
                         sDrg = $h.ifSet('showDrag', config, $h.ifSet('showDrag', fs, true)),
                         dis = (url === false) && isDisabled;
                     sDwl = sDwl && config.downloadUrl !== false && !!dUrl;
-                    a = self._renderFileActions(config, false, sDwl, sDel, sZm, sDrg, dis, url, key, true, dUrl, dFil);
+                    a = self._renderFileActions(config, false, sDwl, sDel, sRot, sZm, sDrg, dis, url, key, true, dUrl, dFil);
                     return self._getLayoutTemplate('footer').setTokens({
                         'progress': self._renderThumbProgress(),
                         'actions': a,
@@ -2868,6 +2886,7 @@
                 'zoomFrameClass': self.frameClass,
                 'prev': self._getZoomButton('prev'),
                 'next': self._getZoomButton('next'),
+                'rotate': self._getZoomButton('rotate'),
                 'toggleheader': self._getZoomButton('toggleheader'),
                 'fullscreen': self._getZoomButton('fullscreen'),
                 'borderless': self._getZoomButton('borderless'),
@@ -2925,9 +2944,9 @@
             });
         },
         _initZoomButtons: function () {
-            var self = this, previewId = self.$modal.data('previewId') || '', $first, $last,
-                thumbs = self.getFrames().toArray(), len = thumbs.length, $prev = self.$modal.find('.btn-kv-prev'),
-                $next = self.$modal.find('.btn-kv-next');
+            var self = this, $modal = self.$modal, previewId = $modal.data('previewId') || '', $first, $last,
+                thumbs = self.getFrames().toArray(), len = thumbs.length, $prev = $modal.find('.btn-kv-prev'),
+                $next = $modal.find('.btn-kv-next'), $rotate = $modal.find('.btn-kv-rotate');
             if (thumbs.length < 2) {
                 $prev.hide();
                 $next.hide();
@@ -3126,17 +3145,33 @@
             });
         },
         _showModal: function ($frame) {
-            var self = this, $modal = self.$modal;
+            var self = this, $modal = self.$modal, $content, css, angle;
             if (!$frame || !$frame.length) {
                 return;
             }
             $h.initModal($modal);
             $h.setHtml($modal, self._getModalContent());
             self._setZoomContent($frame);
+            $modal.removeClass('rotatable');
             $modal.data({backdrop: false, fileinputPluginId: self.$element.attr('id')});
             $modal.find('.kv-zoom-body').css('height', self.zoomModalHeight);
+            $content = $frame.find('.kv-file-content > :first-child');
+            if ($content.length) {
+                css = $content.css('transform');
+                if (css) {
+                    $modal.find('.file-zoom-detail').css('transform', css);
+                }
+            }
+            if ($frame.hasClass('rotatable')) {
+                $modal.addClass('rotatable');
+            }
+            if ($frame.data('angle')) {
+                $modal.data('angle', $frame.data('angle'));
+            }
+            angle = ($frame.data('angle') || 0);
             $modal.modal('show');
             self._initZoomButtons();
+            self._initRotateZoom($frame, $content);
         },
         _zoomPreview: function ($btn) {
             var self = this, $frame;
@@ -3147,8 +3182,9 @@
             self._showModal($frame);
         },
         _zoomSlideShow: function (dir, previewId) {
-            var self = this, $btn = self.$modal.find('.kv-zoom-actions .btn-kv-' + dir), $targFrame, i, $thumb,
-                thumbsData = self.getFrames().toArray(), thumbs = [], len = thumbsData.length, out;
+            var self = this, $modal = self.$modal, $btn = $modal.find('.kv-zoom-actions .btn-kv-' + dir), $targFrame, i,
+                $thumb, thumbsData = self.getFrames().toArray(), thumbs = [], len = thumbsData.length, out, angle,
+                $content;
             if (self.reversePreviewOrder) {
                 dir = dir === 'prev' ? 'next' : 'prev';
             }
@@ -3176,6 +3212,14 @@
                 self._setZoomContent($targFrame, dir);
             }
             self._initZoomButtons();
+            if ($targFrame.length && $targFrame.hasClass('rotatable')) {
+                angle = $targFrame.data('angle') || 0;
+                $modal.addClass('rotatable').data('angle', angle);
+                $content = $targFrame.find('.kv-file-content > :first-child');
+                self._initRotateZoom($targFrame, $content);
+            } else {
+                $modal.removeClass('rotatable').removeData('angle');
+            }
             self._raise('filezoom' + dir, {'previewId': previewId, modal: self.$modal});
         },
         _initZoomButton: function () {
@@ -4026,12 +4070,76 @@
                 }
             }, self.processDelay);
         },
+        _handleRotation: function ($el, $content, angle) {
+            var self = this, css, newCss, addCss = '', scale = 1, elContent = $content[0], quadrant, transform, h, w;
+            if (!$content.length) {
+                return;
+            }
+            transform = $content.css('transform');
+            if (transform) {
+                $content.css('transform', 'none');
+            }
+            w = elContent.naturalWidth || $content.outerWidth() || 0;
+            h = elContent.naturalHeight || $content.outerHeight() || 0;
+            scale = w > h && w != 0 ? (h / w).toFixed(2) : 1;
+            if (transform) {
+                $content.css('transform', transform);
+            }
+            angle = angle || 0;
+            quadrant = angle % 360;
+            css = 'rotate(' + angle + 'deg)';
+            newCss = 'rotate(' + quadrant + 'deg)';
+            switch (quadrant) {
+                case 90:
+                    addCss = ' translateY(-100%)' + (scale === 1 ? '' : ' scale(' + scale + ')');
+                    break;
+                case 180:
+                    addCss = ' translate(-100%,-100%)';
+                    break;
+                case 270:
+                    var x = scale * 100, y = 100 - x;
+                    addCss = scale === 1 ? ' translateX(-100%)' : ' translate(-' + x + '%, ' + y + '%) scale(' + scale + ')';
+                    break;
+            }
+            $content.addClass('rotate-animate').css('transform', css + addCss);
+            setTimeout(function () {
+                $content.removeClass('rotate-animate').css('transform', newCss + addCss);
+                $el.data('angle', quadrant);
+            }, self.fadeDelay);
+        },
+        _initRotateButton: function () {
+            var self = this;
+            self.getFrames('.rotatable .kv-file-rotate').each(function () {
+                var $el = $(this), $frame = $el.closest($h.FRAMES),
+                    $content = $frame.find('.kv-file-content > :first-child');
+                self._handler($el, 'click', function () {
+                    var angle = ($frame.data('angle') || 0) + 90;
+                    self._handleRotation($frame, $content, angle);
+                });
+            });
+        },
+        _initRotateZoom: function ($frame, $content) {
+            var self = this, $modal = self.$modal, $rotate = $modal.find('.btn-kv-rotate'),
+                angle = $frame.data('angle');
+            if ($rotate.length) {
+                $rotate.off('click');
+                if ($modal.hasClass('rotatable')) {
+                    self._handleRotation($modal, $modal.find('.file-zoom-detail'), angle);
+                    $rotate.on('click', function () {
+                        angle = ($modal.data('angle') || 0) + 90;
+                        self._handleRotation($modal, $modal.find('.file-zoom-detail'), angle);
+                        self._handleRotation($frame, $content, angle);
+                    });
+                }
+            }
+        },
         _initFileActions: function () {
             var self = this;
             if (!self.showPreview) {
                 return;
             }
             self._initZoomButton();
+            self._initRotateButton();
             self.getFrames(' .kv-file-remove').each(function () {
                 var $el = $(this), $frame = $el.closest($h.FRAMES), hasError, id = $frame.attr('id'),
                     ind = $frame.attr('data-fileindex'), status, fm = self.fileManager;
@@ -4087,6 +4195,7 @@
                     }
                 };
             self._initZoomButton();
+            self._initRotateButton();
             $preview.find(btnRemove).each(function () {
                 var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key'), errMsg, fnBefore,
                     fnSuccess, fnError, op = self.ajaxOperations.deleteThumb;
@@ -4235,6 +4344,7 @@
             fileId,
             isError,
             size,
+            fnameUpdated,
             frameClass,
             foot,
             ind,
@@ -4243,11 +4353,12 @@
             zoomData
         ) {
             var self = this, caption = self.slug(fname), prevContent, zoomContent = '', styleAttribs = '',
+                filename = fnameUpdated || fname,
                 screenW = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-                config, title = caption, alt = caption, typeCss = 'type-default', getContent,
-                footer = foot || self._renderFileFooter(cat, caption, size, 'auto', isError),
+                config, title = caption, alt = caption, typeCss = 'type-default', getContent, addFrameCss,
+                footer = foot || self._renderFileFooter(cat, caption, size, 'auto', isError), isRotatable,
                 forcePrevIcon = self.preferIconicPreview, forceZoomIcon = self.preferIconicZoomPreview,
-                newCat = forcePrevIcon ? 'other' : cat;
+                newCat = forcePrevIcon ? 'other' : cat, ext =  filename.split('.').pop().toLowerCase();
             config = screenW < 400 ? (self.previewSettingsSmall[newCat] || self.defaults.previewSettingsSmall[newCat]) :
                 (self.previewSettings[newCat] || self.defaults.previewSettings[newCat]);
             if (config) {
@@ -4292,6 +4403,7 @@
                     'type': self._getFileType(ftype),
                     'fileindex': ind,
                     'fileid': fileId || '',
+                    'filename': filename,
                     'typeCss': typeCss,
                     'footer': footer,
                     'data': zoom && vZoomData ? self.zoomPlaceholder + '{zoomData}' : vData,
@@ -4306,14 +4418,23 @@
                 return tmplt.setTokens(tokens);
             };
             ind = ind || previewId.slice(previewId.lastIndexOf('-') + 1);
+            isRotatable = self.fileActionSettings.showRotate && $.inArray(ext, self.rotatableFileExtensions) !== -1;
             if (self.fileActionSettings.showZoom) {
-                zoomContent = getContent((forceZoomIcon ? 'other' : cat), data, true, 'kv-zoom-thumb', zoomData);
+                addFrameCss = 'kv-zoom-thumb';
+                if (isRotatable && !forceZoomIcon) {
+                    addFrameCss += ' rotatable';
+                }
+                zoomContent = getContent((forceZoomIcon ? 'other' : cat), data, true, addFrameCss, zoomData);
             }
             zoomContent = '\n' + self._getLayoutTemplate('zoomCache').replace('{zoomContent}', zoomContent);
             if (typeof self.sanitizeZoomCache === 'function') {
                 zoomContent = self.sanitizeZoomCache(zoomContent);
             }
-            prevContent = getContent((forcePrevIcon ? 'other' : cat), data, false, 'kv-preview-thumb', zoomData);
+            addFrameCss = 'kv-preview-thumb';
+            if (isRotatable && !forcePrevIcon) {
+                addFrameCss += ' rotatable';
+            }
+            prevContent = getContent((forcePrevIcon ? 'other' : cat), data, false, addFrameCss, zoomData);
             return prevContent.setTokens({zoomCache: zoomContent});
         },
         _addToPreview: function ($preview, content) {
@@ -4344,12 +4465,12 @@
             if (!this.showPreview) {
                 return;
             }
-            var self = this, fname = fileInfo.filename || $h.getFileName(file), ftype = fileInfo.type, content,
+            var self = this, fname = $h.getFileName(file), ftype = fileInfo.type, content,
                 caption = fileInfo.name, cat = self._parseFileType(ftype, fname), $preview = self.$preview,
                 fsize = file.size || 0, iData = cat === 'image' ? theFile.target.result : data, fm = self.fileManager,
                 fileId = fm.getId(file), previewId = self._getThumbId(fileId);
             /** @namespace window.DOMPurify */
-            content = self._generatePreviewTemplate(cat, iData, fname, ftype, previewId, fileId, false, fsize);
+            content = self._generatePreviewTemplate(cat, iData, fname, ftype, previewId, fileId, false, fsize, fileInfo.filename);
             self._clearDefaultPreview();
             self._addToPreview($preview, content);
             var $thumb = self._getFrame(previewId);
@@ -4388,6 +4509,7 @@
                 name = ($h.isIE(9) && $h.findFileName($el.val())) || ($el[0].files[0] && $el[0].files[0].name);
             if (!name && self.fileManager.count() > 0) {
                 file = self.fileManager.getFirstFile();
+                console.log('KV SAYS', file);
                 label = file.nameFmt;
             } else {
                 label = name ? self.slug(name) : '_';
@@ -5037,7 +5159,7 @@
         },
         _renderFileFooter: function (cat, caption, size, width, isError) {
             var self = this, config = self.fileActionSettings, rem = config.showRemove, drg = config.showDrag,
-                upl = config.showUpload, zoom = config.showZoom, out, params,
+                upl = config.showUpload, rot = config.showRotate, zoom = config.showZoom, out, params,
                 template = self._getLayoutTemplate('footer'), tInd = self._getLayoutTemplate('indicator'),
                 ind = isError ? config.indicatorError : config.indicatorNew,
                 title = isError ? config.indicatorErrorTitle : config.indicatorNewTitle,
@@ -5046,9 +5168,9 @@
             params = {type: cat, caption: caption, size: size, width: width, progress: '', indicator: indicator};
             if (self.isAjaxUpload) {
                 params.progress = self._renderThumbProgress();
-                params.actions = self._renderFileActions(params, upl, false, rem, zoom, drg, false, false, false);
+                params.actions = self._renderFileActions(params, upl, false, rem, rot, zoom, drg, false, false, false);
             } else {
-                params.actions = self._renderFileActions(params, false, false, false, zoom, drg, false, false, false);
+                params.actions = self._renderFileActions(params, false, false, false, false, zoom, drg, false, false, false);
             }
             out = template.setTokens(params);
             out = $h.replaceTags(out, self.previewThumbTags);
@@ -5059,6 +5181,7 @@
             showUpl,
             showDwn,
             showDel,
+            showRot,
             showZoom,
             showDrag,
             disabled,
@@ -5091,10 +5214,13 @@
             if (typeof showDrag === 'function') {
                 showDrag = showDrag(cfg);
             }
-            if (!showUpl && !showDwn && !showDel && !showZoom && !showDrag) {
+            if (typeof showRot === 'function') {
+                showRot = showRot(cfg);
+            }
+            if (!showUpl && !showDwn && !showDel && !showRot && !showZoom && !showDrag) {
                 return '';
             }
-            var vUrl = url === false ? '' : ' data-url="' + url + '"', btnZoom = '', btnDrag = '', css,
+            var vUrl = url === false ? '' : ' data-url="' + url + '"', btnZoom = '', btnDrag = '', btnRotate = '', css,
                 vKey = key === false ? '' : ' data-key="' + key + '"', btnDelete = '', btnUpload = '', btnDownload = '',
                 template = self._getLayoutTemplate('actions'), config = self.fileActionSettings,
                 otherButtons = self.otherActionButtons.setTokens({'dataKey': vKey, 'key': key}),
@@ -5107,6 +5233,13 @@
                     'dataUrl': vUrl,
                     'dataKey': vKey,
                     'key': key
+                });
+            }
+            if (showRot) {
+                btnRotate = self._getLayoutTemplate('actionRotate').setTokens({
+                    'rotateClass': config.rotateClass,
+                    'rotateIcon': config.rotateIcon,
+                    'rotateTitle': config.rotateTitle
                 });
             }
             if (showUpl) {
@@ -5144,6 +5277,7 @@
                 'delete': btnDelete,
                 'upload': btnUpload,
                 'download': btnDownload,
+                'rotate': btnRotate,
                 'zoom': btnZoom,
                 'drag': btnDrag,
                 'other': otherButtons
@@ -5474,38 +5608,45 @@
                     return;
                 }
                 self.lock(true);
-                var file = files[i], id = self._getFileId(file), previewId = previewInitId + '-' + id,
+                var file = files[i], id, previewId, fileProcessed,
                     fSize = (file && file.size || 0), sizeHuman = self._getSize(fSize, true), j, msg,
-                    fnImage = settings.image, chk, typ, typ1, typ2, caption = self._getFileName(file, ''),
-                    fileSize = fSize / self.bytesToKB, fileExtExpr = '', previewData = $h.createObjectURL(file),
-                    fileCount = 0,
-                    strTypes = '', fileId, canLoad, fileReaderAborted = false,
-                    func, knownTypes = 0, isImage, processFileLoaded = function () {
-                        var isImageResized = !!fm.loadedImages[id], msg = msgProgress.setTokens({
-                            'index': i + 1,
-                            'files': numFiles,
-                            'percent': 50,
-                            'name': caption
-                        });
-                        setTimeout(function () {
-                            $status.html(msg);
-                            self._updateFileDetails(numFiles);
-                            readFile(i + 1);
-                        }, self.processDelay);
-                        if (self._raise('fileloaded', [file, previewId, id, i, reader]) && self.isAjaxUpload) {
-                            if (!isImageResized) {
-                                fm.add(file);
-                            }
-                        } else {
-                            if (isImageResized) {
-                                fm.removeFile(id);
-                            }
+                    fnImage = settings.image, chk, typ, typ1, typ2, caption, fileSize = fSize / self.bytesToKB,
+                    fileExtExpr = '', previewData, fileCount = 0, strTypes = '', fileId, canLoad,
+                    fileReaderAborted = false, func, knownTypes = 0, isImage, processFileLoaded, initFileData;
+                initFileData = function (dataSource) {
+                    dataSource = dataSource || file;
+                    id = fileId = self._getFileId(file);
+                    previewId = previewInitId + '-' + id;
+                    previewData = $h.createObjectURL(dataSource);
+                    caption = self._getFileName(file, '');
+                };
+                processFileLoaded = function () {
+                    var isImageResized = !!fm.loadedImages[id], msg = msgProgress.setTokens({
+                        'index': i + 1,
+                        'files': numFiles,
+                        'percent': 50,
+                        'name': caption
+                    });
+                    setTimeout(function () {
+                        $status.html(msg);
+                        self._updateFileDetails(numFiles);
+                        readFile(i + 1);
+                    }, self.processDelay);
+                    if (self._raise('fileloaded', [file, previewId, id, i, reader]) && self.isAjaxUpload) {
+                        if (!isImageResized) {
+                            fm.add(file);
                         }
-                    };
+                    } else {
+                        if (isImageResized) {
+                            fm.removeFile(id);
+                        }
+                    }
+                };
                 if (!file) {
                     return;
                 }
-                fileId = fm.getId(file);
+                initFileData();
+
                 if (typLen > 0) {
                     for (j = 0; j < typLen; j++) {
                         typ1 = fileTypes[j];
@@ -5612,55 +5753,59 @@
                     self._errorHandler(evt, caption);
                 };
                 reader.onload = function (theFile) {
-                    var hex, fileInfo, fileData, byte, bytes = [], contents, mime, processPreview = function (fType, ext) {
-                        if ($h.isEmpty(fType)) { // look for ascii text content
-                            contents = $h.arrayBuffer2String(reader.result);
-                            fType = $h.isSvg(contents) ? 'image/svg+xml' : $h.getMimeType(hex, contents, file.type);
-                        }
-                        fileInfo = {'name': caption, 'type': fType || ''};
-                        var chkExt = caption.split('.').pop().toLowerCase();
-                        if (ext && self.autoRenameExtension && chkExt !== ext) {
-                            caption = caption + '.' + ext;
-                            fileInfo.name = fileInfo.filename = caption;
-                        }
-                        isImage = fnImage(fType, '');
-                        if (isImage) {
-                            var newReader = new FileReader();
-                            newReader.onerror = function (theFileNew) {
-                                self._errorHandler(theFileNew, caption);
-                            };
-                            newReader.onload = function (theFileNew) {
-                                if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
-                                    fileReaderAborted = true;
-                                    self._resetCaption();
-                                    reader.abort();
-                                    $status.html('');
-                                    $container.removeClass('file-thumb-loading');
-                                    self._initCapStatus('valid');
-                                    self.enable();
-                                    return;
+                    var hex, fileInfo, fileData, byte, bytes = [], contents, mime,
+                        processPreview = function (fType, ext) {
+                            if ($h.isEmpty(fType)) { // look for ascii text content
+                                contents = $h.arrayBuffer2String(reader.result);
+                                fType = $h.isSvg(contents) ? 'image/svg+xml' : $h.getMimeType(hex, contents, file.type);
+                            }
+                            fileInfo = {'name': caption, 'type': fType || ''};
+                            if (ext && typeof File !== "undefined") {
+                                try {
+                                    var fName = fileInfo.filename = caption + '.' + ext;
+                                    fileProcessed = new File([file], fName, {type: fileInfo.type});
+                                    initFileData(fileProcessed);
+                                } catch (err) {
                                 }
-                                self._previewFile(i, file, theFileNew, previewData, fileInfo);
-                                self._initFileActions();
-                                processFileLoaded();
-                            };
-                            newReader.readAsDataURL(file);
-                            return;
-                        }
-                        if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
-                            fileReaderAborted = true;
-                            self._resetCaption();
-                            reader.abort();
-                            $status.html('');
-                            $container.removeClass('file-thumb-loading');
-                            self._initCapStatus('valid');
-                            self.enable();
-                            return;
-                        }
-                        self._previewFile(i, file, theFile, previewData, fileInfo);
-                        self._initFileActions();
-                        processFileLoaded();
-                    };
+                            }
+                            isImage = fnImage(fType, '');
+                            if (isImage) {
+                                var newReader = new FileReader();
+                                newReader.onerror = function (theFileNew) {
+                                    self._errorHandler(theFileNew, caption);
+                                };
+                                newReader.onload = function (theFileNew) {
+                                    if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
+                                        fileReaderAborted = true;
+                                        self._resetCaption();
+                                        reader.abort();
+                                        $status.html('');
+                                        $container.removeClass('file-thumb-loading');
+                                        self._initCapStatus('valid');
+                                        self.enable();
+                                        return;
+                                    }
+                                    self._previewFile(i, file, theFileNew, previewData, fileInfo);
+                                    self._initFileActions();
+                                    processFileLoaded();
+                                };
+                                newReader.readAsDataURL(file);
+                                return;
+                            }
+                            if (self.isAjaxUpload && !self._raise('filebeforeload', [file, i, reader])) {
+                                fileReaderAborted = true;
+                                self._resetCaption();
+                                reader.abort();
+                                $status.html('');
+                                $container.removeClass('file-thumb-loading');
+                                self._initCapStatus('valid');
+                                self.enable();
+                                return;
+                            }
+                            self._previewFile(i, file, theFile, previewData, fileInfo);
+                            self._initFileActions();
+                            processFileLoaded();
+                        };
                     mime = file.type;
                     fileInfo = {'name': caption, 'type': mime};
                     $.each(settings, function (k, f) {
@@ -5670,7 +5815,7 @@
                     });
                     if (typeof FileTypeParser !== "undefined") {
                         fileData = new Uint8Array(theFile.target.result);
-                        new FileTypeParser().parse(fileData).then(function (result){
+                        new FileTypeParser().parse(fileData).then(function (result) {
                             processPreview(result && result.mime || mime, result && result.ext || '');
                         });
                     } else {
@@ -6108,7 +6253,6 @@
         browseOnZoneClick: false,
         autoReplace: false,
         showDescriptionClose: true,
-        autoRenameExtension: true,
         autoOrientImage: function () { // applicable for JPEG images only and non ios safari
             var ua = window.navigator.userAgent, webkit = !!ua.match(/WebKit/i),
                 iOS = !!ua.match(/iP(od|ad|hone)/i), iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
@@ -6152,6 +6296,7 @@
         previewZoomButtonIcons: {
             prev: '<i class="bi-chevron-left"></i>',
             next: '<i class="bi-chevron-right"></i>',
+            rotate: '<i class="bi-arrow-clockwise"></i>',
             toggleheader: '<i class="bi-arrows-expand"></i>',
             fullscreen: '<i class="bi-arrows-fullscreen"></i>',
             borderless: '<i class="bi-arrows-angle-expand"></i>',
@@ -6160,6 +6305,7 @@
         previewZoomButtonClasses: {
             prev: 'btn btn-default btn-outline-secondary btn-navigate',
             next: 'btn btn-default btn-outline-secondary btn-navigate',
+            rotate: defBtnCss1,
             toggleheader: defBtnCss1,
             fullscreen: defBtnCss1,
             borderless: defBtnCss1,
@@ -6339,6 +6485,7 @@
             'pdf': 'PDF',
             'object': 'object'
         },
+        rotatableFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],
         msgUploadAborted: 'The file upload was aborted',
         msgUploadThreshold: 'Processing &hellip;',
         msgUploadBegin: 'Initializing &hellip;',
@@ -6377,6 +6524,7 @@
         previewZoomButtonTitles: {
             prev: 'View previous file',
             next: 'View next file',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Toggle header',
             fullscreen: 'Toggle full screen',
             borderless: 'Toggle borderless mode',

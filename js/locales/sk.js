@@ -104,6 +104,7 @@
             uploadTitle: 'Nahrať súbor',
             uploadRetryTitle: 'Znova nahrať',
             downloadTitle: 'Stiahnuť súbor',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Zobraziť podrobnosti',
             dragTitle: 'Posunúť / Preskládať',
             indicatorNewTitle: 'Ešte nenahral',
@@ -115,6 +116,7 @@
         previewZoomButtonTitles: {
             prev: 'Zobraziť predchádzajúci súbor',
             next: 'Zobraziť následujúci súbor',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Prepnúť záhlavie',
             fullscreen: 'Prepnúť zobrazenie na celú obrazovku',
             borderless: 'Prepnúť na bezrámikové zobrazenie',

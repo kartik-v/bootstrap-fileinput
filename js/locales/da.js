@@ -104,6 +104,7 @@
             uploadTitle: 'Upload fil',
             uploadRetryTitle: 'Forsøg upload igen',
             downloadTitle: 'Download fil',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Se detaljer',
             dragTitle: 'Flyt / Omarranger',
             indicatorNewTitle: 'Ikke uploadet endnu',
@@ -115,6 +116,7 @@
         previewZoomButtonTitles: {
             prev: 'Se forrige fil',
             next: 'Se næste fil',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Skift titel',
             fullscreen: 'Skift fuld skærm',
             borderless: 'Skift grænseløs mode',

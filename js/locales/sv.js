@@ -102,6 +102,7 @@
             removeTitle: 'Ta bort fil',
             uploadTitle: 'Ladda upp fil',
             uploadRetryTitle: 'Retry upload',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Visa detaljer',
             dragTitle: 'Flytta / Ändra ordning',
             indicatorNewTitle: 'Inte uppladdat ännu',
@@ -113,6 +114,7 @@
         previewZoomButtonTitles: {
             prev: 'Visa föregående fil',
             next: 'Visa nästa fil',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Rubrik',
             fullscreen: 'Fullskärm',
             borderless: 'Gränslös',

@@ -103,6 +103,7 @@
             uploadTitle: '파일 업로드',
             uploadRetryTitle: '업로드 재시도',
             downloadTitle: '파일 다운로드',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: '세부 정보 보기',
             dragTitle: '옮기기 / 재배열하기',
             indicatorNewTitle: '아직 업로드 되지 않았습니다',
@@ -114,6 +115,7 @@
         previewZoomButtonTitles: {
             prev: '이전 파일',
             next: '다음 파일',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: '머릿글 토글',
             fullscreen: '전체화면 토글',
             borderless: '창 테두리 토글',

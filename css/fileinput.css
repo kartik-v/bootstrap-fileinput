@@ -329,7 +329,7 @@ input[type=file].file-loading {
     text-align: center;
     padding-top: 4px;
     font-size: 11px;
-    color: #777;
+    color: #999;
     margin-bottom: 30px;
 }
 
@@ -661,4 +661,24 @@ input[type=file].file-loading {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.btn-kv-rotate,
+.kv-file-rotate {
+    display: none;
+}
+
+.rotatable .btn-kv-rotate,
+.rotatable .kv-file-rotate {
+    display: inline-block;
+}
+
+.rotatable .file-zoom-detail,
+.rotatable .kv-file-content,
+.rotatable .kv-file-content > :first-child {
+    transform-origin: top left;
+}
+
+.rotate-animate {
+    transition: transform 0.3s ease;
 }

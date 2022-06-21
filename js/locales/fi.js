@@ -91,6 +91,7 @@
             uploadTitle: 'Upload file',
             uploadRetryTitle: 'Retry upload',
             downloadTitle: 'Download file',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Yksityiskohdat',
             dragTitle: 'Siirrä / Järjestele',
             indicatorNewTitle: 'Ei ladattu',
@@ -102,6 +103,7 @@
         previewZoomButtonTitles: {
             prev: 'Seuraava tiedosto',
             next: 'Edellinen tiedosto',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Näytä otsikko',
             fullscreen: 'Kokonäytön tila',
             borderless: 'Rajaton tila',

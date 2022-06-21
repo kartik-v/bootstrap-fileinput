@@ -104,6 +104,7 @@
             uploadTitle: 'Transférer le fichier',
             uploadRetryTitle: 'Relancer le transfert',
             downloadTitle: 'Télécharger',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Voir les détails',
             dragTitle: 'Déplacer / Réarranger',
             indicatorNewTitle: 'Pas encore transféré',
@@ -115,6 +116,7 @@
         previewZoomButtonTitles: {
             prev: 'Voir le fichier précédent',
             next: 'Voir le fichier suivant',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Masquer le titre',
             fullscreen: 'Mode plein écran',
             borderless: 'Mode cinéma',

@@ -6,7 +6,6 @@ Change Log: `bootstrap-fileinput`
 **Date**: 19-Jun-2022
 
 - (enh #1792): Advanced file mime type detection for preview irrespective of file extension.
-   - New property `autoRenameExtension` which defaults to `true` - this will auto detect mime type and append the parsed new extension.
    - Load the following new plugin files before fileinput.min.js
 ```html
 <!-- buffer.min.js and filetype.min.js are necessary in the order listed for advanced mime type parsing and more correct
@@ -16,6 +15,11 @@ Change Log: `bootstrap-fileinput`
 <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.9/js/plugins/buffer.min.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.9/js/plugins/filetype.min.js" type="text/javascript"></script>
 ```   
+- (enh #1785): Image rotation button action feature in thumbnail and zoom.
+  - New property `rotatableFileExtensions` defaults to ['jpg', 'jpeg', 'png', 'gif'], 
+  - New properties in `fileActionSettings` (`rotateIcon`, `rotateTitle`, `rotateClass`)
+  - New properties `previewZoomButtonIcons.rotate`, `previewZoomButtonClasses.rotate`  and `previewZoomButtonTitles.rotate`
+
 - (enh #1788): Enhancements to `showUserError` method.
   - New 3rd parameter `retainErrorHistory` which allows you to retain previous errors (defaults to false) 
 ```js

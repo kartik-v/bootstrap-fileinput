@@ -105,6 +105,7 @@
             uploadTitle: 'Faylı yüklə',
             uploadRetryTitle: 'Retry upload',
             downloadTitle: 'Download file',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'məlumatlara bax',
             dragTitle: 'Yerini dəyiş və ya sırala',
             indicatorNewTitle: 'Davam edir',
@@ -116,6 +117,7 @@
         previewZoomButtonTitles: {
             prev: 'Əvvəlki fayla bax',
             next: 'Növbəti fayla bax',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Başlığı dəyiş',
             fullscreen: 'Tam ekranı dəyiş',
             borderless: 'Bölmələrsiz rejimi dəyiş',

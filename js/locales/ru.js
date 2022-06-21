@@ -105,6 +105,7 @@
             uploadTitle: 'Загрузить файл',
             uploadRetryTitle: 'Повторить загрузку',
             downloadTitle: 'Загрузить файл',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Посмотреть детали',
             dragTitle: 'Переместить / Изменить порядок',
             indicatorNewTitle: 'Еще не загружен',
@@ -116,6 +117,7 @@
         previewZoomButtonTitles: {
             prev: 'Посмотреть предыдущий файл',
             next: 'Посмотреть следующий файл',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Переключить заголовок',
             fullscreen: 'Переключить полноэкранный режим',
             borderless: 'Переключить режим без полей',

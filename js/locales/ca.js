@@ -104,6 +104,7 @@
             uploadTitle: 'Pujar arxiu',
             uploadRetryTitle: 'Tornar a pujar',
             downloadTitle: 'Descarregar arxiu',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Veure detalls',
             dragTitle: 'Moure / Ordenar',
             indicatorNewTitle: 'No pujat encara',
@@ -115,6 +116,7 @@
         previewZoomButtonTitles: {
             prev: 'Veure arxiu previ',
             next: 'Veure arxiu següent',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Activar capçalera',
             fullscreen: 'Activar pantalla completa',
             borderless: 'Activar mode sense vora',

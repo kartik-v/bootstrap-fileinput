@@ -91,6 +91,7 @@
             uploadTitle: 'Файлды жүктеу',
             uploadRetryTitle: 'Retry upload',
             downloadTitle: 'Download file',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'мәліметтерді көру',
             dragTitle: 'Орнын ауыстыру',
             indicatorNewTitle: 'Жүктелген жоқ',
@@ -102,6 +103,7 @@
         previewZoomButtonTitles: {
             prev: 'Алдыңғы файлды қарау',
             next: 'Келесі файлды қарау',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Тақырыпты ауыстыру',
             fullscreen: 'Толық экран режимін қосу',
             borderless: 'Жиексіз режиміне ауысу',

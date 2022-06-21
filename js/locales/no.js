@@ -102,6 +102,7 @@
             removeTitle: 'Fjern fil',
             uploadTitle: 'Last opp fil',
             uploadRetryTitle: 'Retry upload',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Vis detaljer',
             dragTitle: 'Flytt / endre rekkefølge',
             indicatorNewTitle: 'Opplastning ikke fullført',
@@ -113,6 +114,7 @@
         previewZoomButtonTitles: {
             prev: 'Vis forrige fil',
             next: 'Vis neste fil',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Vis header',
             fullscreen: 'Åpne fullskjerm',
             borderless: 'Åpne uten kanter',

@@ -101,6 +101,7 @@
             uploadTitle: 'Naloži datoteko',
             uploadRetryTitle: 'Retry upload',
             downloadTitle: 'Download file',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Poglej podrobnosti',
             dragTitle: 'Premaki / Razporedi',
             indicatorNewTitle: 'Še ni naloženo',
@@ -112,6 +113,7 @@
         previewZoomButtonTitles: {
             prev: 'Poglej prejšno datoteko',
             next: 'Poglej naslednjo datoteko',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Preklopi glavo',
             fullscreen: 'Preklopi celozaslonski način',
             borderless: 'Preklopi način brez robov',

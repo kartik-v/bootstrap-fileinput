@@ -105,6 +105,7 @@
             uploadTitle: 'ფაილის ატვირთვა',
             uploadRetryTitle: 'ატვირთვის გამეორება',
             downloadTitle: 'ფაილის ჩამოტვირთვა',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'დეტალურად ნახვა',
             dragTitle: 'გადაადგილება / მიმდევრობის შეცვლა',
             indicatorNewTitle: 'ჯერ არ ატვირთულა',
@@ -116,6 +117,7 @@
         previewZoomButtonTitles: {
             prev: 'წინა ფაილის ნახვა',
             next: 'შემდეგი ფაილის ნახვა',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'სათაურის დამალვა',
             fullscreen: 'მთელ ეკრანზე გაშლა',
             borderless: 'მთელ გვერდზე გაშლა',

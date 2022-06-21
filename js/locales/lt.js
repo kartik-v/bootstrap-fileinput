@@ -103,6 +103,7 @@
             removeTitle: 'Šalinti failą',
             uploadTitle: 'Įkelti failą',
             uploadRetryTitle: 'Bandyti įkelti vėl',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Peržiūrėti detales',
             dragTitle: 'Perstumti',
             indicatorNewTitle: 'Dar neįkelta',
@@ -114,6 +115,7 @@
         previewZoomButtonTitles: {
             prev: 'Peržiūrėti ankstesnį failą',
             next: 'Peržiūrėti kitą failą',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Perjungti viršutinę juostą',
             fullscreen: 'Perjungti pilno ekrano rėžimą',
             borderless: 'Perjungti berėmį režimą',

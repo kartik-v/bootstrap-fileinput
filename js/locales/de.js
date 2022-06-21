@@ -102,6 +102,7 @@
             uploadTitle: 'Datei hochladen',
             uploadRetryTitle: 'Upload erneut versuchen',
             downloadTitle: 'Datei herunterladen',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Details anzeigen',
             dragTitle: 'Verschieben / Neuordnen',
             indicatorNewTitle: 'Noch nicht hochgeladen',
@@ -113,6 +114,7 @@
         previewZoomButtonTitles: {
             prev: 'Vorherige Datei anzeigen',
             next: 'Nächste Datei anzeigen',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Header umschalten',
             fullscreen: 'Vollbildmodus umschalten',
             borderless: 'Randlosen Modus umschalten',

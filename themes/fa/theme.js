@@ -26,8 +26,9 @@
         fileActionSettings: {
             removeIcon: '<i class="fa fa-trash"></i>',
             uploadIcon: '<i class="fa fa-upload"></i>',
-            uploadRetryIcon: '<i class="fa fa-repeat"></i>',
+            uploadRetryIcon: '<i class="fa fa-cloud-upload"></i>',
             downloadIcon: '<i class="fa fa-download"></i>',
+            rotateIcon: '<i class="fa fa-rotate-right"></i>',
             zoomIcon: '<i class="fa fa-search-plus"></i>',
             dragIcon: '<i class="fa fa-arrows"></i>',
             indicatorNew: '<i class="fa fa-plus-circle text-warning"></i>',
@@ -42,6 +43,7 @@
         previewZoomButtonIcons: {
             prev: '<i class="fa fa-chevron-left"></i>',
             next: '<i class="fa fa-chevron-right"></i>',
+            rotate: '<i class="fa fa-rotate-right"></i>',
             toggleheader: '<i class="fa fa-fw fa-arrows-v"></i>',
             fullscreen: '<i class="fa fa-fw fa-arrows-alt"></i>',
             borderless: '<i class="fa fa-fw fa-external-link"></i>',

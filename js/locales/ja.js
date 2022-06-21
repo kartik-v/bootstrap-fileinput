@@ -112,6 +112,7 @@
             removeTitle: 'ファイルを削除',
             uploadTitle: 'ファイルをアップロード',
             uploadRetryTitle: '再アップロード',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'プレビュー',
             dragTitle: '移動 / 再配置',
             indicatorNewTitle: 'まだアップロードされていません',
@@ -123,6 +124,7 @@
         previewZoomButtonTitles: {
             prev: '前のファイルを表示',
             next: '次のファイルを表示',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'ファイル情報の表示/非表示',
             fullscreen: 'フルスクリーン表示の開始/終了',
             borderless: 'フルウィンドウ表示の開始/終了',

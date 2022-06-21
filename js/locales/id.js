@@ -105,6 +105,7 @@
             uploadTitle: 'Unggah Berkas',
             uploadRetryTitle: 'Unggah Ulang',
             downloadTitle: 'Unduh Berkas',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'Tampilkan Rincian',
             dragTitle: 'Pindah atau Atur Ulang',
             indicatorNewTitle: 'Belum diunggah',
@@ -116,6 +117,7 @@
         previewZoomButtonTitles: {
             prev: 'Lihat berkas sebelumnya',
             next: 'Lihat berkas selanjutnya',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'Beralih ke tajuk',
             fullscreen: 'Beralih ke mode penuh',
             borderless: 'Beralih ke mode tanpa tepi',

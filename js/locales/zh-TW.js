@@ -106,6 +106,7 @@
             uploadTitle: '上傳檔案',
             uploadRetryTitle: '重試',
             downloadTitle: '下載檔案',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: '詳細資料',
             dragTitle: '移動 / 重置',
             indicatorNewTitle: '尚未上傳',
@@ -117,6 +118,7 @@
         previewZoomButtonTitles: {
             prev: '預覽上壹個文件',
             next: '預覽下壹個文件',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: '縮放',
             fullscreen: '全屏',
             borderless: '無邊界模式',

@@ -99,6 +99,7 @@
         fileActionSettings: {
             removeTitle: 'הסרת קובץ',
             uploadTitle: 'טעינת קובץ',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: 'הצגת פרטים',
             dragTitle: 'העברה / סידור מחדש',
             indicatorNewTitle: 'עדיין לא הועלה',
@@ -110,6 +111,7 @@
         previewZoomButtonTitles: {
             prev: 'הצגת את הקובץ הקודם',
             next: 'הצגת את הקובץ הבא',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: 'שינוי כותרת',
             fullscreen: 'מעבר למסך מלא',
             borderless: 'שינוי המודל ללא שוליים',
