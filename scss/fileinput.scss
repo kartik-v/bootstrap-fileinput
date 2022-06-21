@@ -22,7 +22,6 @@ $green: #008000 !default;
 $mine-shaft: #333 !default;
 $boston-blue: #428bca !default;
 $pelorous: #17a2b8 !default;
-$tapa: #777 !default;
 $black: #000 !default;
 $white: #fff !default;
 $black-20: rgba(0, 0, 0, 0.2) !default;
@@ -389,7 +388,7 @@ input[type=file].file-loading {
     text-align: center;
     padding-top: multiply($pad, 0.8);
     font-size: multiply($pad, 2.2);
-    color: $tapa;
+    color: $mountain-mist;
     margin-bottom: multiply($pad, 3);
   }
 
