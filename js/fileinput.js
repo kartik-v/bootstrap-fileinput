@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.9
+ * bootstrap-fileinput v5.5.0
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -3241,7 +3241,7 @@
             }
             if (self.isAjaxUpload) {
                 if (self.fileManager.count() > 0) {
-                    files = $.extend(true, {}, self.getFileList());
+                    files = $.extend(true, [], self.getFileList());
                     self.fileManager.clear();
                     self._clearFileInput();
                 } else {
@@ -3252,7 +3252,6 @@
             }
             if (files && files.length) {
                 self.readFiles(files);
-                self._setFileDropZoneTitle();
             }
         },
         _clearObjects: function ($el) {
@@ -4313,10 +4312,10 @@
             if (typeof func === 'function') {
                 out = func(size);
             } else {
+                if (!sizeUnits) {
+                    sizeUnits = self.sizeUnits;
+                }
                 if (size > 0) {
-                    if (!sizeUnits) {
-                        sizeUnits = self.sizeUnits;
-                    }
                     while (sizeHuman >= factor) {
                         sizeHuman /= factor;
                         ++i;
@@ -4330,6 +4329,7 @@
                 if (newSize == sizeHuman) {
                     newSize = sizeHuman;
                 }
+                console.log('size ', size);
                 out = newSize + ' ' + sizeUnits[i];
             }
             return skipTemplate ? out : self._getLayoutTemplate('size').replace('{sizeText}', out);
@@ -5462,7 +5462,11 @@
             return !skipPreview && (allowedTypes || allowedMimes || allowedExts);
         },
         addToStack: function (file, id) {
-            this.fileManager.add(file, id);
+            var self = this;
+            self.stackIsUpdating = true;
+            self.fileManager.add(file, id);
+            self._refreshPreview();
+            self.stackIsUpdating = false;
         },
         clearFileStack: function () {
             var self = this;
@@ -5633,6 +5637,9 @@
                     setTimeout(function () {
                         $status.html(msg);
                         self._updateFileDetails(numFiles);
+                        if (self.getFilesCount(true) > 0 && self.getFrames(':visible')) {
+                            self.$dropZone.find('.'+ self.dropZoneTitleClass).remove();
+                        }
                         readFile(i + 1);
                     }, self.processDelay);
                     if (self._raise('fileloaded', [file, previewId, id, i, reader]) && self.isAjaxUpload) {
@@ -5673,9 +5680,11 @@
                     var p2 = {id: previewId, index: i, fileId: fileId, file: file, files: files};
                     msg = self.msgDuplicateFile.setTokens({name: caption, size: sizeHuman});
                     if (self.isAjaxUpload) {
-                        self.duplicateErrors.push(msg);
-                        self.isDuplicateError = true;
-                        self._raise('fileduplicateerror', [file, fileId, caption, sizeHuman, previewId, i]);
+                        if (!self.stackIsUpdating) {
+                            self.duplicateErrors.push(msg);
+                            self.isDuplicateError = true;
+                            self._raise('fileduplicateerror', [file, fileId, caption, sizeHuman, previewId, i]);
+                        }
                         readFile(i + 1);
                         self._updateFileDetails(numFiles);
                     } else {

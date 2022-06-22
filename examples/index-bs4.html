@@ -1,5 +1,5 @@
 <!--
-* bootstrap-fileinput v5.2.9
+* bootstrap-fileinput v5.5.0
 * http://plugins.krajee.com/file-input
 *
 * Author: Kartik Visweswaran
@@ -21,6 +21,8 @@
     <link href="../themes/explorer-fa5/theme.css" media="all" rel="stylesheet" type="text/css"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../js/plugins/buffer.min.js" type="text/javascript"></script>
+    <script src="../js/plugins/filetype.min.js" type="text/javascript"></script>
     <script src="../js/plugins/piexif.js" type="text/javascript"></script>
     <script src="../js/plugins/sortable.js" type="text/javascript"></script>
     <script src="../js/fileinput.js" type="text/javascript"></script>
@@ -139,6 +141,13 @@
             </div>
     </form>
     <hr>
+    <h4>Test <code>addToStack</code></h4>
+    <label>Select file below which will automatically be added to the plugin preview later</label>
+    <div class="input-group mb-3">
+        <input type="file" class="form-control" id="inp-add-1">
+    </div>
+    <hr>
+    <input type="file" id="inp-add-2" name="inp-add-2" multiple>
     <br>
 </div>
 </body>
@@ -249,6 +258,25 @@
          alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
          });
          */
+        $('#inp-add-1').on('change', function() {
+            var $plugin = $('#inp-add-2').data('fileinput');
+            $plugin.addToStack($(this)[0].files[0])
+        });
+        $('#inp-add-2').fileinput({
+            uploadUrl: '#',
+            //uploadUrl: 'http://localhost/plugins/test-upload',
+            initialPreviewAsData: true,
+            initialPreview: [
+                "https://dummyimage.com/640x360/a0f.png&text=Transport+1",
+                "https://dummyimage.com/640x360/3a8.png&text=Transport+2",
+                "https://dummyimage.com/640x360/6ff.png&text=Transport+3"
+            ],
+            initialPreviewConfig: [
+                {caption: "transport-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1, zoomData: 'https://dummyimage.com/1920x1080/a0f.png&text=Transport+1', description: '<h5>NUMBER 1</h5> The first choice for transport. This is the future.'},
+                {caption: "transport-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2, zoomData: 'https://dummyimage.com/1920x1080/3a8.png&text=Transport+2', description: '<h5>NUMBER 2</h5> The second choice for transport. This is the future.'},
+                {caption: "transport-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3, zoomData: 'https://dummyimage.com/1920x1080/6ff.png&text=Transport+3', description: '<h5>NUMBER 3</h5> The third choice for transport. This is the future.'}
+            ]
+        });
     });
 </script>
 </html>

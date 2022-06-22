@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.2.9
+ * bootstrap-fileinput v5.5.0
  * http://plugins.krajee.com/file-input
  *
  * Font Awesome 4.x icon theme configuration for bootstrap-fileinput. Requires font awesome 4.x assets to be loaded.

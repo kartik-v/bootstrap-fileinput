@@ -1,7 +1,9 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 5.2.9
+## version 5.5.0
+
+**Major Release: BC Breaking**
 
 **Date**: 19-Jun-2022
 
@@ -17,12 +19,13 @@ Change Log: `bootstrap-fileinput`
    - Load the following new plugin files before fileinput.min.js
 ```html
 <!-- buffer.min.js and filetype.min.js are necessary in the order listed for advanced mime type parsing and more correct
-     preview. This is a feature available since v5.2.9 and is needed if you want to ensure file mime type is parsed 
+     preview. This is a feature available since v5.5.0 and is needed if you want to ensure file mime type is parsed 
      correctly even if the local file's extension is named incorrectly. This will ensure more correct preview of the
      selected file (note: this will involve a small processing overhead in scanning of file contents locally). -->
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.9/js/plugins/buffer.min.js" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.9/js/plugins/filetype.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/buffer.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/filetype.min.js" type="text/javascript"></script>
 ```   
+- (enh #1791): Enhance preview update automatically when `addToStack` is called.
 - (enh #1785): Image rotation button action feature in thumbnail and zoom.
   - New property `rotatableFileExtensions` defaults to ['jpg', 'jpeg', 'png', 'gif'], 
   - New properties in `fileActionSettings` (`rotateIcon`, `rotateTitle`, `rotateClass`)
