@@ -37,7 +37,7 @@
         msgNoFilesSelected: '',
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size}</b>) is too small and must be larger than <b>{minSize}</b>.',
-        msgSizeTooLarge: 'Tiedosto "{name}" (<b>{size} Kt</b>) ylitt&auml;&auml; suurimman sallitun tiedoston koon, joka on <b>{maxSize} Kt</b>. Yrit&auml; uudelleen!',
+        msgSizeTooLarge: 'Tiedosto "{name}" (<b>{size}</b>) ylitt&auml;&auml; suurimman sallitun tiedoston koon, joka on <b>{maxSize}</b>. Yrit&auml; uudelleen!',
         msgFilesTooLess: 'V&auml;hint&auml;&auml;n <b>{n}</b> {files} tiedostoa on valittava ladattavaksi. Ole hyv&auml; ja yrit&auml; uudelleen!',
         msgFilesTooMany: 'Valittujen tiedostojen lukum&auml;&auml;r&auml; <b>({n})</b> ylitt&auml;&auml; suurimman sallitun m&auml;&auml;r&auml;n <b>{m}</b>. Ole hyv&auml; ja yrit&auml; uudelleen!',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

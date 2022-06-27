@@ -42,7 +42,7 @@
         msgZoomModalHeading: 'Aperçu détaillé',
         msgFileRequired: 'Vous devez sélectionner un fichier à envoyer.',
         msgSizeTooSmall: 'Le fichier "{name}" (<b>{size}</b>) est inférieur à la taille minimale de <b>{minSize}</b>.',
-        msgSizeTooLarge: 'Le fichier "{name}" (<b>{size} Ko</b>) dépasse la taille maximale autorisée qui est de <b>{maxSize} Ko</b>.',
+        msgSizeTooLarge: 'Le fichier "{name}" (<b>{size}</b>) dépasse la taille maximale autorisée qui est de <b>{maxSize}</b>.',
         msgFilesTooLess: 'Vous devez sélectionner au moins <b>{n}</b> {files} à transmettre.',
         msgFilesTooMany: 'Le nombre de fichiers sélectionnés <b>({n})</b> dépasse la quantité maximale autorisée qui est de <b>{m}</b>.',
         msgTotalFilesTooMany: 'Il n\'est pas permis d\'envoyer plus de <b>{m}</b> fichiers (actuellement <b>{n}</b> fichiers).',

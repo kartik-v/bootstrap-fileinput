@@ -7,7 +7,8 @@
  */
 'use strict';
 
-const base64 = {
+var KrajeeBase64, KrajeeIeee754, customInspectSymbol, INSPECT_MAX_BYTES = 50, K_MAX_LENGTH = 0x7fffffff;
+KrajeeBase64 = {
     fromByteArray: function (uint8) {
         var tmp, len = uint8.length, extraBytes = len % 3, // if we have 1 byte left, pad 2 bytes
             parts = [], maxChunkLength = 16383; // must be multiple of 3
@@ -63,7 +64,7 @@ const base64 = {
         return arr;
     }
 };
-const ieee754 = {
+KrajeeIeee754 = {
     read: function (buffer, offset, isLE, mLen, nBytes) {
         var e, m, eLen = (nBytes * 8) - mLen - 1, eMax = (1 << eLen) - 1, eBias = eMax >> 1, nBits = -7,
             i = isLE ? (nBytes - 1) : 0, d = isLE ? -1 : 1, s = buffer[offset + i];
@@ -140,13 +141,10 @@ const ieee754 = {
         buffer[offset + i - d] |= s * 128;
     }
 };
-
-const customInspectSymbol =
+customInspectSymbol =
     (typeof Symbol === 'function' && typeof Symbol['for'] === 'function') // eslint-disable-line dot-notation
         ? Symbol['for']('nodejs.util.inspect.custom') // eslint-disable-line dot-notation
         : null;
-const INSPECT_MAX_BYTES = 50;
-const K_MAX_LENGTH = 0x7fffffff;
 
 /**
  * If `Buffer.TYPED_ARRAY_SUPPORT`:
@@ -1076,9 +1074,9 @@ Buffer.prototype.toJSON = function toJSON() {
 
 function base64Slice(buf, start, end) {
     if (start === 0 && end === buf.length) {
-        return base64.fromByteArray(buf);
+        return KrajeeBase64.fromByteArray(buf);
     } else {
-        return base64.fromByteArray(buf.slice(start, end));
+        return KrajeeBase64.fromByteArray(buf.slice(start, end));
     }
 }
 
@@ -1502,25 +1500,25 @@ Buffer.prototype.readBigInt64BE = defineBigIntMethod(function readBigInt64BE(off
 Buffer.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
     offset = offset >>> 0;
     if (!noAssert) checkOffset(offset, 4, this.length);
-    return ieee754.read(this, offset, true, 23, 4);
+    return KrajeeIeee754.read(this, offset, true, 23, 4);
 };
 
 Buffer.prototype.readFloatBE = function readFloatBE(offset, noAssert) {
     offset = offset >>> 0;
     if (!noAssert) checkOffset(offset, 4, this.length);
-    return ieee754.read(this, offset, false, 23, 4);
+    return KrajeeIeee754.read(this, offset, false, 23, 4);
 };
 
 Buffer.prototype.readDoubleLE = function readDoubleLE(offset, noAssert) {
     offset = offset >>> 0;
     if (!noAssert) checkOffset(offset, 8, this.length);
-    return ieee754.read(this, offset, true, 52, 8);
+    return KrajeeIeee754.read(this, offset, true, 52, 8);
 };
 
 Buffer.prototype.readDoubleBE = function readDoubleBE(offset, noAssert) {
     offset = offset >>> 0;
     if (!noAssert) checkOffset(offset, 8, this.length);
-    return ieee754.read(this, offset, false, 52, 8);
+    return KrajeeIeee754.read(this, offset, false, 52, 8);
 };
 
 function checkInt(buf, value, offset, ext, max, min) {
@@ -1789,7 +1787,7 @@ function writeFloat(buf, value, offset, littleEndian, noAssert) {
     if (!noAssert) {
         checkIEEE754(buf, value, offset, 4, 3.4028234663852886e+38, -3.4028234663852886e+38);
     }
-    ieee754.write(buf, value, offset, littleEndian, 23, 4);
+    KrajeeIeee754.write(buf, value, offset, littleEndian, 23, 4);
     return offset + 4;
 }
 
@@ -1807,7 +1805,7 @@ function writeDouble(buf, value, offset, littleEndian, noAssert) {
     if (!noAssert) {
         checkIEEE754(buf, value, offset, 8, 1.7976931348623157E+308, -1.7976931348623157E+308);
     }
-    ieee754.write(buf, value, offset, littleEndian, 52, 8);
+    KrajeeIeee754.write(buf, value, offset, littleEndian, 52, 8);
     return offset + 8;
 }
 
@@ -2191,7 +2189,7 @@ function utf16leToBytes(str, units) {
 }
 
 function base64ToBytes(str) {
-    return base64.toByteArray(base64clean(str));
+    return KrajeeBase64.toByteArray(base64clean(str));
 }
 
 function blitBuffer(src, dst, offset, length) {
