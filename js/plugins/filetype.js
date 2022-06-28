@@ -11,6 +11,33 @@
 var KrajeeFileTypeConfig = {
     minimumBytes: 4100, // A fair amount of file-types are detectable within this range,
     defaultMessages: 'End-Of-Stream',
+    tarHeaderChecksumMatches: function(buffer, offset = 0) {
+        var readSum = Number.parseInt(buffer.toString('utf8', 148, 154).replace(/\0.*$/, '').trim(), 8); // Read sum in header
+        if (Number.isNaN(readSum)) {
+            return false;
+        }
+
+        var sum = 8 * 0x20; // Initialize signed bit sum
+
+        for (let i = offset; i < offset + 148; i++) {
+            sum += buffer[i];
+        }
+
+        for (let i = offset + 156; i < offset + 512; i++) {
+            sum += buffer[i];
+        }
+
+        return readSum === sum;
+    },
+    uint32SyncSafeToken: {
+        get: function(buffer, offset) {
+            return (buffer[offset + 3] & 0x7F) | ((buffer[offset + 2]) << 7) | ((buffer[offset + 1]) << 14) | ((buffer[offset]) << 21);
+        },
+        len: 4,
+    },
+    dv: function(array) {
+        return new DataView(array.buffer, array.byteOffset);
+    },
     Token: {
         /**
          * 8-bit unsigned integer
@@ -18,10 +45,10 @@ var KrajeeFileTypeConfig = {
         UINT8: {
             len: 1,
             get: function(array, offset) {
-                return dv(array).getUint8(offset);
+                return KrajeeFileTypeConfig.dv(array).getUint8(offset);
             },
             put: function(array, offset, value) {
-                dv(array).setUint8(offset, value);
+                KrajeeFileTypeConfig.dv(array).setUint8(offset, value);
                 return offset + 1;
             }
         },
@@ -31,10 +58,10 @@ var KrajeeFileTypeConfig = {
         UINT16_LE: {
             len: 2,
             get: function(array, offset) {
-                return dv(array).getUint16(offset, true);
+                return KrajeeFileTypeConfig.dv(array).getUint16(offset, true);
             },
             put: function(array, offset, value) {
-                dv(array).setUint16(offset, value, true);
+                KrajeeFileTypeConfig.dv(array).setUint16(offset, value, true);
                 return offset + 2;
             }
         },
@@ -44,11 +71,24 @@ var KrajeeFileTypeConfig = {
         UINT16_BE: {
             len: 2,
             get: function(array, offset) {
-                return dv(array).getUint16(offset);
+                return KrajeeFileTypeConfig.dv(array).getUint16(offset);
             },
             put: function(array, offset, value) {
-                dv(array).setUint16(offset, value);
+                KrajeeFileTypeConfig.dv(array).setUint16(offset, value);
                 return offset + 2;
+            }
+        },
+        /**
+         * 32-bit unsigned integer, Big Endian byte order
+         */
+        INT32_BE: {
+            len: 4,
+            get: function(array, offset) {
+                return KrajeeFileTypeConfig.dv(array).getInt32(offset);
+            },
+            put: function(array, offset, value) {
+                KrajeeFileTypeConfig.dv(array).setInt32(offset, value);
+                return offset + 4;
             }
         },
         /**
@@ -57,10 +97,10 @@ var KrajeeFileTypeConfig = {
         UINT32_LE: {
             len: 4,
             get: function(array, offset) {
-                return dv(array).getUint32(offset, true);
+                return KrajeeFileTypeConfig.dv(array).getUint32(offset, true);
             },
             put: function(array, offset, value) {
-                dv(array).setUint32(offset, value, true);
+                KrajeeFileTypeConfig.dv(array).setUint32(offset, value, true);
                 return offset + 4;
             }
         },
@@ -70,10 +110,10 @@ var KrajeeFileTypeConfig = {
         UINT32_BE: {
             len: 4,
             get: function(array, offset) {
-                return dv(array).getUint32(offset);
+                return KrajeeFileTypeConfig.dv(array).getUint32(offset);
             },
             put: function(array, offset, value) {
-                dv(array).setUint32(offset, value);
+                KrajeeFileTypeConfig.dv(array).setUint32(offset, value);
                 return offset + 4;
             }
         },
@@ -84,10 +124,10 @@ var KrajeeFileTypeConfig = {
         UINT64_LE: {
             len: 8,
             get: function(array, offset) {
-                return dv(array).getBigUint64(offset, true);
+                return KrajeeFileTypeConfig.dv(array).getBigUint64(offset, true);
             },
             put: function(array, offset, value) {
-                dv(array).setBigUint64(offset, value, true);
+                KrajeeFileTypeConfig.dv(array).setBigUint64(offset, value, true);
                 return offset + 8;
             }
         },
@@ -97,10 +137,10 @@ var KrajeeFileTypeConfig = {
         UINT64_BE: {
             len: 8,
             get: function(array, offset) {
-                return dv(array).getBigUint64(offset);
+                return KrajeeFileTypeConfig.dv(array).getBigUint64(offset);
             },
             put: function(array, offset, value) {
-                dv(array).setBigUint64(offset, value);
+                KrajeeFileTypeConfig.dv(array).setBigUint64(offset, value);
                 return offset + 8;
             }
         }
@@ -433,7 +473,7 @@ class FileTypeParser {
 
         if (this.checkString('ID3')) {
             await tokenizer.ignore(6); // Skip ID3 header until the header size
-            const id3HeaderLength = await tokenizer.readToken(uint32SyncSafeToken);
+            const id3HeaderLength = await tokenizer.readToken(KrajeeFileTypeConfig.uint32SyncSafeToken);
             if (tokenizer.position + id3HeaderLength > tokenizer.fileInfo.size) {
                 // Guess file type based on ID3 header for backward compatibility
                 return {
@@ -1200,7 +1240,7 @@ class FileTypeParser {
 
             async function readChunkHeader() {
                 return {
-                    length: await tokenizer.readToken(INT32_BE),
+                    length: await tokenizer.readToken(Token.INT32_BE),
                     type: await tokenizer.readToken(new StringType(4, 'binary')),
                 };
             }
@@ -1600,7 +1640,7 @@ class FileTypeParser {
         await tokenizer.peekBuffer(this.buffer, {length: Math.min(512, tokenizer.fileInfo.size), mayBeLess: true});
 
         // Requires a buffer size of 512 bytes
-        if (tarHeaderChecksumMatches(this.buffer)) {
+        if (KrajeeFileTypeConfig.tarHeaderChecksumMatches(this.buffer)) {
             return {
                 ext: 'tar',
                 mime: 'application/x-tar',

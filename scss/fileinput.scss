@@ -840,7 +840,7 @@ input[type=file].file-loading {
   box-shadow: none;
 }
 
-.file-preview-other-frame, .file-preview-object, .kv-zoom-body {
+.file-preview-other-frame, .file-preview-object, .kv-file-content, .kv-zoom-body {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -864,13 +864,13 @@ input[type=file].file-loading {
     }
   }
   .file-zoom-detail {
-    transform-origin: top left;
+    transform-origin: center center;
   }
   .kv-file-content {
-    transform-origin: top left;
+    transform-origin: center center;
     > {
       &:first-child {
-        transform-origin: top left;
+        transform-origin: center center;
       }
     }
   }
@@ -878,4 +878,8 @@ input[type=file].file-loading {
 
 .rotate-animate {
   transition: transform 0.3s ease;
+}
+
+.kv-overflow-hidden {
+  overflow: hidden;
 }

@@ -1112,8 +1112,7 @@
                     return out;
                 },
                 exists: function (id) {
-                    var list = self.fileManager.getIdList();
-                    return $.inArray(id, list) !== -1 && (!altId || $.inArray(altId, list) !== -1);
+                    return $.inArray(id, self.fileManager.getIdList()) !== -1;
                 },
                 count: function () {
                     return self.fileManager.getIdList().length;
@@ -2333,9 +2332,10 @@
         },
         _resetErrors: function (fade) {
             var self = this, $error = self.$errorContainer, history = self.resumableUploadOptions.retainErrorHistory;
-            if (self.isPersistentError || (self.enableResumableUpload && history)) {
+            if (self.isPersistentError || (self.enableResumableUpload && history && !self.clearInput)) {
                 return;
             }
+            self.clearInput = false;
             self.isError = false;
             self.$container.removeClass('has-error');
             self.$caption.removeClass('is-invalid is-valid file-processing');
@@ -2910,6 +2910,7 @@
                     self._raise('filezoom' + event, getParams(e));
                 }
                 if (event === 'shown') {
+                    self._handleRotation($modal, $modal.find('.file-zoom-detail'), $modal.data('angle'));
                     $btnBord.removeClass('active').attr('aria-pressed', 'false');
                     $btnFull.removeClass('active').attr('aria-pressed', 'false');
                     if ($modal.hasClass('file-zoom-fullscreen')) {
@@ -4070,17 +4071,21 @@
             }, self.processDelay);
         },
         _handleRotation: function ($el, $content, angle) {
-            var self = this, css, newCss, addCss = '', scale = 1, elContent = $content[0], quadrant, transform, h, w;
+            var self = this, css, newCss, addCss = '', scale = 1, elContent = $content[0], quadrant, transform, h, w,
+                wNew, $parent = $content.parent(), hParent, wParent, $body = $('body'), bodyExists = !!$body.length;
+            if (bodyExists) {
+                $body.addClass('kv-overflow-hidden');
+            }
             if (!$content.length || $el.hasClass('hide-rotate')) {
+                if (bodyExists) {
+                    $body.removeClass('kv-overflow-hidden');
+                }
                 return;
             }
             transform = $content.css('transform');
             if (transform) {
                 $content.css('transform', 'none');
             }
-            w = elContent.naturalWidth || $content.outerWidth() || 0;
-            h = elContent.naturalHeight || $content.outerHeight() || 0;
-            scale = w > h && w != 0 ? (h / w).toFixed(2) : 1;
             if (transform) {
                 $content.css('transform', transform);
             }
@@ -4088,21 +4093,29 @@
             quadrant = angle % 360;
             css = 'rotate(' + angle + 'deg)';
             newCss = 'rotate(' + quadrant + 'deg)';
-            switch (quadrant) {
-                case 90:
-                    addCss = ' translateY(-100%)' + (scale === 1 ? '' : ' scale(' + scale + ')');
-                    break;
-                case 180:
-                    addCss = ' translate(-100%,-100%)';
-                    break;
-                case 270:
-                    var x = scale * 100, y = 100 - x;
-                    addCss = scale === 1 ? ' translateX(-100%)' : ' translate(-' + x + '%, ' + y + '%) scale(' + scale + ')';
-                    break;
+            addCss = '';
+            if (quadrant === 90 || quadrant === 270) {
+                w = elContent.naturalWidth || $content.outerWidth() || 0;
+                h = elContent.naturalHeight || $content.outerHeight() || 0;
+                scale = w > h && w != 0 ? (h / w).toFixed(2) : 1;
+                if ($parent.length) {
+                    hParent = $parent.height();
+                    wParent = $parent.width();
+                    wNew = Math.min(w, wParent);
+                    if (hParent > scale * wNew) {
+                        scale = wNew > hParent && wNew != 0 ? (hParent / wNew).toFixed(2) : 1;
+                    }
+                }
+                if (scale !== 1) {
+                    addCss = ' scale(' + scale + ')';
+                }
             }
             $content.addClass('rotate-animate').css('transform', css + addCss);
             setTimeout(function () {
                 $content.removeClass('rotate-animate').css('transform', newCss + addCss);
+                if (bodyExists) {
+                    $body.removeClass('kv-overflow-hidden');
+                }
                 $el.data('angle', quadrant);
             }, self.fadeDelay);
         },
@@ -4120,12 +4133,13 @@
         _initRotateZoom: function ($frame, $content) {
             var self = this, $modal = self.$modal, $rotate = $modal.find('.btn-kv-rotate'),
                 angle = $frame.data('angle');
+            $modal.data('angle', angle);
             if ($rotate.length) {
                 $rotate.off('click');
                 if ($modal.hasClass('rotatable')) {
-                    self._handleRotation($modal, $modal.find('.file-zoom-detail'), angle);
                     $rotate.on('click', function () {
                         angle = ($modal.data('angle') || 0) + 90;
+                        $modal.data('angle', angle);
                         self._handleRotation($modal, $modal.find('.file-zoom-detail'), angle);
                         self._handleRotation($frame, $content, angle);
                         if ($frame.hasClass('hide-rotate')) {
@@ -4329,7 +4343,6 @@
                 if (newSize == sizeHuman) {
                     newSize = sizeHuman;
                 }
-                console.log('size ', size);
                 out = newSize + ' ' + sizeUnits[i];
             }
             return skipTemplate ? out : self._getLayoutTemplate('size').replace('{sizeText}', out);
@@ -4361,7 +4374,7 @@
                 config, title = caption, alt = caption, typeCss = 'type-default', getContent, addFrameCss,
                 footer = foot || self._renderFileFooter(cat, caption, size, 'auto', isError), isRotatable,
                 forcePrevIcon = self.preferIconicPreview, forceZoomIcon = self.preferIconicZoomPreview,
-                newCat = forcePrevIcon ? 'other' : cat, ext =  filename.split('.').pop().toLowerCase();
+                newCat = forcePrevIcon ? 'other' : cat, ext = filename.split('.').pop().toLowerCase();
             config = screenW < 400 ? (self.previewSettingsSmall[newCat] || self.defaults.previewSettingsSmall[newCat]) :
                 (self.previewSettings[newCat] || self.defaults.previewSettings[newCat]);
             if (config) {
@@ -4423,7 +4436,7 @@
             ind = ind || previewId.slice(previewId.lastIndexOf('-') + 1);
             isRotatable = self.fileActionSettings.showRotate && $.inArray(ext, self.rotatableFileExtensions) !== -1;
             if (self.fileActionSettings.showZoom) {
-                addFrameCss = 'kv-zoom-thumb'
+                addFrameCss = 'kv-zoom-thumb';
                 if (isRotatable) {
                     addFrameCss += ' rotatable' + (forceZoomIcon ? ' hide-rotate' : '');
                 }
@@ -4512,7 +4525,6 @@
                 name = ($h.isIE(9) && $h.findFileName($el.val())) || ($el[0].files[0] && $el[0].files[0].name);
             if (!name && self.fileManager.count() > 0) {
                 file = self.fileManager.getFirstFile();
-                console.log('KV SAYS', file);
                 label = file.nameFmt;
             } else {
                 label = name ? self.slug(name) : '_';
@@ -5638,7 +5650,7 @@
                         $status.html(msg);
                         self._updateFileDetails(numFiles);
                         if (self.getFilesCount(true) > 0 && self.getFrames(':visible')) {
-                            self.$dropZone.find('.'+ self.dropZoneTitleClass).remove();
+                            self.$dropZone.find('.' + self.dropZoneTitleClass).remove();
                         }
                         readFile(i + 1);
                     }, self.processDelay);
@@ -6008,6 +6020,7 @@
             if (!self._raise('fileclear')) {
                 return;
             }
+            self.clearInput = true;
             self.$btnUpload.removeAttr('disabled');
             self._getThumbs().find('video,audio,img').each(function () {
                 $h.cleanMemory($(this));

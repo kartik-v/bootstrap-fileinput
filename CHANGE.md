@@ -5,8 +5,9 @@ Change Log: `bootstrap-fileinput`
 
 **Major Release: BC Breaking**
 
-**Date**: 27-Jun-2022
+**Date**: 28-Jun-2022
 
+- (enh #1800): Styling enhancements for thumbnail content and rotatable images.
 - (enh #1799): Correct translations containing `{maxSize}, {minSize}, {size}`.
 - (enh #1796): Add two new Font Awesome 6.x themes.
   - `fa6`

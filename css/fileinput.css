@@ -657,7 +657,7 @@ input[type=file].file-loading {
     display: none;
 }
 
-.file-preview-other-frame, .file-preview-object, .kv-zoom-body {
+.file-preview-other-frame, .file-preview-object, .kv-file-content, .kv-zoom-body {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -676,9 +676,13 @@ input[type=file].file-loading {
 .rotatable .file-zoom-detail,
 .rotatable .kv-file-content,
 .rotatable .kv-file-content > :first-child {
-    transform-origin: top left;
+    transform-origin: center center;
 }
 
 .rotate-animate {
     transition: transform 0.3s ease;
+}
+
+.kv-overflow-hidden {
+    overflow: hidden;
 }
