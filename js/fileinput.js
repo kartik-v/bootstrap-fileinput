@@ -4369,12 +4369,13 @@
             zoomData
         ) {
             var self = this, caption = self.slug(fname), prevContent, zoomContent = '', styleAttribs = '',
-                filename = fnameUpdated || fname,
+                filename = fnameUpdated || fname, isIconic, ext = filename.split('.').pop().toLowerCase(),
                 screenW = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
                 config, title = caption, alt = caption, typeCss = 'type-default', getContent, addFrameCss,
                 footer = foot || self._renderFileFooter(cat, caption, size, 'auto', isError), isRotatable,
-                forcePrevIcon = self.preferIconicPreview, forceZoomIcon = self.preferIconicZoomPreview,
-                newCat = forcePrevIcon ? 'other' : cat, ext = filename.split('.').pop().toLowerCase();
+                alwaysPreview = $.inArray(ext, self.alwaysPreviewFileExtensions) !== -1,
+                forcePrevIcon = self.preferIconicPreview && !alwaysPreview,
+                forceZoomIcon = self.preferIconicZoomPreview && !alwaysPreview, newCat = forcePrevIcon ? 'other' : cat;
             config = screenW < 400 ? (self.previewSettingsSmall[newCat] || self.defaults.previewSettingsSmall[newCat]) :
                 (self.previewSettings[newCat] || self.defaults.previewSettings[newCat]);
             if (config) {
@@ -4448,7 +4449,8 @@
             }
             addFrameCss = 'kv-preview-thumb';
             if (isRotatable) {
-                addFrameCss += ' rotatable' + (forcePrevIcon || self.hideThumbnailContent ? ' hide-rotate' : '');
+                isIconic = forcePrevIcon || self.hideThumbnailContent || !!self.previewFileIconSettings[ext];
+                addFrameCss += ' rotatable' + (isIconic ? ' hide-rotate' : '');
             }
             prevContent = getContent((forcePrevIcon ? 'other' : cat), data, false, addFrameCss, zoomData);
             return prevContent.setTokens({zoomCache: zoomContent});
@@ -6340,6 +6342,7 @@
         previewContentTemplates: {},
         preferIconicPreview: false,
         preferIconicZoomPreview: false,
+        alwaysPreviewFileExtensions: [],
         rotatableFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],
         allowedFileTypes: null,
         allowedFileExtensions: null,
@@ -6397,7 +6400,7 @@
             maxThreads: 4,
             maxRetries: 3,
             showErrorLog: true,
-            retainErrorHistory: true, // display complete error history always unless user explicitly resets upload
+            retainErrorHistory: false, // when set to true, display complete error history always unless user explicitly resets upload
             skipErrorsAndProceed: false // when set to true, files with errors will be skipped and upload will continue with other files
         },
         uploadExtraData: {},

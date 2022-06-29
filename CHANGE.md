@@ -5,7 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Major Release: BC Breaking**
 
-**Date**: 28-Jun-2022
+**Date**: 29-Jun-2022
 
 - (enh #1800): Styling enhancements for thumbnail content and rotatable images.
 - (enh #1799): Correct translations containing `{maxSize}, {minSize}, {size}`.
@@ -47,6 +47,8 @@ $input.on('fileuploaderror', function(event, data) {
   // $input.fileinput('showUserError', userMessage); 
 });
 ```
+- (enh #1694): Thumbnail of images only but detailed preview/iconic view of all other files.
+    - New property `alwaysPreviewFileExtensions` - setup as an array list of extensions whose content will always be shown in preview (irrespective of `preferIconPreview` or `previewFileIconSettings` which will be used to control icon preview for configured types).
 
 ## version 5.2.8
 
