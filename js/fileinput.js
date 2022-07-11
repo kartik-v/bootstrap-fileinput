@@ -460,7 +460,7 @@
                 case '52494646':
                     return 'image/webp';
                 case '41433130':
-                    return 'image/vnd.dwg',
+                    return 'image/vnd.dwg';
                 case '66747970':
                     return 'video/3gp';
                 case '4f676753':
