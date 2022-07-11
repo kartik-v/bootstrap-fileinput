@@ -868,10 +868,8 @@ input[type=file].file-loading {
   }
   .kv-file-content {
     transform-origin: center center;
-    > {
-      &:first-child {
-        transform-origin: center center;
-      }
+    >:first-child {
+      transform-origin: center center;      
     }
   }
 }
