@@ -1,6 +1,14 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.5.1
+
+**Date**: _under development_
+
+- (enh #1803): Add image/vnd.dwg signature.
+- (bug #1802): Fix SassError Invalid parent selector.
+- (bug #1782): Fix loading indicator reset for same file selected again.
+
 ## version 5.5.0
 
 **Major Release: BC Breaking**

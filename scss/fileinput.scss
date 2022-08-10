@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.5.0
+ * bootstrap-fileinput v5.5.1
  * http://plugins.krajee.com/file-input
  *
  * Krajee default styling for bootstrap-fileinput.
@@ -859,18 +859,23 @@ input[type=file].file-loading {
     .btn-kv-rotate {
       display: inline-block;
     }
+
     .kv-file-rotate {
       display: inline-block;
     }
   }
+
   .file-zoom-detail {
     transform-origin: center center;
   }
+
   .kv-file-content {
     transform-origin: center center;
-    >:first-child {
-      transform-origin: center center;      
+
+    > :first-child {
+      transform-origin: center center;
     }
+
   }
 }
 

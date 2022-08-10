@@ -1,5 +1,5 @@
 /*!
- * bootstrap-fileinput v5.5.0
+ * bootstrap-fileinput v5.5.1
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -5551,10 +5551,10 @@
                 }).on('focusin.fileinput', function () {
                     setTimeout(function () {
                         if (!$el.val()) {
-                            self._toggleLoading('hide');
                             self._setFileDropZoneTitle();
                         }
                         $body.off(ev);
+                        self._toggleLoading('hide');
                     }, 2500);
                 });
             } else {
