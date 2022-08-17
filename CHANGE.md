@@ -3,8 +3,9 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.5.1
 
-**Date**: _under development_
+**Date**: 17-Aug-2022
 
+- (enh #1809, #1810): Correct minified plugins file "filetype.min.js".
 - (enh #1803): Add image/vnd.dwg signature.
 - (bug #1802): Fix SassError Invalid parent selector.
 - (bug #1782): Fix loading indicator reset for same file selected again.
