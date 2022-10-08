@@ -105,7 +105,7 @@
             uploadTitle: '上传文件',
             downloadTitle: '下载文件',
             uploadRetryTitle: '重试',
-            rotateTitle: 'Rotate 90 deg. clockwise',
+            rotateTitle: '顺时针旋转90度',
             zoomTitle: '查看详情',
             dragTitle: '移动 / 重置',
             indicatorNewTitle: '没有上传',
@@ -117,7 +117,7 @@
         previewZoomButtonTitles: {
             prev: '预览上一个文件',
             next: '预览下一个文件',
-            rotate: 'Rotate 90 deg. clockwise',
+            rotate: '顺时针旋转90度',
             toggleheader: '缩放',
             fullscreen: '全屏',
             borderless: '无边界模式',
