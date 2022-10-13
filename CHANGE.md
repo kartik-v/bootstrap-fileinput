@@ -1,6 +1,15 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.5.2
+
+**Date**: 13-Oct-2022
+
+- (bug #1822): Correct file type tokenizer parsing.
+- (enh #1821): Update Indonesian Translations.
+- (enh #1819): Update Chinese Translations.
+- (enh #1817): Fix invalid signature detection.
+- 
 ## version 5.5.1
 
 **Date**: 17-Aug-2022

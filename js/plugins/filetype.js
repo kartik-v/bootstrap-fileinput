@@ -11,7 +11,7 @@
 var KrajeeFileTypeConfig = {
     minimumBytes: 4100, // A fair amount of file-types are detectable within this range,
     defaultMessages: 'End-Of-Stream',
-    tarHeaderChecksumMatches: function(buffer, offset = 0) {
+    tarHeaderChecksumMatches: function (buffer, offset = 0) {
         var readSum = Number.parseInt(buffer.toString('utf8', 148, 154).replace(/\0.*$/, '').trim(), 8); // Read sum in header
         if (Number.isNaN(readSum)) {
             return false;
@@ -30,12 +30,12 @@ var KrajeeFileTypeConfig = {
         return readSum === sum;
     },
     uint32SyncSafeToken: {
-        get: function(buffer, offset) {
+        get: function (buffer, offset) {
             return (buffer[offset + 3] & 0x7F) | ((buffer[offset + 2]) << 7) | ((buffer[offset + 1]) << 14) | ((buffer[offset]) << 21);
         },
         len: 4,
     },
-    dv: function(array) {
+    dv: function (array) {
         return new DataView(array.buffer, array.byteOffset);
     },
     Token: {
@@ -44,10 +44,10 @@ var KrajeeFileTypeConfig = {
          */
         UINT8: {
             len: 1,
-            get: function(array, offset) {
+            get: function (array, offset) {
                 return KrajeeFileTypeConfig.dv(array).getUint8(offset);
             },
-            put: function(array, offset, value) {
+            put: function (array, offset, value) {
                 KrajeeFileTypeConfig.dv(array).setUint8(offset, value);
                 return offset + 1;
             }
@@ -57,10 +57,10 @@ var KrajeeFileTypeConfig = {
          */
         UINT16_LE: {
             len: 2,
-            get: function(array, offset) {
+            get: function (array, offset) {
                 return KrajeeFileTypeConfig.dv(array).getUint16(offset, true);
             },
-            put: function(array, offset, value) {
+            put: function (array, offset, value) {
                 KrajeeFileTypeConfig.dv(array).setUint16(offset, value, true);
                 return offset + 2;
             }
@@ -70,10 +70,10 @@ var KrajeeFileTypeConfig = {
          */
         UINT16_BE: {
             len: 2,
-            get: function(array, offset) {
+            get: function (array, offset) {
                 return KrajeeFileTypeConfig.dv(array).getUint16(offset);
             },
-            put: function(array, offset, value) {
+            put: function (array, offset, value) {
                 KrajeeFileTypeConfig.dv(array).setUint16(offset, value);
                 return offset + 2;
             }
@@ -83,10 +83,10 @@ var KrajeeFileTypeConfig = {
          */
         INT32_BE: {
             len: 4,
-            get: function(array, offset) {
+            get: function (array, offset) {
                 return KrajeeFileTypeConfig.dv(array).getInt32(offset);
             },
-            put: function(array, offset, value) {
+            put: function (array, offset, value) {
                 KrajeeFileTypeConfig.dv(array).setInt32(offset, value);
                 return offset + 4;
             }
@@ -96,10 +96,10 @@ var KrajeeFileTypeConfig = {
          */
         UINT32_LE: {
             len: 4,
-            get: function(array, offset) {
+            get: function (array, offset) {
                 return KrajeeFileTypeConfig.dv(array).getUint32(offset, true);
             },
-            put: function(array, offset, value) {
+            put: function (array, offset, value) {
                 KrajeeFileTypeConfig.dv(array).setUint32(offset, value, true);
                 return offset + 4;
             }
@@ -109,10 +109,10 @@ var KrajeeFileTypeConfig = {
          */
         UINT32_BE: {
             len: 4,
-            get: function(array, offset) {
+            get: function (array, offset) {
                 return KrajeeFileTypeConfig.dv(array).getUint32(offset);
             },
-            put: function(array, offset, value) {
+            put: function (array, offset, value) {
                 KrajeeFileTypeConfig.dv(array).setUint32(offset, value);
                 return offset + 4;
             }
@@ -123,10 +123,10 @@ var KrajeeFileTypeConfig = {
          */
         UINT64_LE: {
             len: 8,
-            get: function(array, offset) {
+            get: function (array, offset) {
                 return KrajeeFileTypeConfig.dv(array).getBigUint64(offset, true);
             },
-            put: function(array, offset, value) {
+            put: function (array, offset, value) {
                 KrajeeFileTypeConfig.dv(array).setBigUint64(offset, value, true);
                 return offset + 8;
             }
@@ -136,10 +136,10 @@ var KrajeeFileTypeConfig = {
          */
         UINT64_BE: {
             len: 8,
-            get: function(array, offset) {
+            get: function (array, offset) {
                 return KrajeeFileTypeConfig.dv(array).getBigUint64(offset);
             },
-            put: function(array, offset, value) {
+            put: function (array, offset, value) {
                 KrajeeFileTypeConfig.dv(array).setBigUint64(offset, value);
                 return offset + 8;
             }
@@ -161,6 +161,17 @@ class StringType {
 
     get(uint8Array, offset) {
         return Buffer.from(uint8Array).toString(this.encoding, offset, offset + this.len);
+    }
+}
+
+
+async function fileTypeFromTokenizer(tokenizer) {
+    try {
+        return new FileTypeParser().parse(tokenizer);
+    } catch (error) {
+        if (!(error instanceof EndOfStreamError)) {
+            throw error;
+        }
     }
 }
 
@@ -345,17 +356,17 @@ class FileTypeParser {
     }
 
     async parse(input) {
-        if (!(input instanceof Uint8Array || input instanceof ArrayBuffer)) {
+        if (!(input instanceof Uint8Array || input instanceof ArrayBuffer || input instanceof BufferTokenizer)) {
             throw new TypeError(`Expected the \`input\` argument to be of type \`Uint8Array\` or \`Buffer\` or \`ArrayBuffer\`, got \`${typeof input}\``);
         }
-
-        const buffer = input instanceof Uint8Array ? input : new Uint8Array(input);
-
-        if (!(buffer && buffer.length > 1)) {
-            return;
+        let tokenizer = input;
+        if (!(tokenizer instanceof BufferTokenizer)) {
+            const buffer = input instanceof Uint8Array ? input : new Uint8Array(input);
+            if (!(buffer && buffer.length > 1)) {
+                return;
+            }
+            tokenizer = new BufferTokenizer(buffer);
         }
-
-        const tokenizer = new BufferTokenizer(buffer);
 
         try {
             return this.parseTokenizer(tokenizer);
@@ -483,6 +494,7 @@ class FileTypeParser {
             }
 
             await tokenizer.ignore(id3HeaderLength);
+            console.log("KV SAYS", typeof tokenizer, tokenizer);
             return fileTypeFromTokenizer(tokenizer); // Skip ID3 header, recursion
         }
 
@@ -1551,7 +1563,7 @@ class FileTypeParser {
                             mime: 'application/x-asar',
                         };
                     }
-                } catch(err) {
+                } catch (err) {
                     console.log(err);
                 }
             }
