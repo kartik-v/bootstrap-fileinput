@@ -1,6 +1,12 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.5.3
+
+**Date**: _under development_
+
+- (bug #1822): Fix tiff parsing exceptions and convert filetype library to ES5.
+
 ## version 5.5.2
 
 **Date**: 13-Oct-2022
