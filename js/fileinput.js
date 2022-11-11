@@ -6234,8 +6234,12 @@
         var args = Array.apply(null, arguments), retvals = [];
         args.shift();
         this.each(function () {
-            var self = $(this), data = self.data('fileinput'), options = typeof option === 'object' && option,
-                theme = options.theme || self.data('theme'), l = {}, t = {},
+            var options = {};
+            if (typeof option === 'object') {
+                options = $.extend(true, {}, $.fn.fileinput.defaults, option);
+            }
+            var self = $(this), data = self.data('fileinput'),
+                theme = options.theme || self.data('theme') || $.fn.fileinput.defaults.theme, l = {}, t = {},
                 lang = options.language || self.data('language') || $.fn.fileinput.defaults.language || 'en', opt;
             if (!data) {
                 if (theme) {
