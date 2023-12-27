@@ -1147,7 +1147,7 @@
                     if (!id) {
                         return;
                     }
-                    self.fileManager.stack[id] = {
+                        self.fileManager.stack[id] = {
                         file: file,
                         name: $h.getFileName(file),
                         relativePath: $h.getFileRelativePath(file),
@@ -4322,7 +4322,8 @@
             $h.addCss(self.$captionContainer, 'icon-visible');
         },
         _getSize: function (bytes, skipTemplate, sizeUnits) {
-            var self = this, size = parseFloat(bytes), i = 0, factor = self.bytesToKB, func = self.fileSizeGetter, out,
+            console.log(bytes);
+                        var self = this, size = parseFloat(bytes), i = 0, factor = self.bytesToKB, func = self.fileSizeGetter, out,
                 sizeHuman = size, newSize;
             if (!$.isNumeric(bytes) || !$.isNumeric(size)) {
                 return '';
@@ -4501,7 +4502,7 @@
             self._initSortable();
         },
         _setThumbAttr: function (id, caption, size, description) {
-            var self = this, $frame = self._getFrame(id);
+                        var self = this, $frame = self._getFrame(id);
             if ($frame.length) {
                 size = size && size > 0 ? self._getSize(size) : '';
                 $frame.data({'caption': caption, 'size': size, 'description': description || ''});
@@ -5722,7 +5723,7 @@
                     //fileSize é KB
                     let CaptionGroup = [];
                     let fileSizeGroup = 0;
-                    //sizeHuman = 0; TODO: tratar melhor o sizeHuman
+                    //sizeHuman = 0; TODO: tratar melhor o sizeHuman da minha forma e depois recolocar a variavel no print
                     Object.values(files).forEach(file => {
                         fileSizeGroup = fileSizeGroup + (file.size / self.bytesToKB);
                         CaptionGroup.push(file.name);
@@ -5731,7 +5732,7 @@
                     if(fileSizeGroup > self.maxMultipleFileSize){
                         msg = self.msgMultipleSizeTooLarge.setTokens({
                             'name': CaptionGroup,
-                            'size': sizeHuman,
+                            //'size': null,
                             'maxSize': self._getSize(self.maxMultipleFileSize * self.bytesToKB, true)
                         });
     
@@ -5741,7 +5742,7 @@
                     }
 
                 } else if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
-                    msg = self.msgSizeTooLarge.setTokens({
+                        msg = self.msgSizeTooLarge.setTokens({
                         'name': caption,
                         'size': sizeHuman,
                         'maxSize': self._getSize(self.maxFileSize * self.bytesToKB, true)
@@ -6527,7 +6528,7 @@
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size}</b>) is too small and must be larger than <b>{minSize}</b>.',
         msgSizeTooLarge: 'File "{name}" (<b>{size}</b>) exceeds maximum allowed upload size of <b>{maxSize}</b>.',
-        msgMultipleSizeTooLarge: 'Files"{name}" (<b>{size}</b>) exceeds maximum allowed upload size of <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Files"{name}" exceeds maximum allowed upload size of <b>{maxSize}</b>.',
         msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',
         msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
