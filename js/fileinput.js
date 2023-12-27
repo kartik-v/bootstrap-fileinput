@@ -2470,8 +2470,7 @@
             return 'other';
         },
         _getPreviewIcon: function (fname) {
-            console.log(fname);
-            var self = this, ext, out = null;
+                        var self = this, ext, out = null;
             if (fname && fname.indexOf('.') > -1) {
                 ext = fname.split('.').pop();
                 if (self.previewFileIconSettings) {
@@ -5572,8 +5571,6 @@
                 readFile, fileTypes = self.allowedFileTypes, typLen = fileTypes ? fileTypes.length : 0,
                 fileExt = self.allowedFileExtensions, strExt = $h.isEmpty(fileExt) ? '' : fileExt.join(', '),
                 throwError = function (msg, file, previewId, index, fileId) {
-
-                    console.log(files);
                                         var $thumb, p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
                             {id: previewId, index: index, fileId: fileId}),
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
@@ -5720,7 +5717,7 @@
                     }
                     return;
                 }
-                
+
                 if(self.maxMultipleFileSize > 0 && files.length > 1){
                     let CaptionGroup = [];
                     let fileSizeGroup = 0;
