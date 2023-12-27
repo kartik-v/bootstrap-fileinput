@@ -2470,6 +2470,7 @@
             return 'other';
         },
         _getPreviewIcon: function (fname) {
+            console.log(fname);
             var self = this, ext, out = null;
             if (fname && fname.indexOf('.') > -1) {
                 ext = fname.split('.').pop();
@@ -4322,7 +4323,6 @@
             $h.addCss(self.$captionContainer, 'icon-visible');
         },
         _getSize: function (bytes, skipTemplate, sizeUnits) {
-            console.log(bytes);
                         var self = this, size = parseFloat(bytes), i = 0, factor = self.bytesToKB, func = self.fileSizeGetter, out,
                 sizeHuman = size, newSize;
             if (!$.isNumeric(bytes) || !$.isNumeric(size)) {
@@ -5572,10 +5572,14 @@
                 readFile, fileTypes = self.allowedFileTypes, typLen = fileTypes ? fileTypes.length : 0,
                 fileExt = self.allowedFileExtensions, strExt = $h.isEmpty(fileExt) ? '' : fileExt.join(', '),
                 throwError = function (msg, file, previewId, index, fileId) {
+
+                    console.log(files);
                                         var $thumb, p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
                             {id: previewId, index: index, fileId: fileId}),
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
-                    self._previewDefault(file, true);
+                        Object.values(files).forEach(x => {
+                            self._previewDefault(x, true);    
+                        });
                     $thumb = self._getFrame(previewId, true);
                     self._toggleLoading('hide');
                     if (self.isAjaxUpload) {
@@ -5716,14 +5720,10 @@
                     }
                     return;
                 }
-                /* fileSize: tamanho do ficheiro carregado
-                    self.maxFileSize: tamanho dos ficheiros definido pelo user
-                 */
+                
                 if(self.maxMultipleFileSize > 0 && files.length > 1){
-                    //fileSize é KB
                     let CaptionGroup = [];
                     let fileSizeGroup = 0;
-                    //sizeHuman = 0; TODO: tratar melhor o sizeHuman da minha forma e depois recolocar a variavel no print
                     Object.values(files).forEach(file => {
                         fileSizeGroup = fileSizeGroup + (file.size / self.bytesToKB);
                         CaptionGroup.push(file.name);
@@ -5732,10 +5732,8 @@
                     if(fileSizeGroup > self.maxMultipleFileSize){
                         msg = self.msgMultipleSizeTooLarge.setTokens({
                             'name': CaptionGroup,
-                            //'size': null,
                             'maxSize': self._getSize(self.maxMultipleFileSize * self.bytesToKB, true)
                         });
-    
                         
                         throwError(msg, file, previewId, i, fileId);
                         return;
