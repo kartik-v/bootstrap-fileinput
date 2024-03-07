@@ -926,6 +926,7 @@
                     case 'maxTotalFileCount':
                     case 'minFileSize':
                     case 'maxFileSize':
+                    case 'maxMultipleFileSize':
                     case 'maxFilePreviewSize':
                     case 'resizeQuality':
                     case 'resizeIfSizeMoreThan':
@@ -1146,7 +1147,7 @@
                     if (!id) {
                         return;
                     }
-                    self.fileManager.stack[id] = {
+                        self.fileManager.stack[id] = {
                         file: file,
                         name: $h.getFileName(file),
                         relativePath: $h.getFileRelativePath(file),
@@ -2469,7 +2470,7 @@
             return 'other';
         },
         _getPreviewIcon: function (fname) {
-            var self = this, ext, out = null;
+                        var self = this, ext, out = null;
             if (fname && fname.indexOf('.') > -1) {
                 ext = fname.split('.').pop();
                 if (self.previewFileIconSettings) {
@@ -4321,7 +4322,7 @@
             $h.addCss(self.$captionContainer, 'icon-visible');
         },
         _getSize: function (bytes, skipTemplate, sizeUnits) {
-            var self = this, size = parseFloat(bytes), i = 0, factor = self.bytesToKB, func = self.fileSizeGetter, out,
+                        var self = this, size = parseFloat(bytes), i = 0, factor = self.bytesToKB, func = self.fileSizeGetter, out,
                 sizeHuman = size, newSize;
             if (!$.isNumeric(bytes) || !$.isNumeric(size)) {
                 return '';
@@ -4500,7 +4501,7 @@
             self._initSortable();
         },
         _setThumbAttr: function (id, caption, size, description) {
-            var self = this, $frame = self._getFrame(id);
+                        var self = this, $frame = self._getFrame(id);
             if ($frame.length) {
                 size = size && size > 0 ? self._getSize(size) : '';
                 $frame.data({'caption': caption, 'size': size, 'description': description || ''});
@@ -5570,10 +5571,12 @@
                 readFile, fileTypes = self.allowedFileTypes, typLen = fileTypes ? fileTypes.length : 0,
                 fileExt = self.allowedFileExtensions, strExt = $h.isEmpty(fileExt) ? '' : fileExt.join(', '),
                 throwError = function (msg, file, previewId, index, fileId) {
-                    var $thumb, p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
+                                        var $thumb, p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
                             {id: previewId, index: index, fileId: fileId}),
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
-                    self._previewDefault(file, true);
+                        Object.values(files).forEach(x => {
+                            self._previewDefault(x, true);    
+                        });
                     $thumb = self._getFrame(previewId, true);
                     self._toggleLoading('hide');
                     if (self.isAjaxUpload) {
@@ -5714,8 +5717,27 @@
                     }
                     return;
                 }
-                if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
-                    msg = self.msgSizeTooLarge.setTokens({
+
+                if(self.maxMultipleFileSize > 0 && files.length > 1){
+                    let CaptionGroup = [];
+                    let fileSizeGroup = 0;
+                    Object.values(files).forEach(file => {
+                        fileSizeGroup = fileSizeGroup + (file.size / self.bytesToKB);
+                        CaptionGroup.push(file.name);
+                    });
+                   
+                    if(fileSizeGroup > self.maxMultipleFileSize){
+                        msg = self.msgMultipleSizeTooLarge.setTokens({
+                            'name': CaptionGroup,
+                            'maxSize': self._getSize(self.maxMultipleFileSize * self.bytesToKB, true)
+                        });
+                        
+                        throwError(msg, file, previewId, i, fileId);
+                        return;
+                    }
+
+                } else if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
+                        msg = self.msgSizeTooLarge.setTokens({
                         'name': caption,
                         'size': sizeHuman,
                         'maxSize': self._getSize(self.maxFileSize * self.bytesToKB, true)
@@ -6423,6 +6445,7 @@
         resizeIfSizeMoreThan: 0, // in KB
         minFileSize: -1,
         maxFileSize: 0,
+        maxMultipleFileSize: 0,
         maxFilePreviewSize: 25600, // 25 MB
         minFileCount: 0,
         maxFileCount: 0,
@@ -6500,6 +6523,7 @@
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size}</b>) is too small and must be larger than <b>{minSize}</b>.',
         msgSizeTooLarge: 'File "{name}" (<b>{size}</b>) exceeds maximum allowed upload size of <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Files"{name}" exceeds maximum allowed upload size of <b>{maxSize}</b>.',
         msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',
         msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
