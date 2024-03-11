@@ -44,6 +44,7 @@
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size}</b>) is too small and must be larger than <b>{minSize}</b>.',
         msgSizeTooLarge: 'Fișierul "{name}" (<b>{size}</b>) depășește limita maximă de încărcare de <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Fișierelor "{name}" (<b>{size}</b>) depășește limita maximă de încărcare de <b>{maxSize}</b>.',
         msgFilesTooLess: 'Trebuie să selectezi cel puțin <b>{n}</b> {files} pentru a încărca.',
         msgFilesTooMany: 'Numărul fișierelor pentru încărcare <b>({n})</b> depășește limita maximă de <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

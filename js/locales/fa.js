@@ -44,6 +44,7 @@
         msgFileRequired: 'شما باید یک فایل برای بارگذاری انتخاب نمایید.',
         msgSizeTooSmall: 'فایل "{name}" (<b>{size}</b>) خیلی کوچک است و باید از <b>{minSize}</b>.',
         msgSizeTooLarge: 'فایل "{name}" (<b>{size}</b>) از حداکثر مجاز <b>{maxSize}</b> بزرگتر است.',
+        msgMultipleSizeTooLarge: 'فایل "{name}" (<b>{size}</b>) از حداکثر مجاز <b>{maxSize}</b> بزرگتر است.',
         msgFilesTooLess: 'شما باید حداقل <b>{n}</b> {files} فایل برای بارگذاری انتخاب کنید.',
         msgFilesTooMany: 'تعداد فایل‌های انتخاب شده برای بارگذاری <b>({n})</b> از حداکثر مجاز عبور کرده است <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

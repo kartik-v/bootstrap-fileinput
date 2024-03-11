@@ -43,6 +43,7 @@
         msgZoomModalHeading: 'תצוגה מקדימה מפורטת',
         msgSizeTooSmall: 'קובץ "{name}" (<b>{size}</b>) קטן מדי וחייב להיות גדול מ <b>{minSize}</b>.',
         msgSizeTooLarge: 'קובץ "{name}" (<b>{size}</b>) חורג מהגודל המרבי המותר להעלאה של <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'קובץ "{name}" (<b>{size}</b>) חורג מהגודל המרבי המותר להעלאה של <b>{maxSize}</b>.',
         msgFilesTooLess: 'עליך לבחור לפחות <b>{n}</b> {files} להעלאה.',
         msgFilesTooMany: 'מספר הקבצים שנבחרו להעלאה <b>({n})</b> חורג מהמגבלה המרבית המותרת של <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

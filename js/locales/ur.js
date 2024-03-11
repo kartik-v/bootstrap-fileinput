@@ -46,6 +46,7 @@
         msgSizeTooSmall: 'فائل "{name}" (<b>{size}</b>) بہت چھوٹی ہے اور <b>{minSize}</b> سے بڑی ہونی چاہیے۔',
 
         msgSizeTooLarge: 'فائل "{name}" (<b>{size}</b>) زیادہ سے زیادہ اجازت شدہ اپ لوڈ سائز <b>{maxSize}</b> سے زیادہ ہے۔',
+        msgMultipleSizeTooLarge: 'فائل "{name}" (<b>{size}</b>) زیادہ سے زیادہ اجازت شدہ اپ لوڈ سائز <b>{maxSize}</b> سے زیادہ ہے۔',
         msgFilesTooLess: 'اپ لوڈ کرنے کے لیے آپ کو کم از کم <b>{n}</b> {files} کا انتخاب کرنا چاہیے۔',
         msgFilesTooMany: 'اپ لوڈ کے لیے منتخب فائلوں کی تعداد <b>({n})</b> <b>{m}</b> کی زیادہ سے زیادہ اجازت شدہ حد سے زیادہ ہے۔',
         msgTotalFilesTooMany: 'آپ زیادہ سے زیادہ <b>{m}</b> فائلیں اپ لوڈ کرسکتے ہیں (<b>{n}</b> فائلوں کا پتہ چلا)۔',

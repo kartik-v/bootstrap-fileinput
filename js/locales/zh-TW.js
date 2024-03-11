@@ -45,6 +45,7 @@
         msgFileRequired: '必須選擇壹個文件上傳.',
         msgSizeTooSmall: '檔案 "{name}" (<b>{size}</b>) 必須大於限定大小 <b>{minSize}</b>.',
         msgSizeTooLarge: '檔案 "{name}" (<b>{size}</b>) 大小超過上限 <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: '檔案 "{name}" (<b>{size}</b>) 大小超過上限 <b>{maxSize}</b>.',
         msgFilesTooLess: '最少必須選擇 <b>{n}</b> {files} 來上傳. ',
         msgFilesTooMany: '上傳的檔案數量 <b>({n})</b> 超過最大檔案上傳限制 <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

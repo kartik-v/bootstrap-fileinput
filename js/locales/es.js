@@ -43,6 +43,7 @@
         msgFileRequired: 'Debes seleccionar un archivo para subir.',
         msgSizeTooSmall: 'El archivo "{name}" (<b>{size}</b>) es demasiado pequeño y debe ser mayor de <b>{minSize}</b>.',
         msgSizeTooLarge: 'El archivo "{name}" (<b>{size}</b>) excede el tamaño máximo permitido de <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'El archivos "{name}" (<b>{size}</b>) excede el tamaño máximo permitido de <b>{maxSize}</b>.',
         msgFilesTooLess: 'Debe seleccionar al menos <b>{n}</b> {files} a cargar.',
         msgFilesTooMany: 'El número de archivos seleccionados a cargar <b>({n})</b> excede el límite máximo permitido de <b>{m}</b>.',
         msgTotalFilesTooMany: 'Puede cargar un máximo de <b>{m}</b> archivos (<b>{n}</b> archivos detectados).',

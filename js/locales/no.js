@@ -43,6 +43,7 @@
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Filen "{name}" (<b>{size}</b>) er for liten og må være større enn <b>{minSize}</b>.',
         msgSizeTooLarge: 'Filen "{name}" (<b>{size}</b>) er for stor, maksimal filstørrelse er <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Filer "{name}" (<b>{size}</b>) er for stor, maksimal filstørrelse er <b>{maxSize}</b>.',
         msgFilesTooLess: 'Du må velge minst <b>{n}</b> {files} for opplastning.',
         msgFilesTooMany: 'For mange filer til opplastning, <b>({n})</b> overstiger maksantallet som er <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

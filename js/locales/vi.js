@@ -44,6 +44,7 @@
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size}</b>) is too small and must be larger than <b>{minSize}</b>.',
         msgSizeTooLarge: 'Tập tin "{name}" (<b>{size}</b>) vượt quá kích thước giới hạn cho phép <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Tập tin "{name}" (<b>{size}</b>) vượt quá kích thước giới hạn cho phép <b>{maxSize}</b>.',
         msgFilesTooLess: 'Bạn phải chọn ít nhất <b>{n}</b> {files} để upload.',
         msgFilesTooMany: 'Số lượng tập tin upload <b>({n})</b> vượt quá giới hạn cho phép là <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

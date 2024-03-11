@@ -43,6 +43,7 @@
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'Filen "{name}" (<b>{size}</b>) är för liten och måste vara större än <b>{minSize}</b>.',
         msgSizeTooLarge: 'File "{name}" (<b>{size}</b>) överstiger högsta tillåtna uppladdningsstorlek <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Filer "{name}" (<b>{size}</b>) överstiger högsta tillåtna uppladdningsstorlek <b>{maxSize}</b>.',
         msgFilesTooLess: 'Du måste välja minst <b>{n}</b> {files} för att ladda upp.',
         msgFilesTooMany: 'Antal filer valda för uppladdning <b>({n})</b> överstiger högsta tillåtna gränsen <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

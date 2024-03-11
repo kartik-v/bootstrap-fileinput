@@ -43,6 +43,7 @@
         msgFileRequired: 'Musisz wybrać plik do wgrania.',
         msgSizeTooSmall: 'Plik "{name}" (<b>{size}</b>) jest zbyt mały i musi być większy niż <b>{minSize}</b>.',
         msgSizeTooLarge: 'Plik o nazwie "{name}" (<b>{size}</b>) przekroczył maksymalną dopuszczalną wielkość pliku wynoszącą <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Plików o nazwie "{name}" (<b>{size}</b>) przekroczył maksymalną dopuszczalną wielkość pliku wynoszącą <b>{maxSize}</b>.',
         msgFilesTooLess: 'Minimalna liczba plików do wgrania: <b>{n}</b>.',
         msgFilesTooMany: 'Liczba plików wybranych do wgrania w liczbie <b>({n})</b>, przekracza maksymalny dozwolony limit wynoszący <b>{m}</b>.',
         msgTotalFilesTooMany: 'Możesz wgrać maksymalnie <b>{m}</b> plików (wykryto <b>{n}</b>).',

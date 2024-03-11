@@ -42,6 +42,7 @@
         msgPlaceholder: 'Select {files} ...',
         msgZoomModalHeading: 'Podroben predogled',
         msgSizeTooLarge: 'Datoteka "{name}" (<b>{size}</b>) presega največjo dovoljeno velikost za nalaganje <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Datotek "{name}" (<b>{size}</b>) presega največjo dovoljeno velikost za nalaganje <b>{maxSize}</b>.',
         msgFilesTooLess: 'Za nalaganje morate izbrati vsaj <b>{n}</b> {files}.',
         msgFilesTooMany: 'Število datotek, izbranih za nalaganje <b>({n})</b> je prekoračilo največjo dovoljeno število <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

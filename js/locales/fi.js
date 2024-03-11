@@ -43,6 +43,7 @@
         msgFileRequired: 'Valitse siirrett&auml;v&auml; tiedosto.',
         msgSizeTooSmall: 'Tiedosto "{name}" (<b>{size}</b>) alittaa pienimm&auml;n sallitun tiedoston koon, joka on <b>{minSize}</b>. Yrit&auml; uudelleen!',
         msgSizeTooLarge: 'Tiedosto "{name}" (<b>{size}</b>) ylitt&auml;&auml; suurimman sallitun tiedoston koon, joka on <b>{maxSize}</b>. Yrit&auml; uudelleen!',
+        msgMultipleSizeTooLarge: 'Tiedostoa "{name}" (<b>{size}</b>) ylitt&auml;&auml; suurimman sallitun tiedoston koon, joka on <b>{maxSize}</b>. Yrit&auml; uudelleen!',
         msgFilesTooLess: 'V&auml;hint&auml;&auml;n <b>{n}</b> {files} tiedostoa on valittava ladattavaksi. Ole hyv&auml; ja yrit&auml; uudelleen!',
         msgFilesTooMany: 'Valittujen tiedostojen lukum&auml;&auml;r&auml; <b>({n})</b> ylitt&auml;&auml; suurimman sallitun m&auml;&auml;r&auml;n <b>{m}</b>. Ole hyv&auml; ja yrit&auml; uudelleen!',
         msgTotalFilesTooMany: 'Korkeintaan <b>{m}</b> tiedostoa voidaan l&auml;hett&auml;&auml; (yritettiin <b>{n}</b> tiedostoa).',

@@ -41,6 +41,7 @@
         msgFileRequired: 'Jums jāizvēlas augšupielādējamais fails..',
         msgSizeTooSmall: 'Fails "{name}" (<b>{size}</b>) ir pārāk mazs un tam jābūt lielākam <b>{minSize}</b>.',
         msgSizeTooLarge: 'Fails "{name}" (<b>{size}</b>) pārsniedz maksimālo izmēru <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Failu "{name}" (<b>{size}</b>) pārsniedz maksimālo izmēru <b>{maxSize}</b>.',
         msgFilesTooLess: 'Lai lejupielādētu, jums jāizvēlas vismaz <b> {n} </b> {files}.',
         msgFilesTooMany: 'Izvēlēto failu skaits <b> ({n}) </b> pārsniedz maksimālo atļauto skaitu <b>{m}</b>.',
         msgFileNotFound: 'Fails "{name}" nav atrasts',

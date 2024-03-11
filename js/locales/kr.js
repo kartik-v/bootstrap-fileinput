@@ -43,6 +43,7 @@
         msgFileRequired: '업로드를 위해 반드시 파일을 선택해야 합니다.',
         msgSizeTooSmall: '파일 "{name}" (<b>{size}</b>)이 너무 작습니다. <b>{minSize}</b>보다 용량이 커야 합니다..',
         msgSizeTooLarge: '파일 "{name}" (<b>{size}</b>)이 너무 큽니다. 허용 파일 사이즈는 <b>{maxSize}</b>.입니다.',
+        msgMultipleSizeTooLarge: '파일 "{name}" (<b>{size}</b>)이 너무 큽니다. 허용 파일 사이즈는 <b>{maxSize}</b>.입니다.',
         msgFilesTooLess: '업로드하기 위해 최소 <b>{n}</b> {files}개의 파일을 선택해야 합니다.',
         msgFilesTooMany: '선택한 파일의 수 <b>({n})</b>가 업로드 허용 최고치인 <b>{m}</b>를 넘었습니다..',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

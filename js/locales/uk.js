@@ -44,6 +44,7 @@
         msgFileRequired: 'Ви повинні обрати файл для завантаження.',
         msgSizeTooSmall: 'Файл "{name}" (<b>{size}</b>) занадто малий і повинен бути більший, ніж <b>{minSize}</b>.',
         msgSizeTooLarge: 'Файл "{name}" (<b>{size}</b>) перевищує максимальний розмір <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Файл "{name}" (<b>{size}</b>) перевищує максимальний розмір <b>{maxSize}</b>.',
         msgFilesTooLess: 'Ви повинні обрати як мінімум <b>{n}</b> {files} для відвантаження.',
         msgFilesTooMany: 'Кількість обраних файлів <b>({n})</b> перевищує максимально допустиму кількість <b>{m}</b>.',
         msgTotalFilesTooMany: 'Ви можете відвантажити максимум <b>{m}</b> файл(ів) (<b>{n}</b> файл(ів) обрано).',

@@ -43,6 +43,7 @@
         msgFileRequired: 'É necessário selecionar um ficheiro a enviar.',
         msgSizeTooSmall: 'Ficheiro "{name}" (<b>{size}</b>) é demasiado pequeno, tem ser ser maior que <b>{minSize}</b>.',
         msgSizeTooLarge: 'Ficheiro "{name}" (<b>{size}</b>) excede o tamanho máximo permido de <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Ficheiros "{name}" (<b>{size}</b>) excede o tamanho máximo permido de <b>{maxSize}</b>.',
         msgFilesTooLess: 'Deve selecionar pelo menos <b>{n}</b> {files} para enviar.',
         msgFilesTooMany: 'Número máximo de ficheiros selecionados <b>({n})</b> excede o limite máximo de <b>{m}</b>.',
         msgTotalFilesTooMany: 'Pode enviar no máximo <b>{m}</b> ficheiros (<b>{n}</b> ficheiros detetados).',

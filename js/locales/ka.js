@@ -44,6 +44,7 @@
         msgFileRequired: 'ატვირთვისთვის აუცილებელია ფაილის არჩევა.',
         msgSizeTooSmall: 'ფაილი "{name}" (<b>{size}</b>) არის ძალიან პატარა. მისი ზომა უნდა იყოს არანაკლებ <b>{minSize}</b>.',
         msgSizeTooLarge: 'ფაილი "{name}" (<b>{size}</b>) აჭარბებს მაქსიმალურ დასაშვებ ზომას <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'ფაილი "{name}" (<b>{size}</b>) აჭარბებს მაქსიმალურ დასაშვებ ზომას <b>{maxSize}</b>.',
         msgFilesTooLess: 'უნდა აირჩიოთ მინიმუმ <b>{n}</b> {file} ატვირთვისთვის.',
         msgFilesTooMany: 'არჩეული ფაილების რაოდენობა <b>({n})</b> აჭარბებს დასაშვებ ლიმიტს <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

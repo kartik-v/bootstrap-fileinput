@@ -5729,16 +5729,17 @@
                 }
 
                 if (self.maxMultipleFileSize > 0 && files.length > 1) {
-                    let CaptionGroup = [];
-                    let fileSizeGroup = 0;
+                    var captionGroup = [];
+                    var fileSizeGroup = 0;
                     Object.values(files).forEach(file => {
                         fileSizeGroup = fileSizeGroup + (file.size / self.bytesToKB);
-                        CaptionGroup.push(file.name);
+                        captionGroup.push(file.name);
                     });
 
                     if (fileSizeGroup > self.maxMultipleFileSize) {
                         msg = self.msgMultipleSizeTooLarge.setTokens({
-                            'name': CaptionGroup,
+                            'name': captionGroup,
+                            'size': self._getSize(fileSizeGroup, true),
                             'maxSize': self._getSize(self.maxMultipleFileSize * self.bytesToKB, true)
                         });
 
@@ -6533,7 +6534,7 @@
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size}</b>) is too small and must be larger than <b>{minSize}</b>.',
         msgSizeTooLarge: 'File "{name}" (<b>{size}</b>) exceeds maximum allowed upload size of <b>{maxSize}</b>.',
-        msgMultipleSizeTooLarge: 'Files"{name}" exceeds maximum allowed upload size of <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Files "{name}" (<b>{size}</b>) exceeds maximum allowed upload size of <b>{maxSize}</b>.',
         msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',
         msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

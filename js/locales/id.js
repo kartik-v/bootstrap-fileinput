@@ -45,6 +45,7 @@
         msgFileRequired: 'Anda harus memilih berkas untuk diunggah.',
         msgSizeTooSmall: 'Berkas "{name}" (<b>{size}</b>) terlalu kecil dan harus lebih besar dari <b>{minSize}</b>.',
         msgSizeTooLarge: 'Berkas "{name}" (<b>{size}</b>) melebihi ukuran unggah maksimal yaitu <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Berkas "{name}" (<b>{size}</b>) melebihi ukuran unggah maksimal yaitu <b>{maxSize}</b>.',
         msgFilesTooLess: 'Anda harus memilih setidaknya <b>{n}</b> {files} untuk diunggah.',
         msgFilesTooMany: '<b>({n})</b> berkas yang dipilih untuk diunggah melebihi ukuran unggah maksimal yaitu <b>{m}</b>.',
         msgTotalFilesTooMany: 'Anda dapat mengunggah maksimal <b>{m}</b> berkas (<b>{n}</b> files detected).',

@@ -43,6 +43,7 @@
         msgFileRequired: 'Kargatzeko fitxategi bat hautatu behar duzu.',
         msgSizeTooSmall: '"{name}" fitxategia (<b>{size}</b>) txikiegia da eta <b>{minSize}</b> baino handiagoa izan behar du.',
         msgSizeTooLarge: '"{name}" fitxategiak (<b>{size}</b>) <b>{maxSize}</b>-ren gehienezko tamaina gainditzen du.',
+        msgMultipleSizeTooLarge: '"{name}" fitxategi (<b>{size}</b>) <b>{maxSize}</b>-ren gehienezko tamaina gainditzen du.',
         msgFilesTooLess: 'Kargatzeko, gutxienez <b>{n}</b> {files} hautatu behar dituzu.',
         msgFilesTooMany: '<b>({n})</b> kargatzeko hautatutako fitxategi kopuruak <b>{m}</b>-ren gehienezko muga gainditzen du.',
         msgTotalFilesTooMany: 'Gehienez <b>{m}</b> fitxategi karga ditzakezu (detektatu diren <b>{n}</b> fitxategi).',

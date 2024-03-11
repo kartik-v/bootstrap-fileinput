@@ -44,6 +44,7 @@
         msgFileRequired: 'Yuklash uchun faylni tanlashingiz kerak.',
         msgSizeTooSmall: 'Siz tanlagan fayl hajmi: "{name}" (<b>{size}</b>). Tanlangan fayl hajmi <b>{minSize}</b> dan katta bo‘lishi lozim. Ko‘rsatilgan hajmdan kattaroq fayl yuklashga urinib ko‘ring',
         msgSizeTooLarge: '"{name}" fayl (<b>{size}</b>) ruxsat etilgan maksimal yuklash hajm: <b>{maxSize}</b> dan katta. Kichikroq fayl yuklashga urinib ko‘ring!',
+        msgMultipleSizeTooLarge: '"{name}" fayl (<b>{size}</b>) ruxsat etilgan maksimal yuklash hajm: <b>{maxSize}</b> dan katta. Kichikroq fayl yuklashga urinib ko‘ring!',
         msgFilesTooLess: 'Yuklash uchun kamida <b>{n}</b> {files} tanlashingiz kerak. Yuklashga qaytadan urinib ko‘ring!',
         msgFilesTooMany: 'Siz tanlagan fayllar miqdori : <b>({n})</b>, ruxsat berilgan maksimal miqdor: <b>{m}</b> tadan ortiq. Ko‘rsatilgan miqdordan kamroq fayl tanlab, yuklashga qaytadan urinib ko‘ring!',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

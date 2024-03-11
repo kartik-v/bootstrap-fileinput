@@ -45,6 +45,7 @@
         msgFileRequired: 'Devi selezionare un file da caricare.',
         msgSizeTooSmall: 'Il file "{name}" (<b>{size}</b>) è troppo piccolo, deve essere almeno di <b>{minSize}</b>.',
         msgSizeTooLarge: 'Il file "{name}" (<b>{size}</b>) eccede la dimensione massima di caricamento di <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Il file "{name}" (<b>{size}</b>) eccede la dimensione massima di caricamento di <b>{maxSize}</b>.',
         msgFilesTooLess: 'Devi selezionare almeno <b>{n}</b> {files} da caricare.',
         msgFilesTooMany: 'Il numero di file selezionati per il caricamento <b>({n})</b> eccede il numero massimo di file accettati <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

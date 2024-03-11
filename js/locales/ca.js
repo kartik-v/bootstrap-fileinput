@@ -43,6 +43,7 @@
         msgFileRequired: 'Has de seleccionar un arxiu per pujar.',
         msgSizeTooSmall: 'Arxiu "{name}" (<b>{size}</b>) es massa petit, ha de ser més gran de <b>{minSize}</b>.',
         msgSizeTooLarge: 'Arxiu "{name}" (<b>{size}</b>) excedeix la mida màxima permès de <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Arxiu "{name}" (<b>{size}</b>) excedeix la mida màxima permès de <b>{maxSize}</b>.',
         msgFilesTooLess: 'Heu de seleccionar almenys <b>{n}</b> {files} a carregar.',
         msgFilesTooMany: 'El nombre d\'arxius seleccionats a carregar <b>({n})</b> excedeix el límit màxim permès de <b>{m}</b>.',
         msgTotalFilesTooMany: 'Pots pujar un màxim de <b>{m}</b> arxius (<b>{n}</b> arxius seleccionats).',

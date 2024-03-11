@@ -43,6 +43,7 @@
         msgFileRequired: 'Musíte vybrať súbor, ktorý chcete nahrať.',
         msgSizeTooSmall: 'Súbor "{name}" (<b>{size}</b>) je príliš malý, musí mať veľkosť najmenej <b>{minSize}</b>.',
         msgSizeTooLarge: 'Súbor "{name}" (<b>{size}</b>) je príliš veľký, maximálna povolená veľkosť <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Súborov "{name}" (<b>{size}</b>) je príliš veľký, maximálna povolená veľkosť <b>{maxSize}</b>.',
         msgFilesTooLess: 'Musíte vybrať najmenej <b>{n}</b> {files} pre nahranie.',
         msgFilesTooMany: 'Počet vybratých súborov <b>({n})</b> prekročil maximálny povolený limit <b>{m}</b>.',
         msgTotalFilesTooMany: 'Môžete nahrať maximálne <b>{m}</b> súborov (zistených <b>{n}</b> súborov).',

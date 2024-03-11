@@ -44,6 +44,7 @@
         msgFileRequired: 'يجب عليك تحديد ملف للتحميل.',
         msgSizeTooSmall: 'الملف "{name}" (<b>{size}</b>) صغير جداً ويجب أن يكون أكبر من <b>{minSize}</b>.',
         msgSizeTooLarge: 'الملف "{name}" (<b>{size}</b>) تعدى الحد الأقصى المسموح للرفع <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'الملف "{name}" (<b>{size}</b>) تعدى الحد الأقصى المسموح للرفع <b>{maxSize}</b>.',
         msgFilesTooLess: 'يجب عليك اختيار <b>{n}</b> {files} على الأقل للرفع.',
         msgFilesTooMany: 'عدد الملفات المختارة للرفع <b>({n})</b> تعدت الحد الأقصى المسموح به لعدد <b>{m}</b>.',
         msgTotalFilesTooMany: 'يمكنك تحميل كحد أقصى <b>{m}</b> ملفات (<b>{n}</b> ملفات تم الكشف عنها).',

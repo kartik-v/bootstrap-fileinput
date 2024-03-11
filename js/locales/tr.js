@@ -43,6 +43,7 @@
         msgFileRequired: 'Yüklemek için bir dosya seçmelisiniz.',
         msgSizeTooSmall: '"{name}"(<b>{size}</b>) dosyası çok küçük  ve <b>{minSize}</b> boyutundan büyük olmalıdır.',
         msgSizeTooLarge: '"{name}" dosyasının boyutu (<b>{size}</b>) izin verilen azami dosya boyutu olan <b>{maxSize}</b>\'tan büyük.',
+        msgMultipleSizeTooLarge: '"{name}" dosya boyutu (<b>{size}</b>) izin verilen azami dosya boyutu olan <b>{maxSize}</b>\'tan büyük.',
         msgFilesTooLess: 'Yüklemek için en az <b>{n}</b> {files} dosya seçmelisiniz.',
         msgFilesTooMany: 'Yüklemek için seçtiğiniz dosya sayısı <b>({n})</b> azami limitin <b>({m})</b> altında olmalıdır.',
         msgTotalFilesTooMany: 'En fazla <b>{m}</b> adet dosya yükleyebilirsiniz (<b>{n}</b> adet tespit edildi).',

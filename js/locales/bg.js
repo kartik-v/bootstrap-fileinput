@@ -43,6 +43,7 @@
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size}</b>) is too small and must be larger than <b>{minSize}</b>.',
         msgSizeTooLarge: 'Файла "{name}" (<b>{size}</b>) надвишава максималните разрешени <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Файла "{name}" (<b>{size}</b>) надвишава максималните разрешени <b>{maxSize}</b>.',
         msgFilesTooLess: 'Трябва да изберете поне <b>{n}</b> {files} файла.',
         msgFilesTooMany: 'Броя файлове избрани за качване <b>({n})</b> надвишава ограниченито от максимум <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

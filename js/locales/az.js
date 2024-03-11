@@ -44,6 +44,7 @@
         msgFileRequired: 'Yükləmə üçün fayl seçməlisiniz.',
         msgSizeTooSmall: 'Seçdiyiniz "{name}" faylının həcmi (<b>{size}</b>)-dır,  minimum <b>{minSize}</b> olmalıdır.',
         msgSizeTooLarge: 'Seçdiyiniz "{name}" faylının həcmi (<b>{size}</b>)-dır,  maksimum <b>{maxSize}</b> olmalıdır.',
+        msgMultipleSizeTooLarge: 'Seçdiyiniz "{name}" faylının həcmi (<b>{size}</b>)-dır,  maksimum <b>{maxSize}</b> olmalıdır.',
         msgFilesTooLess: 'Yükləmə üçün minimum <b>{n}</b> {files} seçməlisiniz.',
         msgFilesTooMany: 'Seçilmiş fayl sayı <b>({n})</b>. Maksimum <b>{m}</b> fayl seçmək mümkündür.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

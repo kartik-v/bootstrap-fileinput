@@ -43,6 +43,7 @@
         msgFileRequired: 'Kötelező fájlt kiválasztani a feltöltéshez.',
         msgSizeTooSmall: '"{name}" fájl (<b>{size}</b>) mérete túl kicsi, nagyobbnak kell lennie, mint <b>{minSize}</b>.',
         msgSizeTooLarge: '"{name}" fájl (<b>{size}</b>) mérete nagyobb a megengedettnél <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: '"{name}" fájlok (<b>{size}</b>) mérete nagyobb a megengedettnél <b>{maxSize}</b>.',
         msgFilesTooLess: 'Legalább <b>{n}</b> fájl kiválasztására van szükség a feltöltéshez.',
         msgFilesTooMany: 'A feltölteni kívánt fájlok száma <b>({n})</b> elérte a megengedett maximumot <b>{m}</b>.',
         msgTotalFilesTooMany: 'Legfeljebb <b>{m}</b> fájlt tölthet fel (<b>{n}</b> fájl észlelve).',

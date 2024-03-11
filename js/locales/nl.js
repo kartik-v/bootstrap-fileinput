@@ -43,6 +43,7 @@
         msgFileRequired: 'U moet een bestand kiezen om te uploaden.',
         msgSizeTooSmall: 'Bestand "{name}" (<b>{size}</b>) is te klein en moet groter zijn dan <b>{minSize}</b>.',
         msgSizeTooLarge: 'Bestand "{name}" (<b>{size}</b>) is groter dan de toegestane <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Bestanden "{name}" (<b>{size}</b>) is groter dan de toegestane <b>{maxSize}</b>.',
         msgFilesTooLess: 'U moet minstens <b>{n}</b> {files} selecteren om te uploaden.',
         msgFilesTooMany: 'Aantal geselecteerde bestanden <b>({n})</b> is meer dan de toegestane <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

@@ -44,6 +44,7 @@
         msgFileRequired: 'Необходимо выбрать файл для загрузки.',
         msgSizeTooSmall: 'Файл "{name}" (<b>{size}</b>) имеет слишком маленький размер и должен быть больше <b>{minSize}</b>.',
         msgSizeTooLarge: 'Файл "{name}" (<b>{size}</b>) превышает максимальный размер <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Файл "{name}" (<b>{size}</b>) превышает максимальный размер <b>{maxSize}</b>.',
         msgFilesTooLess: 'Вы должны выбрать как минимум <b>{n}</b> {files} для загрузки.',
         msgFilesTooMany: 'Количество выбранных файлов <b>({n})</b> превышает максимально допустимое количество <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

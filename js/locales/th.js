@@ -43,6 +43,7 @@
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size}</b>) is too small and must be larger than <b>{minSize}</b>.',
         msgSizeTooLarge: 'ไฟล์ "{name}" (<b>{size}</b>) มีขนาดเกินที่ระบบอนุญาตที่ <b>{maxSize}</b>, กรุณาลองใหม่อีกครั้ง!',
+        msgMultipleSizeTooLarge: 'ไฟล์ "{name}" (<b>{size}</b>) มีขนาดเกินที่ระบบอนุญาตที่ <b>{maxSize}</b>, กรุณาลองใหม่อีกครั้ง!',
         msgFilesTooLess: 'คุณต้องเลือกไฟล์จำนวนอย่างน้อย <b>{n}</b> {files} เพื่ออัพโหลด, กรุณาลองใหม่อีกครั้ง!',
         msgFilesTooMany: 'ไฟล์ที่คุณเลือกมีจำนวน <b>({n})</b> ซึ่งเกินกว่าที่ระบบอนุญาตที่ <b>{m}</b>, กรุณาลองใหม่อีกครั้ง!',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

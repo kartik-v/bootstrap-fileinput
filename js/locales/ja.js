@@ -50,6 +50,7 @@
         msgFileRequired: 'ファイルを選択してください',
         msgSizeTooSmall: 'ファイル"{name}" (<b>{size}</b>)はアップロード可能な下限容量<b>{minSize}</b>より小さいです',
         msgSizeTooLarge: 'ファイル"{name}" (<b>{size}</b>)はアップロード可能な上限容量<b>{maxSize}</b>を超えています',
+        msgMultipleSizeTooLarge: 'ファイル"{name}" (<b>{size}</b>)はアップロード可能な上限容量<b>{maxSize}</b>を超えています',
         msgFilesTooLess: '最低<b>{n}</b>個の{files}を選択してください',
         msgFilesTooMany: '選択したファイルの数<b>({n}個)</b>はアップロード可能な上限数<b>({m}個)</b>を超えています',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',

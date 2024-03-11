@@ -41,6 +41,7 @@
         msgFileRequired: 'Sie müssen eine Datei zum Hochladen auswählen.',
         msgSizeTooSmall: 'Datei "{name}" (<b>{size}</b>) unterschreitet mindestens notwendige Upload-Größe von <b>{minSize}</b>.',
         msgSizeTooLarge: 'Datei "{name}" (<b>{size}</b>) überschreitet maximal zulässige Upload-Größe von <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Dateien "{name}" (<b>{size}</b>) überschreitet maximal zulässige Upload-Größe von <b>{maxSize}</b>.',
         msgFilesTooLess: 'Sie müssen mindestens <b>{n}</b> {files} zum Hochladen auswählen.',
         msgFilesTooMany: 'Anzahl der zum Hochladen ausgewählten Dateien <b>({n})</b> überschreitet maximal zulässige Grenze von <b>{m}</b> Dateien.',
         msgTotalFilesTooMany: 'Anzahl der insgesamt zum Hochladen ausgewählten Dateien <b>({n})</b> überschreitet maximal zulässige Grenze von <b>{m}</b> Dateien.',

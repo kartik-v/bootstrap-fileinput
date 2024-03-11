@@ -44,6 +44,7 @@
         msgFileRequired: 'You must select a file to upload.',
         msgSizeTooSmall: 'File "{name}" (<b>{size}</b>) is too small and must be larger than <b>{minSize}</b>.',
         msgSizeTooLarge: 'Datoteka "{name}" (<b>{size}</b>) prekoračuje maksimalnu dozvoljenu veličinu datoteke od <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: 'Datoteka "{name}" (<b>{size}</b>) prekoračuje maksimalnu dozvoljenu veličinu datoteke od <b>{maxSize}</b>.',
         msgFilesTooLess: 'Morate odabrati najmanje <b>{n}</b> {files} za otpremanje.',
         msgFilesTooMany: 'Broj datoteka označenih za otpremanje <b>({n})</b> prekoračuje maksimalni dozvoljeni limit od <b>{m}</b>.',
         msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
