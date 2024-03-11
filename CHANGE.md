@@ -8,6 +8,7 @@ Change Log: `bootstrap-fileinput`
 - (enh #1852): Create Basque Translations.
 - (enh #1851): Update Spanish Translations.
 - (enh #1850): Add `maxMultipleFileSize` feature check.
+- (enh #1847): Fix invalid attribute `autocomplete` for button.
 - (enh #1846): Update Finnish Translations.
 - (enh #1842): Update German Translations.
 - (enh #1840): Update Hungarian Translations.
