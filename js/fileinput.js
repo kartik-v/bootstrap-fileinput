@@ -2711,15 +2711,14 @@
             }
             self.$dropZone.removeClass('file-highlighted');
         },
-        _zoneDrop: function (e) {
-            /** @namespace e.originalEvent.dataTransfer */
-            var self = this, i, $el = self.$element, dt = e.originalEvent.dataTransfer,
-                files = dt.files, items = dt.items, folders = $h.getDragDropFolders(items);
+        _addFilesFromSystem: function(e, dt, type) {
+            var self = this, files = dt.files, items = dt.items, folders = $h.getDragDropFolders(items);
             e.preventDefault();
-            if (self.isDisabled || $h.isEmpty(files)) {
+            if (self.isDisabled || $h.isEmpty(files) || !files.length) {
+                console.log('No valid copied files found in clipboard for pasting.');
                 return;
             }
-            if (!self._raise('fileDragDrop', {'sourceEvent': e, 'files': files})) {
+            if (!self._raise(type, {'sourceEvent': e, 'files': files})) {
                 return;
             }
             if (folders > 0) {
@@ -2740,6 +2739,11 @@
             } else {
                 self._dropFiles(e, files);
             }
+        },
+        _zoneDrop: function (e) {
+            /** @namespace e.originalEvent.dataTransfer */
+            var self = this, i, $el = self.$element, dt = e.originalEvent.dataTransfer;
+            self._addFilesFromSystem(e, dt, 'fileDragDrop');
         },
         _uploadClick: function (e) {
             var self = this, $btn = self.$container.find('.fileinput-upload'), $form,
@@ -5973,10 +5977,8 @@
             return self.$element;
         },
         paste: function (e) {
-            var self = this, ev = e.originalEvent, files = ev.clipboardData && ev.clipboardData.files || null;
-            if (files) {
-                self._dropFiles(e, files);
-            }
+            var self = this, dt = (e.clipboardData || e.originalEvent.clipboardData);
+            self._addFilesFromSystem(e, dt, 'filePaste');
             return self.$element;
         },
         pause: function () {
