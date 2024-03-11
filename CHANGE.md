@@ -5,6 +5,13 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1851): Update Spanish Translations.
+- (enh #1850): Add `maxMultipleFileSize` feature check.
+- (enh #1846): Update Finnish Translations.
+- (enh #1842): Update German Translations.
+- (enh #1840): Update Hungarian Translations.
+- (enh #1836): Create Urdu Translations.
+- (enh #1825): Update fileinput.js overriding default options.
 - (bug #1822): Fix tiff parsing exceptions and convert filetype library to ES5.
 
 ## version 5.5.2
