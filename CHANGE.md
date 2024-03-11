@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.5.3
 
-**Date**: _under development_
+**Date**: 11-Mar-2024
 
 - (enh #1856): Replace and fix deprecated jQuery methods.
 - (enh #1852): Create Basque Translations.
