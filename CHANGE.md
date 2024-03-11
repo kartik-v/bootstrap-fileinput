@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1852): Create Basque Translations.
 - (enh #1851): Update Spanish Translations.
 - (enh #1850): Add `maxMultipleFileSize` feature check.
 - (enh #1846): Update Finnish Translations.
