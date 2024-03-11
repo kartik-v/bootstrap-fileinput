@@ -104,8 +104,10 @@
             return ver === parseInt(chk.charAt(0), 10);
 
         },
-        isNumeric: function(input) {
-            var n = input === undefined ? null : input;
+        isNumeric: function(n) {
+            if (n === undefined) {
+                return false;
+            }
             return !isNaN(parseFloat(n)) && isFinite(n);
         },
         trim: function(val) {
