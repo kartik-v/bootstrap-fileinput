@@ -6,7 +6,7 @@
  * This is used as the default theme within the bootstrap-fileinput plugin.
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2022, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2024, Kartik Visweswaran, Krajee.com
  *
  * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
