@@ -92,8 +92,11 @@
             srcPath = src.substring(0, src.lastIndexOf("/"));
             return srcPath.substring(0, srcPath.lastIndexOf("/") + 1) + 'img/loading.gif' + zoomVar;
         },
+        defaultButtonCss: function (fill) {
+            return 'btn-default btn-' + (fill ? '' : 'outline-') + 'secondary';
+        },
         isBs: function (ver) {
-            var chk = $.trim(($.fn.fileinputBsVersion || '') + '');
+            var chk = $h.trim(($.fn.fileinputBsVersion || '') + '');
             ver = parseInt(ver, 10);
             if (!chk) {
                 return ver === 4;
@@ -101,8 +104,15 @@
             return ver === parseInt(chk.charAt(0), 10);
 
         },
-        defaultButtonCss: function (fill) {
-            return 'btn-default btn-' + (fill ? '' : 'outline-') + 'secondary';
+        isNumeric: function(input) {
+            var n = input === undefined ? null : input;
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        },
+        trim: function(val) {
+            if (val === undefined) {
+                return '';
+            }
+            return val.toString().trim();
         },
         now: function () {
             return new Date().getTime();
@@ -261,7 +271,7 @@
                 return true;
             }
             if ($h.isString(value) && trim) {
-                return $.trim(value) === '';
+                return $h.trim(value) === '';
             }
             if ($h.isArray(value)) {
                 return value.length === 0;
@@ -430,7 +440,7 @@
             if ($h.isEmpty(str)) {
                 return false;
             }
-            str = str.toString().trim().replace(/\n/g, ' ');
+            str = $h.trim(str).replace(/\n/g, ' ');
             if (str.length === 0) {
                 return false;
             }
@@ -439,7 +449,7 @@
             if ($h.isEmpty(str)) {
                 return false;
             }
-            str = str.toString().trim().replace(/\n/g, ' ');
+            str = $h.trim(str).replace(/\n/g, ' ');
             if (str.length === 0) {
                 return false;
             }
@@ -731,7 +741,7 @@
                 };
             };
             for (i = 0; i < length; i++) {
-                if ((value = resolveValues[i]) && $.isFunction(value.promise)) {
+                if ((value = resolveValues[i]) && $h.isFunction(value.promise)) {
                     value.promise()
                         .done(updateFunc(i, resolveContexts, resolveValues))
                         .fail(updateFunc(i, rejectContexts, rejectValues));
@@ -2287,7 +2297,7 @@
             $err = $h.createElement(self.$errorContainer.html());
             $err.find('.kv-error-close').remove();
             $err.find('ul').remove();
-            return !!$.trim($err.text()).length;
+            return !!$h.trim($err.text()).length;
         },
         _errorHandler: function (evt, caption) {
             var self = this, err = evt.target.error, showError = function (msg) {
@@ -2433,7 +2443,7 @@
         },
         _parseError: function (operation, jqXHR, errorThrown, fileName) {
             /** @namespace jqXHR.responseJSON */
-            var self = this, errMsg = $.trim(errorThrown + ''), textPre, errText, text;
+            var self = this, errMsg = $h.trim(errorThrown + ''), textPre, errText, text;
             errText = jqXHR.responseJSON && jqXHR.responseJSON.error ? jqXHR.responseJSON.error.toString() : '';
             text = errText ? errText : jqXHR.responseText;
             if (self.cancelling && self.msgUploadAborted) {
@@ -2441,9 +2451,9 @@
             }
             if (self.showAjaxErrorDetails && text) {
                 if (errText) {
-                    errMsg = $.trim(errText + '');
+                    errMsg = $h.trim(errText + '');
                 } else {
-                    text = $.trim(text.replace(/\n\s*\n/g, '\n'));
+                    text = $h.trim(text.replace(/\n\s*\n/g, '\n'));
                     textPre = text.length ? '<pre>' + text + '</pre>' : '';
                     errMsg += errMsg ? textPre : text;
                 }
@@ -4324,7 +4334,7 @@
         _getSize: function (bytes, skipTemplate, sizeUnits) {
             var self = this, size = parseFloat(bytes), i = 0, factor = self.bytesToKB, func = self.fileSizeGetter, out,
                 sizeHuman = size, newSize;
-            if (!$.isNumeric(bytes) || !$.isNumeric(size)) {
+            if (!$h.isNumeric(bytes) || !$h.isNumeric(size)) {
                 return '';
             }
             if (typeof func === 'function') {

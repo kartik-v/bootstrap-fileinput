@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1856): Replace and fix deprecated jQuery methods.
 - (enh #1852): Create Basque Translations.
 - (enh #1851): Update Spanish Translations.
 - (enh #1850): Add `maxMultipleFileSize` feature check.
