@@ -5,6 +5,8 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (bug #1857): Correct Finnish Translations.
+
 ## version 5.5.3
 
 **Date**: 11-Mar-2024

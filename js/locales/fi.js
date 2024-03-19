@@ -124,6 +124,4 @@
             close: 'Sulje esikatselu'
         }
     };
-
-    $.extend($.fn.fileinput.defaults, $.fn.fileinputLocales.fi);
 }));
