@@ -7174,10 +7174,11 @@
       retvals = [];
     args.shift();
     this.each(function () {
-      var options = {};
+      var options = {}, optObj = {};
       if (typeof option === "object") {
         options = $.extend(true, {}, $.fn.fileinput.defaults, option);
-      }
+        optObj = option;
+      } 
       var self = $(this),
         data = self.data("fileinput"),
         theme = options.theme || self.data("theme") || $.fn.fileinput.defaults.theme,
@@ -7192,7 +7193,7 @@
         if (lang !== "en" && !$h.isEmpty($.fn.fileinputLocales[lang])) {
           l = $.fn.fileinputLocales[lang] || {};
         }
-        opt = $.extend(true, {}, $.fn.fileinput.defaults, t, $.fn.fileinputLocales.en, l, options, self.data());
+        opt = $.extend(true, {}, $.fn.fileinput.defaults, t, $.fn.fileinputLocales.en, l, optObj, self.data());
         data = new FileInput(this, opt);
         self.data("fileinput", data);
       }
