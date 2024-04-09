@@ -3,7 +3,7 @@ Change Log: `bootstrap-fileinput`
 
 ## version 5.5.4
 
-**Date**: _under development_
+**Date**: 09-Apr-2024
 
 - (bug #1858): Correct Plugin Options & Themes Initialization.
 - (bug #1857): Correct Finnish Translations.
