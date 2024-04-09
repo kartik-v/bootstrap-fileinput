@@ -7,7 +7,7 @@ Change Log: `bootstrap-fileinput`
 
 - (bug #1858): Correct Plugin Options & Themes Initialization.
 - (bug #1857): Correct Finnish Translations.
-- (enh # 1833): Fix compliance with CSP not having unsafe-inline policy.
+- (enh #1833): Fix compliance with CSP not having unsafe-inline policy.
 
 ## version 5.5.3
 
