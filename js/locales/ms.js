@@ -23,8 +23,8 @@
     $.fn.fileinputLocales['ms'] = {
         sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], 
         bitRateUnits: ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
-        fileSingle: 'file',
-        filePlural: 'files',
+        fileSingle: 'fail',
+        filePlural: 'fail-fail',
         browseLabel: 'Semak imbas &hellip;',
         removeLabel: 'Alih keluar',
         removeTitle: 'Kosongkan fail yang dipilih',
@@ -56,14 +56,14 @@
         msgInvalidFileType: 'Jenis tidak sah untuk fail "{name}". Hanya "{types}" fail disokong.',
         msgInvalidFileExtension: 'Sambungan tidak sah untuk fail "{name}". Hanya "{extensions}" fail disokong.',
         msgFileTypes: {
-            'image': 'image',
+            'image': 'gambar',
             'html': 'HTML',
-            'text': 'text',
+            'text': 'teks',
             'video': 'video',
             'audio': 'audio',
             'flash': 'flash',
             'pdf': 'PDF',
-            'object': 'object'
+            'object': 'objek'
         },
         msgUploadAborted: 'Muat naik fail telah dibatalkan',
         msgUploadThreshold: 'Memproses &hellip;',
@@ -93,10 +93,10 @@
         msgPendingTime: '{time} yang tinggal',
         msgCalculatingTime: 'mengira masa yang tinggal',
         ajaxOperations: {
-            deleteThumb: 'file delete',
+            deleteThumb: 'padam fail',
             uploadThumb: 'file upload',
-            uploadBatch: 'batch file upload',
-            uploadExtra: 'form data upload'
+            uploadBatch: 'muat naik fail kelompok',
+            uploadExtra: 'muat naik data borang'
         },
         dropZoneTitle: 'Seret & lepas fail di sini &hellip;',
         dropZoneClickTitle: '<br>(atau klik untuk memilih {files})',
