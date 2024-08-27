@@ -35,7 +35,7 @@
         uploadLabel: 'Nahrať',
         uploadTitle: 'Nahrať vybraté súbory',
         msgNo: 'Nie',
-        msgNoFilesSelected: '',
+        msgNoFilesSelected: 'Nie su vybraté žiadne súbory',
         msgPaused: 'Pozastavené',
         msgCancelled: 'Zrušené',
         msgPlaceholder: 'Vybrať {files} ...',
@@ -52,9 +52,9 @@
         msgFileNotReadable: 'Súbor "{name}" nie je čitateľný.',
         msgFilePreviewAborted: 'Náhľad súboru bol prerušený pre "{name}".',
         msgFilePreviewError: 'Nastala chyba pri načítaní súboru "{name}".',
-        msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
-        msgInvalidFileType: 'Neplatný typ súboru "{name}". Iba "{types}" súborov sú podporované.',
-        msgInvalidFileExtension: 'Neplatná extenzia súboru "{name}". Iba "{extensions}" súborov sú podporované.',
+        msgInvalidFileName: 'Nesprávne alebo nepodporované znaky v názve súboru "{name}".',
+        msgInvalidFileType: 'Neplatný typ súboru "{name}". Podporované sú iba súbory typu "{types}".',
+        msgInvalidFileExtension: 'Neplatná prípona súboru "{name}". Podporované sú iba prípony typu "{extensions}".',
         msgFileTypes: {
             'image': 'obrázok',
             'html': 'HTML',
@@ -63,7 +63,7 @@
             'audio': 'audio',
             'flash': 'flash',
             'pdf': 'PDF',
-            'object': 'object'
+            'object': 'objekt'
         },
         msgUploadAborted: 'Nahrávanie súboru bolo prerušené',
         msgUploadThreshold: 'Spracovávam &hellip;',
@@ -79,10 +79,10 @@
         msgProgress: 'Nahrávanie súboru {index} z {files} - {name} - {percent}% dokončené.',
         msgSelected: '{n} {files} vybraté',
         msgProcessing: 'Spracovávam ...',
-        msgFoldersNotAllowed: 'Tiahni a pusť iba súbory! Vynechané {n} pustené prečinok(y).',
+        msgFoldersNotAllowed: 'Potiahnite a pustite iba súbory! Vynechané priečinky: {n}.',
         msgImageWidthSmall: 'Šírka obrázku "{name}", musí byť minimálne <b>{size} px</b> (detected <b>{dimension} px</b>).',
         msgImageHeightSmall: 'Výška obrázku "{name}", musí byť minimálne <b>{size} px</b> (detected <b>{dimension} px</b>).',
-        msgImageWidthLarge: 'Šírka obrázku "{name}" nemôže presiahnuť <b>{size} px</b> (detected <b>{dimension} px</b>).',
+        msgImageWidthLarge: 'Šírka obrázku "{name}" nesmie presiahnuť <b>{size} px</b> (detected <b>{dimension} px</b>).',
         msgImageHeightLarge: 'Výška obrázku "{name}" nesmie presiahnuť <b>{size} px</b> (detected <b>{dimension} px</b>).',
         msgImageResizeError: 'Nepodarilo sa získať veľkosť obrázka pre zmenu veľkosti.',
         msgImageResizeException: 'Chyba pri zmene veľkosti obrázka.<pre>{errors}</pre>',
@@ -98,7 +98,7 @@
             uploadBatch: 'nahrať várku súborov',
             uploadExtra: 'odosielanie údajov z formulára'
         },
-        dropZoneTitle: 'Tiahni a pusť súbory tu &hellip;',
+        dropZoneTitle: 'Potiahnite a pustite súbory sem &hellip;',
         dropZoneClickTitle: '<br>(alebo kliknite sem a vyberte {files})',
         fileActionSettings: {
             removeTitle: 'Odstrániť súbor',
