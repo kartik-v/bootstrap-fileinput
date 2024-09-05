@@ -1,6 +1,15 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.5.5
+
+**Date**: _under development_
+
+- (enh #1871): Update Slovak Translations.
+- (enh #1869): Update Vietnamese Translations.
+- (enh #1866): Update Bahaya Melayu Translations.
+- (bug #1862): Correct minified filetype.js.
+
 ## version 5.5.4
 
 **Date**: 09-Apr-2024
