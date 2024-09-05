@@ -7,6 +7,7 @@ Change Log: `bootstrap-fileinput`
 
 - (enh #1871): Update Slovak Translations.
 - (enh #1869): Update Vietnamese Translations.
+- (enh #1868): Correct docs to include CSS info for `kv-preview-thumb`.
 - (enh #1866): Update Bahaya Melayu Translations.
 - (bug #1862): Correct minified filetype.js.
 
