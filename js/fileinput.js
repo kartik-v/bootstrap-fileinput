@@ -3296,6 +3296,9 @@
         if (e.namespace !== "bs.modal") {
           return;
         }
+		if (event == "hide") {
+			$modal.data('angle', 0);
+		}
         var $btnFull = $modal.find(".btn-fullscreen"),
           $btnBord = $modal.find(".btn-borderless");
         if ($modal.data("fileinputPluginId") === self.$element.attr("id")) {

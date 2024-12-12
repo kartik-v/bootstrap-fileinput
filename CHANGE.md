@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1878): Correct rotated images behavior in zoom modal dialog.
 - (enh #1876): Correct variable initialization for folder drag & drop.
 - (enh #1875): Correct locale language fallback if unspecified.
 - (enh #1872): Update Estonian Translations.
