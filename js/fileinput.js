@@ -3048,6 +3048,7 @@
     },
     _addFilesFromSystem: function (e, dt, type) {
       var self = this,
+        i,
         files = dt.files,
         items = dt.items,
         folders = $h.getDragDropFolders(items);
