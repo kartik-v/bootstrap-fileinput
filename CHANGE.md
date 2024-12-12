@@ -5,6 +5,9 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (enh #1876): Correct variable initialization for folder drag & drop.
+- (enh #1875): Correct locale language fallback if unspecified.
+- (enh #1872): Update Estonian Translations.
 - (enh #1871): Update Slovak Translations.
 - (enh #1869): Update Vietnamese Translations.
 - (enh #1868): Correct docs to include CSS info for `kv-preview-thumb`.
