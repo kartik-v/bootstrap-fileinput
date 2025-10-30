@@ -23,7 +23,7 @@
 
     $.fn.fileinputLocales['zh-TW'] = {
         sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], 
-        bitRateUnits: ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
+        bitRateUnits: ["bps", "Kbps", "Mbps", "Gbps", "Tbps", "Pbps", "Ebps", "Zbps", "Ybps"],
         fileSingle: '單一檔案',
         filePlural: '複選檔案',
         browseLabel: '瀏覽 &hellip;',
