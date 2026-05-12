@@ -1564,7 +1564,7 @@
         getTotalChunks: function () {
           var chunkSize = parseFloat(rm.chunkSize);
           if (!isNaN(chunkSize) && chunkSize > 0) {
-            return Math.ceil(rm.file.size / chunkSize);
+            return rm.file.size === 0 ? 1 : Math.ceil(rm.file.size / chunkSize); //even if file size is 0, totalChunk will be 1
           }
           return 0;
         },
