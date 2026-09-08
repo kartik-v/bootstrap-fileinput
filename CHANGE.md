@@ -5,6 +5,7 @@ Change Log: `bootstrap-fileinput`
 
 **Date**: _under development_
 
+- (bug #1892): Use `prop('multiple')` for multi-file detection (jQuery 4 `attr('multiple')` is `''`).
 - (enh #1879): Correct getTotalChunks to return valid count even if 0 byte file
 - (enh #1878): Correct rotated images behavior in zoom modal dialog.
 - (enh #1876): Correct variable initialization for folder drag & drop.
