@@ -1104,7 +1104,7 @@
       self.$captionContainer = $h.getElement(options, "elCaptionContainer", $cont.find(".file-caption"));
       self.$caption = $h.getElement(options, "elCaptionText", $cont.find(".file-caption-name"));
       if (!$h.isEmpty(self.msgPlaceholder)) {
-        f = $el.attr("multiple") ? self.filePlural : self.fileSingle;
+        f = $el.prop("multiple") ? self.filePlural : self.fileSingle;
         self.$caption.attr("placeholder", self.msgPlaceholder.replace("{files}", f));
       }
       self.$captionIcon = self.$captionContainer.find(".file-caption-icon");
@@ -5287,7 +5287,7 @@
         title = self.dropZoneTitle,
         strFiles;
       if (self.isClickable) {
-        strFiles = $h.isEmpty(self.$element.attr("multiple")) ? self.fileSingle : self.filePlural;
+        strFiles = self.$element.prop("multiple") ? self.filePlural : self.fileSingle;
         title += self.dropZoneClickTitle.replace("{files}", strFiles);
       }
       $zone.find("." + self.dropZoneTitleClass).remove();
@@ -6139,7 +6139,7 @@
         total,
         initCount,
         len,
-        isSingleUpl = $h.isEmpty($el.attr("multiple")),
+        isSingleUpl = !$el.prop("multiple"),
         maxCount = !isAjaxUpload && isSingleUpl ? 1 : self.maxFileCount,
         maxTotCount = self.maxTotalFileCount,
         inclAll = maxTotCount > 0 && maxTotCount > maxCount,
